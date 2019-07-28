@@ -1,6 +1,7 @@
 Locales['fi'] = {
   ['sex'] = 'sukupuoli',
-  ['face'] = 'kasvot',
+  ['face'] = 'kasvot 1',
+  ['face_2'] = 'kasvot 2',
   ['skin'] = 'iho',
   ['wrinkles'] = 'rypyt',
   ['wrinkle_thickness'] = 'ryppyjen paksuus',

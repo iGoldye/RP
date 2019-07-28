@@ -1,6 +1,7 @@
 Locales['sv'] = {
   ['sex'] = 'kön',
-  ['face'] = 'ansikte',
+  ['face'] = 'ansikte 1',
+  ['face_2'] = 'ansikte 2',
   ['skin'] = 'hud',
   ['wrinkles'] = 'rynkor',
   ['wrinkle_thickness'] = 'rynk tjocklek',

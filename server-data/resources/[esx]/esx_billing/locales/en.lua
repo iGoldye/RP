@@ -1,10 +1,10 @@
 Locales['en'] = {
-  ['invoices'] = 'invoices',
+  ['invoices'] = 'Счета',
   ['invoices_item'] = '$%s',
-  ['received_invoice'] = 'you have just ~r~received~s~ an invoice',
-  ['paid_invoice'] = 'you ~g~paid~s~ an invoice of ~r~$%s~s~',
-  ['received_payment'] = 'you ~g~received~s~ a payment of ~r~$%s~s~',
-  ['player_not_online'] = 'the player is not logged in',
-  ['no_money'] = 'you do not have enough money to pay this bill',
-  ['target_no_money'] = 'the player ~r~does not~s~ have enough money to pay the bill!',
+  ['получили_invoice'] = 'Вы ~r~получили~s~ счет',
+  ['paid_invoice'] = 'Вы ~g~оплатили~s~ счет в ~r~$%s~s~',
+  ['получили_payment'] = 'Вы ~g~получили~s~ платеж в размере ~r~$%s~s~',
+  ['player_not_online'] = 'Игрок оффлайн',
+  ['no_money'] = 'Недостаточно денег чтобы оплатить счет',
+  ['target_no_money'] = 'Игроку ~r~не~s~ средст!',
 }

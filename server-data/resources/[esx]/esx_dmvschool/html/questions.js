@@ -1,91 +1,95 @@
 var tableauQuestion = [
-	{
-		question: "Si vous conduisez à 80km/h, que vous approchez d'un lieu de résidence, cela veut dire que :",
-		propositionA: "Vous devez accélérer",
-		propositionB: "Vous pouvez garder votre vitesse, si vous ne croisez pas d'autres véhicules",
-		propositionC: "Vous devez ralentir",
-		propositionD: "Vous pouvez garder votre vitesse",
-		reponse: "C"
-	},
+  {
+    question: 'Вы движетесь со скоростью 80 км/ч и приближаетесь к жилому району, вы должны:',
+    propositionA: 'Ускориться',
+    propositionB: 'Двигаться с той же скоростью, если вы не обгоняете другие т/с',
+    propositionC: 'Замедлиться',
+    propositionD: 'Двигаться с той же скоростью',
+    reponse: 'C',
+  },
 
-	{
-		question: "Vous vous apprétez à tourner à droite au feu vert, mais vous voyez un piéton qui traverse :",
-		propositionA: "Vous passez avant le piéton",
-		propositionB: "Vous vérifiez qu'il n'y a pas d'autre véhicule et vous passez",
-		propositionC: "Vous attendez que le piéton est terminé",
-		propositionD: "Vous shoutez le piéton pour passer",
-		reponse: "C"
-	},
+  {
+    question:
+      'Если вы повернули на перекрёстке направо, и видите пешехода на переходе, ваши действия:',
+    propositionA: 'Вы не пропустите пешехода',
+    propositionB: 'Вы проверите, нет ли других машин поблизости',
+    propositionC: 'Вы пропустите пешехода',
+    propositionD: 'Вы пристрелите пешехода и продолжите движение',
+    reponse: 'C',
+  },
 
-	{
-		question: "Sans aucune indication : La vitesse dans une zone résidentielle est de : __ km/h",
-		propositionA: "50",
-		propositionB: "55",
-		propositionC: "65",
-		propositionD: "70",
-		reponse: "A"
-	},
+  {
+    question:
+      'Без каких-либо предварительных указаний разрешённая скорость в жилом районе составляет: __ км/ч.',
+    propositionA: '30 км/ч',
+    propositionB: '50 км/ч',
+    propositionC: '40 км/ч',
+    propositionD: '60 км/ч',
+    reponse: 'B',
+  },
 
-	{
-		question: "Avant chaque changement de file vous devez :",
-		propositionA: "Vérifiez vos rétroviseurs",
-		propositionB: "Vérifiez vos angles morts",
-		propositionC: "Signalez vos intentions",
-		propositionD: "Tout cela",
-		reponse: "D"
-	},
+  {
+    question: 'Перед тем как перестроиться в другую полосу, вы должны:',
+    propositionA: 'Проверить зеркала',
+    propositionB: 'Проверить слепые зоны',
+    propositionC: 'Включить поворотник',
+    propositionD: 'Всё вышеперечисленное',
+    reponse: 'D',
+  },
 
-	{
-		question: "What blood alcohol level is classified as driving while intoxicated?",
-		propositionA: "0.05%",
-		propositionB: "0.18%",
-		propositionC: "0.08%",
-		propositionD: "0.06%",
-		reponse: "C"
-	},
+  {
+    question:
+      'Какой уровень алкоголя в крови классифицируется как вождение в состоянии алкогольного опьянения?',
+    propositionA: '0.05%',
+    propositionB: '0.18%',
+    propositionC: '0.08%',
+    propositionD: '0.06%',
+    reponse: 'C',
+  },
 
-	{
-		question: "A quel moment vous pouvez passer aux feux ?",
-		propositionA: "Quand il est vert",
-		propositionB: "Quand il n'y a personne sur l'intersection",
-		propositionC: "Vous êtes dans une zone d'école",
-		propositionD: "Quand il est vert et/ou rouge et que je tourne à droite",
-		reponse: "D"
-	},
+  {
+    question: 'Когда вы можете не останавливаться на перекрёстке со светофором?',
+    propositionA: 'Если горит зелёный',
+    propositionB: 'Если на перекрёстке никого нет',
+    propositionC: 'При любом сигнале, если нужно повернуть налево',
+    propositionD: 'Когда светофор зелёный и/или красный, и вам нужно повернуть направо',
+    reponse: 'D',
+  },
 
-	{
-		question: "Un piéton est au feu rouge pour les piétons",
-		propositionA: "Vous le laissez passer",
-		propositionB: "Vous observez avant de continuer",
-		propositionC: "Vous lui faite un signe de la main",
-		propositionD: "Vous continuez votre chemin car votre feu est vert",
-		reponse: "D"
-	},
+  {
+    question: 'Пешеход переходит перед вами на красный сигнал светофора. Каковы ваши действия?',
+    propositionA: 'Вы пропустите его',
+    propositionB: 'Вы проверите, нет ли рядом полиции, и продолжите движение',
+    propositionC: 'Вы поторопите его',
+    propositionD: 'Вы продолжите движение, потому что для вас светофор зелёный',
+    reponse: 'D',
+  },
 
-	{
-		question: "Qu'est ce qui est permit quand vous dépassez un autre véhicule",
-		propositionA: "Le suivre de près pour le doubler plus vite",
-		propositionB: "Le doubler en quittant la route",
-		propositionC: "Conduire sur la route opposé pour le dépasser",
-		propositionD: "Dépasser la vitesse limite",
-		reponse: "C"
-	},
+  {
+    question: 'Что разрешено при обгоне?',
+    propositionA: 'Максимально близко подъезжать к автомобилю перед обгоном',
+    propositionB: 'Обгонять, не меняя полосы движения',
+    propositionC: 'Ехать по встречной полосе для обгона',
+    propositionD: 'Превышать ограничение скорости для обгона',
+    reponse: 'C',
+  },
 
-	{
-		question: "Vous conduisez sur une rocade qui indique une vitesse maximum de 110 km/h. La plupart du traffic roule à 120 km/h, alors vous ne devriez pas conduire plus vite que :",
-		propositionA: "80 kmh",
-		propositionB: "40 kmh",
-		propositionC: "50 kmh",
-		propositionD: "110 kmh",
-		reponse: "D"
-	},
+  {
+    question:
+      'Вы едете по шоссе, которое, где маскимальная скорость 120 км/ч. Большинство водителей едет со скоростью 125 км/ч, поэтому вы поедете не быстрее, чем:',
+    propositionA: '120 км/ч',
+    propositionB: '125 км/ч',
+    propositionC: '130 км/ч',
+    propositionD: '110 км/ч',
+    reponse: 'A',
+  },
 
-	{
-		question: "Quand vous êtes dépassé par un autre véhicule il est important de ne PAS :",
-		propositionA: "Ralentir",
-		propositionB: "Vérifiez vos rétroviseurs",
-		propositionC: "Regarder les autres conducteurs",
-		propositionD: "Augmenter votre vitesse",
-		reponse: "D"
-	},
+  {
+    question: 'Когда вас обгоняет другой автомобиль, важно НЕ:',
+    propositionA: 'Замедляться',
+    propositionB: 'Проверять зеркала',
+    propositionC: 'Следить за другими водителями',
+    propositionD: 'Увеличивать скорость',
+    reponse: 'D',
+  },
 ]

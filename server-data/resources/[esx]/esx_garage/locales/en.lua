@@ -1,5 +1,5 @@
 Locales['en'] = {
-	['veh_released'] = 'the vehicle has been ~g~released',
-	['veh_stored'] = 'the vehicle has been ~g~stored',
-	['veh_health'] = 'you\'ll have to repair the vehicle before storing it.',
+	['veh_released'] = 'Транспорт ~g~выгнан из гаража',
+	['veh_stored'] = 'Транспорт ~g~припаркован',
+	['veh_health'] = 'you\'ll должны починить авто перед парковкой.',
 }

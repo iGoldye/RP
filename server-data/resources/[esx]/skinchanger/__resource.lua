@@ -14,5 +14,10 @@ client_scripts {
 	'locales/pl.lua',
 	'locales/sv.lua',
 	'config.lua',
+	'client/accordant_arms.lua',
 	'client/main.lua'
+}
+
+exports {
+	'getAccordantArms'
 }

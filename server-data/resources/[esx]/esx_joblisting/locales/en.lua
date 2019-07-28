@@ -1,5 +1,5 @@
 Locales['en'] = {
-  ['new_job'] = 'you have a new job!',
-  ['access_job_center'] = 'press ~INPUT_PICKUP~ to access the ~b~job center~s~.',
-  ['job_center'] = 'job Center',
+  ['new_job'] = 'Вы устроились на работу!',
+  ['access_job_center'] = 'Нажмите ~INPUT_PICKUP~ чтобы зайти в ~b~Биржу труда~s~.',
+  ['job_center'] = 'Биржа труда',
 }

@@ -1,6 +1,7 @@
 local Components = {
 	{label = _U('sex'),						name = 'sex',				value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('face'),					name = 'face',				value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('face_2'),					name = 'face_2',			value = -1,		min = -1,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('skin'),					name = 'skin',				value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('hair_1'),					name = 'hair_1',			value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('hair_2'),					name = 'hair_2',			value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
@@ -82,6 +83,8 @@ for i=1, #Components, 1 do
 	Character[Components[i].name] = Components[i].value
 end
 
+init_accordant_arms()
+
 function LoadDefaultModel(malePed, cb)
 	local playerPed = PlayerPedId()
 	local characterModel
@@ -121,6 +124,7 @@ function GetMaxVals()
 	local data = {
 		sex				= 1,
 		face			= 45,
+		face_2			= 45,
 		skin			= 45,
 		age_1			= GetNumHeadOverlayValues(3)-1,
 		age_2			= 10,
@@ -193,6 +197,11 @@ function GetMaxVals()
 		bracelets_2		= GetNumberOfPedPropTextureVariations	(playerPed, 7, Character['bracelets_1'] - 1)
 	}
 
+	if Config.UseAccordantArms then
+		local acc = getAccordantArms(Character['sex'], Character['torso_1'])
+		data.arms = #acc - 1
+	end
+
 	return data
 end
 
@@ -208,6 +217,7 @@ function ApplySkin(skin, clothes)
 			if
 				k ~= 'sex'				and
 				k ~= 'face'				and
+				k ~= 'face_2'			and
 				k ~= 'skin'				and
 				k ~= 'age_1'			and
 				k ~= 'age_2'			and
@@ -254,7 +264,11 @@ function ApplySkin(skin, clothes)
 		end
 	end
 
-	SetPedHeadBlendData			(playerPed, Character['face'], Character['face'], Character['face'], Character['skin'], Character['skin'], Character['skin'], 1.0, 1.0, 1.0, true)
+	if Character['face_2'] == -1 then
+		SetPedHeadBlendData			(playerPed, Character['face'], Character['face'], Character['face'], Character['skin'], Character['skin'], Character['skin'], 1.0, 1.0, 1.0, true)
+	else
+		SetPedHeadBlendData			(playerPed, Character['face'], Character['face_2'], Character['face'], Character['skin'], Character['skin'], Character['skin'], 0.5, 0.5, 0.0, true)
+	end
 
 	SetPedHairColor				(playerPed,			Character['hair_color_1'],		Character['hair_color_2'])					-- Hair Color
 	SetPedHeadOverlay			(playerPed, 3,		Character['age_1'],				(Character['age_2'] / 10) + 0.0)			-- Age + opacity
@@ -285,7 +299,19 @@ function ApplySkin(skin, clothes)
 
 	SetPedComponentVariation	(playerPed, 8,		Character['tshirt_1'],			Character['tshirt_2'], 2)					-- Tshirt
 	SetPedComponentVariation	(playerPed, 11,		Character['torso_1'],			Character['torso_2'], 2)					-- torso parts
-	SetPedComponentVariation	(playerPed, 3,		Character['arms'],				Character['arms_2'], 2)						-- Amrs
+
+	if Config.UseAccordantArms then
+		local acc = getAccordantArms(Character['sex'], Character['torso_1'])
+		local arms_num = Character['arms']
+		if Character['arms'] < 0 or Character['arms'] >= #acc then
+			arms_num = 0
+		end
+
+		SetPedComponentVariation(playerPed, 3,		acc[arms_num+1],			Character['arms_2'], 2)						-- Arms
+	else
+		SetPedComponentVariation	(playerPed, 3,		Character['arms'],				Character['arms_2'], 2)						-- Arms
+	end
+
 	SetPedComponentVariation	(playerPed, 10,		Character['decals_1'],			Character['decals_2'], 2)					-- decals
 	SetPedComponentVariation	(playerPed, 4,		Character['pants_1'],			Character['pants_2'], 2)					-- pants
 	SetPedComponentVariation	(playerPed, 6,		Character['shoes_1'],			Character['shoes_2'], 2)					-- shoes

@@ -90,7 +90,7 @@ Locales['en'] = {
 
   -- Slaughterer
   ['s_slaughter_locker']        = 'Раздевалка мясника',
-  ['s_hen']                     = 'Курятник',
+  ['s_hen']                     = 'Птицефабрика',
   ['s_alive_chicken']           = 'Живая Курица',
   ['s_catch_hen']               = 'Нажмите ~INPUT_PICKUP~ чтобы поймать живую курицу.',
   ['s_slaughtered_chicken']     = 'Курица в упаковке',
@@ -104,11 +104,11 @@ Locales['en'] = {
 
   -- Dress Designer
   ['dd_dress_locker']           = 'Раздевалка портного',
-  ['dd_wool']                   = 'Шерсть',
+  ['dd_wool']                   = 'шерсти',
   ['dd_pickup']                 = 'Нажмите ~INPUT_PICKUP~ чтобы собрать шерсть.',
-  ['dd_fabric']                 = 'Ткань',
+  ['dd_fabric']                 = 'ткани',
   ['dd_makefabric']             = 'Нажмите ~INPUT_PICKUP~ чтобы сделать ткань.',
-  ['dd_clothing']               = 'Одежда',
+  ['dd_clothing']               = 'одежды',
   ['dd_makeclothing']           = 'Нажмите ~INPUT_PICKUP~ чтобы сделать одежду.',
   ['dd_deliver_clothes']        = 'Нажмите ~INPUT_PICKUP~ чтобы доставить одежду.',
   }
