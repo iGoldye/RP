@@ -32,16 +32,16 @@ Config.PoliceStations = {
 		},
 
 		Cloakrooms = {
-			vector3(452.6, -992.8, 30.6)
+			vector3(452.6, -992.8, 29.8)
 		},
 
 		Armories = {
-			vector3(451.7, -980.1, 30.6)
+			vector3(451.7, -980.1, 29.8)
 		},
 
 		Vehicles = {
 			{
-				Spawner = vector3(454.6, -1017.4, 28.4),
+				Spawner = vector3(450.0, -1010.0, 27.0),
 				InsideShop = vector3(228.5, -993.5, -99.5),
 				SpawnPoints = {
 					{ coords = vector3(438.4, -1018.3, 27.7), heading = 90.0, radius = 6.0 },
@@ -52,7 +52,7 @@ Config.PoliceStations = {
 			},
 
 			{
-				Spawner = vector3(473.3, -1018.8, 28.0),
+				Spawner = vector3(473.3, -1018.8, 20.0),
 				InsideShop = vector3(228.5, -993.5, -99.0),
 				SpawnPoints = {
 					{ coords = vector3(475.9, -1021.6, 28.0), heading = 276.1, radius = 6.0 },

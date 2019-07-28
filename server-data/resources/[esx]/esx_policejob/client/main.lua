@@ -1663,7 +1663,7 @@ Citizen.CreateThread(function()
 					local distance = GetDistanceBetweenCoords(coords, v.Cloakrooms[i], true)
 
 					if distance < Config.DrawDistance then
-						DrawMarker(20, v.Cloakrooms[i], 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
+						DrawMarker(25, v.Cloakrooms[i], 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
 						letSleep = false
 					end
 
@@ -1676,7 +1676,7 @@ Citizen.CreateThread(function()
 					local distance = GetDistanceBetweenCoords(coords, v.Armories[i], true)
 
 					if distance < Config.DrawDistance then
-						DrawMarker(21, v.Armories[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
+						DrawMarker(25, v.Armories[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
 						letSleep = false
 					end
 
@@ -1689,7 +1689,7 @@ Citizen.CreateThread(function()
 					local distance = GetDistanceBetweenCoords(coords, v.Vehicles[i].Spawner, true)
 
 					if distance < Config.DrawDistance then
-						DrawMarker(36, v.Vehicles[i].Spawner, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
+						DrawMarker(1, v.Vehicles[i].Spawner, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, 4.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
 						letSleep = false
 					end
 
