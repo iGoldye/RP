@@ -104,11 +104,11 @@ Citizen.CreateThread(function()
 
 	              TriggerServerEvent("esx_truck_inventory:getInventory", GetVehicleNumberPlateText(vehFront))
 	            else
-	          	   ESX.ShowNotification('Ce coffre est ~r~fermé')
+	          	   ESX.ShowNotification('Багажник закрыт ~r~')
               end
             end
         else
-        	ESX.ShowNotification('Pas de ~r~véhicule~w~ à proximité')
+        	ESX.ShowNotification('Нет ~r~автомобиля~w~ поблизости')
           end
       lastOpen = true
       GUI.Time  = GetGameTimer()
@@ -175,14 +175,14 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 			ESX.UI.Menu.Open(
 			  'default', GetCurrentResourceName(), 'inventory_player',
 			  {
-			    title    = 'Contenu de l\'inventaire',
+			    title    = 'Содержимое багажника',
 			    align    = 'bottom-right',
 			    elements = elem,
 			  },function(data3, menu3)
 				ESX.UI.Menu.Open(
 				  'dialog', GetCurrentResourceName(), 'inventory_item_count_give',
 				  {
-				    title = 'quantité'
+				    title = 'Колличество'
 				  },
 				  function(data4, menu4)
             local quantity = tonumber(data4.value)
@@ -253,7 +253,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
                 ESX.ShowNotification('Vous avez atteint la limite des ~r~ '..MaxVh..' Kg')
               end
 				    else
-			      		ESX.ShowNotification('~r~ Quantité invalide')
+			      		ESX.ShowNotification('~r~ Неверное количество')
 				    end
 
 				    ESX.UI.Menu.CloseAll()
@@ -270,7 +270,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 			ESX.UI.Menu.Open(
 			  'dialog', GetCurrentResourceName(), 'inventory_item_count_give',
 			  {
-			    title = 'quantité'
+			    title = 'Колличество'
 			  },
 			  function(data2, menu2)
 
@@ -304,10 +304,10 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
                TriggerServerEvent('esx_truck_inventory:removeInventoryItem', GetVehicleNumberPlateText(vehFront), data.current.value, quantity)
 
             else
-              ESX.ShowNotification('~r~ Tu en porte trops')
+              ESX.ShowNotification('~r~ Вы носите трупы')
             end
 			    else
-			      ESX.ShowNotification('~r~ Quantité invalide')
+			      ESX.ShowNotification('~r~ Неверное количество')
 			    end
 
 			    ESX.UI.Menu.CloseAll()

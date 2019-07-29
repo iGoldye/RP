@@ -6493,6 +6493,11 @@
             ^Rockstar Devs named it like that, Now cry about it.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_CONSOLE_BUFFER">
+            <summary>
+            Returns the current console output buffer.
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_CURRENT_RESOURCE_NAME">
             <summary>
             Returns the name of the currently executing resource.
@@ -6585,6 +6590,11 @@
             **Example result**:
             
             ![](https://i.imgur.com/TaCnG09.png)
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.REGISTER_CONSOLE_LISTENER">
+            <summary>
+            Registers a listener for console output messages.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.REGISTER_RESOURCE_ASSET">
@@ -6723,6 +6733,12 @@
             ^Rockstar Devs named it like that, Now cry about it.
             </summary>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.GetConsoleBuffer">
+            <summary>
+            Returns the current console output buffer.
+            </summary>
+            <returns>The most recent game console output, as a string.</returns>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.GetCurrentResourceName">
             <summary>
             Returns the name of the currently executing resource.
@@ -6835,6 +6851,12 @@
             <param name="commandName">The command you want to register.</param>
             <param name="handler">A handler function that gets called whenever the command is executed.</param>
             <param name="restricted">If this is a server command and you set this to true, then players will need the command.yourCommandName ace permission to execute this command.</param>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.RegisterConsoleListener(CitizenFX.Core.Native.InputArgument)">
+            <summary>
+            Registers a listener for console output messages.
+            </summary>
+            <param name="listener">A function of `(channel: string, message: string) =&gt; void`. The message might contain `\n`.</param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.RegisterResourceAsEventHandler(System.String)">
             <summary>

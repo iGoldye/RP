@@ -4,7 +4,7 @@ Config.Locale = 'en'
 Config.DrawDistance               = 100.0
 Config.MaxInService               = -1
 Config.EnablePlayerManagement     = true
-Config.EnableSocietyOwnedVehicles = true
+Config.EnableSocietyOwnedVehicles = false
 
 Config.NPCSpawnDistance           = 500.0
 Config.NPCNextToDistance          = 25.0

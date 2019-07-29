@@ -92,14 +92,14 @@ end)
 
 Citizen.CreateThread(function()
 	for k,v in pairs(Stores) do
-		local blip = AddBlipForCoord(v.position.x, v.position.y, v.position.z)
-		SetBlipSprite(blip, 156)
-		SetBlipScale(blip, 0.8)
-		SetBlipAsShortRange(blip, true)
+		-- local blip = AddBlipForCoord(v.position.x, v.position.y, v.position.z)
+		-- SetBlipSprite(blip, 10)
+		-- SetBlipScale(blip, 0.8)
+		-- SetBlipAsShortRange(blip, true)
 
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(_U('shop_robbery'))
-		EndTextCommandSetBlipName(blip)
+		-- BeginTextCommandSetBlipName("STRING")
+		-- AddTextComponentString(_U('shop_robbery'))
+		-- EndTextCommandSetBlipName(blip)
 	end
 end)
 

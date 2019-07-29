@@ -348,7 +348,7 @@ function IsInAuthorizedVehicle()
 			return true
 		end
 	end
-	
+
 	return false
 end
 
