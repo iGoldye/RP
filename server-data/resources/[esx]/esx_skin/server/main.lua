@@ -64,3 +64,9 @@ TriggerEvent('es:addGroupCommand', 'skinsave', 'admin', function(source, args, u
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = _U('saveskin')})
+
+TriggerEvent('es:addGroupCommand', 'skininfo', 'admin', function(source, args, user)
+	TriggerClientEvent('esx_skin:requestSkinInfo', source)
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = _U('skin')})

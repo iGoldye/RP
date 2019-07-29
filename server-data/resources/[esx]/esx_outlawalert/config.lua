@@ -14,6 +14,9 @@ Config.CarJackingAlert = true
 -- Set if show when player fight in melee
 Config.MeleeAlert = true
 
+-- Set if show when player carries any gun in public
+Config.OpenCarryAlert = false
+
 -- In seconds
 Config.BlipGunTime = 5
 

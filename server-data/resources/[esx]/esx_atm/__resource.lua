@@ -32,10 +32,10 @@ client_scripts {
 	'client/main.lua'
 }
 
-ui_page 'html/ui.html'
+ui_page 'html/ui_en.html'
 
 files {
-	'html/ui.html',
+	'html/ui_en.html',
 	'html/roboto.ttf',
 	'html/img/fleeca.png',
 	'html/css/app.css',

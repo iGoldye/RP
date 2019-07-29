@@ -17,7 +17,7 @@ Config.AuthorizedVehicles = {
 }
 
 Config.Blips = {
-    
+
     Blip = {
       Pos     = { x = 129.246, y = -1299.363, z = 29.501 },
       Sprite  = 121,
@@ -45,7 +45,7 @@ Config.Zones = {
     },
 
     Fridge = {
-        Pos   = { x = 135.478, y = -1288.615, z = 28.289 },
+        Pos   = { x = 132.478, y = -1286.615, z = 28.289 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 248, g = 248, b = 255 },
         Type  = 23,

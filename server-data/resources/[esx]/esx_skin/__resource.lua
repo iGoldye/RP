@@ -30,10 +30,19 @@ client_scripts {
 	'locales/pl.lua',
 	'locales/ru.lua',
 	'config.lua',
+	'client/util.lua',
+	'locales/description/en.lua',
+	'locales/description/ru.lua',
+	'client/description.lua',
 	'client/main.lua'
 }
 
 dependencies {
 	'es_extended',
 	'skinchanger'
+}
+
+exports {
+	'getSkinDescription',
+	'skinDescriptionToText',
 }
