@@ -1592,7 +1592,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 288,  true) -- Disable phone
 			DisableControlAction(0, 289, true) -- Inventory
 			DisableControlAction(0, 170, true) -- Animations
-			DisableControlAction(0, 167, true) -- Job
+			DisableControlAction(0, 166, true) -- Job поменял с F6 на F5
 
 			DisableControlAction(0, 0, true) -- Disable changing view
 			DisableControlAction(0, 26, true) -- Disable looking behind
@@ -1860,8 +1860,8 @@ Citizen.CreateThread(function()
 				CurrentAction = nil
 			end
 		end -- CurrentAction end
-
-		if IsControlJustReleased(0, 167) and not isDead and PlayerData.job and PlayerData.job.name == 'police' and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'police_actions') then
+-- поменял с F6 на F5 V
+		if IsControlJustReleased(0, 166) and not isDead and PlayerData.job and PlayerData.job.name == 'police' and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'police_actions') then
 			if Config.MaxInService == -1 then
 				OpenPoliceActionsMenu()
 			elseif playerInService then
