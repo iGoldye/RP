@@ -1,4 +1,5 @@
 #status_list {
+	display: none;
 	position: absolute;
 	left   : 23;
 	bottom : 21%;
