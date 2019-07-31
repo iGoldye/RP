@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<title>Yume Loadscreen</title>
+	<link href='https://fonts.googleapis.com/css?family=Megrim' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class='cursor' id="cursor"></div>
+	<div class='cursor2' id="cursor2"></div>
+	<div class='cursor3' id="cursor3"></div>
+	<div class="audio green-audio-player">
+		<div class="loading">
+			<div class="spinner"></div>
+		</div>
+		<div class="play-pause-btn">  
+			<svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
+				<path fill="#9d8fba" fill-rule="evenodd" d="M18 12L0 24V0" class="play-pause-icon" id="playPause"/>
+			</svg>
+		</div>
+		
+		<div class="controls">
+			<span class="current-time">0:00</span>
+			<div class="slider" data-direction="horizontal">
+				<div class="progress">
+					<div class="pin" id="progress-pin" data-method="rewind"></div>
+				</div>
+			</div>
+			<span class="total-time">0:00</span>
+		</div>
+		
+		<div class="volume">
+			<div class="volume-btn">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<path fill="#9d8fba" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" id="speaker"/>
+				</svg>
+			</div>
+			<div class="volume-controls hidden">
+				<div class="slider" data-direction="vertical">
+					<div class="progress">
+						<div class="pin" id="volume-pin" data-method="changeVolume"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<audio crossorigin>
+			<source src="https://cdn.fivem.com.br/music.mp3" type="audio/mpeg">
+			</audio>
+		</div>
+		<circle>
+			<inner></inner>
+		</circle>
+		<canvas id="canvas"></canvas>
+		<div class="loadbar"><div class="thingy"></div></div>
+		<script  src="js/index.js"></script>
+		<script  src="js/circle.js"></script>
+		<script  src="js/music.js"></script>
+		<script type="text/javascript">
+
+			var count = 0;
+			var thisCount = 0;
+
+			const emoji = {
+				INIT_BEFORE_MAP_LOADED: [ '🍉' ],
+				INIT_AFTER_MAP_LOADED: [ '🍋', '🍊' ],
+				INIT_SESSION: [ '🍐', '🍅', '🍆' ],
+			};
+
+			const handlers = {
+				startInitFunctionOrder(data)
+				{
+					count = data.count;
+
+					document.querySelector('.letni h3').innerHTML += emoji[data.type][data.order - 1] || '';
+				},
+
+				initFunctionInvoking(data)
+				{
+					document.querySelector('.thingy').style.left = '0%';
+					document.querySelector('.thingy').style.width = ((data.idx / count) * 100) + '%';
+				},
+
+				startDataFileEntries(data)
+				{
+					count = data.count;
+
+					document.querySelector('.letni h3').innerHTML += "\u{1f358}";
+				},
+
+				performMapLoadFunction(data)
+				{
+					++thisCount;
+
+					document.querySelector('.thingy').style.left = '0%';
+					document.querySelector('.thingy').style.width = ((thisCount / count) * 100) + '%';
+				},
+
+				onLogLine(data)
+				{
+					document.querySelector('.letni p').innerHTML = data.message + "..!";
+				}
+			};
+
+			window.addEventListener('message', function(e)
+			{
+				(handlers[e.data.eventName] || function() {})(e.data);
+			});
+		</script>
+
+
+	</body>
+
+	</html>
