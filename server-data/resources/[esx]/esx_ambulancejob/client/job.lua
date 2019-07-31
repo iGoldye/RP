@@ -24,7 +24,7 @@ function OpenAmbulanceActionsMenu()
 		elseif data.current.value == 'boss_actions' then
 			TriggerEvent('esx_society:openBossMenu', 'ambulance', function(data, menu)
 				menu.close()
-			end, {wash = false})
+			end, {wash = Config.EnableMoneyWash})
 		end
 	end, function(data, menu)
 		menu.close()

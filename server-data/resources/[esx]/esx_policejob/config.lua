@@ -14,6 +14,7 @@ Config.EnableLicenses             = true -- enable if you're using esx_license
 Config.EnableHandcuffTimer        = false -- enable handcuff timer? will unrestrain player after the time ends
 Config.HandcuffTimer              = 10 * 60000 -- 10 mins
 
+Config.EnableMoneyWash		  = true -- allow cops to wash black money
 Config.EnableJobBlip              = false -- enable blips for colleagues, requires esx_society
 
 Config.MaxInService               = -1

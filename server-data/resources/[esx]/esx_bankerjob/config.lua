@@ -1,6 +1,7 @@
 Config                      = {}
 Config.DrawDistance         = 100.0
 Config.BankSavingPercentage = 2.5
+Config.EnableMoneyWash      = true  -- allow bankers to wash black money
 Config.Locale = 'en'
 
 Config.Zones = {

@@ -30,7 +30,7 @@ function OpenBankActionsMenu()
 		{ label = _U('billing'),   value = 'billing' }
 	}
 
-	if ESX.PlayerData.job.grade_name == 'boss' then
+	if ESX.PlayerData.job and ESX.PlayerData.job.grade_name == 'boss' then
 		table.insert(elements, { label = _U('boss_actions'), value = 'boss_actions' })
 	end
 
@@ -68,7 +68,7 @@ function OpenBankActionsMenu()
 		elseif data.current.value == 'boss_actions' then
 			TriggerEvent('esx_society:openBossMenu', 'banker', function (data, menu)
 			menu.close()
-			end, {wash = false})
+			end, {wash = Config.EnableMoneyWash})
 		end
 	end, function(data, menu)
 		menu.close()

@@ -22,6 +22,8 @@ Config.RemoveWeaponsAfterRPDeath  = true
 Config.RemoveCashAfterRPDeath     = true
 Config.RemoveItemsAfterRPDeath    = true
 
+Config.EnableMoneyWash            = true -- allow medics to wash black money
+
 -- Let the player pay for respawning early, only if he can afford it.
 Config.EarlyRespawnFine           = false
 Config.EarlyRespawnFineAmount     = 5000
