@@ -1,6 +1,6 @@
 files {
-    'index.html',
-    'css/style.css',
+	'index.html',
+	'css/style.css',
 	'img/logo.png',
 	'img/logo2.png',
 	'js/circle.js',
