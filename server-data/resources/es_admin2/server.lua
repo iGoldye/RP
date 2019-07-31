@@ -368,7 +368,7 @@ RegisterCommand('removerole', function(source, args, raw)
 	end
 end, true)
 
-RegisterCommand('setmoney', function(source, args, raw)
+RegisterCommand('esadmin_setmoney', function(source, args, raw)
 	local player = tonumber(args[1])
 	local money = tonumber(args[2])
 	if args[1] then
