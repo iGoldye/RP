@@ -34,15 +34,19 @@ function RaycastPeds(ped1, ped2, radius, flags)
 	return nil
 end
 
-function getWitness(sight_distance, hear_distance)
+function getWitness(sight_distance, hear_distance, outside_only)
 --	hear_distance = hear_distance or 0
+
+	local player_ped = PlayerPedId()
+	if outside_only and GetInteriorFromEntity(player_ped) ~= 0 then
+		return nil
+	end
 
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
 
-	local player_ped = PlayerPedId()
 	local peds = ESX.Game.GetPeds()
 
 	local PED_TYPE_ANIMAL = 28
