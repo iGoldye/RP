@@ -14,7 +14,26 @@ local Keys = {
 local hasAlreadyEnteredMarker = false
 local isInATMMarker = false
 local menuIsShowed = false
+local currentMarker = nil
+local cardProp = nil
 ESX = nil
+
+Citizen.CreateThread(function()
+	while true do
+		if menuIsShowed then
+			DisableControlAction(0, 1, true) -- LookLeftRight
+			DisableControlAction(0, 2, true) -- LookUpDown
+			DisableControlAction(0, 24, true) -- Attack
+			DisableControlAction(0, 142, true) -- MeleeAttackAlternate
+			DisableControlAction(0, 257, true) -- Attack 2
+			DisableControlAction(0, 263, true) -- Melee Attack 1
+			DisablePlayerFiring(PlayerPedId(), true) -- Disable weapon firing
+			Citizen.Wait(0)
+		else
+			Citizen.Wait(500)
+		end
+	end
+end)
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -25,6 +44,24 @@ end)
 
 RegisterNetEvent('esx_atm:closeATM')
 AddEventHandler('esx_atm:closeATM', function()
+	local prop_name = "prop_cs_credit_card"
+	local playerPed = PlayerPedId()
+	local x,y,z = table.unpack(GetEntityCoords(playerPed))
+	local prop = CreateObject(GetHashKey(prop_name), x, y, z + 10.2, true, true, true)
+	local boneIndex = GetPedBoneIndex(playerPed, 57005) -- 18905 = left hand, 57005 = right hand
+
+
+	Citizen.CreateThread(function()
+		ESX.Streaming.RequestAnimDict("amb@prop_human_atm@male@exit", function()
+			TaskPlayAnim(PlayerPedId(), "amb@prop_human_atm@male@exit", "exit", 8.0, -8.0, -1, 0, 0, false, false, false)
+			Citizen.Wait(3000)
+			AttachEntityToEntity(prop, playerPed, boneIndex, 0.162, 0.038, -0.021, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+			Citizen.Wait(2000)
+			DeleteObject(prop)
+		end)
+	end)
+
+
 	SetNuiFocus(false)
 	menuIsShowed = false
 	SendNUIMessage({
@@ -75,6 +112,7 @@ Citizen.CreateThread(function()
 		for k,v in pairs(Config.ATMLocations) do
 			if GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < 1.0 then
 				isInATMMarker, canSleep = true, false
+				currentMarker = v
 				break
 			end
 		end
@@ -111,6 +149,28 @@ Citizen.CreateThread(function()
 			ESX.ShowHelpNotification(_U('press_e_atm'))
 
 			if IsControlJustReleased(0, Keys['E']) and IsPedOnFoot(PlayerPedId()) then
+
+
+				Citizen.CreateThread(function()
+					local prop_name = "prop_cs_credit_card"
+					local playerPed = PlayerPedId()
+					local coords = GetEntityCoords(playerPed)
+					local prop = CreateObject(GetHashKey(prop_name), coords.x, coords.y, coords.z + 10.2, true, true, true)
+					local boneIndex = GetPedBoneIndex(playerPed, 57005) -- 18905 = left hand, 57005 = right hand
+					AttachEntityToEntity(prop, playerPed, boneIndex, 0.162, 0.038, -0.021, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+
+					ESX.Streaming.RequestAnimDict("anim@mp_atm@enter", function()
+						TaskPlayAnim(playerPed, "anim@mp_atm@enter", "enter", 8.0, -8.0, -1, 2, 0, false, false, false)
+						Citizen.Wait(1300)
+						DeleteObject(prop)
+						Citizen.Wait(2700)
+						ESX.Streaming.RequestAnimDict("anim@mp_atm@base", function()
+							TaskPlayAnim(playerPed, "anim@mp_atm@base", "base", 8.0, -8.0, -1, 1, 0, false, false, false)
+						end)
+					end)
+				end)
+				Citizen.Wait(4000)
+
 				menuIsShowed = true
 				ESX.TriggerServerCallback('esx:getPlayerData', function(data)
 					SendNUIMessage({
