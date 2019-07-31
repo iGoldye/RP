@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
 
 	ESX.PlayerData = ESX.GetPlayerData()
 
-	if ESX.PlayerData.job.name == 'realestateagent' then
+	if ESX.PlayerData.job and ESX.PlayerData.job.name == 'realestateagent' then
 		Config.Zones.OfficeActions.Type = 1
 	else
 		Config.Zones.OfficeActions.Type = -1
@@ -189,7 +189,7 @@ RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 
-	if ESX.PlayerData.job.name == 'realestateagent' then
+	if ESX.PlayerData.job and ESX.PlayerData.job.name == 'realestateagent' then
 		Config.Zones.OfficeActions.Type = 1
 	else
 		Config.Zones.OfficeActions.Type = -1

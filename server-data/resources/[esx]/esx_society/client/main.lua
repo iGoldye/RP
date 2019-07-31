@@ -26,7 +26,7 @@ end)
 function RefreshBussHUD()
 	DisableSocietyMoneyHUDElement()
 
-	if ESX.PlayerData.job.grade_name == 'boss' then
+	if ESX.PlayerData.job and ESX.PlayerData.job.grade_name == 'boss' then
 		EnableSocietyMoneyHUDElement()
 
 		ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(money)

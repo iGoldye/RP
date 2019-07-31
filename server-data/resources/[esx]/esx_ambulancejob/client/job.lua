@@ -8,7 +8,7 @@ function OpenAmbulanceActionsMenu()
 		{label = _U('cloakroom'), value = 'cloakroom'}
 	}
 
-	if Config.EnablePlayerManagement and ESX.PlayerData.job.grade_name == 'boss' then
+	if Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.grade_name == 'boss' then
 		table.insert(elements, {label = _U('boss_actions'), value = 'boss_actions'})
 	end
 
@@ -461,7 +461,10 @@ function OpenVehicleSpawnerMenu(hospital, partNum)
 			local shopCoords = Config.Hospitals[hospital].Vehicles[partNum].InsideShop
 			local shopElements = {}
 
-			local authorizedVehicles = Config.AuthorizedVehicles[ESX.PlayerData.job.grade_name]
+			local authorizedVehicles = {}
+			if ESX.PlayerData.job then
+				authorizedVehicles = Config.AuthorizedVehicles[ESX.PlayerData.job.grade_name]
+			end
 
 			if #authorizedVehicles > 0 then
 				for k,vehicle in ipairs(authorizedVehicles) do
@@ -642,7 +645,10 @@ function OpenHelicopterSpawnerMenu(hospital, partNum)
 			local shopCoords = Config.Hospitals[hospital].Helicopters[partNum].InsideShop
 			local shopElements = {}
 
-			local authorizedHelicopters = Config.AuthorizedHelicopters[ESX.PlayerData.job.grade_name]
+			local authorizedHelicopters = {}
+			if ESX.PlayerData.job then
+				authorizedHelicopters = Config.AuthorizedHelicopters[ESX.PlayerData.job.grade_name]
+			end
 
 			if #authorizedHelicopters > 0 then
 				for k,helicopter in ipairs(authorizedHelicopters) do
