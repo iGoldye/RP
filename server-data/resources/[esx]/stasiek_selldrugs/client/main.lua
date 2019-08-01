@@ -37,6 +37,10 @@ currentped = nil
 Citizen.CreateThread(function()
 	while true do
 		Wait(10)
+		if not IsControlJustPressed(1, 38) then
+			continue
+		end
+
 		local player = GetPlayerPed(-1)
 		local pid = PlayerPedId()
   		local playerloc = GetEntityCoords(player, 0)
@@ -47,14 +51,14 @@ Citizen.CreateThread(function()
 		   	local pos = GetEntityCoords(ped)
 	 		local distance = GetDistanceBetweenCoords(pos.x, pos.y, pos.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
 			local distanceFromCity = GetDistanceBetweenCoords(Config.CityPoint.x, Config.CityPoint.y, Config.CityPoint.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
-			if IsPedInAnyVehicle(GetPlayerPed(-1)) == false then
+			if distance <= 3 and ped ~= player and IsPedInAnyVehicle(player) == false then
 				if DoesEntityExist(ped)then
 					if IsPedDeadOrDying(ped) == false then
 						if IsPedInAnyVehicle(ped) == false then
 							local pedType = GetPedType(ped)
 							if pedType ~= 28 and IsPedAPlayer(ped) == false then
 								currentped = pos
-								if distance <= 3 and ped  ~= GetPlayerPed(-1) and ped ~= oldped and IsControlJustPressed(1, 38) then
+								if ped ~= oldped then
 									TriggerServerEvent('check')
 									if distanceFromCity < Config.DistanceFromCity then
 										if playerHasDrugs and sold == false and selling == false then 

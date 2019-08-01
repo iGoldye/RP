@@ -333,9 +333,16 @@ end)
 
 -- Display markers
 Citizen.CreateThread(function()
+	local sleep = false
 	while true do
-		
-		Citizen.Wait(0)
+
+		if sleep == true then
+			Citizen.Wait(500)
+		else
+			Citizen.Wait(0)
+		end
+
+		sleep = true
 		
 		local playerPed = PlayerPedId()
 		local coords    = GetEntityCoords(playerPed)
@@ -346,10 +353,12 @@ Citizen.CreateThread(function()
 
 				if(not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.DrawDistance) then
 					DrawMarker(Config.MarkerType, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
+					sleep = false
 				end	
 
 				if(not v.disabled and GetDistanceBetweenCoords(coords, v.InteriorExitPoint.Pos.x, v.InteriorExitPoint.Pos.y, v.InteriorExitPoint.Pos.z, true) < Config.DrawDistance) then
 					DrawMarker(Config.MarkerType, v.InteriorExitPoint.Pos.x, v.InteriorExitPoint.Pos.y, v.InteriorExitPoint.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
+					sleep = false
 				end
 
 			end
@@ -362,6 +371,7 @@ Citizen.CreateThread(function()
 
 					if(not v.disabled and GetDistanceBetweenCoords(coords, parking.Pos.x, parking.Pos.y, parking.Pos.z, true) < Config.DrawDistance) then
 						DrawMarker(Config.MarkerType, parking.Pos.x, parking.Pos.y, parking.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ParkingMarkerSize.x, Config.ParkingMarkerSize.y, Config.ParkingMarkerSize.z, Config.ParkingMarkerColor.r, Config.ParkingMarkerColor.g, Config.ParkingMarkerColor.b, 100, false, true, 2, false, false, false, false)
+						sleep = false
 					end
 
 				end
