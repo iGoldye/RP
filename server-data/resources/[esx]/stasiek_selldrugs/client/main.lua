@@ -36,10 +36,7 @@ end)
 currentped = nil
 Citizen.CreateThread(function()
 	while true do
-		Wait(10)
-		if not IsControlJustPressed(1, 38) then
-			continue
-		end
+		Citizen.Wait(10)
 
 		local player = GetPlayerPed(-1)
 		local pid = PlayerPedId()
@@ -51,7 +48,7 @@ Citizen.CreateThread(function()
 		   	local pos = GetEntityCoords(ped)
 	 		local distance = GetDistanceBetweenCoords(pos.x, pos.y, pos.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
 			local distanceFromCity = GetDistanceBetweenCoords(Config.CityPoint.x, Config.CityPoint.y, Config.CityPoint.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
-			if distance <= 3 and ped ~= player and IsPedInAnyVehicle(player) == false then
+			if IsControlJustPressed(1, 38) and distance <= 3 and ped ~= player and IsPedInAnyVehicle(player) == false then
 				if DoesEntityExist(ped)then
 					if IsPedDeadOrDying(ped) == false then
 						if IsPedInAnyVehicle(ped) == false then
