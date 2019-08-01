@@ -47,7 +47,7 @@
 		</div>
 		
 		<audio crossorigin>
-			<source src="https://cdn.fivem.com.br/music.mp3" type="audio/mpeg">
+			<source src="nui://loadscreen/music/PicturesoftheFloatingWorld-SnowDay.mp3" type="audio/mpeg">
 			</audio>
 		</div>
 		<circle>
@@ -60,6 +60,9 @@
 		<script  src="js/music.js"></script>
 		<script type="text/javascript">
 
+			player.volume = 0.1;
+			updateVolume()
+			togglePlay();
 			var count = 0;
 			var thisCount = 0;
 

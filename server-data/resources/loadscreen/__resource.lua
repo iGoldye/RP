@@ -6,6 +6,7 @@ files {
 	'js/circle.js',
 	'js/index.js',
 	'js/music.js',
+	'music/PicturesoftheFloatingWorld-SnowDay.mp3',
 }
 
 loadscreen 'index.html'
