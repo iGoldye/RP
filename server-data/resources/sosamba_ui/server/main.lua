@@ -1,0 +1,5 @@
+TriggerEvent('es:addGroupCommand', 'toggleweb', 'admin', function(source, args, user)
+	TriggerClientEvent('sosamba_ui:toggleweb', source)
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Переключить отображение сайта поверх игрового окна"})

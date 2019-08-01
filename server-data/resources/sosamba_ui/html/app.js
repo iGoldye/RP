@@ -21,16 +21,12 @@ var app = new Vue({
 	data: {
 		"hunger": 0,
 		"thirst": 0,
-		"paused": false
+		"paused": true
 	}
 });
 
 window.onData = (data) => {
 	switch (data.action) {
-		case 'setOpacity': {
-			document.getElementById("app").style.opacity = data.opacity;
-			break;
-		}
 
 		case 'setNeeds': {
 			app.hunger = data.hunger;
@@ -40,6 +36,21 @@ window.onData = (data) => {
 
 		case 'setPause': {
 			app.paused = data.paused;
+			break;
+		}
+
+		case 'setWebsite': {
+			var container = document.getElementById("website-container");
+			var frame = document.getElementById("website-frame");
+
+			if (data.url) {
+				container.style.display = "block";
+				frame.src = data.url;
+			} else {
+				container.style.display = "none";
+				frame.src = "";
+			}
+
 			break;
 		}
 	}

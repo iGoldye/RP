@@ -1,3 +1,5 @@
+/* base blocks */
+
 html,body {
 	padding: 0;
 	margin: 0;
@@ -8,13 +10,41 @@ html,body {
 #app {
 	width: 100%;
 	height: 100%;
-	opacity: 0.6;
 }
 
 #minimap-right {
 	position: absolute;
 	bottom: 19.2%;
 	left: 16%;
+}
+
+#meters {
+	opacity: 0.6;
+}
+
+#website-container {
+	position: absolute;
+	width: 80%;
+	height: 80%;
+	margin: auto auto;
+	z-index: 2;
+}
+
+#website-frame {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background-color: white;
+}
+
+/* extras */
+
+.parent-centered {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* meters */
