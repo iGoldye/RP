@@ -60,7 +60,7 @@ Citizen.CreateThread(function()
 	end
 
 	while true do
-		local pauseMenuActive = IsPauseMenuActive() or IsRadarHidden()
+		local pauseMenuActive = IsPauseMenuActive()
 
 		if pauseMenuActive ~= paused then
 			paused = pauseMenuActive
