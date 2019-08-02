@@ -45,9 +45,10 @@ ESX.SetPlayerData = function(key, val)
 end
 
 ESX.ShowNotification = function(msg)
-	SetNotificationTextEntry('STRING')
-	AddTextComponentSubstringPlayerName(msg)
-	DrawNotification(false, true)
+--	SetNotificationTextEntry('STRING')
+--	AddTextComponentSubstringPlayerName(msg)
+--	DrawNotification(false, true)
+	TriggerEvent('sosamba_ui:showNotification', { text = msg })
 end
 
 ESX.ShowAdvancedNotification = function(title, subject, msg, icon, iconType)

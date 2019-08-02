@@ -8,6 +8,9 @@ files {
   'html/vue.js',
   'html/app.js',
   'html/app.css',
+  'html/notification-colors.css',
+  'html/fonts/opensans-regular.ttf',
+  'html/fonts/opensans-semibold.ttf',
 }
 
 server_scripts {

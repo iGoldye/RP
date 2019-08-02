@@ -1,3 +1,15 @@
+@import "notification-colors.css";
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/opensans-regular.ttf');
+}
+
+@font-face {
+	font-family: 'Open Sans Semibold';
+	src: url('fonts/opensans-semibold.ttf');
+}
+
 /* base blocks */
 
 html,body {
@@ -16,6 +28,36 @@ html,body {
 	position: absolute;
 	bottom: 19.2%;
 	left: 16%;
+}
+
+#notifications {
+    position: absolute;
+    top: 25%;
+    bottom: 19%;
+    width: 300px;
+    min-height: 300px;
+
+    font-family: 'Open Sans Semibold';
+    font-size: 15px;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+}
+
+.notification-container {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    margin-bottom: 3px;
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    word-wrap:break-word;
 }
 
 #meters {
@@ -92,3 +134,21 @@ html,body {
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+
+.notifymove-enter-active {
+  transition: all .5s;
+}
+
+.notifymove-leave-active {
+  transition: all .5s;
+}
+.notifymove-enter, .notifymove-leave-to {
+/*  opacity: 0;*/
+  transform: translateX(-400px);
+}
+
+.notifymove-move {
+  transition: transform 0.5s;
+}
+

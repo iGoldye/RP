@@ -1,3 +1,11 @@
+Vue.component('notification', {
+  props: ["notification"],
+  template: '<div class="notification-container"><slot></slot></div>',
+  mounted() {
+    setTimeout(() => this.$emit('expired', alert), 10000)
+  }
+});
+
 Vue.component('pipe-meter-vert', {
   props: ['value','hue','width','height'],
   template: `<div class="pipe-meter-container"
@@ -21,7 +29,17 @@ var app = new Vue({
 	data: {
 		"hunger": 0,
 		"thirst": 0,
-		"paused": true
+		"paused": true,
+		notificationIndex: 0,
+		notifications: []
+	},
+	methods: {
+		createNotification(text){
+			this.notifications.push({id: this.notificationIndex++, text: text})
+		},
+		removeItem(notification) {
+			this.notifications.splice(this.notifications.indexOf(notification), 1)
+		}
 	}
 });
 
@@ -36,6 +54,11 @@ window.onData = (data) => {
 
 		case 'setPause': {
 			app.paused = data.paused;
+			break;
+		}
+
+		case 'showNotification': {
+			app.createNotification(data.text);
 			break;
 		}
 
