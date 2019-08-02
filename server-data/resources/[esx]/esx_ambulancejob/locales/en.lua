@@ -36,7 +36,7 @@ Locales['en'] = {
   ['confirm_no'] = 'нет',
   ['confirm_yes'] = 'да',
   -- Action Menu
-  ['hospital'] = 'Госпиталь',
+  ['hospital'] = 'Мед.центр',
   ['revive_inprogress'] = 'Реанимация продолжается!',
   ['revive_complete'] = 'Вы реанимировали ~y~%s~s~',
   ['revive_complete_award'] = 'Вы реанимировали ~y~%s~s~ и заработали ~g~$%s~s~!',

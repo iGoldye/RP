@@ -3,7 +3,7 @@ Config = {}
 Config.Locale = 'en'
 
 Config.EnablePrice = true
-Config.Price = 500
+Config.Price = 20
 
 Config.Locations = {
 	vector3(26.5906, -1392.0261, 27.3634),

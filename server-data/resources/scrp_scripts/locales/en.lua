@@ -10,8 +10,8 @@ Locales['en'] = {
 	-- ['gpstools_tp_ground'] = 'the ground (Z axis) could not be found! You\'ve been given a ~y~parachute~s~, good luck!',
 
 	-- speed limiter
-	['speedlimiter_set'] = 'speed limiter set to ~b~%s~s~ km/h',
-	['speedlimiter_disabled'] = 'the speed limiter has been ~y~disabled~s~',
+	['speedlimiter_set'] = 'Скоростной лимит установлен на ~b~%s~s~ km/h',
+	['speedlimiter_disabled'] = 'Круиз контроль  ~y~выключен~s~',
 
 	-- commands
 	['commands_getid'] = 'your ID is',

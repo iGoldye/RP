@@ -44,6 +44,6 @@ Locales['en'] = {
   ['have_withdrawn'] = 'Вы сняли ~y~x%s~s~ ~b~%s~s~',
   ['have_deposited'] = 'Вы положили ~y~x%s~s~ ~b~%s~s~',
   ['player_cannot_hold'] = 'У вас ~r~нет~s~ ~y~свободного места~s~ в вашем инвентаре!',
-  ['blip_taxi'] = 'downtown Cab Co.',
+  ['blip_taxi'] = 'downtown Cab Co Таксопарк.',
   ['phone_taxi'] = 'downtown Cab Co.',
 }

@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
 
 	while true do
 		Citizen.Wait(10)
-		if IsControlJustPressed(1, Keys['X']) and GetLastInputMethod(2) and IsPedOnFoot(PlayerPedId()) then
+		if IsControlJustPressed(1, Keys['F2']) and GetLastInputMethod(2) and IsPedOnFoot(PlayerPedId()) then
 			if not handsup then
 				TaskPlayAnim(PlayerPedId(), dict, "handsup_enter", 8.0, 8.0, -1, 50, 0, false, false, false)
 				handsup = true
