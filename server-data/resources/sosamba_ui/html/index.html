@@ -17,6 +17,10 @@
 		</div>
                 </transition>
 
+		<transition-group name="notifymove" id="notifications" tag="div">
+			<notification v-for="(notification, index) in notifications" :key="notification.id" :notification="notification" @expired="removeItem(notification)" v-html="notification.text"></notification>
+		</transition-group>
+
 		<div class="parent-centered">
 		<div id="website-container" style="display:none">
 			<iframe id="website-frame" src=""></iframe>
