@@ -1,4 +1,4 @@
 Locales['en'] = {
-  ['activated']   = 'activated',
-  ['deactivated'] = 'deactivated',
+  ['activated']   = 'Включен',
+  ['deactivated'] = 'Выключен',
 }
