@@ -2,25 +2,38 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+function inventoryItemCount(xPlayer, items)
+
+	local qty = 0
+	for _,v in pairs(items) do
+		local item = xPlayer.getInventoryItem(v)
+		if item ~= nil then
+			qty = qty + item.count
+		end
+	end
+
+	return qty
+end
+
 RegisterServerEvent('sellDrugs')
 AddEventHandler('sellDrugs', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
-	local weedqty = xPlayer.getInventoryItem('weed_pooch').count
-	local weedqtySingle = xPlayer.getInventoryItem('weed').count
-	local methqty = xPlayer.getInventoryItem('meth_pooch').count
-	local methqtySingle = xPlayer.getInventoryItem('meth').count
-	local cokeqty = xPlayer.getInventoryItem('coke_pooch').count
-	local cokeqtySingle = xPlayer.getInventoryItem('coke').count
-	local opiuqty = xPlayer.getInventoryItem('opium_pooch').count
-	local opiuqtySingle = xPlayer.getInventoryItem('opium').count
+	local weedqty = inventoryItemCount(xPlayer, {'marijuana'})
+	local weedqtySingle = inventoryItemCount(xPlayer, {'cannabis'})
+	local methqty = inventoryItemCount(xPlayer, {'meth_pooch'})
+	local methqtySingle = inventoryItemCount(xPlayer, {'meth'})
+	local cokeqty = inventoryItemCount(xPlayer, {'coke_pooch'})
+	local cokeqtySingle = inventoryItemCount(xPlayer, {'coke'})
+	local opiuqty = inventoryItemCount(xPlayer, {'opium_pooch'})
+	local opiuqtySingle = inventoryItemCount(xPlayer, {'opium'})
 	local x = 0
 	local blackMoney = 0
 	local drugType = nil
 	
 	if Config.SellWeed and weedqty > 0 or Config.SellWeed and weedqtySingle > 0 then
 		if weedqty > 0 and Config.SellPooch then
-			drugType = 'weed_pooch'
+			drugType = 'marijuana'
 			if weedqty == 1 then
 				x = 1
 			elseif weedqty == 2 then
@@ -33,7 +46,7 @@ AddEventHandler('sellDrugs', function()
 				x = math.random(1,5)
 			end
 		elseif weedqtySingle > 0 and Config.SellSingle then
-			drugType = 'weed'
+			drugType = 'cannabis'
 			if weedqtySingle == 1 then
 				x = 1
 			elseif weedqtySingle == 2 then
@@ -135,7 +148,7 @@ AddEventHandler('sellDrugs', function()
 		return
 	end
 	
-	if drugType=='weed_pooch' then	--pooch
+	if drugType=='marijuana' then	--pooch
 		blackMoney = Config.WeedPrice * 5 * x
 	elseif drugType=='meth_pooch' then
 		blackMoney = Config.MethPrice * 5 * x
@@ -143,7 +156,7 @@ AddEventHandler('sellDrugs', function()
 		blackMoney = Config.CokePrice * 5 * x
 	elseif drugType=='opium_pooch' then
 		blackMoney = Config.OpiuPrice * 5 * x
-	elseif drugType=='weed' then	--single
+	elseif drugType=='cannabis' then	--single
 		blackMoney = Config.WeedPrice * x
 	elseif drugType=='meth' then
 		blackMoney = Config.MethPrice * x
@@ -159,7 +172,7 @@ AddEventHandler('sellDrugs', function()
 	
 	xPlayer.addAccountMoney('black_money', blackMoney)
 	TriggerClientEvent('sold', _source)
-	TriggerClientEvent('esx:showNotification', _source, _U('you_have_sold') .. '~b~'..x..'~w~' .. _U(drugtype) .. blackMoney .. '$')
+	TriggerClientEvent('esx:showNotification', _source, _U('you_have_sold') .. '~b~'..x..'~w~' .. _U(drugType) .. blackMoney .. '$')
 end)
 
 
@@ -168,14 +181,16 @@ AddEventHandler('check', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local xPlayers = ESX.GetPlayers()
-	local weedqty = xPlayer.getInventoryItem('weed_pooch').count
-	local weedqtySingle = xPlayer.getInventoryItem('weed').count
-	local methqty = xPlayer.getInventoryItem('meth_pooch').count
-	local methqtySingle = xPlayer.getInventoryItem('meth').count
-	local cokeqty = xPlayer.getInventoryItem('coke_pooch').count
-	local cokeqtySingle = xPlayer.getInventoryItem('coke').count
-	local opiuqty = xPlayer.getInventoryItem('opium_pooch').count
-	local opiuqtySingle = xPlayer.getInventoryItem('opium').count
+
+	local weedqty = inventoryItemCount(xPlayer, {'marijuana'})
+	local weedqtySingle = inventoryItemCount(xPlayer, {'cannabis'})
+	local methqty = inventoryItemCount(xPlayer, {'meth_pooch'})
+	local methqtySingle = inventoryItemCount(xPlayer, {'meth'})
+	local cokeqty = inventoryItemCount(xPlayer, {'coke_pooch'})
+	local cokeqtySingle = inventoryItemCount(xPlayer, {'coke'})
+	local opiuqty = inventoryItemCount(xPlayer, {'opium_pooch'})
+	local opiuqtySingle = inventoryItemCount(xPlayer, {'opium'})
+
 	--check cops count on server
 	local cops = 0
 	for i=1, #xPlayers, 1 do

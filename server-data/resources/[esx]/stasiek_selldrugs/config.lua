@@ -7,7 +7,7 @@ Config.CallCopsPercent = 1 -- (min1) if 1 cops will be called every time=100%, 2
 Config.PedRejectPercent = 3 -- (min1) if 1 ped reject offer=100%, 2=50%, 3=33%, 4=25%, 5=20%
 Config.PlayAnimation = true -- just play animation when sold
 Config.SellPooch = true -- if true, players can sell pooch like weed_pooch, meth_pooch
-Config.SellSingle = false -- if true, players can sell single item like weed, meth
+Config.SellSingle = true -- if true, players can sell single item like weed, meth
 Config.SellWeed = true	-- if true, players can sell weed
 Config.SellMeth = true	-- if true, players can sell meth
 Config.SellCoke = true	-- if true, players can sell coke

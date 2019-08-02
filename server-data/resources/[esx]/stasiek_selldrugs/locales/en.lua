@@ -16,4 +16,6 @@ Locales ['en'] = {
 	['meth'] = ' ~g~meth~s~ for~r~ ',
 	['coke'] = ' ~g~coke~s~ for~r~ ',
 	['opium'] = ' ~g~opium~s~ for~r~ ',
+	['marijuana'] = ' ~g~marijuana~s~ for~r~ ',
+	['cannabis'] = ' ~g~cannabis~s~ for~r~ ',
 }
