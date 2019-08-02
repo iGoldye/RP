@@ -254,10 +254,10 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 
 			if DoesEntityExist(vehicle) then
 				local vehicleProps  = ESX.Game.GetVehicleProperties(vehicle)
-				TriggerServerEvent('esx_garage:setParking', name, i, vehicleProps)
+				TriggerServerEvent('esx_garage:setParking', name, i, vehicleProps, true)
 				ESX.Game.DeleteVehicle(vehicle)
 			else
-				TriggerServerEvent('esx_garage:setParking', name, i, false)
+				TriggerServerEvent('esx_garage:setParking', name, i, false, true)
 			end
 
 		end
@@ -283,7 +283,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 			local vehicle       = GetVehiclePedIsIn(playerPed, false)
 			local vehicleProps  = ESX.Game.GetVehicleProperties(vehicle)
 
-			TriggerServerEvent('esx_garage:setParking', name, parking, vehicleProps)
+			TriggerServerEvent('esx_garage:setParking', name, parking, vehicleProps, false)
 
 			if Config.EnableOwnedVehicles then
 				TriggerServerEvent('esx_garage:updateOwnedVehicle', vehicleProps)
@@ -304,7 +304,7 @@ AddEventHandler('esx_property:hasExitedMarker', function(name, part, parking)
 		local parkingPos = garage.Parkings[parking].Pos
 
 		if IsPedInAnyVehicle(playerPed, false) and not IsAnyVehicleNearPoint(parkingPos.x, parkingPos.y, parkingPos.z, 1.0) then
-			TriggerServerEvent('esx_garage:setParking', name, parking, false)
+			TriggerServerEvent('esx_garage:setParking', name, parking, false, false)
 		end
 	
 	end
