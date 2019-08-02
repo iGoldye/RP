@@ -38,7 +38,7 @@ Citizen.CreateThread(function()
 		Citizen.Wait(5000)
 
 		for _, group in ipairs(relationshipTypes) do
-			SetRelationshipBetweenGroups(1, GetHashKey('PLAYER'), GetHashKey(group)) -- could be removed
+--			SetRelationshipBetweenGroups(1, GetHashKey('PLAYER'), GetHashKey(group)) -- could be removed
 			SetRelationshipBetweenGroups(1, GetHashKey(group), GetHashKey('PLAYER'))
 		end
 	end
