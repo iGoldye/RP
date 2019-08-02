@@ -18,7 +18,7 @@ AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps)
 			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_released'))
 		end)
 	else
-		MySQL.Async.execute('INSERT INTO `user_parkings` (`identifier`, `garage`, `zone`, `vehicle`) VALUES (@identifier, @garage, @zone, @vehicle)',
+		MySQL.Async.execute('REPLACE INTO `user_parkings` (`identifier`, `garage`, `zone`, `vehicle`) VALUES (@identifier, @garage, @zone, @vehicle)',
 		{
 			['@identifier'] = xPlayer.identifier,
 			['@garage']     = garage;

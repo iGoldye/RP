@@ -229,13 +229,14 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 				ESX.Game.SpawnVehicle(vehicleProps.model, spawnCoords, garage.ExteriorSpawnPoint.Heading, function(vehicle)
 					TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 					ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
-					ESX.Game.SetVehicleEngineOn(vehicle, (not GetIsVehicleEngineRunning(vehicle)), false, true)
+					SetVehicleEngineOn(vehicle, (not GetIsVehicleEngineRunning(vehicle)), false, true)
 				end)
 
 			end)
 
 
 		else
+
 
 			ESX.Game.Teleport(playerPed,{
 						x = garage.ExteriorSpawnPoint.Pos.x,
@@ -252,7 +253,11 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 			local vehicle = GetClosestVehicle(garage.Parkings[i].Pos.x,  garage.Parkings[i].Pos.y,  garage.Parkings[i].Pos.z,  2.0,  0,  71)
 
 			if DoesEntityExist(vehicle) then
+				local vehicleProps  = ESX.Game.GetVehicleProperties(vehicle)
+				TriggerServerEvent('esx_garage:setParking', name, i, vehicleProps)
 				ESX.Game.DeleteVehicle(vehicle)
+			else
+				TriggerServerEvent('esx_garage:setParking', name, i, false)
 			end
 
 		end
@@ -398,7 +403,7 @@ Citizen.CreateThread(function()
 		local currentParking = nil
 		
 		for k,v in pairs(Config.Garages) do
-							if v.IsClosed then
+			if v.IsClosed then
 
 								if (not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.MarkerSize.x) then
 									isInMarker    = true
@@ -406,6 +411,7 @@ Citizen.CreateThread(function()
 									currentPart   = 'ExteriorEntryPoint'
 								end
 
+				if thisGarage == v then
 								if (not v.disabled and GetDistanceBetweenCoords(coords, v.InteriorExitPoint.Pos.x, v.InteriorExitPoint.Pos.y, v.InteriorExitPoint.Pos.z, true) < Config.MarkerSize.x) then
 									isInMarker    = true
 									currentGarage = k
@@ -424,7 +430,8 @@ Citizen.CreateThread(function()
 									end
 
 								end
-							end
+				end
+			end
 
 		end
 

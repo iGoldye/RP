@@ -10,3 +10,5 @@ CREATE TABLE `user_parkings` (
 
   PRIMARY KEY (`id`)
 );
+
+ALTER TABLE `user_parkings` ADD UNIQUE( `identifier`, `garage`, `zone`);
