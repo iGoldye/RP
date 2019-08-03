@@ -1,7 +1,7 @@
-TrafficAmount = 100 
+TrafficAmount = 100
 PedestrianAmount = 100
 ParkedAmount = 100
-EnableDispatch = true
+EnableDispatch = false
 
 
 --[[
@@ -15,7 +15,7 @@ EnableDispatch = true
 		- Ambulance Responses
 		- Roadblocks
 		- Gangs
-		
+
 
 
 ]]
