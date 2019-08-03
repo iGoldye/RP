@@ -28,6 +28,7 @@ local PhoneInCall = {}
 local currentPlaySound = false
 local soundDistanceMax = 8.0
 
+local TokoVoipID = nil
 
 --====================================================================================
 --  Check si le joueurs poséde un téléphone
@@ -380,8 +381,10 @@ RegisterNetEvent("gcPhone:acceptCall")
 AddEventHandler("gcPhone:acceptCall", function(infoCall, initiator)
   if inCall == false and USE_RTC == false then
     inCall = true
-    NetworkSetVoiceChannel(infoCall.id + 1)
-    NetworkSetTalkerProximity(0.0)
+    -- NetworkSetVoiceChannel(infoCall.id + 1)
+    -- NetworkSetTalkerProximity(0.0)
+    exports.tokovoip_script:addPlayerToRadio(infoCall.id + 120)
+    TokoVoipID = infoCall.id + 120
   end
   if menuIsOpen == false then
     TooglePhone()
@@ -395,7 +398,9 @@ AddEventHandler("gcPhone:rejectCall", function(infoCall)
   if inCall == true then
     inCall = false
     Citizen.InvokeNative(0xE036A705F989E049)
-    NetworkSetTalkerProximity(2.5)
+    -- NetworkSetTalkerProximity(2.5)
+    exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
+    TokoVoipID = nil
   end
   PhonePlayText()
   SendNUIMessage({event = 'rejectCall', infoCall = infoCall})
@@ -465,7 +470,9 @@ RegisterNUICallback('notififyUseRTC', function (use, cb)
   if USE_RTC == true and inCall == true then
     inCall = false
     Citizen.InvokeNative(0xE036A705F989E049)
-    NetworkSetTalkerProximity(2.5)
+    -- NetworkSetTalkerProximity(2.5)
+    exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
+    TokoVoipID = nil
   end
   cb()
 end)

@@ -42,7 +42,7 @@ Citizen.CreateThread(function()
 
 	PlayerData = ESX.GetPlayerData()
 end)
- 
+
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	PlayerData = xPlayer
@@ -212,7 +212,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-			
+
 		if (isInMarker and not HasAlreadyEnteredMarker) or (isInMarker and LastZone ~= currentZone) then
 			HasAlreadyEnteredMarker = true
 			LastZone = currentZone
@@ -239,7 +239,7 @@ Citizen.CreateThread(function()
 
 				local elements = {
 					{label = _U('bank_menu_selection'),   value = 'bankmenu'},
-					{label = _U('police_menu_selection'), value = 'policemenu'}
+					{label = _U('police_menu_selection'), value = 'policemenu'},
 				}
 
 				ESX.UI.Menu.CloseAll()
@@ -820,7 +820,7 @@ AddEventHandler('esx_securitycam:setCameraBrokenTimer', function(location, cam_i
 --	camera_signal_lost
 	local old_timer = Config.Locations[location].Cameras[cam_index].broken_timer
 
-	if old_timer == nil or (old_timer == 0 and timer > 0) then		
+	if old_timer == nil or (old_timer == 0 and timer > 0) then
 		if PlayerData.job ~= nil and PlayerData.job.name == "police" then
 			ESX.ShowNotification(_U('camera_signal_lost')..Config.Locations[location].label.." : "..Config.Locations[location].Cameras[cam_index].label)
 		end

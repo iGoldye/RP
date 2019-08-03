@@ -1,0 +1,73 @@
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>FiveM | ChillGaming</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="keks.css">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+		<div class="mare">Chill Gaming Romania</div>
+	    <div class="mic">Bine ai venit</div>
+		<div class="enable_music">Apasa pe space pentru a opri muzica</div>
+		<div class="boxulini info">
+			<div class="textmare2">Info</div>
+			<div class="textmicchild2">Server deschis pe : 23.04.2019</div>
+			<div class="textmicchild2">Discord : https://discord.gg/TAXQ9GF</div>
+			<div class="textmicchild2">Scripter : AlexMihai04</div>
+			<div class="textmicchild2">Fondatori : N3M3S1S, Mihai</div>
+			<div class="textmicchild2"></div>
+		</div>
+		<div class="loading">
+			<div class="obj"></div>
+			<div class="obj"></div>
+			<div class="obj"></div>
+			<div class="obj"></div>
+			<div class="obj"></div>
+			<div class="obj"></div>
+			<div class="obj"></div>
+			<div class="obj"></div>
+		</div>
+		<div class="loading2">
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+			<div class="obj2"></div>
+		</div>
+		<div class="textcopy">Copyright &copy; 2019 AlexMihai04 All Rights</div>
+		<audio id="leson" src="music/music.ogg" autoplay="true" hidden="true" loop="true"/>
+		<script>
+	
+
+    var play = true;
+    var myAudio = document.getElementById("leson");
+    
+    myAudio.volume = 0.1;
+	
+	
+    function onKeyDown(event) {
+            switch (event.keyCode) {
+                case 32: //SpaceBar                    
+                    if (play) {
+                        myAudio.pause();
+                        play = false;
+                    } else {
+                        myAudio.play();
+                        play = true;
+                    }
+                    break;
+            }
+      return false;
+    }
+    window.addEventListener("keydown", onKeyDown, false);
+    </script>
+</body>
+</html>

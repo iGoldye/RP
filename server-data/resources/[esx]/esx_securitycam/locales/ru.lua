@@ -6,6 +6,7 @@ Locales['ru'] = {
   ['securitycams_menu'] = 'Камеры наблюдения',
   ['bank_menu_selection'] = 'Банк Pacific Standard',
   ['police_menu_selection'] = 'Полицейский участок',
+  ['ambulance_menu_selection'] = 'Медицинский центр',
 
   -- In Cameras
   ['pacific_standard_bank'] = 'Банк Pacific Standard',
@@ -32,6 +33,19 @@ Locales['ru'] = {
   ['pcam5'] = 'Полицейская парковка и гараж',
   ['pcam6'] = 'Вход снаружи',
   ['pcam7'] = 'Вестибюль',
+  ['pcam8'] = 'Коридор пред допросной',
+  ['pcam9'] = 'Допросная',
+
+  -- Pillbox hill Ambulance Cameras
+  ['acam'] = 'Парковка',
+  ['acam2'] = 'Нижний вход',
+  ['acam3'] = 'Верхний вход',
+  ['acam4'] = 'Камера #3',
+  ['acam5'] = 'Полицейская парковка и гараж',
+  ['acam6'] = 'Вход снаружи',
+  ['acam7'] = 'Вестибюль',
+  ['acam8'] = 'Коридор пред допросной',
+  ['acam9'] = 'Допросная',
 
   -- Settings
   ['next'] = 'СЛЕДУЮЩАЯ КАМЕРА',
