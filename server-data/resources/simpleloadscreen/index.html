@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>FiveM | VNATURERP</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="keks.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="mare">Project Sosamba presents:</div>
+    <div class="mic">VNATURERP</div>
+    <div class="enable_music">ETO NEVEROYATNO!</div>
+    <div class="boxulini info">
+      <div class="textmare2">Info</div>
+      <div class="textmicchild2">ESTABLISHED at: --.07.2019</div>
+      <div class="textmicchild2">Discord: https://discord.gg/TAXQ9GF</div>
+      <div class="textmicchild2">Code: skeev_, Klarus, Sadler, awbait</div>
+      <div class="textmicchild2">Fondatori: skeev_, Klarus</div>
+      <div class="textmicchild2"></div>
+    </div>
+    <div class="loading">
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+    </div>
+    <div class="loading2">
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+      <div class="obj2"></div>
+    </div>
+    <div class="textcopy">Copyright &copy; 2019 skeev_, Klarus все стырил</div>
+    <audio autoplay="true" hidden="true" id="leson" loop="true" src="music/music.ogg" volume="80%"/>
+    <script>
+
+
+      var play = true;
+      var myAudio = document.getElementById("leson");
+
+      myAudio.volume = 0.1;
+
+
+      function onKeyDown(event) {
+        switch (event.keyCode) {
+        case 32: // SpaceBar
+          if (play) {
+            myAudio.pause();
+            play = false;
+          } else {
+            myAudio.play();
+            play = true;
+          }
+          break;
+        }
+        return false;
+      }
+      window.addEventListener("keydown", onKeyDown, false);
+    </script>
+  </body>
+</html>

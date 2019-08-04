@@ -4,10 +4,10 @@
   <residentAnims />
   <InitDatas>
 <Item>
-      <modelName>police5</modelName>
-      <txdName>police5</txdName>
+      <modelName>aventador</modelName>
+      <txdName>aventador</txdName>
       <handlingId>lamba</handlingId>
-      <gameName>POLICE2</gameName>
+      <gameName>AVENTADOR</gameName>
       <vehicleMakeName />
        <expressionDictName>null</expressionDictName>
       <expressionName>null</expressionName>
@@ -65,9 +65,9 @@
       <lodDistances content="float_array">
         15.000000
         30.000000
-        60.000000	
-        120.000000	
-        500.000000	
+        60.000000
+        120.000000
+        500.000000
         500.000000
       </lodDistances>
       <minSeatHeight value="0.797" />
@@ -111,7 +111,7 @@
         <Item>LOW_HOTKNIFE_FRONT_LEFT</Item>
         <Item>LOW_HOTKNIFE_FRONT_RIGHT</Item>
       </firstPersonDrivebyData>
-    </Item> 
+    </Item>
     <Item>
       <modelName>jester2</modelName>
       <txdName>jester2</txdName>
@@ -172,11 +172,11 @@
       <steerWheelMult value="1.000000" />
       <HDTextureDist value="5.000000" />
       <lodDistances content="float_array">
-        10.000000	
-        25.000000	
-        60.000000	
-        120.000000	
-        500.000000	
+        10.000000
+        25.000000
+        60.000000
+        120.000000
+        500.000000
         500.000000
       </lodDistances>
       <minSeatHeight value="0.771" />
@@ -281,11 +281,11 @@
       <steerWheelMult value="1.000000" />
       <HDTextureDist value="5.000000" />
       <lodDistances content="float_array">
-        10.000000	
-        25.000000	
-        60.000000	
-        120.000000	
-        500.000000	
+        10.000000
+        25.000000
+        60.000000
+        120.000000
+        500.000000
         500.000000
       </lodDistances>
       <minSeatHeight value="0.79" />
