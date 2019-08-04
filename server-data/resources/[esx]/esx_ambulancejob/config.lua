@@ -55,50 +55,90 @@ Config.Hospitals = {
 				InsideShop = vector3(327.16, -548.1, 28.74),
 				Marker = { type = 36, x = 1.0, y = 1.0, z = 1.0, r = 255, g = 0, b = 0, a = 100, rotate = true },
 				SpawnPoints = {
-					{ coords = vector3(395.2, -1438.5, 29.8), heading = 306.6, radius = 4.0 },
-					{ coords = vector3(294.0, -1433.1, 29.8), heading = 227.6, radius = 4.0 },
-					{ coords = vector3(309.4, -1442.5, 29.8), heading = 227.6, radius = 6.0 }
+					{ coords = vector3(323.68, -547.94, 28.74), heading = 265.64, radius = 4.0 },
+					{ coords = vector3(323.68, -547.94, 28.74), heading = 265.6, radius = 4.0 },
+					{ coords = vector3(323.68, -547.94, 28.74), heading = 265.6, radius = 6.0 }
 				}
 			}
 		},
 
 		Helicopters = {
 			{
-				Spawner = vector3(316.5, -1454.5, 46.5),
-				InsideShop = vector3(305.6, -1419.7, 41.5),
+				Spawner = vector3(345.0, -579.38, 74.0),
+				InsideShop = vector3(351.99, -587.37, 74.0),
 				Marker = { type = 34, x = 1.5, y = 1.5, z = 1.5, r = 255, g = 0, b = 0, a = 100, rotate = true },
 				SpawnPoints = {
-					{ coords = vector3(313.5, -1465.1, 46.5), heading = 142.7, radius = 10.0 },
-					{ coords = vector3(299.5, -1453.2, 46.5), heading = 142.7, radius = 10.0 }
+					{ coords = vector3(351.85, -588.01, 74.0), heading = 142.7, radius = 10.0 },
+					{ coords = vector3(351.85, -588.02, 74.0), heading = 142.7, radius = 10.0 }
 				}
 			}
 		},
-
+ ---------------------------------------------Костыль телепорты-----------------------------------
 		FastTravels = {
+			-- ТЕЛЕПОРТЫ PILLBOX HILL
+			-- тп на верхний этаж
 			{
-				From = vector3(342.2, -1397.1, 31.5),
-				To = { coords = vector3(272.8, -1358.8, 23.5), heading = 0.0 },
+				From = vector3(340.46, -595.33, 27.59),
+				To = { coords = vector3(323.2, -598.26, 43.29), heading = 70.0 },
 				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
-
+-- тп на нижний этаж
 			{
-				From = vector3(275.3, -1361, 23.5),
-				To = { coords = vector3(340.4, -1395.8, 32.0), heading = 0.0 },
+				From = vector3(324.99, -598.66, 42.25),
+				To = { coords = vector3(337.16, -594.03, 28.79), heading = 352.0 },
 				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
-
+-- тп на крышу
 			{
-				From = vector3(247.3, -1371.5, 23.5),
-				To = { coords = vector3(333.1, -1434.9, 45.5), heading = 138.6 },
+				From = vector3(340.05, -592.75, 42.25),
+				To = { coords = vector3(341.73, -585.18, 74.17), heading = 250.0 },
 				Marker = { type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
-
+-- тп с крыши вниз
 			{
-				From = vector3(335.5, -1432.0, 45.50),
-				To = { coords = vector3(249.1, -1369.6, 23.5), heading = 0.0 },
+				From = vector3(339.33, -584.08, 73.20),   
+				To = { coords = vector3(337.94, -591.92, 43.28), heading = 62.0 },
 				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
-
+-- ===========================================================================================================
+-- Телепорты в Федеральной тюрьме
+-- Вход внутрь
+			{
+				From = vector3(1690.84, 2591.98, 44.50),
+				To = { coords = vector3(1722.48, 2493.45, -78.02), heading = 359.0 },
+				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
+			},
+-- Выход из тюрьмы
+			{
+				From = vector3(1722.48, 2491.86, -79.5),
+				To = { coords = vector3(1690.82, 2594.72, 45.5), heading = 356.0 },
+				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
+			},
+-- Выход во двор из камер
+			{
+				From = vector3(1692.71, 2496.71, -79.5),
+				To = { coords = vector3(1625.06, 2502.97, 45.52), heading = 302.0 },
+				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
+			},
+-- Вход в камеры из двора
+			{
+				From = vector3(1622.59, 2502.83, 44.50),
+				To = { coords = vector3(1692.55, 2500.16, -79.5), heading = 270.0 },
+				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
+			},
+-- Выход на крышу (охранники)
+			{
+-- 				From = vector3(1727.66, 2491.71, -79.5),
+-- 				To = { coords = vector3(1625.06, 2502.97, 45.52), heading = 302.0 },
+-- 				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
+-- 			},
+-- Спуск с крыши (охранники)
+-- 			{
+-- 				From = vector3(1622.59, 2502.83, 44.50),
+-- 				To = { coords = vector3(1692.55, 2500.16, -79.5), heading = 270.0 },
+-- 				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
+-- 			},
+-- Разное
 			{
 				From = vector3(254.2, -1372.4, 23.5),
 				To = { coords = vector3(393.2, -1434.6, 28.8), heading = 0.0 },

@@ -164,7 +164,7 @@ Config.TeleportZones = {
     Color     = { r = 128, g = 128, b = 128 },
     Marker    = 1,
     Hint      = _U('e_to_enter_1'),
-    Teleport  = { x = 126.742, y = -1278.386, z = 28.569 }
+    Teleport  = { x = 132.41, y = -1287.64, z = 28.569 }
   },
 
   ExitBuilding = {
