@@ -1,3 +1,3 @@
 Citizen.CreateThread(function()
-	AddTextEntry('0xC2FDC61C', 'Aventador')
+	AddTextEntry('0xEAE88421', 'Police Lamborghini Aventador')
 end)
