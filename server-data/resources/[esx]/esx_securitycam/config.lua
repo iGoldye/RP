@@ -14,7 +14,7 @@ Config.CameraBreakTimer = 600 -- seconds to autofix camera
 -- Place: In the polices armory room
 Config.Zones = {
 	Cameras = {
-		Pos   = {x = 454.38, y = -979.35, z = 29.69},
+		Pos   = {x = 440.38, y = -975.35, z = 29.69},
 		Size  = {x = 1.7, y = 1.7, z = 0.5},
 		Color = {r = 26, g = 55, b = 186},
 		Type = 27,
@@ -24,9 +24,10 @@ Config.Zones = {
 -- Keep these the same
 -- Place: Behind the polices desk in the policestation
 -- Screenshot: https://i.imgur.com/f5WNrRj.jpg
+
 Config.HackingPolice = {
 	HackingPolice = {
-		Pos   = {x = 440.17, y = -975.74, z = 29.69},
+		Pos   = {x = 454.77, y = -979.484, z = 29.69},
 		Size  = {x = 1.7, y = 1.7, z = 0.5},
 		Color = {r = 26, g = 55, b = 186},
 		Type = 27,
@@ -35,7 +36,7 @@ Config.HackingPolice = {
 
 Config.UnHackPolice = {
 	UnHackPolice = {
-		Pos   = {x = 440.17, y = -975.74, z = 29.69},
+		Pos   = {x = 454.77, y = -979.484, z = 29.69},
 		Size  = {x = 1.7, y = 1.7, z = 0.5},
 		Color = {r = 26, g = 55, b = 186},
 		Type = 27,
