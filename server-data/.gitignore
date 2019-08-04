@@ -1,7 +1,0 @@
-CitizenMP.Server.exe
-CitizenMP.Server.exe.config
-NLog.config
-/cache/
-/resources/\[local\]/
-server.cfg
-/resources/3dme/log.txt
