@@ -162,11 +162,11 @@ function receivedClientCall(event) {
 	if (voipStatus != OK) {
 		// If no Ok status for more than 5 seconds, display screen
 		if (getTickCount() - lastOk > 5000) {
-			displayPluginScreen(true);
+			// displayPluginScreen(true);
 		}
 	} else {
 		lastOk = getTickCount();
-		displayPluginScreen(false);
+		// displayPluginScreen(false);
 	}
 
 	updateTokovoipInfo();
