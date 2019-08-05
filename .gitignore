@@ -1,8 +1,4 @@
 .vscode/*
 111/*
-server-data/server.cfg
-server/citizen/system_resources/
 Run.bat
-server/server-tls.crt
-server/server-tls.key
 server-data/cache/*
