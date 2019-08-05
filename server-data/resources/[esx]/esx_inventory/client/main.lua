@@ -187,7 +187,6 @@ AddEventHandler('esx_inventory:createPickup', function(id, pickup)
 
 	local propName = 'prop_money_bag_01'
 
-
 	if pickup.item.name == "weapon" then
 		local weaponConfig = GetWeaponConfig(pickup.item.extra.weapon_name)
 		if weaponConfig ~= nil and weaponConfig.prop ~= nil then
