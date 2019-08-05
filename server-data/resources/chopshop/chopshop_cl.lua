@@ -37,7 +37,7 @@ Citizen.CreateThread(function()
                     DrawMarker(1, chopShopLocations[a].x, chopShopLocations[a].y, chopShopLocations[a].z - 1, 0, 0, 0, 0, 0, 0, 3.0001, 3.0001, 0.5001, 1555, 0, 0,165, 0, 0, 0,0)
                 if distance <= 2.0 then
                     if not timer then
-                        drawText('Нажмите ~r~E~s~ что бы взять задание ',0,1,0.5,0.8,0.6,255,255,255,255)
+                        drawText('Нажмите ~r~E~s~ чтобы взять задание ',0,1,0.5,0.8,0.6,255,255,255,255)
                         if IsControlJustPressed(1, 86) then
                             selectRandomVehicle = randomVehicles[math.random(1, #randomVehicles)]
                             Countdown = GetGameTimer() + 600 * 1000
@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
                             TriggerEvent('chatMessage', 'Chop Shop', {255, 123, 0}, "^4Find the Chop Shop a "..selectRandomVehicle.label.."")
                         end
                     elseif timer and vehicle ~= false then
-                        drawText('Нажмите ~r~E~s~ что бы сдать автомобиль',0,1,0.5,0.8,0.6,255,255,255,255)
+                        drawText('Нажмите ~r~E~s~ чтобы сдать автомобиль',0,1,0.5,0.8,0.6,255,255,255,255)
                         local currentVeh = GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(GetPlayerPed(PlayerId()))))
                         if IsControlJustPressed(1, 86) then
                             if currentVeh == selectRandomVehicle.model then

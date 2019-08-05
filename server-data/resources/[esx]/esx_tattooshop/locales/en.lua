@@ -1,5 +1,5 @@
 Locales['en'] = {
-  ['tattoo_shop_prompt'] = 'Нажмите ~INPUT_PICKUP~ что бы набить ~y~Тату~s~.',
+  ['tattoo_shop_prompt'] = 'Нажмите ~INPUT_PICKUP~ чтобы набить ~y~Тату~s~.',
   ['money_amount']       = '<span style="color:green;">$%s</span>',
   ['part']               = 'part %s',
   ['go_back_to_menu']    = '< Go back',

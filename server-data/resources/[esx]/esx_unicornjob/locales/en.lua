@@ -11,7 +11,7 @@ Locales['en'] = {
     ['dancer_outfit_6']          = 'Одежда танцора 6',
     ['dancer_outfit_7']          = 'Одежда танцора 7',
     ['no_outfit']                = 'Нет одежды для вас',
-    ['open_cloackroom']          = 'Нажмите ~INPUT_CONTEXT~ что бы переодется',
+    ['open_cloackroom']          = 'Нажмите ~INPUT_CONTEXT~ чтобы переодется',
 
     -- Vault
     ['get_weapon']               = 'Взять оружие',
@@ -21,19 +21,19 @@ Locales['en'] = {
     ['get_object']               = 'Взять предмет',
     ['put_object']               = 'Положить предмет',
     ['vault']                    = 'Сейф',
-    ['open_vault']               = 'Нажмите ~INPUT_CONTEXT~ что бы открыть сейф',
+    ['open_vault']               = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть сейф',
 
     -- Fridge
     ['get_object']               = 'Взять',
     ['put_object']               = 'Положить',
     ['fridge']                   = 'Холодильнк',
-    ['open_fridge']              = 'Нажмите ~INPUT_CONTEXT~ что бы открыть холодильник',
+    ['open_fridge']              = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть холодильник',
     ['unicorn_fridge_stock']     = 'Холодильник',
     ['fridge_inventory']         = 'Содержимое холодильника',
 
     -- Shops
     ['shop']                     = 'Ассортимент',
-    ['shop_menu']                = 'Нажмите ~INPUT_CONTEXT~ что бы посмотреть ассортимент',
+    ['shop_menu']                = 'Нажмите ~INPUT_CONTEXT~ чтобы посмотреть ассортимент',
     ['bought']                   = 'купить ~b~ 1x',
     ['not_enough_money']         = 'У вас недостаточно денег',
     ['max_item']                 = 'Вам уже достаточно',
@@ -42,7 +42,7 @@ Locales['en'] = {
     ['vehicle_menu']             = 'Транспорт',
     ['vehicle_out']              = 'Транспорт уже снаружи',
     ['vehicle_spawner']          = 'Нажмите ~INPUT_CONTEXT~ to exit a vehicle',
-    ['store_vehicle']            = 'Нажмите ~INPUT_CONTEXT~ что бы загнать авто в гараж',
+    ['store_vehicle']            = 'Нажмите ~INPUT_CONTEXT~ чтобы загнать авто в гараж',
     ['service_max']              = 'Full service: ',
     ['spawn_point_busy']         = 'A vehicle is near the exit point',
 
@@ -115,8 +115,8 @@ Locales['en'] = {
     ['unicorn_customer']         = 'Посетитель',
 
     -- Teleporters
-    ['e_to_enter_1']             = 'Нажмите ~INPUT_PICKUP~ что бы войти за барную стойку',
-    ['e_to_exit_1']              = 'Нажмите ~INPUT_PICKUP~ что бы выйти в зал',
+    ['e_to_enter_1']             = 'Нажмите ~INPUT_PICKUP~ чтобы войти за барную стойку',
+    ['e_to_exit_1']              = 'Нажмите ~INPUT_PICKUP~ чтобы выйти в зал',
     ['e_to_enter_2']             = 'Press ~INPUT_PICKUP~ to go up to the roof.',
     ['e_to_exit_2']              = 'Press ~INPUT_PICKUP~ to go down to the offices.',
 

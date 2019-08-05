@@ -30,7 +30,7 @@ Citizen.CreateThread(function()
 			if not OnBed then
 				local BedCoords = GetEntityCoords(CurrentBed)
 
-				Draw3DText({x = BedCoords.x, y = BedCoords.y, z = (BedCoords.z+1)}, 'Нажмите ~g~[E]~w~ что бы лечь', 0.35)
+				Draw3DText({x = BedCoords.x, y = BedCoords.y, z = (BedCoords.z+1)}, 'Нажмите ~g~[E]~w~ чтобы лечь', 0.35)
 			end
 		end
 	end
@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
 			if OnBed then
 				local BedCoords = GetEntityCoords(CurrentBed)
 
-				Draw3DText({x = BedCoords.x, y = BedCoords.y, z = (BedCoords.z+1)}, 'Нажмите ~g~[Q]~w~ что бы встать', 0.35)
+				Draw3DText({x = BedCoords.x, y = BedCoords.y, z = (BedCoords.z+1)}, 'Нажмите ~g~[Q]~w~ чтобы встать', 0.35)
 			end
 		end
 	end
