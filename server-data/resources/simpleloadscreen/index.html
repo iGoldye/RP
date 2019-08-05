@@ -7,67 +7,114 @@
     <link href="keks.css" media="screen" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
+    <img alt="" class="cursor" src="cursor.png">
+    <div class="audio green-audio-player">
+      <div class="loading">
+        <div class="spinner"></div>
+      </div>
+      <div class="play-pause-btn">
+        <svg height="24" viewbox="0 0 18 24" width="18" xmlns="http://www.w3.org/2000/svg">
+          <path class="play-pause-icon" d="M18 12L0 24V0" fill-rule="evenodd" fill="#9d8fba" id="playPause"/>
+        </svg>
+      </div>
+
+      <div class="controls">
+        <span class="current-time">0:00</span>
+        <div class="slider" data-direction="horizontal">
+          <div class="progress">
+            <div class="pin" data-method="rewind" id="progress-pin"></div>
+          </div>
+        </div>
+        <span class="total-time">0:00</span>
+      </div>
+
+      <div class="volume">
+        <div class="volume-btn">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" fill-rule="evenodd" fill="#9d8fba" id="speaker"/>
+          </svg>
+        </div>
+        <div class="volume-controls hidden">
+          <div class="slider" data-direction="vertical">
+            <div class="progress">
+              <div class="pin" data-method="changeVolume" id="volume-pin"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <audio crossorigin>
+        <source src="music/music.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
     <div class="mare">Project Sosamba presents:</div>
     <div class="mic">VNATURERP</div>
     <div class="enable_music">ETO NEVEROYATNO!</div>
+    <canvas id="canvas"></canvas>
+    <div class="loadbar">
+      <div class="thingy"></div>
+    </div>
+
     <div class="boxulini info">
       <div class="textmare2">Info</div>
       <div class="textmicchild2">ESTABLISHED at: --.07.2019</div>
       <div class="textmicchild2">Discord: https://discord.gg/TAXQ9GF</div>
       <div class="textmicchild2">Code: skeev_, Klarus, Sadler, awbait</div>
-      <div class="textmicchild2">Fondatori: skeev_, Klarus</div>
-      <div class="textmicchild2"></div>
+      <div class="textmicchild2">Owenrs: skeev_, Klarus</div>
     </div>
-    <div class="loading">
-      <div class="obj"></div>
-      <div class="obj"></div>
-      <div class="obj"></div>
-      <div class="obj"></div>
-      <div class="obj"></div>
-      <div class="obj"></div>
-      <div class="obj"></div>
-      <div class="obj"></div>
-    </div>
-    <div class="loading2">
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-      <div class="obj2"></div>
-    </div>
-    <div class="textcopy">Copyright &copy; 2019 skeev_, Klarus все стырил</div>
-    <audio autoplay="true" hidden="true" id="leson" loop="true" src="music/music.ogg" volume="0.5"/>
+    <script src="scripts/cursor.js"></script>
+    <script src="scripts/music.js"></script>
     <script>
+      player.volume = 0.05;
+      updateVolume();
+      togglePlay();
+      var count = 0;
+      var thisCount = 0;
 
+      const emoji = {
+        INIT_BEFORE_MAP_LOADED: ['🍉'],
+        INIT_AFTER_MAP_LOADED: [
+          '🍋', '🍊'
+        ],
+        INIT_SESSION: ['🍐', '🍅', '🍆']
+      };
 
-      var play = true;
-      var myAudio = document.getElementById("leson");
+      const handlers = {
+        startInitFunctionOrder(data) {
+          count = data.count;
 
-      myAudio.volume = 0.1;
+          document.querySelector('.letni h3').innerHTML += emoji[data.type][data.order - 1] || '';
+        },
 
+        initFunctionInvoking(data) {
+          document.querySelector('.thingy').style.left = '0%';
+          document.querySelector('.thingy').style.width = ((data.idx / count) * 100) + '%';
+        },
 
-      function onKeyDown(event) {
-        switch (event.keyCode) {
-        case 32: // SpaceBar
-          if (play) {
-            myAudio.pause();
-            play = false;
-          } else {
-            myAudio.play();
-            play = true;
-          }
-          break;
+        startDataFileEntries(data) {
+          count = data.count;
+
+          document.querySelector('.letni h3').innerHTML += "\u{1f358}";
+        },
+
+        performMapLoadFunction(data) {
+          ++ thisCount;
+
+          document.querySelector('.thingy').style.left = '0%';
+          document.querySelector('.thingy').style.width = ((thisCount / count) * 100) + '%';
+        },
+
+        onLogLine(data) {
+          document.querySelector('.letni p').innerHTML = data.message + "..!";
         }
-        return false;
-      }
-      window.addEventListener("keydown", onKeyDown, false);
+      };
+
+      window.addEventListener('message', function (e) {
+        (handlers[e.data.eventName] || function () {})(e.data);
+      });
     </script>
   </body>
 </html>
