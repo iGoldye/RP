@@ -1,7 +1,9 @@
 files {
     'index.html',
     'keks.css',
-    'music/music.ogg'
+    'music/music.mp3',
+    'bg.png',
+    'scripts/music.js'
 }
 
 loadscreen 'index.html'

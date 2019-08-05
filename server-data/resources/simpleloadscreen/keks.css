@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-
 body {
   margin: 0;
   font-style: 'Ubuntu';
   overflow: hidden;
   background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)),
-    url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0029305c-490d-4262-a91d-485d768e55fe/daht2ch-42b6e7b3-67c5-486f-b5f5-cbc347b39bfc.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzAwMjkzMDVjLTQ5MGQtNDI2Mi1hOTFkLTQ4NWQ3NjhlNTVmZVwvZGFodDJjaC00MmI2ZTdiMy02N2M1LTQ4NmYtYjVmNS1jYmMzNDdiMzliZmMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.VvUCEZpIY8W3PqpL5JhBec-Snx9xsuClLM692B1szsc");
+    url("bg.png");
   background-size: cover;
   background-position: 0% 14%;
   background-repeat: no-repeat;
@@ -237,117 +235,6 @@ strong {
   }
 }
 
-.loading {
-  position: absolute;
-  top: 54.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 40px;
-  display: flex;
-  align-items: inline;
-}
-
-.obj {
-  width: 2px;
-  height: 30px;
-  background: white;
-  margin: 0 3px;
-  border-radius: 10px;
-  animation: loading 0.8s infinite;
-}
-
-.obj:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.obj:nth-child(3) {
-  animation-delay: 0.2s;
-}
-
-.obj:nth-child(4) {
-  animation-delay: 0.3s;
-}
-
-.obj:nth-child(5) {
-  animation-delay: 0.4s;
-}
-
-.obj:nth-child(6) {
-  animation-delay: 0.5s;
-}
-
-.obj:nth-child(7) {
-  animation-delay: 0.6s;
-}
-
-.obj:nth-child(8) {
-  animation-delay: 0.7s;
-}
-
-.loading2 {
-  position: absolute;
-  top: 50.5%;
-  left: 48.5%;
-  transform: translate(-50%, -50%);
-  transform: rotate(180deg);
-  height: 40px;
-  display: flex;
-  align-items: inline;
-}
-
-.obj2 {
-  width: 2px;
-  height: 30px;
-  background: white;
-  margin: 0 3px;
-  border-radius: 10px;
-  animation: loading 0.8s infinite;
-  animation-delay: 0.3s;
-}
-
-.obj2:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.obj2:nth-child(3) {
-  animation-delay: 0.2s;
-}
-
-.obj2:nth-child(4) {
-  animation-delay: 0.3s;
-}
-
-.obj2:nth-child(5) {
-  animation-delay: 0.4s;
-}
-
-.obj2:nth-child(6) {
-  animation-delay: 0.5s;
-}
-
-.obj2:nth-child(7) {
-  animation-delay: 0.6s;
-}
-
-.obj2:nth-child(8) {
-  animation-delay: 0.7s;
-}
-
-
-@keyframes loading {
-  0% {
-    height: 0;
-  }
-
-  50% {
-    height: 40px;
-  }
-
-  100% {
-    height: 0;
-  }
-}
-
 .boxulini {
   width: 300px;
   height: 350px;
@@ -378,7 +265,6 @@ strong {
   100% {
     left: 9%;
   }
-}
 }
 
 @-moz-keyframes vine {
@@ -496,4 +382,174 @@ strong {
 .fa-facebook {
   background: #3B5998;
   color: white;
+}
+
+.audio.green-audio-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  min-width: 300px;
+  height: 56px;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: transparent;
+}
+
+.audio.green-audio-player .play-pause-btn {
+  display: none;
+  cursor: pointer;
+}
+
+.audio.green-audio-player .spinner {
+  width: 18px;
+  height: 18px;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/loading.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: spin 0.4s linear infinite;
+}
+
+.audio.green-audio-player .slider {
+  flex-grow: 1;
+  background-color: #382068;
+  cursor: pointer;
+  position: relative;
+}
+
+.audio.green-audio-player .slider .progress {
+  background-color: #7740e5;
+  border-radius: inherit;
+  position: absolute;
+  pointer-events: none;
+}
+
+.audio.green-audio-player .slider .progress .pin {
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background-color: #5f35b2;
+  position: absolute;
+  pointer-events: all;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
+}
+
+.audio.green-audio-player .controls {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  color: #9d8fba;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.audio.green-audio-player .controls .slider {
+  margin-left: 16px;
+  margin-right: 16px;
+  border-radius: 2px;
+  height: 4px;
+}
+
+.audio.green-audio-player .controls .slider .progress {
+  width: 0;
+  height: 100%;
+}
+
+.audio.green-audio-player .controls .slider .progress .pin {
+  right: -8px;
+  top: -6px;
+}
+
+.audio.green-audio-player .controls span {
+  cursor: default;
+}
+
+.audio.green-audio-player .volume {
+  position: relative;
+}
+
+.audio.green-audio-player .volume .volume-btn {
+  cursor: pointer;
+}
+
+.audio.green-audio-player .volume .volume-btn.open path {
+  fill: #44BFA3;
+}
+
+.audio.green-audio-player .volume .volume-controls {
+  width: 30px;
+  height: 135px;
+  background-color: rgba(0, 0, 0, 0.62);
+  border-radius: 7px;
+  position: absolute;
+  left: -3px;
+  bottom: 52px;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.audio.green-audio-player .volume .volume-controls.hidden {
+  display: none;
+}
+
+.audio.green-audio-player .volume .volume-controls .slider {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  width: 6px;
+  border-radius: 3px;
+}
+
+.audio.green-audio-player .volume .volume-controls .slider .progress {
+  bottom: 0;
+  height: 100%;
+  width: 6px;
+}
+
+.audio.green-audio-player .volume .volume-controls .slider .progress .pin {
+  left: -5px;
+  top: -8px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateZ(0);
+  }
+
+  to {
+    transform: rotateZ(1turn);
+  }
+}
+
+.loadbar {
+  position: relative;
+  display: block;
+  top: 110px;
+  width: 50%;
+  margin: 0 auto;
+  background-color: #ffffff5b;
+  height: 15px;
+  border: 0px solid #3d3150;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.thingy {
+  width: 9%;
+  border-radius: 25px;
+  background-color: #492987;
+  height: 15px;
+  position: absolute;
+  left: 10%;
 }
