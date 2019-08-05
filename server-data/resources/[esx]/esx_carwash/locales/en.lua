@@ -1,6 +1,6 @@
 Locales['en'] = {
-  ['prompt_wash'] = 'Нажмите ~INPUT_CONTEXT~ что бы помыть машину',
-  ['prompt_wash_paid'] = 'Нажмите ~INPUT_CONTEXT~ что бы помыть машину за ~g~$%s~s~',
+  ['prompt_wash'] = 'Нажмите ~INPUT_CONTEXT~ чтобы помыть машину',
+  ['prompt_wash_paid'] = 'Нажмите ~INPUT_CONTEXT~ чтобы помыть машину за ~g~$%s~s~',
   ['wash_failed'] = 'У вас нехватает денег',
   ['wash_failed_clean'] = 'Ваш транспорт чист',
   ['wash_successful'] = 'Транспорт помыт',
