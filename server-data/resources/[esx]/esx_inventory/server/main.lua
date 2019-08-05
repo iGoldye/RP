@@ -311,7 +311,7 @@ function createPickup(source, item, label)
 
 	table.insert(pickups, pickup)
 
-	TriggerClientEvent('esx_inventory:createPickup', source, global_pickup_id, pickup)
+	TriggerClientEvent('esx_inventory:createPickup', -1, global_pickup_id, pickup)
 	return true
 end
 
