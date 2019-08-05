@@ -391,7 +391,6 @@ Config.DoorList = {
 		authorizedJobs = { 'ambulance' },
 		locked = true
 	},
-	-- Mechanics
 
 
 --

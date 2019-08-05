@@ -82,6 +82,7 @@ Config.Locations = {
 			{label = _U('bcam11'), x = 251.77, y = 225.42, z = 104.50, r = {x = -35.0, y = 0.0, z = -74.87}, canRotate = true},
 		},
 	},
+
 	["police"] = {
 		label = _U('police_station'),
 		Cameras = {
