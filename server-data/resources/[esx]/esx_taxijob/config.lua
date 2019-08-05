@@ -6,10 +6,10 @@ Config.NPCJobEarnings             = {min = 300, max = 600}
 Config.MinimumDistance            = 3000 -- Minimum NPC job destination distance from the pickup in GTA units, a higher number prevents nearby destionations.
 
 Config.MaxInService               = -1
-Config.EnablePlayerManagement     = false
+Config.EnablePlayerManagement     = true
 Config.EnableSocietyOwnedVehicles = false
 
-Config.Locale = 'en'
+Config.Locale                     = 'ru'
 
 Config.AuthorizedVehicles = {
 
