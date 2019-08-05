@@ -196,17 +196,15 @@ Config.AuthorizedHelicopters = {
 	ambulance = {},
 
 	doctor = {
-		{ model = 'buzzard2', label = 'Nagasaki Buzzard', price = 150000 }
+		{ model = 'polmav', label = 'Медицинский Maverick', price = 200000 }
 	},
 
 	chief_doctor = {
-		{ model = 'buzzard2', label = 'Nagasaki Buzzard', price = 150000 },
-		{ model = 'seasparrow', label = 'Sea Sparrow', price = 300000 }
+		{ model = 'polmav', label = 'Медицинский Maverick', price = 200000 }
 	},
 
 	boss = {
-		{ model = 'buzzard2', label = 'Nagasaki Buzzard', price = 10000 },
-		{ model = 'seasparrow', label = 'Sea Sparrow', price = 250000 }
+		{ model = 'polmav', label = 'Медицинский Maverick', price = 200000 }
 	}
 
 }
