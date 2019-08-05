@@ -338,6 +338,7 @@ Config.DoorList = {
 		distance = 12,
 		size = 2
 	},
+	-- PRISON
 	{
 		textCoords = vector3(1705.99, 2498.73, -78.0),
 		authorizedJobs = { 'police' },
@@ -357,6 +358,44 @@ Config.DoorList = {
 			}
 		}
 	},
+	{
+		objName = 'v_ilev_cd_entrydoor',
+		objYaw = 0.0,
+		objCoords  = vector3(1722.39, 2500.33, -78.0),
+		textCoords = vector3(1722.68, 2501.8, -77.5),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	-- PILLBOX HILL
+	{
+		objName = 'v_ilev_cor_firedoorwide',
+		objYaw = 250.0,
+		objCoords  = vector3(337.83, -583.62, 28.8),
+		textCoords = vector3(337.83, -583.62, 29.5),
+		authorizedJobs = { 'ambulance' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_cor_firedoorwide',
+		objYaw = -20.0,
+		objCoords  = vector3(333.53, -576.12, 28.8),
+		textCoords = vector3(333.41, -577.17, 29.5),
+		authorizedJobs = { 'ambulance' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_cor_firedoorwide',
+		objYaw = 160.0,
+		objCoords  = vector3(330.94, -576.16, 28.8),
+		textCoords = vector3(330.94, -576.16, 29.5),
+		authorizedJobs = { 'ambulance' },
+		locked = true
+	},
+	-- Mechanics
+
+
+--
+
 	--
 	-- Addons
 	--

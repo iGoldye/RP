@@ -61,7 +61,7 @@ Citizen.CreateThread(function()
 			end
 
 			local isAuthorized = IsAuthorized(doorID)
-			local maxDistance, size, displayText = 1.25, 1, _U('unlocked')
+			local maxDistance, size, displayText = 1.25, 0.5, _U('unlocked')
 
 			if doorID.distance then
 				maxDistance = doorID.distance
