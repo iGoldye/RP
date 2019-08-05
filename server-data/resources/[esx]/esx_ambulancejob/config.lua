@@ -127,7 +127,7 @@ Config.Hospitals = {
 				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
 -- Выход на крышу (охранники)
-			{
+--			{
 -- 				From = vector3(1727.66, 2491.71, -79.5),
 -- 				To = { coords = vector3(1625.06, 2502.97, 45.52), heading = 302.0 },
 -- 				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
