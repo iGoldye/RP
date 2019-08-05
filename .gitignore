@@ -2,4 +2,6 @@
 111/*
 Run.bat
 server-data/cache/*
+server-data/server.cfg
+server-data/resources/3dme/log.txt
 server/*
