@@ -90,10 +90,12 @@ Config.Locations = {
 			{label = _U('pcam3'), x = 465.344, y = -997.877, z = 26.85, r = {x = -35.0, y = 0.0, z = 90.46}, canRotate = true},
 			{label = _U('pcam4'), x = 465.344, y = -1001.7, z = 26.85, r = {x = -25.0, y = 0.0, z = 90.01}, canRotate = true},
 			{label = _U('pcam5'), x = 420.241, y = -1009.010, z = 34.95, r = {x = -25.0, y = 0.0, z = 230.95}, canRotate = true},
-			{label = _U('pcam8'), x = 478.29, y = -987.966, z = 27.30, r = {x = -30.0, y = 0.0, z = 100.29}, canRotate = true},
-			{label = _U('pcam9'), x = 474.89, y = -993.946, z = 27.30, r = {x = -30.0, y = 0.0, z = 120.29}, canRotate = true},
+			{label = _U('pcam8'), x = 483.58, y = -990.046, z = 26.90, r = {x = -30.0, y = 0.0, z = 90.29}, canRotate = true},
+			{label = _U('pcam9'), x = 474.94, y = -992.076, z = 26.90, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
+			{label = _U('pcam10'), x = 475.4, y = -983.256, z = 26.50, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
 			{label = _U('pcam6'), x = 433.54, y = -978.100, z = 33.304, r = {x = -40.0, y = 0.0, z = 100.49}, canRotate = true},
 			{label = _U('pcam7'), x = 449.520, y = -988.719, z = 33.00, r = {x = -30.0, y = 0.0, z = 50.50}, canRotate = true},
+
 		},
 	},
 }

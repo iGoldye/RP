@@ -1,7 +1,7 @@
 Locales['en'] = {
   ['shop'] = 'Магазин',
   ['shops'] = 'Магазины',
-  ['press_menu'] = 'Нажмите ~INPUT_CONTEXT~ чтобы зайти в ~y~магазин~s~.',
+  ['press_menu'] = 'Нажмите ~INPUT_CONTEXT~ чтобы посмотреть ~y~ассортимент~s~.',
   ['shop_item'] = '$%s',
   ['bought'] = 'Вы купили ~y~%sx~s~ ~b~%s~s~ за ~r~$%s~s~',
   ['not_enough'] = 'Вам не хватает ~r~enough~s~ денег, нехватает ~y~не хватает~s~ ~r~$%s~s~!',
