@@ -25,6 +25,13 @@ Citizen.CreateThread( function()
 					while ( not HasAnimSetLoaded( "MOVE_M@TOUGH_GUY@" ) ) do
 						Citizen.Wait( 100 )
 					end
+					while ( not HasAnimSetLoaded( "get_up@directional@transition@prone_to_knees@crawl" ) ) do
+						Citizen.Wait( 100 )
+					end
+					while ( not HasAnimSetLoaded( "move_crawl" ) ) do
+						Citizen.Wait( 100 )
+					end
+
 					if ( crouched and not proned ) then
 						ResetPedMovementClipset( ped )
 						ResetPedStrafeClipset(ped)
@@ -37,20 +44,22 @@ Citizen.CreateThread( function()
 					end
 				elseif ( IsDisabledControlJustPressed(0, proneKey) and not crouched and not IsPedInAnyVehicle(ped, true) and not IsPedFalling(ped) and not IsPedDiving(ped) and not IsPedInCover(ped, false) and not IsPedInParachuteFreeFall(ped) and (GetPedParachuteState(ped) == 0 or GetPedParachuteState(ped) == -1) ) then
 					if proned then
-						ClearPedTasksImmediately(ped)
+						TaskPlayAnim(ped, "get_up@directional@transition@prone_to_knees@crawl", "front", 8.0, 1.0, -1, 0, 0.0, 0, 0, 0)
+						Citizen.Wait(1000)
 						proned = false
+						SetPedToRagdoll(PlayerPedId(), 10, 10, 0, 0, 0, 0)
+						ClearPedTasks(ped)
+						Citizen.Wait( 100 )
 					elseif not proned then
-						RequestAnimSet( "move_crawl" )
-						while ( not HasAnimSetLoaded( "move_crawl" ) ) do
-							Citizen.Wait( 100 )
-						end
 						ClearPedTasksImmediately(ped)
-						proned = true
 						if IsPedSprinting(ped) or IsPedRunning(ped) or GetEntitySpeed(ped) > 5 then
 							TaskPlayAnim(ped, "move_jump", "dive_start_run", 8.0, 1.0, -1, 0, 0.0, 0, 0, 0)
-							Citizen.Wait(1000)
+							Citizen.Wait(1200)
+							SetPedToRagdoll(PlayerPedId(), 1000, 1000, 0, 0, 0, 0)
+						else
+							SetProned()
+							proned = true
 						end
-						SetProned()
 					end
 				end
 			end
@@ -64,6 +73,12 @@ end)
 function SetProned()
 	ped = PlayerPedId()
 	ClearPedTasksImmediately(ped)
+
+	RequestAnimSet( "move_crawl" )
+	while ( not HasAnimSetLoaded( "move_crawl" ) ) do
+		Citizen.Wait( 100 )
+	end
+
 	TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", GetEntityCoords(ped), 0.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 46, 1.0, 0, 0)
 end
 
@@ -78,17 +93,17 @@ function ProneMovement()
 		 end
 		if IsControlJustPressed(0, 32) and not movefwd then
 			movefwd = true
-		    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 47, 1.0, 0, 0)
+			TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 47, 0.0, 0, 0)
 		elseif IsControlJustReleased(0, 32) and movefwd then
-		    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 46, 1.0, 0, 0)
 			movefwd = false
+			TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 46, 0.0, 0, 0)
 		end
 		if IsControlJustPressed(0, 33) and not movebwd then
 			movebwd = true
-		    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_bwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 47, 1.0, 0, 0)
+			TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_bwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 47, 1.0, 0, 0)
 		elseif IsControlJustReleased(0, 33) and movebwd then
-		    TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_bwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 46, 1.0, 0, 0)
-		    movebwd = false
+			TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_bwd", GetEntityCoords(ped), 1.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 46, 1.0, 0, 0)
+			movebwd = false
 		end
 		if IsControlPressed(0, 34) then
 			SetEntityHeading(ped, GetEntityHeading(ped)+2.0 )
