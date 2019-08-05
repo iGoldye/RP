@@ -47,6 +47,7 @@ end)
 RegisterNetEvent('esx_lscustom:cancelInstallMod')
 AddEventHandler('esx_lscustom:cancelInstallMod', function()
 	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+	myCar["extras"] = nil
 	ESX.Game.SetVehicleProperties(vehicle, myCar)
 end)
 
