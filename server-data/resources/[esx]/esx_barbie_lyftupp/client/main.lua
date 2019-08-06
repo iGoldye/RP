@@ -38,7 +38,7 @@ function OpenActionMenuInteraction(target)
 	local elements = {}
 
 	table.insert(elements, {label = ('Lyft upp'), value = 'drag'})
-  
+
 	ESX.UI.Menu.CloseAll()
 
 	ESX.UI.Menu.Open(
@@ -52,28 +52,28 @@ function OpenActionMenuInteraction(target)
 
 		local player, distance = ESX.Game.GetClosestPlayer()
 
-		ESX.UI.Menu.CloseAll()	
-		
-		if data.current.value == 'drag' then			
+		ESX.UI.Menu.CloseAll()
+
+		if data.current.value == 'drag' then
 			TriggerServerEvent('esx_barbie_lyftupp:checkRope')
 			ESX.ShowNotification('Вы поднимаете этого человека...')
 			TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
-			Citizen.Wait(5000)
+			Citizen.Wait(10)
 			if hasRope == true then
 				local dict = "anim@heists@box_carry@"
-				
+
 				RequestAnimDict(dict)
 				while not HasAnimDictLoaded(dict) do
-					Citizen.Wait(100)
+					Citizen.Wait(1)
 				end
-				
+
 				local player, distance = ESX.Game.GetClosestPlayer()
 				local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-				
+
 				if distance ~= -1 and distance <= 3.0 then
 					local closestPlayer, distance = ESX.Game.GetClosestPlayer()
-					TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(closestPlayer))		
-					
+					TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(closestPlayer))
+
 					TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
 					isCarry = true
 				else
@@ -102,32 +102,32 @@ AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
 	local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
 	local lPed = GetPlayerPed(-1)
 	local dict = "amb@code_human_in_car_idles@low@ps@"
-	
+
 	if isCarry == false then
 		LoadAnimationDictionary("amb@code_human_in_car_idles@generic@ps@base")
 		TaskPlayAnim(lPed, "amb@code_human_in_car_idles@generic@ps@base", "base", 8.0, -8, -1, 33, 0, 0, 40, 0)
-		
+
 		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 9816, 0.015, 0.38, 0.11, 0.9, 0.30, 90.0, false, false, false, false, 2, false)
-		
+
 		isCarry = true
 	else
 		DetachEntity(GetPlayerPed(-1), true, false)
 		ClearPedTasksImmediately(targetPed)
 		ClearPedTasksImmediately(GetPlayerPed(-1))
-		
+
 		isCarry = false
 	end
 end)
 
 
---[[Citizen.CreateThread(function()
+Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
-    if IsControlJustReleased(0, Keys['F3']) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'action_menu') then
-		OpenActionMenuInteraction()
+    if IsControlJustReleased(0, Keys['F10']) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'action_menu') then
+			OpenActionMenuInteraction()
     end
   end
-end)]]--
+end)
 
 RegisterNetEvent('esx_barbie_lyftupp')
 AddEventHandler('esx_barbie_lyftupp', function()

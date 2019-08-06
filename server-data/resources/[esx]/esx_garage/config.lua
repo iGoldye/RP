@@ -2,7 +2,7 @@ Config                      = {}
 Config.DrawDistance         = 100.0
 Config.MarkerType           = 1
 Config.MarkerSize           = {x = 2.0, y = 2.0, z = 1.0}
-Config.MarkerColor          = {r = 204, g = 204, b = 0}
+Config.MarkerColor          = {r = 25, g = 25, b = 112}
 Config.ParkingMarkerSize    = {x = 3.0, y = 3.0, z = 2.0}
 Config.ParkingMarkerColor   = {r = 102, g = 102, b = 204}
 Config.ZDiff                = 0.5
@@ -18,7 +18,7 @@ Config.Garages = {
 	MiltonDrive = {
 
 		IsClosed = true,
-		
+
 		ExteriorEntryPoint = {
 			Pos = {x= -796.542, y = 318.137, z = 84.673},
 		},
@@ -81,7 +81,7 @@ Config.Garages = {
 		}
 
 	},
-	
+
 	IntegrityWay = {
 
 		IsClosed = true,
@@ -148,7 +148,7 @@ Config.Garages = {
 		}
 
 	},
-	
+
 	DidionWay = {
 
 		IsClosed = true,
@@ -199,18 +199,18 @@ Config.Garages = {
 		}
 
 	},
-	
+
 	VinewoodEstate2650 = {
 
 		IsClosed = true,
 
 		ExteriorEntryPoint = {
-			Pos = {x= -102.79, y = 824.03, z = 234.73},
+			Pos = {x= 452.5, y = -1009.26, z = 27.0},
 		},
 
 		ExteriorSpawnPoint = {
-			Pos     = {x = -106.94, y =833.55, z = 234.72},
-			Heading = 346.42
+			Pos     = {x = 435.26, y = -1007.67, z = 27.72},
+			Heading = 179.29
 		},
 
 		InteriorSpawnPoint = {
@@ -266,7 +266,7 @@ Config.Garages = {
 		}
 
 	},
-	
+
 	ImaginationCt265 = {
 
 		IsClosed = true,
@@ -301,7 +301,7 @@ Config.Garages = {
 		}
 
 	},
-	
+
 	SteeleWay1150 = {
 
 		IsClosed = true,
