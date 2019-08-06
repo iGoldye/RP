@@ -96,6 +96,11 @@ Config.Locations = {
 			{label = _U('pcam10'), x = 475.4, y = -983.256, z = 26.50, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
 			{label = _U('pcam6'), x = 433.54, y = -978.100, z = 33.304, r = {x = -40.0, y = 0.0, z = 100.49}, canRotate = true},
 			{label = _U('pcam7'), x = 449.520, y = -988.719, z = 33.00, r = {x = -30.0, y = 0.0, z = 50.50}, canRotate = true},
+-- AMBULANCE
+			{label = _U('pcam11'), x = 370.510, y = -575.329, z = 32.80, r = {x = -30.0, y = 0.0, z = 150.50}, canRotate = true},
+			{label = _U('pcam12'), x = 292.43, y = -566.519, z = 46.09, r = {x = -30.0, y = 0.0, z = 170.50}, canRotate = true},
+			{label = _U('pcam13'), x = 344.59, y = -594.359, z = 30.53, r = {x = -30.0, y = 0.0, z = 30.50}, canRotate = true},
+			{label = _U('pcam14'), x = 312.42, y = -546.159, z = 39.73, r = {x = -40.0, y = 0.0, z = -90.50}, canRotate = true},
 
 		},
 	},
