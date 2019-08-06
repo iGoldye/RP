@@ -215,8 +215,6 @@ function reloadInventories()
 	end
 end
 
-reloadInventories()
-
 -- Client inventory synchronizer
 Citizen.CreateThread(function()
 	while true do
@@ -508,3 +506,6 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 	end	
 end)
 
+MySQL.ready(function()
+	reloadInventories()
+end)

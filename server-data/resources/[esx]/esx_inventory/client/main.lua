@@ -160,11 +160,10 @@ Citizen.CreateThread(function()
 end)
 
 
--- Get objects every second, instead of every frame
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		if IsControlJustPressed(1, 57) then -- F10
+		if IsControlJustReleased(0, 243) and IsControlPressed(2, 19) and IsInputDisabled(0) and not isDead and not ESX.UI.Menu.IsOpen('default', 'es_extended', 'inventory') then
 			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')	
 		end
 	end
