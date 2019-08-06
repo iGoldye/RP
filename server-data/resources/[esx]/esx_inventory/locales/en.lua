@@ -9,6 +9,7 @@ Locales['en'] = {
 
   -- Status
   ['inventory_status_equipped']   = ' (экипировано)',
+  ['already_equipped']            = 'Оружие уже экипировано!',
 
   -- Inventory
   ['cash'] = 'Наличка',

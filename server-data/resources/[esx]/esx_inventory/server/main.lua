@@ -98,7 +98,7 @@ end
 function createItem(name, extra, amount)
 	local item = {}
 	item["name"] = name
-	item["extra"] = extra
+	item["extra"] = json.decode(json.encode(extra))
 	item["amount"] = amount
 	return item
 end
@@ -124,7 +124,9 @@ function addItem(name, owner, item)
 
 	if owner ~= nil and owner ~= "" then
 		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
-		TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, { ["label"] = getItemLabel(item) }, item.amount)
+		if xPlayer ~= nil then
+			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, { ["label"] = getItemLabel(item) }, item.amount)
+		end
 	end
 
 	return true
@@ -138,9 +140,9 @@ function removeItem(name, owner, item)
 	end
 
 	if old_item_index then
-		if item.amount - old_item.amount > 0 then
-			Inventories[name][owner].items[old_item_index].amount = item.amount - old_item.amount
-		elseif item.amount - old_item.amount == 0 then
+		if old_item.amount - item.amount > 0 then
+			Inventories[name][owner].items[old_item_index].amount = old_item.amount - item.amount
+		elseif old_item.amount - item.amount == 0 then
 			Inventories[name][owner].items[old_item_index] = nil
 		else
 			return false
@@ -151,7 +153,9 @@ function removeItem(name, owner, item)
 
 	if owner ~= nil and owner ~= "" then
 		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
-		TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, { ["label"] = getItemLabel(item) }, item.amount)
+		if xPlayer ~= nil then
+			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, { ["label"] = getItemLabel(item) }, item.amount)
+		end
 	end
 
 	return true
@@ -181,10 +185,12 @@ function setItem(name, owner, item)
 	if owner ~= nil and owner ~= "" then
 		local add = old_amount < amount
 		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
-		if add then
-			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, { ["label"] = getItemLabel(item) }, item.amount - old_amount)
-		else
-			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, { ["label"] = getItemLabel(item) }, old_amount - item.amount)
+		if xPlayer ~= nil then
+			if add then
+				TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, { ["label"] = getItemLabel(item) }, item.amount - old_amount)
+			else
+				TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, { ["label"] = getItemLabel(item) }, old_amount - item.amount)
+			end
 		end
 	end
 
@@ -387,8 +393,10 @@ AddEventHandler('esx_inventory:dropItem', function(name, shared, item)
 			end
 		end
 	elseif item.name == "weapon" then			
-			if createPickup(source, item, getItemLabel(item)) == true then
-				removeItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount})
+			if removeItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount}) then
+				if (createPickup(source, item, getItemLabel(item)) == false) then
+					addItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount})
+				end
 			end
 	elseif item.name == "esx_item" then			
 			if createPickup(source, item, item.extra.label) == true then
@@ -400,8 +408,10 @@ AddEventHandler('esx_inventory:dropItem', function(name, shared, item)
 		if val == nil then
 			print("Unable to drop item "..json.encode(item).."!")
 		else
-			if createPickup(source, item, getItemLabel(item)) == true then
-				removeItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount})
+			if removeItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount}) then
+				if createPickup(source, item, getItemLabel(item)) == false then
+					addItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount})
+				end
 			end
 		end
 	end
@@ -487,9 +497,11 @@ RegisterServerEvent('esx_inventory:equipWeapon')
 AddEventHandler('esx_inventory:equipWeapon', function(item)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if xPlayer == nil then
-		print("esx_inventory:unequipWeapon Unknown player!")
+		print("esx_inventory:equipWeapon Unknown player!")
 		return
 	end
+
+	local tmpItem = createItem("weapon", item.extra, 1)
 
 	if removeItem("pocket", xPlayer.identifier, createItem("weapon", item.extra, 1)) == true then
 		TriggerClientEvent("esx_inventory:equipWeapon", source, item)

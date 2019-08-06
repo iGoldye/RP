@@ -84,7 +84,18 @@ registerItemAction("money_pack", "unpack", _U("inventory_action_unpack"), functi
 end)
 
 registerItemAction("equipped_weapon", "unequip", _U("inventory_action_unequip"), function(item)
-	TriggerServerEvent('esx_inventory:unequipWeapon', item.extra.weapon_name, item.extra.ammo)
+
+	local amount = 0
+	if item.extra.ammo > 0 then
+		amount = tonumber(showInputDialog("inventory_unequip_item_dialog", _U("amount")))
+	end
+
+	if amount ~= nil and amount >= 0 and amount <= item.extra.ammo then
+		TriggerServerEvent('esx_inventory:unequipWeapon', item.extra.weapon_name, amount)
+	else
+		ESX.ShowNotification(_U('amount_invalid'))
+	end
+
 end)
 
 registerItemAction("weapon", "equip", _U("inventory_action_equip"), function(item)
@@ -205,24 +216,22 @@ AddEventHandler('esx_inventory:createPickup', function(id, pickup)
 		end
 	end
 
-	ESX.Game.SpawnLocalObject(propName, {
-		x = pickup.coords.x,
-		y = pickup.coords.y,
-		z = pickup.coords.z - 2.0,
-	}, function(obj)
-			SetEntityNoCollisionEntity(ped, obj, false)
-			SetEntityAsMissionEntity(obj, true, false)
-			PlaceObjectOnGroundProperly(obj)
-			SetEntityRotation(obj, rotation, 2, true)
+	local propHash = GetHashKey(propName)
+	ESX.Streaming.RequestModel(propHash)
+	local obj = CreateObject(propHash, pickup.coords.x, pickup.coords.y, pickup.coords.z, false, false, false)
 
-			pickups[id] = {
-				item = pickup.item,
-				label = pickup.label,
-				coords = pickup.coords,
-				source = pickup.source,
-				obj = obj,
-			}
-	end)
+	SetEntityCollision(obj, false, false)
+	SetEntityAsMissionEntity(obj, true, false)
+	PlaceObjectOnGroundProperly(obj)
+	SetEntityRotation(obj, rotation, 2, true)
+
+	pickups[id] = {
+		item = pickup.item,
+		label = pickup.label,
+		coords = pickup.coords,
+		source = pickup.source,
+		obj = obj,
+	}
 end)
 
 RegisterNetEvent('esx_inventory:removePickup')
@@ -440,18 +449,18 @@ function showInventoryItemMenu(inventory, item, menu_label)
 end
 
 RegisterNetEvent('esx_inventory:unequipWeapon')
-AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, ammo)
+AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
 --	print("Unequip "..weaponName.." "..ammo)
 	local playerPed = PlayerPedId()
 	local weaponHash = GetHashKey(weaponName)
+	local current_ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
 
-	if HasPedGotWeapon(playerPed, weaponHash, false) and GetAmmoInPedWeapon(playerPed, weaponHash) >= ammo then
+	if HasPedGotWeapon(playerPed, weaponHash, false) and current_ammo >= amount then
 		if GetSelectedPedWeapon(playerPed) == weaponHash then
 			SetCurrentPedWeapon(playerPed, GetHashKey("WEAPON_UNARMED"), true)
 		end
 
-		local ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
-		SetPedAmmo(playerPed, weaponHash, 0)
+		SetPedAmmo(playerPed, weaponHash, current_ammo - amount)
 		RemoveWeaponFromPed(playerPed, weaponHash)
 
 		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')	
