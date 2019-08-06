@@ -16,8 +16,8 @@ Locales['en'] = {
     -- Vault
     ['get_weapon']               = 'Взять оружие',
     ['put_weapon']               = 'Положить оружие',
-    ['get_weapon_menu']          = 'Safe - Take weapon',
-    ['put_weapon_menu']          = 'Safe - Deposit weapon',
+    ['get_weapon_menu']          = 'Оружейный сейф',
+    ['put_weapon_menu']          = 'Оружейный сейф',
     ['get_object']               = 'Взять предмет',
     ['put_object']               = 'Положить предмет',
     ['vault']                    = 'Сейф',

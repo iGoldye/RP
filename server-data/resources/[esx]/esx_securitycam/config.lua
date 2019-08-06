@@ -86,11 +86,11 @@ Config.Locations = {
 	["police"] = {
 		label = _U('police_station'),
 		Cameras = {
-			{label = _U('pcam'), x = 416.744, y = -1009.270, z = 34.08, r = {x = -25.0, y = 0.0, z = 28.05}, canRotate = true},
+			{label = _U('pcam'), x = 424.194, y = -996.460, z = 33.78, r = {x = -25.0, y = 0.0, z = 118.05}, canRotate = true},
 			{label = _U('pcam2'), x = 465.151, y = -994.266, z = 26.85, r = {x = -30.0, y = 0.0, z = 100.29}, canRotate = true},
 			{label = _U('pcam3'), x = 465.344, y = -997.877, z = 26.85, r = {x = -35.0, y = 0.0, z = 90.46}, canRotate = true},
 			{label = _U('pcam4'), x = 465.344, y = -1001.7, z = 26.85, r = {x = -25.0, y = 0.0, z = 90.01}, canRotate = true},
-			{label = _U('pcam5'), x = 420.241, y = -1009.010, z = 34.95, r = {x = -25.0, y = 0.0, z = 230.95}, canRotate = true},
+			{label = _U('pcam5'), x = 421.721, y = -1032.010, z = 31.30, r = {x = -25.0, y = 0.0, z = -30.95}, canRotate = true},
 			{label = _U('pcam8'), x = 483.58, y = -990.046, z = 26.90, r = {x = -30.0, y = 0.0, z = 90.29}, canRotate = true},
 			{label = _U('pcam9'), x = 474.94, y = -992.076, z = 26.90, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
 			{label = _U('pcam10'), x = 475.4, y = -983.256, z = 26.50, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
