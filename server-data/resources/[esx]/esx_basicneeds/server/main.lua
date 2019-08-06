@@ -21,7 +21,17 @@ ESX.RegisterUsableItem('water', function(source)
 	TriggerClientEvent('esx_basicneeds:onDrink', source)
 	TriggerClientEvent('esx:showNotification', source, _U('used_water'))
 end)
+-- add item donut to items and shops in database, add table inventory from esx_invenory
+ESX.RegisterUsableItem('donut', function(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
 
+	xPlayer.removeInventoryItem('donut', 1)
+
+	TriggerClientEvent('esx_status:add', source, 'hunger', 200000)
+	TriggerClientEvent('esx_basicneeds:onEat', source)
+	TriggerClientEvent('esx:showNotification', source, _U('used_donut'))
+end)
+--
 TriggerEvent('es:addGroupCommand', 'heal', 'admin', function(source, args, user)
 	-- heal another player - don't heal source
 	if args[1] then
