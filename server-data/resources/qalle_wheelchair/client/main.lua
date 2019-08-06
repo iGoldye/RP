@@ -2,8 +2,6 @@ RegisterCommand('wheelchair', function()
 	LoadModel('prop_wheelchair_01')
 
 	local wheelchair = CreateObject(GetHashKey('prop_wheelchair_01'), GetEntityCoords(PlayerPedId()), true)
-	DecorSetInt(wheelchair, "DECOR_SITTING", 0)
-	DecorSetInt(wheelchair, "DECOR_DRIVING", 0)
 end, false)
 
 RegisterCommand('removewheelchair', function()
@@ -32,10 +30,10 @@ Citizen.CreateThread(function()
 			local sitCoords = (wheelChairCoords + wheelChairForward * - 0.5)
 			local pickupCoords = (wheelChairCoords + wheelChairForward * 0.3)
 
-			local pedSitting = DecorGetInt(closestObject, "DECOR_SITTING")
-			local pedDriving = DecorGetInt(closestObject, "DECOR_DRIVING")
+			local pedSitting = GetEntityAttachedTo(closestObject) ~= 0
+			local pedDriving = IsEntityAttachedToAnyPed(closestObject)
 
-			if pedSitting == 0 and GetDistanceBetweenCoords(pedCoords, sitCoords, true) <= 1.0 and not IsEntityUpsidedown(closestObject) then
+			if pedSitting == false and GetDistanceBetweenCoords(pedCoords, sitCoords, true) <= 1.0 and not IsEntityUpsidedown(closestObject) then
 				DrawText3Ds(sitCoords, "[E] Сесть", 0.4)
 
 				if IsControlJustPressed(0, 38) then
@@ -43,7 +41,7 @@ Citizen.CreateThread(function()
 				end
 			end
 
-			if pedDriving == 0 and GetDistanceBetweenCoords(pedCoords, pickupCoords, true) <= 1.0 then
+			if pedDriving == false and GetDistanceBetweenCoords(pedCoords, pickupCoords, true) <= 1.0 then
 				DrawText3Ds(pickupCoords, "[E] Везти", 0.4)
 
 				if IsControlJustPressed(0, 38) then
@@ -57,14 +55,10 @@ Citizen.CreateThread(function()
 end)
 
 Sit = function(wheelchairObject)
-	local pedSitting = DecorGetInt(wheelchairObject, "DECOR_SITTING")
+	local pedSitting = GetEntityAttachedTo(wheelchairObject) ~= 0
 
-	if pedSitting ~= 0 then
+	if pedSitting ~= false then
 		ShowNotification("Somebody is already using the wheelchair!")
-		return
-	end
-
-	if IsEntityAttachedToEntity(PlayerPedId(), wheelchairObject) then
 		return
 	end
 
@@ -75,8 +69,6 @@ Sit = function(wheelchairObject)
 	end) then
 		return
 	end
-
-	DecorSetInt(wheelchairObject, "DECOR_SITTING", PlayerPedId())
 
 	local heading = GetEntityHeading(wheelchairObject)
 
@@ -118,9 +110,12 @@ Sit = function(wheelchairObject)
 		end
 
 		if IsEntityUpsidedown(wheelchairObject) then
-			DetachEntity(PlayerPedId(), true, true)
-			Citizen.Wait(100)
-			SetPedToRagdoll(PlayerPedId(), 1000, 1000, 0, 0, 0, 0)
+			Citizen.Wait(50)
+			if IsEntityUpsidedown(wheelchairObject) then
+				DetachEntity(PlayerPedId(), true, true)
+				Citizen.Wait(100)
+				SetPedToRagdoll(PlayerPedId(), 1000, 1000, 0, 0, 0, 0)
+			end
 		end
 
 		if IsControlJustPressed(0, 73) then
@@ -129,19 +124,13 @@ Sit = function(wheelchairObject)
 			SetEntityCoords(PlayerPedId(), x,y,z)
 		end
 	end
-
-	DecorSetInt(wheelchairObject, "DECOR_SITTING", 0)
 end
 
 PickUp = function(wheelchairObject)
-	local pedDriving = DecorGetInt(wheelchairObject, "DECOR_DRIVING")
+	local pedDriving = IsEntityAttachedToAnyPed(wheelchairObject)
 
-	if pedDriving ~= 0 then
+	if pedDriving ~= false then
 		ShowNotification("Somebody is already driving the wheelchair!")
-		return
-	end
-
-	if IsEntityAttachedToEntity(PlayerPedId(), wheelchairObject) then
 		return
 	end
 
@@ -154,7 +143,6 @@ PickUp = function(wheelchairObject)
 	end) then
 		return
 	end
-	DecorSetInt(wheelchairObject, "DECOR_DRIVING", PlayerPedId())
 
 	while IsEntityAttachedToEntity(wheelchairObject, PlayerPedId()) do
 		Citizen.Wait(5)
@@ -171,8 +159,6 @@ PickUp = function(wheelchairObject)
 			DetachEntity(wheelchairObject, true, true)
 		end
 	end
-
-	DecorSetInt(wheelchairObject, "DECOR_DRIVING", 0)
 end
 
 DrawText3Ds = function(coords, text, scale)
