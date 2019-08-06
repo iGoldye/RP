@@ -1861,15 +1861,11 @@ Citizen.CreateThread(function()
 			end
 		end -- CurrentAction end
 -- поменял с F6 на F5 V
-		if IsControlJustReleased(0, 166) and not isDead and PlayerData.job and PlayerData.job.name == 'police' and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'police_actions') then
-			if Config.MaxInService == -1 then
-				OpenPoliceActionsMenu()
-			elseif playerInService then
-				OpenPoliceActionsMenu()
-			else
-				ESX.ShowNotification(_U('service_not'))
-			end
+--[[
+		if IsControlJustReleased(0, 166) then
+			TriggerEvent('esx_policejob:openPoliceActionsMenu')
 		end
+]]--
 
 		if IsControlJustReleased(0, 38) and currentTask.busy then
 			ESX.ShowNotification(_U('impound_canceled'))
@@ -1988,3 +1984,15 @@ function ImpoundVehicle(vehicle)
 	ESX.ShowNotification(_U('impound_successful'))
 	currentTask.busy = false
 end
+
+AddEventHandler('esx_policejob:openPoliceActionsMenu', function()
+		if not isDead and PlayerData.job and PlayerData.job.name == 'police' and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'police_actions') then
+			if Config.MaxInService == -1 then
+				OpenPoliceActionsMenu()
+			elseif playerInService then
+				OpenPoliceActionsMenu()
+			else
+				ESX.ShowNotification(_U('service_not'))
+			end
+		end
+end)

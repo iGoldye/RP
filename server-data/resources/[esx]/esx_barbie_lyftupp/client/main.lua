@@ -33,6 +33,36 @@ Citizen.CreateThread(function()
 end)
 
 
+function LiftUp()
+		local player, distance = ESX.Game.GetClosestPlayer()
+		TriggerServerEvent('esx_barbie_lyftupp:checkRope')
+		ESX.ShowNotification('Вы поднимаете этого человека...')
+		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
+		Citizen.Wait(10)
+		if hasRope == true then
+			local dict = "anim@heists@box_carry@"
+
+			RequestAnimDict(dict)
+			while not HasAnimDictLoaded(dict) do
+				Citizen.Wait(1)
+			end
+
+			local player, distance = ESX.Game.GetClosestPlayer()
+
+			if distance ~= -1 and distance <= 3.0 then
+				local closestPlayer, distance = ESX.Game.GetClosestPlayer()
+				TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(closestPlayer))
+
+				TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
+				isCarry = true
+			else
+				ESX.ShowNotification("Рядом никого нет...")
+			end
+		else
+			--ESX.ShowNotification("Du har inget rep att använda...")
+		end
+end
+
 function OpenActionMenuInteraction(target)
 
 	local elements = {}
@@ -50,38 +80,11 @@ function OpenActionMenuInteraction(target)
 		},
     function(data, menu)
 
-		local player, distance = ESX.Game.GetClosestPlayer()
 
 		ESX.UI.Menu.CloseAll()
 
 		if data.current.value == 'drag' then
-			TriggerServerEvent('esx_barbie_lyftupp:checkRope')
-			ESX.ShowNotification('Вы поднимаете этого человека...')
-			TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
-			Citizen.Wait(10)
-			if hasRope == true then
-				local dict = "anim@heists@box_carry@"
-
-				RequestAnimDict(dict)
-				while not HasAnimDictLoaded(dict) do
-					Citizen.Wait(1)
-				end
-
-				local player, distance = ESX.Game.GetClosestPlayer()
-				local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-
-				if distance ~= -1 and distance <= 3.0 then
-					local closestPlayer, distance = ESX.Game.GetClosestPlayer()
-					TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(closestPlayer))
-
-					TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
-					isCarry = true
-				else
-					ESX.ShowNotification("Рядом никого нет...")
-				end
-			else
-				--ESX.ShowNotification("Du har inget rep att använda...")
-			end
+			LiftUp()
 			menu.close()
 		end
 
@@ -119,7 +122,7 @@ AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
 	end
 end)
 
-
+--[[
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
@@ -128,8 +131,13 @@ Citizen.CreateThread(function()
     end
   end
 end)
+]]--
 
 RegisterNetEvent('esx_barbie_lyftupp')
 AddEventHandler('esx_barbie_lyftupp', function()
   OpenActionMenuInteraction()
+end)
+
+AddEventHandler('esx_barbie_lyftupp:liftUp', function()
+	LiftUp()
 end)

@@ -63,6 +63,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_PISTOL_VARMOD_LUXE') }
 		},
 		prop = 'w_pi_pistol',
+		weight = 0.92,
+		volume = 0.12,
 	},
 
 	{
@@ -76,6 +78,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_COMBATPISTOL_VARMOD_LOWRIDER') }
 		},
 		prop = 'w_pi_combatpistol',
+		weight = 0.62,
+		volume = 0.08,
 	},
 
 	{
@@ -89,6 +93,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_APPISTOL_VARMOD_LUXE') }
 		},
 		prop = 'w_pi_appistol',
+		weight = 0.75,
+		volume = 0.11,
 	},
 
 	{
@@ -102,6 +108,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_PISTOL50_VARMOD_LUXE') }
 		},
 		prop = 'w_pi_appistol50',
+		weight = 1.12,
+		volume = 0.14,
 	},
 
 	{
@@ -109,6 +117,8 @@ Config.Weapons = {
 		label = _U('weapon_revolver'),
 		components = {},
 		prop = 'w_pi_revolver',
+		weight = 0.85,
+		volume = 0.11,
 	},
 
 	{
@@ -120,6 +130,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_SNSPISTOL_VARMOD_LOWRIDER') }
 		},
 		prop = 'w_pi_snspistol',
+		weight = 0.8,
+		volume = 0.08,
 	},
 
 	{
@@ -133,6 +145,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_HEAVYPISTOL_VARMOD_LUXE') }
 		},
 		prop = 'w_pi_heavypistol',
+		weight = 1.12,
+		volume = 0.14,
 	},
 
 	{
@@ -144,6 +158,8 @@ Config.Weapons = {
 			{ name = 'suppressor', label = _U('component_suppressor'), hash = GetHashKey('COMPONENT_AT_PI_SUPP') }
 		},
 		prop = 'w_pi_vintagepistol',
+		weight = 1.00,
+		volume = 0.1,
 	},
 
 	{
@@ -158,6 +174,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_MICROSMG_VARMOD_LUXE') }
 		},
 		prop = 'w_sb_microsmg',
+		weight = 2.84,
+		volume = 0.36,
 	},
 
 	{
@@ -173,6 +191,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_SMG_VARMOD_LUXE') }
 		},
 		prop = 'w_sb_smg',
+		weight = 3.00,
+		volume = 0.40,
 	},
 
 	{
@@ -187,6 +207,8 @@ Config.Weapons = {
 			{ name = 'luxary_finish', label = _U('component_luxary_finish'), hash = GetHashKey('COMPONENT_ASSAULTSMG_VARMOD_LOWRIDER') }
 		},
 		prop = 'w_sb_assaultsmg',
+		weight = 3.00,
+		volume = 0.40,
 	},
 
 	{
@@ -197,6 +219,8 @@ Config.Weapons = {
 			{ name = 'clip_extended', label = _U('component_clip_extended'), hash = GetHashKey('COMPONENT_MINISMG_CLIP_02') }
 		},
 		prop = 'w_sb_minismg',
+		weight = 3.00,
+		volume = 0.40,
 	},
 
 	{
@@ -209,6 +233,8 @@ Config.Weapons = {
 			{ name = 'suppressor', label = _U('component_suppressor'), hash = GetHashKey('COMPONENT_AT_PI_SUPP') }
 		},
 		prop = 'w_sb_compactsmg',
+		weight = 2.00,
+		volume = 0.30,
 	},
 
 	{
@@ -223,6 +249,8 @@ Config.Weapons = {
 			{ name = 'scope', label = _U('component_scope'), hash = GetHashKey('COMPONENT_AT_SCOPE_SMALL') }
 		},
 		prop = 'w_sb_pdw',
+		weight = 3.00,
+		volume = 0.40,
 	},
 	
 	{

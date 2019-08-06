@@ -52,6 +52,7 @@ function ShowBillsMenu()
 end
 
 -- Key controls
+--[[
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -60,6 +61,7 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+]]--
 
 AddEventHandler('esx:onPlayerDeath', function(data)
 	isDead = true
@@ -67,4 +69,8 @@ end)
 
 AddEventHandler('playerSpawned', function(spawn)
 	isDead = false
+end)
+
+AddEventHandler('esx_billing:showBillsMenu', function()
+	ShowBillsMenu()
 end)

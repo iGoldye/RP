@@ -159,7 +159,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
-
+--[[
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -168,6 +168,7 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+]]--
 
 Citizen.CreateThread(function()
 	while true do

@@ -133,13 +133,20 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 
+--[[
 		if IsControlJustReleased(0, Keys['F3']) and IsInputDisabled(0) and not isDead then
 			OpenAnimationsMenu()
 		end
+]]--
 
 		if IsControlJustReleased(0, Keys['X']) and IsInputDisabled(0) and not isDead then
 			ClearPedTasks(PlayerPedId())
 		end
 
 	end
+end)
+
+
+AddEventHandler('esx_animations:openAnimationsMenu', function()
+	OpenAnimationsMenu()
 end)
