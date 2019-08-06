@@ -56,16 +56,19 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 						z = garage.InteriorSpawnPoint.Pos.z + Config.ZDiff
 					}
 
-					ESX.Game.DeleteVehicle(vehicle)
+--					ESX.Game.DeleteVehicle(vehicle)
 
-					ESX.Game.Teleport(playerPed, spawnCoords, function()
+--					ESX.Game.Teleport(playerPed, spawnCoords, function()
 
 						TriggerEvent('instance:create', 'garage')
+						NetworkSetEntityInvisibleToNetwork(vehicle, true)
+						SetEntityCoords(vehicle, spawnCoords.x, spawnCoords.y, spawnCoords.z, 0, 0, 0, true)
+						SetEntityHeading(vehicle, garage.ExteriorSpawnPoint.Heading)
 
-						ESX.Game.SpawnLocalVehicle(vehicleProps.model, spawnCoords, garage.InteriorSpawnPoint.Heading, function(vehicle)
-							TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
-							ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
-						end)
+--						ESX.Game.SpawnLocalVehicle(vehicleProps.model, spawnCoords, garage.InteriorSpawnPoint.Heading, function(vehicle)
+--							TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
+--							ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
+--						end)
 
 						ESX.TriggerServerCallback('esx_vehicleshop:getVehiclesInGarage', function(vehicles)
 
@@ -101,7 +104,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 
 						end, name)
 
-					end)
+--					end)
 
 				else
 
@@ -220,6 +223,11 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 				z = garage.ExteriorSpawnPoint.Pos.z
 			}
 
+			SetEntityCoords(vehicle, spawnCoords.x, spawnCoords.y, spawnCoords.z, 0, 0, 0, true)
+			SetEntityHeading(vehicle, garage.ExteriorSpawnPoint.Heading)
+			NetworkSetEntityInvisibleToNetwork(vehicle, false)
+			TriggerEvent('instance:close')
+--[[
 			ESX.Game.DeleteVehicle(vehicle)
 
 			ESX.Game.Teleport(playerPed, spawnCoords, function()
@@ -233,8 +241,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 				end)
 
 			end)
-
-
+]]--
 		else
 
 

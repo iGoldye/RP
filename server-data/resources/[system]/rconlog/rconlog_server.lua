@@ -3,20 +3,36 @@ RconLog({ msgType = 'serverStart', hostname = 'lovely', maxplayers = 32 })
 RegisterServerEvent('rlPlayerActivated')
 
 local names = {}
+local hostId = -1
+
+function genHostId()
+    if #names == 0 then
+	return -1
+    end
+
+    local keyset = {}
+    for k in pairs(names) do
+        table.insert(keyset, k)
+    end
+    hostId = keyset[math.random(#keyset)]
+--    print("New hostid is "..tostring(hostId))
+    return hostId
+end
 
 AddEventHandler('rlPlayerActivated', function()
     RconLog({ msgType = 'playerActivated', netID = source, name = GetPlayerName(source), guid = GetPlayerIdentifiers(source)[1], ip = GetPlayerEP(source) })
 
     names[source] = { name = GetPlayerName(source), id = source }
 
-    TriggerClientEvent('rlUpdateNames', GetHostId())
+    TriggerClientEvent('rlUpdateNames', genHostId())
 end)
 
 RegisterServerEvent('rlUpdateNamesResult')
 
 AddEventHandler('rlUpdateNamesResult', function(res)
-    if source ~= tonumber(GetHostId()) then
-        print('bad guy')
+    if source ~= tonumber(hostId) and hostId ~= -1 then
+        print('RconLog: Wrong hostid! Exploiting or network lag. Player: '..GetPlayerName(source))
+	TriggerClientEvent('rlUpdateNames', genHostId())
         return
     end
 
