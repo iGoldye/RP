@@ -11,6 +11,7 @@ Locales['ru'] = {
   -- In Cameras
   ['pacific_standard_bank'] = 'Банк Pacific Standard',
   ['police_station'] = 'Полицейский участок',
+  ['ambulance'] = 'Больница Pillbox Hill',
 
   -- Pacific Standard Bank Cameras
   ['bcam'] = 'Главный вход',

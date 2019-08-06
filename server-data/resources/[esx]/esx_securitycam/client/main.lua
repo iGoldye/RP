@@ -240,6 +240,7 @@ Citizen.CreateThread(function()
 				local elements = {
 					{label = _U('bank_menu_selection'),   value = 'bankmenu'},
 					{label = _U('police_menu_selection'), value = 'policemenu'},
+					{label = _U('ambulance'), value = 'ambulance'},
 				}
 
 				ESX.UI.Menu.CloseAll()
@@ -251,7 +252,30 @@ Citizen.CreateThread(function()
 					elements = elements
 				}, function(data, menu)
 
-					if data.current.value == 'bankmenu' then
+					if data.current.value == 'ambulance' then
+							menu.close()
+							cameralocation = "ambulance"
+							blockbuttons = true
+
+							SetCameraFocusArea(Config.Locations["ambulance"].Cameras[1])
+							ChangeSecurityCameraObj(Config.Locations["ambulance"].Cameras[1])
+
+							if Config.HideRadar then
+								StartHideHUD()
+							end
+
+							SendNUIMessage({
+								type = "enablecam",
+								label = Config.Locations["ambulance"].Cameras[1].label,
+								box = Config.Locations["ambulance"].label,
+								broken = Config.Locations["ambulance"].Cameras[1].broken_timer,
+							})
+
+							currentCameraIndex = 1
+							menuopen = false
+							TriggerEvent('esx_securitycam:freeze', true)
+
+					elseif data.current.value == 'bankmenu' then
 
 						if bankHacked then
 							if Config.pNotify then
