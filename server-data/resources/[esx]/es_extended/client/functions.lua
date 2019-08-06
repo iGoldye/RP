@@ -717,7 +717,10 @@ ESX.Game.GetVehicleProperties = function(vehicle)
 		modTrimB          = GetVehicleMod(vehicle, 44),
 		modTank           = GetVehicleMod(vehicle, 45),
 		modWindows        = GetVehicleMod(vehicle, 46),
-		modLivery         = GetVehicleLivery(vehicle)
+		modLivery         = GetVehicleLivery(vehicle),
+
+		bodyHealth        = GetVehicleBodyHealth(vehicle),
+		engineHealth      = GetVehicleEngineHealth(vehicle),
 	}
 end
 
@@ -972,6 +975,15 @@ ESX.Game.SetVehicleProperties = function(vehicle, props)
 	if props.modLivery ~= nil then
 		SetVehicleMod(vehicle, 48, props.modLivery, false)
 		SetVehicleLivery(vehicle, props.modLivery)
+	end
+
+	if props.bodyHealth ~= nil then
+		SetVehicleBodyHealth(vehicle, props.bodyHealth)
+		ApplyDamageRandom(vehicle, props.bodyHealth)
+	end
+
+	if props.engineHealth ~= nil then
+		SetVehicleEngineHealth(vehicle, props.engineHealth)
 	end
 end
 
