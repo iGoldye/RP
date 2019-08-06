@@ -35,6 +35,8 @@ function OpenMenu()
 		{label = "Анимации", value = 'animations'},
 		{label = "Счета", value = 'billing'},
 		{label = "Поднять игрока", value = 'liftup'},
+		{label = "Аксессуары", value = 'accessories'},
+		{label = "Одежда", value = 'clothesoff'},
 	}
 
 	local PlayerData = ESX.GetPlayerData()
@@ -63,6 +65,10 @@ function OpenMenu()
 			TriggerEvent('esx_billing:showBillsMenu')
 		elseif cmd == 'liftup' then
 			TriggerEvent('esx_barbie_lyftupp:liftUp')
+		elseif cmd == 'accessories' then
+			TriggerEvent('esx_accessories:openAccessoryMenu')
+		elseif cmd == 'clothesoff' then
+			TriggerEvent('clothesoff:openActionMenuInteraction')
 		end
 
 	end, function(data, menu)

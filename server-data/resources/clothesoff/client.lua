@@ -86,7 +86,8 @@ function OpenActionMenuInteraction(target)
 
 
 end
-			
+
+--[[
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
@@ -94,4 +95,11 @@ Citizen.CreateThread(function()
 		OpenActionMenuInteraction()
     end
   end
+end)
+]]--
+
+AddEventHandler('clothesoff:openActionMenuInteraction', function()
+    if not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'action_menu') then
+		OpenActionMenuInteraction()
+    end
 end)
