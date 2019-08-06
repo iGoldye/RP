@@ -35,7 +35,7 @@ function RaycastPeds(ped1, ped2, radius, flags)
 end
 
 function getWitness(sight_distance, hear_distance, outside_only)
---	hear_distance = hear_distance or 0
+	hear_distance = hear_distance or 0
 
 	local player_ped = PlayerPedId()
 	if outside_only and GetInteriorFromEntity(player_ped) ~= 0 then
@@ -48,6 +48,7 @@ function getWitness(sight_distance, hear_distance, outside_only)
 	end
 
 	local peds = ESX.Game.GetPeds()
+	local pedHear = nil
 
 	local PED_TYPE_ANIMAL = 28
 
@@ -63,7 +64,7 @@ function getWitness(sight_distance, hear_distance, outside_only)
 			local dist = GetDistanceBetweenCoords(c1.x,c1.y,c1.z,c2.x,c2.y,c2.z, 0)
 
 			if dist < hear_distance then
-				return another_ped
+				pedHear = another_ped
 			end
 
 			local dir = GetEntityRotation(another_ped,0).z - Atan2(c2.y-c1.y,c2.x-c1.x)
@@ -75,11 +76,15 @@ function getWitness(sight_distance, hear_distance, outside_only)
 
 				local hit = RaycastPeds(player_ped, another_ped, 0.1, 1)
 				if hit == nil then
-					return another_ped
+					return another_ped, false
 				end
 			end
 		end
 	end
 
-	return nil
+	if pedHear ~= nil then
+		return pedHear, true
+	end
+
+	return nil, nil
 end
