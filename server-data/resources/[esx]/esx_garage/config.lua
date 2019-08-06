@@ -200,7 +200,7 @@ Config.Garages = {
 
 	},
 
-	VinewoodEstate2650 = {
+	Police = {
 
 		IsClosed = true,
 
@@ -348,6 +348,73 @@ Config.Garages = {
 			{
 				Pos     = {x = 198.33, y = -996.42, z = -100.000},
 				Heading = 175.0
+			},
+		}
+
+	},
+
+	Ambulance = {
+
+		IsClosed = true,
+
+		ExteriorEntryPoint = {
+			Pos = {x= 340.67, y = -562.26, z = 27.5},
+		},
+
+		ExteriorSpawnPoint = {
+			Pos     = {x = 343.84, y = -554.16, z = 28.72},
+			Heading = 322.00
+		},
+
+		InteriorSpawnPoint = {
+			Pos     = {x = 228.930, y = -1000.698, z = -100.000},
+			Heading = 0.0
+		},
+
+		InteriorExitPoint = {
+			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		Parkings = {
+			{
+				Pos     = {x = 224.500, y = -998.695, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 224.500, y = -994.630, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 224.500, y = -990.255, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 224.500, y = -986.628, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 224.500, y = -982.496, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 232.500, y = -982.496, z = -100.000},
+				Heading = 135.0
+			},
+			{
+				Pos     = {x = 232.500, y = -986.628, z = -100.000},
+				Heading = 135.0
+			},
+			{
+				Pos     = {x = 232.500, y = -990.255, z = -100.000},
+				Heading = 135.0
+			},
+			{
+				Pos     = {x = 232.500, y = -994.630, z = -100.000},
+				Heading = 135.0
+			},
+			{
+				Pos     = {x = 232.500, y = -998.695, z = -100.000},
+				Heading = 135.0
 			},
 		}
 
