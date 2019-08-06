@@ -77,11 +77,11 @@ function OpenCloakroomMenu()
 		table.insert(elements, {label = _U('police_wear'), value = 'boss_wear'})
 	end
 
-	if Config.EnableNonFreemodePeds then
-		table.insert(elements, {label = 'Sheriff wear', value = 'freemode_ped', maleModel = 's_m_y_sheriff_01', femaleModel = 's_f_y_sheriff_01'})
-		table.insert(elements, {label = 'Police wear', value = 'freemode_ped', maleModel = 's_m_y_cop_01', femaleModel = 's_f_y_cop_01'})
-		table.insert(elements, {label = 'Swat wear', value = 'freemode_ped', maleModel = 's_m_y_swat_01', femaleModel = 's_m_y_swat_01'})
-	end
+	-- if Config.EnableNonFreemodePeds then
+	-- 	table.insert(elements, {label = 'Sheriff wear', value = 'freemode_ped', maleModel = 's_m_y_sheriff_01', femaleModel = 's_f_y_sheriff_01'})
+	-- 	table.insert(elements, {label = 'Police wear', value = 'freemode_ped', maleModel = 's_m_y_cop_01', femaleModel = 's_f_y_cop_01'})
+	-- 	table.insert(elements, {label = 'Swat wear', value = 'freemode_ped', maleModel = 's_m_y_swat_01', femaleModel = 's_m_y_swat_01'})
+	-- end
 
 	ESX.UI.Menu.CloseAll()
 
@@ -217,7 +217,7 @@ end
 
 function OpenArmoryMenu(station)
 	local elements = {
-		{label = _U('buy_weapons'), value = 'buy_weapons'}
+		-- {label = _U('buy_weapons'), value = 'buy_weapons'}
 	}
 
 	if Config.EnableArmoryManagement then

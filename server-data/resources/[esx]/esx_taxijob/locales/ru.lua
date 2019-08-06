@@ -1,4 +1,4 @@
-Locales['кг'] = {
+Locales['ru'] = {
   -- cloakroom
   ['cloakroom_menu'] = 'Раздевалка',
   ['cloakroom_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы войти в ~y~раздевалку~s~.',
