@@ -7,8 +7,8 @@ Citizen.CreateThread(function()
   end
 end)
 
-Config = {} 
-Config.DamageNeeded = 100.0 -- 100.0 being broken and 1000.0 being fixed a lower value than 100.0 will break it
+Config = {}
+Config.DamageNeeded = 1000.0 -- 100.0 being broken and 1000.0 being fixed a lower value than 100.0 will break it
 Config.MaxWidth = 5.0 -- Will complete soon
 Config.MaxHeight = 5.0
 Config.MaxLength = 5.0
@@ -55,20 +55,20 @@ end)
 
 
 Citizen.CreateThread(function()
-    while true do 
+    while true do
         Citizen.Wait(5)
         local ped = PlayerPedId()
         if Vehicle.Vehicle ~= nil then
- 
+
                 if IsVehicleSeatFree(Vehicle.Vehicle, -1) and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
                     ESX.Game.Utils.DrawText3D({x = Vehicle.Coords.x, y = Vehicle.Coords.y, z = Vehicle.Coords.z}, 'Press [~g~SHIFT~w~] and [~g~E~w~] to push the vehicle', 0.4)
                 end
-     
+
 
             if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
                 NetworkRequestControlOfEntity(Vehicle.Vehicle)
                 local coords = GetEntityCoords(ped)
-                if Vehicle.IsInFront then    
+                if Vehicle.IsInFront then
                     AttachEntityToEntity(PlayerPedId(), Vehicle.Vehicle, GetPedBoneIndex(6286), 0.0, Vehicle.Dimensions.y * -1 + 0.1 , Vehicle.Dimensions.z + 1.0, 0.0, 0.0, 180.0, 0.0, false, false, true, false, true)
                 else
                     AttachEntityToEntity(PlayerPedId(), Vehicle.Vehicle, GetPedBoneIndex(6286), 0.0, Vehicle.Dimensions.y - 0.3, Vehicle.Dimensions.z  + 1.0, 0.0, 0.0, 0.0, 0.0, false, false, true, false, true)
