@@ -395,6 +395,16 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function getPropertyByName(properties, name)
+	for _,v in pairs(properties) do
+		if v.name == name then
+			return v
+		end
+	end
+
+	return nil
+end
+
 -- Enter / Exit marker events
 Citizen.CreateThread(function()
 
@@ -452,8 +462,33 @@ Citizen.CreateThread(function()
 			LastGarage              = currentGarage
 			LastPart                = currentPart
 			LastParking             = currentParking
-			
-			TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
+
+			if currentGarage ~= nil and Config.Garages[currentGarage].NeedProperty ~= nil then
+				local needPropertyName = Config.Garages[currentGarage].NeedProperty
+				local ownProperty = false
+
+				ESX.TriggerServerCallback('esx_property:getOwnedProperties', function(ownedProperties)
+					TriggerEvent('esx_property:getProperties', function(properties)
+						for i=1, #ownedProperties, 1 do
+							local propertyName = ownedProperties[i]
+							local property = getPropertyByName(properties, propertyName)
+
+							if propertyName == needPropertyName or (property ~= nil and property.gateway == needPropertyName) then
+								ownProperty = true
+								break
+							end
+						end
+
+						if ownProperty then
+							TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
+						else
+							ESX.ShowNotification(_U('need_property'))
+						end
+					end)
+				end)
+			else
+				TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
+			end
 		end
 
 		if not isInMarker and HasAlreadyEnteredMarker then

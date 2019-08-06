@@ -18,6 +18,7 @@ Config.Garages = {
 	MiltonDrive = {
 
 		IsClosed = true,
+		NeedProperty = 'MiltonDrive',
 
 		ExteriorEntryPoint = {
 			Pos = {x= -796.542, y = 318.137, z = 84.673},
