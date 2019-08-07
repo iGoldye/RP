@@ -34,10 +34,9 @@ end)
 function LiftUp()
 		local player, distance = ESX.Game.GetClosestPlayer()
 
-		ESX.ShowNotification('Вы поднимаете этого человека...')
-		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
-		Citizen.Wait(10)
 		if distance ~= -1 and distance <= 3.0 then
+			ESX.ShowNotification('Вы поднимаете этого человека...')
+			TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
 			local dict = "anim@heists@box_carry@"
 
 			RequestAnimDict(dict)
