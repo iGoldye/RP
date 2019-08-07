@@ -30,11 +30,13 @@ end)
 RegisterServerEvent('rlUpdateNamesResult')
 
 AddEventHandler('rlUpdateNamesResult', function(res)
+--[[    
     if source ~= tonumber(hostId) and hostId ~= -1 then
         print('RconLog: Wrong hostid! Exploiting or network lag. Player: '..GetPlayerName(source))
 	TriggerClientEvent('rlUpdateNames', genHostId())
         return
     end
+]]--
 
     for id, data in pairs(res) do
         if data then

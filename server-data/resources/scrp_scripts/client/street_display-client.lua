@@ -19,7 +19,7 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 
 		if streetName and currentZone and not IsRadarHidden() then
-			drawTxt(0.3, 1.4, 0.45, '~s~ID:~y~ ' .. GetPlayerServerId(PlayerId()), 185, 185, 185, 255)
+			drawTxt(0.0, 0.0, 0.0, '~s~~y~ ' .. GetPlayerServerId(PlayerId()), 185, 185, 185, 255)
 
 			if crossing == "" then
 				drawTxt(0.734, 1.45, 0.45, currentZone, 185, 185, 185, 255)

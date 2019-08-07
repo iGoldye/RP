@@ -7,7 +7,7 @@ Config.EnableVaultManagement      = true
 Config.EnableHelicopters          = true
 Config.EnableMoneyWash            = true
 Config.MaxInService               = -1
-Config.Locale                     = 'de'
+Config.Locale                     = 'en'
 
 Config.MissCraft                  = 10 -- %
 
@@ -97,7 +97,7 @@ Config.Zones = {
 -------- SHOPS --------
 
     Flacons = {
-        Pos   = { x = -1586.97, y = -3012.73, z = -77.00 },
+        Pos   = { x = -1585.39, y = -3012.66, z = -77.00 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 238, g = 0, b = 0 },
         Type  = 23,
@@ -112,7 +112,22 @@ Config.Zones = {
     },
 
     NoAlcool = {
-        Pos   = { x = -1577.56, y = -3014.65, z = -80.00 },
+        Pos   = { x = -1580.09, y = -3018.61, z = -80.00 },
+        Size  = { x = 1.6, y = 1.6, z = 1.0 },
+        Color = { r = 238, g = 110, b = 0 },
+        Type  = 23,
+        Items = {
+            { name = 'soda',        label = _U('soda'),     price = 4 },
+            { name = 'jusfruit',    label = _U('jusfruit'), price = 3 },
+            { name = 'icetea',      label = _U('icetea'),   price = 4 },
+            { name = 'energy',      label = _U('energy'),   price = 7 },
+            { name = 'drpepper',    label = _U('drpepper'), price = 2 },
+            { name = 'limonade',    label = _U('limonade'), price = 1 }
+        },
+    },
+
+    NoAlcool = {
+        Pos   = { x = -1584.8, y = -3015.78, z = -77.00 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 238, g = 110, b = 0 },
         Type  = 23,
@@ -127,7 +142,7 @@ Config.Zones = {
     },
 
     Apero = {
-        Pos   = { x = -1584.58, y = -3012.67, z = -77.00 },
+        Pos   = { x = -1584.6, y = -3009.57, z = -77.00 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 142, g = 125, b = 76 },
         Type  = 23,
@@ -143,6 +158,17 @@ Config.Zones = {
 
     Ice = {
         Pos   = { x = -1576.01, y = -3017.11, z = -80.00 },
+        Size  = { x = 1.6, y = 1.6, z = 1.0 },
+        Color = { r = 255, g = 255, b = 255 },
+        Type  = 23,
+        Items = {
+            { name = 'ice',     label = _U('ice'),      price = 1 },
+            { name = 'menthe',  label = _U('menthe'),   price = 2 }
+        },
+    },
+
+    Ice = {
+        Pos   = { x = -1582.34, y = -3012.14, z = -77.00 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 255, g = 255, b = 255 },
         Type  = 23,
