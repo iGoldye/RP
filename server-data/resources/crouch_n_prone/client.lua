@@ -8,7 +8,7 @@ proneKey =20
 
 Citizen.CreateThread( function()
 	while true do
-		Citizen.Wait( 1 )
+		Citizen.Wait( 0 )
 		local ped = GetPlayerPed( -1 )
 		if ( DoesEntityExist( ped ) and not IsEntityDead( ped ) ) then
 			ProneMovement()
@@ -16,19 +16,17 @@ Citizen.CreateThread( function()
 			DisableControlAction( 0, crouchKey, true )
 			if ( not IsPauseMenuActive() ) then
 				if ( IsDisabledControlJustPressed( 0, crouchKey ) and not proned ) then
-					RequestAnimSet( "move_ped_crouched" )
-					RequestAnimSet("MOVE_M@TOUGH_GUY@")
 
 					while ( not HasAnimSetLoaded( "move_ped_crouched" ) ) do
+						RequestAnimSet( "move_ped_crouched" )
 						Citizen.Wait( 100 )
 					end
 					while ( not HasAnimSetLoaded( "MOVE_M@TOUGH_GUY@" ) ) do
-						Citizen.Wait( 100 )
-					end
-					while ( not HasAnimSetLoaded( "get_up@directional@transition@prone_to_knees@crawl" ) ) do
+						RequestAnimSet("MOVE_M@TOUGH_GUY@")
 						Citizen.Wait( 100 )
 					end
 					while ( not HasAnimSetLoaded( "move_crawl" ) ) do
+						RequestAnimSet("move_crawl")
 						Citizen.Wait( 100 )
 					end
 
@@ -44,10 +42,9 @@ Citizen.CreateThread( function()
 					end
 				elseif ( IsDisabledControlJustPressed(0, proneKey) and not crouched and not IsPedInAnyVehicle(ped, true) and not IsPedFalling(ped) and not IsPedDiving(ped) and not IsPedInCover(ped, false) and not IsPedInParachuteFreeFall(ped) and (GetPedParachuteState(ped) == 0 or GetPedParachuteState(ped) == -1) ) then
 					if proned then
-						TaskPlayAnim(ped, "get_up@directional@transition@prone_to_knees@crawl", "front", 8.0, 1.0, -1, 0, 0.0, 0, 0, 0)
-						Citizen.Wait(1000)
 						proned = false
 						SetPedToRagdoll(PlayerPedId(), 10, 10, 0, 0, 0, 0)
+						Citizen.Wait(1000)
 						ClearPedTasks(ped)
 						Citizen.Wait( 100 )
 					elseif not proned then
@@ -80,6 +77,7 @@ function SetProned()
 	end
 
 	TaskPlayAnimAdvanced(ped, "move_crawl", "onfront_fwd", GetEntityCoords(ped), 0.0, 0.0, GetEntityHeading(ped), 1.0, 1.0, 1.0, 46, 1.0, 0, 0)
+	Citizen.Wait(1000)
 end
 
 
