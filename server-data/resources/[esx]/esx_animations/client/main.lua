@@ -42,6 +42,10 @@ function startAnim(lib, anim, flag)
 	end)
 end
 
+function startFacial(anim)
+	SetFacialIdleAnimOverride(PlayerPedId(), anim, 0)
+end
+
 function startScenario(anim)
 	TaskStartScenarioInPlace(PlayerPedId(), anim, 0, false)
 end
@@ -96,6 +100,9 @@ function OpenAnimationsSubMenu(menu)
 		local lib  = data.current.value.lib
 		local anim = data.current.value.anim
 		local flag = data.current.value.flag
+		if flag == nil then
+			flag = 0
+		end
 
 		if data.current.value.in_vehicle == true and not IsPedSittingInAnyVehicle(PlayerPedId()) then
 			return
@@ -122,6 +129,8 @@ function OpenAnimationsSubMenu(menu)
 			startAttitude(lib, anim)
 		elseif type == 'anim' then
 			startAnim(lib, anim, flag)
+		elseif type == 'facial' then
+			startFacial(anim)
 		end
 	end, function(data, menu)
 		menu.close()

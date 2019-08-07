@@ -1,7 +1,23 @@
 Config = {}
 
 Config.Animations = {
-
+	{
+		name  = 'facials',
+		label = 'Facials',
+		items = {
+			{label = "Normal", type = "facial", data = {anim = "mood_normal_1"}},
+			{label = "Happy", type = "facial", data = {anim = "mood_happy_1"}},
+			{label = "Angry", type = "facial", data = {anim = "mood_angry_1"}},
+			{label = "Sleeping", type = "facial", data = {anim = "mood_sleeping_1"}},
+			{label = "Knockout", type = "facial", data = {anim = "mood_knockout_1"}},
+			{label = "Aiming", type = "facial", data = {anim = "mood_aiming_1"}},
+			{label = "Injured", type = "facial", data = {anim = "mood_injured_1"}},
+			{label = "Stressed", type = "facial", data = {anim = "mood_stressed_1"}},
+			{label = "Smug", type = "facial", data = {anim = "mood_smug_1"}},
+			{label = "Sulk", type = "facial", data = {anim = "mood_sulk_1"}},
+			{label = "Drunk", type = "facial", data = {anim = "mood_drunk_1"}},
+		}
+	},
 	{
 		name  = 'festives',
 		label = 'Festives',
