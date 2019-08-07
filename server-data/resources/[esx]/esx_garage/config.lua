@@ -204,6 +204,7 @@ Config.Garages = {
 	Police = {
 
 		IsClosed = true,
+		NeedJob = 'police',
 
 		ExteriorEntryPoint = {
 			Pos = {x= 452.5, y = -1009.26, z = 27.0},
@@ -357,6 +358,7 @@ Config.Garages = {
 	Ambulance = {
 
 		IsClosed = true,
+		NeedJob = 'ambulance',
 
 		ExteriorEntryPoint = {
 			Pos = {x= 340.67, y = -562.26, z = 27.5},

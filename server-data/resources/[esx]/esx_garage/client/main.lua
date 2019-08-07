@@ -486,6 +486,13 @@ Citizen.CreateThread(function()
 						end
 					end)
 				end)
+			elseif currentGarage ~= nil and Config.Garages[currentGarage].NeedJob ~= nil then
+				local PlayerData = ESX.GetPlayerData()
+				if PlayerData.job and PlayerData.job.name == Config.Garages[currentGarage].NeedJob then
+					TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
+				else
+					ESX.ShowNotification(_U('need_job'))
+				end
 			else
 				TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
 			end
