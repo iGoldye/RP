@@ -7,7 +7,7 @@
       <modelName>C7</modelName>
       <txdName>C7</txdName>
       <handlingId>C7</handlingId>
-      <gameName>C7</gameName>
+      <gameName>corvette7</gameName>
       <vehicleMakeName>CHV</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
       <expressionName>null</expressionName>
@@ -85,7 +85,7 @@
       <type>VEHICLE_TYPE_CAR</type>
       <plateType>VPT_BACK_PLATES</plateType>
       <dashboardType>VDT_ZTYPE</dashboardType>
-      <vehicleClass>VC_SUPER</vehicleClass>
+      <vehicleClass>VC_SPORT</vehicleClass>
       <wheelType>VWT_SPORT</wheelType>
       <trailers />
       <additionalTrailers />
