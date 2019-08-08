@@ -87,6 +87,7 @@ Config.Animations = {
 			{label = "Да пошли вы!", type = "anim", data = {lib = "mp_player_int_upperfinger", anim = "mp_player_int_finger_01_enter", upper=true, control=true}},
 			{label = "Передернуть", type = "anim", data = {lib = "mp_player_int_upperwank", anim = "mp_player_int_wank_01", upper=true, control=true, flag = 9}},
 			{label = "Застрелиться", type = "anim", data = {lib = "mp_suicide", anim = "pistol", stop_last_frame=true}},
+			{label = "Это круто!", type = "anim", data = {lib = "anim@mp_player_intupperbanging_tunes", anim = "idle_a", upper=true, control=true, flag = 9}},
 		}
 	},
 
@@ -116,6 +117,14 @@ Config.Animations = {
 			{label = "Селфи", type = "scenario", data = {anim = "world_human_tourist_mobile", upper=true, control=true}},
 			{label = "Взламывать", type = "anim", data = {lib = "mini@safe_cracking", anim = "idle_base", flag = 9}},
 		}
+	},
+	{
+		name  = 'stand',
+		label = 'Стойки',
+		items = {
+    	{label = "Dans20", type = "anim", data = {lib = "anim@amb@nightclub@dancers@club_ambientpeds_transitions@", anim = "trans_li-mi_to_mi-hi_09_v1_male^3", flag = 9}},	
+		}
+
 	},
 
 	{
@@ -178,7 +187,6 @@ Config.Animations = {
         {label = "Taniec 24", type = "anim", data = {lib = "anim@amb@nightclub@dancers@dixon_entourage@", anim = "mi_dance_facedj_15_v1_male^4", flag = 9}},
         {label = "Taniec 25", type = "anim", data = {lib = "anim@amb@nightclub@dancers@podium_dancers@", anim = "hi_dance_facedj_17_v2_male^5", flag = 9}},
         {label = "Taniec 28", type = "anim", data = {lib = "misschinese2_crystalmazemcs1_ig", anim = "dance_loop_tao", flag = 9}},
-        {label = "Taniec 32", type = "anim", data = {lib = "anim@mp_player_intupperbanging_tunes", anim = "idle_a", upper=true, control=true, flag = 9}},
         {label = "Taniec 33", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@", anim = "high_center", flag = 9}},
         {label = "Taniec 34", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_b@", anim = "high_center", flag = 9}},
         {label = "Taniec 35", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@male@var_b@", anim = "high_center", flag = 9}},
@@ -199,9 +207,7 @@ Config.Animations = {
 				{label = "Dans15", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "mi_dance_crowd_15_v2_female^3", flag = 9}},
 				{label = "Dans16", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "mi_dance_crowd_17_v2_female^1", flag = 9}},
 				{label = "Dans17", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "li_dance_crowd_09_v2_female^3", flag = 9}},
-				{label = "Dans18", type = "anim", data = {lib = "anim@amb@nightclub@dancers@club_ambientpeds_transitions@", anim = "trans_li-mi_to_mi-hi_09_v1_female^3", flag = 9}},
 				{label = "Dans19", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@hi_intensity", anim = "hi_dance_crowd_13_v2_male^2", flag = 9}},
-				{label = "Dans20", type = "anim", data = {lib = "anim@amb@nightclub@dancers@club_ambientpeds_transitions@", anim = "trans_li-mi_to_mi-hi_09_v1_male^3", flag = 9}},	
 		}
 	},
 	{
