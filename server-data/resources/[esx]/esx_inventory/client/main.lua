@@ -487,3 +487,7 @@ RegisterNetEvent('esx_inventory:showItemNotification')
 AddEventHandler('esx_inventory:showItemNotification', function(add, item, count)
 	ESX.UI.ShowInventoryItemNotification(add, item, count)
 end)
+
+AddEventHandler("playerSpawned", function()
+	TriggerServerEvent('esx_inventory:playerSpawned')
+end)

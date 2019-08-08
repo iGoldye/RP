@@ -319,6 +319,11 @@ function createPickup(source, item, label)
 	return true
 end
 
+function sendAllPickups(source)
+	for i, pickup in pairs(pickups) do
+		TriggerClientEvent('esx_inventory:createPickup', source, pickup.id, pickup)
+	end
+end
 
 function addOrSetItem(name, owner, item, add)
 	local old_item_index, old_item = findItem(name, owner, item)
@@ -504,6 +509,11 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 	if removeItem("pocket", xPlayer.identifier, createItem("weapon", item.extra, 1)) == true then
 		TriggerClientEvent("esx_inventory:equipWeapon", source, item)
 	end	
+end)
+
+RegisterServerEvent('esx_inventory:playerSpawned')
+AddEventHandler('esx_inventory:playerSpawned', function()
+	sendAllPickups(source)
 end)
 
 MySQL.ready(function()
