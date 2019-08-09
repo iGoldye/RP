@@ -44,8 +44,8 @@ Locales['en'] = {
   ['heal_complete'] = 'Вы вылечили ~y~%s~s~',
   ['no_players'] = 'Поблизости нет пострадавших',
   ['no_vehicles'] = 'Поблизости нет транспортных средств',
-  ['player_not_unconscious'] = 'Этот игрок в сознании!',
-  ['player_not_conscious'] = 'Этот игрок не в сознании!',
+  ['player_not_unconscious'] = 'Этот человек в сознании!',
+  ['player_not_conscious'] = 'Этот человек не в сознании!',
   -- Boss Menu
   ['boss_actions'] = 'Действия Глав врача',
   -- Misc
