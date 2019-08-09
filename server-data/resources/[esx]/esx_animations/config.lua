@@ -22,6 +22,7 @@ Config.Animations = {
 		name  = 'festives',
 		label = 'Действия',
 		items = {
+			{label = "Пить кофе", type = "scenario", data = {anim = "WORLD_HUMAN_AA_COFFEE"}},
 			{label = "Курить", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING", flag = 9}},
 			{label = "Музицировать", type = "scenario", data = {anim = "WORLD_HUMAN_MUSICIAN", flag = 9}},
 			{label = "Диджей", type = "anim", data = {lib = "anim@mp_player_intcelebrationmale@dj", anim = "dj", flag = 9}},
@@ -33,9 +34,11 @@ Config.Animations = {
 			{label = "Курить косяк", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING_POT"}},
 			{label = "Схватить", type = "anim", data = {lib = "anim@am_hold_up@male", anim = "shoplift_high", upper=false, control=true, flag = 9}},
 			{label = "Стучать", type = "anim", data = {lib = "amb@code_human_in_car_mp_actions@dance@bodhi@ds@base", anim = "idle_a_fp", flag = 9}},
+			{label = "Копаться в", type = "scenario", data = {anim = "PROP_HUMAN_BUM_BIN"}},
+			{label = "Руки за голову", type = "anim", data = {lib = "random@arrests@busted", anim = "idle_c", repeat_anim=true}},
 		}
 	},
-
+	
 	{
 		name  = 'greetings',
 		label = 'Приветствия',
@@ -52,22 +55,27 @@ Config.Animations = {
 		name  = 'work',
 		label = 'Работа',
 		items = {
-			{label = "Руки за голову", type = "anim", data = {lib = "random@arrests@busted", anim = "idle_c", repeat_anim=true}},
 			{label = "Рыбачить", type = "scenario", data = {anim = "world_human_stand_fishing"}},
 			{label = "Искать улики", type = "anim", data = {lib = "amb@code_human_police_investigate@idle_b", anim = "idle_f"}},
 			{label = "Police : radio chatter", type = "anim", data = {lib = "random@arrests", anim = "generic_radio_chatter", upper=true, control=true}},
-			{label = "Управление движением", type = "scenario", data = {anim = "WORLD_HUMAN_CAR_PARK_ATTENDANT", flag = 9}},
 			{label = "Смотреть в бинокль", type = "scenario", data = {anim = "WORLD_HUMAN_BINOCULARS"}},
 			{label = "Копать", type = "scenario", data = {anim = "world_human_gardener_plant"}},
 			{label = "Чинить двигатель", type = "anim", data = {lib = "mini@repair", anim = "fixing_a_ped", flag = 9}},
+			{label = "Чинить днище", type = "scenario", data = {anim = "WORLD_HUMAN_VEHICLE_MECHANIC"}},
+			{label = "Сварка", type = "scenario", data = {anim = "WORLD_HUMAN_WELDING"}},
 			{label = "Осматривать", type = "scenario", data = {anim = "CODE_HUMAN_MEDIC_KNEEL"}},
+			{label = "Протирать", type = "scenario", data = {anim = "world_human_maid_clean"}},
 			{label = "Перекладывать ящики", type = "anim", data = {lib = "mp_am_hold_up", anim = "purchase_beerbox_shopkeeper", flag = 9}},
 			{label = "Налить рюмку", type = "anim", data = {lib = "mini@drinking", anim = "shots_barman_b", flag = 9}},
 			{label = "Фотографировать", type = "scenario", data = {anim = "WORLD_HUMAN_PAPARAZZI"}},
 			{label = "Планшет", type = "scenario", data = {anim = "WORLD_HUMAN_CLIPBOARD"}},
+			{label = "Блокнот", type = "scenario", data = {anim = "CODE_HUMAN_MEDIC_TIME_OF_DEATH"}},
+			{label = "Светить фонарем", type = "scenario", data = {anim = "WORLD_HUMAN_SECURITY_SHINE_TORCH"}},
+			{label = "Управление движением", type = "scenario", data = {anim = "WORLD_HUMAN_CAR_PARK_ATTENDANT", flag = 9}},
 			{label = "Молоток", type = "scenario", data = {anim = "WORLD_HUMAN_HAMMERING"}},
 			{label = "Просить деньги", type = "scenario", data = {anim = "WORLD_HUMAN_BUM_FREEWAY"}},
 			{label = "Мим", type = "scenario", data = {anim = "WORLD_HUMAN_HUMAN_STATUE"}},
+			
 		}
 	},
 
@@ -95,13 +103,25 @@ Config.Animations = {
 		name  = 'sports',
 		label = 'Спорт',
 		items = {
-			{label = "Показывать мускулы", type = "anim", data = {lib = "amb@world_human_muscle_flex@arms_at_side@base", anim = "base"}},
-			-- {label = "Barre de musculation", type = "anim", data = {lib = "amb@world_human_muscle_free_weights@male@barbell@base", anim = "base"}}, нет пропа
+			{label = "Показывать мускулы", type = "scenario", data = {anim = "WORLD_HUMAN_MUSCLE_FLEX"}},
 			{label = "Отжиматься", type = "anim", data = {lib = "amb@world_human_push_ups@male@base", anim = "base", flag = 9}},
 			{label = "Качать пресс", type = "anim", data = {lib = "amb@world_human_sit_ups@male@base", anim = "base", flag = 9}},
 			{label = "Йога", type = "anim", data = {lib = "amb@world_human_yoga@male@base", anim = "base_a", flag = 9}},
 			{label = "Разминка перед дракой", type = "anim", data = {lib = "anim@deathmatch_intros@unarmed", anim = "intro_male_unarmed_e", flag = 9}},
 			{label = "Зарядка", type = "anim", data = {lib = "timetable@tracy@ig_5@idle_b", anim = "idle_e", flag = 9}},
+			{label = "Бег на месте", type = "scenario", data = {anim = "WORLD_HUMAN_JOG_STANDING"}},
+			{label = "Турник", type = "scenario", data = {anim = "PROP_HUMAN_MUSCLE_CHIN_UPS"}},
+			{label = "Жим лежа", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS"}},
+		}
+	},
+	{
+		name  = 'sit',
+		label = 'Сидеть/лежать',
+		items = {
+			{label = "На земле", type = "scenario", data = {anim = "WORLD_HUMAN_PICNIC"}},
+			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
+			{label = "Лежать на животе", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE"}},
+			{label = "Лежать на боку", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_right_side@base", anim = "base", flag = 9}},
 		}
 	},
 
@@ -109,11 +129,6 @@ Config.Animations = {
 		name  = 'misc',
 		label = 'Разное',
 		items = {
-			{label = "Пить кофе", type = "anim", data = {lib = "amb@world_human_aa_coffee@idle_a", anim = "idle_a", upper=true, control=true, flag = 9}},
-			{label = "Опереться спиной", type = "scenario", data = {anim = "world_human_leaning"}},
-			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
-			{label = "Лежать на животе", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE"}},
-			{label = "Протирать", type = "scenario", data = {anim = "world_human_maid_clean"}},
 			{label = "Селфи", type = "scenario", data = {anim = "world_human_tourist_mobile", upper=true, control=true}},
 			{label = "Взламывать", type = "anim", data = {lib = "mini@safe_cracking", anim = "idle_base", flag = 9}},
 		}
@@ -122,7 +137,15 @@ Config.Animations = {
 		name  = 'stand',
 		label = 'Стойки',
 		items = {
-    	{label = "Dans20", type = "anim", data = {lib = "anim@amb@nightclub@dancers@club_ambientpeds_transitions@", anim = "trans_li-mi_to_mi-hi_09_v1_male^3", flag = 9}},	
+			{label = "Пританцовывать бар", type = "anim", data = {lib = "anim@amb@nightclub@dancers@club_ambientpeds_transitions@", anim = "trans_li-mi_to_mi-hi_09_v1_male^3", flag = 9}},
+			{label = "Завлекающая", type = "scenario", data = {anim = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS"}},
+			{label = "Коп", type = "scenario", data = {anim = "WORLD_HUMAN_COP_IDLES"}},
+			{label = "Охрана", type = "scenario", data = {anim = "WORLD_HUMAN_GUARD_STAND"}},	
+			{label = "Ожидать", type = "scenario", data = {anim = "WORLD_HUMAN_STAND_IMPATIENT"}},
+			{label = "Облокотиться 1", type = "scenario", data = {anim = "PROP_HUMAN_BUM_SHOPPING_CART"}},
+			{label = "Скрестить руки Ж", type = "anim", data = {lib = "amb@world_human_hang_out_street@female_arms_crossed@base", anim = "base", flag = 9}},
+			{label = "Опереться спиной", type = "scenario", data = {anim = "world_human_leaning"}},
+			
 		}
 
 	},
@@ -210,6 +233,54 @@ Config.Animations = {
 				{label = "Dans19", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@hi_intensity", anim = "hi_dance_crowd_13_v2_male^2", flag = 9}},
 		}
 	},
+	{
+		name  = 'test',
+		label = 'test',
+		items = {
+			
+			{label = "Сидеть тест", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE"}},
+			{label = "Сидеть с пончиком", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE_EATING"}},
+			{label = "Сидеть тест2", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_ARMCHAIR"}},
+			-- ------------------------ЖИВОТНЫЕ
+			{label = "A67", type = "scenario", data = {anim = "WORLD_BOAR_GRAZING"}},
+			{label = "68", type = "scenario", data = {anim = "WORLD_CAT_SLEEPING_GROUND"}},
+			{label = "69", type = "scenario", data = {anim = "WORLD_CAT_SLEEPING_LEDGE"}},
+			{label = "70", type = "scenario", data = {anim = "WORLD_COW_GRAZING"}},
+			{label = "71", type = "scenario", data = {anim = "WORLD_COYOTE_HOWL"}},
+			{label = "72", type = "scenario", data = {anim = "WORLD_COYOTE_REST"}},
+			{label = "73", type = "scenario", data = {anim = "WORLD_COYOTE_WANDER"}},
+			{label = "74", type = "scenario", data = {anim = "WORLD_CHICKENHAWK_FEEDING"}},
+			{label = "75", type = "scenario", data = {anim = "WORLD_CHICKENHAWK_STANDING"}},
+			{label = "76", type = "scenario", data = {anim = "WORLD_CORMORANT_STANDING"}},
+			{label = "77", type = "scenario", data = {anim = "WORLD_CROW_FEEDING"}},
+			{label = "78", type = "scenario", data = {anim = "WORLD_CROW_STANDING"}},
+			{label = "79", type = "scenario", data = {anim = "WORLD_DEER_GRAZING"}},
+			{label = "80", type = "scenario", data = {anim = "WORLD_DOG_BARKING_ROTTWEILER"}},
+			{label = "81", type = "scenario", data = {anim = "WORLD_DOG_BARKING_RETRIEVER"}},
+			{label = "82", type = "scenario", data = {anim = "WORLD_DOG_BARKING_SHEPHERD"}},
+			{label = "83", type = "scenario", data = {anim = "WORLD_DOG_SITTING_ROTTWEILER"}},
+			{label = "84", type = "scenario", data = {anim = "WORLD_DOG_SITTING_RETRIEVER"}},
+			{label = "85", type = "scenario", data = {anim = "WORLD_DOG_SITTING_SHEPHERD"}},
+			{label = "86", type = "scenario", data = {anim = "WORLD_DOG_BARKING_SMALL"}},
+			{label = "87", type = "scenario", data = {anim = "WORLD_DOG_SITTING_SMALL"}},
+			{label = "88", type = "scenario", data = {anim = "WORLD_FISH_IDLE"}},
+			{label = "89", type = "scenario", data = {anim = "WORLD_GULL_FEEDING"}},
+			{label = "90", type = "scenario", data = {anim = "WORLD_GULL_STANDING"}},
+			{label = "91", type = "scenario", data = {anim = "WORLD_HEN_PECKING"}},
+			{label = "92", type = "scenario", data = {anim = "WORLD_HEN_STANDING"}},
+			{label = "93", type = "scenario", data = {anim = "WORLD_MOUNTAIN_LION_REST"}},
+			{label = "94", type = "scenario", data = {anim = "WORLD_MOUNTAIN_LION_WANDER"}},
+			{label = "95", type = "scenario", data = {anim = "WORLD_PIG_GRAZING"}},
+			{label = "96", type = "scenario", data = {anim = "WORLD_PIGEON_FEEDING"}},
+			{label = "97", type = "scenario", data = {anim = "WORLD_PIGEON_STANDING"}},
+			{label = "98", type = "scenario", data = {anim = "WORLD_RABBIT_EATING"}},
+			{label = "A99", type = "scenario", data = {anim = "WORLD_SHARK_SWIM"}},
+		}
+		
+			
+	
+},
+		
 	{
 		name  = 'hakanonur',
 		label = '+18',

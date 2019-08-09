@@ -99,10 +99,10 @@ AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
 	local dict = "amb@code_human_in_car_idles@low@ps@"
 
 	if isCarry == false then
-		LoadAnimationDictionary("amb@code_human_in_car_idles@generic@ps@base")
-		TaskPlayAnim(lPed, "amb@code_human_in_car_idles@generic@ps@base", "base", 8.0, -8, -1, 33, 0, 0, 40, 0)
+		LoadAnimationDictionary("anim@amb@clubhouse@boss@female@")
+		TaskPlayAnim(lPed, "anim@amb@clubhouse@boss@female@", "base", 8.0, -8, -1, 33, 0, 0, 40, 0)
 
-		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 9816, 0.015, 0.38, 0.11, 0.9, 0.30, 90.0, false, false, false, false, 2, false)
+		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
 
 		isCarry = true
 	else
