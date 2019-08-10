@@ -380,13 +380,6 @@ Config.Uniforms = {
 			['bproof_1'] = 13,  ['bproof_2'] = 1
 		}
 	},
-	gilet_wear = {
-		male = {
-			['tshirt_1'] = 59,  ['tshirt_2'] = 1
-		},
-		female = {
-			['tshirt_1'] = 36,  ['tshirt_2'] = 1
-		}
-	}
+	
 
 }

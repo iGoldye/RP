@@ -58,7 +58,7 @@ function OpenCloakroomMenu()
 	local elements = {
 		{ label = _U('citizen_wear'), value = 'citizen_wear' },
 		{ label = _U('bullet_wear'), value = 'bullet_wear' },
-		{ label = _U('gilet_wear'), value = 'gilet_wear' }
+		
 	}
 
 	if grade == 'recruit' then
@@ -182,8 +182,8 @@ function OpenCloakroomMenu()
 			data.current.value == 'lieutenant_wear' or
 			data.current.value == 'chef_wear' or
 			data.current.value == 'boss_wear' or
-			data.current.value == 'bullet_wear' or
-			data.current.value == 'gilet_wear'
+			data.current.value == 'bullet_wear' 
+		
 		then
 			setUniform(data.current.value, playerPed)
 		end
