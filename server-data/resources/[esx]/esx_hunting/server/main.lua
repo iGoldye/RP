@@ -34,9 +34,9 @@ AddEventHandler('esx-qalle-hunting:sell', function()
 
         xPlayer.removeInventoryItem('meat', MeatQuantity)
         xPlayer.removeInventoryItem('leather', LeatherQuantity)
-        TriggerClientEvent('esx:showNotification', xPlayer.source, 'You sold ' .. LeatherQuantity + MeatQuantity .. ' and earned $' .. LeatherPrice * LeatherQuantity + MeatPrice * MeatQuantity)
+        TriggerClientEvent('esx:showNotification', xPlayer.source, 'Вы продали ' .. LeatherQuantity + MeatQuantity .. ' и получили$' .. LeatherPrice * LeatherQuantity + MeatPrice * MeatQuantity)
     else
-        TriggerClientEvent('esx:showNotification', xPlayer.source, 'You don\'t have any meat or leather')
+        TriggerClientEvent('esx:showNotification', xPlayer.source, 'Вам нечего продавать')
     end
         
 end)
