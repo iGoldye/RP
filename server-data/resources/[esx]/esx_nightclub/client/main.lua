@@ -31,16 +31,12 @@ Citizen.CreateThread(function()
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
     Citizen.Wait(0)
   end
+
+  PlayerData = ESX.GetPlayerData()
 end)
 
 function IsJobTrue()
-    if PlayerData ~= nil then
-        local IsJobTrue = false
-        if PlayerData.job ~= nil and PlayerData.job.name == 'nightclub' then
-            IsJobTrue = true
-        end
-        return IsJobTrue
-    end
+	return PlayerData ~= nil and PlayerData.job ~= nil and PlayerData.job.name == 'nightclub'
 end
 
 function IsGradeBoss()
@@ -1163,9 +1159,9 @@ Citizen.CreateThread(function()
     end
 
 
-    if IsControlJustReleased(0,  Keys['F6']) and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'nightclub_actions') then
-        OpenSocietyActionsMenu()
-    end
+--    if IsControlJustReleased(0,  Keys['F6']) and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'nightclub_actions') then
+--        OpenSocietyActionsMenu()
+--    end
 
 
   end
@@ -1267,4 +1263,11 @@ AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
 		TriggerEvent('esx_phone:removeSpecialContact', 'nightclub')
 	end	
+end)
+
+
+AddEventHandler('esx_nightclub:OpenSocietyActionsMenu', function()
+    if IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'nightclub_actions') then
+        OpenSocietyActionsMenu()
+    end
 end)
