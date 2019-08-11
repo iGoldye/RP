@@ -369,7 +369,7 @@ function updateBlipsAndMarkers()
 	end
 
 	for k,v in pairs(Config.Garages) do
-		local garageAllowedJob = PlayerData == nil or (v.NeedJob == nil) or (v.NeedJob == PlayerData.job.name)
+		local garageAllowedJob = PlayerData == nil or (v.NeedJob == nil) or (PlayerData.job ~= nil and v.NeedJob == PlayerData.job.name)
 		local garageAllowedProp = PlayerData == nil or (v.NeedProperty == nil) or (propertyOwned(v.NeedProperty))
 		v.allowedJob = garageAllowedJob
 		v.allowedProp = garageAllowedProp
