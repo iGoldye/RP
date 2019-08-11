@@ -2,6 +2,8 @@ Config = {}
 
 Config.Locale = 'en'
 
+Config.ShowBlips = false
+
 Config.Delays = {
 	WeedProcessing = 1000 * 10
 }
