@@ -15,6 +15,10 @@ function setLog(text, source)
 	local data = time .. ' : ' .. name .. ' - ' .. identifier[1] .. ' : ' .. text
 
 	local content = LoadResourceFile(GetCurrentResourceName(), "log.txt")
+	if content == nil then
+		content = ""
+	end
+
 	local newContent = content .. '\r\n' .. data
 	SaveResourceFile(GetCurrentResourceName(), "log.txt", newContent, -1)
 end

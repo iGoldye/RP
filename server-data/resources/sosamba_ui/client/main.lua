@@ -205,7 +205,7 @@ function inventoryAddNativeItems(elements, inventory)
 		local melee = false
 		local ammo = 0
 
-		if v.name == "weapon" then
+		if v.name == "weapon" and v.extra ~= nil then
 --			print(json.encode(v))
 			itemlabel = v.extra.weapon_label
 			ammo = v.extra.ammo

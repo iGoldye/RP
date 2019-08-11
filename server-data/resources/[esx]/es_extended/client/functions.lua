@@ -977,13 +977,18 @@ ESX.Game.SetVehicleProperties = function(vehicle, props)
 		SetVehicleLivery(vehicle, props.modLivery)
 	end
 
-	if props.bodyHealth ~= nil then
-		SetVehicleBodyHealth(vehicle, props.bodyHealth)
-		ApplyDamageRandom(vehicle, props.bodyHealth)
-	end
+	local vehicleClass = GetVehicleClass(vehicle)
 
-	if props.engineHealth ~= nil then
-		SetVehicleEngineHealth(vehicle, props.engineHealth)
+	if vehicleClass ~= 8 and vehicleClass ~= 13 and vehicleClass ~= 14 and vehicleClass ~= 15 and vehicleClass ~= 16 and vehicleClass ~= 21 then
+
+		if props.bodyHealth ~= nil then
+			SetVehicleBodyHealth(vehicle, props.bodyHealth)
+			ApplyDamageRandom(vehicle, props.bodyHealth)
+		end
+
+		if props.engineHealth ~= nil then
+			SetVehicleEngineHealth(vehicle, props.engineHealth)
+		end
 	end
 end
 

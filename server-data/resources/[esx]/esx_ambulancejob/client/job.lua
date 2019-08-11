@@ -35,14 +35,6 @@ function OpenMobileAmbulanceActionsMenu()
 
 	ESX.UI.Menu.CloseAll()
 
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'mobile_ambulance_actions', {
-		title    = _U('ambulance'),
-		align    = 'top-left',
-		elements = {
-			{label = _U('ems_menu'), value = 'citizen_interaction'}
-		}
-	}, function(data, menu)
-		if data.current.value == 'citizen_interaction' then
 			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'citizen_interaction', {
 				title    = _U('ems_menu_title'),
 				align    = 'top-left',
@@ -167,11 +159,6 @@ function OpenMobileAmbulanceActionsMenu()
 			end, function(data, menu)
 				menu.close()
 			end)
-		end
-
-	end, function(data, menu)
-		menu.close()
-	end)
 end
 
 function FastTravel(coords, heading)
@@ -378,11 +365,12 @@ Citizen.CreateThread(function()
 				CurrentAction = nil
 
 			end
-
+--[[
 		elseif ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'ambulance' and not IsDead then
 			if IsControlJustReleased(0, Keys['F6']) then
 				OpenMobileAmbulanceActionsMenu()
 			end
+]]--
 		else
 			Citizen.Wait(500)
 		end
@@ -920,5 +908,11 @@ AddEventHandler('esx_ambulancejob:heal', function(healType, quiet)
 
 	if not quiet then
 		ESX.ShowNotification(_U('healed'))
+	end
+end)
+
+AddEventHandler('esx_ambulancejob:OpenMobileAmbulanceActionsMenu', function()
+	if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == 'ambulance' and not IsDead then
+		OpenMobileAmbulanceActionsMenu()
 	end
 end)

@@ -1,3 +1,14 @@
+local securitycam_markers = 0
+
+RegisterNetEvent('esx_securitycam:securitycam_markers')
+AddEventHandler('esx_securitycam:securitycam_markers', function(en)
+	if en == nil then
+		en = 0
+	end
+	securitycam_markers = en
+end)
+
+
 function isCameraShooted(base_coord, radius)
 	local c2 = vector3(radius,radius,radius) + base_coord
 	local c1 = vector3(-radius,-radius,-radius) + base_coord
@@ -8,7 +19,9 @@ function isCameraShooted(base_coord, radius)
 		blue = 255
 	end
 
-	DrawBox(c1, c2, 255, 0, blue, 0.5)
+	if securitycam_markers > 0 then
+		DrawBox(c1, c2, 255, 0, blue, 0.5)
+	end
 
 	return res
 end
