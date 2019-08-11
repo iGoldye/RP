@@ -41,8 +41,12 @@ function OpenMenu()
 	}
 
 	local PlayerData = ESX.GetPlayerData()
-	if PlayerData.job and PlayerData.job.name == 'police' then
-		table.insert(elements, {label = "Действия полиции", value = 'police-actions'})
+	if PlayerData.job then
+		if PlayerData.job.name == 'police' then
+			table.insert(elements, {label = "Действия полиции", value = 'police-actions'})
+		elseif PlayerData.job.name == 'ambulance' then
+			table.insert(elements, {label = "Действия доктора", value = 'ambulance-actions'})
+		end
 	end
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'global-menu',
@@ -61,8 +65,6 @@ function OpenMenu()
 			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'sosamba_ui:showInventoryMenu')
 		elseif cmd == 'animations' then
 			TriggerEvent('esx_animations:openAnimationsMenu')
-		elseif cmd == 'police-actions' then
-			TriggerEvent('esx_policejob:openPoliceActionsMenu')
 		elseif cmd == 'billing' then
 			TriggerEvent('esx_billing:showBillsMenu')
 		elseif cmd == 'liftup' then
@@ -71,6 +73,10 @@ function OpenMenu()
 			TriggerEvent('esx_accessories:openAccessoryMenu')
 		elseif cmd == 'clothesoff' then
 			TriggerEvent('clothesoff:openActionMenuInteraction')
+		elseif cmd == 'police-actions' then
+			TriggerEvent('esx_policejob:openPoliceActionsMenu')
+		elseif cmd == 'ambulance-actions' then
+			TriggerEvent('esx_ambulancejob:OpenMobileAmbulanceActionsMenu')
 		end
 
 	end, function(data, menu)
