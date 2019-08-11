@@ -5,67 +5,67 @@ Config.Locale = 'en'
 Config.PetShop = {
 	{
 		pet = 'chien',
-		label = _U('dog'),
+		label = _U('Собака'),
 		price = 50000
 	},
 
 	{
 		pet = 'chat',
-		label = _U('cat'),
+		label = _U('Кошка'),
 		price = 15000
 	},
 
 	{
 		pet = 'lapin',
-		label = _U('bunny'),
+		label = _U('Кролик'),
 		price = 25000
 	},
 
 	{
 		pet = 'husky',
-		label = _U('husky'),
+		label = _U('{Хаски}'),
 		price = 35000
 	},
 
 	{
 		pet = 'cochon',
-		label = _U('pig'),
+		label = _U('Свинья'),
 		price = 10000
 	},
 
 	{
 		pet = 'caniche',
-		label = _U('poodle'),
+		label = _U('Пудель'),
 		price = 50000
 	},
 
 	{
 		pet = 'carlin',
-		label = _U('pug'),
+		label = _U('Мопс'),
 		price = 6000
 	},
 
 	{
 		pet = 'retriever',
-		label = _U('retriever'),
+		label = _U('Ретривер'),
 		price = 10000
 	},
 
 	{
 		pet = 'berger',
-		label = _U('asatian'),
+		label = _U('Эльзасск'),
 		price = 55000
 	},
 
 	{
 		pet = 'westie',
-		label = _U('westie'),
+		label = _U('Уэсти'),
 		price = 50000
 	},
 
 	{
 		pet = 'chop',
-		label = _U('chop'),
+		label = _U('Чоп'),
 		price = 12000
 	}
 }
