@@ -150,6 +150,58 @@ Config.Garages = {
 
 	},
 
+	WildOatsDrive = {
+		IsClosed = true,
+		NeedProperty = 'WildOatsDrive',
+
+		ExteriorEntryPoint = {
+			Pos = {x= -189.22, y = 500.51, z = 133.34},
+		},
+
+		ExteriorSpawnPoint = {
+			Pos     = {x = -189.8, y = 505.02, z = 134.45},
+			Heading = 280
+		},
+
+		InteriorSpawnPoint = {
+			Pos     = {x = 202.27, y = -1004.1, z =-100.00},
+			Heading = 0.0
+		},
+
+		InteriorExitPoint = {
+			Pos = {x = 196.69, y = -1006.26, z = -100.000},
+		},
+
+		Parkings = {
+			{
+				Pos     = {x = 193.06, y = -995.95, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 192.61, y = -1000.16, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 192.06, y = -1003.64, z = -100.000},
+				Heading = 225.0
+			},
+			{
+				Pos     = {x = 205.85, y = -1002.17, z = -100.000},
+				Heading = 105.0
+			},
+			{
+				Pos     = {x =201.98, y = -996.98, z = -100.000},
+				Heading = 175.0
+			},
+			{
+				Pos     = {x = 198.33, y = -996.42, z = -100.000},
+				Heading = 175.0
+			},
+		}
+
+
+	},
+--[[
 	DidionWay = {
 
 		IsClosed = true,
@@ -200,7 +252,7 @@ Config.Garages = {
 		}
 
 	},
-
+]]--
 	Police = {
 
 		IsClosed = true,
