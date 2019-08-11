@@ -28,3 +28,13 @@ AddEventHandler('esx_securitycam:setCameraBroken', function(location, cam_index)
 	end
 end)
 
+TriggerEvent('es:addGroupCommand', 'securitycam_markers', 'admin', function(source, args, user)
+	local en = args[1]
+	if en ~= nil then
+		en = tonumber(en)
+	end
+	TriggerClientEvent('esx_securitycam:securitycam_markers', source, en)
+
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, { help = "Показывать маркеры расположения камер", params = {{ name = '1/0' }} })
