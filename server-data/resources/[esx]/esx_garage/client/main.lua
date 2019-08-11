@@ -10,7 +10,7 @@ local myProperties        = {}
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
 	PlayerData.job = job
-	updateBlips()
+	updateBlipsAndMarkers()
 end)
 
 Citizen.CreateThread(function()
@@ -21,7 +21,7 @@ Citizen.CreateThread(function()
 
 	PlayerData = ESX.GetPlayerData()
 	updateOwnedProperties()
-	updateBlips()
+	updateBlipsAndMarkers()
 end)
 
 function updateOwnedProperties()
@@ -34,7 +34,7 @@ function updateOwnedProperties()
 				myProperties[propertyName] = property
 			end
 		end)
-		updateBlips()
+		updateBlipsAndMarkers()
 	end)
 end
 
@@ -359,7 +359,7 @@ AddEventHandler('esx_property:hasExitedMarker', function(name, part, parking)
 
 end)
 
-function updateBlips()
+function updateBlipsAndMarkers()
 	for k,v in pairs(blips) do
 		RemoveBlip(v)
 	end
@@ -371,6 +371,8 @@ function updateBlips()
 	for k,v in pairs(Config.Garages) do
 		local garageAllowedJob = PlayerData == nil or (v.NeedJob == nil) or (v.NeedJob == PlayerData.job.name)
 		local garageAllowedProp = PlayerData == nil or (v.NeedProperty == nil) or (propertyOwned(v.NeedProperty))
+		v.allowedJob = garageAllowedJob
+		v.allowedProp = garageAllowedProp
 
 		if v.IsClosed and garageAllowedJob and garageAllowedProp then
 
@@ -412,7 +414,7 @@ Citizen.CreateThread(function()
 
 			if v.IsClosed then
 
-				if(not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.DrawDistance) then
+				if v.allowedProp and v.allowedJob and (not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.DrawDistance) then
 					DrawMarker(Config.MarkerType, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
 					sleep = false
 				end	
