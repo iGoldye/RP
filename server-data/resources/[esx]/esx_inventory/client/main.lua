@@ -75,31 +75,43 @@ function getItemActions(itemName)
 	return itemActions[itemName]
 end
 
+function runItemAction(itemName, actionName, item)
+	if actionName == "drop" then
+		return action_drop(item)
+	elseif actionName == "return" then
+		return
+	end
+
+	if itemActions[itemName] == nil then
+		print("runItemAction: Unknown item, name = "..itemName)
+	elseif itemActions[itemName][actionName] == nil then
+		print("runItemAction: Unknown action, name = "..itemName..", action = "..actionName)
+	elseif itemActions[itemName][actionName].cb == nil then
+		print("runItemAction: nil action callback, name = "..itemName..", action = "..actionName)
+	end
+
+	return itemActions[itemName][actionName].cb(item)
+end
+
+function action_drop(item)
+	local amount = item.amount
+-- 	local amount = 1
+--	if item.amount > 1 then
+--		amount = tonumber(showInputDialog("inventory_drop_item_dialog", _U("amount")))
+--	end
+
+	if amount ~= nil and amount > 0 then
+		TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
+		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:updateInventory')
+	end
+end
+
 registerItemAction("esx_item", "esx_use", _U("inventory_action_use"), function(item)
 	TriggerServerEvent('esx:useItem', item.extra.name)
 end)
 
 registerItemAction("money_pack", "unpack", _U("inventory_action_unpack"), function(item)
 	TriggerServerEvent('esx_inventory:actionUnpackMoney', item)
-end)
-
-registerItemAction("equipped_weapon", "unequip", _U("inventory_action_unequip"), function(item)
-
-	local amount = 0
-	if item.extra.ammo > 0 then
-		amount = tonumber(showInputDialog("inventory_unequip_item_dialog", _U("amount")))
-	end
-
-	if amount ~= nil and amount >= 0 and amount <= item.extra.ammo then
-		TriggerServerEvent('esx_inventory:unequipWeapon', item.extra.weapon_name, amount)
-	else
-		ESX.ShowNotification(_U('amount_invalid'))
-	end
-
-end)
-
-registerItemAction("weapon", "equip", _U("inventory_action_equip"), function(item)
-	TriggerServerEvent('esx_inventory:equipWeapon', item)
 end)
 
 Citizen.CreateThread(function()
@@ -450,10 +462,12 @@ end
 
 RegisterNetEvent('esx_inventory:unequipWeapon')
 AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
---	print("Unequip "..weaponName.." "..ammo)
 	local playerPed = PlayerPedId()
 	local weaponHash = GetHashKey(weaponName)
 	local current_ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
+	local weapon_config = GetWeaponConfig(weaponName)
+
+--	print("Unequip "..weaponName.." "..amount)
 
 	if HasPedGotWeapon(playerPed, weaponHash, false) and current_ammo >= amount then
 		if GetSelectedPedWeapon(playerPed) == weaponHash then
@@ -463,7 +477,7 @@ AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
 		SetPedAmmo(playerPed, weaponHash, current_ammo - amount)
 		RemoveWeaponFromPed(playerPed, weaponHash)
 
-		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')	
+		TriggerServerEvent('esx_inventory:unequipWeapon', weaponName, amount, weapon_config)
 	end
 end)
 
@@ -479,7 +493,7 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 		ESX.ShowNotification(_U('already_equipped'))
 	else
 		GiveWeaponToPed(playerPed, weaponHash, item.extra.ammo, false, true)
-		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')	
+		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:updateInventory')
 	end
 end)
 
@@ -490,4 +504,47 @@ end)
 
 AddEventHandler("playerSpawned", function()
 	TriggerServerEvent('esx_inventory:playerSpawned')
+end)
+
+RegisterNetEvent('esx_inventory:itemAction')
+AddEventHandler('esx_inventory:itemAction', function(act)
+	runItemAction(act.item.name, act.key, act.item)
+end)
+
+AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, cb)
+--	print("event: registerItemAction")
+	return registerItemAction(itemName, actionName, actionLabel, cb)
+end)
+
+
+RegisterNetEvent('esx_inventory:getWeapons')
+AddEventHandler('esx_inventory:getWeapons', function(cb)
+	local weapons = {}
+	local playerPed = PlayerPedId()
+	for i=1, #Config.Weapons, 1 do
+		local weaponHash = GetHashKey(Config.Weapons[i].name)
+
+		if HasPedGotWeapon(playerPed, weaponHash, false) and Config.Weapons[i].name ~= 'WEAPON_UNARMED' then
+			local weapon = {}
+			weapon.name = Config.Weapons[i].name
+			weapon.label = Config.Weapons[i].label
+			weapon.weight = Config.Weapons[i].weight
+
+			if weapon.weight == nil then
+				weapon.weight = 1.0
+			end
+
+			weapon.hash = weaponHash
+			weapon.ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
+			weapon.melee = false
+
+			local group = GetWeapontypeGroup(weaponHash)
+			if group == -728555052 then
+				weapon.melee = true
+			end
+
+			table.insert(weapons, weapon)
+		end
+	end
+	cb(weapons)
 end)

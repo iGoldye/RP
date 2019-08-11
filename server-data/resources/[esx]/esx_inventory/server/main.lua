@@ -8,6 +8,10 @@ pickups = {}
 players = {}
 
 function tablesEqual(table1, table2)
+	if table1 == nil then
+		return table2 == nil
+	end
+
 	for k, v in pairs(table1) do
 		if table2[k] ~= v then
 			return false
@@ -313,7 +317,7 @@ function createPickup(source, item, label)
 	pickup.coords = players[source].coords + players[source].forward * -2.0
 	pickup.source = source
 
-	table.insert(pickups, pickup)
+	pickups[pickup.id] = pickup
 
 	TriggerClientEvent('esx_inventory:createPickup', -1, global_pickup_id, pickup)
 	return true
@@ -425,10 +429,23 @@ end)
 RegisterServerEvent('esx_inventory:onPickup')
 AddEventHandler('esx_inventory:onPickup', function(id)
 
+	if players[source] == nil or players[source].coords == nil or players[source].forward == nil then
+		print("Player coords unknown!")
+		return
+	end
+
 	local pickup  = pickups[id]
 	local xPlayer = ESX.GetPlayerFromId(source)
 
 	if pickup == nil then
+		print("Non-existent pickup id: "..tostring(id))
+		return
+	end
+
+	local dist = #(players[source].coords - pickup.coords)
+
+	if dist > 10 then
+		print(string.format("Player %i is too far to get pickup %i", source, id))
 		return
 	end
 
@@ -443,6 +460,7 @@ AddEventHandler('esx_inventory:onPickup', function(id)
 	end
 
 	TriggerClientEvent('esx_inventory:removePickup', -1, id)
+	pickups[id] = nil
 end)
 
 RegisterServerEvent('esx_inventory:getInventory')
@@ -484,15 +502,17 @@ AddEventHandler('esx_inventory:actionUnpackMoney', function(item)
 end)
 
 RegisterServerEvent('esx_inventory:unequipWeapon')
-AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, ammo)
+AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, ammo, config)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if xPlayer == nil then
 		print("esx_inventory:unequipWeapon Unknown player!")
 		return
 	end
 
-	if addItem("pocket", xPlayer.identifier, createItem("weapon", { ["weapon_name"] = weaponName, ["ammo"] = ammo }, 1)) == true then
-		TriggerClientEvent("esx_inventory:unequipWeapon", source, weaponName, ammo)
+	if addItem("pocket", xPlayer.identifier, createItem("weapon", { ["weapon_name"] = weaponName, ["weapon_label"] = config.label, ["ammo"] = ammo }, 1)) == true then
+--		TriggerClientEvent("esx_inventory:unequipWeapon", source, weaponName, ammo)
+		local inv = getInventory("pocket", source)
+		TriggerClientEvent('esx_inventory:updateInventory', source, inv)
 	end	
 end)
 

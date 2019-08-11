@@ -29,6 +29,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
 function OpenMenu()
 	elements = {
 		{label = "Инвентарь", value = 'inventory'},
@@ -56,7 +57,8 @@ function OpenMenu()
 
 		if cmd == 'inventory' then
 --			ESX.ShowInventory()
-			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
+--			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
+			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'sosamba_ui:showInventoryMenu')
 		elseif cmd == 'animations' then
 			TriggerEvent('esx_animations:openAnimationsMenu')
 		elseif cmd == 'police-actions' then

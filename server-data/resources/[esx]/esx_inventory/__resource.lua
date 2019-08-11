@@ -22,4 +22,10 @@ client_scripts {
 	'client/main.lua'
 }
 
+exports {
+	'getItemActions',
+	'runItemAction',
+	'registerItemAction',
+}
+
 dependency 'es_extended'

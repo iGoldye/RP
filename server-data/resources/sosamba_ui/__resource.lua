@@ -14,11 +14,13 @@ files {
 }
 
 server_scripts {
-  'server/main.lua'
+  'config.lua',
+  'server/main.lua',
 }
 
 client_scripts {
-  'client/main.lua'
+  'config.lua',
+  'client/main.lua',
 }
 
 ui_page 'html/index.html'
