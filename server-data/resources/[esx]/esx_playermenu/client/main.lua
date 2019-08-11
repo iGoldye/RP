@@ -50,6 +50,10 @@ function OpenMenu()
 			table.insert(elements, {label = "Действия механика", value = 'mechanic-actions'})
 		elseif PlayerData.job.name == 'nightclub' then
 			table.insert(elements, {label = "Действия ночного клуба", value = 'nightclub-actions'})
+		elseif PlayerData.job.name == 'taxi' then
+			table.insert(elements, {label = "Действия такси", value = 'taxi-actions'})
+		elseif PlayerData.job.name == 'unicorn' then
+			table.insert(elements, {label = "Действия клуба Единорог", value = 'unicorn-actions'})
 		end
 	end
 
@@ -85,6 +89,10 @@ function OpenMenu()
 			TriggerEvent('esx_mechanicjob:OpenMobileMechanicActionsMenu')
 		elseif cmd == 'nightclub-actions'  then
 			TriggerEvent('esx_nightclub:OpenSocietyActionsMenu')
+		elseif cmd == 'taxi-actions'then
+			TriggerEvent('esx_taxijob:OpenMobileTaxiActionsMenu')
+		elseif cmd == 'unicorn-actions'then
+			TriggerEvent('esx_unicornjob:OpenSocietyActionsMenu')
 		end
 
 	end, function(data, menu)
