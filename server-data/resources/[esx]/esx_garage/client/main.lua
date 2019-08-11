@@ -3,13 +3,54 @@ local LastGarage 	  = nil
 local LastPart   	  = nil
 local LastParking	  = nil
 local thisGarage 	  = nil
+local PlayerData          = nil
+local blips               = {}
+local myProperties        = {}
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	PlayerData.job = job
+	updateBlipsAndMarkers()
+end)
 
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+
+	PlayerData = ESX.GetPlayerData()
+	updateOwnedProperties()
+	updateBlipsAndMarkers()
 end)
+
+function updateOwnedProperties()
+	ESX.TriggerServerCallback('esx_property:getOwnedProperties', function(ownedProperties)
+		TriggerEvent('esx_property:getProperties', function(properties)
+			myProperties = {}
+			for i=1, #ownedProperties, 1 do
+				local propertyName = ownedProperties[i]
+				local property = getPropertyByName(properties, propertyName)
+				myProperties[propertyName] = property
+			end
+		end)
+		updateBlipsAndMarkers()
+	end)
+end
+
+function propertyOwned(propName)
+	if myProperties == nil then
+		updateOwnedProperties()
+		return false
+	end
+
+	for propertyName, property in pairs(myProperties) do
+		if propertyName == propName or (property ~= nil and property.gateway == propName) then
+			return true
+		end
+	end
+	return false
+end
 
 TriggerEvent('instance:registerType', 'garage')
 
@@ -318,14 +359,25 @@ AddEventHandler('esx_property:hasExitedMarker', function(name, part, parking)
 
 end)
 
--- Create Blips
-Citizen.CreateThread(function()
-		
-	for k,v in pairs(Config.Garages) do
+function updateBlipsAndMarkers()
+	for k,v in pairs(blips) do
+		RemoveBlip(v)
+	end
 
-		if v.IsClosed then
+	if PlayerData == nil then
+		PlayerData = ESX.GetPlayerData()
+	end
+
+	for k,v in pairs(Config.Garages) do
+		local garageAllowedJob = PlayerData == nil or (v.NeedJob == nil) or (PlayerData.job ~= nil and v.NeedJob == PlayerData.job.name)
+		local garageAllowedProp = PlayerData == nil or (v.NeedProperty == nil) or (propertyOwned(v.NeedProperty))
+		v.allowedJob = garageAllowedJob
+		v.allowedProp = garageAllowedProp
+
+		if v.IsClosed and garageAllowedJob and garageAllowedProp then
 
 			local blip = AddBlipForCoord(v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z)
+			table.insert(blips, blip)
 
 			SetBlipSprite (blip, 357)
 			SetBlipDisplay(blip, 4)
@@ -340,8 +392,7 @@ Citizen.CreateThread(function()
 		end
 
 	end
-
-end)
+end
 
 -- Display markers
 Citizen.CreateThread(function()
@@ -363,7 +414,7 @@ Citizen.CreateThread(function()
 
 			if v.IsClosed then
 
-				if(not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.DrawDistance) then
+				if v.allowedProp and v.allowedJob and (not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.DrawDistance) then
 					DrawMarker(Config.MarkerType, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
 					sleep = false
 				end	
@@ -465,29 +516,18 @@ Citizen.CreateThread(function()
 
 			if currentGarage ~= nil and Config.Garages[currentGarage].NeedProperty ~= nil then
 				local needPropertyName = Config.Garages[currentGarage].NeedProperty
-				local ownProperty = false
+				updateOwnedProperties()
 
-				ESX.TriggerServerCallback('esx_property:getOwnedProperties', function(ownedProperties)
-					TriggerEvent('esx_property:getProperties', function(properties)
-						for i=1, #ownedProperties, 1 do
-							local propertyName = ownedProperties[i]
-							local property = getPropertyByName(properties, propertyName)
+				if propertyOwned(needPropertyName) then
+					TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
+				else
+					ESX.ShowNotification(_U('need_property'))
+				end
 
-							if propertyName == needPropertyName or (property ~= nil and property.gateway == needPropertyName) then
-								ownProperty = true
-								break
-							end
-						end
 
-						if ownProperty then
-							TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
-						else
-							ESX.ShowNotification(_U('need_property'))
-						end
-					end)
-				end)
 			elseif currentGarage ~= nil and Config.Garages[currentGarage].NeedJob ~= nil then
-				local PlayerData = ESX.GetPlayerData()
+				PlayerData = ESX.GetPlayerData()
+
 				if PlayerData.job and PlayerData.job.name == Config.Garages[currentGarage].NeedJob then
 					TriggerEvent('esx_garage:hasEnteredMarker', currentGarage, currentPart, currentParking)
 				else

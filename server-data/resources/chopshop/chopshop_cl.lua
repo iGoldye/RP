@@ -16,15 +16,17 @@ local chopShopLocations = {
 local timer = false
 local selectRandomVehicle = nil
 Citizen.CreateThread(function()
-    for _, item in pairs(chopShopLocations) do
-		item.blip = AddBlipForCoord(item.x, item.y, item.z)
-		SetBlipSprite(item.blip, 380)
-		SetBlipColour(item.blip, 1)
-		SetBlipScale(item.blip, 0.8)
-		SetBlipAsShortRange(item.blip, true)
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString("Разборка авто")
-		EndTextCommandSetBlipName(item.blip)
+	if Config.ShowBlips then
+		for _, item in pairs(chopShopLocations) do
+			item.blip = AddBlipForCoord(item.x, item.y, item.z)
+			SetBlipSprite(item.blip, 380)
+			SetBlipColour(item.blip, 1)
+			SetBlipScale(item.blip, 0.8)
+			SetBlipAsShortRange(item.blip, true)
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString("Разборка авто")
+			EndTextCommandSetBlipName(item.blip)
+		end
 	end
     while true do
         Citizen.Wait(1)
@@ -49,9 +51,9 @@ Citizen.CreateThread(function()
                         local currentVeh = GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(GetPlayerPed(PlayerId()))))
                         if IsControlJustPressed(1, 86) then
                             if currentVeh == selectRandomVehicle.model then
+                                TriggerServerEvent("Darkzy:PayDeManPlz", selectRandomVehicle.price)
                                 selectRandomVehicle = nil
                                 timer = false
-                                TriggerServerEvent("Darkzy:PayDeManPlz", selectRandomVehicle.price)
                                 local vehicleIn = GetVehiclePedIsUsing(ped)
                                 deleteCar(vehicleIn)
                             else

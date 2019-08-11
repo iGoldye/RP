@@ -8,6 +8,7 @@ client_scripts {
 	'@es_extended/locale.lua',
 	'locales/en.lua',
 	'locales/tr.lua',
+	'locales/ru.lua',
 	'client/main.lua',
 	'config.lua'
 }

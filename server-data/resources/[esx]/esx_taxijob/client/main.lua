@@ -742,9 +742,9 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		if IsControlJustReleased(0, 166) and IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
-			OpenMobileTaxiActionsMenu()
-		end
+--		if IsControlJustReleased(0, 166) and IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
+--			OpenMobileTaxiActionsMenu()
+--		end
 	end
 end)
 
@@ -754,4 +754,10 @@ end)
 
 AddEventHandler('playerSpawned', function(spawn)
 	IsDead = false
+end)
+
+AddEventHandler('esx_taxijob:OpenMobileTaxiActionsMenu', function()
+		if IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
+			OpenMobileTaxiActionsMenu()
+		end
 end)

@@ -1,7 +1,9 @@
-ESX             = nil
-WalkieOpened    = false
-HasLspdWalkie   = false
-HasEmsWalkie    = false
+ESX                 = nil
+WalkieOpened        = false
+HasLspdWalkie       = false
+HasEmsWalkie        = false
+HasMechanicWalkie   = false
+HasTaxiWalkie       = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -22,6 +24,14 @@ Citizen.CreateThread(function()
                 HasEmsWalkie = haswalkie
             end)
 
+            hasMechanicWalkieTalkie(function (haswalkie)
+                HasMechanicWalkie = haswalkie
+            end)
+
+            hasTaxiWalkieTalkie(function (haswalkie)
+                HasTaxiWalkie = haswalkie
+            end)
+
             ToggleWalkies()
         end
     end
@@ -38,9 +48,19 @@ function ToggleWalkies()
         if HasEmsWalkie then
             exports.tokovoip_script:addPlayerToRadio(Config.EMSChannel)
         end
+
+        if HasMechanicWalkie then
+            exports.tokovoip_script:addPlayerToRadio(Config.MechanicChannel)
+        end
+
+        if HasTaxiWalkie then
+            exports.tokovoip_script:addPlayerToRadio(Config.TaxiChannel)
+        end
     else
         exports.tokovoip_script:removePlayerFromRadio(Config.PoliceChannel)
-		exports.tokovoip_script:removePlayerFromRadio(Config.EMSChannel)
+        exports.tokovoip_script:removePlayerFromRadio(Config.EMSChannel)
+        exports.tokovoip_script:removePlayerFromRadio(Config.MechanicChannel)
+        exports.tokovoip_script:removePlayerFromRadio(Config.TaxiChannel)
     end
 end
 
@@ -54,6 +74,18 @@ function hasEmsWalkieTalkie(cb)
     ESX.TriggerServerCallback('croone_walkietalkie:getItemAmount', function(qtty)
         cb(qtty > 0)
     end, 'walkie_ems')
+end
+
+function hasMechanicWalkieTalkie(cb)
+    ESX.TriggerServerCallback('croone_walkietalkie:getItemAmount', function(qtty)
+        cb(qtty > 0)
+    end, 'walkie_mechanic')
+end
+
+function hasTaxiWalkieTalkie(cb)
+    ESX.TriggerServerCallback('croone_walkietalkie:getItemAmount', function(qtty)
+        cb(qtty > 0)
+    end, 'walkie_taxi')
 end
 
 function ShowNoWalkieWarning()
