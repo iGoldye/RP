@@ -681,6 +681,8 @@ AddEventHandler('playerSpawned', function()
 				if propertyName then
 					if propertyName ~= '' then
 						local property = GetProperty(propertyName)
+						CurrentProperty      = property
+						CurrentPropertyOwner = ESX.GetPlayerData().identifier
 
 						for i=1, #property.ipls, 1 do
 							RequestIpl(property.ipls[i])
@@ -690,7 +692,7 @@ AddEventHandler('playerSpawned', function()
 							end
 						end
 
-						TriggerEvent('instance:create', 'property', {property = propertyName, owner = ESX.GetPlayerData().identifier})
+						TriggerEvent('instance:create', 'property', {property = propertyName, owner = CurrentPropertyOwner})
 					end
 				end
 			end)
