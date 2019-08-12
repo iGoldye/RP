@@ -563,7 +563,7 @@ Citizen.CreateThread(function()
 				end
 			elseif not policeHacked then
 				TriggerEvent("mhacking:show")
-				TriggerEvent("mhacking:start", 2, 13, mycbpolice)
+				TriggerEvent("mhacking:start", 2, Config.HackingTimeout, mycbpolice)
 				CurrentAction = nil
 			end
 		end
@@ -590,7 +590,7 @@ Citizen.CreateThread(function()
 				end
 			elseif not bankHacked then
 				TriggerEvent("mhacking:show")
-				TriggerEvent("mhacking:start", 2, 13, mycbbank)
+				TriggerEvent("mhacking:start", 2, Config.HackingTimeout, mycbbank)
 				CurrentAction = nil
 			end
 		end

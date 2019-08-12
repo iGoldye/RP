@@ -6,6 +6,7 @@ Config.AnimTime = 60 -- Animation for the hacking in seconds. 60 = 1 minute / 60
 Config.Locale = 'ru'
 Config.pNotify = false -- Only enable this if you have pNotify (https://github.com/Nick78111/pNotify)
 Config.Hacking = true -- Only enable if you have mhacking (https://github.com/GHMatti/FiveM-Scripts/tree/master/mhacking)
+Config.HackingTimeout = 20 -- Seconds to hack cameras
 
 Config.CameraMaxDistance = 100 -- meters to check camera broken
 Config.CameraBreakTimer = 600 -- seconds to autofix camera
