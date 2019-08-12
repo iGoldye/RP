@@ -278,6 +278,9 @@ function spawnPlayer(spawnIdx, cb)
         RemoveAllPedWeapons(ped) -- TODO: make configurable (V behavior?)
         ClearPlayerWantedLevel(PlayerId())
 
+	NetworkSetFriendlyFireOption(true)
+	SetCanAttackFriendly(ped, true, true)
+
         -- why is this even a flag?
         --SetCharWillFlyThroughWindscreen(ped, false)
 
