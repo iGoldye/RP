@@ -408,6 +408,7 @@ function OpenCloakroomMenu()
 		align    = 'top-left',
 		elements = {
 			{label = _U('ems_clothes_civil'), value = 'citizen_wear'},
+			{label = "Сменить одежду", value = 'change_wear'},
 			{label = _U('ems_clothes_ems'), value = 'ambulance_wear'},
 		}
 	}, function(data, menu)
@@ -415,6 +416,8 @@ function OpenCloakroomMenu()
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				TriggerEvent('skinchanger:loadSkin', skin)
 			end)
+		elseif data.current.value == 'change_wear' then
+			TriggerEvent('esx_property:OpenPlayerDressingMenu')
 		elseif data.current.value == 'ambulance_wear' then
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				if skin.sex == 0 then

@@ -209,8 +209,11 @@ Citizen.CreateThread(function()
 		-- Hide all these players
 		for player,to_hide in pairs(playersToHide) do
 			local otherPlayerPed = GetPlayerPed(player)
-			SetEntityVisible(otherPlayerPed, not to_hide, 0)
-			SetEntityNoCollisionEntity(playerPed, otherPlayerPed, false)
+
+			if otherPlayerPed ~= PlayerPedId() then
+				SetEntityVisible(otherPlayerPed, not to_hide, 0)
+				SetEntityNoCollisionEntity(playerPed, otherPlayerPed, false)
+			end
 		end
 	end
 end)
