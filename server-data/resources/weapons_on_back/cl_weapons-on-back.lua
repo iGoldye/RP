@@ -15,7 +15,7 @@ local SETTINGS = {
       -- melee:
       --["prop_golf_iron_01"] = 1141786504, -- positioning still needs work
       ["w_me_bat"] = -1786099057,
-      ["prop_ld_jerrycan_01"] = 883325847,
+      -- ["prop_ld_jerrycan_01"] = 883325847,
       -- assault rifles:
       ["w_ar_carbinerifle"] = -2084633992,
       ["w_ar_carbineriflemk2"] = GetHashKey("WEAPON_CARBINERIFLE_Mk2"),
@@ -85,7 +85,7 @@ function AttachWeapon(attachModel,modelHash,boneNumber,x,y,z,xR,yR,zR, isMelee)
   }
 
   if isMelee then x = 0.11 y = -0.14 z = 0.0 xR = -75.0 yR = 185.0 zR = 92.0 end -- reposition for melee items
-  if attachModel == "prop_ld_jerrycan_01" then x = x + 0.3 end
+  -- if attachModel == "prop_ld_jerrycan_01" then x = x + 0.3 end
 	AttachEntityToEntity(attached_weapons[attachModel].handle, GetPlayerPed(-1), bone, x, y, z, xR, yR, zR, 1, 1, 0, 0, 2, 1)
 end
 
@@ -94,8 +94,8 @@ function isMeleeWeapon(wep_name)
         return true
     elseif wep_name == "w_me_bat" then
         return true
-    elseif wep_name == "prop_ld_jerrycan_01" then
-      return true
+    -- elseif wep_name == "prop_ld_jerrycan_01" then
+    --   return true
     else
         return false
     end

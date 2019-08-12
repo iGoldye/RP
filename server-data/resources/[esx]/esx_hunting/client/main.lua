@@ -44,8 +44,8 @@ local AnimalPositions = {
 local AnimalsInSession = {}
 
 local Positions = {
-	['StartHunting'] = { ['hint'] = '[E] Start Hunting', ['x'] = -769.23773193359, ['y'] = 5595.6215820313, ['z'] = 33.48571395874 },
-	['Sell'] = { ['hint'] = '[E] Sell', ['x'] = 969.16375732422, ['y'] = -2107.9033203125, ['z'] = 31.475671768188 },
+	['StartHunting'] = { ['hint'] = '[E] Что бы начать охоту', ['x'] = -769.23773193359, ['y'] = 5595.6215820313, ['z'] = 33.48571395874 },
+	['Sell'] = { ['hint'] = '[E] Продать трофеи', ['x'] = 969.16375732422, ['y'] = -2107.9033203125, ['z'] = 31.475671768188 },
 	['SpawnATV'] = { ['x'] = -769.63067626953, ['y'] = 5592.7573242188, ['z'] = 33.48571395874 }
 }
 
@@ -84,9 +84,9 @@ function LoadMarkers()
 				if value.hint ~= nil then
 
 					if OnGoingHuntSession and index == 'StartHunting' then
-						value.hint = '[E] Stop Hunting'
+						value.hint = '[E] Начать охоту'
 					elseif not OnGoingHuntSession and index == 'StartHunting' then
-						value.hint = '[E] Start Hunting'
+						value.hint = '[E] Начать охоту'
 					end
 
 					local distance = GetDistanceBetweenCoords(plyCoords, value.x, value.y, value.z, true)
@@ -177,7 +177,7 @@ function StartHuntingSession()
 							if PlyToAnimal < 2.0 then
 								sleep = 5
 
-								ESX.Game.Utils.DrawText3D({x = AnimalCoords.x, y = AnimalCoords.y, z = AnimalCoords.z + 1}, '[E] Slaughter Animal', 0.4)
+								ESX.Game.Utils.DrawText3D({x = AnimalCoords.x, y = AnimalCoords.y, z = AnimalCoords.z + 1}, '[E] Разделать животное', 0.4)
 
 								if IsControlJustReleased(0, Keys['E']) then
 									if GetSelectedPedWeapon(PlayerPedId()) == GetHashKey('WEAPON_KNIFE')  then
@@ -186,7 +186,7 @@ function StartHuntingSession()
 											SlaughterAnimal(value.id)
 										end
 									else
-										ESX.ShowNotification('You need to use the knife!')
+										ESX.ShowNotification('Вам нужно использовать нож!')
 									end
 								end
 
@@ -214,7 +214,7 @@ function SlaughterAnimal(AnimalId)
 
 	local AnimalWeight = math.random(10, 160) / 10
 
-	ESX.ShowNotification('You slaughtered the animal and recieved an meat of ' ..AnimalWeight.. 'kg')
+	ESX.ShowNotification('Вы разделали животное и получили мясо ' ..AnimalWeight.. 'кг')
 
 	TriggerServerEvent('esx-qalle-hunting:reward', AnimalWeight)
 
