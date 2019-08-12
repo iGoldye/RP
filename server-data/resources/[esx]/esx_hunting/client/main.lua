@@ -26,17 +26,6 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 	PlayerData = xPlayer
 end)
 
-Citizen.CreateThread(function()
-	for _, item in pairs(chopShopLocations) do
-	item.blip = AddBlipForCoord(item.x, item.y, item.z)
-	SetBlipSprite(item.blip, 141)
-	SetBlipColour(item.blip, 1)
-	SetBlipScale(item.blip, 1.0)
-	SetBlipAsShortRange(item.blip, true)
-	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString("Охота")
-	EndTextCommandSetBlipName(item.blip)
-
 function ScriptLoaded()
 	Citizen.Wait(1000)
 	LoadMarkers()
@@ -74,7 +63,7 @@ function LoadMarkers()
 				SetBlipScale(StartBlip, 2.7)
 				SetBlipAsShortRange(StartBlip, true)
 				BeginTextCommandSetBlipName("STRING")
-				AddTextComponentString('Hunting Spot')
+				AddTextComponentString('Охота')
 				EndTextCommandSetBlipName(StartBlip)
 			end
 		end
