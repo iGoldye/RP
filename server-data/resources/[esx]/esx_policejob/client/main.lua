@@ -58,7 +58,7 @@ function OpenCloakroomMenu()
 	local elements = {
 		{ label = _U('citizen_wear'), value = 'citizen_wear' },
 		{ label = _U('bullet_wear'), value = 'bullet_wear' },
-		
+		{ label = _U('change_wear'), value = 'change_wear' },
 	}
 
 	if grade == 'recruit' then
@@ -91,8 +91,9 @@ function OpenCloakroomMenu()
 		elements = elements
 	}, function(data, menu)
 		cleanPlayer(playerPed)
-
-		if data.current.value == 'citizen_wear' then
+		if data.current.value == 'change_wear' then
+			TriggerEvent('esx_property:OpenPlayerDressingMenu')
+		elseif data.current.value == 'citizen_wear' then
 			if Config.EnableNonFreemodePeds then
 				ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 					local isMale = skin.sex == 0

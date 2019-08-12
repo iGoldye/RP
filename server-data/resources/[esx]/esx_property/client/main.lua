@@ -398,6 +398,43 @@ function OpenGatewayAvailablePropertiesMenu(property)
 	end)
 end
 
+function OpenPlayerDressingMenu(title)
+	if title then
+		title = title .. ' - ' .. _U('player_clothes')
+	else
+		title = _U('player_clothes')
+	end
+
+	ESX.TriggerServerCallback('esx_property:getPlayerDressing', function(dressing)
+		local elements = {}
+
+		for i=1, #dressing, 1 do
+			table.insert(elements, {
+				label = dressing[i],
+				value = i
+			})
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'player_dressing', {
+			title    = title,
+				align    = 'top-left',
+				elements = elements
+		}, function(data2, menu2)
+			TriggerEvent('skinchanger:getSkin', function(skin)
+				ESX.TriggerServerCallback('esx_property:getPlayerOutfit', function(clothes)
+					TriggerEvent('skinchanger:loadClothes', skin, clothes)
+					TriggerEvent('esx_skin:setLastSkin', skin)
+					TriggerEvent('skinchanger:getSkin', function(skin)
+						TriggerServerEvent('esx_skin:save', skin)
+					end)
+				end, data2.current.value)
+			end)
+		end, function(data2, menu2)
+			menu2.close()
+		end)
+	end)
+end
+
 function OpenRoomMenu(property, owner)
 	local entering = nil
 	local elements = {{label = _U('invite_player'),  value = 'invite_player'}}
@@ -447,36 +484,8 @@ function OpenRoomMenu(property, owner)
 			end)
 
 		elseif data.current.value == 'player_dressing' then
+			OpenPlayerDressingMenu(property.label)
 
-			ESX.TriggerServerCallback('esx_property:getPlayerDressing', function(dressing)
-				local elements = {}
-
-				for i=1, #dressing, 1 do
-					table.insert(elements, {
-						label = dressing[i],
-						value = i
-					})
-				end
-
-				ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'player_dressing', {
-					title    = property.label .. ' - ' .. _U('player_clothes'),
-					align    = 'top-left',
-					elements = elements
-				}, function(data2, menu2)
-					TriggerEvent('skinchanger:getSkin', function(skin)
-						ESX.TriggerServerCallback('esx_property:getPlayerOutfit', function(clothes)
-							TriggerEvent('skinchanger:loadClothes', skin, clothes)
-							TriggerEvent('esx_skin:setLastSkin', skin)
-
-							TriggerEvent('skinchanger:getSkin', function(skin)
-								TriggerServerEvent('esx_skin:save', skin)
-							end)
-						end, data2.current.value)
-					end)
-				end, function(data2, menu2)
-					menu2.close()
-				end)
-			end)
 
 		elseif data.current.value == 'remove_cloth' then
 
@@ -894,4 +903,9 @@ Citizen.CreateThread(function()
 			Citizen.Wait(500)
 		end
 	end
+end)
+
+
+AddEventHandler('esx_property:OpenPlayerDressingMenu', function(label)
+	OpenPlayerDressingMenu(label)
 end)
