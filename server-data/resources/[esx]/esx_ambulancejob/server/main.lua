@@ -117,7 +117,7 @@ ESX.RegisterServerCallback('esx_ambulancejob:buyJobVehicle', function(source, cb
 
 	-- vehicle model not found
 	if price == 0 then
-		print(('esx_ambulancejob: %s attempted to exploit the shop! (invalid vehicle model)'):format(xPlayer.identifier))
+		print(('esx_ambulancejob: %s attempted to exploit the shop! (invalid vehicle model: %s)'):format(xPlayer.identifier, vehicleProps.model))
 		cb(false)
 	else
 		if xPlayer.getMoney() >= price then

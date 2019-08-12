@@ -507,7 +507,7 @@ function OpenVehicleSpawnerMenu(hospital, partNum)
 								ESX.Game.SpawnVehicle(data2.current.model, spawnPoint.coords, spawnPoint.heading, function(vehicle)
 									ESX.Game.SetVehicleProperties(vehicle, data2.current.vehicleProps)
 
-									TriggerServerEvent('esx_vehicleshop:setJobVehicleState', data2.current.vehicleProps.plate, false)
+									TriggerServerEvent('esx_vehicleshop:setJobVehicleState', data2.current.vehicleProps.plate, false, 'ambulance')
 									ESX.ShowNotification(_U('garage_released'))
 								end)
 							end
@@ -521,7 +521,7 @@ function OpenVehicleSpawnerMenu(hospital, partNum)
 				else
 					ESX.ShowNotification(_U('garage_empty'))
 				end
-			end, 'car')
+			end, 'car', 'ambulance')
 
 		elseif data.current.action == 'store_garage' then
 			StoreNearbyVehicle(playerCoords)
@@ -645,6 +645,7 @@ function OpenHelicopterSpawnerMenu(hospital, partNum)
 						name  = helicopter.label,
 						model = helicopter.model,
 						price = helicopter.price,
+						livery = helicopter.livery or nil,
 						type  = 'helicopter'
 					})
 				end
@@ -706,7 +707,7 @@ function OpenHelicopterSpawnerMenu(hospital, partNum)
 				else
 					ESX.ShowNotification(_U('garage_empty'))
 				end
-			end, 'helicopter')
+			end, 'helicopter', 'ambulance')
 
 		elseif data.current.action == 'store_garage' then
 			StoreNearbyVehicle(playerCoords)
@@ -738,6 +739,8 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 		}, function(data2, menu2)
 
 			if data2.current.value == 'yes' then
+				menu2.close()
+
 				local newPlate = exports['esx_vehicleshop']:GeneratePlate()
 				local vehicle  = GetVehiclePedIsIn(playerPed, false)
 				local props    = ESX.Game.GetVehicleProperties(vehicle)
@@ -757,7 +760,6 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 						ESX.Game.Teleport(playerPed, restoreCoords)
 					else
 						ESX.ShowNotification(_U('vehicleshop_money'))
-						menu2.close()
 					end
 				end, props, data.current.type)
 			else
@@ -782,6 +784,11 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 
 		WaitForVehicleToLoad(data.current.model)
 		ESX.Game.SpawnLocalVehicle(data.current.model, shopCoords, 0.0, function(vehicle)
+			if data.current.livery then
+				SetVehicleModKit(vehicle, 0)
+				SetVehicleLivery(vehicle, data.current.livery)
+			end
+
 			table.insert(spawnedVehicles, vehicle)
 			TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 			FreezeEntityPosition(vehicle, true)
@@ -793,6 +800,12 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 		table.insert(spawnedVehicles, vehicle)
 		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 		FreezeEntityPosition(vehicle, true)
+		SetModelAsNoLongerNeeded(elements[1].model)
+
+		if elements[1].livery then
+			SetVehicleModKit(vehicle, 0)
+			SetVehicleLivery(vehicle, elements[1].livery)
+		end
 	end)
 end
 

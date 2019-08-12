@@ -196,15 +196,15 @@ Config.AuthorizedHelicopters = {
 	ambulance = {},
 
 	doctor = {
-		{ model = 'polmav', label = 'Медицинский Maverick', price = 200000 }
+		{ model = 'polmav', label = 'Медицинский Maverick', livery = 1, price = 200000 }
 	},
 
 	chief_doctor = {
-		{ model = 'polmav', label = 'Медицинский Maverick', price = 200000 }
+		{ model = 'polmav', label = 'Медицинский Maverick', livery = 1, price = 200000 }
 	},
 
 	boss = {
-		{ model = 'polmav', label = 'Медицинский Maverick', price = 200000 }
+		{ model = 'polmav', label = 'Медицинский Maverick', livery = 1, price = 200000 }
 	}
 
 }
