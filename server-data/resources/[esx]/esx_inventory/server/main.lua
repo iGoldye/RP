@@ -284,7 +284,7 @@ end)
 function saveInventory(name, owner)
 	local inv = getInventory(name,owner)
 
-	MySQL.Async.execute('DELETE FROM `inventory` WHERE `name` = @name AND `owner` = @owner', {
+	MySQL.Async.execute('DELETE FROM `inventory` WHERE `name` = @name AND `owner` = CAST(@owner as CHAR(255))', {
 		['@name']    = name,
 		['@owner']   = owner,
 	}, function(rc)

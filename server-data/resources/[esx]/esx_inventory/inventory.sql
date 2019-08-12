@@ -15,7 +15,7 @@ CREATE TABLE `inventory` (
   `name` varchar(50) COLLATE utf8_bin NOT NULL,
   `owner` varchar(50) COLLATE utf8_bin NOT NULL,
   `item` varchar(50) COLLATE utf8_bin NOT NULL,
-  `extra` varchar(50) COLLATE utf8_bin NOT NULL,
+  `extra` varchar(512) COLLATE utf8_bin NOT NULL,
   `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
