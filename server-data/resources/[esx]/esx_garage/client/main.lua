@@ -24,6 +24,12 @@ Citizen.CreateThread(function()
 	updateBlipsAndMarkers()
 end)
 
+
+AddEventHandler('esx_property:initialized', function()
+	updateOwnedProperties()
+	updateBlipsAndMarkers()
+end)
+
 function updateOwnedProperties()
 	ESX.TriggerServerCallback('esx_property:getOwnedProperties', function(ownedProperties)
 		TriggerEvent('esx_property:getProperties', function(properties)

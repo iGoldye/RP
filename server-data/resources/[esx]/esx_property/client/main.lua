@@ -22,6 +22,8 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 			SetPropertyOwned(ownedProperties[i], true)
 		end
 	end)
+
+	TriggerEvent('esx_property:initialized')
 end)
 
 -- only used when script is restarting mid-session
@@ -35,6 +37,8 @@ AddEventHandler('esx_property:sendProperties', function(properties)
 			SetPropertyOwned(ownedProperties[i], true)
 		end
 	end)
+
+	TriggerEvent('esx_property:initialized')
 end)
 
 function DrawSub(text, time)
