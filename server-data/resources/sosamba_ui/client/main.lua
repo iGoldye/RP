@@ -12,6 +12,8 @@ local Keys = {
 
 ESX = nil
 
+local InventoryInitialized = false
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -463,22 +465,29 @@ RegisterNUICallback('do_action', function(act)
 
 end)
 
-TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), function(item)
-
-	if item.extra.weapon.ammo > 0 then
-		showInputBox("unequip-box", "Сколько разэкипировать?", "Введите количество патронов", function(text)
-			local val = tonumber(text)
-			if val ~= nil and val >= 0 and val <= item.extra.weapon.ammo then
-				TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, val)
-			else
-				ESX.ShowNotification(_U('amount_invalid'))
-			end
-		end)
-	else
-		TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, 0)
+Citizen.CreateThread(function()
+	while InventoryInitialized == false do
+		TriggerEvent('esx_inventory:initialized', function(val) InventoryInitialized = val end)
+		Citizen.Wait(100)
 	end
-end)
 
-TriggerEvent('esx_inventory:registerItemAction', "weapon", "equip", _U("inventory_action_equip"), function(item)
-	TriggerServerEvent('esx_inventory:equipWeapon', item)
+	TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), function(item)
+
+		if item.extra.weapon.ammo > 0 then
+			showInputBox("unequip-box", "Сколько разэкипировать?", "Введите количество патронов", function(text)
+				local val = tonumber(text)
+				if val ~= nil and val >= 0 and val <= item.extra.weapon.ammo then
+					TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, val)
+				else
+					ESX.ShowNotification(_U('amount_invalid'))
+				end
+			end)
+		else
+			TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, 0)
+		end
+	end)
+
+	TriggerEvent('esx_inventory:registerItemAction', "weapon", "equip", _U("inventory_action_equip"), function(item)
+		TriggerServerEvent('esx_inventory:equipWeapon', item)
+	end)
 end)

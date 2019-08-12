@@ -548,3 +548,7 @@ AddEventHandler('esx_inventory:getWeapons', function(cb)
 	end
 	cb(weapons)
 end)
+
+AddEventHandler('esx_inventory:initialized', function(cb)
+	cb(true)
+end)
