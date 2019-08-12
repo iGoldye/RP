@@ -437,8 +437,7 @@ ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, 
 	local foundPlate, foundNum
 
 	for k,v in ipairs(nearbyVehicles) do
-		local result = MySQL.Sync.fetchAll('SELECT plate FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND job = @job', {
-			['@owner'] = xPlayer.identifier,
+		local result = MySQL.Sync.fetchAll('SELECT plate FROM owned_vehicles WHERE plate = @plate AND job = @job', {
 			['@plate'] = v.plate,
 			['@job'] = xPlayer.job.name
 		})
@@ -452,8 +451,7 @@ ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, 
 	if not foundPlate then
 		cb(false)
 	else
-		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true WHERE owner = @owner AND plate = @plate AND job = @job', {
-			['@owner'] = xPlayer.identifier,
+		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true WHERE plate = @plate AND job = @job', {
 			['@plate'] = foundPlate,
 			['@job'] = xPlayer.job.name
 		}, function (rowsChanged)

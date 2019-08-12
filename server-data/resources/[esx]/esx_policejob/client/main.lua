@@ -364,7 +364,7 @@ function OpenVehicleSpawnerMenu(type, station, part, partNum)
 								ESX.Game.SpawnVehicle(data2.current.model, spawnPoint.coords, spawnPoint.heading, function(vehicle)
 									ESX.Game.SetVehicleProperties(vehicle, data2.current.vehicleProps)
 
-									TriggerServerEvent('esx_vehicleshop:setJobVehicleState', data2.current.vehicleProps.plate, false)
+									TriggerServerEvent('esx_vehicleshop:setJobVehicleState', data2.current.vehicleProps.plate, false, 'police')
 									ESX.ShowNotification(_U('garage_released'))
 								end)
 							end
@@ -377,7 +377,7 @@ function OpenVehicleSpawnerMenu(type, station, part, partNum)
 				else
 					ESX.ShowNotification(_U('garage_empty'))
 				end
-			end, type)
+			end, type, 'police', type == 'helicopter')
 		elseif data.current.action == 'store_garage' then
 			StoreNearbyVehicle(playerCoords)
 		end
@@ -489,6 +489,8 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 				{label = _U('confirm_yes'), value = 'yes'}
 		}}, function(data2, menu2)
 			if data2.current.value == 'yes' then
+				menu2.close()
+
 				local newPlate = exports['esx_vehicleshop']:GeneratePlate()
 				local vehicle  = GetVehiclePedIsIn(playerPed, false)
 				local props    = ESX.Game.GetVehicleProperties(vehicle)
@@ -507,7 +509,6 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 						ESX.Game.Teleport(playerPed, restoreCoords)
 					else
 						ESX.ShowNotification(_U('vehicleshop_money'))
-						menu2.close()
 					end
 				end, props, data.current.type)
 			else
