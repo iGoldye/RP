@@ -12,6 +12,10 @@ function tablesEqual(table1, table2)
 		return table2 == nil
 	end
 
+	if table2 == nil then
+		return false
+	end
+
 	for k, v in pairs(table1) do
 		if table2[k] ~= v then
 			return false
