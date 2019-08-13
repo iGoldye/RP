@@ -23,14 +23,14 @@ Config.Teleporters = {
 			['x'] = 2890.6, 
 			['y'] = 4391.8, 
 			['z'] = 49.5,
-			['Information'] = '[E] Вверх' 
+			['Information'] = '[E] Войти' 
 		},
 
 		['Exit'] = {
 			['x'] = 1088.6, 
 			['y'] = -3188.2, 
 			['z'] = -39.9, 
-			['Information'] = '[E] Вниз' 
+			['Information'] = '[E] Выйти' 
 		}
 	},
 
@@ -40,14 +40,14 @@ Config.Teleporters = {
 			['x'] = 930.85, 
 			['y'] = -1547.02, 
 			['z'] = 29.9,
-			['Information'] = '[E] Вверх' 
+			['Information'] = '[E] Войти' 
 		},
 
 		['Exit'] = {
 			['x'] = 1065.51, 
 			['y'] = -3183.39, 
 			['z'] = -40.1, 
-			['Information'] = '[E] Вниз' 
+			['Information'] = '[E] Выйти' 
 		}
 	},
 	
