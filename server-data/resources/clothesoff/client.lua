@@ -48,17 +48,17 @@ function OpenActionMenuInteraction(target)
 
 	local elements = {}
 
-	table.insert(elements, {label = ('put on clothes'), value = 'ubie'})
-	table.insert(elements, {label = ('remove shirt'), value = 'tul'})
-	table.insert(elements, {label = ('remove pants'), value = 'spo'})
-	table.insert(elements, {label = ('take off shoes'), value = 'but'})
+	table.insert(elements, {label = ('Одеться'), value = 'ubie'})
+	table.insert(elements, {label = ('Снять верх'), value = 'tul'})
+	table.insert(elements, {label = ('Снять низ'), value = 'spo'})
+	table.insert(elements, {label = ('Снять обувь'), value = 'but'})
   		ESX.UI.Menu.CloseAll()	
 
 
 	ESX.UI.Menu.Open(
 		'default', GetCurrentResourceName(), 'action_menu',
 		{
-			title    = ('Clothes'),
+			title    = ('Одежда'),
 			align    = 'top-left',
 			elements = elements
 		},

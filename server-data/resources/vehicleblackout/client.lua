@@ -86,6 +86,8 @@ Citizen.CreateThread(function()
 			Wait(5000)
 			
 			SetTimecycleModifier("hud_def_desat_Trevor")
+			SetTimecycleModifier("REDMIST_blend")
+			ShakeGameplayCam("FAMILY5_DRUG_TRIP_SHAKE", 1.0)
 			
 			Wait(10000)
 			

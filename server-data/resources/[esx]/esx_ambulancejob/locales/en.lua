@@ -56,7 +56,7 @@ Locales['en'] = {
   ['fast_travel'] = 'Нажмите ~INPUT_CONTEXT~ подняться на лифте',
   ['open_pharmacy'] = 'Нажмите ~INPUT_CONTEXT~ открыть аптеку.',
   ['pharmacy_menu_title'] = 'Аптека',
-  ['pharmacy_take'] = 'take <span style="color:blue;">%s</span>',
+  ['pharmacy_take'] = 'Взять <span style="color:blue;">%s</span>',
   ['medikit'] = 'Аптечка',
   ['bandage'] = 'Бинт',
   ['max_item'] = 'Вы уже несете достаточно.',
