@@ -244,10 +244,12 @@ function generateInventoryElements(inventory)
 		end
 
 		for name,act in pairs(actions) do
-			table.insert(elements[i].actions, {
-				key = name,
-				label = act.label,
-			})
+			if act.condition == nil or act.condition(elem.item) == true then
+				table.insert(elements[i].actions, {
+					key = name,
+					label = act.label,
+				})
+			end
 		end
 
 		if elem.item.droppable ~= false then
@@ -489,5 +491,15 @@ Citizen.CreateThread(function()
 
 	TriggerEvent('esx_inventory:registerItemAction', "weapon", "equip", _U("inventory_action_equip"), function(item)
 		TriggerServerEvent('esx_inventory:equipWeapon', item)
+	end)
+
+	TriggerEvent('esx_inventory:registerItemAction', "esx_item", "esx_use", _U("inventory_action_use"), function(item)
+		TriggerServerEvent('esx:useItem', item.extra.name)
+	end, function(item)
+		return item.extra and item.extra.usable == true
+	end)
+
+	TriggerEvent('esx_inventory:registerItemAction', "money_pack", "unpack", _U("inventory_action_unpack"), function(item)
+		TriggerServerEvent('esx_inventory:actionUnpackMoney', item)
 	end)
 end)
