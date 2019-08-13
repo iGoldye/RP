@@ -110,7 +110,7 @@ Sit = function(wheelchairObject)
 		end
 
 		if IsEntityUpsidedown(wheelchairObject) then
-			Citizen.Wait(50)
+			Citizen.Wait(500)
 			if IsEntityUpsidedown(wheelchairObject) then
 				DetachEntity(PlayerPedId(), true, true)
 				Citizen.Wait(100)

@@ -55,14 +55,15 @@ function GetWeaponConfig(name)
 	return nil
 end
 
-function registerItemAction(itemName, actionName, actionLabel, cb)
+function registerItemAction(itemName, actionName, actionLabel, cb_use, cb_if)
 	if itemActions[itemName] == nil then
 		itemActions[itemName] = {}
 	end
 
 	local act = {}
 	act.label = actionLabel
-	act.cb = cb
+	act.cb = cb_use
+	act.condition = cb_if
 
 	itemActions[itemName][actionName] = act
 end
@@ -105,14 +106,6 @@ function action_drop(item)
 		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:updateInventory')
 	end
 end
-
-registerItemAction("esx_item", "esx_use", _U("inventory_action_use"), function(item)
-	TriggerServerEvent('esx:useItem', item.extra.name)
-end)
-
-registerItemAction("money_pack", "unpack", _U("inventory_action_unpack"), function(item)
-	TriggerServerEvent('esx_inventory:actionUnpackMoney', item)
-end)
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -413,7 +406,9 @@ function showInventoryItemMenu(inventory, item, menu_label)
 	local actions = getItemActions(item.name)
 
 	for act_name,act_data in pairs(actions) do
-		table.insert(elements, {label = act_data.label, value = act_name})		
+		if act_data.condition == nil or act_data.condition(item) == true then
+			table.insert(elements, {label = act_data.label, value = act_name})
+		end
 	end
 
 	if item.droppable ~= false then
@@ -511,9 +506,8 @@ AddEventHandler('esx_inventory:itemAction', function(act)
 	runItemAction(act.item.name, act.key, act.item)
 end)
 
-AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, cb)
---	print("event: registerItemAction")
-	return registerItemAction(itemName, actionName, actionLabel, cb)
+AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, cb_action, cb_condition)
+	return registerItemAction(itemName, actionName, actionLabel, cb_action, cb_condition)
 end)
 
 
