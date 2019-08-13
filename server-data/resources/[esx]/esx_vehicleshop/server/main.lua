@@ -442,11 +442,13 @@ end)
 
 ESX.RegisterServerCallback('esx_vehicleshop:retrieveJobVehicles', function (source, cb, type, job, shared)
 	local xPlayer = ESX.GetPlayerFromId(source)
+	local owner = xPlayer.identifier
+
 	if job == nil then
 		job = xPlayer.job.name
 	end
 
-	if shared then
+	if shared == true then
 		MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE type = @type AND job = @job', {
 			['@type'] = type,
 			['@job'] = job,
