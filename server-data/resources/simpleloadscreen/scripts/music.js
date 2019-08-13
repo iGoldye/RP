@@ -17,6 +17,10 @@ var speaker = audioPlayer.querySelector('#speaker')
 var draggableClasses = ['pin']
 var currentlyDragged = null
 
+window.addEventListener("keypress", function(event) {
+    togglePlay();
+});
+
 window.addEventListener('mousedown', function(event) {
   if (!isDraggable(event.target)) return false
 
