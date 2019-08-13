@@ -37,7 +37,7 @@ Locales['en'] = {
   ['confirm_yes'] = 'да',
   -- Action Menu
   ['hospital'] = 'Мед.центр',
-  ['revive_inprogress'] = 'Реанимация продолжается!',
+  ['revive_inprogress'] = 'Реанимация',
   ['revive_complete'] = 'Вы реанимировали ~y~%s~s~',
   ['revive_complete_award'] = 'Вы реанимировали ~y~%s~s~ и заработали ~g~$%s~s~!',
   ['heal_inprogress'] = 'Вы оказали первую помощь',
@@ -47,7 +47,7 @@ Locales['en'] = {
   ['player_not_unconscious'] = 'Этот человек в сознании!',
   ['player_not_conscious'] = 'Этот человек не в сознании!',
   -- Boss Menu
-  ['boss_actions'] = 'Действия Глав врача',
+  ['boss_actions'] = 'Компьютер Глав врача',
   -- Misc
   ['invalid_amount'] = '~r~Недопустимая сумма',
   ['actions_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы получить доступ к ~y~шкафчику~s~.',

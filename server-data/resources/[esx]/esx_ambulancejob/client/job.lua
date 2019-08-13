@@ -108,7 +108,7 @@ function OpenMobileAmbulanceActionsMenu()
 
 									IsBusy = true
 									ESX.ShowNotification(_U('heal_inprogress'))
-									TaskStartScenarioInPlace(playerPed, 'anim@amb@business@coc@coc_unpack_cut_left@"', 'cut_tired_coccutter', 0, true)
+									TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
 									Citizen.Wait(10000)
 									ClearPedTasks(playerPed)
 
@@ -136,7 +136,7 @@ function OpenMobileAmbulanceActionsMenu()
 
 									IsBusy = true
 									ESX.ShowNotification(_U('heal_inprogress'))
-									TaskStartScenarioInPlace(playerPed, 'anim@amb@business@coc@coc_unpack_cut_left@"', 'cut_tired_coccutter', 0, true)
+									TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
 									Citizen.Wait(10000)
 									ClearPedTasks(playerPed)
 

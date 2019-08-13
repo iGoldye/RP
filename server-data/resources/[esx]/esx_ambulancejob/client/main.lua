@@ -108,7 +108,7 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 	ESX.UI.Menu.CloseAll()
 
 	if itemName == 'medikit' then
-		local lib, anim = 'anim@mp_player_intcelebrationfemale@slow_clap', 'slow_clap' -- TODO better animations
+		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
 		local playerPed = PlayerPedId()
 
 		ESX.Streaming.RequestAnimDict(lib, function()
@@ -125,7 +125,7 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 		end)
 
 	elseif itemName == 'bandage' then
-		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@"', 'cut_tired_coccutter' -- TODO better animations
+		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
 		local playerPed = PlayerPedId()
 
 		ESX.Streaming.RequestAnimDict(lib, function()
