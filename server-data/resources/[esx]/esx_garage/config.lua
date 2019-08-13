@@ -1114,56 +1114,56 @@ Config.Garages = {
 
 	},
 
-	SteeleWay1150 = {
+	-- SteeleWay1150 = {
 
-		IsClosed = true,
+	-- 	IsClosed = true,
 
-		ExteriorEntryPoint = {
-			Pos = {x= -924.81, y = 211.54, z = 66.46},
-		},
+	-- 	ExteriorEntryPoint = {
+	-- 		Pos = {x= -924.81, y = 211.54, z = 66.46},
+	-- 	},
 
-		ExteriorSpawnPoint = {
-			Pos     = {x =-931.5, y = 210.98, z = 66.46},
-			Heading = 12.15
-		},
+	-- 	ExteriorSpawnPoint = {
+	-- 		Pos     = {x =-931.5, y = 210.98, z = 66.46},
+	-- 		Heading = 12.15
+	-- 	},
 
-		InteriorSpawnPoint = {
-			Pos     = {x = 202.27, y = -1004.1, z =-100.00},
-			Heading = 0.0
-		},
+	-- 	InteriorSpawnPoint = {
+	-- 		Pos     = {x = 202.27, y = -1004.1, z =-100.00},
+	-- 		Heading = 0.0
+	-- 	},
 
-		InteriorExitPoint = {
-			Pos = {x = 196.69, y = -1006.26, z = -100.000},
-		},
+	-- 	InteriorExitPoint = {
+	-- 		Pos = {x = 196.69, y = -1006.26, z = -100.000},
+	-- 	},
 
-		Parkings = {
-			{
-				Pos     = {x = 193.06, y = -995.95, z = -100.000},
-				Heading = 225.0
-			},
-			{
-				Pos     = {x = 192.61, y = -1000.16, z = -100.000},
-				Heading = 225.0
-			},
-			{
-				Pos     = {x = 192.06, y = -1003.64, z = -100.000},
-				Heading = 225.0
-			},
-			{
-				Pos     = {x = 205.85, y = -1002.17, z = -100.000},
-				Heading = 105.0
-			},
-			{
-				Pos     = {x =201.98, y = -996.98, z = -100.000},
-				Heading = 175.0
-			},
-			{
-				Pos     = {x = 198.33, y = -996.42, z = -100.000},
-				Heading = 175.0
-			},
-		}
+	-- 	Parkings = {
+	-- 		{
+	-- 			Pos     = {x = 193.06, y = -995.95, z = -100.000},
+	-- 			Heading = 225.0
+	-- 		},
+	-- 		{
+	-- 			Pos     = {x = 192.61, y = -1000.16, z = -100.000},
+	-- 			Heading = 225.0
+	-- 		},
+	-- 		{
+	-- 			Pos     = {x = 192.06, y = -1003.64, z = -100.000},
+	-- 			Heading = 225.0
+	-- 		},
+	-- 		{
+	-- 			Pos     = {x = 205.85, y = -1002.17, z = -100.000},
+	-- 			Heading = 105.0
+	-- 		},
+	-- 		{
+	-- 			Pos     = {x =201.98, y = -996.98, z = -100.000},
+	-- 			Heading = 175.0
+	-- 		},
+	-- 		{
+	-- 			Pos     = {x = 198.33, y = -996.42, z = -100.000},
+	-- 			Heading = 175.0
+	-- 		},
+	-- 	}
 
-	},
+	-- },
 
 	Ambulance = {
 

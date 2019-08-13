@@ -19,14 +19,14 @@ function OpenMenuGarage(garage, KindOfVehicle)
 	ESX.UI.Menu.CloseAll()
 
 	local elements = {
-		{label = "Retour vehicule ("..Config.Price.."$)", value = 'return_vehicle'},
+		{label = "Вернуть транспорт("..Config.Price.."$)", value = 'return_vehicle'},
 	}
 
 
 	ESX.UI.Menu.Open(
 		'default', GetCurrentResourceName(), 'garage_menu',
 		{
-			title    = 'Garage',
+			title    = 'Гараж',
 			align    = 'top-left',
 			elements = elements,
 		},
@@ -63,9 +63,9 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				if v.fourrieremecano then
 					vehicleLabel = vehicleName..': Fourrière externe'
 				elseif v.state then
-					vehicleLabel = vehicleName..': Rentré'
+					vehicleLabel = vehicleName..': В гараже'
 				else
-					vehicleLabel = vehicleName..': Sortie'
+					vehicleLabel = vehicleName..': Вне гаража'
 				end
 
 				table.insert(elements, {
@@ -77,11 +77,11 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				})
 			end
 		else
-			table.insert(elements, {label = "Pas de voitures dans le garage"})
+			table.insert(elements, {label = "В гараже нет машин"})
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'spawn_vehicle', {
-			title    = 'Garage',
+			title    = 'Гараж',
 			align    = 'top-left',
 			elements = elements,
 		}, function(data, menu)
@@ -91,8 +91,8 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				title    =  data.current.vehicleName,
 				align    = 'top-left',
 				elements = {
-					{label ="Sortir la voiture" , value = 'get_vehicle_out'},
-					{label ="Renommer la voiture" , value = 'rename_vehicle'}
+					{label ="Выгнать тарнспорт" , value = 'get_vehicle_out'},
+					{label ="Переименовать транспорт" , value = 'rename_vehicle'}
 			}}, function(data2, menu2)
 				if data2.current.value == "get_vehicle_out" then
 					if data.current.fourrieremecano then
@@ -102,7 +102,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 						menu2.close()
 						SpawnVehicle(vehicleProps, garage, KindOfVehicle)
 					else
-						TriggerEvent('esx:showNotification', 'Votre véhicule est déjà sorti')
+						TriggerEvent('esx:showNotification', 'Этот транспорт где то в другом месте')
 					end
 				elseif data2.current.value == "rename_vehicle" then
 					ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'rename_vehicle', {
@@ -143,7 +143,7 @@ function ListVehiclesFourriereMenu(garage)
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'spawn_vehicle_mecano', {
-			title    = 'Garage',
+			title    = 'Гараж',
 			align    = 'top-left',
 			elements = elements,
 		}, function(data, menu)
@@ -194,14 +194,14 @@ function StockVehicleMenu(KindOfVehicle)
 						end
 						DeleteEntity(vehicle)
 						TriggerServerEvent('eden_garage:modifystate', vehicleProps.plate, true)
-						TriggerEvent('esx:showNotification', 'Votre véhicule est dans le garage')
+						TriggerEvent('esx:showNotification', 'Ваш транспорт припаркован')
 					else
-						TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker ce véhicule')
+						TriggerEvent('esx:showNotification', 'Вы не можете оставить этот транспорт здесь')
 					end
 				end,vehicleProps, KindOfVehicle)
 			end
 		else
-			TriggerEvent('esx:showNotification', 'Vous etes pas conducteur du vehicule')
+			TriggerEvent('esx:showNotification', 'Вы должны быть за рулем!')
 		end
 	else
 		TriggerEvent('esx:showNotification', 'Il n\' y a pas de vehicule à rentrer')
@@ -351,7 +351,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 						end
 					end)
 				else
-					ESX.ShowNotification("Vous ne pouvez pas sortir ce véhicule. Allez la chercher!")
+					ESX.ShowNotification("Этот транспорт поврежден!")
 				end
 			end
 		end, function(data, menu)

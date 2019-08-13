@@ -438,7 +438,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 
-		if IsControlJustPressed(0, Keys['G']) and GetLastInputMethod(2) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'pet_menu') then
+		if IsControlJustPressed(0, Keys['K']) and GetLastInputMethod(2) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'pet_menu') then
 			OpenPetMenu()
 		end
 	end
