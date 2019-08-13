@@ -65,7 +65,6 @@
       <div class="textmicchild2">Code: skeev_, Klarus, Sadler, awbait</div>
       <div class="textmicchild2">Owenrs: skeev_, Klarus</div>
     </div>
-    <script src="scripts/cursor.js"></script>
     <script src="scripts/music.js"></script>
     <script>
       player.volume = 0.05;
@@ -86,7 +85,7 @@
         startInitFunctionOrder(data) {
           count = data.count;
 
-          document.querySelector('.letni h3').innerHTML += emoji[data.type][data.order - 1] || '';
+//          document.querySelector('.letni h3').innerHTML += emoji[data.type][data.order - 1] || '';
         },
 
         initFunctionInvoking(data) {
@@ -97,7 +96,7 @@
         startDataFileEntries(data) {
           count = data.count;
 
-          document.querySelector('.letni h3').innerHTML += "\u{1f358}";
+//          document.querySelector('.letni h3').innerHTML += "\u{1f358}";
         },
 
         performMapLoadFunction(data) {
@@ -108,7 +107,7 @@
         },
 
         onLogLine(data) {
-          document.querySelector('.letni p').innerHTML = data.message + "..!";
+//          document.querySelector('.letni p').innerHTML = data.message + "..!";
         }
       };
 

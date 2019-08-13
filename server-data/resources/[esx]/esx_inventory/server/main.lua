@@ -31,6 +31,22 @@ function tablesEqual(table1, table2)
 	return true
 end
 
+function onInventoryChanged(name, owner)
+	updateWeight(name, owner)
+	Inventories[name][owner].dirty = true
+end
+
+function updateWeight(name, owner)
+	local inv = getInventory(name, owner)
+	local weight = 0.0
+
+	for _,item in pairs(inv.items) do
+		weight = weight + item.weight * item.amount
+	end
+
+	Inventories[name][owner].weight = weight
+	print(tostring(weight))
+end
 
 function getInventory(name, owner)
 	if Inventories[name] == nil then
@@ -41,6 +57,8 @@ function getInventory(name, owner)
 		Inventories[name][owner] = {}
 		Inventories[name][owner].name = name
 		Inventories[name][owner].owner = owner
+		Inventories[name][owner].dirty = false
+		Inventories[name][owner].weight = 0.0
 		Inventories[name][owner].items = {}
 	end
 
@@ -103,11 +121,12 @@ function getItemLabel(item)
 	return _U(item.name)
 end
 
-function createItem(name, extra, amount)
+function createItem(name, extra, amount, weight)
 	local item = {}
 	item["name"] = name
 	item["extra"] = json.decode(json.encode(extra))
 	item["amount"] = amount
+	item["weight"] = weight or 0.0
 	return item
 end
 
@@ -121,13 +140,16 @@ function addItem(name, owner, item)
 	if old_item_index then
 		if item.amount + old_item.amount > 0 then
 			Inventories[name][owner].items[old_item_index].amount = item.amount + old_item.amount
+			onInventoryChanged(name,owner)
 		elseif item.amount + old_item.amount == 0 then
 			Inventories[name][owner].items[old_item_index] = nil
+			onInventoryChanged(name,owner)
 		else
 			return false
 		end
 	elseif item.amount > 0 then
 		table.insert(Inventories[name][owner].items, item)
+		onInventoryChanged(name,owner)
 	end
 
 	if owner ~= nil and owner ~= "" then
@@ -150,13 +172,16 @@ function removeItem(name, owner, item)
 	if old_item_index then
 		if old_item.amount - item.amount > 0 then
 			Inventories[name][owner].items[old_item_index].amount = old_item.amount - item.amount
+			onInventoryChanged(name,owner)
 		elseif old_item.amount - item.amount == 0 then
 			Inventories[name][owner].items[old_item_index] = nil
+			onInventoryChanged(name,owner)
 		else
 			return false
 		end
 	elseif item.amount > 0 then
 		table.insert(Inventories[name][owner].items, item)
+		onInventoryChanged(name,owner)
 	end
 
 	if owner ~= nil and owner ~= "" then
@@ -181,13 +206,16 @@ function setItem(name, owner, item)
 	if old_item_index then
 		if item.amount > 0 then
 			Inventories[name][owner].items[old_item_index].amount = item.amount
+			onInventoryChanged(name,owner)
 		elseif item.amount == 0 then
 			Inventories[name][owner].items[old_item_index] = nil
+			onInventoryChanged(name,owner)
 		else
 			return false
 		end
 	elseif item.amount > 0 then
 		table.insert(Inventories[name][owner].items, item)
+		onInventoryChanged(name,owner)
 	end
 
 	if owner ~= nil and owner ~= "" then
@@ -259,11 +287,15 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(60000)
---		print("Saving inventories...")
 
 		for name,_ in pairs(Inventories) do
 		for owner,_ in pairs(Inventories[name]) do
-			saveInventory(name,owner)
+
+			if Inventories[name][owner].dirty == true then
+				print(string.format("Saving inventory %s/%s", name, owner))
+				Inventories[name][owner].dirty = false
+				saveInventory(name,owner)
+			end
 		end
 		end
 
@@ -453,6 +485,9 @@ AddEventHandler('esx_inventory:onPickup', function(id)
 		return
 	end
 
+	TriggerClientEvent('esx_inventory:removePickup', -1, id)
+	pickups[id] = nil
+
 	if pickup.item.name == "money" then
 		xPlayer.addMoney(pickup.item.amount)
 	elseif pickup.item.name == "black_money" then
@@ -462,9 +497,6 @@ AddEventHandler('esx_inventory:onPickup', function(id)
 	else
 		addItem("pocket", xPlayer.identifier, pickup.item)
 	end
-
-	TriggerClientEvent('esx_inventory:removePickup', -1, id)
-	pickups[id] = nil
 end)
 
 RegisterServerEvent('esx_inventory:getInventory')
@@ -513,9 +545,9 @@ AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, ammo, config
 		return
 	end
 
-	if addItem("pocket", xPlayer.identifier, createItem("weapon", { ["weapon_name"] = weaponName, ["weapon_label"] = config.label, ["ammo"] = ammo }, 1)) == true then
+	if addItem("pocket", xPlayer.identifier, createItem("weapon", { ["weapon_name"] = weaponName, ["weapon_label"] = config.label, ["ammo"] = ammo }, 1, config.weight)) == true then
 --		TriggerClientEvent("esx_inventory:unequipWeapon", source, weaponName, ammo)
-		local inv = getInventory("pocket", source)
+		local inv = getInventory("pocket", xPlayer.identifier)
 		TriggerClientEvent('esx_inventory:updateInventory', source, inv)
 	end	
 end)
