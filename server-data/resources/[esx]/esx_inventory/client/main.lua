@@ -133,11 +133,6 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		local coords = GetEntityCoords(playerPed)
 
-		-- if there's no nearby pickups we can wait a bit to save performance
-		if next(pickups) == nil then
-			Citizen.Wait(500)
-		end
-
 		for id,v in pairs(pickups) do
 			local distance = GetDistanceBetweenCoords(coords, v.coords.x, v.coords.y, v.coords.z, true)
 			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
