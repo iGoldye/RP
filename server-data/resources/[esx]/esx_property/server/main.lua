@@ -318,6 +318,10 @@ end)
 
 ESX.RegisterServerCallback('esx_property:getOwnedProperties', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer == nil then
+		cb({})
+		return
+	end
 
 	MySQL.Async.fetchAll('SELECT * FROM owned_properties WHERE owner = @owner', {
 		['@owner'] = xPlayer.identifier
