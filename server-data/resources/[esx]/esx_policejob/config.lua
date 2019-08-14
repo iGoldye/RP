@@ -15,7 +15,7 @@ Config.EnableHandcuffTimer        = false -- enable handcuff timer? will unrestr
 Config.HandcuffTimer              = 10 * 60000 -- 10 mins
 
 Config.EnableMoneyWash		  = true -- allow cops to wash black money
-Config.EnableJobBlip              = false -- enable blips for colleagues, requires esx_society
+Config.EnableJobBlip              = true -- enable blips for colleagues, requires esx_society
 
 Config.MaxInService               = -1
 Config.Locale = 'en'

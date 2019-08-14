@@ -46,10 +46,16 @@ Citizen.CreateThread(function()
 		local coords      = GetEntityCoords(GetPlayerPed(-1))
 		local isInMarker  = false
 		local currentZone = nil
+		local minDistance = 10000
 
 		for k,v in pairs(Config.Zones) do
 			for i = 1, #v.Pos, 1 do
-				if(GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.Size.x) then
+				local distance = #(coords - vector3(v.Pos[i].x,v.Pos[i].y,v.Pos[i].z)) -- GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true)
+				if distance < minDistance then
+					minDistance = distance
+				end
+
+				if(distance < Config.Size.x) then
 					isInMarker  = true
 					ShopItems   = v.Items
 					currentZone = k
@@ -64,6 +70,10 @@ Citizen.CreateThread(function()
 		if not isInMarker and HasAlreadyEnteredMarker then
 			HasAlreadyEnteredMarker = false
 			TriggerEvent('esx_SodaMachine:hasExitedMarker', LastZone)
+		end
+
+		if minDistance > 5 then
+			Citizen.Wait(100)
 		end
 	end
 end)

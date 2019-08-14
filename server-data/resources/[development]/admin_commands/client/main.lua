@@ -23,3 +23,29 @@ AddEventHandler('admin_commands:emote', function(args)
 	TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, -1, -1, flag, 0, false, false, false)
 	
 end)
+
+RegisterNetEvent('admin_commands:repair')
+AddEventHandler('admin_commands:repair', function(args)
+
+	local playerPed = PlayerPedId()
+	local coords    = GetEntityCoords(playerPed)
+
+	if IsAnyVehicleNearPoint(coords.x, coords.y, coords.z, 5.0) then
+
+		local vehicle
+
+		if IsPedInAnyVehicle(playerPed, false) then
+			vehicle = GetVehiclePedIsIn(playerPed, false)
+		else
+			vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 5.0, 0, 71)
+		end
+
+		SetVehicleFixed(vehicle)
+		SetVehicleDeformationFixed(vehicle)
+		SetVehicleUndriveable(vehicle, false)
+		SetVehicleEngineOn(vehicle, true, true)
+	else
+		TriggerEvent('chat:addMessage', { args = { '^1SYSTEM', 'Рядом нет транспорта.' } })
+	end
+
+end)

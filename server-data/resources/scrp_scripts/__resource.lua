@@ -19,6 +19,7 @@ server_scripts {
 	-- 'server/generic_messages-server.lua'
 	--'server/restart_alert-server.lua'
 	--'server/check_name-server.lua'
+	'server/friendly_npc-server.lua',
 }
 
 client_scripts {
