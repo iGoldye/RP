@@ -62,12 +62,12 @@ AddEventHandler('esx_status:load', function(status)
 			for i=1, #Status, 1 do
 				Status[i].onTick()
 			end
-
+--[[
 			SendNUIMessage({
 				update = true,
 				status = GetStatusData()
 			})
-
+]]--
 			TriggerEvent('esx_status:onTick', GetStatusData(true))
 			Citizen.Wait(Config.TickTime)
 		end
@@ -82,12 +82,12 @@ AddEventHandler('esx_status:set', function(name, val)
 			break
 		end
 	end
-
+--[[
 	SendNUIMessage({
 		update = true,
 		status = GetStatusData()
 	})
-
+]]--
 	TriggerServerEvent('esx_status:update', GetStatusData(true))
 end)
 
@@ -99,12 +99,12 @@ AddEventHandler('esx_status:add', function(name, val)
 			break
 		end
 	end
-
+--[[
 	SendNUIMessage({
 		update = true,
 		status = GetStatusData()
 	})
-
+]]--
 	TriggerServerEvent('esx_status:update', GetStatusData(true))
 end)
 
@@ -116,12 +116,12 @@ AddEventHandler('esx_status:remove', function(name, val)
 			break
 		end
 	end
-
+--[[
 	SendNUIMessage({
 		update = true,
 		status = GetStatusData()
 	})
-
+]]--
 	TriggerServerEvent('esx_status:update', GetStatusData(true))
 end)
 
@@ -135,10 +135,12 @@ AddEventHandler('esx_status:getStatus', function(name, cb)
 end)
 
 AddEventHandler('esx_status:setDisplay', function(val)
+--[[
 	SendNUIMessage({
 		setDisplay = true,
 		display    = val
 	})
+]]--
 end)
 
 -- Pause menu disable hud display
