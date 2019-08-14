@@ -27,7 +27,7 @@ Citizen.CreateThread(function()
         SetBlipAsShortRange(blip, true)
 
         BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString("Sell Bottles")
+        AddTextComponentString("Сдать бутылки")
         EndTextCommandSetBlipName(blip)
     end
 
@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
             if dstCheck <= 5.0 then
                 sleepThread = 5
 
-                local text = "Sell Bottles"
+                local text = "Сдать бутылки"
 
                 if dstCheck <= 1.5 then
                     text = "[~g~E~s~] " .. text
@@ -76,7 +76,7 @@ Citizen.CreateThread(function()
 
             local binCoords = GetEntityCoords(entity)
 
-            ESX.Game.Utils.DrawText3D(binCoords + vector3(0.0, 0.0, 0.5), "[~g~E~s~] Search Trashbin", 0.4)
+            ESX.Game.Utils.DrawText3D(binCoords + vector3(0.0, 0.0, 0.5), "[~g~E~s~] Искать бутылки", 0.4)
 
             if IsControlJustReleased(0, 38) then
                 if not cachedBins[entity] then
@@ -84,7 +84,7 @@ Citizen.CreateThread(function()
 
                     OpenTrashCan()
                 else
-                    ESX.ShowNotification("You've already searched this bin!")
+                    ESX.ShowNotification("В этой урне вы уже искали!")
                 end
             end
         end

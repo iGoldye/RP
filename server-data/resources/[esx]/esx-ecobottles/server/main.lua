@@ -17,9 +17,9 @@ AddEventHandler("esx-ecobottles:sellBottles", function()
         player.removeInventoryItem("bottle", currentBottles)
         player.addMoney(randomMoney * currentBottles)
 
-        TriggerClientEvent("esx:showNotification", source, ("You gave the store %s bottles and got paid $%s."):format(currentBottles, currentBottles * randomMoney))
+        TriggerClientEvent("esx:showNotification", source, ("Вы сдали %s бутылок и получили $%s."):format(currentBottles, currentBottles * randomMoney))
     else
-        TriggerClientEvent("esx:showNotification", source, "You don't have any bottles to give the store.")
+        TriggerClientEvent("esx:showNotification", source, "У вас нет с собой бутылок")
     end
 end)
 
@@ -32,9 +32,9 @@ AddEventHandler("esx-ecobottles:retrieveBottle", function()
     local randomBottle = math.random((Config.BottleRecieve[1] or 1), (Config.BottleRecieve[2] or 6))
 
     if luck >= 0 and luck <= 29 then
-        TriggerClientEvent("esx:showNotification", source, "The bin had no bottles in it.")
+        TriggerClientEvent("esx:showNotification", source, "Тут ничего нет")
     else
         player.addInventoryItem("bottle", randomBottle)
-        TriggerClientEvent("esx:showNotification", source, ("You found x%s bottles"):format(randomBottle))
+        TriggerClientEvent("esx:showNotification", source, ("Вы нашли x%s бутылок"):format(randomBottle))
     end
 end)
