@@ -24,12 +24,13 @@ Config.Animations = {
 		items = {
 			{label = "Пить кофе", type = "scenario", data = {anim = "WORLD_HUMAN_AA_COFFEE"}},
 			{label = "Курить", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING", flag = 9}},
+			{label = "Курить на ходу", type = "anim", data = {lib = "amb@world_human_smoking@male@male_b@base", anim = "base", upper=true, control=true, flag = 9}},
 			{label = "Музицировать", type = "scenario", data = {anim = "WORLD_HUMAN_MUSICIAN", flag = 9}},
 			{label = "Диджей", type = "anim", data = {lib = "anim@mp_player_intcelebrationmale@dj", anim = "dj", flag = 9}},
 			{label = "Пить пиво", type = "scenario", data = {anim = "WORLD_HUMAN_DRINKING"}},
 			{label = "Тусоваться с пивом", type = "scenario", data = {anim = "WORLD_HUMAN_PARTYING"}},
 			{label = "Воображаемая гитара", type = "anim", data = {lib = "anim@mp_player_intcelebrationmale@air_guitar", anim = "air_guitar"}},
-			{label = "Air Shagging", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@air_shagging", anim = "air_shagging"}},
+			{label = "Сотрисать воздух", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@air_shagging", anim = "air_shagging"}},
 			{label = "Rock'n'roll", type = "anim", data = {lib = "mp_player_int_upperrock", anim = "mp_player_int_rock", upper=true, control=true, flag = 9}},
 			{label = "Курить косяк", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING_POT"}},
 			{label = "Схватить", type = "anim", data = {lib = "anim@am_hold_up@male", anim = "shoplift_high", upper=false, control=true, flag = 9}},
@@ -38,7 +39,7 @@ Config.Animations = {
 			{label = "Я пожалуй пойду", type = "anim", data = {lib = "abigail_mcs_2-5", anim = "csb_abigail_dual-5"}},
 			{label = "Руки за голову", type = "anim", data = {lib = "random@arrests@busted", anim = "idle_c", repeat_anim=true}},
 			{label = "Вырвать", type = "anim", data = {lib = "anim@amb@clubhouse@respawn@female@", anim = "respawn_d"}},
-
+      {label = "Селфи", type = "scenario", data = {anim = "world_human_tourist_mobile", upper=true, control=true}},
 		}
 	},
 	
@@ -65,7 +66,6 @@ Config.Animations = {
 		items = {
 			{label = "Рыбачить", type = "scenario", data = {anim = "world_human_stand_fishing"}},
 			{label = "Искать улики", type = "anim", data = {lib = "amb@code_human_police_investigate@idle_b", anim = "idle_f"}},
-			{label = "Police : radio chatter", type = "anim", data = {lib = "random@arrests", anim = "generic_radio_chatter", upper=true, control=true}},
 			{label = "Смотреть в бинокль", type = "scenario", data = {anim = "WORLD_HUMAN_BINOCULARS"}},
 			{label = "Копать", type = "scenario", data = {anim = "world_human_gardener_plant"}},
 			{label = "Чинить двигатель", type = "anim", data = {lib = "mini@repair", anim = "fixing_a_ped", flag = 9}},
@@ -85,6 +85,7 @@ Config.Animations = {
 			{label = "Просить деньги", type = "scenario", data = {anim = "WORLD_HUMAN_BUM_FREEWAY"}},
 			{label = "Мим", type = "scenario", data = {anim = "WORLD_HUMAN_HUMAN_STATUE"}},
 			{label = "Обрывать", type = "anim", data = {lib = "anim@amb@business@weed@weed_inspecting_lo_med_hi@", anim = "weed_crouch_checkingleaves_idle_01_inspectorfemale", flag = 9}},
+			{label = "Взламывать", type = "anim", data = {lib = "mini@safe_cracking", anim = "idle_base", flag = 9}},
 		}
 	},
 
@@ -138,18 +139,13 @@ Config.Animations = {
 			{label = "Сидеть отрешенно", type = "anim", data = {lib = "anim@amb@business@bgen@bgen_no_work@", anim = "sit_phone_idle_03_nowork", flag = 9}},
 			{label = "Скучать", type = "anim", data = {lib = "anim@amb@business@cfm@cfm_machine_no_work@", anim = "sleep_cycle_v2_operator", flag = 9}},
       {label = "Свернуться", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@lo_sofa@", anim = "lowsofa_dlg_fuckedup_laz", flag = 9}},
-
+      {label = "Сидеть тест", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE"}},
+			{label = "Сидеть с пончиком", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE_EATING"}},
+			{label = "Сидеть тест2", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_ARMCHAIR"}},
 		}
 	},
 
-	{
-		name  = 'misc',
-		label = 'Разное',
-		items = {
-			{label = "Селфи", type = "scenario", data = {anim = "world_human_tourist_mobile", upper=true, control=true}},
-			{label = "Взламывать", type = "anim", data = {lib = "mini@safe_cracking", anim = "idle_base", flag = 9}},
-		}
-	},
+	
 	{
 		name  = 'stand',
 		label = 'Стойки',
@@ -165,7 +161,7 @@ Config.Animations = {
 			{label = "Задуматься", type = "anim", data = {lib = "anim@amb@board_room@whiteboard@", anim = "think_01_amy_skater_01", upper=true, control=true, flag = 9}},
 			{label = "Опереться низко", type = "anim", data = {lib = "anim@amb@board_room@diagram_blueprints@", anim = "idle_04_amy_skater_01"}},
 			{label = "Скучать М", type = "anim", data = {lib = "anim@amb@business@cfid@cfid_photograph@", anim = "camera_fiddle_model", flag = 9}},
-			{label = "Скучать ж", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "amb_world_human_hang_out_street_female_hold_arm_idle_b", flag = 9}},
+			{label = "Скучать Ж", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "amb_world_human_hang_out_street_female_hold_arm_idle_b", flag = 9}},
 			{label = "Облокотиться спиной", type = "anim", data = {lib = "anim@amb@clubhouse@bar@bartender@", anim = "base_bartender", flag = 9}},
 			{label = "Скрестить руки 1", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "amb_world_human_hang_out_street_male_c_base", flag = 9}},
 	    {label = "Скрестить руки 2", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "rcmme_amanda1_stand_loop_cop", flag = 9}},
@@ -190,7 +186,13 @@ Config.Animations = {
 			{label = "Хромая", type = "attitude", data = {lib = "move_m@injured", anim = "move_m@injured"}},
 			{label = "Спешащая", type = "attitude", data = {lib = "move_m@hurry@a", anim = "move_m@hurry@a"}},
 			{label = "Пьяная", type = "attitude", data = {lib = "move_m@hobo@a", anim = "move_m@hobo@a"}},
-			
+			{label = "Ритмичная Ж", type = "attitude", data = {lib = "anim@move_f@grooving@", anim = "anim@move_f@grooving@"}},
+			{label = "Ритмичная М", type = "attitude", data = {lib = "move_m@casual@e", anim = "move_m@casual@e"}},
+			{label = "Угрожающая", type = "attitude", data = {lib = "move_characters@franklin@fire", anim = "move_characters@franklin@fire"}},
+			{label = "Деловая Ж", type = "attitude", data = {lib = "move_f@tough_guy@", anim = "move_f@tough_guy@"}},
+			{label = "Грозная", type = "attitude", data = {lib = "move_m@brave@b", anim = "move_m@brave@b"}},
+			{label = "В стельку", type = "attitude", data = {lib = "move_m@drunk@verydrunk", anim = "move_m@drunk@verydrunk"}},
+			{label = "Альфа", type = "attitude", data = {lib = "move_p_m_zero_slow", anim = "move_p_m_zero_slow"}},
 			{label = "Гордая", type = "attitude", data = {lib = "move_m@muscle@a", anim = "move_m@muscle@a"}},
 			{label = "Обычная", type = "attitude", data = {lib = "move_m@shocked@a", anim = "move_m@shocked@a"}},
 			{label = "В развалку М", type = "attitude", data = {lib = "move_m@shadyped@a", anim = "move_m@shadyped@a"}},
@@ -201,26 +203,11 @@ Config.Animations = {
 			{label = "Спешащая Ж", type = "attitude", data = {lib = "move_f@sassy", anim = "move_f@sassy"}},
 			{label = "Пританцовывая", type = "attitude", data = {lib = "move_m@money", anim = "move_m@money"}},
 			{label = "Бегом", type = "attitude", data = {lib = "move_m@quick", anim = "move_m@quick"}},
-			{label = "На стиле", type = "attitude", data = {lib = "move_f@maneater", anim = "move_f@maneater"}},	
+			{label = "На стиле Ж", type = "attitude", data = {lib = "move_f@maneater", anim = "move_f@maneater"}},
+			{label = "На стиле М", type = "attitude", data = {lib = "move_m@swagger", anim = "move_m@swagger"}},	
 		}
 	},
-	{
-		name  = 'porn',
-		label = 'PEGI 21',
-		items = {
-			{label = "Homme se faire su*** en voiture", type = "anim", data = {lib = "oddjobs@towing", anim = "m_blow_job_loop", in_vehicle=true}},
-			{label = "Femme faire une gaterie en voiture", type = "anim", data = {lib = "oddjobs@towing", anim = "f_blow_job_loop", in_vehicle=true}},
-			{label = "Homme bais** en voiture", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_player", in_vehicle=true, repeat_anim=true}},
-			{label = "Femme bais** en voiture", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_female", in_vehicle=true, repeat_anim=true}},
-			{label = "Se gratter les couilles", type = "anim", data = {lib = "mp_player_int_uppergrab_crotch", anim = "mp_player_int_grab_crotch", upper=true, control=true}},
-			{label = "Faire du charme", type = "anim", data = {lib = "mini@strip_club@idles@stripper", anim = "stripper_idle_02"}},
-			{label = "Pose michto", type = "scenario", data = {anim = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS"}},
-			{label = "Montrer sa poitrine", type = "anim", data = {lib = "mini@strip_club@backroom@", anim = "stripper_b_backroom_idle_b"}},
-			{label = "Strip Tease 1", type = "anim", data = {lib = "mini@strip_club@lap_dance@ld_girl_a_song_a_p1", anim = "ld_girl_a_song_a_p1_f"}},
-			{label = "Strip Tease 2", type = "anim", data = {lib = "mini@strip_club@private_dance@part2", anim = "priv_dance_p2"}},
-			{label = "Stip Tease au sol", type = "anim", data = {lib = "mini@strip_club@private_dance@part3", anim = "priv_dance_p3"}},
-		}
-	},
+	
 	{
 		name  = 'dance',
 		label = 'Танцы',
@@ -298,14 +285,56 @@ Config.Animations = {
 	      {label = "танец69", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "mini_strip_club_private_dance_idle_priv_dance_idle", flag = 9}},
 		}
 	},
+	
+{
+	name  = 'anims',
+	label = 'testanim',
+	items = {
+	 
+	 
+	 
+	
+	 
+	}
+},
+
 	{
-		name  = 'test',
-		label = 'test',
+		name  = 'misc',
+		label = 'Стриптиз',
 		items = {
-			
-			{label = "Сидеть тест", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE"}},
-			{label = "Сидеть с пончиком", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE_EATING"}},
-			{label = "Сидеть тест2", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_ARMCHAIR"}},
+			{label = "Приват 1", type = "anim", data = {lib = "mini@strip_club@lap_dance@ld_girl_a_song_a_p2", anim = "ld_girl_a_song_a_p2_f", flag = 9}},
+		  {label = "Приват 2", type = "anim", data = {lib = "mini@strip_club@lap_dance@ld_girl_a_song_a_p3", anim = "ld_girl_a_song_a_p3_f", flag = 9}},
+			{label = "Завлекающий 1", type = "anim", data = {lib = "mini@strip_club@private_dance@part1", anim = "priv_dance_p1", flag = 9}},
+			{label = "Завлекающий 2", type = "anim", data = {lib = "mini@strip_club@idles@stripper", anim = "stripper_idle_02", flag = 9}},
+			{label = "Стриптиз 1", type = "anim", data = {lib = "mini@strip_club@lap_dance@ld_girl_a_song_a_p1", anim = "ld_girl_a_song_a_p1_f", flag = 9}},
+		  {label = "Стриптиз 2", type = "anim", data = {lib = "mini@strip_club@private_dance@part2", anim = "priv_dance_p2", flag = 9}},
+			{label = "Стриптиз 3", type = "anim", data = {lib = "mini@strip_club@private_dance@part3", anim = "priv_dance_p3", flag = 9}},
+			{label = "Стриптиз 4", type = "anim", data = {lib = "mp_am_stripper", anim = "lap_dance_girl", flag = 9}},
+		}
+	},
+
+	{
+		name  = 'hakanonur',
+		label = '+18',
+		items = {
+		{label = "Минет", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "pimpsex_hooker", flag = 9}},
+		{label = "У стенки", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "pimpsex_punter"}},
+		{label = "Сзади", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "shagloop_pimp", flag = 9}},
+	  {label = "Минет в машине Ж", type = "anim", data = {lib = "oddjobs@towing", anim = "f_blow_job_loop", in_vehicle=true, flag = 9}},
+		{label = "За рулем 1", type = "anim", data = {lib = "oddjobs@towing", anim = "m_blow_job_loop", in_vehicle=true, flag = 9}},
+		{label = "За рулем 2", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_player", in_vehicle=true, repeat_anim=true, flag = 9}},
+		{label = "За рулем 3", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_m"}},
+		{label = "В машине сверху Ж", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_female", in_vehicle=true, repeat_anim=true, flag = 9}},
+		{label = "В машине сверху Ж2", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_f", flag = 9}},
+		{label = "Эскорт", type = "scenario", data = {anim = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS", flag = 9}},
+		
+		
+		}
+	},
+	{
+		name  = 'animaltest',
+		label = 'Животные',
+		items = {
 			-- ------------------------ЖИВОТНЫЕ
 			{label = "A67", type = "scenario", data = {anim = "WORLD_BOAR_GRAZING"}},
 			{label = "68", type = "scenario", data = {anim = "WORLD_CAT_SLEEPING_GROUND"}},
@@ -341,55 +370,7 @@ Config.Animations = {
 			{label = "98", type = "scenario", data = {anim = "WORLD_RABBIT_EATING"}},
 			{label = "A99", type = "scenario", data = {anim = "WORLD_SHARK_SWIM"}},
 		}	
-},
-{
-	name  = 'anims',
-	label = 'testanim',
-	items = {
-	 
-	 
-	 
-	
-	 
-	}
-},
-{
-	name  = 'poxodki',
-	label = 'Походки ТЕСТ',
-	items = {
-			{label = "1 М", type = "attitude", data = {lib = "anim@move_f@grooving@", anim = "anim@move_f@grooving@"}},
-			{label = "3", type = "attitude", data = {lib = "move_characters@franklin@fire", anim = "move_characters@franklin@fire"}},
-			{label = "8 М", type = "attitude", data = {lib = "move_f@tough_guy@", anim = "move_f@tough_guy@"}},
-			{label = "9", type = "attitude", data = {lib = "move_m@brave@b", anim = "move_m@brave@b"}},
-			{label = "10М", type = "attitude", data = {lib = "move_m@casual@e", anim = "move_m@casual@e"}},
-			{label = "11", type = "attitude", data = {lib = "move_m@drunk@verydrunk", anim = "move_m@drunk@verydrunk"}},
-			{label = "12", type = "attitude", data = {lib = "move_m@money", anim = "move_m@money"}},
-			{label = "2 М", type = "attitude", data = {lib = "move_m@swagger", anim = "move_m@swagger"}},
-			{label = "3", type = "attitude", data = {lib = "move_m@tool_belt@a", anim = "move_m@tool_belt@a"}},
-			{label = "4М", type = "attitude", data = {lib = "move_p_m_zero_slow", anim = "move_p_m_zero_slow"}},
-	}
-},
-		
-	{
-		name  = 'hakanonur',
-		label = '+18',
-		items = {
-		{label = "Özel Dans Erkek", type = "anim", data = {lib = "mp_am_stripper", anim = "lap_dance_player"}},
-		{label = "Özel Dans Kız", type = "anim", data = {lib = "mp_am_stripper", anim = "lap_dance_girl"}},
-		{label = "Özel Dans Kız 2", type = "anim", data = {lib = "mini@strip_club@lap_dance@ld_girl_a_song_a_p2", anim = "ld_girl_a_song_a_p2_f"}},
-		{label = "Özel Dans Kız 3", type = "anim", data = {lib = "mini@strip_club@lap_dance@ld_girl_a_song_a_p3", anim = "ld_girl_a_song_a_p3_f"}},
-		{label = "Özel Dans Kız 2", type = "anim", data = {lib = "mini@strip_club@private_dance@part1", anim = "priv_dance_p1"}},
-		{label = "Sakso Çek Kız", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "pimpsex_hooker"}},
-		{label = "Sakso Çek Erkek", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "pimpsex_punter"}},
-		{label = "Sokakta Ver Kız", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "shagloop_hooker"}},
-		{label = "Sokakta Ver Erkek", type = "anim", data = {lib = "misscarsteal2pimpsex", anim = "shagloop_pimp"}},
-		{label = "Arka Koltuk Erkek", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_m"}},
-		{label = "Arka Koltuk Üstüne Bin", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_intro_f"}},
-		{label = "Arka Koltuk Üstünde Zıpla", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_f"}},
-		{label = "Üstünde Zıpla", type = "anim", data = {lib = "random@drunk_driver_2", anim = "cardrunksex_loop_f"}},
-			}
-		},
-	
+ },
 			
 
 }
