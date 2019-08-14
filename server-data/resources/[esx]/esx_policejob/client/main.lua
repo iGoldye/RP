@@ -1917,6 +1917,10 @@ AddEventHandler('esx_policejob:updateBlip', function()
 		return
 	end
 
+	if not IsPedInAnyVehicle(PlayerPedId(), true) then
+		return
+	end
+
 	-- Is the player a cop? In that case show all the blips for other cops
 	if PlayerData.job and PlayerData.job.name == 'police' then
 		ESX.TriggerServerCallback('esx_society:getOnlinePlayers', function(players)
