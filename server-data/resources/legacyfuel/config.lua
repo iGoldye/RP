@@ -53,6 +53,17 @@ Config.PumpModels = {
 
 -- Blacklist certain vehicles. Use names or hashes. https://wiki.gtanet.work/index.php?title=Vehicle_Models
 Config.Blacklist = {
+	"bmx",
+	"cruiser",
+	"fixter",
+	"scorcher",
+	"tribike",
+	"tribike2",
+	"tribike3",
+
+	"Submersible",
+	"Submersible2",
+
 	--"Adder",
 	--276773164
 }
@@ -75,7 +86,7 @@ Config.Classes = {
 	[10] = 0.5, -- Industrial
 	[11] = 0.5, -- Utility
 	[12] = 0.5, -- Vans
-	[13] = 0.5, -- Cycles
+	[13] = 0.0, -- Cycles
 	[14] = 0.5, -- Boats
 	[15] = 0.5, -- Helicopters
 	[16] = 0.5, -- Planes
@@ -83,7 +94,7 @@ Config.Classes = {
 	[18] = 0.5, -- Emergency
 	[19] = 0.5, -- Military
 	[20] = 0.5, -- Commercial
-	[21] = 0.5, -- Trains
+	[21] = 0.0, -- Trains
 }
 
 -- The left part is at percentage RPM, and the right is how much fuel (divided by 10) you want to remove from the tank every second
