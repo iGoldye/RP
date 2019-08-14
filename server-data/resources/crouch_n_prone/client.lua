@@ -15,7 +15,10 @@ Citizen.CreateThread( function()
 			DisableControlAction( 0, proneKey, true )
 			DisableControlAction( 0, crouchKey, true )
 			if ( not IsPauseMenuActive() ) then
-				if ( IsDisabledControlJustPressed( 0, crouchKey ) and not proned ) then
+				if proned and IsPedInAnyVehicle(ped, true) then
+					proned = false
+					ClearPedTasks(ped)
+				elseif ( IsDisabledControlJustPressed( 0, crouchKey ) and not proned ) then
 
 					while ( not HasAnimSetLoaded( "move_ped_crouched" ) ) do
 						RequestAnimSet( "move_ped_crouched" )
