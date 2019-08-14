@@ -16,14 +16,11 @@ local Keys = {
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
+	local ped = PlayerPedId()
 
-        if IsControlJustReleased(0, Keys['H']) then
+        if IsControlJustReleased(0, Keys['H']) and not IsPedInAnyVehicle(ped, true) then
             ragdoled = true
-            if IsPedInAnyVehicle(GetPlayerPed(), false) then
-                ragdoled = false
-                notify("~r~Error~w~ you can't ragdoll!")
-                end
-            end
+        end
 
         if ragdoled == true then
             SetPedToRagdoll(GetPlayerPed(-1), 1000, 1000, 0, 0, 0, 0)
@@ -38,12 +35,6 @@ end)
 
 
 --[ [ FUNCTIONS ] ]
-
-function notify(text)
-    SetNotificationTextEntry("STRING")
-    AddTextComponentString(text)
-    DrawNotification(true, true)
-end
 
 function alert(msg)
     SetTextComponentFormat("STRING")
