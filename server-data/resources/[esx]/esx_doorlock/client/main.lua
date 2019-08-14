@@ -28,16 +28,25 @@ end)
 -- Get objects every second, instead of every frame
 Citizen.CreateThread(function()
 	while true do
+		local playerCoords = GetEntityCoords(PlayerPedId())
+		local distance
+
 		for _,doorID in ipairs(Config.DoorList) do
 			if doorID.doors then
-				for k,v in ipairs(doorID.doors) do
-					if not v.object or not DoesEntityExist(v.object) then
-						v.object = GetClosestObjectOfType(v.objCoords, 1.0, GetHashKey(v.objName), false, false, false)
+				distance = #(playerCoords - doorID.doors[1].objCoords)
+				if distance < 100 then
+					for k,v in ipairs(doorID.doors) do
+						if not v.object or not DoesEntityExist(v.object) then
+							v.object = GetClosestObjectOfType(v.objCoords, 1.0, GetHashKey(v.objName), false, false, false)
+						end
 					end
 				end
 			else
-				if not doorID.object or not DoesEntityExist(doorID.object) then
-					doorID.object = GetClosestObjectOfType(doorID.objCoords, 1.0, GetHashKey(doorID.objName), false, false, false)
+				distance = #(playerCoords - doorID.objCoords)
+				if distance < 100 then
+					if not doorID.object or not DoesEntityExist(doorID.object) then
+						doorID.object = GetClosestObjectOfType(doorID.objCoords, 1.0, GetHashKey(doorID.objName), false, false, false)
+					end
 				end
 			end
 		end
@@ -60,13 +69,6 @@ Citizen.CreateThread(function()
 				distance = #(playerCoords - doorID.objCoords)
 			end
 
-			local isAuthorized = IsAuthorized(doorID)
-			local maxDistance, size, displayText = 1.25, 0.5, _U('unlocked')
-
-			if doorID.distance then
-				maxDistance = doorID.distance
-			end
-
 			if distance < 50 then
 				if doorID.doors then
 					for _,v in ipairs(doorID.doors) do
@@ -85,7 +87,17 @@ Citizen.CreateThread(function()
 				end
 			end
 
+			local maxDistance = 1.25
+
+			if doorID.distance then
+				maxDistance = doorID.distance
+			end
+
 			if distance < maxDistance then
+				local isAuthorized = IsAuthorized(doorID)
+				local displayText = _U('unlocked')
+				local size = 0.5
+
 				if doorID.size then
 					size = doorID.size
 				end
