@@ -242,10 +242,10 @@ Citizen.CreateThread(function()
 				end, plate)
 			end
 
-		elseif IsPedInMeleeCombat(playerPed) and GetTimeSincePlayerHitPed(playerPed) < 1000 and Config.MeleeAlert then
+		elseif IsPedInMeleeCombat(playerPed) and IsShockingEventInSphere(112, playerCoords.x, playerCoords.y, playerCoords.z, 5.0) and Config.MeleeAlert then
 
-			Citizen.Wait(3000)
-			local witness, isHear = getWitness(10,3, true)
+			Citizen.Wait(10000)
+			local witness, isHear = getWitness(15,3, true)
 
 			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
 				DecorSetInt(playerPed, 'isOutlaw', 2)
