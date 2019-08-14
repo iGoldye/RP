@@ -55,17 +55,22 @@ ESX.RegisterServerCallback('loffe_robbery:canRob', function(source, cb, store)
     end
 end)
 
-RegisterServerEvent('loffe_robbery:rob')
-AddEventHandler('loffe_robbery:rob', function(store)
-    local src = source
-    Config.Shops[store].robbed = true
+RegisterServerEvent('loffe_robbery:rob_start')
+AddEventHandler('loffe_robbery:rob_start', function(store)
     local xPlayers = ESX.GetPlayers()
     for i = 1, #xPlayers do
         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
         if xPlayer.job.name == 'police' then
-            TriggerClientEvent('loffe_robbery:msgPolice', xPlayer.source, store, src)
+            TriggerClientEvent('loffe_robbery:msgPolice', xPlayer.source, store, source)
         end
     end
+end)
+
+RegisterServerEvent('loffe_robbery:rob')
+AddEventHandler('loffe_robbery:rob', function(store)
+    local src = source
+    Config.Shops[store].robbed = true
+
     TriggerClientEvent('loffe_robbery:rob', -1, store)
     Wait(30000)
     TriggerClientEvent('loffe_robbery:robberyOver', src)

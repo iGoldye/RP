@@ -259,6 +259,8 @@ Citizen.CreateThread(function()
                                 loadDict('missheist_agency2ahands_up')
                                 TaskPlayAnim(peds[i], "missheist_agency2ahands_up", "handsup_anxious", 8.0, -8.0, -1, 1, 0, false, false, false)
 
+		                TriggerServerEvent('loffe_robbery:rob_start', i)
+
                                 local scared = 0
                                 while scared < 100 and not IsPedDeadOrDying(peds[i]) and GetDistanceBetweenCoords(GetEntityCoords(me), GetEntityCoords(peds[i]), true) <= 7.5 do
                                     local sleep = 600
@@ -274,9 +276,9 @@ Citizen.CreateThread(function()
                                     sleep = GetGameTimer() + sleep
                                     while sleep >= GetGameTimer() and not IsPedDeadOrDying(peds[i]) do
                                         Wait(0)
-                                        DrawRect(0.5, 0.5, 0.2, 0.03, 75, 75, 75, 200)
-                                        local draw = scared/500
-                                        DrawRect(0.5, 0.5, draw, 0.03, 0, 221, 255, 200)
+--                                        DrawRect(0.5, 0.5, 0.2, 0.03, 75, 75, 75, 200)
+--                                        local draw = scared/500
+--                                        DrawRect(0.5, 0.5, draw, 0.03, 0, 221, 255, 200)
                                     end
                                     scared = scared + 1
                                 end
