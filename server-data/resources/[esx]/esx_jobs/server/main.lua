@@ -3,11 +3,11 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-local function Work(source, item, notifyTimer)
+local function Work(worker_id, source, item, notifyTimer)
 	notifyTimer = notifyTimer or -1
 
 	SetTimeout(item[1].time, function()
-		if PlayersWorking[source] == true then
+		if PlayersWorking[source] and PlayersWorking[source] == worker_id then
 
 			local xPlayer = ESX.GetPlayerFromId(source)
 			if xPlayer == nil then
@@ -59,7 +59,7 @@ local function Work(source, item, notifyTimer)
 				notifyTimer = 5000
 			end
 
-			Work(source, item, notifyTimer - item[1].time)
+			Work(worker_id, source, item, notifyTimer - item[1].time)
 
 		end
 	end)
@@ -67,9 +67,10 @@ end
 
 RegisterServerEvent('esx_jobs:startWork')
 AddEventHandler('esx_jobs:startWork', function(item)
-	if not PlayersWorking[source] then
-		PlayersWorking[source] = true
-		Work(source, item)
+	if PlayersWorking[source] == nil then
+		local worker_id = math.random(1,1000)
+		PlayersWorking[source] = worker_id
+		Work(worker_id, source, item)
 	else
 		print(('esx_jobs: %s attempted to exploit the marker!'):format(GetPlayerIdentifiers(source)[1]))
 	end
@@ -77,7 +78,7 @@ end)
 
 RegisterServerEvent('esx_jobs:stopWork')
 AddEventHandler('esx_jobs:stopWork', function()
-	PlayersWorking[source] = false
+	PlayersWorking[source] = nil
 end)
 
 RegisterServerEvent('esx_jobs:caution')
