@@ -3,10 +3,10 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-local function Work(source, item)
+local function Work(source, item, notifyTimer)
+	notifyTimer = notifyTimer or -1
 
 	SetTimeout(item[1].time, function()
-
 		if PlayersWorking[source] == true then
 
 			local xPlayer = ESX.GetPlayerFromId(source)
@@ -28,7 +28,9 @@ local function Work(source, item)
 				if item[i].name ~= _U('delivery') and itemQtty >= item[i].max then
 					TriggerClientEvent('esx:showNotification', source, _U('max_limit', item[i].name))
 				elseif item[i].requires ~= "nothing" and requiredItemQtty <= 0 then
-					TriggerClientEvent('esx:showNotification', source, _U('not_enough', item[1].requires_name))
+					if notifyTimer < 0 then
+						TriggerClientEvent('esx:showNotification', source, _U('not_enough', item[1].requires_name))
+					end
 				else
 					if item[i].name ~= _U('delivery') then
 						-- Chances to drop the item
@@ -53,7 +55,11 @@ local function Work(source, item)
 				end
 			end
 
-			Work(source, item)
+			if notifyTimer < 0 then
+				notifyTimer = 5000
+			end
+
+			Work(source, item, notifyTimer - item[1].time)
 
 		end
 	end)
