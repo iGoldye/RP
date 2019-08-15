@@ -151,7 +151,7 @@ const actions = {
     PhoneAPI.closePhone()
   },
   resetPhone ({ dispatch, getters }) {
-    dispatch('setZoon', '100%')
+    dispatch('setZoon', '90%')
     dispatch('setVolume', 1)
     dispatch('setBackground', getters.config.background_default)
     dispatch('setCoque', getters.config.coque_default)

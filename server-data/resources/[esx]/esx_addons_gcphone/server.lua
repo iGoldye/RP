@@ -2,14 +2,28 @@
 ESX                       = nil
 local PhoneNumbers        = {}
 
--- PhoneNumbers = {
---   ambulance = {
---     type  = "ambulance",
---     sources = {
---        ['1'] = true
---     }
---   }
--- }
+PhoneNumbers = {
+   ambulance = {
+     type  = "ambulance",
+     sources = {}
+   },
+   police = {
+     type  = "police",
+     sources = {}
+   },
+   taxi = {
+     type  = "taxi",
+     sources = {}
+   },
+   mechanic = {
+     type  = "mechanic",
+     sources = {}
+   },
+   emergency = {
+     type = "emergency",
+     sources = {}
+   }
+}
 
 TriggerEvent('esx:getSharedObject', function(obj)
   ESX = obj
@@ -17,10 +31,11 @@ end)
 
 function notifyAlertSMS (number, alert, listSrc)
   if PhoneNumbers[number] ~= nil then
-	local mess = 'De #' .. alert.numero  .. ' : ' .. alert.message
+	local mess = '#' .. alert.numero  .. ' : ' .. alert.message
 	if alert.coords ~= nil then
 		mess = mess .. ' ' .. alert.coords.x .. ', ' .. alert.coords.y 
 	end
+
     for k, _ in pairs(listSrc) do
       getPhoneNumber(tonumber(k), function (n)
         if n ~= nil then
@@ -34,14 +49,14 @@ function notifyAlertSMS (number, alert, listSrc)
 end
 
 AddEventHandler('esx_phone:registerNumber', function(number, type, sharePos, hasDispatch, hideNumber, hidePosIfAnon)
-  print('= INFO = Enregistrement du telephone ' .. number .. ' => ' .. type)
+	print('= INFO = Registering phone number ' .. number .. ' => ' .. type)
 	local hideNumber    = hideNumber    or false
 	local hidePosIfAnon = hidePosIfAnon or false
 
 	PhoneNumbers[number] = {
 		type          = type,
-    sources       = {},
-    alerts        = {}
+		sources       = {},
+		alerts        = {}
 	}
 end)
 
@@ -89,7 +104,7 @@ AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coord
       }, PhoneNumbers[number].sources)
     end)
   else
-    print('= WARNING = Appels sur un service non enregistre => numero : ' .. number)
+    print('= WARNING = Call on a non-registered service => number : ' .. number)
   end
 end)
 

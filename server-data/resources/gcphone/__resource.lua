@@ -15,12 +15,23 @@ files {
 	'html/static/img/coque/iphonex.png',
 	'html/static/img/coque/base.png',
 	'html/static/img/coque/transparent.png',
+	'html/static/img/coque/gnote8.png',
 	
 	-- Background
 	'html/static/img/background/back001.jpg',
 	'html/static/img/background/back002.jpg',
 	'html/static/img/background/back003.jpg',
+	'html/static/img/background/back004.jpg',
+	'html/static/img/background/back005.jpg',
+	'html/static/img/background/back006.jpg',
 	
+
+	'html/static/img/icons_app/services/ambulance.png',
+	'html/static/img/icons_app/services/emergency.png',
+	'html/static/img/icons_app/services/mechanic.png',
+	'html/static/img/icons_app/services/police.png',
+	'html/static/img/icons_app/services/taxi.png',
+
 	'html/static/img/icons_app/call.png',
 	'html/static/img/icons_app/contacts.png',
 	'html/static/img/icons_app/sms.png',
@@ -32,6 +43,7 @@ files {
 	'html/static/img/icons_app/bank.png',
 	'html/static/img/icons_app/9gag.png',
 	'html/static/img/icons_app/twitter.png',
+	'html/static/img/icons_app/services.png',
 	
 	'html/static/img/app_bank/logo_mazebank.jpg',
 

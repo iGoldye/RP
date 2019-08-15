@@ -24,7 +24,7 @@
 
   "useFormatNumberFrance": true,
 
-  "useWebRTCVocal": true,
+  "useWebRTCVocal": false,
   "RTCConfig": {
     "iceServers": [{
       "urls": ["turn:barrax.needrp.net"],
@@ -42,29 +42,33 @@
     "Calvin & Hobbes": "back001.jpg",
     "Destiny": "back002.jpg",
     "Stormtrooper": "back003.jpg",
+    "Corona Del Mar": "back004.jpg",
+    "Meadows": "back005.jpg",
+    "Galaxy Note 8": "back006.jpg",
     "Custom URL": "URL"
   },
   "background_default": {
-    "label": "Calvin & Hobbes",
-    "value": "back001.jpg"
+    "label": "Galaxy Note 8",
+    "value": "back006.jpg"
   },
 
 
   "coque": {
+    "Galaxy Note 8": "gnote8.png",
     "Sansumg S8": "s8.png",
     "Iphone X": "iphonex.png",
     "Brick Base": "base.png",
     "Transparent": "transparent.png"
   },
   "coque_default": {
-    "label": "Sansumg S8",
-    "value": "s8.png"
+    "label": "Galaxy Note 8",
+    "value": "gnote8.png"
   },
 
 
   "serviceCall": [{
       "display": "Полиция",
-      "icon": "/html/static/img/icons_app/police.png",
+      "icon": "/html/static/img/icons_app/services/police.png",
       "subMenu": [{
           "title": "Отправить сообщение",
           "eventName": "esx_addons_gcphone:call",
@@ -83,6 +87,7 @@
     },
     {
       "display": "Мед.центр",
+      "icon": "/html/static/img/icons_app/services/ambulance.png",
       "backgroundColor": "red",
       "subMenu": [{
         "title": "Отправить сообщение",
@@ -91,21 +96,46 @@
           "number": "ambulance"
         }
       }]
+    },
+    {
+      "display": "Такси",
+      "icon": "/html/static/img/icons_app/services/taxi.png",
+      "backgroundColor": "orange",
+      "subMenu": [{
+        "title": "Отправить сообщение",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "taxi"
+        }
+      }]
+    },
+    {
+      "display": "Механики",
+      "icon": "/html/static/img/icons_app/services/mechanic.png",
+      "backgroundColor": "green",
+      "subMenu": [{
+        "title": "Отправить сообщение",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "mechanic"
+        }
+      }]
+    },
+    {
+      "display": "Служба спасения",
+      "icon": "/html/static/img/icons_app/services/emergency.png",
+      "backgroundColor": "grey",
+      "subMenu": [{
+        "title": "Отправить сообщение",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "admin"
+        }
+      }]
     }
   ],
 
-  "defaultContacts": [{
-      "number": "ambulance",
-      "display": "Мед.центр",
-      "icon": "/html/static/img/icons_app/bank.png"
-    },
-    {
-      "number": "police",
-      "display": "Полиция",
-      "backgroundColor": "blue",
-      "letter": "P"
-    }
-  ],
+  "defaultContacts": [],
 
   "apps": [{
       "name": "Twitter",
@@ -153,6 +183,18 @@
       "es_ES__name": "Контакты",
       "icons": "/html/static/img/icons_app/contacts.png",
       "routeName": "contacts",
+      "inHomePage": true
+    },
+    {
+      "name": "Городские службы",
+      "fr_FR__name": "Городские службы",
+      "en_US__name": "Городские службы",
+      "cs_CZ__name": "Городские службы",
+      "de_DE__name": "Городские службы",
+      "pl_PL__name": "Городские службы",
+      "es_ES__name": "Городские службы",
+      "icons": "/html/static/img/icons_app/services.png",
+      "routeName": "services",
       "inHomePage": true
     },
     {
@@ -242,6 +284,7 @@
       "APP_PHONE_MENU_FAVORITES": "Избранное",
       "APP_PHONE_MENU_RECENTS": "Недавнее",
       "APP_PHONE_MENU_CONTACTS": "Контакты",
+      "APP_PHONE_MENU_SERVICES": "Городские службы",
       "APP_PHONE_ENTER_NUMBER": "Введите номер",
       "APP_PHONE_NUMBER_HIDDEN": "Скрыть номер",
       "APP_PHONE_NUMBER_UNKNOWN": "Неизвестный",
@@ -249,6 +292,7 @@
       "APP_BANK_TITLE": "Банк",
       "APP_BOURSE_TITLE": "Биржа",
       "APP_CONTACT_TITLE": "Контакты",
+      "APP_SERVICES_TITLE": "Городские службы",
       "APP_CONTACT_NEW": "Новый контакт",
       "APP_CONTACT_EDIT": "Изменить контакт",
       "APP_CONTACT_SAVE": "Сохранить",
@@ -361,6 +405,7 @@
       "APP_BANK_TITLE": "Банк",
       "APP_BOURSE_TITLE": "Биржа",
       "APP_CONTACT_TITLE": "Контакты",
+      "APP_SERVICES_TITLE": "Городские службы",
       "APP_CONTACT_NEW": "Новый контакт",
       "APP_CONTACT_EDIT": "Изменить контакт",
       "APP_CONTACT_SAVE": "Сохранить",

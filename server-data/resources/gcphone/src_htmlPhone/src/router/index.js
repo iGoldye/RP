@@ -7,6 +7,8 @@ import Menu from '@/components/Menu'
 import Contacts from '@/components/contacts/Contacts'
 import Contact from '@/components/contacts/Contact'
 
+import Services from '@/components/contacts/Services'
+
 import MessagesList from '@/components/messages/MessagesList'
 import Messages from '@/components/messages/Messages'
 import MessageContactsSelect from '@/components/messages/MessageContactsSelect'
@@ -52,6 +54,11 @@ export default new Router({
       path: '/contact/:id',
       name: 'contacts.view',
       component: Contact
+    },
+    {
+      path: '/services',
+      name: 'services',
+      component: Services
     },
     {
       path: '/messages',
