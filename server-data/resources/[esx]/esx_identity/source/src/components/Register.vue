@@ -7,7 +7,7 @@
 			.register__form-row
 				input.register__form-input(:class="{ 'is-error': $v.lastname.$error }",type="text", name="lastname", placeholder="Фамилия", id="lastname", v-model="lastname", onfocus="this.placeholder=''" onblur="this.placeholder='Фамилия'")
 			.register__form-row
-				input.register__form-input(:class="{ 'is-error': $v.age.$error }",type="number", name="age", placeholder="Возраст", id="age", v-model="age", onfocus="this.placeholder=''" onblur="this.placeholder='Возраст'")
+				input.register__form-input(:class="{ 'is-error': $v.age.$error }",type="number", name="age", placeholder="Возраст", id="age", v-model="age", onfocus="this.placeholder='18 - 99'" onblur="this.placeholder='Возраст'")
 			.register__form-row
 				select.register__form-select(:class="{ 'is-error': $v.sex.$error }", v-model="selected")
 					option(v-for="item in sex" :value="item.value" :hidden='item.isHidden') {{item.name}}
@@ -47,7 +47,6 @@ body {
       height: 65px;
       margin-bottom: 20px;
       background: #2e3033;
-
       border: none;
       border-radius: 4px;
       text-align: center;
@@ -57,7 +56,6 @@ body {
       font-size: 16px;
       line-height: 19px;
       color: rgba(255, 255, 255, 0.5);
-      text-transform: capitalize;
 
       &:focus {
         outline: none;
@@ -147,33 +145,21 @@ export default {
     };
   },
   mounted() {
-    window.addEventListener("message", this.showUi());
+    window.addEventListener("message", this.messageHub);
   },
   methods: {
-    showUi() {
-      if (event.data.type == "enableui") {
-        document.body.style.display = event.data.enable ? "block" : "none";
-      }
+    showUi(enable) {
+      document.body.style.display = enable ? "block" : "none";
     },
     submit() {
       console.log("submit!");
       this.$v.$touch();
       if (this.$v.$invalid) {
-        this.submitStatus = "ERROR";
+        console.log("ERROR");
       } else {
-        // do your submit logic here
-        this.submitStatus = "PENDING";
-        // axios.post(
-        //   "http://esx_identity/register",
-        //   JSON.stringify({
-        //     firstname: this.firstname,
-        //     lastname: this.lastname,
-        //     dateofbirth: this.age,
-        //     sex: this.sex,
-        //     height: this.height
-        //   })
-        // );
-        console.log(
+        console.log("PENDING");
+        axios.post(
+          "http://esx_identity/register",
           JSON.stringify({
             firstname: this.firstname,
             lastname: this.lastname,
@@ -182,6 +168,14 @@ export default {
             height: this.height
           })
         );
+        this.showUi(false);
+      }
+    },
+    messageHub(event) {
+      switch (event.data.type) {
+        case "enableui":
+          this.showUi(event.data.enable);
+          break;
       }
     }
   },

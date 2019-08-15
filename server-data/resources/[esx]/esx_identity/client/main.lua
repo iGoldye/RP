@@ -62,7 +62,7 @@ RegisterNUICallback('register', function(data, cb)
 	for theData, value in pairs(myIdentity) do
 		if theData == "firstname" or theData == "lastname" then
 			reason = verifyName(value)
-			
+
 			if reason ~= "" then
 				break
 			end
@@ -84,7 +84,7 @@ RegisterNUICallback('register', function(data, cb)
 			end
 		end
 	end
-	
+
 	if reason == "" then
 		TriggerServerEvent('esx_identity:setIdentity', data, myIdentifiers)
 		EnableGui(false)
@@ -128,7 +128,7 @@ function verifyName(name)
 	if nameLength > 25 or nameLength < 2 then
 		return 'Your player name is either too short or too long.'
 	end
-	
+
 	-- Don't allow special characters (doesn't always work)
 	local count = 0
 	for i in name:gmatch('[abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ0123456789 -]') do
@@ -137,9 +137,9 @@ function verifyName(name)
 	if count ~= nameLength then
 		return 'Your player name contains special characters that are not allowed on this server.'
 	end
-	
+
 	-- Does the player carry a first and last name?
-	-- 
+	--
 	-- Example:
 	-- Allowed:     'Bob Joe'
 	-- Not allowed: 'Bob'
@@ -158,7 +158,7 @@ function verifyName(name)
 	if spacesInName > 2 then
 		return 'Your name contains more than two spaces'
 	end
-	
+
 	if spacesWithUpper ~= spacesInName then
 		return 'your name must start with a capital letter.'
 	end
