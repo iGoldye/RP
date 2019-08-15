@@ -37,7 +37,7 @@ Config.Zones = {
 	WeedField =			{x=1057.448,  y=-3196.996,  z=-39.938},
 	WeedProcessing =	{x=1037.297,  y=-3204.968,  z=-38.87},
 	WeedDealer =		{x = 85.58,   y= -1959.34,  z= 20.13},
-	OpiumField =		{x=2433.804,  y=4969.196,   z=41.348},
+	OpiumField =		{x=2433.804,  y=4969.196,   z=41.358},
 	OpiumProcessing =	{x=2434.43,   y=4964.18,    z=41.348},
 	OpiumDealer =		{x=-3155.608, y=1125.368,   z=20.858}
 }
@@ -53,8 +53,8 @@ Config.Map = {
   {name="Meth Farm",             color=6, scale=0.8, id=499, x=1005.721,   y=-3200.301,  z=-38.519},
   {name="Meth Processing",       color=6, scale=0.8, id=499, x=1014.878,   y=-3194.871,  z=-38.993},
   {name="Meth Sales",            color=3, scale=0.8, id=499, x=7.981,      y=6469.067,   z=31.528},
-  {name="Opium Farm Entrance",   color=6, scale=0.8, id=403, x=2433.804,   y=4969.196,   z=42.348},
-  {name="Opium Farm",            color=6, scale=0.8, id=403, x=2433.804,   y=4969.196,   z=42.348},
+  {name="Opium Farm Entrance",   color=6, scale=0.8, id=403, x=2433.804,   y=4969.196,   z=43.358},
+  {name="Opium Farm",            color=6, scale=0.8, id=403, x=2433.804,   y=4969.196,   z=43.358},
   {name="Opium Processing",      color=6, scale=0.8, id=403, x=2434.43,    y=4964.18,    z=42.348},
   {name="Opium Sales",           color=3, scale=0.8, id=403, x=-3155.608,  y=1125.368,   z=20.858},
   {name="Weed Farm Entrance",    color=2, scale=0.8, id=140, x=930.79,   y=-1546.99,    z=30.85},
