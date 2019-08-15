@@ -1,6 +1,7 @@
 ESX                           = nil
 
 local cachedBins = {}
+local binEntity, binEntityDst = 0, 10000
 
 Citizen.CreateThread(function ()
     while ESX == nil do
@@ -64,23 +65,42 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
+    while true do
+	Citizen.Wait(300)
+
+        local playerCoords = GetEntityCoords(PlayerPedId())
+
+        binEntity = nil
+        binEntityDst = 10000
+	for _,v in pairs(Config.BinsAvailable) do
+		local obj = GetClosestObjectOfType(playerCoords.x,playerCoords.y,playerCoords.z, 5.0, GetHashKey(v))
+		if DoesEntityExist(obj) then
+			binEntity = obj
+                        binEntityDst = #(playerCoords-GetEntityCoords(obj))
+			break
+		end
+	end
+-- It will be faster if we have 30+ bin models
+--        binEntity, binEntityDst = ESX.Game.GetClosestObject(Config.BinsAvailable)
+    end
+end)
+
+Citizen.CreateThread(function()
     Citizen.Wait(100)
 
     while true do
-        local sleepThread = 1000
+        local sleepThread = 100
 
-        local entity, entityDst = ESX.Game.GetClosestObject(Config.BinsAvailable)
+        if DoesEntityExist(binEntity) and binEntityDst <= 1.5 then
+            sleepThread = 0
 
-        if DoesEntityExist(entity) and entityDst <= 1.5 then
-            sleepThread = 5
-
-            local binCoords = GetEntityCoords(entity)
+            local binCoords = GetEntityCoords(binEntity)
 
             ESX.Game.Utils.DrawText3D(binCoords + vector3(0.0, 0.0, 0.5), "[~g~E~s~] Искать бутылки", 0.4)
 
             if IsControlJustReleased(0, 38) then
-                if not cachedBins[entity] then
-                    cachedBins[entity] = true
+                if not cachedBins[binEntity] then
+                    cachedBins[binEntity] = true
 
                     OpenTrashCan()
                 else
