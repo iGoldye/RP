@@ -1,6 +1,4 @@
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(100)
+function lock_cars()
 		local pos = GetEntityCoords(PlayerPedId())
 
 		local vehicle = GetClosestVehicle(pos, 5.0, 0, 71)
@@ -20,5 +18,14 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
+
+end
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		pcall(function()
+			lock_cars()
+		end)
 	end
 end)
