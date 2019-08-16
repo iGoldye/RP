@@ -190,11 +190,11 @@ AddEventHandler('iens:repair', function()
 				healthPetrolTankLast=750.0
 					SetVehicleEngineOn(vehicle, true, false )
 				SetVehicleOilLevel(vehicle,(GetVehicleOilLevel(vehicle)/3)-0.5)
-				notification("~g~" .. repairCfg.fixMessages[fixMessagePos] .. ", now get to a mechanic!")
+				notification("~g~" .. repairCfg.fixMessages[fixMessagePos] .. "")
 				fixMessagePos = fixMessagePos + 1
 				if fixMessagePos > repairCfg.fixMessageCount then fixMessagePos = 1 end
 			else
-				notification("~r~Your vehicle was too badly damaged. Unable to repair!")
+				notification("~r~Ваша машина слишком сильно повреждена. Невозможно отремонтировать на месте")
 			end
 		else
 			notification("~y~" .. repairCfg.noFixMessages[noFixMessagePos] )
@@ -202,13 +202,13 @@ AddEventHandler('iens:repair', function()
 			if noFixMessagePos > repairCfg.noFixMessageCount then noFixMessagePos = 1 end
 		end
 	else
-		notification("~y~You must be in a vehicle to be able to repair it")
+		notification("~y~Вы должны быть в машине для ремонта")
 	end
 end)
 
 RegisterNetEvent('iens:notAllowed')
 AddEventHandler('iens:notAllowed', function()
-	notification("~r~You don't have permission to repair vehicles")
+	notification("~r~У вас нет разрешения на ремонт машины")
 end)
 
 if cfg.torqueMultiplierEnabled or cfg.preventVehicleFlip or cfg.limpMode then
