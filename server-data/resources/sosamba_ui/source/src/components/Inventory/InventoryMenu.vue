@@ -29,8 +29,8 @@
                     </template>
 
                 </ListMenu>
-                <ListMenu ref="itemMenu" title="Инвентарь" 
-                        :items="items" 
+                <ListMenu ref="itemMenu" title="Инвентарь"
+                        :items="items"
                         :parent_disabled="disabled"
                         v-on:item_clicked="item_clicked"
                         v-on:back_clicked="back_clicked"
@@ -39,7 +39,7 @@
                     >
 
                     <template v-for="(item,i) in items  " :slot="'avatar-'+i">
-                        <InventoryItemAvatarPane 
+                        <InventoryItemAvatarPane
                             v-bind:key="'avatar-'+i"
                             :item="item"
                         >
@@ -47,7 +47,7 @@
                     </template>
 
                     <template v-for="(item,i) in items  " :slot="'content-'+i">
-                        <InventoryItemContentPane 
+                        <InventoryItemContentPane
                             v-bind:key="'content-'+i"
                             :item="item"
                         >
@@ -56,7 +56,7 @@
 
 
                     <template v-for="(item,i) in items  " :slot="'action-'+i">
-                        <InventoryItemActionPane 
+                        <InventoryItemActionPane
                             v-bind:key="'action-'+i"
                             :item="item"
                         >
@@ -70,7 +70,7 @@
 
 <script>
 //    <InputDialog ref="inventoryInputDialog" title="Введите количество" hint="Введите число" :active="state == 'modal'"></InputDialog>
-import ListMenu from './ListMenu';
+import ListMenu from '../ListMenu/ListMenu';
 import InventoryItemActionPane from './InventoryItem/InventoryItemActionPane';
 import InventoryItemContentPane from './InventoryItem/InventoryItemContentPane';
 import InventoryItemAvatarPane from './InventoryItem/InventoryItemAvatarPane';
@@ -94,10 +94,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        items: {
-//            type: Object,
-            default: () => null,
-        },
     },
 
     data: () => ({
@@ -106,6 +102,7 @@ export default {
         _disabled: false,
         currentItem: null,
         currentActions: [],
+        items: {},
         icons: {
             "close-circle": mdiCloseCircle,
             "keyboard-return": mdiKeyboardReturn,
@@ -162,6 +159,19 @@ export default {
     },
 
     methods: {
+        message: function(data) {
+            switch (data.action) {
+                case 'updateInventory':
+                    this.items = data.items;
+
+                    if (!this.items) {
+                        this.items = {};
+                    }
+                break;
+
+            }
+        },
+
         show: function() {
             if (this.state == "hide") {
                 this.state = "items";
@@ -219,7 +229,7 @@ export default {
                 aobj.item = this.items[key].item;
                 this.currentActions.push(aobj);
             }
-            
+
             this.$refs["actionMenu"].$forceUpdate();
             this.state = "actions";
             this.$refs["actionMenu"].selection_set(0);
@@ -252,11 +262,11 @@ export default {
             if (this.state == "hide" || this.disabled == true) {
                 return;
             }
-            
+
             if (this.state == "actions") {
                 this.state = "items";
             } else if (this.state == "items") {
-                this.state = "hide";    
+                this.state = "hide";
             }
         },
 
@@ -269,7 +279,7 @@ export default {
 
             for (var key in inv_item.actions) {
                 var act = inv_item.actions[key];
-                
+
                 res.push({
                     text: {
                         title: act.label,
@@ -310,11 +320,14 @@ export default {
             return res;
         },
     },
+
     created: function () {
         this.$eventHub.$on('key_down', this.key_down);
+        this.$eventHub.$on('message', this.message);
     },
     beforeDestroy() {
         this.$eventHub.$off('key_down');
+        this.$eventHub.$off('message');
     },
 };
 

@@ -24,12 +24,10 @@ document.addEventListener('keydown', function(event) {
 });
 
 window.onload = function () {
-//window.onload = function (e) {
-	window.addEventListener('message', (event) => {
-    vue.$eventHub.$emit('gta_message', event.data);
+
+  window.addEventListener('message', (event) => {
+    vue.$eventHub.$emit('message', event.data);
   });
-  
-//  vue.$eventHub.$emit('gta_message', {action:"setWebsite"});
 }
 
 window.post = function(url, data) {

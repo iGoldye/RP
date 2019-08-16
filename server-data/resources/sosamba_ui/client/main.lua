@@ -280,6 +280,7 @@ function showInventoryMenu(inventory)
 
 	SendNUIMessage({
 		action  = 'showInventory',
+		value = true,
 	})
 
 	menuActive = true

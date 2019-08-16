@@ -26,7 +26,7 @@ module.exports = {
       chunkFilename: '[name].bundle.js',
     },
 
-
+/*
     optimization: {
       moduleIds: 'named',
       chunkIds: 'named',
@@ -39,8 +39,8 @@ module.exports = {
         chunks: 'all',
         minSize: 1,
     },
-
   }, 
+*/
 
   },
   publicPath: path,

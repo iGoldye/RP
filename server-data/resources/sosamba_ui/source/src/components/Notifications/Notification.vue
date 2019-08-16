@@ -1,5 +1,5 @@
 <template>
-    <div class="notification-container font-weight-medium"><slot></slot></div>
+    <div class="black-container font-weight-medium"><slot></slot></div>
 </template>
 
 <script>
