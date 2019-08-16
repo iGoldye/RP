@@ -33,3 +33,17 @@ TriggerEvent('es:addGroupCommand', 'addpassport', 'admin', function(source, args
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Получить паспорт игрока"})
+
+TriggerEvent('es:addGroupCommand', 'sethunger', 'admin', function(source, args, user)
+	TriggerClientEvent('esx_status:set', source, 'hunger', tonumber(args[1]) or 0)
+
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Установить значение сытости"})
+
+TriggerEvent('es:addGroupCommand', 'setthirst', 'admin', function(source, args, user)
+	TriggerClientEvent('esx_status:set', source, 'thirst', tonumber(args[1]) or 0)
+
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Установить значение жажды"})

@@ -205,6 +205,9 @@ Citizen.CreateThread(function()
 
 			Citizen.Wait(3000)
 			local vehicle = GetVehiclePedIsIn(playerPed, true)
+			if vehicle == 0 then
+				vehicle = GetClosestVehicle(playerCoords, 2.0, 0, 71)
+			end
 
 			if vehicle and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
 				local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
@@ -214,6 +217,10 @@ Citizen.CreateThread(function()
 
 						local vehicleLabel = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
 						vehicleLabel = GetLabelText(vehicleLabel)
+
+						if vehicleLabel == "NULL" then
+							vehicleLabel = "автомобиль"
+						end
 
 						local witness, isHear = getWitness(60,10, true)
 						if witness then
