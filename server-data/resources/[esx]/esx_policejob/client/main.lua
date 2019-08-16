@@ -2002,3 +2002,8 @@ AddEventHandler('esx_policejob:openPoliceActionsMenu', function()
 			end
 		end
 end)
+
+RegisterNetEvent('esx_policejob:openIdentityCardMenu')
+AddEventHandler('esx_policejob:openIdentityCardMenu', function(player)
+	OpenIdentityCardMenu(GetPlayerFromServerId(player))
+end)

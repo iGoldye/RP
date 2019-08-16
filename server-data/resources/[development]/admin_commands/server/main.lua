@@ -1,3 +1,6 @@
+ESX = nil
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
 
 TriggerEvent('es:addGroupCommand', 'emote', 'admin', function(source, args, user)
 	TriggerClientEvent('admin_commands:emote', source, args)
@@ -11,3 +14,22 @@ TriggerEvent('es:addGroupCommand', 'repair', 'admin', function(source, args, use
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Починить автомобиль"})
+
+TriggerEvent('es:addGroupCommand', 'addpassport', 'admin', function(source, args, user)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	if #args >= 1 then
+		local target = tonumber(args[1])
+		if target ~= nil then
+			xPlayer = ESX.GetPlayerFromId(target)
+		end
+	end
+
+	TriggerEvent("esx_inventory:createItem", "passport", {}, 1, 0, function(item)
+		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
+		end)
+	end)
+
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Получить паспорт игрока"})

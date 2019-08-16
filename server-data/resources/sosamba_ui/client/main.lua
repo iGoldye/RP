@@ -280,6 +280,7 @@ function showInventoryMenu(inventory)
 
 	SendNUIMessage({
 		action  = 'showInventory',
+		value = true,
 	})
 
 	menuActive = true
@@ -292,6 +293,13 @@ function showInventoryMenu(inventory)
 
 end
 
+function hideInventoryMenu()
+
+	SendNUIMessage({
+		action  = 'showInventory',
+		value = false,
+	})
+end
 
 RegisterNetEvent('sosamba_ui:showInventoryMenu')
 AddEventHandler('sosamba_ui:showInventoryMenu', function(inventory)
@@ -502,4 +510,10 @@ Citizen.CreateThread(function()
 	TriggerEvent('esx_inventory:registerItemAction', "money_pack", "unpack", _U("inventory_action_unpack"), function(item)
 		TriggerServerEvent('esx_inventory:actionUnpackMoney', item)
 	end)
+
+	TriggerEvent('esx_inventory:registerItemAction', "passport", "show", "Просмотреть", function(item)
+		hideInventoryMenu()
+		TriggerServerEvent('sosamba_ui:actionShowPassport', item)
+	end)
+
 end)

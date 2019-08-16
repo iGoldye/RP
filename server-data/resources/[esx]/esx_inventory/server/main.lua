@@ -567,6 +567,16 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 	end	
 end)
 
+RegisterServerEvent('esx_inventory:createItem')
+AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight, cb)
+	cb(createItem(name, extra, amount, weight))
+end)
+
+RegisterServerEvent('esx_inventory:addItem')
+AddEventHandler('esx_inventory:addItem', function(name, owner, item, cb)
+	cb(addItem(name, owner, item))
+end)
+
 RegisterServerEvent('esx_inventory:playerSpawned')
 AddEventHandler('esx_inventory:playerSpawned', function()
 	sendAllPickups(source)

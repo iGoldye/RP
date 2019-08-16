@@ -16,7 +16,6 @@ local GUI      = {}
 local PlayerData                = {}
 local lastVehicle = nil
 local lastOpen = false
-GUI.Time                      = 0
 local vehiclePlate = {}
 local arrayWeight = Config.localWeight
 
@@ -56,8 +55,13 @@ function VehicleInFront()
     local pos = GetEntityCoords(GetPlayerPed(-1))
     local entityWorld = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 4.0, 0.0)
     local rayHandle = CastRayPointToPoint(pos.x, pos.y, pos.z, entityWorld.x, entityWorld.y, entityWorld.z, 10, GetPlayerPed(-1), 0)
-    local a, b, c, d, result = GetRaycastResult(rayHandle)
-    return result
+--    local a, b, c, d, result = GetRaycastResult(rayHandle)
+    local numRayHandle, hit, endCoords, surfaceNormal, entityHit = GetShapeTestResult(rayHandle)
+    if IsEntityAVehicle(entityHit) then
+        return entityHit, endCoords
+    end
+
+    return nil, nil
 end
 
 function VehicleMaxSpeed(vehicle,weight,maxweight)
@@ -84,42 +88,44 @@ Citizen.CreateThread(function()
 
     Wait(0)
 
-    if IsControlPressed(0, Keys["L"]) and (GetGameTimer() - GUI.Time) > 150 then
-        local vehFront = VehicleInFront()
-	    local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
-	    local closecar = GetClosestVehicle(x, y, z, 4.0, 0, 71)
-      if vehFront > 0 and closecar ~= nil and GetPedInVehicleSeat(closecar, -1) ~= GetPlayerPed(-1) then
-          	lastVehicle = vehFront
-        		local model = GetDisplayNameFromVehicleModel(GetEntityModel(closecar))
-          	local locked = GetVehicleDoorLockStatus(closecar)
-            local class = GetVehicleClass(vehFront)
-            print(locked)
-	          ESX.UI.Menu.CloseAll()
-            if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory') then
-              SetVehicleDoorShut(vehFront, 5, false)
-            else
-              if locked == 1 or class == 15 or class == 16 or class == 14 then
-	              SetVehicleDoorOpen(vehFront, 5, false, false)
-	              ESX.UI.Menu.CloseAll()
+    if IsControlJustPressed(0, Keys["L"]) then
+        local closecar, vehPos = VehicleInFront()
+	    local playerPos = GetEntityCoords(GetPlayerPed(-1),true)
+            local dist = 1000.0
+            if vehPos ~= nil then
+		dist = #(playerPos-vehPos)
+	    end
 
-	              TriggerServerEvent("esx_truck_inventory:getInventory", GetVehicleNumberPlateText(vehFront))
-	            else
-	          	   ESX.ShowNotification('Багажник закрыт ~r~')
-              end
+      if closecar ~= nil and dist < 1.5 and GetPedInVehicleSeat(closecar, -1) ~= GetPlayerPed(-1) then
+            lastVehicle = closecar
+            local model = GetDisplayNameFromVehicleModel(GetEntityModel(closecar))
+            local locked = GetVehicleDoorLockStatus(closecar)
+            local class = GetVehicleClass(vehFront)
+ --           print(locked)
+            ESX.UI.Menu.CloseAll()
+            if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory') then
+                SetVehicleDoorShut(vehFront, 5, false)
+            else
+                if locked == 1 or class == 15 or class == 16 or class == 14 then
+                      SetVehicleDoorOpen(vehFront, 5, false, false)
+                      ESX.UI.Menu.CloseAll()
+
+                      TriggerServerEvent("esx_truck_inventory:getInventory", GetVehicleNumberPlateText(vehFront))
+                else
+                      ESX.ShowNotification('Багажник закрыт ~r~')
+                end
             end
-        else
+      else
         	ESX.ShowNotification('Нет ~r~автомобиля~w~ поблизости')
-          end
+      end
       lastOpen = true
-      GUI.Time  = GetGameTimer()
-    elseif lastOpen and IsControlPressed(0, Keys["BACKSPACE"]) and (GetGameTimer() - GUI.Time) > 150 then
+    elseif lastOpen and IsControlJustPressed(0, Keys["BACKSPACE"]) then
       lastOpen = false
       ESX.UI.Menu.CloseAll()
-      if lastVehicle > 0 then
+      if lastVehicle and lastVehicle > 0 then
       	SetVehicleDoorShut(lastVehicle, 5, false)
       	lastVehicle = 0
       end
-      GUI.Time  = GetGameTimer()
     end
   end
 end)
