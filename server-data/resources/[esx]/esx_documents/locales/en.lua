@@ -1,38 +1,38 @@
 Locales['en'] = {
-    ['document_deleted'] = "Document was ~g~deleted~w~.",
-    ['document_delete_failed'] = "Document delete ~r~failed~w~.",
-    ['copy_from_player'] = "You ~g~received~w~ a form copy from a player.",
-    ['from_copied_player'] = "Form ~g~copied~w~ to player",
-    ['could_not_copy_form_player'] = "Could ~r~not~w~ copy form to player.",
-    ['document_options'] = "Document Options",
-    ['public_documents'] = "Public Documents",
-    ['job_documents'] = "Job Documents",
-    ['saved_documents'] = "Saved Documents",
-    ['close_bt'] = "Close",
-    ['no_player_found'] = "No players found",
-    ['go_back'] = "Go Back",
-    ['view_bt'] = "View",
-    ['show_bt'] = "Show",
-    ['give_copy'] = "Give Copy",
-    ['delete_bt'] = "Delete",
-    ['yes_delete'] = "Yes Delete",
+    ['document_deleted'] = "Документ был ~g~удален~w~.",
+    ['document_delete_failed'] = "Удалить документ ~r~не получилось~w~.",
+    ['copy_from_player'] = "Вам ~g~передали форму~w~.",
+    ['from_copied_player'] = "Вы передали ~g~форму~w~.",
+    ['could_not_copy_form_player'] = "Некому передавать ~r~форму~w~.",
+    ['document_options'] = "Документы",
+    ['public_documents'] = "Публичные документы",
+    ['job_documents'] = "Рабочие докуметы",
+    ['saved_documents'] = "Архив",
+    ['close_bt'] = "Закрыть",
+    ['no_player_found'] = "Человек не найден",
+    ['go_back'] = "Назад",
+    ['view_bt'] = "Обзор",
+    ['show_bt'] = "Посмотреть",
+    ['give_copy'] = "Сделать копию",
+    ['delete_bt'] = "Уничтожить",
+    ['yes_delete'] = "Да уничтожить",
 }
 
 Config.Documents['en'] = {
       ["public"] = {
         {
-          headerTitle = "AFFIRMATION FORM",
-          headerSubtitle = "Citizen affirmation form.",
+          headerTitle = "Заявление",
+          headerSubtitle = "Форма",
           elements = {
-            { label = "AFFIRMATION CONTENT", type = "textarea", value = "", can_be_emtpy = false },
+            { label = "Суть заявления", type = "textarea", value = "", can_be_emtpy = false },
           }
         },
         {
-          headerTitle = "WITNESS TESTIMONY",
-          headerSubtitle = "Official witness testimony.",
+          headerTitle = "Показания свидетеля",
+          headerSubtitle = "Официальные показания свидетеля.",
           elements = {
-            { label = "DATE OF OCCURENCE", type = "input", value = "", can_be_emtpy = false },
-            { label = "TESTIMONY CONTENT", type = "textarea", value = "", can_be_emtpy = false },
+            { label = "Дата события", type = "input", value = "", can_be_emtpy = false },
+            { label = "Показания", type = "textarea", value = "", can_be_emtpy = false },
           }
         },
         {
