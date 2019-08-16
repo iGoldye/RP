@@ -1,4 +1,4 @@
-local InventoriesIndex, Inventories, SharedInventories, Items = {}, {}, {}, {}
+InventoriesIndex, Inventories, SharedInventories, Items = {}, {}, {}, {}
 ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
