@@ -1,3 +1,11 @@
+local function _ch(hash)
+	if type(hash) == 'string' then
+		return GetHashKey(hash)
+	end
+
+	return hash
+end
+
 function loadAnimDict(dict)
 	RequestAnimDict(dict)
 
@@ -48,4 +56,33 @@ AddEventHandler('admin_commands:repair', function(args)
 		TriggerEvent('chat:addMessage', { args = { '^1SYSTEM', 'Рядом нет транспорта.' } })
 	end
 
+end)
+
+RegisterNetEvent('admin_commands:setmodel')
+AddEventHandler('admin_commands:setmodel', function(args)
+		if #args < 1 then
+			TriggerEvent('chat:addMessage', { args = { '^1SYSTEM', 'Неверное число аргументов.' } })
+		end
+
+		local characterModel = _ch(args[1])
+
+		RequestModel(characterModel)
+		for i=1,10 do
+			if HasModelLoaded(characterModel) then
+				break
+			end
+			Citizen.Wait(100)
+		end
+
+		if not HasModelLoaded(characterModel) then
+			TriggerEvent('chat:addMessage', { args = { '^1SYSTEM', 'Невозможно загрузить модель.' } })
+			return
+		end
+
+		if IsModelInCdimage(characterModel) and IsModelValid(characterModel) then
+			SetPlayerModel(PlayerId(), characterModel)
+			SetPedDefaultComponentVariation(PlayerPedId())
+		end
+
+		SetModelAsNoLongerNeeded(characterModel)
 end)
