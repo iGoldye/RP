@@ -35,16 +35,16 @@ Config.Documents['en'] = {
             { label = "Показания", type = "textarea", value = "", can_be_emtpy = false },
           }
         },
-        {
-          headerTitle = "VEHICLE CONVEY STATEMENT",
-          headerSubtitle = "Vehicle convey statement towards another citizen.",
-          elements = {
-            { label = "PLATE NUMBER", type = "input", value = "", can_be_emtpy = false },
-            { label = "CITIZEN NAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "AGREED PRICE", type = "input", value = "", can_be_empty = false },
-            { label = "OTHER INFORMATION", type = "textarea", value = "", can_be_emtpy = true },
-          }
-        },
+        -- {
+        --   headerTitle = "VEHICLE CONVEY STATEMENT",
+        --   headerSubtitle = "Vehicle convey statement towards another citizen.",
+        --   elements = {
+        --     { label = "PLATE NUMBER", type = "input", value = "", can_be_emtpy = false },
+        --     { label = "CITIZEN NAME", type = "input", value = "", can_be_emtpy = false },
+        --     { label = "AGREED PRICE", type = "input", value = "", can_be_empty = false },
+        --     { label = "OTHER INFORMATION", type = "textarea", value = "", can_be_emtpy = true },
+        --   }
+        -- },
         {
           headerTitle = "DEBT STATEMENT TOWARDS CITIZEN",
           headerSubtitle = "Official debt statement towards another citizen.",
@@ -79,13 +79,13 @@ Config.Documents['en'] = {
           }
         },
         {
-          headerTitle = "GUN PERMIT",
-          headerSubtitle = "Special gun permit provided by the police.",
+          headerTitle = "Разрешение на охоту",
+          headerSubtitle = "Разрешение на охоту в округе Блейн.",
           elements = {
-            { label = "HOLDER FIRSTNAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "HOLDER LASTNAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "VALID UNTIL", type = "input", value = "", can_be_empty = false },
-            { label = "INFORMATION", type = "textarea", value = "THE AFOREMENTIONED CITIZEN IS ALLOWED AND GRANTED A GUN PERMIT WHICH WILL BE VALID UNTIL THE AFOREMENTIONED EXPIRATION DATE.", can_be_emtpy = false },
+            { label = "Имя", type = "input", value = "", can_be_emtpy = false },
+            { label = "Фамилия", type = "input", value = "", can_be_emtpy = false },
+            { label = "Действительна до", type = "input", value = "", can_be_empty = false },
+            { label = "Информация", type = "textarea", value = "", can_be_emtpy = false },
           }
         },
         {
@@ -100,23 +100,23 @@ Config.Documents['en'] = {
       },
       ["ambulance"] = {
         {
-          headerTitle = "MEDICAL REPORT - PATHOLOGY",
-          headerSubtitle = "Official medical report provided by a pathologist.",
+          headerTitle = "Медицинская справка",
+          headerSubtitle = "Официальное медицинское заключение.",
           elements = {
-            { label = "INSURED FIRSTNAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "INSURED LASTNAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "VALID UNTIL", type = "input", value = "", can_be_empty = false },
-            { label = "MEDICAL NOTES", type = "textarea", value = "THE AFOREMENTIONED INSURED CITIZEN WAS TESTED BY A HEALTHCARE OFFICIAL AND DETERMINED HEALTHY WITH NO DETECTED LONGTERM CONDITIONS. THIS REPORT IS VALID UNTIL THE AFOREMENTIONED EXPIRATION DATE.", can_be_emtpy = false },
+            { label = "Имя", type = "input", value = "", can_be_emtpy = false },
+            { label = "Фамилия", type = "input", value = "", can_be_emtpy = false },
+            { label = "Действительна до", type = "input", value = "", can_be_empty = false },
+            { label = "Медицинские записи", type = "textarea", value = "Данный гражданин прошел медицинское освидетельствование. Полностью здоров, паталогий обнаруженно не было.", can_be_emtpy = false },
           }
         },
         {
-          headerTitle = "MEDICAL REPORT - PSYCHOLOGY",
+          headerTitle = "Психологический диагноз",
           headerSubtitle = "Official medical report provided by a psychologist.",
           elements = {
             { label = "INSURED FIRSTNAME", type = "input", value = "", can_be_emtpy = false },
             { label = "INSURED LASTNAME", type = "input", value = "", can_be_emtpy = false },
             { label = "VALID UNTIL", type = "input", value = "", can_be_empty = false },
-            { label = "MEDICAL NOTES", type = "textarea", value = "THE AFOREMENTIONED INSURED CITIZEN WAS TESTED BY A HEALTHCARE OFFICIAL AND DETERMINED MENTALLY HEALTHY BY THE LOWEST APPROVED PSYCHOLOGY STANDARDS. THIS REPORT IS VALID UNTIL THE AFOREMENTIONED EXPIRATION DATE.", can_be_emtpy = false },
+            { label = "MEDICAL NOTES", type = "textarea", value = " ", can_be_emtpy = false },
           }
         },
         {
