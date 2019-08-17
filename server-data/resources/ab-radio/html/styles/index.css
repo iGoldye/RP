@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "MotorolaScreentype";
+    src: url("MotorolaScreentype.woff") format("woff");
+}
+
+body {
+    background-color: transparent;
+    font-family: 'MotorolaScreentype', sans-serif;
+}
+
+main {
+    bottom: 12%;
+    position: absolute;
+    left: 5%;
+    width: 20em;
+}
+
+#radio {
+    display: none;
+}
+.display {
+    bottom: 22.5%;
+    color: #232428;
+    font-size: 1.4em;
+    height: 2.8em;
+    position: absolute;
+}
+input {
+    background-color: rgba(0, 0, 0, 0);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    text-align: center;
+    outline: 0;
+}
+
+#radio-frame {
+    width: 85%;
+}
