@@ -85,6 +85,11 @@ end
 
 init_accordant_arms()
 
+function isDefaultModel()
+	local model =GetEntityModel(PlayerPedId())
+	return model == GetHashKey('mp_m_freemode_01') or model ~= GetHashKey('mp_f_freemode_01')
+end
+
 function LoadDefaultModel(malePed, cb)
 	local playerPed = PlayerPedId()
 	local characterModel
@@ -197,7 +202,7 @@ function GetMaxVals()
 		bracelets_2		= GetNumberOfPedPropTextureVariations	(playerPed, 7, Character['bracelets_1'] - 1)
 	}
 
-	if Config.UseAccordantArms then
+	if Config.UseAccordantArms and isDefaultModel() then
 		local acc = getAccordantArms(Character['sex'], Character['torso_1'])
 		data.arms = #acc - 1
 	end
@@ -300,7 +305,7 @@ function ApplySkin(skin, clothes)
 	SetPedComponentVariation	(playerPed, 8,		Character['tshirt_1'],			Character['tshirt_2'], 2)					-- Tshirt
 	SetPedComponentVariation	(playerPed, 11,		Character['torso_1'],			Character['torso_2'], 2)					-- torso parts
 
-	if Config.UseAccordantArms then
+	if Config.UseAccordantArms and isDefaultModel() then
 		local acc = getAccordantArms(Character['sex'], Character['torso_1'])
 		local arms_num = Character['arms']
 		if Character['arms'] < 0 or Character['arms'] >= #acc then
