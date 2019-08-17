@@ -142,6 +142,7 @@ function OpenMechanicActionsMenu()
 						ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, 90.0, function(vehicle)
 							local playerPed = PlayerPedId()
 							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+							SetVehicleNumberPlateText(vehicle, string.format("WORK%04d", math.random(1,9999)))
 						end)
 					else
 						ESX.TriggerServerCallback('esx_service:enableService', function(canTakeService, maxInService, inServiceCount)

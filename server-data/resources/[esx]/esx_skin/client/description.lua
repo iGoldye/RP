@@ -32,6 +32,12 @@ function getSkinDescription(skin)
 		local result = {}
 		local ped = PlayerPedId()
 		local vehicle = GetVehiclePedIsIn(ped, false)
+		local model =GetEntityModel(ped)
+
+		if model ~= GetHashKey('mp_m_freemode_01') and model ~= GetHashKey('mp_f_freemode_01') then
+			result['skin'] = "неизвестный"
+			return result
+		end
 
 		local current_helmet = GetPedPropIndex(ped, 0)
 		local current_glasses = GetPedPropIndex(ped, 1)

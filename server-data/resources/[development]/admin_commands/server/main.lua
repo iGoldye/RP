@@ -47,3 +47,10 @@ TriggerEvent('es:addGroupCommand', 'setthirst', 'admin', function(source, args, 
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Установить значение жажды"})
+
+TriggerEvent('es:addGroupCommand', 'setmodel', 'admin', function(source, args, user)
+	TriggerClientEvent('admin_commands:setmodel', source, args)
+
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Установить хэш игрока"})
