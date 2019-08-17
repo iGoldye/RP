@@ -29,6 +29,93 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function OpenVehicleMenu()
+	local vehicle  = GetVehiclePedIsIn(PlayerPedId(), false)
+	if vehicle == 0 then
+		return
+	end
+
+	local elements = {}
+
+	if IsVehicleEngineOn(vehicle) then
+		table.insert(elements, {label = 'Заглушить двигатель', value = 'engine-off'})
+	else
+		table.insert(elements, {label = 'Завести двигатель', value = 'engine-on'})
+	end
+
+	table.insert(elements, {label = 'Опустить стёкла', value = 'rolldown-windows'})
+	table.insert(elements, {label = 'Поднять стёкла', value = 'rollup-windows'})
+
+	table.insert(elements, {label = 'Открыть капот', value = 'hood-open'})
+	table.insert(elements, {label = 'Закрыть капот', value = 'hood-shut'})
+
+	table.insert(elements, {label = 'Открыть багажник', value = 'trunk-open'})
+	table.insert(elements, {label = 'Закрыть багажник', value = 'trunk-shut'})
+
+	table.insert(elements, {label = 'Открыть все двери', value = 'doors-open'})
+	table.insert(elements, {label = 'Закрыть все двери', value = 'doors-shut'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_menu', {
+		title    = "Транспорт",
+		align    = 'top-right',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+
+		if cmd == 'rolldown-windows' then
+			RollDownWindows(vehicle)
+		end
+
+		if cmd == 'rollup-windows' then
+			for i=0,4 do
+				RollUpWindow(vehicle, i)
+			end
+		end
+
+		if cmd == 'engine-on' then
+			SetVehicleEngineOn(vehicle, true, false, true)
+		end
+
+		if cmd == 'engine-off' then
+			SetVehicleEngineOn(vehicle, false, false, true)
+		end
+
+		if cmd == 'hood-open' then
+			SetVehicleDoorOpen(vehicle, 4, false, false)
+		end
+
+		if cmd == 'hood-shut' then
+			SetVehicleDoorShut(vehicle, 4, false, false)
+		end
+
+		if cmd == 'trunk-open' then
+			SetVehicleDoorOpen(vehicle, 5, false, false)
+		end
+
+		if cmd == 'trunk-shut' then
+			SetVehicleDoorShut(vehicle, 5, false, false)
+		end
+
+		if cmd == 'doors-open' then
+			for i=0,10 do --GetNumberOfVehicleDoors(vehicle)
+				SetVehicleDoorOpen(vehicle, i, false, false)
+			end
+		end
+
+		if cmd == 'doors-shut' then
+			for i=0,10 do
+				SetVehicleDoorShut(vehicle, i, false, false)
+			end
+		end
+
+		menu.close()
+
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
+
 
 function OpenMenu()
 	elements = {
@@ -58,6 +145,10 @@ function OpenMenu()
 		end
 	end
 
+	if IsPedSittingInAnyVehicle(PlayerPedId()) then
+		table.insert(elements, {label = "Транспорт", value = 'vehicle'})
+	end
+
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'global-menu',
 	{
 		title = "Меню игрока",
@@ -84,6 +175,8 @@ function OpenMenu()
 			TriggerEvent('clothesoff:openActionMenuInteraction')
 		elseif cmd == 'pets' then
 			TriggerEvent('eden_animal:openPetMenu')
+		elseif cmd == 'vehicle' then
+			OpenVehicleMenu()
 		elseif cmd == 'police-actions' then
 			TriggerEvent('esx_policejob:openPoliceActionsMenu')
 		elseif cmd == 'ambulance-actions' then
