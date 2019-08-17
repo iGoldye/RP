@@ -310,7 +310,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
                TriggerServerEvent('esx_truck_inventory:removeInventoryItem', GetVehicleNumberPlateText(vehFront), data.current.value, quantity)
 
             else
-              ESX.ShowNotification('~r~ Вы носите трупы')
+              ESX.ShowNotification('~r~Вы берете слишком много')
             end
 			    else
 			      ESX.ShowNotification('~r~ Неверное количество')
