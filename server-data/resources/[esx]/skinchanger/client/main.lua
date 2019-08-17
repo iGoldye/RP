@@ -87,7 +87,7 @@ init_accordant_arms()
 
 function isDefaultModel()
 	local model =GetEntityModel(PlayerPedId())
-	return model == GetHashKey('mp_m_freemode_01') or model ~= GetHashKey('mp_f_freemode_01')
+	return model == GetHashKey('mp_m_freemode_01') or model == GetHashKey('mp_f_freemode_01')
 end
 
 function LoadDefaultModel(malePed, cb)
