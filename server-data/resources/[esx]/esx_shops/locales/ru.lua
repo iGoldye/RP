@@ -9,5 +9,4 @@ Locales['ru'] = {
     ['shop_confirm'] = 'Купить %sx %s за $%s?',
     ['no'] = 'Нет',
     ['yes'] = 'Да',
-  }
-  
+}
