@@ -38,6 +38,7 @@ function OpenMenu()
 		{label = "Поднять игрока", value = 'liftup'},
 		{label = "Аксессуары", value = 'accessories'},
 		{label = "Одежда", value = 'clothesoff'},
+		{label = "Питомцы", value = 'pets'},
 	}
 
 	local PlayerData = ESX.GetPlayerData()
@@ -81,6 +82,8 @@ function OpenMenu()
 			TriggerEvent('esx_accessories:openAccessoryMenu')
 		elseif cmd == 'clothesoff' then
 			TriggerEvent('clothesoff:openActionMenuInteraction')
+		elseif cmd == 'pets' then
+			TriggerEvent('eden_animal:openPetMenu')
 		elseif cmd == 'police-actions' then
 			TriggerEvent('esx_policejob:openPoliceActionsMenu')
 		elseif cmd == 'ambulance-actions' then

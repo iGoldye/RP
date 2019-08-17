@@ -434,6 +434,7 @@ Citizen.CreateThread(function()
 end)
 
 -- Key Controls
+--[[
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -443,6 +444,7 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+]]--
 
 -- Create Blips
 Citizen.CreateThread(function()
@@ -514,3 +516,8 @@ function DoRequestAnimSet(anim)
 		Citizen.Wait(1)
 	end
 end
+
+RegisterNetEvent('eden_animal:openPetMenu')
+AddEventHandler('eden_animal:openPetMenu', function()
+	OpenPetMenu()
+end)
