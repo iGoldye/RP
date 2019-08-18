@@ -31,26 +31,36 @@ Citizen.CreateThread(function()
 end)
 
 
-function LiftUp()
-		local player, distance = ESX.Game.GetClosestPlayer()
+function LiftUp(target)
+		local xPlayer = ESX.GetPlayerData()
+
+		ESX.ShowNotification('Вы поднимаете этого человека...')
+		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(target))
+		local dict = "anim@heists@box_carry@"
+
+		RequestAnimDict(dict)
+		while not HasAnimDictLoaded(dict) do
+			Citizen.Wait(1)
+		end
+
+		TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(target))
+
+		TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
+		isCarry = true
+end
+
+function LiftUpRequest()
+		local target, distance = ESX.Game.GetClosestPlayer()
 
 		if distance ~= -1 and distance <= 3.0 then
-			ESX.ShowNotification('Вы поднимаете этого человека...')
-			TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
-			local dict = "anim@heists@box_carry@"
+			local xPlayer = ESX.GetPlayerData()
+			local targetid = GetPlayerServerId(target)
 
-			RequestAnimDict(dict)
-			while not HasAnimDictLoaded(dict) do
-				Citizen.Wait(1)
-			end
-
-			TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(player))
-
-			TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
-			isCarry = true
+			TriggerServerEvent('esx_barbie_lyftupp:startRequest', targetid, "разрешение поднять вас на руки", 'esx_barbie_lyftupp:liftupp_afterRequest')
 		else
 			ESX.ShowNotification("Рядом никого нет...")
 		end
+
 end
 
 --[[
@@ -75,7 +85,7 @@ function OpenActionMenuInteraction(target)
 		ESX.UI.Menu.CloseAll()
 
 		if data.current.value == 'drag' then
-			LiftUp()
+			LiftUpRequest()
 			menu.close()
 		end
 
@@ -132,6 +142,11 @@ AddEventHandler('esx_barbie_lyftupp', function()
 end)
 ]]--
 
+RegisterNetEvent('esx_barbie_lyftupp:liftupp_afterRequest')
+AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function(player)
+	LiftUp(player)
+end)
+
 AddEventHandler('esx_barbie_lyftupp:liftUp', function()
-	LiftUp()
+	LiftUpRequest()
 end)
