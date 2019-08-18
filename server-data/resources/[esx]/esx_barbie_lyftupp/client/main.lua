@@ -35,7 +35,7 @@ function LiftUp(target)
 		local xPlayer = ESX.GetPlayerData()
 
 		ESX.ShowNotification('Вы поднимаете этого человека...')
-		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(target))
+		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', target)
 		local dict = "anim@heists@box_carry@"
 
 		RequestAnimDict(dict)
@@ -43,7 +43,7 @@ function LiftUp(target)
 			Citizen.Wait(1)
 		end
 
-		TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(target))
+		TriggerServerEvent('esx_barbie_lyftupp:lyfter', target)
 
 		TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
 		isCarry = true
