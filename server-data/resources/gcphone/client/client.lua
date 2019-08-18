@@ -383,8 +383,8 @@ AddEventHandler("gcPhone:acceptCall", function(infoCall, initiator)
     inCall = true
     -- NetworkSetVoiceChannel(infoCall.id + 1)
     -- NetworkSetTalkerProximity(0.0)
-    exports.tokovoip_script:addPlayerToRadio(infoCall.id + 120)
-    TokoVoipID = infoCall.id + 120
+    exports.tokovoip_script:addPlayerToRadio(infoCall.id + 1001)
+    TokoVoipID = infoCall.id + 1001
   end
   if menuIsOpen == false then
     TooglePhone()
