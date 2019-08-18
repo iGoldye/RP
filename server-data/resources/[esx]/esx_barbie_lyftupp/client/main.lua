@@ -143,8 +143,8 @@ end)
 ]]--
 
 RegisterNetEvent('esx_barbie_lyftupp:liftupp_afterRequest')
-AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function()
-	LiftUp()
+AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function(player)
+	LiftUp(player)
 end)
 
 AddEventHandler('esx_barbie_lyftupp:liftUp', function()
