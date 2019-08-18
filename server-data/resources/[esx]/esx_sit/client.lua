@@ -93,7 +93,7 @@ Citizen.CreateThread(function()
 			wakeup()
 		end
 
-		if (GetLastInputMethod(2) and IsControlJustPressed(1, 38) and IsControlPressed(1, 21)) and not IsPedInAnyVehicle(playerPed, true) then			
+		if (GetLastInputMethod(2) and IsControlJustPressed(1, 20) and IsControlPressed(1, 21)) and not IsPedInAnyVehicle(playerPed, true) then			
 
 			if sitting then
 				wakeup()

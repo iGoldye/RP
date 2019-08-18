@@ -35,7 +35,7 @@ Citizen.CreateThread(function()
 				handsup = true
 			else
 				handsup = false
-				ClearPedTasks(playerPed)
+				ClearPedSecondaryTask(playerPed)
 			end
 		end
 	end
