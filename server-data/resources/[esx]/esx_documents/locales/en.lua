@@ -21,30 +21,15 @@ Locales['en'] = {
 Config.Documents['en'] = {
       ["public"] = {
         {
-          headerTitle = "Заявление",
-          headerSubtitle = "Форма",
+          headerTitle = "Доверенность на транспортом",
+          headerSubtitle = "Доверенность на пользование транспортным средством.",
           elements = {
-            { label = "Суть заявления", type = "textarea", value = "", can_be_emtpy = false },
+            { label = "Номер ТС", type = "input", value = "", can_be_emtpy = false },
+            { label = "Имя Фамилия", type = "input", value = "", can_be_emtpy = false },
+            { label = "AGREED PRICE", type = "input", value = "", can_be_empty = false },
+            { label = "Содержание", type = "textarea", value = "", can_be_emtpy = true },
           }
         },
-        {
-          headerTitle = "Показания свидетеля",
-          headerSubtitle = "Официальные показания свидетеля.",
-          elements = {
-            { label = "Дата события", type = "input", value = "", can_be_emtpy = false },
-            { label = "Показания", type = "textarea", value = "", can_be_emtpy = false },
-          }
-        },
-        -- {
-        --   headerTitle = "VEHICLE CONVEY STATEMENT",
-        --   headerSubtitle = "Vehicle convey statement towards another citizen.",
-        --   elements = {
-        --     { label = "PLATE NUMBER", type = "input", value = "", can_be_emtpy = false },
-        --     { label = "CITIZEN NAME", type = "input", value = "", can_be_emtpy = false },
-        --     { label = "AGREED PRICE", type = "input", value = "", can_be_empty = false },
-        --     { label = "OTHER INFORMATION", type = "textarea", value = "", can_be_emtpy = true },
-        --   }
-        -- },
         {
           headerTitle = "DEBT STATEMENT TOWARDS CITIZEN",
           headerSubtitle = "Official debt statement towards another citizen.",
@@ -68,6 +53,21 @@ Config.Documents['en'] = {
         }
       },
       ["police"] = {
+        {
+          headerTitle = "Заявление",
+          headerSubtitle = "Форма",
+          elements = {
+            { label = "Суть заявления", type = "textarea", value = "", can_be_emtpy = false },
+          }
+        },
+        {
+          headerTitle = "Показания свидетеля",
+          headerSubtitle = "Официальные показания свидетеля.",
+          elements = {
+            { label = "Дата события", type = "input", value = "", can_be_emtpy = false },
+            { label = "Показания", type = "textarea", value = "", can_be_emtpy = false },
+          }
+        },
         {
           headerTitle = "SPECIAL PARKING PERMIT",
           headerSubtitle = "Special no-limit parking permit.",

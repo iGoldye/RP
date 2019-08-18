@@ -5,7 +5,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 function getIdentity(source, callback)
 	local identifier = GetPlayerIdentifiers(source)[1]
 
-	MySQL.Async.fetchAll('SELECT identifier, firstname, lastname, dateofbirth, sex, height FROM `users` WHERE `identifier` = @identifier', {
+	MySQL.Async.fetchAll('SELECT identifier, firstname, lastname, dateofbirth, sex, height, lastdigits FROM `users` WHERE `identifier` = @identifier', {
 		['@identifier'] = identifier
 	}, function(result)
 		if result[1].firstname ~= nil then
@@ -15,7 +15,8 @@ function getIdentity(source, callback)
 				lastname	= result[1].lastname,
 				dateofbirth	= result[1].dateofbirth,
 				sex			= result[1].sex,
-				height		= result[1].height
+				height		= result[1].height,
+				lastdigits = result[1].lastdigits
 			}
 
 			callback(data)
@@ -136,26 +137,29 @@ function getCharacters(source, callback)
 end
 
 function setIdentity(identifier, data, callback)
-	MySQL.Async.execute('UPDATE `users` SET `firstname` = @firstname, `lastname` = @lastname, `dateofbirth` = @dateofbirth, `sex` = @sex, `height` = @height WHERE identifier = @identifier', {
+	local lastdigits = math.random(9) .. math.random(9) .. math.random(9) .. math.random(9)
+	MySQL.Async.execute('UPDATE `users` SET `firstname` = @firstname, `lastname` = @lastname, `dateofbirth` = @dateofbirth, `sex` = @sex, `height` = @height, `lastdigits` = @lastdigits WHERE identifier = @identifier', {
 		['@identifier']		= identifier,
 		['@firstname']		= data.firstname,
 		['@lastname']		= data.lastname,
 		['@dateofbirth']	= data.dateofbirth,
 		['@sex']			= data.sex,
-		['@height']			= data.height
+		['@height']			= data.height,
+		['@lastdigits']			= lastdigits
 	}, function(rowsChanged)
 		if callback then
 			callback(true)
 		end
 	end)
 
-	MySQL.Async.execute('INSERT INTO characters (identifier, firstname, lastname, dateofbirth, sex, height) VALUES (@identifier, @firstname, @lastname, @dateofbirth, @sex, @height)', {
+	MySQL.Async.execute('INSERT INTO characters (identifier, firstname, lastname, dateofbirth, sex, height, lastdigits) VALUES (@identifier, @firstname, @lastname, @dateofbirth, @sex, @height, @lastdigits)', {
 		['@identifier']		= identifier,
 		['@firstname']		= data.firstname,
 		['@lastname']		= data.lastname,
 		['@dateofbirth']	= data.dateofbirth,
 		['@sex']			= data.sex,
-		['@height']			= data.height
+		['@height']			= data.height,
+		['@lastdigits']			= lastdigits
 	})
 end
 
