@@ -18,11 +18,7 @@ local channels = TokoVoipConfig.channels;
 
 function addPlayerToRadio(channelId, playerServerId)
 	if (not channels[channelId]) then
-		if (channelId < 1000) then
-			channels[channelId] = {id = channelId, name = "На частоте " .. channelId // 10 .. "." .. channelId%10, subscribers = {}};
-		else
-			channels[channelId] = {id = channelId, name = "Говорит с " .. channelId, subscribers = {}};
-		end
+		channels[channelId] = {id = channelId, name = "Call with " .. channelId, subscribers = {}};
 	end
 	if (not channels[channelId].id) then
 		channels[channelId].id = channelId;
@@ -54,7 +50,6 @@ function removePlayerFromRadio(channelId, playerServerId)
 		print("Removed [" .. playerServerId .. "] " .. (GetPlayerName(playerServerId) or "") .. " from channel " .. channelId);
 
 		-- Tell unsubscribed player he's left the channel as well
-		-- TriggerClientEvent("ResetRadioChannel", playerServerId);
 		TriggerClientEvent("TokoVoip:onPlayerLeaveChannel", playerServerId, channelId, playerServerId);
 
 		-- Channel does not exist, no need to update anyone else
