@@ -23,7 +23,11 @@ MySQL.ready(function()
 	local result2 = MySQL.Sync.fetchAll('SELECT * FROM job_grades', {})
 
 	for i=1, #result2, 1 do
-		Jobs[result2[i].job_name].grades[tostring(result2[i].grade)] = result2[i]
+		if Jobs[result2[i].job_name] then
+			Jobs[result2[i].job_name].grades[tostring(result2[i].grade)] = result2[i]
+		else
+			print("esx_society: unknown job name -- " .. result2[i].job_name)
+		end
 	end
 end)
 

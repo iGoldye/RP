@@ -18,7 +18,12 @@ local channels = TokoVoipConfig.channels;
 
 function addPlayerToRadio(channelId, playerServerId)
 	if (not channels[channelId]) then
-		channels[channelId] = {id = channelId, name = "Call with " .. channelId, subscribers = {}};
+		if (channelId < 1000) then
+			channels[channelId] = {id = channelId, name = "На частоте " .. channelId // 10 .. "." .. channelId%10 .. "Radio", subscribers = {}};
+		else
+			channels[channelId] = {id = channelId, name = "Говорит с " .. channelId, subscribers = {}};
+
+		end
 	end
 	if (not channels[channelId].id) then
 		channels[channelId].id = channelId;
@@ -33,6 +38,9 @@ function addPlayerToRadio(channelId, playerServerId)
 		else
 			-- Send whole channel data to new subscriber
 			TriggerClientEvent("TokoVoip:onPlayerJoinChannel", subscriberServerId, channelId, playerServerId, channels[channelId]);
+			if(channelId > 1000) then
+				TriggerClientEvent("ab-radio:phoneCallStartedCallback", subscriberServerId);
+			end
 		end
 	end
 end
@@ -42,7 +50,7 @@ AddEventHandler("TokoVoip:addPlayerToRadio", addPlayerToRadio);
 function removePlayerFromRadio(channelId, playerServerId)
 	if (channels[channelId] and channels[channelId].subscribers[playerServerId]) then
 		channels[channelId].subscribers[playerServerId] = nil;
-		if (channelId > 100) then
+		if (channelId > 1000) then
 			if (tablelength(channels[channelId].subscribers) == 0) then
 				channels[channelId] = nil;
 			end
@@ -50,7 +58,11 @@ function removePlayerFromRadio(channelId, playerServerId)
 		print("Removed [" .. playerServerId .. "] " .. (GetPlayerName(playerServerId) or "") .. " from channel " .. channelId);
 
 		-- Tell unsubscribed player he's left the channel as well
+		-- TriggerClientEvent("ResetRadioChannel", playerServerId);
 		TriggerClientEvent("TokoVoip:onPlayerLeaveChannel", playerServerId, channelId, playerServerId);
+		if(channelId > 1000) then
+			TriggerClientEvent("ab-radio:phoneCallEndedCallback", subscriberServerId);
+		end
 
 		-- Channel does not exist, no need to update anyone else
 		if (not channels[channelId]) then return end
