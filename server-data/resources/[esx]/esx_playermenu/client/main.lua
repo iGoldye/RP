@@ -117,7 +117,6 @@ end
 
 function OpenPersonalMenu()
 	local elements = {}
-	local player, distance = ESX.Game.GetClosestPlayer()
 
 	table.insert(elements, {label = 'Посмотреть паспорт', value = 'lookpass'})
 	table.insert(elements, {label = 'Посмотреть вод.права', value = 'lookdrivelic'})
@@ -132,6 +131,7 @@ function OpenPersonalMenu()
 		elements = elements
 	}, function(data, menu)
 		local cmd = data.current.value
+		local player, distance = ESX.Game.GetClosestPlayer()
 
 		if cmd == 'lookpass' then
 			TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
