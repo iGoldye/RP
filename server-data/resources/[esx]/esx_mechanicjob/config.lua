@@ -8,7 +8,7 @@ Config.EnableSocietyOwnedVehicles = false
 
 Config.NPCSpawnDistance           = 500.0
 Config.NPCNextToDistance          = 25.0
-Config.NPCJobEarnings             = { min = 15, max = 40 }
+Config.NPCJobEarnings             = { min = 30, max = 75 }
 
 Config.Vehicles = {
 	'adder',
