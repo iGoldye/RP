@@ -148,54 +148,54 @@ Stores = {
 		lastRobbed = 0
 	},
 -- 
-	["pacific_standard"] = {
-		position = { x = 254.06, y = 225.37, z = 101.88 },
-		reward = math.random(20000, 40000),
-		nameOfStore = "Сейф (Pacific Standard)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
-	["blaine_county"] = {
-		position = { x = -103.68, y = 6477.91, z = 31.63 },
-		reward = math.random(20000, 30000),
-		nameOfStore = "Сейф (Blaine County Paleto .)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
+	-- ["pacific_standard"] = {
+	-- 	position = { x = 254.06, y = 225.37, z = 101.88 },
+	-- 	reward = math.random(20000, 40000),
+	-- 	nameOfStore = "Сейф (Pacific Standard)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
+	-- ["blaine_county"] = {
+	-- 	position = { x = -103.68, y = 6477.91, z = 31.63 },
+	-- 	reward = math.random(20000, 30000),
+	-- 	nameOfStore = "Сейф (Blaine County Paleto.)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
 -- 
-	["fleeca_bank1"] = {
-		position = { x = 1176.85, y = 2711.77, z = 38.1 },
-		reward = math.random(10000, 20000),
-		nameOfStore = "Сейф (Fleeca Grand Senora.)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
-	["fleeca_bank2"] = {
-		position = { x = 310.99, y = -283.13, z = 54.17 },
-		reward = math.random(10000, 20000),
-		nameOfStore = "Сейф (Fleeca Meteor st.)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
-	["fleeca_bank3"] = {
-		position = { x = -354.01, y = -53.95, z = 49.05 },
-		reward = math.random(10000, 20000),
-		nameOfStore = "Сейф (Fleeca Hevick ave.)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
-	["fleeca_bank4"] = {
-		position = { x = 146.75, y = -1044.69, z = 29.38 },
-		reward = math.random(10000, 20000),
-		nameOfStore = "Сейф (Fleeca Englin ave.)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
-	["fleeca_bank5"] = {
-		position = { x = -2957.71, y = 481.41, z = 15.7 },
-		reward = math.random(10000, 20000),
-		nameOfStore = "Сейф (Fleeca Great Ocean.)",
-		secondsRemaining = 200, -- seconds
-		lastRobbed = 0
-	},
+	-- ["fleeca_bank1"] = {
+	-- 	position = { x = 1176.85, y = 2711.77, z = 38.1 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameOfStore = "Сейф (Fleeca Grand Senora.)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
+	-- ["fleeca_bank2"] = {
+	-- 	position = { x = 310.99, y = -283.13, z = 54.17 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameOfStore = "Сейф (Fleeca Meteor st.)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
+	-- ["fleeca_bank3"] = {
+	-- 	position = { x = -354.01, y = -53.95, z = 49.05 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameOfStore = "Сейф (Fleeca Hevick ave.)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
+	-- ["fleeca_bank4"] = {
+	-- 	position = { x = 146.75, y = -1044.69, z = 29.38 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameOfStore = "Сейф (Fleeca Englin ave.)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
+	-- ["fleeca_bank5"] = {
+	-- 	position = { x = -2957.71, y = 481.41, z = 15.7 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameOfStore = "Сейф (Fleeca Great Ocean.)",
+	-- 	secondsRemaining = 200, -- seconds
+	-- 	lastRobbed = 0
+	-- },
 }
