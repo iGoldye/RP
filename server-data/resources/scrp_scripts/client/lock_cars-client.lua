@@ -3,10 +3,10 @@ function lock_cars()
 
 		local vehicle = GetClosestVehicle(pos, 5.0, 0, 71)
 		if DoesEntityExist(vehicle) then
-			if not DecorExistOn(vehicle, "NPCLOCKED") then
+			if DecorGetBool(vehicle, "NPCLOCKED") == false then
 				local locked = math.random()<0.95
+				DecorSetBool(vehicle, "NPCLOCKED", true)
 
-				DecorSetBool(vehicle, "NPCLOCKED", locked)
 				if locked then
 					local driver = GetPedInVehicleSeat(vehicle, -1)
 					local npcIsDriving = DoesEntityExist(driver) and not IsPedAPlayer(driver)
@@ -22,6 +22,10 @@ function lock_cars()
 end
 
 Citizen.CreateThread(function()
+	if not DecorIsRegisteredAsType("NPCLOCKED", 2) then -- BOOL
+		DecorRegister("NPCLOCKED", 2)
+	end
+
 	while true do
 		Citizen.Wait(1000)
 		pcall(function()
