@@ -71,7 +71,27 @@ local Components = {
 	{label = _U('beard_type'),				name = 'beard_1',			value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
 	{label = _U('beard_size'),				name = 'beard_2',			value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
 	{label = _U('beard_color_1'),			name = 'beard_3',			value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
-	{label = _U('beard_color_2'),			name = 'beard_4',			value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65}
+	{label = _U('beard_color_2'),			name = 'beard_4',			value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
+	{label = _U('nose_width'),			name = 'nose_width',			value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('nose_peak_height'),		name = 'nose_peak_height',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('nose_peak_length'),		name = 'nose_peak_length',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('nose_bone_height'),		name = 'nose_bone_height',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('nose_peak_lowering'),		name = 'nose_peak_lowering',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('nose_peak_twist'),			name = 'nose_peak_twist',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('eyebrow_height'),			name = 'eyebrow_height',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('eyebrow_forward'),			name = 'eyebrow_forward',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('cheeks_bone_height'),		name = 'cheeks_bone_height',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('cheeks_bone_width'),		name = 'cheeks_bone_width',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('cheeks_width'),			name = 'cheeks_width',			value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('eyes_opening'),			name = 'eyes_opening',			value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('lips_thickness'),			name = 'lips_thickness',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('jaw_bone_width'),			name = 'jaw_bone_width',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('jaw_bone_back_length'),		name = 'jaw_bone_back_length',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('chimp_bone_lowering'),		name = 'chimp_bone_lowering',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('chimp_bone_length'),		name = 'chimp_bone_length',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('chimp_bone_width'),		name = 'chimp_bone_width',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('chimp_hole'),			name = 'chimp_hole',			value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('neck_thickness'),			name = 'neck_thickness',		value = 0,		min = -10,	zoomOffset = 0.6,		camOffset = 0.65},
 }
 
 local LastSex		= -1
@@ -199,7 +219,28 @@ function GetMaxVals()
 		watches_1		= GetNumberOfPedPropDrawableVariations	(playerPed, 6) - 1,
 		watches_2		= GetNumberOfPedPropTextureVariations	(playerPed, 6, Character['watches_1']) - 1,
 		bracelets_1		= GetNumberOfPedPropDrawableVariations	(playerPed, 7) - 1,
-		bracelets_2		= GetNumberOfPedPropTextureVariations	(playerPed, 7, Character['bracelets_1'] - 1)
+		bracelets_2		= GetNumberOfPedPropTextureVariations	(playerPed, 7, Character['bracelets_1'] - 1),
+
+		nose_width = 10,
+		nose_peak_height = 10,
+		nose_peak_length = 10,
+		nose_bone_height = 10,
+		nose_peak_lowering = 10,
+		nose_peak_twist = 10,
+		eyebrow_height = 10,
+		eyebrow_forward = 10,
+		cheeks_bone_height = 10,
+		cheeks_bone_width = 10,
+		cheeks_width = 10,
+		eyes_opening = 10,
+		lips_thickness = 10,
+		jaw_bone_width = 10,
+		jaw_bone_back_length = 10,
+		chimp_bone_lowering = 10,
+		chimp_bone_length = 10,
+		chimp_bone_width = 10,
+		chimp_hole = 10,
+		neck_thickness = 10,
 	}
 
 	if Config.UseAccordantArms and isDefaultModel() then
@@ -348,6 +389,27 @@ function ApplySkin(skin, clothes)
 	else
 		SetPedPropIndex			(playerPed, 7,		Character['bracelets_1'],		Character['bracelets_2'], 2)				-- Bracelets
 	end
+
+	SetPedFaceFeature( playerPed,  0  , Character['nose_width'] / 10.0)
+	SetPedFaceFeature( playerPed,  1  , Character['nose_peak_height'] / 10.0)
+	SetPedFaceFeature( playerPed,  2  , Character['nose_peak_length'] / 10.0)
+	SetPedFaceFeature( playerPed,  3  , Character['nose_bone_height'] / 10.0)
+	SetPedFaceFeature( playerPed,  4  , Character['nose_peak_lowering'] / 10.0)
+	SetPedFaceFeature( playerPed,  5  , Character['nose_peak_twist'] / 10.0)
+	SetPedFaceFeature( playerPed,  6  , Character['eyebrow_height'] / 10.0)
+	SetPedFaceFeature( playerPed,  7  , Character['eyebrow_forward'] / 10.0)
+	SetPedFaceFeature( playerPed,  8  , Character['cheeks_bone_height'] / 10.0)
+	SetPedFaceFeature( playerPed,  9  , Character['cheeks_bone_width'] / 10.0)
+	SetPedFaceFeature( playerPed,  10 , Character['cheeks_width'] / 10.0)
+	SetPedFaceFeature( playerPed,  11 , Character['eyes_opening'] / 10.0)
+	SetPedFaceFeature( playerPed,  12 , Character['lips_thickness'] / 10.0)
+	SetPedFaceFeature( playerPed,  13 , Character['jaw_bone_width'] / 10.0)
+	SetPedFaceFeature( playerPed,  14 , Character['jaw_bone_back_length'] / 10.0)
+	SetPedFaceFeature( playerPed,  15 , Character['chimp_bone_lowering'] / 10.0)
+	SetPedFaceFeature( playerPed,  16 , Character['chimp_bone_length'] / 10.0)
+	SetPedFaceFeature( playerPed,  17 , Character['chimp_bone_width'] / 10.0)
+	SetPedFaceFeature( playerPed,  18 , Character['chimp_hole'] / 10.0)
+	SetPedFaceFeature( playerPed,  19 , Character['neck_thickness'] / 10.0)
 end
 
 AddEventHandler('skinchanger:loadDefaultModel', function(loadMale, cb)
