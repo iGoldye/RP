@@ -35,7 +35,7 @@ function LiftUp(target)
 		local xPlayer = ESX.GetPlayerData()
 
 		ESX.ShowNotification('Вы поднимаете этого человека...')
-		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(target))
+		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', target)
 		local dict = "anim@heists@box_carry@"
 
 		RequestAnimDict(dict)
@@ -43,7 +43,7 @@ function LiftUp(target)
 			Citizen.Wait(1)
 		end
 
-		TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(target))
+		TriggerServerEvent('esx_barbie_lyftupp:lyfter', target)
 
 		TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
 		isCarry = true
@@ -51,6 +51,8 @@ end
 
 function LiftUpRequest()
 		local target, distance = ESX.Game.GetClosestPlayer()
+--		target = PlayerId(-1)
+--		distance = 1
 
 		if distance ~= -1 and distance <= 3.0 then
 			local xPlayer = ESX.GetPlayerData()
@@ -103,25 +105,30 @@ end
 
 RegisterNetEvent('esx_barbie_lyftupp:upplyft')
 AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
+--	print('esx_barbie_lyftupp:upplyft '..tostring(target))
 	local playerPed = GetPlayerPed(-1)
 	local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-	local lPed = GetPlayerPed(-1)
-	local dict = "amb@code_human_in_car_idles@low@ps@"
+	local dict = "anim@amb@clubhouse@boss@female@"
+	local anim = "base"
 
 	if isCarry == false then
-		LoadAnimationDictionary("anim@amb@clubhouse@boss@female@")
-		TaskPlayAnim(lPed, "anim@amb@clubhouse@boss@female@", "base", 8.0, -8, -1, 33, 0, 0, 40, 0)
+		LoadAnimationDictionary(dict)
+		TaskPlayAnim(playerPed, dict, anim, 8.0, -8, -1, 33, 0, 0, 40, 0)
 
-		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
+		AttachEntityToEntity(playerPed, targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
 
 		isCarry = true
-	else
-		DetachEntity(GetPlayerPed(-1), true, false)
-		ClearPedTasksImmediately(targetPed)
-		ClearPedTasksImmediately(GetPlayerPed(-1))
 
-		isCarry = false
+		while IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, 3) do
+			Citizen.Wait(0)
+		end
 	end
+
+	DetachEntity(playerPed, true, false)
+	ClearPedTasksImmediately(targetPed)
+	ClearPedTasksImmediately(playerPed)
+
+	isCarry = false
 end)
 
 --[[
@@ -144,6 +151,7 @@ end)
 
 RegisterNetEvent('esx_barbie_lyftupp:liftupp_afterRequest')
 AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function(player)
+--	print("esx_barbie_lyftupp:liftupp_afterRequest "..tostring(player))
 	LiftUp(player)
 end)
 

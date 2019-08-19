@@ -85,7 +85,7 @@ Citizen.CreateThread(function()
 											end
 										end
 									else
-										ESX.ShowNotification(_U('too_far_away_from_city'))
+										-- ESX.ShowNotification(_U('too_far_away_from_city'))
 									end
 								end
 							end
@@ -155,7 +155,7 @@ end)
 --Info that you dont have drugs
 RegisterNetEvent('nomoredrugs')
 AddEventHandler('nomoredrugs', function()
-	ESX.ShowNotification(_U('no_more_drugs'))
+	-- ESX.ShowNotification(_U('no_more_drugs'))
 	playerHasDrugs = false
 	sold = false
 	selling = false

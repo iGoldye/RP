@@ -27,6 +27,27 @@ AddEventHandler('esx:setJob', function(job)
     PlayerData.job = job
 end)
 
+-- Create Blips
+Citizen.CreateThread(function()
+	for k,v in pairs(Config.Teleporters) do
+		if v['Enter'] then
+			local enter = v['Enter']
+			if v['Blip'] then
+				local b = v['Blip']
+				local blip = AddBlipForCoord(enter.x, enter.y, enter.z)
+				SetBlipSprite (blip, b['Sprite'] or 0)
+				SetBlipDisplay(blip, 4)
+				SetBlipScale  (blip, 1.0)
+				SetBlipColour (blip, b['Color'] or 0)
+				SetBlipAsShortRange(blip, true)
+				BeginTextCommandSetBlipName("STRING")
+				AddTextComponentString(b['Text'])
+				EndTextCommandSetBlipName(blip)
+			end
+		end
+	end
+end)
+
 function LoadMarkers()
     Citizen.CreateThread(function()
     

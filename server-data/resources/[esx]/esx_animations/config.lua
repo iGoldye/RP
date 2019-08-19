@@ -86,6 +86,9 @@ Config.Animations = {
 			{label = "Мим", type = "scenario", data = {anim = "WORLD_HUMAN_HUMAN_STATUE"}},
 			{label = "Обрывать", type = "anim", data = {lib = "anim@amb@business@weed@weed_inspecting_lo_med_hi@", anim = "weed_crouch_checkingleaves_idle_01_inspectorfemale", flag = 9}},
 			{label = "Взламывать", type = "anim", data = {lib = "mini@safe_cracking", anim = "idle_base", flag = 9}},
+			{label = "Терминал", type = "anim", data = {lib = "iaa_int-14", anim = "cs_lestercrest_2_dual-14", flag = 9}},
+			{label = "Старт стритрейсеров", type = "anim", data = {lib = "random@street_race", anim = "grid_girl_race_start", flag = 9}},
+			{label = "Мыть руки", type = "anim", data = {lib = "missheist_agency3aig_23", anim = "urinal_sink_loop", flag = 9}},
 		}
 	},
 
@@ -107,7 +110,9 @@ Config.Animations = {
 			{label = "Застрелиться", type = "anim", data = {lib = "mp_suicide", anim = "pistol", stop_last_frame=true}},
 			{label = "Это круто!", type = "anim", data = {lib = "anim@mp_player_intupperbanging_tunes", anim = "idle_a", upper=true, control=true, flag = 9}},
 			{label = "Хлопки", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@slow_clap", anim = "slow_clap", upper=true, control=true, flag = 9}},
-
+			{label = "Незнаю", type = "anim", data = {lib = "gestures@miss@dockssetup1", anim = "floyd_dh1_afac_01_g1"}},
+			{label = "Подумай", type = "anim", data = {lib = "gestures@miss@fra_0", anim = "lamar_fkn0_cjae_01_g4", flag = 9}},
+			{label = "Обида", type = "anim", data = {lib = "mini@hookers_sp", anim = "idle_reject"}},
 		}
 	},
 
@@ -142,6 +147,7 @@ Config.Animations = {
       {label = "Сидеть тест", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE"}},
 			{label = "Сидеть с пончиком", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE_EATING"}},
 			{label = "Сидеть тест2", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_ARMCHAIR"}},
+			{label = "На кортах", type = "anim", data = {lib = "missheistdockssetup1ig_10@idle_a", anim = "talk_pipe_a_worker1", flag = 9}},
 		}
 	},
 
@@ -155,6 +161,7 @@ Config.Animations = {
 			{label = "Коп", type = "scenario", data = {anim = "WORLD_HUMAN_COP_IDLES"}},
 			{label = "Охрана", type = "scenario", data = {anim = "WORLD_HUMAN_GUARD_STAND"}},	
 			{label = "Ожидать", type = "scenario", data = {anim = "WORLD_HUMAN_STAND_IMPATIENT"}},
+			{label = "Ожидать Ж", type = "anim", data = {lib = "friends@fra@ig_1", anim = "base_idle", flag = 9}},
 			{label = "Облокотиться 1", type = "scenario", data = {anim = "PROP_HUMAN_BUM_SHOPPING_CART"}},
 			{label = "Скрестить руки Ж", type = "anim", data = {lib = "amb@world_human_hang_out_street@female_arms_crossed@base", anim = "base", flag = 9}},
 			{label = "Опереться спиной", type = "scenario", data = {anim = "world_human_leaning"}},
@@ -165,7 +172,8 @@ Config.Animations = {
 			{label = "Облокотиться спиной", type = "anim", data = {lib = "anim@amb@clubhouse@bar@bartender@", anim = "base_bartender", flag = 9}},
 			{label = "Скрестить руки 1", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "amb_world_human_hang_out_street_male_c_base", flag = 9}},
 	    {label = "Скрестить руки 2", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "rcmme_amanda1_stand_loop_cop", flag = 9}},
-	    {label = "Опереться бар", type = "anim", data = {lib = "anim@amb@yacht@bow@female@variation_01@", anim = "idle_b", flag = 9}},
+			{label = "Опереться бар", type = "anim", data = {lib = "anim@amb@yacht@bow@female@variation_01@", anim = "idle_b", flag = 9}},
+			{label = "Руки за спиной", type = "anim", data = {lib = "ep_7_rcm-4", anim = "cs_jimmyboston_dual-4", upper=true, control=true, flag = 9}},
 		}
 
 	},
@@ -286,17 +294,32 @@ Config.Animations = {
 		}
 	},
 	
-{
-	name  = 'anims',
-	label = 'testanim',
-	items = {
+-- {
+-- 	name  = 'anims',
+-- 	label = 'testanim',
+-- 	items = {
+		
+-- 		{label = "Приват 1", type = "anim", data = {lib = "family_4_mcs_2-12", anim = "cs_tracydisanto_dual-12", flag = 9}},
+-- 		{label = "Приват 2", type = "anim", data = {lib = "family_4_mcs_2-14", anim = "cs_tracydisanto_dual-14", flag = 9}},
+-- 		{label = "Приват 3", type = "anim", data = {lib = "friends@", anim = "pickupwait", flag = 9}},
+		
+-- 		{label = "Приват 5", type = "anim", data = {lib = "friends@fra@ig_1", anim = "impatient_idle_a", flag = 9}},
+-- 		{label = "Приват 6", type = "anim", data = {lib = "friends@fra@ig_1", anim = "impatient_idle_a", flag = 9}},
+		
+-- 		{label = "Приват 8", type = "anim", data = {lib = "gestures@miss@dockssetup1", anim = "floyd_dh1_atab_01_g1", flag = 9}},
+-- 		{label = "Приват 9", type = "anim", data = {lib = "gestures@miss@dockssetup1", anim = "floyd_dh1_atag_01_g2", flag = 9}},
+		
+		
+-- 		{label = "Приват 14", type = "anim", data = {lib = "mini@cpr@char_a@cpr_str", anim = "cpr_cpr_to_kol", flag = 9}},
+		
+-- 		{label = "Приват 16", type = "anim", data = {lib = "mini@hookers_sp", anim = "idle_wait", flag = 9}},
+-- 		{label = "Приват 17", type = "anim", data = {lib = "mini@hookers_sp", anim = "ilde_d", flag = 9}},
+-- 		{label = "Приват 18", type = "anim", data = {lib = "missfam2_washing_face", anim = "michael_washing_face", flag = 9}},
+		
+		
 	 
-	 
-	 
-	
-	 
-	}
-},
+-- 	}
+-- },
 
 	{
 		name  = 'misc',

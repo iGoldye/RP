@@ -93,7 +93,7 @@ Citizen.CreateThread(function()
 			wakeup()
 		end
 
-		if (GetLastInputMethod(2) and IsControlJustPressed(1, 38) and IsControlPressed(1, 21)) and not IsPedInAnyVehicle(playerPed, true) then			
+		if (GetLastInputMethod(2) and IsControlJustPressed(1, 20) and IsControlPressed(1, 21)) and not IsPedInAnyVehicle(playerPed, true) then			
 
 			if sitting then
 				wakeup()
@@ -212,7 +212,7 @@ function sitAttachLedge()
 	local timer1 = GetGameTimer()
 	local boneIndex = GetPedBoneIndex(playerPed, 0) --pelvis 0x2E28, root 0
 	local pelvisCoords = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
-	local obj = CreateObjectNoOffset(GetHashKey("prop_a4_pile_01"), pelvisCoords.x,  pelvisCoords.y,  pelvisCoords.z, false, false, false)
+	local obj = CreateObjectNoOffset(GetHashKey("prop_a4_pile_01"), pelvisCoords.x,  pelvisCoords.y,  pelvisCoords.z, true, false, false)
 	SetEntityVisible(obj, false)
 
 	if obj ~= 0 then
@@ -299,7 +299,7 @@ function sitAttachBench()
 	local timer1 = GetGameTimer()
 	local boneIndex = GetPedBoneIndex(playerPed, 0) --pelvis 0x2E28, root 0
 	local pelvisCoords = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
-	local obj = CreateObjectNoOffset(GetHashKey("prop_a4_pile_01"), pelvisCoords.x,  pelvisCoords.y,  pelvisCoords.z, false, false, false)
+	local obj = CreateObjectNoOffset(GetHashKey("prop_a4_pile_01"), pelvisCoords.x,  pelvisCoords.y,  pelvisCoords.z, true, false, false)
 	SetEntityVisible(obj, false)
 
 	if obj ~= 0 then
