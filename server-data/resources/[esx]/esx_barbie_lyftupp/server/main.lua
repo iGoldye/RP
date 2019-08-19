@@ -8,9 +8,10 @@ end)
 
 RegisterServerEvent('esx_barbie_lyftupp:lyfter')
 AddEventHandler('esx_barbie_lyftupp:lyfter', function(target)
-	local targetPlayer = ESX.GetPlayerFromId(target)
+--	local targetPlayer = ESX.GetPlayerFromId(target)
 
-	TriggerClientEvent('esx_barbie_lyftupp:upplyft', targetPlayer.source, source)
+--	TriggerClientEvent('esx_barbie_lyftupp:upplyft', targetPlayer.source, source)
+	TriggerClientEvent('esx_barbie_lyftupp:upplyft', target, source)
 end)
 
 RegisterServerEvent('esx_barbie_lyftupp:lyfteruppn')
@@ -20,8 +21,8 @@ end)
 
 RegisterServerEvent('esx_barbie_lyftupp:startRequest')
 AddEventHandler('esx_barbie_lyftupp:startRequest', function(target, text, trigger)
-	print("CCC "..target.." "..text.." "..trigger)
-	print(source)
+--	print("CCC "..target.." "..text.." "..trigger)
+--	print(source)
 	local name = GetPlayerName(source)
 	TriggerClientEvent('esx_request:request', target, source, name, text, trigger)
 end)
