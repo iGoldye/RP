@@ -76,8 +76,8 @@ namespace seatbelt
                 if (IsControlJustPressed(36, 20))
                 {
                     beltOn = !beltOn;
-                    if (beltOn && showNotification) Screen.ShowNotification("Seatbelt On");
-                    else if (!beltOn && showNotification) Screen.ShowNotification("Seatbelt Off");
+                    if (beltOn && showNotification) Screen.ShowNotification("Пристёгнут");
+                    else if (!beltOn && showNotification) Screen.ShowNotification("Отстёгнут");
                     NUIBuckled(beltOn);
                 }
             }

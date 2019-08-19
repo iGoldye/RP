@@ -196,8 +196,4 @@ Stores = {
 		secondsRemaining = 200, -- seconds
 		lastRobbed = 0
 	},
-
-
-
-
 }
