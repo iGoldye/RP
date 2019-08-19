@@ -86,7 +86,7 @@ Locales['en'] = {
 
   -- Reporter
   ['reporter_name']             = 'Визл Ньюс',
-  ['reporter_garage']           = 'Нажмите ~INPUT_PICKUP~ чтобы спуститься в гараж.',
+  ['reporter_garage']           = 'Нажмите ~INPUT_PICKUP~ чтобы взять служебный транспорт',
 
   -- Slaughterer
   ['s_slaughter_locker']        = 'Раздевалка мясника',

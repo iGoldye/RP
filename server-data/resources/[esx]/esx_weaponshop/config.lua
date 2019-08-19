@@ -33,7 +33,7 @@ Config.Zones = {
 		Legal = false,
 		Items = {},
 		Locations = {
-			vector3(726.72, 4170.03, 39.51)
+			vector3(722.78, 4189.3, 40.09)
 		}
 	}
 
