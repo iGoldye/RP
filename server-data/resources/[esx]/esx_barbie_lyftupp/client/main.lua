@@ -51,6 +51,8 @@ end
 
 function LiftUpRequest()
 		local target, distance = ESX.Game.GetClosestPlayer()
+--		target = PlayerId(-1)
+--		distance = 1
 
 		if distance ~= -1 and distance <= 3.0 then
 			local xPlayer = ESX.GetPlayerData()
@@ -103,6 +105,7 @@ end
 
 RegisterNetEvent('esx_barbie_lyftupp:upplyft')
 AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
+--	print('esx_barbie_lyftupp:upplyft '..tostring(target))
 	local playerPed = GetPlayerPed(-1)
 	local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
 	local lPed = GetPlayerPed(-1)
@@ -144,6 +147,7 @@ end)
 
 RegisterNetEvent('esx_barbie_lyftupp:liftupp_afterRequest')
 AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function(player)
+--	print("esx_barbie_lyftupp:liftupp_afterRequest "..tostring(player))
 	LiftUp(player)
 end)
 

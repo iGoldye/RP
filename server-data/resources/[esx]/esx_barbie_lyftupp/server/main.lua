@@ -31,8 +31,7 @@ end)
 RegisterServerEvent('esx_barbie_lyftupp:liftupp_afterRequest')
 AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function(initiator, decision)
 --	print("afterRequest: "..tostring(initiator).." "..tostring(decision))
-
 	if decision == true then
-		TriggerClientEvent('esx_barbie_lyftupp:liftupp_afterRequest', initiator)
+		TriggerClientEvent('esx_barbie_lyftupp:liftupp_afterRequest', initiator, source)
 	end
 end)
