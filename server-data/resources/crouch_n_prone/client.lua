@@ -6,6 +6,9 @@ local currentState = "stand"
 
 function setState(state)
 	local ped = PlayerPedId()
+	if IsPedInAnyVehicle(ped, true) and state ~= "stand" then
+		return
+	end
 
 	if state == currentState then
 		return
