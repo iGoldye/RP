@@ -183,8 +183,8 @@ function OpenCloakroomMenu()
 			data.current.value == 'lieutenant_wear' or
 			data.current.value == 'chef_wear' or
 			data.current.value == 'boss_wear' or
-			data.current.value == 'bullet_wear' 
-		
+			data.current.value == 'bullet_wear'
+
 		then
 			setUniform(data.current.value, playerPed)
 		end
@@ -618,7 +618,9 @@ function OpenPoliceActionsMenu()
 				{label = _U('put_in_vehicle'), value = 'put_in_vehicle'},
 				{label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
 				{label = _U('fine'), value = 'fine'},
-				{label = _U('unpaid_bills'), value = 'unpaid_bills'}
+				{label = _U('unpaid_bills'), value = 'unpaid_bills'},
+				{label = _U('get_dna'), value = 'get_dna'},
+				{label = _U('remove_dna'), value = 'remove_dna'}
 			}
 
 			if Config.EnableLicenses then
@@ -653,6 +655,10 @@ function OpenPoliceActionsMenu()
 						ShowPlayerLicense(closestPlayer)
 					elseif action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
+					elseif action == 'get_dna' then
+						TriggerEvent('jsfour-dna:get', player)
+					elseif action == 'remove_dna' then
+						 TriggerEvent('jsfour-dna:remove')
 					end
 				else
 					ESX.ShowNotification(_U('no_players_nearby'))
