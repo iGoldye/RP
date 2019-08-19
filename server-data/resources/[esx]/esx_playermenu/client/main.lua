@@ -115,10 +115,60 @@ function OpenVehicleMenu()
 	end)
 end
 
+function OpenPersonalMenu()
+	local elements = {}
+	local player, distance = ESX.Game.GetClosestPlayer()
 
+	table.insert(elements, {label = 'Посмотреть паспорт', value = 'lookpass'})
+	table.insert(elements, {label = 'Посмотреть вод.права', value = 'lookdrivelic'})
+	table.insert(elements, {label = 'Посмотреть лиц. на оружие', value = 'lookgunlic'})
+	table.insert(elements, {label = 'Показать паспорт', value = 'showpass'})
+	table.insert(elements, {label = 'Показать лиц. на оружие', value = 'showdrivelic'})
+	table.insert(elements, {label = 'Показать лиц. на оружие', value = 'showgunlic'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'personal_menu', {
+		title    = "Персональная информация",
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+
+		if cmd == 'lookpass' then
+			TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
+		elseif cmd == 'lookdrivelic' then
+			TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()), 'driver')
+		elseif cmd == 'lookgunlic' then
+			TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()), 'weapon')
+		elseif cmd == 'showpass' then
+			if distance ~= -1 and distance <= 3.0 then
+				TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player))
+			else
+				ESX.ShowNotification('Некому показать :(')
+			end
+		elseif cmd == 'showdrivelic' then
+			if distance ~= -1 and distance <= 3.0 then
+				TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player), 'driver')
+			else
+				ESX.ShowNotification('Некому показать :(')
+			end
+		elseif cmd == 'showgunlic' then
+			if distance ~= -1 and distance <= 3.0 then
+				TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(player), 'weapon')
+			else
+				ESX.ShowNotification('Некому показать :(')
+			end
+		end
+
+		menu.close()
+
+	end, function(data, menu)
+		menu.close()
+	end)
+end
 
 function OpenMenu()
 	elements = {
+		{label = "Персональная информация", value = 'personal'},
 		{label = "Инвентарь", value = 'inventory'},
 		{label = "Анимации", value = 'animations'},
 		{label = "Счета", value = 'billing'},
@@ -189,6 +239,9 @@ function OpenMenu()
 			TriggerEvent('esx_taxijob:OpenMobileTaxiActionsMenu')
 		elseif cmd == 'unicorn-actions'then
 			TriggerEvent('esx_unicornjob:OpenSocietyActionsMenu')
+		elseif cmd == 'personal' then
+			-- TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
+			OpenPersonalMenu()
 		end
 
 	end, function(data, menu)
