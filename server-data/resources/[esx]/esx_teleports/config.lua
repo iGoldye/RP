@@ -60,12 +60,18 @@ Config.Teleporters = {
 			['Information'] = '[E] Войти' 
 		},
 
+		['Blip'] = {
+			['Sprite'] = 40,
+			['Color'] = 50,
+			['Text'] = "Мотель",
+		},
+
 		['Exit'] = {
 			['x'] = 151.32, 
 			['y'] = -1007.23, 
 			['z'] = -100.0, 
 			['Information'] = '[E] Выйти' 
-		}
+		},
 	},
 
 	
