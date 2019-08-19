@@ -108,23 +108,27 @@ AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
 --	print('esx_barbie_lyftupp:upplyft '..tostring(target))
 	local playerPed = GetPlayerPed(-1)
 	local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-	local lPed = GetPlayerPed(-1)
-	local dict = "amb@code_human_in_car_idles@low@ps@"
+	local dict = "anim@amb@clubhouse@boss@female@"
+	local anim = "base"
 
 	if isCarry == false then
-		LoadAnimationDictionary("anim@amb@clubhouse@boss@female@")
-		TaskPlayAnim(lPed, "anim@amb@clubhouse@boss@female@", "base", 8.0, -8, -1, 33, 0, 0, 40, 0)
+		LoadAnimationDictionary(dict)
+		TaskPlayAnim(playerPed, dict, anim, 8.0, -8, -1, 33, 0, 0, 40, 0)
 
-		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
+		AttachEntityToEntity(playerPed, targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
 
 		isCarry = true
-	else
-		DetachEntity(GetPlayerPed(-1), true, false)
-		ClearPedTasksImmediately(targetPed)
-		ClearPedTasksImmediately(GetPlayerPed(-1))
 
-		isCarry = false
+		while IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, 3) do
+			Citizen.Wait(0)
+		end
 	end
+
+	DetachEntity(playerPed, true, false)
+	ClearPedTasksImmediately(targetPed)
+	ClearPedTasksImmediately(playerPed)
+
+	isCarry = false
 end)
 
 --[[
