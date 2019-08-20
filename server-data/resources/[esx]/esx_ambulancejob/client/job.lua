@@ -22,13 +22,17 @@ function OpenAmbulanceActionsMenu()
 		if data.current.value == 'cloakroom' then
 			OpenCloakroomMenu()
 		elseif data.current.value == 'boss_actions' then
-			TriggerEvent('esx_society:openBossMenu', 'ambulance', function(data, menu)
-				menu.close()
-			end, {wash = Config.EnableMoneyWash})
+			OpenBossActionsMenu()
 		end
 	end, function(data, menu)
 		menu.close()
 	end)
+end
+
+function OpenBossActionsMenu()
+	TriggerEvent('esx_society:openBossMenu', 'ambulance', function(data, menu)
+		menu.close()
+	end, {wash = Config.EnableMoneyWash})
 end
 
 function OpenMobileAmbulanceActionsMenu()
@@ -203,6 +207,19 @@ Citizen.CreateThread(function()
 				end
 			end
 
+			for k,v in ipairs(hospital.BossActions) do
+				local distance = GetDistanceBetweenCoords(playerCoords, v, true)
+
+				if distance < Config.DrawDistance then
+					DrawMarker(Config.Marker.type, v, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.Marker.x, Config.Marker.y, Config.Marker.z, Config.Marker.r, Config.Marker.g, Config.Marker.b, Config.Marker.a, false, false, 2, Config.Marker.rotate, nil, nil, false)
+					letSleep = false
+				end
+
+				if distance < Config.Marker.x then
+					isInMarker, currentHospital, currentPart, currentPartNum = true, hospitalNum, 'BossActions', k
+				end
+			end
+
 			-- Pharmacies
 			for k,v in ipairs(hospital.Pharmacies) do
 				local distance = GetDistanceBetweenCoords(playerCoords, v, true)
@@ -310,6 +327,10 @@ AddEventHandler('esx_ambulancejob:hasEnteredMarker', function(hospital, part, pa
 			CurrentAction = part
 			CurrentActionMsg = _U('actions_prompt')
 			CurrentActionData = {}
+		elseif part == 'BossActions' then
+			CurrentAction = part
+			CurrentActionMsg = _U('actions_prompt')
+			CurrentActionData = {}
 		elseif part == 'Pharmacy' then
 			CurrentAction = part
 			CurrentActionMsg = _U('open_pharmacy')
@@ -351,7 +372,10 @@ Citizen.CreateThread(function()
 			if IsControlJustReleased(0, Keys['E']) then
 
 				if CurrentAction == 'AmbulanceActions' then
-					OpenAmbulanceActionsMenu()
+--					OpenAmbulanceActionsMenu()
+					OpenCloakroomMenu()
+				elseif CurrentAction == 'BossActions' then
+					OpenBossActionsMenu()
 				elseif CurrentAction == 'Pharmacy' then
 					OpenPharmacyMenu()
 				elseif CurrentAction == 'Vehicles' then

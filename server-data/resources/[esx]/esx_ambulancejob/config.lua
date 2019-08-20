@@ -45,6 +45,10 @@ Config.Hospitals = {
 			vector3(336.05, -580.0, 27.9)
 		},
 
+		BossActions = {
+			vector3(327.15, -595.62, 28.00)
+		},
+
 		Pharmacies = {
 			vector3(331.09, -580.48, 27.9)
 		},
