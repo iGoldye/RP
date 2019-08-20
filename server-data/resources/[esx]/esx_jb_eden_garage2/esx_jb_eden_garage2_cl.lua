@@ -106,7 +106,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 					end
 				elseif data2.current.value == "rename_vehicle" then
 					ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'rename_vehicle', {
-						title = 'Nom du véhicule souhaité'
+						title = 'Введите название'
 					}, function(data3, menu3)
 						TriggerServerEvent('eden_garage:renamevehicle', data.current.plate, data3.value)
 						menu3.close()
@@ -180,7 +180,7 @@ function StockVehicleMenu(KindOfVehicle)
 						TriggerServerEvent('eden_garage:modifystate', trailerProps.plate, true)
 						TriggerEvent('esx:showNotification', 'Votre remorque est dans le garage')
 					else
-						TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker ce véhicule')
+						TriggerEvent('esx:showNotification', 'Вы не можете оставить этот автомобиль')
 					end
 				end,trailerProps, KindOfVehicle)
 			else
@@ -204,7 +204,7 @@ function StockVehicleMenu(KindOfVehicle)
 			TriggerEvent('esx:showNotification', 'Вы должны быть за рулем!')
 		end
 	else
-		TriggerEvent('esx:showNotification', 'Il n\' y a pas de vehicule à rentrer')
+		TriggerEvent('esx:showNotification', 'Вы должны быть в автомобиле!')
 	end
 end
 -- Fin fonction qui permet de rentrer un vehicule
