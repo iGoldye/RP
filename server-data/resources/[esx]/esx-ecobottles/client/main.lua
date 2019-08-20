@@ -74,7 +74,7 @@ Citizen.CreateThread(function()
         binEntityDst = 10000
 	for _,v in pairs(Config.BinsAvailable) do
 		local obj = GetClosestObjectOfType(playerCoords.x,playerCoords.y,playerCoords.z, 5.0, GetHashKey(v))
-		if DoesEntityExist(obj) then
+		if DoesEntityExist(obj) and not IsEntityUpsidedown(obj) then
 			binEntity = obj
                         binEntityDst = #(playerCoords-GetEntityCoords(obj))
 			break
@@ -116,9 +116,15 @@ end)
 function OpenTrashCan()
     TaskStartScenarioInPlace(PlayerPedId(), "PROP_HUMAN_BUM_BIN", 0, true)
 
-    Citizen.Wait(10000)
+    for i=1,100 do
+        if not DoesEntityExist(binEntity) or IsEntityUpsidedown(binEntity) then
+            ClearPedTasks(PlayerPedId())
+            return
+        end
+
+        Citizen.Wait(100)
+    end
 
     TriggerServerEvent("esx-ecobottles:retrieveBottle")
-
     ClearPedTasks(PlayerPedId())
 end
