@@ -93,10 +93,10 @@ MySQL.ready(function()
 				isGateway = true
 			end
 
-			if properties[i].is_rentonly == 0 then
-				isRentOnly = false
-			else
+			if properties[i].is_rentonly ~= 0 then
 				isRentOnly = true
+			else
+				isRentOnly = false
 			end
 
 			if properties[i].room_menu ~= nil then
