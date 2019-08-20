@@ -101,7 +101,7 @@ AddEventHandler('jsfour-dna:get', function( player )
 
 			deadname = GetPlayerName(player)
 			_weapon = GetPedCauseOfDeath(GetPlayerPed(player))
-
+	
 			for k, v in pairs(weapons) do
 				if k == _weapon then
 					weapon = v.text
@@ -112,16 +112,16 @@ AddEventHandler('jsfour-dna:get', function( player )
 
 			if weapon ~= nil then
 				dna = {k = killername, d = GetPlayerServerId(player), w = weapon, p = killerid}
-				ESX.ShowNotification('Grabbed DNA from the dead body..')
+				ESX.ShowNotification('Собран образец ДНК с трупа...')
 			else
-				ESX.ShowNotification("Couldn't find any DNA..")
+				ESX.ShowNotification("ДНК не найдено...")
 			end
 		else
 			dna = {k = nil, d = nil, w = nil, p = GetPlayerServerId(player)}
-			ESX.ShowNotification('Grabbed DNA from the person..')
+			ESX.ShowNotification('Образец ДНК получен от человека...')
 		end
 	else
-		ESX.ShowNotification('You already have a DNA sample on you, please upload it..')
+		ESX.ShowNotification('У вас есть образец ДНК, загрузите его в базу...')
 	end
 end)
 
