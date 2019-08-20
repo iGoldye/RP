@@ -45,6 +45,20 @@ local SETTINGS = {
 
 local attached_weapons = {}
 
+-- remove ugly detached weapons
+Citizen.CreateThread(function()
+	while true do
+		for name, attached_object in pairs(attached_weapons) do
+			if IsEntityAttachedToAnyPed(attached_object.handle) == false then
+				DeleteObject(attached_object.handle)
+				attached_weapons[name] = nil
+			end
+		end
+
+		Citizen.Wait(1000)
+	end
+end)
+
 Citizen.CreateThread(function()
   while true do
       local me = GetPlayerPed(-1)
