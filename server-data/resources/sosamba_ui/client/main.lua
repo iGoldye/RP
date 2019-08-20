@@ -422,8 +422,8 @@ AddEventHandler('sosamba_ui:toggleweb', function()
 ]]--
 end)
 
-RegisterNetEvent('esx_inventory:updateInventory')
-AddEventHandler('esx_inventory:updateInventory', function(inventory)
+RegisterNetEvent('esx_inventory:onInventoryUpdate')
+AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
 	local elements = generateInventoryElements(inventory)
 	SendNUIMessage({
 		action  = 'updateInventory',
@@ -503,6 +503,7 @@ Citizen.CreateThread(function()
 
 	TriggerEvent('esx_inventory:registerItemAction', "esx_item", "esx_use", _U("inventory_action_use"), function(item)
 		TriggerServerEvent('esx:useItem', item.extra.name)
+		TriggerEvent('esx_inventory:updateInventory')
 	end, function(item)
 		return item.extra and item.extra.usable == true
 	end)

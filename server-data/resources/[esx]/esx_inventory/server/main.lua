@@ -276,7 +276,7 @@ Citizen.CreateThread(function()
                 	local invstr = json.encode(inv)
 
                 	if ClientInventories[xPlayer.identifier] ~= invstr then
-				TriggerClientEvent('esx_inventory:updateInventory', xPlayer.source, inv)
+				TriggerClientEvent('esx_inventory:onInventoryUpdate', xPlayer.source, inv)
 				ClientInventories[xPlayer.identifier] = invstr
 			end
 		end
@@ -548,7 +548,7 @@ AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, ammo, config
 	if addItem("pocket", xPlayer.identifier, createItem("weapon", { ["weapon_name"] = weaponName, ["weapon_label"] = config.label, ["ammo"] = ammo }, 1, config.weight)) == true then
 --		TriggerClientEvent("esx_inventory:unequipWeapon", source, weaponName, ammo)
 		local inv = getInventory("pocket", xPlayer.identifier)
-		TriggerClientEvent('esx_inventory:updateInventory', source, inv)
+		TriggerClientEvent('esx_inventory:onInventoryUpdate', source, inv)
 	end	
 end)
 

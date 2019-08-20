@@ -103,7 +103,7 @@ function action_drop(item)
 
 	if amount ~= nil and amount > 0 then
 		TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
-		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:updateInventory')
+		TriggerEvent('esx_inventory:updateInventory')
 	end
 end
 
@@ -152,7 +152,7 @@ Citizen.CreateThread(function()
 				v.inRange = true
 
 				if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory-menu') or ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory-item-menu') then
-					TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
+					TriggerEvent('esx_inventory:updateInventory')
 				end
 			end
 		end
@@ -181,10 +181,10 @@ Citizen.CreateThread(function()
 end)
 
 
---RegisterNetEvent('esx_inventory:updateInventory')
---AddEventHandler('esx_inventory:updateInventory', function(_inventory)
---	inventory = _inventory
---end)
+RegisterNetEvent('esx_inventory:updateInventory')
+AddEventHandler('esx_inventory:updateInventory', function()
+	TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:onInventoryUpdate')
+end)
 
 RegisterNetEvent('esx_inventory:createPickup')
 AddEventHandler('esx_inventory:createPickup', function(id, pickup)
@@ -395,6 +395,7 @@ function showInventoryMenu(inventory)
 
 end
 
+--[[
 function showInventoryItemMenu(inventory, item, menu_label)
 
 	elements = {}
@@ -449,6 +450,7 @@ function showInventoryItemMenu(inventory, item, menu_label)
 		menu.close()
 	end)
 end
+]]--
 
 RegisterNetEvent('esx_inventory:unequipWeapon')
 AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
@@ -483,7 +485,7 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 		ESX.ShowNotification(_U('already_equipped'))
 	else
 		GiveWeaponToPed(playerPed, weaponHash, item.extra.ammo, false, true)
-		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:updateInventory')
+		TiggerEvent('esx_inventory:onInventoryUpdate')
 	end
 end)
 
