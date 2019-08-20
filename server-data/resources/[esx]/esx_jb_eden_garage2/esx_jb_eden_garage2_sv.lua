@@ -3,7 +3,7 @@ ESX                = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 
---Recupere les véhicules
+--get vehicle list
 ESX.RegisterServerCallback('eden_garage:getVehicles', function(source, cb, KindOfVehicle)
 	local vehicules = {}
 	local identifier = ""
@@ -14,13 +14,12 @@ ESX.RegisterServerCallback('eden_garage:getVehicles', function(source, cb, KindO
 		identifier = GetPlayerIdentifiers(source)[1]
 	end
 
-	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier", {
+	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND type = 'car'", {
 		['@identifier'] = identifier
 	}, function(result)
 		cb(result)
 	end)
 end)
--- Fin --Recupere les véhicules$
 
 --Recupere les véhicules
 ESX.RegisterServerCallback('eden_garage:getVehiclesMecano', function(source, cb)
@@ -53,7 +52,7 @@ ESX.RegisterServerCallback('eden_garage:stockv',function(source,cb, vehicleProps
 					cb(true)
 				end)
 			else
-				DropPlayer(_source, "Tu es kick du serveur, voilà ce qu'il se passe quand on essaye de cheater.")
+				DropPlayer(_source, "Kicked from server. Possibly tried to cheat.")
 				print("[esx_eden_garage] player "..identifier..' tried to spawn a vehicle with hash:'..vehiclemodel..". his original vehicle: "..originalvehprops.model)
 				cb(false)
 			end
