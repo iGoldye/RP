@@ -118,6 +118,7 @@ AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
 		AttachEntityToEntity(playerPed, targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
 
 		isCarry = true
+		Citizen.Wait(0)
 
 		while IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, 3) do
 			Citizen.Wait(0)
