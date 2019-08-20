@@ -93,7 +93,7 @@ MySQL.ready(function()
 				isGateway = true
 			end
 
-			if properties[i].is_rentonly ~= 0 then
+			if properties[i].is_rentonly == 1 then
 				isRentOnly = true
 			else
 				isRentOnly = false
