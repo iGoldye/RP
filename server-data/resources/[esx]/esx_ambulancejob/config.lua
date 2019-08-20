@@ -79,7 +79,7 @@ Config.Hospitals = {
 			-- тп на верхний этаж
 			{
 				From = vector3(340.46, -595.33, 27.59),
-				To = { coords = vector3(323.2, -598.26, 43.29), heading = 70.0 },
+				To = { coords = vector3(322.3, -597.96, 43.29), heading = 70.0 },
 				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
 -- тп на нижний этаж
@@ -174,19 +174,19 @@ Config.Hospitals = {
 Config.AuthorizedVehicles = {
 
 	ambulance = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 5000}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
 	},
 
 	doctor = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 4500}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
 	},
 
 	chief_doctor = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 3000}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
 	},
 
 	boss = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 2000}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
 	}
 
 }

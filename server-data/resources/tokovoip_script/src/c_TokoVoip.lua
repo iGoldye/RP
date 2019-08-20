@@ -55,11 +55,11 @@ end
 function TokoVoip.updateTokoVoipInfo(self, forceUpdate) -- Update the top-left info
 	local info = "";
 	if (self.mode == 1) then
-		info = "Normal";
+		info = "Нормально";
 	elseif (self.mode == 2) then
-		info = "Whispering";
+		info = "Шепот";
 	elseif (self.mode == 3) then
-		info = "Shouting";
+		info = "Крик";
 	end
 
 	if (self.plugin_data.radioTalking) then
@@ -69,10 +69,11 @@ function TokoVoip.updateTokoVoipInfo(self, forceUpdate) -- Update the top-left i
 		info = "<font class='talking'>" .. info .. "</font>";
 	end
 	if (self.plugin_data.radioChannel ~= -1 and self.myChannels[self.plugin_data.radioChannel]) then
-		if (string.match(self.myChannels[self.plugin_data.radioChannel].name, "Call")) then
-			info = info  .. "<br> [Phone] " .. self.myChannels[self.plugin_data.radioChannel].name;
+		--if (string.match(self.myChannels[self.plugin_data.radioChannel].name, "Call")) then
+		if (self.myChannels[self.plugin_data.radioChannel].id < 1000) then
+			info = info  .. "<br> [Рация] " .. self.myChannels[self.plugin_data.radioChannel].name;
 		else
-			info = info  .. "<br> [Radio] " .. self.myChannels[self.plugin_data.radioChannel].name;
+			info = info  .. "<br> [Телефон] " .. self.myChannels[self.plugin_data.radioChannel].name;
 		end
 	end
 	if (info == self.screenInfo and not forceUpdate) then return end
@@ -138,7 +139,7 @@ function TokoVoip.initialize(self)
 			if (IsControlPressed(0, self.radioKey) and self.plugin_data.radioChannel ~= -1) then -- Talk on radio
 				self.plugin_data.radioTalking = true;
 				self.plugin_data.localRadioClicks = true;
-				if (self.plugin_data.radioChannel > 100) then
+				if (self.plugin_data.radioChannel > 1000) then
 					self.plugin_data.localRadioClicks = false;
 				end
 				if (not getPlayerData(self.serverId, "radio:talking")) then
@@ -146,7 +147,7 @@ function TokoVoip.initialize(self)
 				end
 				self:updateTokoVoipInfo();
 				if (lastTalkState == false and self.myChannels[self.plugin_data.radioChannel]) then
-					if (not string.match(self.myChannels[self.plugin_data.radioChannel].name, "Call") and not IsPedSittingInAnyVehicle(PlayerPedId())) then
+					if (self.plugin_data.radioChannel < 1000 and not IsPedSittingInAnyVehicle(PlayerPedId())) then
 						RequestAnimDict("random@arrests");
 						while not HasAnimDictLoaded("random@arrests") do
 							Wait(5);

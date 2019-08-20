@@ -12,7 +12,7 @@ Config.MaxPatientsPerTrip = 3
 Config.MaxLevels = 5
 
 Config.Formulas = {
-    moneyPerLevel               = function(level)                   return 100 * level * level end,
+    moneyPerLevel               = function(level)                   return 40 * level end,
     additionalTimeForPickup     = function(distanceFromHospital)    return math.floor(distanceFromHospital / 15) end,
     additionalTimeForDropOff    = function(numberOfPatients)        return 15 * numberOfPatients end,
     timeLostForDamage           = function(damage)                  return math.floor(damage) end,
@@ -27,7 +27,7 @@ Config.Markers = {
 
 Config.Sounds = {
     failedMission = {
-        audioRef = 'MissionFailedSounds', 
+        audioRef = 'MissionFailedSounds',
         audioName = 'ScreenFlash'
     },
     passedMission = {
@@ -62,7 +62,7 @@ Config.Hospitals = {
             {x = 1181.176, y = -1286.096, z = 34.134},  {x = 1246.799, y = -1134.925, z = 37.465},
             {x = 1120.036, y = -944.992, z = 47.721},   {x = 985.299, y = -1016.927, z = 41.332},
             {x = 721.840, y = -982.642, z = 23.430},    {x = 722.283, y = -744.715, z = 24.961},
-            {x = 697.080, y = -393.864, z = 40.850},    {x = 1899.997, y = -1022.248, z = 75.572},  
+            {x = 697.080, y = -393.864, z = 40.850},    {x = 1899.997, y = -1022.248, z = 75.572},
             {x = 981.109, y = -224.136, z = 69.190},    {x = 1117.835, y = -2373.443, z = 30.481},
             {x = 1143.472, y = -983.311, z = 46.069}
         }
@@ -73,7 +73,7 @@ Config.Hospitals = {
         y = -1439.970,
         z = 29.572,
         spawnPoints = {
-            {x = 455.148, y = -1434.771, z = 29.270},   {x = 529.353, y = -1322.915, z = 29.416}, 
+            {x = 455.148, y = -1434.771, z = 29.270},   {x = 529.353, y = -1322.915, z = 29.416},
             {x = 376.725, y = -1224.665, z = 32.230},   {x = 141.945, y = -1278.416, z = 28.583},
             {x = -55.191, y = -1320.071, z = 28.472},   {x = -183.571, y =-1266.675, z = 30.623},
             {x = -204.727, y = -2006.234, z = 27.391},  {x = -102.446, y = -1852.370, z = 5.337},
