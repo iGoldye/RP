@@ -22,7 +22,7 @@ AddEventHandler('esx_holdup:tooFar', function(currentStore)
 	if robbers[_source] then
 		TriggerClientEvent('esx_holdup:tooFar', _source)
 		robbers[_source] = nil
-		TriggerClientEvent('esx:showNotification', _source, _U('robbery_cancelled_at', Stores[currentStore].nameOfStore))
+--		TriggerClientEvent('esx:showNotification', _source, _U('robbery_cancelled_at', Stores[currentStore].nameOfStore))
 	end
 end)
 

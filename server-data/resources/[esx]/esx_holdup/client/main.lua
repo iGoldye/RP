@@ -135,6 +135,7 @@ Citizen.CreateThread(function()
 			local storePos = Stores[store].position
 			if Vdist(playerPos.x, playerPos.y, playerPos.z, storePos.x, storePos.y, storePos.z) > Config.MaxDistance then
 				TriggerServerEvent('esx_holdup:tooFar', store)
+				Citizen.Wait(5000)
 			end
 		end
 	end
