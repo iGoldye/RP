@@ -124,7 +124,6 @@ function OpenMechanicActionsMenu()
 
 				local elements = {
 					{label = _U('flat_bed'),  value = 'flatbed'},
-					{label = _U('flat_bed2'),  value = 'flatbed3'},
 					{label = _U('tow_truck'), value = 'towtruck2'}
 				}
 

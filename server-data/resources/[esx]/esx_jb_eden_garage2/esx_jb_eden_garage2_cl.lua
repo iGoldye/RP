@@ -306,7 +306,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 					vehicleLabel = vehicleName..': Fourrière externe'
 					table.insert(elements, {label = vehicleLabel, action = 'fourrieremecano'})
 				else
-					vehicleLabel = vehicleName..': Sortie'
+					vehicleLabel = vehicleName..': Вернуть'
 					table.insert(elements, {
 						label = vehicleLabel,
 						plate = vehicleProps.plate,
