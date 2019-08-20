@@ -55,7 +55,13 @@ function CreateBlips()
 		if property.entering then
 			Blips[property.name] = AddBlipForCoord(property.entering.x, property.entering.y, property.entering.z)
 
-			SetBlipSprite (Blips[property.name], 369)
+			if property.isRentOnly == true then
+				SetBlipSprite (Blips[property.name], 40)
+				SetBlipColour (Blips[property.name], 50)
+			else
+				SetBlipSprite (Blips[property.name], 369)
+			end
+
 			SetBlipDisplay(Blips[property.name], 4)
 			SetBlipScale  (Blips[property.name], 1.0)
 			SetBlipAsShortRange(Blips[property.name], true)
@@ -242,11 +248,17 @@ function OpenPropertyMenu(property)
 		end
 	else
 		if not Config.EnablePlayerManagement then
-			table.insert(elements, {label = _U('buy'), value = 'buy'})
+
+			if property.isRentOnly ~= true then
+				table.insert(elements, {label = _U('buy'), value = 'buy'})
+			end
+
 			table.insert(elements, {label = _U('rent'), value = 'rent'})
 		end
 
-		table.insert(elements, {label = _U('visit'), value = 'visit'})
+		if property.isRentOnly ~= true then
+			table.insert(elements, {label = _U('visit'), value = 'visit'})
+		end
 	end
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'property', {
@@ -358,8 +370,13 @@ function OpenGatewayAvailablePropertiesMenu(property)
 
 	for i=1, #gatewayProperties, 1 do
 		if not PropertyIsOwned(gatewayProperties[i]) then
+			local label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price)
+			if gatewayProperties[i].isRentOnly == true then
+				label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price / 200) .. " в сутки"
+			end
+
 			table.insert(elements, {
-				label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price),
+				label = label,
 				value = gatewayProperties[i].name,
 				price = gatewayProperties[i].price
 			})
@@ -373,14 +390,25 @@ function OpenGatewayAvailablePropertiesMenu(property)
 	}, function(data, menu)
 		menu.close()
 
+		local elems = {}
+		if property.isRentOnly ~= true then
+			elems = {
+					{label = _U('buy'), value = 'buy'},
+					{label = _U('rent'), value = 'rent'},
+					{label = _U('visit'), value = 'visit'}
+				}
+		else
+			elems = {
+					{label = _U('rent'), value = 'rent'},
+				}
+		end
+
+
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'gateway_available_properties_actions', {
 			title    = property.label .. ' - ' .. _U('available_properties'),
 			align    = 'top-left',
-			elements = {
-				{label = _U('buy'), value = 'buy'},
-				{label = _U('rent'), value = 'rent'},
-				{label = _U('visit'), value = 'visit'}
-		}}, function(data2, menu2)
+			elements = elems
+		}, function(data2, menu2)
 			menu2.close()
 
 			if data2.current.value == 'buy' then
