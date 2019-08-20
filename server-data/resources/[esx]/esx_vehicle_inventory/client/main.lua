@@ -188,7 +188,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 				ESX.UI.Menu.Open(
 				  'dialog', GetCurrentResourceName(), 'inventory_item_count_give',
 				  {
-				    title = 'Колличество'
+				    title = 'Количество'
 				  },
 				  function(data4, menu4)
             local quantity = tonumber(data4.value)
