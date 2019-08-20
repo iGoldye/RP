@@ -98,7 +98,7 @@ Citizen.CreateThread( function()
 					setState("stand")
 					ClearPedTasks(ped)
 
-				elseif IsControlJustPressed(0, 20) and IsControlPressed(0, 21) and currentState == "stand" and (IsPedSprinting(ped) or IsPedRunning(ped) or GetEntitySpeed(ped) > 5) and (not IsPedInAnyVehicle(ped, true) and not IsPedFalling(ped) and not IsPedDiving(ped) and not IsPedInCover(ped, false) and not IsPedInParachuteFreeFall(ped) and (GetPedParachuteState(ped) == 0 or GetPedParachuteState(ped) == -1) ) then
+				elseif IsControlJustPressed(0, 20) and IsControlPressed(0, 21) and currentState == "stand" and (IsPedSprinting(ped) or IsPedRunning(ped)) and GetEntitySpeed(ped) > 5 and (not IsPedInAnyVehicle(ped, true) and not IsPedFalling(ped) and not IsPedDiving(ped) and not IsPedInCover(ped, false) and not IsPedInParachuteFreeFall(ped) and (GetPedParachuteState(ped) == 0 or GetPedParachuteState(ped) == -1) ) then
 					ClearPedTasksImmediately(ped)
 					TaskPlayAnim(ped, "move_jump", "dive_start_run", 8.0, 1.0, -1, 0, 0.0, 0, 0, 0)
 					Citizen.Wait(1200)
