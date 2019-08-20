@@ -51,6 +51,7 @@ Config.Teleporters = {
 		}
 	},
 	
+--[[
 	['MotelPink'] = {
 		['Job'] = 'none',
 		['Enter'] = { 
@@ -73,7 +74,7 @@ Config.Teleporters = {
 			['Information'] = '[E] Выйти' 
 		},
 	},
-
+]]--
 	
 	--Next here
 } 
