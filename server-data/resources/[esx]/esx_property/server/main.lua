@@ -56,6 +56,7 @@ MySQL.ready(function()
 			local isSingle  = nil
 			local isRoom    = nil
 			local isGateway = nil
+			local isRentOnly= nil
 			local roomMenu  = nil
 
 			if properties[i].entering ~= nil then
@@ -92,6 +93,12 @@ MySQL.ready(function()
 				isGateway = true
 			end
 
+			if properties[i].is_rentonly == 0 then
+				isRentOnly = false
+			else
+				isRentOnly = true
+			end
+
 			if properties[i].room_menu ~= nil then
 				roomMenu = json.decode(properties[i].room_menu)
 			end
@@ -108,6 +115,7 @@ MySQL.ready(function()
 				isSingle  = isSingle,
 				isRoom    = isRoom,
 				isGateway = isGateway,
+				isRentOnly= isRentOnly,
 				roomMenu  = roomMenu,
 				price     = properties[i].price
 			})

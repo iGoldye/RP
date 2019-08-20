@@ -10,7 +10,7 @@ Locales['en'] = {
   ['boss_actions']              = 'Меню владельца',
   ['service_vehicle']           = 'Служебный транспорт',
   ['flat_bed']                  = 'Эвакуатор',
-  -- ['flat_bed2']                 = 'Эвакуатор2'
+  ['flat_bed2']                 = 'Эвакуатор 2'
   ['tow_truck']                 = 'Эвакуатор-тягач',
   ['service_full']              = 'service full: ',
   ['open_actions']              = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть меню.',
@@ -83,4 +83,5 @@ Locales['en'] = {
   ['have_withdrawn']            = 'Вы сняли ~y~x%s~s~ ~b~%s~s~',
   ['have_deposited']            = 'Вы внесли ~y~x%s~s~ ~b~%s~s~',
   ['player_cannot_hold']        = 'У вас ~r~недостаточноt~s~ свободного ~y~места~s~ в инвентаре!',
+  ['comp_earned'] = '- Ваша компания заработала ~g~$%s~s~\n- Вы заработали ~g~$%s~s~',
 }
