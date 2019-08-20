@@ -95,7 +95,8 @@ Citizen.CreateThread(function ()
     local coords = GetEntityCoords(GetPlayerPed(-1))
 
     for k,v in pairs(Config.Zones) do
-      if(v.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) then
+      if (v.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) and
+       (v.Job == nil or PlayerData == nil or PlayerData.job == nil or PlayerData.job.name == nil or v.Job == PlayerData.job.name or PlayerData.job.name == 'off'..v.Job) then
         DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Color.r, v.Color.g, v.Color.b, 100, false, true, 2, false, false, false, false)
       end
     end
@@ -112,7 +113,8 @@ Citizen.CreateThread(function ()
     local currentZone = nil
 
     for k,v in pairs(Config.Zones) do
-      if(GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < v.Size.x) then
+      if (GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < v.Size.x) and
+       (v.Job == nil or PlayerData == nil or PlayerData.job == nil or PlayerData.job.name == nil or v.Job == PlayerData.job.name or PlayerData.job.name == 'off'..v.Job) then
         isInMarker  = true
         currentZone = k
       end
