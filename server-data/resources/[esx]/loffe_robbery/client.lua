@@ -135,6 +135,8 @@ AddEventHandler('loffe_robbery:rob', function(i)
                     end
                     Wait(0)
                 end
+
+		TriggerServerEvent('loffe_robbery:createPickUp', i)
                 SetEntityHeading(bag, Config.Shops[i].heading)
                 ApplyForceToEntity(bag, 3, vector3(0.0, 50.0, 0.0), 0.0, 0.0, 0.0, 0, true, true, false, false, true)
                 table.insert(objects, {bank = i, object = bag})
