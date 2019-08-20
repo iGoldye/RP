@@ -31,13 +31,13 @@
         </div>
         <div class="row" id="menu-content">
           <div id="welcome">
-            <h1 class="left">Welcome</h1>
+            <h1 class="left">Добро пожаловать</h1>
             <h1 class="right" id="date">XXXX-XX-XX</h1>
-            <p>Latest records..</p>
+            <p>Последние записи..</p>
             <table class="centered">
                <thead>
                  <tr>
-                   <th>Date</th>
+                   <th>Дата</th>
                    <th>Offense code</th>
                    <th>Institution</th>
                    <th>Charge and description</th>
@@ -47,24 +47,24 @@
                <tbody>
                </tbody>
              </table>
-            <button class="btn-large btn-flat waves-effect waves-light col s12" id="menu-search">Search</button>
-            <button class="btn-large btn-flat waves-effect waves-light col s12" id="menu-add">Add</button>
+            <button class="btn-large btn-flat waves-effect waves-light col s12" id="menu-search">Поиск</button>
+            <button class="btn-large btn-flat waves-effect waves-light col s12" id="menu-add">Добавить</button>
           </div>
           <div id="search">
-            <h2>Search</h2>
+            <h2>Поиск</h2>
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
                   <input id="firstname-search" type="text" class="validate">
-                  <label for="firstname-search">First name</label>
+                  <label for="firstname-search">Имя</label>
                 </div>
                 <div class="input-field col s6">
                   <input id="lastname-search" type="text" class="validate">
-                  <label for="lastname-search">Last name</label>
+                  <label for="lastname-search">Фамилия</label>
                 </div>
                 <div class="input-field col s6">
                   <input id="dob-search" type="text" class="validate">
-                  <label for="dob-search">DOB</label>
+                  <label for="dob-search">Возраст</label>
                 </div>
                 <div class="input-field col s6">
                   <input id="offense-search" type="text" class="validate">
@@ -79,16 +79,16 @@
             <table class="centered result">
                <thead>
                  <tr>
-                   <th>Name</th>
-                   <th>Lastnam</th>
-                   <th>DOB</th>
+                   <th>Имя</th>
+                   <th>Фамилия</th>
+                   <th>Возраст</th>
                  </tr>
                </thead>
                <tbody>
                </tbody>
              </table>
-             <p>Searching..</p>
-             <button class="btn-large btn-flat waves-effect waves-light col s12 back">Back</button>
+             <p>Поиск...</p>
+             <button class="btn-large btn-flat waves-effect waves-light col s12 back">Назад</button>
           </div>
           <div id="add">
             <p class="error">Error - No person was found, first name, last name or dob could be wrong</p>
@@ -96,36 +96,36 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="firstname-add" type="text" class="validate" required placeholder="John">
-                  <label for="firstname-add">First name</label>
+                  <input id="firstname-add" type="text" class="validate" required placeholder="Имя">
+                  <label for="firstname-add">Имя</label>
                 </div>
                 <div class="input-field col s6">
                   <input id="lastname-add" type="text" class="validate" required placeholder="Doe">
-                  <label for="lastname-add">Last name</label>
+                  <label for="lastname-add">Фамилия</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="dob-add" type="text" class="validate" required placeholder="1997-03-31">
-                  <label for="dob-add">DOB</label>
+                  <input id="dob-add" type="text" class="validate" required placeholder="20">
+                  <label for="dob-add">Возраст</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="charge-add" type="text" class="validate" required placeholder="Murder">
-                  <label for="charge-add">Charge</label>
+                  <input id="charge-add" type="text" class="validate" required placeholder="Угон">
+                  <label for="charge-add">Обвинение</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="term-add" type="text" class="validate" required placeholder="1Y 0M 0D">
-                  <label for="term-add">Term</label>
+                  <input id="term-add" type="text" class="validate" required placeholder="10">
+                  <label for="term-add">Срок</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="date-add" type="text" class="validate" required value="Today">
-                  <label for="date-add">Date</label>
+                  <input id="date-add" type="text" class="validate" required value="Сегодня">
+                  <label for="date-add">Дата</label>
                 </div>
                 <div class="input-field col s12">
-                  <textarea id="description-add" class="materialize-textarea" required placeholder="Killed a civilan.."></textarea>
-                  <label for="description-add">Description</label>
+                  <textarea id="description-add" class="materialize-textarea" required placeholder="Угнал машину..."></textarea>
+                  <label for="description-add">Описание</label>
                 </div>
               </div>
-              <button class="btn-large btn-flat waves-effect waves-light col s12" id="submit-add">Add</button>
-              <button class="btn-large btn-flat waves-effect waves-light col s12 back">Back</button>
+              <button class="btn-large btn-flat waves-effect waves-light col s12" id="submit-add">Добавить</button>
+              <button class="btn-large btn-flat waves-effect waves-light col s12 back">Назад</button>
             </form>
           </div>
         </div>
@@ -134,20 +134,19 @@
         <div id="header">
           <div class="left">
             <a href="#!" class="logo"><img src="assets/images/lspd.png" alt="LOGO" draggable="false"/></a>
-            <h1>Criminal record</h1>
-            <p class="small-txt">Made by jsfour</p>
+            <h1>Судимости</h1>
           </div>
           <div class="right">
             <ul>
               <li>
-                <p>File number</p>
+                <p>Номер документа</p>
                 <p>#1234567-890</p>
               </li>
               <li>
-                <p>Record ID</p>
+                <p>ID судимости</p>
                 <p><a href="#!" class="r-recordid">XXXXXXXX</a></p>
               </li>
-              <p class="small-txt">Generated by the state computer</p>
+              <p class="small-txt">Документ архива Мишн-Роу</p>
             </ul>
           </div>
         </div>
@@ -155,15 +154,15 @@
           <div id="basic-info">
             <ul>
               <li>
-                <p>Name</p>
-                <p class="r-name">unknown, unknown</p>
+                <p>Имя</p>
+                <p class="r-name">неизвестно, неизвестно</p>
               </li>
               <li>
                 <p>Aliases</p>
-                <p class="r-aliases">unknown</p>
+                <p class="r-aliases">неизвестно</p>
               </li>
               <li id="r-recordid">
-                <p>Record id</p>
+                <p>ID записи</p>
                 <p class="square">X</p>
                 <p class="square">X</p>
                 <p class="square">X</p>
@@ -175,36 +174,36 @@
               </li>
               <li class="divided">
                 <div class="left">
-                  <p>Gender</p>
-                  <p class="r-sex">none</p>
+                  <p>Пол</p>
+                  <p class="r-sex">нет</p>
                 </div>
                 <div class="left">
-                  <p>Citizen</p>
-                  <p>Yes</p>
+                  <p>Гражданин</p>
+                  <p>Да</p>
                 </div>
               </li>
               <li class="divided">
                 <div class="left">
-                  <p>Height</p>
+                  <p>Рост</p>
                   <p class="r-height">000cm</p>
                 </div>
                 <div class="left">
-                  <p>Weight</p>
+                  <p>Вес</p>
                   <p class="r-weight">00kg</p>
                 </div>
               </li>
               <li class="divided">
                 <div class="left">
-                  <p>Eye color</p>
+                  <p>Цвет глаз</p>
                   <p class="r-eyecolor">none</p>
                 </div>
                 <div class="left">
-                  <p>Hair color</p>
+                  <p>Цвет волос</p>
                   <p class="r-haircolor">none</p>
                 </div>
               </li>
               <li id="r-dob">
-                <p>DOB</p>
+                <p>Возраст</p>
                 <p class="square r-dob-year"><i>Y</i>00</p>
                 <p class="square r-dob-month"><i>M</i>00</p>
                 <p class="square r-dob-day"><i>D</i>00</p>
@@ -214,15 +213,15 @@
             <img src="assets/images/male.png" alt="avatar" draggable="false" class="avatar"/>
           </div>
           <div id="records">
-            <h1>Arrest & Sentencing info</h1>
+            <h1>Информация об аресте и вынесении приговора</h1>
             <table class="centered">
                <thead>
                  <tr>
-                   <th>Date</th>
-                   <th>Offense code</th>
+                   <th>Дата</th>
+                   <th>Код нарушения</th>
                    <th>Institution</th>
-                   <th>Charge and description</th>
-                   <th>Term</th>
+                   <th>Обвинение и описание</th>
+                   <th>Срок</th>
                  </tr>
                </thead>
                <tbody>
@@ -231,13 +230,13 @@
           </div>
           <div id="footer">
             <div class="left">
-              <h1>Fingerprints</h1>
+              <h1>Отпечатки</h1>
               <img src="assets/images/fingerprints.png" alt="fingerprints" draggable="false"/>
             </div>
             <div class="right">
-              <h1>Other info</h1>
+              <h1>Другая Информация</h1>
               <ul>
-                <li>This has nothing to do with the criminal records. It's just something to fill upp this area. Feel free to change it.</li>
+                <li>Скив красавчик.</li>
               </ul>
             </div>
           </div>
@@ -247,17 +246,16 @@
         <div id="header">
           <div class="left">
             <a href="#!" class="logo"><img src="assets/images/lspd.png" alt="LOGO" draggable="false"/></a>
-            <h1>Criminal record</h1>
-            <p class="small-txt">Made by jsfour</p>
+            <h1>Судимости</h1>
           </div>
           <div class="right">
             <ul>
               <li>
-                <p>Name</p>
+                <p>Имя</p>
                 <p class="r-name">XXX</p>
               </li>
               <li>
-                <p>DOB</p>
+                <p>Возраст</p>
                 <p><a href="#!" class="dob r-dob">XXX</a></p>
               </li>
               <p class="small-txt">Generated by the state computer</p>
@@ -269,16 +267,16 @@
             <ul>
               <li class="divided">
                 <div class="left">
-                  <p>Date</p>
+                  <p>Дата</p>
                   <p class="r-date">XXXX-XX-XX</p>
                 </div>
                 <div class="left">
-                  <p>Charge</p>
+                  <p>Обвинение</p>
                   <p class="r-charge">XX</p>
                 </div>
               </li>
               <li id="r-offense">
-                <p>Offense code</p>
+                <p>Код нарушения</p>
                 <p class="square">X</p>
                 <p class="square">-</p>
                 <p class="square">X</p>
@@ -286,13 +284,13 @@
                 <p class="square">X</p>
               </li>
               <li id="r-term">
-                <p>Term</p>
+                <p>Срок</p>
                 <p class="square r-year"><i>Y</i>X</p>
                 <p class="square r-month"><i>M</i>X</p>
                 <p class="square r-day"><i>D</i>X</p>
               </li>
               <li class="info">
-                <p>Description</p>
+                <p>Описание</p>
                 <textarea class="r-description"></textarea>
               </li>
             </ul>
@@ -301,20 +299,20 @@
           <div id="signature">
             <div class="signature-part">
               <p class="r-offense">X-XXX</p>
-              <p>Offense code</p>
+              <p>Код нарушения</p>
             </div>
             <div class="signature-part">
               <p class="r-date">XX</p>
-              <p>Date signed</p>
+              <p>Дата подписи</p>
             </div>
             <div class="signature-part">
               <p id="the-signature">X</p>
-              <p>Signature of Warden</p>
+              <p>Подпись офицера</p>
             </div>
           </div>
-          <button class="btn-large btn-flat waves-effect waves-light" id="submit-update">Update description</button>
-          <button class="btn-large btn-flat waves-effect waves-light" id="submit-delete">Delete records</button>
-          <button class="btn-large btn-flat waves-effect waves-light large" id="submit-classified">Classified</button>
+          <button class="btn-large btn-flat waves-effect waves-light" id="submit-update">Обновить описание</button>
+          <button class="btn-large btn-flat waves-effect waves-light" id="submit-delete">Удалить запись</button>
+          <button class="btn-large btn-flat waves-effect waves-light large" id="submit-classified">Совершенно секретно</button>
       </div>
     </div>
     <script src="assets/js/jquery.js" type="text/javascript"></script>
