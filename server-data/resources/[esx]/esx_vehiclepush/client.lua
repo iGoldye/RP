@@ -8,7 +8,7 @@ Citizen.CreateThread(function()
 end)
 
 Config = {}
-Config.DamageNeeded = 1000.0 -- 100.0 being broken and 1000.0 being fixed a lower value than 100.0 will break it
+Config.DamageNeeded = 750.0 -- 100.0 being broken and 1000.0 being fixed a lower value than 100.0 will break it
 Config.MaxWidth = 5.0 -- Will complete soon
 Config.MaxHeight = 5.0
 Config.MaxLength = 5.0
@@ -36,7 +36,7 @@ Citizen.CreateThread(function()
         local closestVehicle, Distance = ESX.Game.GetClosestVehicle()
         local vehicleCoords = GetEntityCoords(closestVehicle)
         local dimension = GetModelDimensions(GetEntityModel(closestVehicle), First, Second)
-        if Distance < 6.0  and not IsPedInAnyVehicle(ped, false) then
+        if Distance < 4.0  and not IsPedInAnyVehicle(ped, false) then
             Vehicle.Coords = vehicleCoords
             Vehicle.Dimensions = dimension
             Vehicle.Vehicle = closestVehicle

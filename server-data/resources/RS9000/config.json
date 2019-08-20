@@ -5,12 +5,12 @@
   "fastLimit": 80,
   "controls": {
     "openControlPanel": {
-      "modifier": 247,
-      "control":  102
+      "modifier": 224,
+      "control":  73
     },
     "resetLock": {
       "modifier": -1,
-      "control": 102
+      "control": 73
     }
   }
 }
