@@ -732,6 +732,8 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 		elements = elements
 	}, function(data, menu)
 
+		local vehicle_label = data.current.name
+
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_shop_confirm', {
 			title    = _U('vehicleshop_confirm', data.current.name, data.current.price),
 			align    = 'top-left',
@@ -747,6 +749,7 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 				local newPlate = exports['esx_vehicleshop']:GeneratePlate()
 				local vehicle  = GetVehiclePedIsIn(playerPed, false)
 				local props    = ESX.Game.GetVehicleProperties(vehicle)
+				props.label    = vehicle_label
 				props.plate    = newPlate
 
 				ESX.TriggerServerCallback('esx_ambulancejob:buyJobVehicle', function (bought)
@@ -803,7 +806,7 @@ function OpenShopMenu(elements, restoreCoords, shopCoords)
 		table.insert(spawnedVehicles, vehicle)
 		TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 		FreezeEntityPosition(vehicle, true)
-		SetModelAsNoLongerNeeded(elements[1].model)
+--		SetModelAsNoLongerNeeded(elements[1].model)
 
 		if elements[1].livery then
 			SetVehicleModKit(vehicle, 0)
