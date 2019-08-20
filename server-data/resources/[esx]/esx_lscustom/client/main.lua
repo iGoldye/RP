@@ -18,7 +18,6 @@ local isInLSMarker		= false
 local myCar				= {}
 
 function isMechanic()
-	print(PlayerData.job)
 	return PlayerData.job ~= nil and (PlayerData.job.name == 'mechanic' or PlayerData.job.name == 'mechanic-bennys')
 end
 

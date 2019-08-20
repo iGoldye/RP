@@ -2,8 +2,8 @@ Config                            = {}
 
 Config.DrawDistance               = 100.0
 
-Config.NPCJobEarnings             = {min = 30, max = 75}
-Config.MinimumDistance            = 3000 -- Minimum NPC job destination distance from the pickup in GTA units, a higher number prevents nearby destionations.
+Config.NPCJobEarnings             = {min = 30, max = 75} -- $ per km
+Config.MinimumDistance            = 1500 -- Minimum NPC job destination distance from the pickup in GTA units, a higher number prevents nearby destionations.
 
 Config.MaxInService               = -1
 Config.EnablePlayerManagement     = true
