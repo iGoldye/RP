@@ -1,10 +1,10 @@
 ESX = nil
+ESXItemDB = {}
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 Inventories = { ["pocket"] = {} }
 ClientInventories = {}
 global_pickup_id = 0
 pickups = {}
-
 players = {}
 
 function tablesEqual(table1, table2)
@@ -41,11 +41,35 @@ function updateWeight(name, owner)
 	local weight = 0.0
 
 	for _,item in pairs(inv.items) do
-		weight = weight + item.weight * item.amount
+		if item.name == 'esx_item' then
+			item.weight = ESXItemDB[item.name] or 0
+		end
+
+		if item.weigth ~= nil and item.amount ~= nil then
+			weight = weight + item.weight * item.amount
+		end
+	end
+
+	local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+
+	if xPlayer ~= nil then
+		for i=1, #xPlayer.inventory, 1 do
+			local item = xPlayer.inventory[i]
+			if item.count > 0 then
+				local itemWeight = 0
+				if ESXItemDB[item.name] ~= nil then
+					itemWeight = ESXItemDB[item.name].weight or 0
+				end
+
+				if itemWeight ~= nil and item.count > 0 then
+					weight = weight + item.count * itemWeight / 1000.0
+				end
+			end
+		end
 	end
 
 	Inventories[name][owner].weight = weight
-	print(tostring(weight))
+--	print("updateWeight "..tostring(weight))
 end
 
 function getInventory(name, owner)
@@ -239,6 +263,13 @@ function reloadInventories()
 	Inventories = { ["pocket"] = {} }
 	local result = MySQL.Sync.fetchAll('SELECT * FROM inventory')
 
+	local xPlayers = ESX.GetPlayers()
+
+	for i=1, #xPlayers, 1 do
+		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+		getInventory("pocket", xPlayer.identifier) -- initialize empty inventories
+	end
+
 	for i=1, #result, 1 do
 		local name=result[i].name
 		local owner=result[i].owner
@@ -248,6 +279,12 @@ function reloadInventories()
 
 		local item = createItem(result[i].item, json.decode(result[i].extra), result[i].amount)
 		addItem(name, owner, item)
+	end
+
+	for name,_ in pairs(Inventories) do
+	for owner,_ in pairs(Inventories[name]) do
+		updateWeight(name, owner)
+	end
 	end
 end
 
@@ -514,6 +551,8 @@ AddEventHandler('esx_inventory:getInventory', function(name, shared, client_even
 		owner = xPlayer.identifier
 	end	
 
+	updateWeight(name, owner)
+
 	local inv = getInventory(name, owner)
 --	addItem(name, owner, createItem("money_pack", { ["cash"] = 1000, ["black"] = 2000 }, 1))
 
@@ -583,5 +622,12 @@ AddEventHandler('esx_inventory:playerSpawned', function()
 end)
 
 MySQL.ready(function()
+	ESXItemDB = {}
+	local items = MySQL.Sync.fetchAll('SELECT * FROM items')
+	for i=1,#items do
+		local item = items[i]
+		ESXItemDB[item.name] = item
+	end
+
 	reloadInventories()
 end)

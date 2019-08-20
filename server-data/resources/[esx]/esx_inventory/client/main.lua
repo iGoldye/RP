@@ -4,6 +4,33 @@ ESX = nil
 pickups = {}
 itemActions = {}
 
+pocketWeight = 0.0
+movementSpeed = 1.0
+
+Citizen.CreateThread(function()
+	while true do
+		movementSpeed = 1.0
+
+		if pocketWeight > Config.PocketWeightLimit then
+			local speed = 1.0 - (pocketWeight-Config.PocketWeightLimit)/10.0
+			if speed < 0.1 then
+				speed = 0.1
+			end
+			movementSpeed = speed
+		end
+
+		Citizen.Wait(100)
+	end
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		SetPedMoveRateOverride(PlayerPedId(), movementSpeed)
+		Citizen.Wait(0)
+	end
+end)
+
+
 function duplicateItem(item, modifiers)
 	local item2 = {}
 
@@ -542,4 +569,11 @@ end)
 
 AddEventHandler('esx_inventory:initialized', function(cb)
 	cb(true)
+end)
+
+RegisterNetEvent('esx_inventory:onInventoryUpdate')
+AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
+	if inventory.name == "pocket" then
+		pocketWeight = inventory.weight or 0
+	end
 end)
