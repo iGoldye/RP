@@ -268,16 +268,17 @@ function StartDeathTimer()
 		while bleedoutTimer > 0 and IsDead do
 			Citizen.Wait(0)
 			text = _U('respawn_bleedout_in', secondsToClock(bleedoutTimer))
+			subtext = ""
 
 			if not Config.EarlyRespawnFine then
-				text = text .. _U('respawn_bleedout_prompt')
+				subtext = _U('respawn_bleedout_prompt')
 
 				if IsControlPressed(0, Keys['E']) and timeHeld > 10 then
 					RemoveItemsAfterRPDeath()
 					break
 				end
 			elseif Config.EarlyRespawnFine and canPayFine then
-				text = text .. _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
+				subtext = _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
 
 				if IsControlPressed(0, Keys['E']) and timeHeld > 10 then
 					TriggerServerEvent('esx_ambulancejob:payFine')
@@ -293,10 +294,14 @@ function StartDeathTimer()
 			end
 
 			DrawGenericTextThisFrame()
-
 			SetTextEntry("STRING")
 			AddTextComponentString(text)
 			DrawText(0.5, 0.8)
+
+			DrawGenericTextThisFrame()
+			SetTextEntry("STRING")
+			AddTextComponentString(subtext)
+			DrawText(0.5, 0.85)
 		end
 
 		if bleedoutTimer < 1 and IsDead then
