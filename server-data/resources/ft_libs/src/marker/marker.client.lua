@@ -48,7 +48,7 @@ function marker.new(data)
     self.green = data.green or 255
     self.blue = data.blue or 255
     self.alpha = data.alpha or 255
-    self.showDistance = data.showDistance or self.weight + 20
+    self.showDistance = data.showDistance or self.weight + 80
     self.text = data.text
     self.textOffset = data.textOffset or 0
 
