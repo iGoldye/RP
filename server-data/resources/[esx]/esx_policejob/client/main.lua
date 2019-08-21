@@ -1377,6 +1377,10 @@ AddEventHandler('esx_policejob:hasEnteredMarker', function(station, part, partNu
 		CurrentAction     = 'menu_cloakroom'
 		CurrentActionMsg  = _U('open_cloackroom')
 		CurrentActionData = {}
+	elseif part == 'Computer' then
+		CurrentAction     = 'menu_computer'
+		CurrentActionMsg  = _U('open_computer')
+		CurrentActionData = {station = station}
 	elseif part == 'Armory' then
 		CurrentAction     = 'menu_armory'
 		CurrentActionMsg  = _U('open_armory')
@@ -1691,6 +1695,20 @@ Citizen.CreateThread(function()
 					end
 				end
 
+				for i=1, #v.Computers, 1 do
+					local distance = GetDistanceBetweenCoords(coords, v.Computers[i], true)
+
+					if distance < Config.DrawDistance then
+						DrawMarker(25, v.Computers[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
+						letSleep = false
+					end
+
+					if distance < Config.MarkerSize.x then
+						isInMarker, currentStation, currentPart, currentPartNum = true, k, 'Computer', i
+					end
+				end
+
+
 				for i=1, #v.Armories, 1 do
 					local distance = GetDistanceBetweenCoords(coords, v.Armories[i], true)
 
@@ -1837,6 +1855,8 @@ Citizen.CreateThread(function()
 
 				if CurrentAction == 'menu_cloakroom' then
 					OpenCloakroomMenu()
+				elseif CurrentAction == 'menu_computer' then
+					TriggerEvent('jsfour-mdc:openMenu')
 				elseif CurrentAction == 'menu_armory' then
 					if Config.MaxInService == -1 then
 						OpenArmoryMenu(CurrentActionData.station)

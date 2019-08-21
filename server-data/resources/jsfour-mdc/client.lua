@@ -34,7 +34,14 @@ end
 Citizen.CreateThread(function()
   SetNuiFocus(false, false)
   while true do
-    Citizen.Wait(10)
+    Citizen.Wait(0)
+	if open == true then
+		DisablePlayerFiring(PlayerId(), true)
+		DisableControlAction(0,25,true) -- disable aim
+		DisableControlAction(0,1,true)
+		DisableControlAction(0,2,true)
+	end
+
 		if IsControlJustReleased(0, Keys['G']) and GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1))) < 1 then
 			if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
         if vehicleType(GetVehiclePedIsUsing(GetPlayerPed(-1))) then
@@ -83,4 +90,13 @@ end)
 RegisterNUICallback('escape', function(data, cb)
 	SetNuiFocus(false, false)
 	open = false
+end)
+
+RegisterNetEvent('jsfour-mdc:openMenu')
+AddEventHandler('jsfour-mdc:openMenu', function(player)
+          open = true
+          SetNuiFocus(true, true)
+          SendNUIMessage({
+            action = "open"
+          })
 end)
