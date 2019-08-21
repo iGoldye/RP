@@ -122,7 +122,7 @@ function OpenPersonalMenu()
 	table.insert(elements, {label = 'Посмотреть вод.права', value = 'lookdrivelic'})
 	table.insert(elements, {label = 'Посмотреть лиц. на оружие', value = 'lookgunlic'})
 	table.insert(elements, {label = 'Показать паспорт', value = 'showpass'})
-	table.insert(elements, {label = 'Показать лиц. на оружие', value = 'showdrivelic'})
+	table.insert(elements, {label = 'Показать вод.права', value = 'showdrivelic'})
 	table.insert(elements, {label = 'Показать лиц. на оружие', value = 'showgunlic'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'personal_menu', {
