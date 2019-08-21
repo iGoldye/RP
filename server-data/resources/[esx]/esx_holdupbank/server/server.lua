@@ -56,8 +56,10 @@ AddEventHandler('esx_holdupbank:rob', function(robb)
 
 
 		if rob == false then
+
+		  local item = xPlayer.getInventoryItem('drill')
 		   
-		  if xPlayer.getInventoryItem('drill').count >= 1 then
+		  if item ~= nil and item.count >= 1 then
 		     xPlayer.removeInventoryItem('drill', 1)
 
 			if(cops >= Config.NumberOfCopsRequired)then
@@ -102,6 +104,8 @@ AddEventHandler('esx_holdupbank:rob', function(robb)
 			else
 				TriggerClientEvent('esx:showNotification', source, _U('min_two_police') .. Config.NumberOfCopsRequired)
 			end
+		else
+			TriggerClientEvent('esx:showNotification', source, _U('robbery_need_drill'))
 		end
 		else
 			TriggerClientEvent('esx:showNotification', source, _U('robbery_already'))
