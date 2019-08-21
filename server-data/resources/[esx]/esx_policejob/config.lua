@@ -158,22 +158,22 @@ Config.AuthorizedVehicles = {
 	},
 
 	recruit = {
-		{ model = 'police', label = 'Police Cruiser', price = 100 },
-		{ model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
 	},
 
 	officer = {
-		{ model = 'police3', label = 'Police Interceptor', price = 200 },
-		{ model = 'police', label = 'Police Cruiser', price = 100 },
-		{ model = 'policeb', label = 'Police Bike', price = 50 },
-		{ model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
 	},
 
 	sergeant = {
-		{ model = 'policeb', label = 'Police Bike', price = 50 },
-		{ model = 'police2', label = 'Police Buffalo', price = 200 },
-		{ model = 'police3', label = 'Police Interceptor', price = 200 },
-		{ model = 'policet', label = 'Police Transporter', price = 400 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
 	},
 
 	intendent = {
@@ -181,29 +181,29 @@ Config.AuthorizedVehicles = {
 	},
 
 	lieutenant = {
-		{ model = 'policet', label = 'Police Transporter', price = 400 },
-		{ model = 'riot', label = 'Police Riot', price = 500 },
-		{ model = 'fbi2', label = 'FIB SUV', price = 300 },
-		{ model = 'fbi', label = 'FIB Buffalo', price = 300 },
-		{ model = 'police4', label = 'FIB Cruiser', price = 300 },
-		{ model = 'policeb', label = 'Police Bike', price = 50 },
-		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
-		{ model = 'lp770cop', label = 'Speed Unit', price = 100000 },
-		{ model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
+		-- { model = 'riot', label = 'Police Riot', price = 500 },
+		-- { model = 'fbi2', label = 'FIB SUV', price = 300 },
+		-- { model = 'fbi', label = 'FIB Buffalo', price = 300 },
+		-- { model = 'police4', label = 'FIB Cruiser', price = 300 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'pbus', label = 'Police Prison Bus', price = 500 },
+		-- { model = 'lp770cop', label = 'Speed Unit', price = 100000 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
 	},
 
 	chef = {
-		{ model = 'lp770cop', label = 'Speed Unit', price = 100000 },
-		{ model = 'police2', label = 'Police Buffalo', price = 200 },
-		{ model = 'riot', label = 'Police Riot', price = 500 },
-		{ model = 'fbi2', label = 'FIB SUV', price = 300 },
-		{ model = 'fbi', label = 'FIB Buffalo', price = 300 },
-		{ model = 'police4', label = 'FIB Cruiser', price = 300 },
-		{ model = 'policet', label = 'Police Transporter', price = 400 },
-		{ model = 'policeb', label = 'Police Bike', price = 50 },
-		{ model = 'police', label = 'Police Cruiser', price = 100 },
-		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
-		{ model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'lp770cop', label = 'Speed Unit', price = 100000 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'riot', label = 'Police Riot', price = 500 },
+		-- { model = 'fbi2', label = 'FIB SUV', price = 300 },
+		-- { model = 'fbi', label = 'FIB Buffalo', price = 300 },
+		-- { model = 'police4', label = 'FIB Cruiser', price = 300 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'pbus', label = 'Police Prison Bus', price = 500 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
 	},
 
 	boss = {
