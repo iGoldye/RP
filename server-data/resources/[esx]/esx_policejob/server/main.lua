@@ -463,15 +463,15 @@ ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, 
 		local props = nearbyVehicles[foundNum].props
 
 		if props.health ~= nil then
-			foundProps.health = props.health
+			foundProps.health = math.floor(props.health)
 		end
 
 		if props.engineHealth ~= nil then
-			foundProps.engineHealth = props.engineHealth
+			foundProps.engineHealth = math.floor(props.engineHealth)
 		end
 
 		if props.bodyHealth ~= nil then
-			foundProps.bodyHealth = props.bodyHealth
+			foundProps.bodyHealth = math.floor(props.bodyHealth)
 		end
 
 		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true, `vehicle` = @vehicle WHERE plate = @plate AND job = @job', {

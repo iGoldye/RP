@@ -296,7 +296,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 				local vehicleHash = vehicleProps.model
 				local vehicleName, vehicleLabel
 
-				if v.vehiclename == 'voiture' then
+				if v.vehiclename == 'voiture' or v.vehiclename == 'car' then
 					vehicleName = GetDisplayNameFromVehicleModel(vehicleHash)
 				else
 					vehicleName = v.vehiclename
@@ -341,6 +341,15 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 					end
 				end
 
+				for _,v in pairs(ESX.Game.GetVehicles()) do
+					if DoesEntityExist(veh) then
+						if ESX.Math.Trim(v.plate) == ESX.Math.Trim(data.current.plate) then
+							doesVehicleExist = true
+							break
+						end
+					end
+				end
+
 				if not doesVehicleExist then
 					ESX.TriggerServerCallback('eden_garage:checkMoney', function(hasEnoughMoney)
 						if hasEnoughMoney then
@@ -351,7 +360,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 						end
 					end)
 				else
-					ESX.ShowNotification("Этот транспорт поврежден!")
+					ESX.ShowNotification("Транспорт уже снаружи!")
 				end
 			end
 		end, function(data, menu)
@@ -376,6 +385,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 				red = v.Marker.r,
 				green = v.Marker.g,
 				blue = v.Marker.b,
+				alpha = v.Marker.a or 128,
 			},
 			trigger = {
 				weight = v.Marker.w,
@@ -408,6 +418,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 				red = v.SpawnPoint.Marker.r,
 				green = v.SpawnPoint.Marker.g,
 				blue = v.SpawnPoint.Marker.b,
+				alpha = v.SpawnPoint.Marker.a or 128,
 			},
 			trigger = {
 				weight = v.SpawnPoint.Marker.w,
@@ -439,6 +450,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 				red = v.DeletePoint.Marker.r,
 				green = v.DeletePoint.Marker.g,
 				blue = v.DeletePoint.Marker.b,
+				alpha = v.DeletePoint.Marker.a or 128,
 			},
 			trigger = {
 				weight = v.DeletePoint.Marker.w,
@@ -474,6 +486,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 				red = v.SpawnPoint.Marker.r,
 				green = v.SpawnPoint.Marker.g,
 				blue = v.SpawnPoint.Marker.b,
+				alpha = v.SpawnPoint.Marker.a or 128,
 			},
 			trigger = {
 				weight = v.SpawnPoint.Marker.w,
@@ -511,6 +524,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 				red = v.DeletePoint.Marker.r,
 				green = v.DeletePoint.Marker.g,
 				blue = v.DeletePoint.Marker.b,
+				alpha = v.DeletePoint.Marker.a or 128,
 			},
 			trigger = {
 				weight = v.DeletePoint.Marker.w,
