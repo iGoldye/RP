@@ -168,16 +168,16 @@ end
 
 function OpenMenu()
 	elements = {
-		{label = "Персональная информация", value = 'personal'},
 		{label = "Инвентарь", value = 'inventory'},
 		{label = "Анимации", value = 'animations'},
+		{label = "Персональная информация", value = 'personal'},
 		{label = "Счета", value = 'billing'},
 		{label = "Поднять игрока", value = 'liftup'},
 		{label = "Аксессуары", value = 'accessories'},
 		{label = "Одежда", value = 'clothesoff'},
 		{label = "Питомцы", value = 'pets'},
+		{label = "Документация", value = 'documents'},
 	}
-
 	local PlayerData = ESX.GetPlayerData()
 	if PlayerData.job then
 		if PlayerData.job.name == 'police' then
@@ -246,6 +246,8 @@ function OpenMenu()
 		elseif cmd == 'personal' then
 			-- TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
 			OpenPersonalMenu()
+		elseif cmd == 'documents' then
+			TriggerEvent('esx_documents:openMainMenu')
 		end
 
 	end, function(data, menu)

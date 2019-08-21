@@ -98,14 +98,13 @@ Citizen.CreateThread(function()
 			if sitting then
 				wakeup()
 			else
-
 				local object, distance = ESX.Game.GetClosestObject(Config.Interactables)
 
 				if Config.debug then
 					table.insert(debugProps, object)
 				end
 
-				if distance < 1.5 then
+				if distance < 1.5 and distance >= 0 then
 
 					local hash = GetEntityModel(object)
 					local data = nil
