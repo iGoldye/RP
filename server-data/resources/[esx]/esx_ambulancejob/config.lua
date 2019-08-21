@@ -13,7 +13,7 @@ Config.Locale = 'en'
 local second = 1000
 local minute = 60 * second
 
-Config.EarlyRespawnTimer          = 0.5 * minute  -- Time til respawn is available
+Config.EarlyRespawnTimer          = 1 * minute  -- Time til respawn is available
 Config.BleedoutTimer              = 15 * minute -- Time til the player bleeds out
 
 Config.EnablePlayerManagement     = true
@@ -25,8 +25,8 @@ Config.RemoveItemsAfterRPDeath    = false
 Config.EnableMoneyWash            = true -- allow medics to wash black money
 
 -- Let the player pay for respawning early, only if he can afford it.
-Config.EarlyRespawnFine           = false
-Config.EarlyRespawnFineAmount     = 5000
+Config.EarlyRespawnFine           = true
+Config.EarlyRespawnFineAmount     = 1
 
 Config.RespawnPoint = { coords = vector3(341.0, -1397.3, 32.5), heading = 48.5 }
 

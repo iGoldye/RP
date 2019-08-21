@@ -272,14 +272,14 @@ function StartDeathTimer()
 			if not Config.EarlyRespawnFine then
 				text = text .. _U('respawn_bleedout_prompt')
 
-				if IsControlPressed(0, Keys['E']) and timeHeld > 60 then
+				if IsControlPressed(0, Keys['E']) and timeHeld > 10 then
 					RemoveItemsAfterRPDeath()
 					break
 				end
 			elseif Config.EarlyRespawnFine and canPayFine then
 				text = text .. _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
 
-				if IsControlPressed(0, Keys['E']) and timeHeld > 60 then
+				if IsControlPressed(0, Keys['E']) and timeHeld > 10 then
 					TriggerServerEvent('esx_ambulancejob:payFine')
 					RemoveItemsAfterRPDeath()
 					break

@@ -47,7 +47,7 @@ Locales['en'] = {
   ['player_not_unconscious'] = 'Этот человек в сознании!',
   ['player_not_conscious'] = 'Этот человек не в сознании!',
   -- Boss Menu
-  ['boss_actions'] = 'Компьютер Глав врача',
+  ['boss_actions'] = 'Компьютер Главврача',
   -- Misc
   ['invalid_amount'] = '~r~Недопустимая сумма',
   ['actions_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы получить доступ к ~y~шкафчику~s~.',
@@ -59,7 +59,7 @@ Locales['en'] = {
   ['pharmacy_take'] = 'Взять <span style="color:blue;">%s</span>',
   ['medikit'] = 'Аптечка',
   ['bandage'] = 'Бинт',
-  ['max_item'] = 'Вы уже несете достаточно.',
+  ['max_item'] = 'Достигнуто макс. кол-во',
   -- F6 Menu
   ['ems_menu'] = 'Меню доктора',
   ['ems_menu_title'] = 'Скорая помощь - меню доктора',
@@ -73,9 +73,9 @@ Locales['en'] = {
   ['respawn_available_in'] = 'Воскрешение доступно через ~b~%s минут %s секунд~s~',
   ['respawn_bleedout_in'] = 'Вы истечете кровью через ~b~%s минут %s секунд~s~\n',
   ['respawn_bleedout_prompt'] = 'Удерживайте [~b~E~s~] для возрождения',
-  ['respawn_bleedout_fine'] = 'Удерживайте [~b~E~s~] возродится для ~g~$%s~s~',
-  ['respawn_bleedout_fine_msg'] = 'Вы заплатили ~r~$%s~s~ за вохрождение',
-  ['distress_send'] = 'Нажмите [~b~G~s~] чтобы послать сигнал действия',
+  ['respawn_bleedout_fine'] = 'Удерживайте [~b~E~s~] , чтобы возродится за ~g~$%s~s~',
+  ['respawn_bleedout_fine_msg'] = 'Вы заплатили ~r~$%s~s~ за возрождение',
+  ['distress_send'] = 'Нажмите [~b~G~s~] чтобы послать сигнал бедствия',
   ['distress_sent'] = 'Сигнал бедствия был отправлен доступным юнитам',
   ['distress_message'] = 'Требуется медицинская помощь: гражданин без сознания!',
   ['combatlog_message'] = 'Вы были принудительно возрождены, потому что ранее вы покинули сервер, когда умерли.',
