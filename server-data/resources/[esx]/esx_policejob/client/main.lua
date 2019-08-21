@@ -397,6 +397,7 @@ function StoreNearbyVehicle(playerCoords)
 			if GetVehicleNumberOfPassengers(v) == 0 and IsVehicleSeatFree(v, -1) then
 				table.insert(vehiclePlates, {
 					vehicle = v,
+					props = ESX.Game.GetVehicleProperties(v),
 					plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
 				})
 			end
@@ -660,7 +661,7 @@ function OpenPoliceActionsMenu()
 					elseif action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
 					elseif action == 'get_dna' then
-						TriggerEvent('jsfour-dna:get', player)
+						TriggerEvent('jsfour-dna:get', closestPlayer)
 					elseif action == 'remove_dna' then
 						 TriggerEvent('jsfour-dna:remove')
 					end

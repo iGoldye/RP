@@ -440,16 +440,16 @@ end)
 
 ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, cb, nearbyVehicles)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local foundPlate, foundNum
+	local foundPlate, foundProps, foundNum
 
 	for k,v in ipairs(nearbyVehicles) do
-		local result = MySQL.Sync.fetchAll('SELECT plate FROM owned_vehicles WHERE plate = @plate AND job = @job', {
+		local result = MySQL.Sync.fetchAll('SELECT plate, vehicle FROM owned_vehicles WHERE plate = @plate AND job = @job', {
 			['@plate'] = v.plate,
 			['@job'] = xPlayer.job.name
 		})
 
 		if result[1] then
-			foundPlate, foundNum = result[1].plate, k
+			foundPlate, foundProps, foundNum = result[1].plate, result[1].vehicle, k
 			break
 		end
 	end
@@ -457,9 +457,27 @@ ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, 
 	if not foundPlate then
 		cb(false)
 	else
-		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true WHERE plate = @plate AND job = @job', {
+		if foundProps ~= nil then
+			foundProps = json.decode(foundProps)
+		end
+		local props = nearbyVehicles[foundNum].props
+
+		if props.health ~= nil then
+			foundProps.health = props.health
+		end
+
+		if props.engineHealth ~= nil then
+			foundProps.engineHealth = props.engineHealth
+		end
+
+		if props.bodyHealth ~= nil then
+			foundProps.bodyHealth = props.bodyHealth
+		end
+
+		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true, `vehicle` = @vehicle WHERE plate = @plate AND job = @job', {
 			['@plate'] = foundPlate,
-			['@job'] = xPlayer.job.name
+			['@job'] = xPlayer.job.name,
+			['@vehicle'] = json.encode(foundProps)
 		}, function (rowsChanged)
 			if rowsChanged == 0 then
 				print(('esx_policejob: %s has exploited the garage!'):format(xPlayer.identifier))

@@ -17,6 +17,10 @@ end, function(source, args, user)
 end, {help = "Teleport to coordinates", params = {{name = "x", help = "X coords"}, {name = "y", help = "Y coords"}, {name = "z", help = "Z coords"}}})
 
 TriggerEvent('es:addGroupCommand', 'setjob', 'jobmaster', function(source, args, user)
+	if #args > 0 and args[1] == 'me' then
+		args[1] = source
+	end
+
 	if tonumber(args[1]) and args[2] and tonumber(args[3]) then
 		local xPlayer = ESX.GetPlayerFromId(args[1])
 
