@@ -70,10 +70,10 @@ Locales['en'] = {
   -- Phone
   ['alert_ambulance'] = 'Вызвать Скорую помощь',
   -- Death
-  ['respawn_available_in'] = 'Воскрешение доступно через ~b~%s минут %s секунд~s~',
-  ['respawn_bleedout_in'] = 'Вы истечете кровью через ~b~%s минут %s секунд~s~\n',
-  ['respawn_bleedout_prompt'] = 'Удерживайте [~b~E~s~] для возрождения',
-  ['respawn_bleedout_fine'] = 'Удерживайте [~b~E~s~] , чтобы возродится за ~g~$%s~s~',
+  ['respawn_available_in'] = 'Воскрешение доступно через ~b~%s м. %s с. ~s~',
+  ['respawn_bleedout_in'] = 'Вы истечете кровью через ~b~%s м. %s с. ~s~\n',
+  ['respawn_bleedout_prompt'] = 'Зажми [~b~E~s~] для возрождения',
+  ['respawn_bleedout_fine'] = 'Зажми [~b~E~s~] , чтобы возродится за ~g~$%s~s~',
   ['respawn_bleedout_fine_msg'] = 'Вы заплатили ~r~$%s~s~ за возрождение',
   ['distress_send'] = 'Нажмите [~b~G~s~] чтобы послать сигнал бедствия',
   ['distress_sent'] = 'Сигнал бедствия был отправлен доступным юнитам',
