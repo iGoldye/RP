@@ -14,7 +14,7 @@ ESX.RegisterServerCallback('eden_garage:getVehicles', function(source, cb, KindO
 		identifier = GetPlayerIdentifiers(source)[1]
 	end
 
-	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND type = 'car'", {
+	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND type = 'car' AND job IS NULL", {
 		['@identifier'] = identifier
 	}, function(result)
 		cb(result)
@@ -90,19 +90,18 @@ ESX.RegisterServerCallback('eden_garage:stockvmecano',function(source,cb, vehicl
 	end)
 end)
 
---Change le state du véhicule
-RegisterServerEvent('eden_garage:modifystate')
-AddEventHandler('eden_garage:modifystate', function(plate, state)
+--Change vehicle stored state
+RegisterServerEvent('eden_garage:modifystored')
+AddEventHandler('eden_garage:modifystored', function(plate, stored)
 	local plate = plate
-	MySQL.Async.execute("UPDATE owned_vehicles SET state =@state WHERE plate=@plate",{
-		['@state'] = state,
+	MySQL.Async.execute("UPDATE owned_vehicles SET stored =@stored WHERE plate=@plate",{
+		['@stored'] = stored,
 		['@plate'] = plate
 	})
 end)
---Fin change le state du véhicule
 
-RegisterServerEvent('eden_garage:ChangeStateFromFourriereMecano')
-AddEventHandler('eden_garage:ChangeStateFromFourriereMecano', function(vehicleProps, fourrieremecano)
+RegisterServerEvent('eden_garage:ChangeStoredFromFourriereMecano')
+AddEventHandler('eden_garage:ChangeStoredFromFourriereMecano', function(vehicleProps, fourrieremecano)
 	local _source = source
 	local vehicleplate = ESX.Math.Trim(vehicleProps.plate)
 	local fourrieremecano = fourrieremecano
@@ -129,7 +128,7 @@ ESX.RegisterServerCallback('eden_garage:getOutVehicles',function(source, cb, Kin
 		identifier = GetPlayerIdentifiers(source)[1]
 	end
 
-	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND (state = FALSE OR fourrieremecano = TRUE)",{
+	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND (stored = FALSE OR fourrieremecano = TRUE)",{
 		['@identifier'] = identifier
 	}, function(result)
 		cb(result)
@@ -153,7 +152,7 @@ end)
 
 if Config.StoreOnServerStart then
 	MySQL.ready(function()
-		MySQL.Async.execute("UPDATE owned_vehicles SET state=true WHERE state=false", {})
+		MySQL.Async.execute("UPDATE owned_vehicles SET stored=true WHERE stored=false", {})
 	end)
 end
 

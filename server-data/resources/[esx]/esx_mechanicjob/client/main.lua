@@ -351,6 +351,7 @@ function OpenMobileMechanicActionsMenu()
 					SetVehicleUndriveable(vehicle, false)
 					SetVehicleEngineOn(vehicle, true, true)
 					ClearPedTasksImmediately(playerPed)
+					TriggerEvent('esx_carsync:updateCarHealth', vehicle)
 
 					ESX.ShowNotification(_U('vehicle_repaired'))
 					isBusy = false

@@ -11,7 +11,7 @@ server_scripts {
 	'@mysql-async/lib/MySQL.lua',
 	'config.lua',
 	'esx_jb_eden_garage2_sv.lua',
-	'version.lua'
+--	'version.lua'
 }
 
 client_scripts {

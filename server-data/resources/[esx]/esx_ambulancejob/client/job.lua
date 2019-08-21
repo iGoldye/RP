@@ -570,6 +570,7 @@ function StoreNearbyVehicle(playerCoords)
 			if GetVehicleNumberOfPassengers(v) == 0 and IsVehicleSeatFree(v, -1) then
 				table.insert(vehiclePlates, {
 					vehicle = v,
+					props = ESX.Game.GetVehicleProperties(v),
 					plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
 				})
 			end
