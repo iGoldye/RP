@@ -62,7 +62,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 
 				if v.fourrieremecano then
 					vehicleLabel = vehicleName..': Fourrière externe'
-				elseif v.state then
+				elseif v.stored then
 					vehicleLabel = vehicleName..': В гараже'
 				else
 					vehicleLabel = vehicleName..': Вне гаража'
@@ -71,7 +71,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				table.insert(elements, {
 					label = vehicleLabel,
 					vehicleName = vehicleName,
-					state = v.state,
+					stored = v.stored,
 					plate = vehicleProps.plate,
 					fourrieremecano = v.fourrieremecano,
 				})
@@ -97,7 +97,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				if data2.current.value == "get_vehicle_out" then
 					if data.current.fourrieremecano then
 						TriggerEvent('esx:showNotification', 'Votre véhicule est dans la fourrieremecano')
-					elseif data.current.state then
+					elseif data.current.stored then
 						menu.close()
 						menu2.close()
 						SpawnVehicle(vehicleProps, garage, KindOfVehicle)
@@ -150,7 +150,7 @@ function ListVehiclesFourriereMenu(garage)
 			local vehicleProps = vehiclePropsList[data.current.plate]
 			menu.close()
 			SpawnVehicleMecano(vehicleProps, garage)
-			TriggerServerEvent('eden_garage:ChangeStateFromFourriereMecano', vehicleProps, false)
+			TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', vehicleProps, false)
 		end, function(data, menu)
 			menu.close()
 		end)
@@ -177,7 +177,7 @@ function StockVehicleMenu(KindOfVehicle)
 							end
 						end
 						DeleteEntity(TrailerHandle)
-						TriggerServerEvent('eden_garage:modifystate', trailerProps.plate, true)
+						TriggerServerEvent('eden_garage:modifystored', trailerProps.plate, true)
 						TriggerEvent('esx:showNotification', 'Votre remorque est dans le garage')
 					else
 						TriggerEvent('esx:showNotification', 'Вы не можете оставить этот автомобиль')
@@ -193,7 +193,7 @@ function StockVehicleMenu(KindOfVehicle)
 							end
 						end
 						DeleteEntity(vehicle)
-						TriggerServerEvent('eden_garage:modifystate', vehicleProps.plate, true)
+						TriggerServerEvent('eden_garage:modifystored', vehicleProps.plate, true)
 						TriggerEvent('esx:showNotification', 'Ваш транспорт припаркован')
 					else
 						TriggerEvent('esx:showNotification', 'Вы не можете оставить этот транспорт здесь')
@@ -221,7 +221,7 @@ function StockVehicleFourriereMenu()
 				ESX.TriggerServerCallback('eden_garage:stockvmecano',function(valid)
 					if(valid) then
 						DeleteVehicle(TrailerHandle)
-						TriggerServerEvent('eden_garage:ChangeStateFromFourriereMecano', trailerProps, true)
+						TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', trailerProps, true)
 						TriggerEvent('esx:showNotification', 'La remorque est rentré dans la fourrière')
 					else
 						TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker cette remorque dans la fourrière')
@@ -232,7 +232,7 @@ function StockVehicleFourriereMenu()
 				ESX.TriggerServerCallback('eden_garage:stockvmecano',function(valid)
 					if(valid) then
 						DeleteVehicle(vehicle)
-						TriggerServerEvent('eden_garage:ChangeStateFromFourriereMecano', vehicleProps, true)
+						TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', vehicleProps, true)
 						TriggerEvent('esx:showNotification', 'Le véhicule est rentré dans la fourrière')
 					else
 						TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker ce véhicule dans la fourrière')
@@ -266,7 +266,7 @@ function SpawnVehicle(vehicle, garage, KindOfVehicle)
 				TriggerEvent('esx_jobs2:addplate', carplate)
 			end
 		end)
-	TriggerServerEvent('eden_garage:modifystate', vehicle.plate, false)
+	TriggerServerEvent('eden_garage:modifystored', vehicle.plate, false)
 end
 --Fin fonction pour spawn vehicule
 
@@ -280,7 +280,7 @@ function SpawnVehicleMecano(vehicle, garage)
 			ESX.Game.SetVehicleProperties(callback_vehicle, vehicle)
 			TaskWarpPedIntoVehicle(PlayerPedId(), callback_vehicle, -1)
 		end)
-	TriggerServerEvent('eden_garage:ChangeStateFromFourriereMecano', vehicle, false)
+	TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', vehicle, false)
 end
 --Fin fonction pour spawn vehicule fourriere mecano
 

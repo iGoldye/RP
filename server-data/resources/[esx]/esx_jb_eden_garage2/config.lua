@@ -12,17 +12,17 @@ Config.Garages = {
 		Pos = {x=215.800, y=-810.057, z=30.727},
 		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
 		Name = 'Гараж',
-		HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы открыть гараж",
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
 			Pos = {x=229.700, y= -800.1149, z= 30.5722},
 			Heading = 160.0,
 			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы выгнать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x=215.124, y=-791.377, z=30.646},
 			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы припарковать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
 
@@ -32,17 +32,17 @@ Config.Garages = {
 		Pos = {x = -1229.431,y = -662.517,z = 25.896},
 		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
 		Name = 'Гараж',
-		HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы открыть гараж",
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
 			Pos = {x = -1220.64,y = -654.36,z = 25.942},
 			Heading = 160.0,
 			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы выгнать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x = -1233.722,y = -654.880,z = 25.942},
 			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы припарковать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
 
@@ -51,17 +51,17 @@ Config.Garages = {
 		Pos = {x=90.769, y=6363.176, z=31.2373},
 		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
 		Name = 'Гараж',
-		HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы открыть гараж",
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
 			Pos = {x=109.12322, y= 6380.6765, z= 31.2328},
 			Heading = 160.0,
 			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы выгнать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x=77.082, y=6384.5410, z=31.2365},
 			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы припарковать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
 
@@ -74,12 +74,12 @@ Config.Garages = {
 			Pos = {x=1638.53322, y= 3795.6265, z= 34.8128},
 			Heading = 160.0,
 			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы выгнать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x=1626.472, y=3786.1710, z=34.6965},
 			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-			HelpPrompt = "Нажмите ~INPUT_PICKUP~ что бы припарковать транспорт",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
 
