@@ -4,23 +4,23 @@ Config.DrawDistance               = 100.0
 
 Config.Marker                     = { type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 
-Config.ReviveReward               = 700  -- revive reward, set to 0 if you don't want it enabled
+Config.ReviveReward               = 50 -- revive reward, set to 0 if you don't want it enabled
 Config.AntiCombatLog              = true -- enable anti-combat logging?
-Config.LoadIpl                    = true -- disable if you're using fivem-ipl or other IPL loaders
+Config.LoadIpl                    = false -- disable if you're using fivem-ipl or other IPL loaders
 
 Config.Locale = 'en'
 
 local second = 1000
 local minute = 60 * second
 
-Config.EarlyRespawnTimer          = 2 * minute  -- Time til respawn is available
-Config.BleedoutTimer              = 10 * minute -- Time til the player bleeds out
+Config.EarlyRespawnTimer          = 0.5 * minute  -- Time til respawn is available
+Config.BleedoutTimer              = 15 * minute -- Time til the player bleeds out
 
 Config.EnablePlayerManagement     = true
 
-Config.RemoveWeaponsAfterRPDeath  = true
-Config.RemoveCashAfterRPDeath     = true
-Config.RemoveItemsAfterRPDeath    = true
+Config.RemoveWeaponsAfterRPDeath  = false
+Config.RemoveCashAfterRPDeath     = false
+Config.RemoveItemsAfterRPDeath    = false
 
 Config.EnableMoneyWash            = true -- allow medics to wash black money
 
