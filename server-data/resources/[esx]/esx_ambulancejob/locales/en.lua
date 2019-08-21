@@ -71,7 +71,7 @@ Locales['en'] = {
   ['alert_ambulance'] = 'Вызвать Скорую помощь',
   -- Death
   ['respawn_available_in'] = 'Воскрешение доступно через ~b~%s м. %s с. ~s~',
-  ['respawn_bleedout_in'] = 'Вы истечете кровью через ~b~%s м. %s с. ~s~\n',
+  ['respawn_bleedout_in'] = 'Истечение кровью: ~b~%s м. %s с. ~s~\n',
   ['respawn_bleedout_prompt'] = 'Зажми [~b~E~s~] для возрождения',
   ['respawn_bleedout_fine'] = 'Зажми [~b~E~s~] , чтобы возродится за ~g~$%s~s~',
   ['respawn_bleedout_fine_msg'] = 'Вы заплатили ~r~$%s~s~ за возрождение',
