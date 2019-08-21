@@ -343,3 +343,9 @@ function dump(o)
       return tostring(o)
    end
 end
+
+RegisterNetEvent('esx_documents:openMainMenu')
+AddEventHandler('esx_documents:openMainMenu', function(player)
+	Menu.hidden = false
+	OpenMainMenu()
+end)
