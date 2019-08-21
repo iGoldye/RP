@@ -606,15 +606,25 @@ end
 function OpenPoliceActionsMenu()
 	ESX.UI.Menu.CloseAll()
 
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'police_actions', {
-		title    = 'Police',
-		align    = 'top-left',
-		elements = {
+
+	local topElements = {
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
 			{label = _U('object_spawner'), value = 'object_spawner'}
-	}}, function(data, menu)
-		if data.current.value == 'citizen_interaction' then
+	}
+
+	if IsPedSittingInAnyVehicle(PlayerPedId()) then
+		table.insert(topElements, {label = _U('search_database'), value = 'search_database'})
+	end
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'police_actions', {
+		title    = 'Police',
+		align    = 'top-left',
+		elements = topElements
+	}, function(data, menu)
+		if data.current.value == 'search_database' then
+			LookupVehicle()
+		elseif data.current.value == 'citizen_interaction' then
 			local elements = {
 				{label = _U('id_card'), value = 'identity_card'},
 				{label = _U('search'), value = 'body_search'},
@@ -624,8 +634,8 @@ function OpenPoliceActionsMenu()
 				{label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
 				{label = _U('fine'), value = 'fine'},
 				{label = _U('unpaid_bills'), value = 'unpaid_bills'},
-				{label = _U('get_dna'), value = 'get_dna'},
-				{label = _U('remove_dna'), value = 'remove_dna'}
+--				{label = _U('get_dna'), value = 'get_dna'},
+--				{label = _U('remove_dna'), value = 'remove_dna'}
 			}
 
 			if Config.EnableLicenses then
@@ -682,8 +692,6 @@ function OpenPoliceActionsMenu()
 				table.insert(elements, {label = _U('impound'), value = 'impound'})
 			end
 
-			table.insert(elements, {label = _U('search_database'), value = 'search_database'})
-
 			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_interaction', {
 				title    = _U('vehicle_interaction'),
 				align    = 'top-left',
@@ -693,9 +701,7 @@ function OpenPoliceActionsMenu()
 				vehicle = ESX.Game.GetVehicleInDirection()
 				action  = data2.current.value
 
-				if action == 'search_database' then
-					LookupVehicle()
-				elseif DoesEntityExist(vehicle) then
+				if DoesEntityExist(vehicle) then
 					if action == 'vehicle_infos' then
 						local vehicleData = ESX.Game.GetVehicleProperties(vehicle)
 						OpenVehicleInfosMenu(vehicleData)
