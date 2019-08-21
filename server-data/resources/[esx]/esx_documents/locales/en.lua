@@ -88,15 +88,15 @@ Config.Documents['en'] = {
             { label = "Информация", type = "textarea", value = "", can_be_emtpy = false },
           }
         },
-        {
-          headerTitle = "CLEAN CITIZEN CRIMINAL RECORD",
-          headerSubtitle = "Official clean, general purpose, citizen criminal record.",
-          elements = {
-            { label = "CITIZEN FIRSTNAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "CITIZEN LASTNAME", type = "input", value = "", can_be_emtpy = false },
-            { label = "VALID UNTIL", type = "input", value = "", can_be_empty = false },
-            { label = "RECORD", type = "textarea", value = "THE POLICE HEREBY DECLARES THAT THE AFOREMENTIONED CITIZEN HOLDS A CLEAR CRIMINAL RECORD. THIS RESULT IS GENERATED FROM DATA SUBMITTED IN THE CRIMINAL RECORD SYSTEM BY THE DOCUMENT SIGN DATE.", can_be_emtpy = false, can_be_edited = false },
-          }         }
+        -- {
+        --   headerTitle = "CLEAN CITIZEN CRIMINAL RECORD",
+        --   headerSubtitle = "Official clean, general purpose, citizen criminal record.",
+        --   elements = {
+        --     { label = "CITIZEN FIRSTNAME", type = "input", value = "", can_be_emtpy = false },
+        --     { label = "CITIZEN LASTNAME", type = "input", value = "", can_be_emtpy = false },
+        --     { label = "VALID UNTIL", type = "input", value = "", can_be_empty = false },
+        --     { label = "RECORD", type = "textarea", value = "", can_be_emtpy = false, can_be_edited = false },
+        --   }         }
       },
       ["ambulance"] = {
         {
