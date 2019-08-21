@@ -22,14 +22,19 @@ AddEventHandler('playerSpawned', function(spawn)
 end)
 
 function EnableGui(state)
-	SetNuiFocus(state, state)
 	guiEnabled = state
+	SetNuiFocus(state,state)
 
 	SendNUIMessage({
 		type = "enableui",
 		enable = state
 	})
 end
+
+RegisterNetEvent('esx_identity:hasIdentity')
+AddEventHandler('esx_identity:hasIdentity', function(cb)
+	cb(hasIdentity)
+end)
 
 RegisterNetEvent('esx_identity:showRegisterIdentity')
 AddEventHandler('esx_identity:showRegisterIdentity', function()
@@ -89,11 +94,21 @@ RegisterNUICallback('register', function(data, cb)
 		TriggerServerEvent('esx_identity:setIdentity', data, myIdentifiers)
 		EnableGui(false)
 		Citizen.Wait(500)
-		TriggerEvent('esx_skin:openSaveableMenu', myIdentifiers.id)
+
+		openSkinMenu()
 	else
 		ESX.ShowNotification(reason)
+		EnableGui(true)
 	end
 end)
+
+function openSkinMenu()
+	TriggerEvent('esx_skin:openSaveableMenu', function()
+-- successfully registered
+	end, function()
+		openSkinMenu()
+	end)
+end
 
 Citizen.CreateThread(function()
 	while true do
@@ -117,8 +132,15 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 143, true) -- disable melee
 			DisableControlAction(0, 75,  true) -- disable exit vehicle
 			DisableControlAction(27, 75, true) -- disable exit vehicle
+			DisableControlAction(0, 243, true) -- disable tilde
+			SetNuiFocus(true,true)
 		end
-		Citizen.Wait(10)
+
+		if hasIdentity == false then
+			SetEntityVisible(PlayerPedId(), not guiEnabled)
+		end
+
+		Citizen.Wait(0)
 	end
 end)
 
