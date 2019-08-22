@@ -19,7 +19,7 @@ AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 		return
 	end
 	
-	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE stored = false and fourrieremecano = false', {
+	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE `stored` = false and fourrieremecano = false', {
 	}, function(results)
 	                
 		for i=1,#results do

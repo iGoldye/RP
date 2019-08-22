@@ -945,8 +945,10 @@ AddEventHandler('esx_ambulancejob:heal', function(healType, quiet)
 	if healType == 'small' then
 		local health = GetEntityHealth(playerPed)
 		local newHealth = math.min(maxHealth, math.floor(health + maxHealth / 8))
+		SetEntityMaxHealth(playerPed, 200)
 		SetEntityHealth(playerPed, newHealth)
 	elseif healType == 'big' then
+		SetEntityMaxHealth(playerPed, 200)
 		SetEntityHealth(playerPed, maxHealth)
 	end
 

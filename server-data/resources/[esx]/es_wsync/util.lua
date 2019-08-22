@@ -2,9 +2,9 @@
 function timeToHMS(time)
 	time = time
 
-	hour = math.floor(((time)/60)%24)
-	minute = math.floor((time)%60)
-	second = math.floor((time-math.floor(time))*60)
+	hour = math.floor(((time)/3600)%24)
+	minute = math.floor(((time)/60)%60)
+	second = math.floor(time)%60
 
 	return hour, minute, second
 end
