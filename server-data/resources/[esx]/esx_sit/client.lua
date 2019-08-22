@@ -369,6 +369,11 @@ end
 
 function sitInPlace(rec)
 	local playerPed = GetPlayerPed(-1)
+
+	if IsPedSwimming(playerPed) or IsEntityInAir(playerPed) or IsEntityDead(playerPed) or IsEntityAttached(playerPed) then
+		return
+	end
+
 	lastPos = GetEntityCoords(playerPed)
 	local heading = GetEntityHeading(playerPed)
 

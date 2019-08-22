@@ -6,13 +6,18 @@ local currentState = "stand"
 
 function setState(state)
 	local ped = PlayerPedId()
-	if IsPedInAnyVehicle(ped, true) and state ~= "stand" then
-		return
-	end
 
 	if state == currentState then
 		return
 	end
+
+	if (IsPedInAnyVehicle(ped, true) or IsPedSwimming(ped) or IsEntityInAir(ped) or IsEntityDead(ped) or IsEntityAttached(ped)) then
+		if state ~= "stand" then
+			return
+		end
+		ClearPedTasks(ped)
+	end
+
 --	print("Crouch state transition: "..currentState.." -> "..state)
 
 	if state == "crouch" and currentState == "stand" then
@@ -84,21 +89,27 @@ function setState(state)
 	print("Incorrect crouch state transition: "..currentState.." -> "..state)
 
 end
+Citizen.CreateThread( function()
+	while true do
+		Citizen.Wait( 100 )
+		local ped = GetPlayerPed( -1 )
 
+		if IsPedInAnyVehicle(ped, true) or IsPedSwimming(ped) or IsEntityInAir(ped) or IsEntityDead(ped) or IsEntityAttached(ped) then
+			setState("stand")
+		end
+	end
+end)
 
 Citizen.CreateThread( function()
 	while true do
 		Citizen.Wait( 0 )
 		local ped = GetPlayerPed( -1 )
+
 		if ( DoesEntityExist( ped ) and not IsEntityDead( ped ) ) then
 			ProneMovement()
 			DisableControlAction( 0, crouchKey, true )
 			if ( not IsPauseMenuActive() ) then
-				if currentState == "prone" and IsPedInAnyVehicle(ped, true) then
-					setState("stand")
-					ClearPedTasks(ped)
-
-				elseif IsControlJustPressed(0, 20) and IsControlPressed(0, 21) and currentState == "stand" and (IsPedSprinting(ped) or IsPedRunning(ped)) and GetEntitySpeed(ped) > 5 and (not IsPedInAnyVehicle(ped, true) and not IsPedFalling(ped) and not IsPedDiving(ped) and not IsPedInCover(ped, false) and not IsPedInParachuteFreeFall(ped) and (GetPedParachuteState(ped) == 0 or GetPedParachuteState(ped) == -1) ) then
+				if IsControlJustPressed(0, 20) and IsControlPressed(0, 21) and currentState == "stand" and (IsPedSprinting(ped) or IsPedRunning(ped)) and GetEntitySpeed(ped) > 5 and (not IsPedInAnyVehicle(ped, true) and not IsPedFalling(ped) and not IsPedDiving(ped) and not IsPedInCover(ped, false) and not IsPedInParachuteFreeFall(ped) and (GetPedParachuteState(ped) == 0 or GetPedParachuteState(ped) == -1) ) then
 					ClearPedTasksImmediately(ped)
 					TaskPlayAnim(ped, "move_jump", "dive_start_run", 8.0, 1.0, -1, 0, 0.0, 0, 0, 0)
 					Citizen.Wait(1200)
@@ -151,11 +162,19 @@ function ProneMovement()
 		if IsControlPressed(0, 32) then
 			TaskPlayAnim(ped, "move_crawl", "onfront_fwd", 	8.0, 0.0, -1, 1, 0)
 		        while ( GetEntityAnimCurrentTime( ped, "move_crawl", "onfront_fwd") < 0.99 ) do
+				if currentState ~= 'prone' then
+					break
+				end
+
 				headingChange(ped)
 				Citizen.Wait(0)
 			end
 
 			while IsControlPressed(0, 32) do
+				if currentState ~= 'prone' then
+					break
+				end
+
 				headingChange(ped)
 				Citizen.Wait( 0 )
 			end
@@ -164,11 +183,19 @@ function ProneMovement()
 		elseif IsControlPressed(0, 33) then
 			TaskPlayAnim(ped, "move_crawl", "onfront_bwd", 	8.0, 0.0, -1, 1, 0)
 		        while ( GetEntityAnimCurrentTime( ped, "move_crawl", "onfront_bwd") < 0.99 ) do
+				if currentState ~= 'prone' then
+					break
+				end
+
 				headingChange(ped)
 				Citizen.Wait(0)
 			end
 
 			while IsControlPressed(0, 33) do
+				if currentState ~= 'prone' then
+					break
+				end
+
 				headingChange(ped)
 				Citizen.Wait( 0 )
 			end
