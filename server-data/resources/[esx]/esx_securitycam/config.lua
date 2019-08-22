@@ -26,23 +26,23 @@ Config.Zones = {
 -- Place: Behind the polices desk in the policestation
 -- Screenshot: https://i.imgur.com/f5WNrRj.jpg
 
--- Config.HackingPolice = {
--- 	HackingPolice = {
--- 		Pos   = {x = 454.77, y = -979.484, z = 29.69},
--- 		Size  = {x = 1.7, y = 1.7, z = 0.5},
--- 		Color = {r = 26, g = 55, b = 186},
--- 		Type = 27,
--- 	}
--- }
+Config.HackingPolice = {
+	HackingPolice = {
+		Pos   = {x = 454.77, y = -979.484, z = 28.69},
+		Size  = {x = 1.7, y = 1.7, z = 0.5},
+		Color = {r = 26, g = 55, b = 186},
+		Type = 27,
+	}
+}
 
--- Config.UnHackPolice = {
--- 	UnHackPolice = {
--- 		Pos   = {x = 454.77, y = -979.484, z = 29.69},
--- 		Size  = {x = 1.7, y = 1.7, z = 0.5},
--- 		Color = {r = 26, g = 55, b = 186},
--- 		Type = 27,
--- 	}
--- }
+Config.UnHackPolice = {
+	UnHackPolice = {
+		Pos   = {x = 454.77, y = -979.484, z = 28.69},
+		Size  = {x = 1.7, y = 1.7, z = 0.5},
+		Color = {r = 26, g = 55, b = 186},
+		Type = 27,
+	}
+}
 
 -- Keep these the same
 -- Place: Down at the bank vault
