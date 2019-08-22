@@ -1,8 +1,26 @@
 -- Script Created by Giant Cheese Wedge (AKA Blü)
 -- Script Modified and fixed by Hoopsure
 
+ESX = nil
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 crouchKey = 36 -- CTRL
 local currentState = "stand"
+
+function getGait()
+	local gait = ESX.GetPlayerData().gait
+	if gait == nil then
+		gait = "MOVE_M@TOUGH_GUY@"
+	end
+
+	return gait
+end
 
 function setState(state)
 	local ped = PlayerPedId()
@@ -35,28 +53,31 @@ function setState(state)
 	end
 
 	if state == "stand" and currentState == "crouch" then
-		while ( not HasAnimSetLoaded( "MOVE_M@TOUGH_GUY@" ) ) do
-			RequestAnimSet("MOVE_M@TOUGH_GUY@")
+		local gait = getGait()
+
+		while ( not HasAnimSetLoaded( gait ) ) do
+			RequestAnimSet(gait)
 			Citizen.Wait( 100 )
 		end
 
 		ResetPedMovementClipset( ped )
 		ResetPedStrafeClipset(ped)
-		SetPedMovementClipset( ped,"MOVE_M@TOUGH_GUY@", 0.5)
+		SetPedMovementClipset( ped, gait, 0.5)
 
 		currentState = "stand"
 		return
 	end
 
 	if state == "stand" and currentState == "prone" then
-		while ( not HasAnimSetLoaded( "MOVE_M@TOUGH_GUY@" ) ) do
-			RequestAnimSet("MOVE_M@TOUGH_GUY@")
+		local gait = getGait()
+		while ( not HasAnimSetLoaded( gait ) ) do
+			RequestAnimSet(gait)
 			Citizen.Wait( 100 )
 		end
 
 		ResetPedMovementClipset( ped )
 		ResetPedStrafeClipset(ped)
-		SetPedMovementClipset( ped,"MOVE_M@TOUGH_GUY@", 0.5)
+		SetPedMovementClipset( ped, gait, 0.5)
 
 		SetPedToRagdoll(ped, 10, 10, 0, 0, 0, 0)
 		Citizen.Wait(1000)
@@ -72,14 +93,15 @@ function setState(state)
 			Citizen.Wait( 100 )
 		end
 
-		while ( not HasAnimSetLoaded( "MOVE_M@TOUGH_GUY@" ) ) do
-			RequestAnimSet("MOVE_M@TOUGH_GUY@")
+		local gait = getGait()
+		while ( not HasAnimSetLoaded( gait ) ) do
+			RequestAnimSet(gait)
 			Citizen.Wait( 100 )
 		end
 
 		ResetPedMovementClipset( ped )
 		ResetPedStrafeClipset(ped)
-		SetPedMovementClipset( ped,"MOVE_M@TOUGH_GUY@", 0.5)
+		SetPedMovementClipset( ped, gait, 0.5)
 
 		SetProned()
 		currentState = "prone"

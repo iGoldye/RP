@@ -30,6 +30,8 @@ AddEventHandler('playerSpawned', function(spawn)
 end)
 
 function startAttitude(lib, anim)
+	ESX.SetPlayerData('gait', anim)
+
 	ESX.Streaming.RequestAnimSet(lib, function()
 		SetPedMovementClipset(PlayerPedId(), anim, true)
 	end)
