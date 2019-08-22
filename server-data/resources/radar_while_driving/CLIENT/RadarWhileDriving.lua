@@ -28,7 +28,7 @@ Citizen.CreateThread(function()
 				DisplayRadar(true)
 			end
 		else
-			if not Hide then
+			if not Hide and IsPedSwimmingUnderWater(PlayerPedId()) then
 				local PlayerHealth = GetEntityHealth(PlayerPedId())
 				local PlayerArmour = GetPedArmour(PlayerPedId())
 				local PlayerStamina = GetPlayerSprintStaminaRemaining(PlayerId())
