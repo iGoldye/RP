@@ -388,7 +388,24 @@ AddEventHandler('esx_ambulancejob:revive', function()
 
 		TriggerServerEvent('esx:updateLastPosition', formattedCoords)
 
+		local health = GetEntityHealth(playerPed)
+
 		RespawnPed(playerPed, formattedCoords, 0.0)
+
+		if health < 1 then
+			SetEntityMaxHealth(playerPed, 100)
+			SetEntityHealth(playerPed, 100)
+
+			local injured_anim = "move_m@injured"
+
+		        RequestAnimSet(injured_anim)
+			if not HasAnimSetLoaded(injured_anim) then
+				Citizen.Wait(100)
+			end
+
+			ESX.SetPlayerData('gait', injured_anim)
+			SetPedMovementClipset(playerPed, injured_anim, true)
+		end
 
 		StopScreenEffect('DeathFailOut')
 		DoScreenFadeIn(800)
