@@ -335,8 +335,8 @@ Citizen.CreateThread(function()
                 wait = 5
 
 
-                Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.45, '~g~[E]~w~ to Pick up the bag')
-                Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.35, '~o~[N]~w~ to Search the bag')
+                Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.45, '~g~[E]~w~Поднять сумку')
+                Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.35, '~o~[N]~w~Открыть сумку')
             
                 if IsControlJustReleased(0, Keys['E']) then
                     HasBag = true
@@ -356,8 +356,8 @@ Citizen.CreateThread(function()
                         TakeItem()
 
                     wait = 5
-                    Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.45, '~g~[E]~w~ to pick up the bag')
-                    Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.35, '~o~[N]~w~ to Search bag')
+                    Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.45, '~g~[E]~w~Поднять сумку')
+                    Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.35, '~o~[N]~w~Открыть сумку')
              
                         if IsControlJustReleased(0, Keys['E']) then
                             HasBag = true

@@ -144,9 +144,9 @@ Config.Animations = {
 			{label = "Сидеть отрешенно", type = "anim", data = {lib = "anim@amb@business@bgen@bgen_no_work@", anim = "sit_phone_idle_03_nowork", flag = 9}},
 			{label = "Скучать", type = "anim", data = {lib = "anim@amb@business@cfm@cfm_machine_no_work@", anim = "sleep_cycle_v2_operator", flag = 9}},
       {label = "Свернуться", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@lo_sofa@", anim = "lowsofa_dlg_fuckedup_laz", flag = 9}},
-      {label = "Сидеть тест", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE"}},
-			{label = "Сидеть с пончиком", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE_EATING"}},
-			{label = "Сидеть тест2", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_ARMCHAIR"}},
+      -- {label = "Сидеть тест", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE"}},
+			-- {label = "Сидеть с пончиком", type = "scenario", data = {anim = "WORLD_HUMAN_SEAT_LEDGE_EATING"}},
+			-- {label = "Сидеть тест2", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_ARMCHAIR"}},
 			{label = "На кортах", type = "anim", data = {lib = "missheistdockssetup1ig_10@idle_a", anim = "talk_pipe_a_worker1", flag = 9}},
 		}
 	},
