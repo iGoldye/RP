@@ -39,7 +39,7 @@ function giveCarKeys()
 if closestPlayer == -1 or closestDistance > 3.0 then
   ESX.ShowNotification('Рядом нет людей!')
 else
-  ESX.ShowNotification('Вы отдаль ключи от автомобиля ~g~'..vehicleProps.plate..'!')
+  ESX.ShowNotification('Вы отдали ключи от автомобиля ~g~'..vehicleProps.plate..'!')
   TriggerServerEvent('esx_givecarkeys:setVehicleOwnedPlayerId', GetPlayerServerId(closestPlayer), vehicleProps)
 end
 

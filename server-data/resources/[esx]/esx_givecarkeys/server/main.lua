@@ -57,7 +57,7 @@ AddEventHandler('esx_givecarkeys:setVehicleOwnedPlayerId', function (playerId, v
 	},
 
 	function (rowsChanged)
-		TriggerClientEvent('esx:showNotification', playerId, 'You have got a new car with plate ~g~' ..vehicleProps.plate..'!', vehicleProps.plate)
+		TriggerClientEvent('esx:showNotification', playerId, 'Вам передали ключи от автомобиля ~g~' ..vehicleProps.plate..'!', vehicleProps.plate)
 
 	end)
 end)
