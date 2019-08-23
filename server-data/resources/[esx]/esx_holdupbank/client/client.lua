@@ -37,7 +37,7 @@ RegisterNetEvent('esx_holdupbank:currentlyrobbing')
 AddEventHandler('esx_holdupbank:currentlyrobbing', function(robb)
 	holdingup = true
 	bank = robb
-	secondsRemaining = 200
+	secondsRemaining = Banks[bank].timeToRob or 200
 end)
 
 RegisterNetEvent('esx_holdupbank:killblip')
@@ -67,7 +67,7 @@ end)
 RegisterNetEvent('esx_holdupbank:robberycomplete')
 AddEventHandler('esx_holdupbank:robberycomplete', function(robb)
 	holdingup = false
-	ESX.ShowNotification(_U('robbery_complete') .. Banks[bank].reward)
+	ESX.ShowNotification(_U('robbery_complete') .. ESX.Math.GroupDigits(Banks[bank].reward))
 	bank = ""
 	secondsRemaining = 0
 	incircle = false

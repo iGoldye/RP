@@ -736,8 +736,12 @@ function OpenPoliceActionsMenu()
 							while currentTask.busy do
 								Citizen.Wait(1000)
 
-								vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 3.0, 0, 71)
-								if not DoesEntityExist(vehicle) and currentTask.busy then
+								local dist = 1000
+								if DoesEntityExist(vehicle) then
+									dist = #(GetEntityCoords(playerPed) - GetEntityCoords(vehicle))
+								end
+
+								if dist > 5.0 and currentTask.busy then
 									ESX.ShowNotification(_U('impound_canceled_moved'))
 									ESX.ClearTimeout(currentTask.task)
 									ClearPedTasks(playerPed)
@@ -777,6 +781,15 @@ function OpenPoliceActionsMenu()
 				ESX.Game.SpawnObject(data2.current.model, {x = x, y = y, z = z}, function(obj)
 					SetEntityHeading(obj, GetEntityHeading(playerPed))
 					PlaceObjectOnGroundProperly(obj)
+
+					if data2.current.model == 'p_ld_stinger_s' then
+						Citizen.CreateThread(function()
+							Citizen.Wait(1000)
+							if DoesEntityExist(obj) then
+								SetEntityDynamic(obj, false)
+							end
+						end)
+					end
 				end)
 			end, function(data2, menu2)
 				menu2.close()
@@ -788,6 +801,8 @@ function OpenPoliceActionsMenu()
 end
 
 function OpenIdentityCardMenu(player)
+	TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(player), GetPlayerServerId(PlayerId()))
+--[[
 	ESX.TriggerServerCallback('esx_policejob:getOtherPlayerData', function(data)
 		local elements = {}
 		local nameLabel = _U('name', data.name)
@@ -863,6 +878,7 @@ function OpenIdentityCardMenu(player)
 			menu.close()
 		end)
 	end, GetPlayerServerId(player))
+]]--
 end
 
 function OpenBodySearchMenu(player)
@@ -1408,6 +1424,26 @@ AddEventHandler('esx_policejob:hasExitedMarker', function(station, part, partNum
 	CurrentAction = nil
 end)
 
+function drawBox(base_coord, radius)
+	local c2 = vector3(radius,radius,radius) + base_coord
+	local c1 = vector3(-radius,-radius,-radius) + base_coord
+	DrawBox(c1, c2, 255, 0, 0, 60)
+end
+
+function dist3(coords, p1, p2, p3)
+	local minDist = #(coords-p1)
+	local dist2 = #(coords-p2)
+	local dist3 = #(coords-p3)
+	if dist2 < minDist then
+		minDist = dist2
+	end
+	if dist3 < minDist then
+		minDist = dist3
+	end
+
+	return minDist
+end
+
 AddEventHandler('esx_policejob:hasEnteredEntityZone', function(entity)
 	local playerPed = PlayerPedId()
 
@@ -1418,15 +1454,39 @@ AddEventHandler('esx_policejob:hasEnteredEntityZone', function(entity)
 	end
 
 	if GetEntityModel(entity) == GetHashKey('p_ld_stinger_s') then
-		local playerPed = PlayerPedId()
-		local coords    = GetEntityCoords(playerPed)
+		local stingerCoords = GetEntityCoords(entity)
+		local stingerHeading = GetEntityHeading(entity)
 
-		if IsPedInAnyVehicle(playerPed, false) then
+		local coords_p1 = GetObjectOffsetFromCoords(stingerCoords.x, stingerCoords.y, stingerCoords.z, stingerHeading, 0.0, 1.2, 0.0)
+		local coords_p2 = GetObjectOffsetFromCoords(stingerCoords.x, stingerCoords.y, stingerCoords.z, stingerHeading, 0.0, -1.2, 0.0)
+
+		while IsPedInAnyVehicle(playerPed, false) do
 			local vehicle = GetVehiclePedIsIn(playerPed)
+			local coords    = GetEntityCoords(vehicle)
 
-			for i=0, 7, 1 do
-				SetVehicleTyreBurst(vehicle, i, true, 1000)
+			if #(coords-stingerCoords) > 3.0 then
+				break
 			end
+
+			local radius = 0.6
+--			drawBox(stingerCoords, radius)
+--			drawBox(coords_p1, radius)
+--			drawBox(coords_p2, radius)
+
+			local tyreNames = {[0] = "wheel_lf", [4] = "wheel_lr", [2] = "wheel_lm", [3] = "wheel_rm", [1] = "wheel_rf", [5] = "wheel_rr" }
+			for k,v in pairs(tyreNames) do
+				local boneIndex = GetEntityBoneIndexByName(vehicle, v)
+				if boneIndex ~= -1 then
+					local wheelCoords = GetWorldPositionOfEntityBone(vehicle, boneIndex)
+					local wheelDist = dist3(wheelCoords, stingerCoords, coords_p1, coords_p2)
+					if wheelDist < radius and not IsVehicleTyreBurst(vehicle, k, false) then
+--						print(v.." "..tostring(k).." "..tostring(wheelDist))
+						SetVehicleTyreBurst(vehicle, k, true, 1000)
+					end
+				end
+			end
+
+			Citizen.Wait(0)
 		end
 	end
 end)
