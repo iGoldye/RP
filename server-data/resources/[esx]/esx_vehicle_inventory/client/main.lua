@@ -254,9 +254,9 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
               --  VehicleMaxSpeed(closecar,totalweight,Config.VehicleLimit[GetVehicleClass(closecar)])
 
   				      TriggerServerEvent('esx_truck_inventory:addInventoryItem', GetVehicleClass(closecar), GetDisplayNameFromVehicleModel(GetEntityModel(closecar)), GetVehicleNumberPlateText(vehFront), data3.current.value, quantity, data3.current.name,ownedV)
-                ESX.ShowNotification('Poid du coffre : ~g~'.. Kgweight .. ' Kg / '..MaxVh..' Kg')
+                ESX.ShowNotification('Вместимость багажника : ~g~'.. Kgweight .. ' Kg / '..MaxVh..' Kg')
               else
-                ESX.ShowNotification('Vous avez atteint la limite des ~r~ '..MaxVh..' Kg')
+                ESX.ShowNotification('Багажник переполнен~r~ '..MaxVh..' Kg')
               end
 				    else
 			      		ESX.ShowNotification('~r~ Неверное количество')

@@ -83,25 +83,25 @@ Config.Hospitals = {
 			-- тп на верхний этаж
 			{
 				From = vector3(340.46, -595.33, 27.59),
-				To = { coords = vector3(322.3, -597.96, 43.29), heading = 70.0 },
+				To = { coords = vector3(341.73,  -585.18, 74.17), heading = 250.0 },
 				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
 -- тп на нижний этаж
-			{
-				From = vector3(324.99, -598.66, 42.25),
-				To = { coords = vector3(337.16, -594.03, 28.79), heading = 352.0 },
-				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
-			},
+			-- {
+			-- 	From = vector3(324.99, -598.66, 42.25),
+			-- 	To = { coords = vector3(337.16, -594.03, 28.79), heading = 352.0 },
+			-- 	Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
+			-- },
 -- тп на крышу
-			{
-				From = vector3(340.05, -592.75, 42.25),
-				To = { coords = vector3(341.73, -585.18, 74.17), heading = 250.0 },
-				Marker = { type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
-			},
+			-- {
+			-- 	From = vector3(340.05, -592.75, 42.25),
+			-- 	To = { coords = vector3(341.73, -585.18, 74.17), heading = 250.0 },
+			-- 	Marker = { type = 1, x = 1.5, y = 1.5, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
+			-- },
 -- тп с крыши вниз
 			{
 				From = vector3(339.33, -584.08, 73.20),
-				To = { coords = vector3(337.94, -591.92, 43.28), heading = 62.0 },
+				To = { coords = vector3(337.16, -594.03, 28.79), heading = 352.0 },
 				Marker = { type = 1, x = 2.0, y = 2.0, z = 0.5, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
 -- ===========================================================================================================
