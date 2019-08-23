@@ -736,8 +736,12 @@ function OpenPoliceActionsMenu()
 							while currentTask.busy do
 								Citizen.Wait(1000)
 
-								vehicle = GetClosestVehicle(coords.x, coords.y, coords.z, 3.0, 0, 71)
-								if not DoesEntityExist(vehicle) and currentTask.busy then
+								local dist = 1000
+								if DoesEntityExist(vehicle) then
+									dist = #(GetEntityCoords(playerPed) - GetEntityCoords(vehicle))
+								end
+
+								if dist > 5.0 and currentTask.busy then
 									ESX.ShowNotification(_U('impound_canceled_moved'))
 									ESX.ClearTimeout(currentTask.task)
 									ClearPedTasks(playerPed)
