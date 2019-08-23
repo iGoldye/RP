@@ -115,6 +115,37 @@ function OpenVehicleMenu()
 	end)
 end
 
+function OpenReporterMenu()
+	local elements = {}
+
+	table.insert(elements, {label = 'Достать/спрятать камеру', value = 'cam'})
+	table.insert(elements, {label = 'Достать/спрятать микрофон', value = 'mic'})
+	table.insert(elements, {label = 'Достать/спрятать микрофон-удочку', value = 'bmic'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'reporter_menu', {
+		title    = "Журналист",
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+		local player, distance = ESX.Game.GetClosestPlayer()
+
+		if cmd == 'cam' then
+			TriggerEvent("Cam:ToggleCam")
+		elseif cmd == 'bmic' then
+			TriggerEvent("Mic:ToggleBMic")
+		elseif cmd == 'mic' then
+			TriggerEvent("Mic:ToggleMic")
+		end
+
+		menu.close()
+
+	end, function(data, menu)
+		menu.close()
+	end)
+
+end
+
 function OpenPersonalMenu()
 	local elements = {}
 
@@ -194,6 +225,8 @@ function OpenMenu()
 			table.insert(elements, {label = "Действия такси", value = 'taxi-actions'})
 		elseif PlayerData.job.name == 'unicorn' then
 			table.insert(elements, {label = "Действия клуба Единорог", value = 'unicorn-actions'})
+		elseif PlayerData.job.name == 'reporter' then
+			table.insert(elements, {label = "Действия журналиста", value = 'reporter-actions'})
 		end
 	end
 
@@ -243,6 +276,8 @@ function OpenMenu()
 			TriggerEvent('esx_taxijob:OpenMobileTaxiActionsMenu')
 		elseif cmd == 'unicorn-actions'then
 			TriggerEvent('esx_unicornjob:OpenSocietyActionsMenu')
+		elseif cmd == 'reporter-actions'then
+			OpenReporterMenu()
 		elseif cmd == 'personal' then
 			-- TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
 			OpenPersonalMenu()
