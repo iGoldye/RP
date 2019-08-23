@@ -87,4 +87,9 @@ Locales['en'] = {
   ['not_enough_medikit'] = 'У вас нет ~b~аптечки~s~.',
   ['not_enough_bandage'] = 'У вас нет ~b~бинта~s~.',
   ['healed'] = 'Вы были вылечены',
+  -- Billing
+  ['amount_invalid'] = 'Неверная сумма',
+  ['billing'] = 'Выставить счёт',
+  ['billing_sent'] = 'Счет был отправлен',
+  ['invoice_amount'] = 'Сумма счета',
 }

@@ -46,7 +46,8 @@ function OpenMobileAmbulanceActionsMenu()
 					{label = _U('ems_menu_revive'), value = 'revive'},
 					{label = _U('ems_menu_small'), value = 'small'},
 					{label = _U('ems_menu_big'), value = 'big'},
-					{label = _U('ems_menu_putincar'), value = 'put_in_vehicle'}
+					{label = _U('ems_menu_putincar'), value = 'put_in_vehicle'},
+					{label = _U('billing'), value = 'billing'},
 				}
 			}, function(data, menu)
 				if IsBusy then return end
@@ -56,8 +57,28 @@ function OpenMobileAmbulanceActionsMenu()
 				if closestPlayer == -1 or closestDistance > 1.0 then
 					ESX.ShowNotification(_U('no_players'))
 				else
+					if data.current.value == 'billing' then
 
-					if data.current.value == 'revive' then
+						ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
+							title = _U('invoice_amount')
+						}, function(data, menu)
+
+							local amount = tonumber(data.value)
+							if amount == nil then
+								ESX.ShowNotification(_U('amount_invalid'))
+							else
+								menu.close()
+								if closestDistance < 3.0 then
+									TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_ambulance', 'Ambulance', amount)
+									ESX.ShowNotification(_U('billing_sent'))
+								end
+							end
+
+						end, function(data, menu)
+							menu.close()
+						end)
+
+					elseif data.current.value == 'revive' then
 
 						IsBusy = true
 
