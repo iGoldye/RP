@@ -30,7 +30,7 @@ Config.Animations = {
 			{label = "Пить пиво", type = "scenario", data = {anim = "WORLD_HUMAN_DRINKING"}},
 			{label = "Тусоваться с пивом", type = "scenario", data = {anim = "WORLD_HUMAN_PARTYING"}},
 			{label = "Воображаемая гитара", type = "anim", data = {lib = "anim@mp_player_intcelebrationmale@air_guitar", anim = "air_guitar"}},
-			{label = "Сотрисать воздух", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@air_shagging", anim = "air_shagging"}},
+			{label = "Сотрясать воздух", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@air_shagging", anim = "air_shagging"}},
 			{label = "Rock'n'roll", type = "anim", data = {lib = "mp_player_int_upperrock", anim = "mp_player_int_rock", upper=true, control=true, flag = 9}},
 			{label = "Курить косяк", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING_POT"}},
 			{label = "Схватить", type = "anim", data = {lib = "anim@am_hold_up@male", anim = "shoplift_high", upper=false, control=true, flag = 9}},

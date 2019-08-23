@@ -26,7 +26,7 @@ Banks = {
 	},
 	["PrincipalBank"] = {
 		position = { ['x'] = 255.001098632813, ['y'] = 225.855895996094, ['z'] = 101.005694274902 },
-		reward = math.random(1500000,3500000),
+		reward = math.random(150000,350000),
 		nameofbank = "Хранилище (Pacific Standard)",
 		timeToRob = 200,
 		lastrobbed = 0

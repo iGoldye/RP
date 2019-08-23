@@ -136,7 +136,7 @@ Config.Documents['en'] = {
             { label = "Имя", type = "input", value = "", can_be_emtpy = false },
             { label = "Фамилия", type = "input", value = "", can_be_emtpy = false },
             { label = "Действителен доL", type = "input", value = "", can_be_empty = false },
-            { label = "Записи", type = "textarea", value = "", can_be_emtpy = false, can_be_edited = false },
+            { label = "Записи", type = "textarea", value = " ", can_be_emtpy = false},
           }
         },
 

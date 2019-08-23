@@ -30,10 +30,7 @@ Citizen.CreateThread(function()
 			local sitCoords = (wheelChairCoords + wheelChairForward * - 0.5)
 			local pickupCoords = (wheelChairCoords + wheelChairForward * 0.3)
 
-			local pedSitting = GetEntityAttachedTo(closestObject) ~= 0
-			local pedDriving = IsEntityAttachedToAnyPed(closestObject)
-
-			if pedSitting == false and GetDistanceBetweenCoords(pedCoords, sitCoords, true) <= 1.0 and not IsEntityUpsidedown(closestObject) then
+			if GetDistanceBetweenCoords(pedCoords, sitCoords, true) <= 1.0 then
 				DrawText3Ds(sitCoords, "[E] Сесть", 0.4)
 
 				if IsControlJustPressed(0, 38) then
@@ -41,7 +38,7 @@ Citizen.CreateThread(function()
 				end
 			end
 
-			if pedDriving == false and GetDistanceBetweenCoords(pedCoords, pickupCoords, true) <= 1.0 then
+			if GetDistanceBetweenCoords(pedCoords, pickupCoords, true) <= 1.0 then
 				DrawText3Ds(pickupCoords, "[E] Везти", 0.4)
 
 				if IsControlJustPressed(0, 38) then
@@ -55,20 +52,18 @@ Citizen.CreateThread(function()
 end)
 
 Sit = function(wheelchairObject)
-	local pedSitting = GetEntityAttachedTo(wheelchairObject) ~= 0
+	local closestPlayer, closestPlayerDist = GetClosestPlayer()
 
-	if pedSitting ~= false then
-		ShowNotification("Somebody is already using the wheelchair!")
-		return
+	if closestPlayer ~= nil and closestPlayerDist <= 1.5 then
+		if IsEntityPlayingAnim(GetPlayerPed(closestPlayer), 'missfinale_c2leadinoutfin_c_int', '_leadin_loop2_lester', 3) then
+			ShowNotification("Somebody is already using the wheelchair!")
+			return
+		end
 	end
 
 	LoadAnim("missfinale_c2leadinoutfin_c_int")
 
-	if not pcall(function()
-		AttachEntityToEntity(PlayerPedId(), wheelchairObject, 0, 0, 0.0, 0.4, 0.0, 0.0, 180.0, 0.0, false, false, false, false, 2, true)
-	end) then
-		return
-	end
+	AttachEntityToEntity(PlayerPedId(), wheelchairObject, 0, 0, 0.0, 0.4, 0.0, 0.0, 180.0, 0.0, false, false, false, false, 2, true)
 
 	local heading = GetEntityHeading(wheelchairObject)
 
@@ -109,40 +104,31 @@ Sit = function(wheelchairObject)
 			SetEntityHeading(wheelchairObject,  heading)
 		end
 
-		if IsEntityUpsidedown(wheelchairObject) then
-			Citizen.Wait(500)
-			if IsEntityUpsidedown(wheelchairObject) then
-				DetachEntity(PlayerPedId(), true, true)
-				Citizen.Wait(100)
-				SetPedToRagdoll(PlayerPedId(), 1000, 1000, 0, 0, 0, 0)
-			end
-		end
-
 		if IsControlJustPressed(0, 73) then
 			DetachEntity(PlayerPedId(), true, true)
+
 			local x, y, z = table.unpack(GetEntityCoords(wheelchairObject) + GetEntityForwardVector(wheelchairObject) * - 0.7)
+
 			SetEntityCoords(PlayerPedId(), x,y,z)
 		end
 	end
 end
 
 PickUp = function(wheelchairObject)
-	local pedDriving = IsEntityAttachedToAnyPed(wheelchairObject)
+	local closestPlayer, closestPlayerDist = GetClosestPlayer()
 
-	if pedDriving ~= false then
-		ShowNotification("Somebody is already driving the wheelchair!")
-		return
+	if closestPlayer ~= nil and closestPlayerDist <= 1.5 then
+		if IsEntityPlayingAnim(GetPlayerPed(closestPlayer), 'anim@heists@box_carry@', 'idle', 3) then
+			ShowNotification("Somebody is already driving the wheelchair!")
+			return
+		end
 	end
 
 	NetworkRequestControlOfEntity(wheelchairObject)
 
 	LoadAnim("anim@heists@box_carry@")
 
-	if not pcall(function()
-		AttachEntityToEntity(wheelchairObject, PlayerPedId(), GetPedBoneIndex(PlayerPedId(),  28422), -0.00, -0.3, -0.73, 195.0, 180.0, 180.0, 0.0, false, false, true, false, 2, true)
-	end) then
-		return
-	end
+	AttachEntityToEntity(wheelchairObject, PlayerPedId(), GetPedBoneIndex(PlayerPedId(),  28422), -0.00, -0.3, -0.73, 195.0, 180.0, 180.0, 0.0, false, false, true, false, 2, true)
 
 	while IsEntityAttachedToEntity(wheelchairObject, PlayerPedId()) do
 		Citizen.Wait(5)
@@ -191,6 +177,28 @@ GetPlayers = function()
     end
 
     return players
+end
+
+GetClosestPlayer = function()
+	local players = GetPlayers()
+	local closestDistance = -1
+	local closestPlayer = -1
+	local ply = GetPlayerPed(-1)
+	local plyCoords = GetEntityCoords(ply, 0)
+	
+	for index,value in ipairs(players) do
+		local target = GetPlayerPed(value)
+		if(target ~= ply) then
+			local targetCoords = GetEntityCoords(GetPlayerPed(value), 0)
+			local distance = Vdist(targetCoords["x"], targetCoords["y"], targetCoords["z"], plyCoords["x"], plyCoords["y"], plyCoords["z"])
+			if(closestDistance == -1 or closestDistance > distance) then
+				closestPlayer = value
+				closestDistance = distance
+			end
+		end
+	end
+	
+	return closestPlayer, closestDistance
 end
 
 LoadAnim = function(dict)

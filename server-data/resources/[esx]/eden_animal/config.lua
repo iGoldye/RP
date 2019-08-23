@@ -6,37 +6,37 @@ Config.PetShop = {
 	{
 		pet = 'chien',
 		label = _U('dog'),
-		price = 50000
+		price = 5000
 	},
 
 	{
 		pet = 'chat',
 		label = _U('cat'),
-		price = 15000
+		price = 3500
 	},
 
 	{
 		pet = 'lapin',
 		label = _U('bunny'),
-		price = 25000
+		price = 2500
 	},
 
 	{
 		pet = 'husky',
 		label = _U('husky'),
-		price = 35000
+		price = 5500
 	},
 
 	{
 		pet = 'cochon',
 		label = _U('pig'),
-		price = 10000
+		price = 5000
 	},
 
 	{
 		pet = 'caniche',
 		label = _U('poodle'),
-		price = 50000
+		price = 5000
 	},
 
 	{
@@ -48,19 +48,19 @@ Config.PetShop = {
 	{
 		pet = 'retriever',
 		label = _U('retriever'),
-		price = 10000
+		price = 5000
 	},
 
 	{
 		pet = 'berger',
 		label = _U('asatian'),
-		price = 55000
+		price = 5500
 	},
 
 	{
 		pet = 'westie',
 		label = _U('westie'),
-		price = 50000
+		price = 5000
 	},
 
 	-- {

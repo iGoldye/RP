@@ -19,8 +19,8 @@ RegisterServerEvent('sellDrugs')
 AddEventHandler('sellDrugs', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
-	local weedqty = inventoryItemCount(xPlayer, {'marijuana'})
-	local weedqtySingle = inventoryItemCount(xPlayer, {'cannabis'})
+	local weedqty = inventoryItemCount(xPlayer, {'weed_pooch'})
+	local weedqtySingle = inventoryItemCount(xPlayer, {'weed'})
 	local methqty = inventoryItemCount(xPlayer, {'meth_pooch'})
 	local methqtySingle = inventoryItemCount(xPlayer, {'meth'})
 	local cokeqty = inventoryItemCount(xPlayer, {'coke_pooch'})
@@ -33,7 +33,7 @@ AddEventHandler('sellDrugs', function()
 	
 	if Config.SellWeed and weedqty > 0 or Config.SellWeed and weedqtySingle > 0 then
 		if weedqty > 0 and Config.SellPooch then
-			drugType = 'marijuana'
+			drugType = 'weed_pooch'
 			if weedqty == 1 then
 				x = 1
 			elseif weedqty == 2 then
@@ -46,7 +46,7 @@ AddEventHandler('sellDrugs', function()
 				x = math.random(1,5)
 			end
 		elseif weedqtySingle > 0 and Config.SellSingle then
-			drugType = 'cannabis'
+			drugType = 'weed'
 			if weedqtySingle == 1 then
 				x = 1
 			elseif weedqtySingle == 2 then
@@ -148,7 +148,7 @@ AddEventHandler('sellDrugs', function()
 		return
 	end
 	
-	if drugType=='marijuana' then	--pooch
+	if drugType=='weed_pooch' then	--pooch
 		blackMoney = Config.WeedPrice * 5 * x
 	elseif drugType=='meth_pooch' then
 		blackMoney = Config.MethPrice * 5 * x
@@ -156,7 +156,7 @@ AddEventHandler('sellDrugs', function()
 		blackMoney = Config.CokePrice * 5 * x
 	elseif drugType=='opium_pooch' then
 		blackMoney = Config.OpiuPrice * 5 * x
-	elseif drugType=='cannabis' then	--single
+	elseif drugType=='weed' then	--single
 		blackMoney = Config.WeedPrice * x
 	elseif drugType=='meth' then
 		blackMoney = Config.MethPrice * x
@@ -182,8 +182,8 @@ AddEventHandler('check', function()
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local xPlayers = ESX.GetPlayers()
 
-	local weedqty = inventoryItemCount(xPlayer, {'marijuana'})
-	local weedqtySingle = inventoryItemCount(xPlayer, {'cannabis'})
+	local weedqty = inventoryItemCount(xPlayer, {'weed_pooch'})
+	local weedqtySingle = inventoryItemCount(xPlayer, {'weed'})
 	local methqty = inventoryItemCount(xPlayer, {'meth_pooch'})
 	local methqtySingle = inventoryItemCount(xPlayer, {'meth'})
 	local cokeqty = inventoryItemCount(xPlayer, {'coke_pooch'})

@@ -27,7 +27,7 @@ client_scripts {
 	'locales/en.lua',
 	'locales/sv.lua',
 	'config.lua',
-	-- 'client/lock_cars-client.lua',
+	'client/lock_cars-client.lua',
 --	'client/fixtraffic-client.lua',
 --	'client/npc_drop-client.lua',
 	'client/pointfinger-client.lua',
