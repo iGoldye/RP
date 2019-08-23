@@ -777,6 +777,15 @@ function OpenPoliceActionsMenu()
 				ESX.Game.SpawnObject(data2.current.model, {x = x, y = y, z = z}, function(obj)
 					SetEntityHeading(obj, GetEntityHeading(playerPed))
 					PlaceObjectOnGroundProperly(obj)
+
+					if data2.current.model == 'p_ld_stinger_s' then
+						Citizen.CreateThread(function()
+							Citizen.Wait(1000)
+							if DoesEntityExist(obj) then
+								SetEntityDynamic(obj, false)
+							end
+						end)
+					end
 				end)
 			end, function(data2, menu2)
 				menu2.close()
