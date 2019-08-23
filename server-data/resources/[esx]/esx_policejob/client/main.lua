@@ -797,6 +797,8 @@ function OpenPoliceActionsMenu()
 end
 
 function OpenIdentityCardMenu(player)
+	TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(player), GetPlayerServerId(PlayerId()))
+--[[
 	ESX.TriggerServerCallback('esx_policejob:getOtherPlayerData', function(data)
 		local elements = {}
 		local nameLabel = _U('name', data.name)
@@ -872,6 +874,7 @@ function OpenIdentityCardMenu(player)
 			menu.close()
 		end)
 	end, GetPlayerServerId(player))
+]]--
 end
 
 function OpenBodySearchMenu(player)
