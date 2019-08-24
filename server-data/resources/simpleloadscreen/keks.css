@@ -2,12 +2,11 @@ body {
   margin: 0;
   font-style: 'Ubuntu';
   overflow: hidden;
-  background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)),
-    url("bg.png");
+  background: url("bg.png");
   background-size: cover;
-  background-position: 0% 14%;
+  background-position: center;
   background-repeat: no-repeat;
-  background-color: #b5301f;
+  background-color: #52B2EB;
 }
 
 .bg {
@@ -253,8 +252,8 @@ strong {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   cursor: pointer;
-  -moz-animation: vine 1s ease-in-out, vinesare 2s infinite ease-in-out;
-  -webkit-animation: vine 1s ease-in-out, vinesare 2s infinite ease-in-out;
+  -moz-animation: vine 1s ease-in-out;
+  -webkit-animation: vine 1s ease-in-out;
 }
 
 @keyframes vine {
@@ -419,13 +418,13 @@ strong {
 
 .audio.green-audio-player .slider {
   flex-grow: 1;
-  background-color: #382068;
+  background-color: #40a5e0;
   cursor: pointer;
   position: relative;
 }
 
 .audio.green-audio-player .slider .progress {
-  background-color: #7740e5;
+  background-color: #107ebd;
   border-radius: inherit;
   position: absolute;
   pointer-events: none;
@@ -435,7 +434,7 @@ strong {
   height: 16px;
   width: 16px;
   border-radius: 8px;
-  background-color: #5f35b2;
+  background-color: #52B2EB;
   position: absolute;
   pointer-events: all;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
@@ -533,9 +532,10 @@ strong {
 }
 
 .loadbar {
-  position: relative;
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
   display: block;
-  top: 110px;
   width: 50%;
   margin: 0 auto;
   background-color: #ffffff5b;
@@ -543,12 +543,13 @@ strong {
   border: 0px solid #3d3150;
   border-radius: 15px;
   overflow: hidden;
+  transform: translate(-50%)
 }
 
 .thingy {
   width: 9%;
   border-radius: 25px;
-  background-color: #492987;
+  background-color: #52B2EB;
   height: 15px;
   position: absolute;
   left: 10%;

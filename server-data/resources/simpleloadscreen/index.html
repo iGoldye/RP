@@ -1,22 +1,30 @@
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <title>FiveM | VNATURERP</title>
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="keks.css" media="screen" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="keks.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <img alt="" class="cursor" src="cursor.png">
     <div class="audio green-audio-player">
       <div class="loading">
         <div class="spinner"></div>
       </div>
       <div class="play-pause-btn">
         <svg height="24" viewbox="0 0 18 24" width="18" xmlns="http://www.w3.org/2000/svg">
-          <path class="play-pause-icon" d="M18 12L0 24V0" fill-rule="evenodd" fill="#9d8fba" id="playPause"/>
+          <path
+            class="play-pause-icon"
+            d="M18 12L0 24V0"
+            fill-rule="evenodd"
+            fill="#9d8fba"
+            id="playPause"
+          />
         </svg>
       </div>
 
@@ -33,7 +41,12 @@
       <div class="volume">
         <div class="volume-btn">
           <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" fill-rule="evenodd" fill="#9d8fba" id="speaker"/>
+            <path
+              d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z"
+              fill-rule="evenodd"
+              fill="#9d8fba"
+              id="speaker"
+            />
           </svg>
         </div>
         <div class="volume-controls hidden">
@@ -46,14 +59,9 @@
       </div>
 
       <audio crossorigin>
-        <source src="music/music.mp3" type="audio/mpeg">
+        <source src="music/music.mp3" type="audio/mpeg" />
       </audio>
     </div>
-
-    <div class="mare">Project Sosamba presents:</div>
-    <div class="mic">VNATURERP</div>
-    <div class="enable_music">ETO NEVEROYATNO!</div>
-    <canvas id="canvas"></canvas>
     <div class="loadbar">
       <div class="thingy"></div>
     </div>
@@ -61,59 +69,56 @@
     <div class="boxulini info">
       <div class="textmare2">Info</div>
       <div class="textmicchild2">ESTABLISHED at: --.07.2019</div>
-      <div class="textmicchild2">Discord: https://discord.gg/TAXQ9GF</div>
       <div class="textmicchild2">Code: skeev_, Klarus, Sadler, awbait</div>
       <div class="textmicchild2">Owners: skeev_, Klarus</div>
     </div>
     <script src="scripts/music.js"></script>
     <script>
-      player.volume = 0.05;
-      updateVolume();
-      togglePlay();
-      var count = 0;
-      var thisCount = 0;
+      player.volume = 0.05
+      updateVolume()
+      togglePlay()
+      var count = 0
+      var thisCount = 0
 
       const emoji = {
         INIT_BEFORE_MAP_LOADED: ['🍉'],
-        INIT_AFTER_MAP_LOADED: [
-          '🍋', '🍊'
-        ],
-        INIT_SESSION: ['🍐', '🍅', '🍆']
-      };
+        INIT_AFTER_MAP_LOADED: ['🍋', '🍊'],
+        INIT_SESSION: ['🍐', '🍅', '🍆'],
+      }
 
       const handlers = {
         startInitFunctionOrder(data) {
-          count = data.count;
+          count = data.count
 
-//          document.querySelector('.letni h3').innerHTML += emoji[data.type][data.order - 1] || '';
+          //          document.querySelector('.letni h3').innerHTML += emoji[data.type][data.order - 1] || '';
         },
 
         initFunctionInvoking(data) {
-          document.querySelector('.thingy').style.left = '0%';
-          document.querySelector('.thingy').style.width = ((data.idx / count) * 100) + '%';
+          document.querySelector('.thingy').style.left = '0%'
+          document.querySelector('.thingy').style.width = (data.idx / count) * 100 + '%'
         },
 
         startDataFileEntries(data) {
-          count = data.count;
+          count = data.count
 
-//          document.querySelector('.letni h3').innerHTML += "\u{1f358}";
+          //          document.querySelector('.letni h3').innerHTML += "\u{1f358}";
         },
 
         performMapLoadFunction(data) {
-          ++ thisCount;
+          ++thisCount
 
-          document.querySelector('.thingy').style.left = '0%';
-          document.querySelector('.thingy').style.width = ((thisCount / count) * 100) + '%';
+          document.querySelector('.thingy').style.left = '0%'
+          document.querySelector('.thingy').style.width = (thisCount / count) * 100 + '%'
         },
 
         onLogLine(data) {
-//          document.querySelector('.letni p').innerHTML = data.message + "..!";
-        }
-      };
+          //          document.querySelector('.letni p').innerHTML = data.message + "..!";
+        },
+      }
 
-      window.addEventListener('message', function (e) {
-        (handlers[e.data.eventName] || function () {})(e.data);
-      });
+      window.addEventListener('message', function(e) {
+        ;(handlers[e.data.eventName] || function() {})(e.data)
+      })
     </script>
   </body>
 </html>
