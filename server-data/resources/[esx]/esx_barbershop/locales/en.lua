@@ -4,6 +4,6 @@ Locales['en'] = {
   ['no'] = 'Нет',
   ['not_enough_money'] = 'У вас не хватает денег',
   ['press_access'] = 'Нажмите ~INPUT_CONTEXT~ чтобы подстричься',
-  ['barber_blip'] = 'Барбер шоп',
+  ['barber_blip'] = 'Парикмахерская',
   ['you_paid'] = 'Вы заплатили $%s',
 }
