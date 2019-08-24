@@ -21,19 +21,19 @@ Config.OpenCarryAlert = false
 Config.BlipGunTime = 5
 
 -- Blip radius, in float value!
-Config.BlipGunRadius = 50.0
+Config.BlipGunRadius = 100.0
 
 -- In seconds
 Config.BlipMeleeTime = 7
 
 -- Blip radius, in float value!
-Config.BlipMeleeRadius = 50.0
+Config.BlipMeleeRadius = 100.0
 
 -- In seconds
 Config.BlipJackingTime = 10
 
 -- Blip radius, in float value!
-Config.BlipJackingRadius = 50.0
+Config.BlipJackingRadius = 100.0
 
 -- Show notification when cops steal too?
 Config.ShowCopsMisbehave = false
