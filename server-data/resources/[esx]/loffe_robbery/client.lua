@@ -297,6 +297,7 @@ Citizen.CreateThread(function()
                                         DrawText3D(GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 1.5, 0.4), Translation[Config.Locale]['walked_too_far'])
                                     end
                                     robbing = false
+                                    scared = false
                                 end
                             elseif canRob == 'no_cops' then
                                 local wait = GetGameTimer()+5000
