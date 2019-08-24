@@ -43,7 +43,7 @@ Citizen.CreateThread(function()
 		if CurrentBed ~= nil then
 			if OnBed then
 				local BedCoords = GetEntityCoords(CurrentBed)
-
+				DisableControlAction(0,73,true) -- disable X
 				Draw3DText({x = BedCoords.x, y = BedCoords.y, z = (BedCoords.z+1)}, 'Нажмите ~g~[Q]~w~ чтобы встать', 0.35)
 			end
 		end

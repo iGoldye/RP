@@ -7,7 +7,7 @@ local BigMapKeyInVehicle = 57
 -- Change this to false to disable the big map in vehicles
 local BigMapInVehicles = true
 -- Change this to false to enable the radar for every passenger
-local OnlyDriver = true
+local OnlyDriver = false
 
 
 
