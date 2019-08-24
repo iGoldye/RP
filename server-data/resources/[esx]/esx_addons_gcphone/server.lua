@@ -95,6 +95,11 @@ end)
 RegisterServerEvent('esx_addons_gcphone:startCall')
 AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coords)
   local source = source
+
+  if number == "admin" then
+      TriggerEvent('es_admin:report', source, message)
+  end
+
   if PhoneNumbers[number] ~= nil then
     getPhoneNumber(source, function (phone) 
       notifyAlertSMS(number, {
