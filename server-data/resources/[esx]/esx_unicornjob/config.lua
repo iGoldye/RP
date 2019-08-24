@@ -101,12 +101,12 @@ Config.Zones = {
         Color = { r = 238, g = 0, b = 0 },
         Type  = 23,
         Items = {
-            { name = 'jager',      label = _U('jager'),   price = 3 },
+            { name = 'jager',      label = _U('jager'),   price = 5 },
             { name = 'vodka',      label = _U('vodka'),   price = 4 },
-            { name = 'rhum',       label = _U('rhum'),    price = 2 },
+            { name = 'rhum',       label = _U('rhum'),    price = 6 },
             { name = 'whisky',     label = _U('whisky'),  price = 7 },
-            { name = 'tequila',    label = _U('tequila'), price = 2 },
-            { name = 'martini',    label = _U('martini'), price = 5 }
+            { name = 'tequila',    label = _U('tequila'), price = 5 },
+            { name = 'martini',    label = _U('martini'), price = 4 }
         },
     },
 
@@ -116,12 +116,12 @@ Config.Zones = {
         Color = { r = 238, g = 110, b = 0 },
         Type  = 23,
         Items = {
-            { name = 'soda',        label = _U('soda'),     price = 4 },
+            { name = 'soda',        label = _U('soda'),     price = 2 },
             { name = 'jusfruit',    label = _U('jusfruit'), price = 3 },
-            { name = 'icetea',      label = _U('icetea'),   price = 4 },
-            { name = 'energy',      label = _U('energy'),   price = 7 },
+            { name = 'icetea',      label = _U('icetea'),   price = 3 },
+            { name = 'energy',      label = _U('energy'),   price = 2 },
             { name = 'drpepper',    label = _U('drpepper'), price = 2 },
-            { name = 'limonade',    label = _U('limonade'), price = 1 }
+            { name = 'limonade',    label = _U('limonade'), price = 2 }
         },
     },
 
@@ -131,12 +131,12 @@ Config.Zones = {
         Color = { r = 142, g = 125, b = 76 },
         Type  = 23,
         Items = {
-            { name = 'bolcacahuetes',   label = _U('bolcacahuetes'),    price = 7 },
-            { name = 'bolnoixcajou',    label = _U('bolnoixcajou'),     price = 10 },
-            { name = 'bolpistache',     label = _U('bolpistache'),      price = 15 },
-            { name = 'bolchips',        label = _U('bolchips'),         price = 5 },
-            { name = 'saucisson',       label = _U('saucisson'),        price = 25 },
-            { name = 'grapperaisin',    label = _U('grapperaisin'),     price = 15 }
+            { name = 'bolcacahuetes',   label = _U('bolcacahuetes'),    price = 3 },
+            { name = 'bolnoixcajou',    label = _U('bolnoixcajou'),     price = 3 },
+            { name = 'bolpistache',     label = _U('bolpistache'),      price = 3 },
+            { name = 'bolchips',        label = _U('bolchips'),         price = 3 },
+            { name = 'saucisson',       label = _U('saucisson'),        price = 2 },
+            { name = 'grapperaisin',    label = _U('grapperaisin'),     price = 2 }
         },
     },
 
@@ -147,7 +147,7 @@ Config.Zones = {
         Type  = 23,
         Items = {
             { name = 'ice',     label = _U('ice'),      price = 1 },
-            { name = 'menthe',  label = _U('menthe'),   price = 2 }
+            { name = 'menthe',  label = _U('menthe'),   price = 1 }
         },
     },
 

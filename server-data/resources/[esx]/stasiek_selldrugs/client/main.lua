@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
 		   	local pos = GetEntityCoords(ped)
 	 		local distance = GetDistanceBetweenCoords(pos.x, pos.y, pos.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
 			local distanceFromCity = GetDistanceBetweenCoords(Config.CityPoint.x, Config.CityPoint.y, Config.CityPoint.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
-			if IsControlJustPressed(1, 38) and distance <= 3 and ped ~= player and IsPedInAnyVehicle(player) == false then
+			if IsControlJustPressed(1, 38) and distanceFromCity < Config.DistanceFromCity and distance <= 3 and ped ~= player and IsPedInAnyVehicle(player) == false then
 				if DoesEntityExist(ped)then
 					if IsPedDeadOrDying(ped) == false then
 						if IsPedInAnyVehicle(ped) == false then
