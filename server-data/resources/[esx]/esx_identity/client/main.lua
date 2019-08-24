@@ -64,6 +64,11 @@ end)
 RegisterNUICallback('register', function(data, cb)
 	local reason = ""
 	myIdentity = data
+
+	local ped = PlayerPedId()
+	SetEntityCoordsNoOffset(ped, -1042.31, -2745.59, 21.36, false, false, false, true)
+	SetEntityHeading(ped, 328.56)
+
 	for theData, value in pairs(myIdentity) do
 		if theData == "firstname" or theData == "lastname" then
 			reason = verifyName(value)
