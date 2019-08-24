@@ -324,7 +324,7 @@ Config.Animations = {
 	  {label = "Минет в машине Ж", type = "anim", data = {lib = "oddjobs@towing", anim = "f_blow_job_loop", in_vehicle=true, flag = 9}},
 		{label = "За рулем 1", type = "anim", data = {lib = "oddjobs@towing", anim = "m_blow_job_loop", in_vehicle=true, flag = 9}},
 		{label = "За рулем 2", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_player", in_vehicle=true, repeat_anim=true, flag = 9}},
-		{label = "За рулем 3", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_m"}},
+		{label = "За рулем 3", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_m", flag = 9}},
 		{label = "В машине сверху Ж", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_female", in_vehicle=true, repeat_anim=true, flag = 9}},
 		{label = "В машине сверху Ж2", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_f", flag = 9}},
 		{label = "Эскорт", type = "scenario", data = {anim = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS", flag = 9}},
