@@ -49,7 +49,22 @@ end, function(source, args, user)
 end, {help = "Установить значение жажды"})
 
 TriggerEvent('es:addGroupCommand', 'setmodel', 'admin', function(source, args, user)
-	TriggerClientEvent('admin_commands:setmodel', source, args)
+
+	if #args >= 2 then
+		local target = tonumber(args[1])
+		if target ~= nil then
+			xPlayer = ESX.GetPlayerFromId(target)
+			if xPlayer ~= nil then
+				TriggerClientEvent('admin_commands:setmodel', xPlayer.source, args[2])
+			else
+				TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Игрок не найден на сервере.' } })
+			end
+		else
+			TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Неверный ID пользователя.' } })
+		end
+	else
+		TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Неверное число аргументов.' } })
+	end
 
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
