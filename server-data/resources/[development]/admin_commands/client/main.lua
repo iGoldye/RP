@@ -59,12 +59,8 @@ AddEventHandler('admin_commands:repair', function(args)
 end)
 
 RegisterNetEvent('admin_commands:setmodel')
-AddEventHandler('admin_commands:setmodel', function(args)
-		if #args < 1 then
-			TriggerEvent('chat:addMessage', { args = { '^1SYSTEM', 'Неверное число аргументов.' } })
-		end
-
-		local characterModel = _ch(args[1])
+AddEventHandler('admin_commands:setmodel', function(model)
+		local characterModel = _ch(model)
 
 		RequestModel(characterModel)
 		for i=1,10 do
