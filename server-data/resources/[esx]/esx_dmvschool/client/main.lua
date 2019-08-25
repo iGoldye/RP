@@ -437,6 +437,7 @@ Citizen.CreateThread(function()
 						againstTrafficTimer = 0
 					end
 
+--[[
 					if GetTimeSincePlayerDroveOnPavement(PlayerId()) < 100 then
 						onPavementTimer = onPavementTimer + 100
 						Citizen.Wait(100)
@@ -451,7 +452,8 @@ Citizen.CreateThread(function()
 						ESX.ShowNotification(_U('errors', DriveErrors, Config.MaxErrors))
 
 						onPavementTimer = 0
-					elseif againstTrafficTimer > 1000 then
+]]--
+					if againstTrafficTimer > 1000 then
 						DriveErrors = DriveErrors + 1
 
 						ESX.ShowNotification(_U('driving_against_traffic'))
