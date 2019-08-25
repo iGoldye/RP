@@ -53,7 +53,7 @@ RegisterNetEvent('esx_holdupbank:currentlyrobbing')
 AddEventHandler('esx_holdupbank:currentlyrobbing', function(robb)
 	holdingup = true
 	bank = robb
-	secondsRemaining = 300
+	secondsRemaining = 120
 end)
 
 RegisterNetEvent('esx_holdupbank:currentlyhacking')
@@ -63,7 +63,7 @@ AddEventHandler('esx_holdupbank:currentlyhacking', function(robb, thisbank)
 	TriggerEvent("mhacking:start",7,150, opendoors)
 	savedbank = thisbank
 	bank = robb
-	secondsRemaining = 300
+	secondsRemaining = 120
 end)
 
 RegisterNetEvent('esx_holdupbank:plantingbomb')
