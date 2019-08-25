@@ -30,6 +30,8 @@ function OpenShopMenu()
 					if bought then
 						TriggerEvent('skinchanger:getSkin', function(skin)
 							TriggerServerEvent('esx_skin:save', skin)
+							TriggerServerEvent('esx_accessories:save', skin, "Helmet")
+							TriggerServerEvent('esx_accessories:save', skin, "Glasses")
 						end)
 
 						hasPaid = true
