@@ -45,11 +45,11 @@ Banks = {
 	-- 	timeToRob = 200,
 	-- 	lastrobbed = 0
 	-- },
-	["fleeca5"] = {
-		position = { ['x'] = 1176.85, ['y'] = 2711.77, ['z'] = 38.1 },
-		reward = math.random(10000, 20000),
-		nameofbank = "Сейф (Fleeca Grand Senora.)",
-		timeToRob = 200,
-		lastrobbed = 0
-	},
+	-- ["fleeca5"] = {
+	-- 	position = { ['x'] = 1176.85, ['y'] = 2711.77, ['z'] = 38.1 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameofbank = "Сейф (Fleeca Grand Senora.)",
+	-- 	timeToRob = 200,
+	-- 	lastrobbed = 0
+	-- },
 }

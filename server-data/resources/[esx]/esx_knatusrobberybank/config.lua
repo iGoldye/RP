@@ -22,7 +22,7 @@ Banks = {
 		doortype = 'hei_prop_heist_sec_door'
 	},
 	["fleeca3"] = {
-		position = { ['x'] = 312.6874804688, ['y'] = -283.35476367188, ['z'] = 54.17026252747 }, --2957.6674804688
+		position = { ['x'] = 312.64, ['y'] = -288.35, ['z'] = 54.17 }, --2957.6674804688
 		hackposition = { ['x'] = 310.99, ['y'] = -283.13, ['z'] = 54.17 },
 		
 		reward = math.random(15000,25000),
@@ -39,6 +39,15 @@ Banks = {
 		lastrobbed = 0,
 		doortype = 'V_ILEV_GB_VAULDR'
 	},
+	["fleeca5"] = {
+		position = { ['x'] = 1173.22, ['y'] = 2716.29, ['z'] = 38.1 }, --2957.6674804688
+		hackposition = { ['x'] = 1176.85, ['y'] = 2711.77, ['z'] = 38.1 },
+		
+		reward = math.random(15000,25000),
+		nameofbank = "Сейф (Fleeca Grand Senora.)",
+		lastrobbed = 0,
+		doortype = 'V_ILEV_GB_VAULDR'
+	},
 	["blainecounty"] = {
 		position = { ['x'] = -107.06505584717, ['y'] = 6474.8012695313, ['z'] = 31.62670135498 },
 		hackposition = { ['x'] = -105.42505584717, ['y'] = 6471.7512695313, ['z'] = 31.62670135498 },
@@ -49,7 +58,7 @@ Banks = {
 	
 	["Pacific Standard"] = {
 		position = { ['x'] = 264.99899291992, ['y'] = 213.50576782227, ['z'] = 101.68346405029 },
-		hackposition = { ['x'] = 261.49499291992, ['y'] = 223.06776782227, ['z'] = 106.28346405029 },
+		hackposition = { ['x'] = 261.49499291992, ['y'] = 223.06776782227, ['z'] = -100.28346405029 },
         bombposition = { ['x'] = 254.12199291992, ['y'] = 225.50576782227, ['z'] = 101.87346405029 }, -- if this var is set will appear a site to plant a bomb which will open the door defined at var "bombdoortype"
 		reward = math.random(150000,350000),
 		nameofbank = "Pacific Standard",

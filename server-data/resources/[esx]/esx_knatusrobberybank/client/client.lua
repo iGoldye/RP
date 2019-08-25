@@ -204,7 +204,7 @@ AddEventHandler('esx_holdupbank:opendoors', function(x,y,z,doortype)
 	local pos = GetEntityCoords(obs);
 
 
-	local rotation = GetEntityHeading(obs) + 70
+	local rotation = GetEntityHeading(obs) + 50
 	globalcoords = coords
 	globalrotation = rotation
 	globalDoortype = doortype
