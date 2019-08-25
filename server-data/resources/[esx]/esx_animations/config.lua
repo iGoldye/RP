@@ -89,6 +89,7 @@ Config.Animations = {
 			{label = "Терминал", type = "anim", data = {lib = "iaa_int-14", anim = "cs_lestercrest_2_dual-14", flag = 9}},
 			{label = "Старт стритрейсеров", type = "anim", data = {lib = "random@street_race", anim = "grid_girl_race_start", flag = 9}},
 			{label = "Мыть руки", type = "anim", data = {lib = "missheist_agency3aig_23", anim = "urinal_sink_loop", flag = 9}},
+			{label = "Микрофон", type = "anim", data = {lib = "amb@world_human_aa_coffee@base", anim = "base", upper=true, control=true, flag = 9}},
 		}
 	},
 
