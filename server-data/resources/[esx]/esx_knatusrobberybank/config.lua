@@ -1,5 +1,5 @@
 Config = {}
-Config.Locale = 'es'
+Config.Locale = 'en'
 Config.NumberOfCopsRequired = 0
 
 Banks = {
@@ -21,20 +21,38 @@ Banks = {
 		lastrobbed = 0,
 		doortype = 'hei_prop_heist_sec_door'
 	},
+	["fleeca3"] = {
+		-- position = { ['x'] = 312.6874804688, ['y'] = -283.35476367188, ['z'] = 54.17026252747 }, --2957.6674804688
+		hackposition = { ['x'] = 310.99, ['y'] = -283.13, ['z'] = 54.17 },
+		
+		reward = math.random(15000,25000),
+		nameofbank = "Сейф (Fleeca Meteor st.)",
+		lastrobbed = 0,
+		doortype = 'V_ILEV_GB_VAULDR'
+	},
+	["fleeca4"] = {
+		-- position = { ['x'] = -352.4974804688, ['y'] = -59.4576367188, ['z'] = 49.057026252747 }, --2957.6674804688
+		hackposition = { ['x'] = -354.01, ['y'] = -53.95, ['z'] = 49.05 },
+		
+		reward = math.random(15000,25000),
+		nameofbank = "Сейф (Fleeca Hevick ave.)",
+		lastrobbed = 0,
+		doortype = 'V_ILEV_GB_VAULDR'
+	},
 	["blainecounty"] = {
 		position = { ['x'] = -107.06505584717, ['y'] = 6474.8012695313, ['z'] = 31.62670135498 },
-		hackposition = { ['x'] = -107.06505584717, ['y'] = 6474.8012695313, ['z'] = 31.62670135498 },
+		hackposition = { ['x'] = -105.42505584717, ['y'] = 6471.7512695313, ['z'] = 31.62670135498 },
 		reward = math.random(15000,25000),
 		nameofbank = "Blaine County Savings",
 		lastrobbed = 0
 	},
 	
-	["PrincipalBank"] = {
-		position = { ['x'] = 264.99899291992, ['y'] = 213.50576782227, ['z'] = 101.68346405029 },
+	["Pacific Standard"] = {
+		-- position = { ['x'] = 264.99899291992, ['y'] = 213.50576782227, ['z'] = 101.68346405029 },
 		hackposition = { ['x'] = 261.49499291992, ['y'] = 223.06776782227, ['z'] = 106.28346405029 },
         bombposition = { ['x'] = 254.12199291992, ['y'] = 225.50576782227, ['z'] = 101.87346405029 }, -- if this var is set will appear a site to plant a bomb which will open the door defined at var "bombdoortype"
-		reward = math.random(3000000,50000000),
-		nameofbank = "Principal bank",
+		reward = math.random(150000,350000),
+		nameofbank = "Pacific Standard",
 		lastrobbed = 0,
         bombdoortype = 'v_ilev_bk_vaultdoor', -- If this var is set you will need set the var "bombposition" to work properly , you can find the name or id here: https://objects.gt-mp.net/  if you dont find it, contact with your devs
         doortype = 'hei_v_ilev_bk_gate2_pris'

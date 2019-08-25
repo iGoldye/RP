@@ -80,4 +80,14 @@ Config.Zones = {
 		},
 		showBlip = true,
 	},
+
+	HideCrime = {
+		Items = {},
+		Pos = {
+			{x = 722.96,   y = 4188.65, z = 40.111},
+			
+		
+		},
+		showBlip = false,
+	},
 }

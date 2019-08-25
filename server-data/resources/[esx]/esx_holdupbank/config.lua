@@ -16,35 +16,35 @@ Banks = {
 		nameofbank = "Сейф (Fleeca Great Ocean.)",
 		timeToRob = 200,
 		lastrobbed = 0
-	},
-	["blainecounty"] = {
-		position = { ['x'] = -107.06505584717, ['y'] = 6474.8012695313, ['z'] = 31.62670135498 },
-		reward = math.random(15000,25000),
-		nameofbank = "Сейф (Blaine County Paleto.)",
-		timeToRob = 200,
-		lastrobbed = 0
-	},
-	["PrincipalBank"] = {
-		position = { ['x'] = 255.001098632813, ['y'] = 225.855895996094, ['z'] = 101.005694274902 },
-		reward = math.random(150000,350000),
-		nameofbank = "Хранилище (Pacific Standard)",
-		timeToRob = 200,
-		lastrobbed = 0
-	},
-	["fleeca3"] = {
-		position = { ['x'] = -354.01, ['y'] = -53.95, ['z'] = 49.05 },
-		reward = math.random(10000, 20000),
-		nameofbank = "Сейф (Fleeca Hevick ave.)",
-		timeToRob = 200,
-		lastrobbed = 0
-	},
-	["fleeca4"] = {
-		position = { ['x'] = 310.99, ['y'] = -283.13, ['z'] = 54.17 },
-		reward = math.random(10000, 20000),
-		nameofbank = "Сейф (Fleeca Meteor st.)",
-		timeToRob = 200,
-		lastrobbed = 0
-	},
+	-- },
+	-- ["blainecounty"] = {
+	-- 	position = { ['x'] = -107.06505584717, ['y'] = 6474.8012695313, ['z'] = 31.62670135498 },
+	-- 	reward = math.random(15000,25000),
+	-- 	nameofbank = "Сейф (Blaine County Paleto.)",
+	-- 	timeToRob = 200,
+	-- 	lastrobbed = 0
+	-- },
+	-- ["PrincipalBank"] = {
+	-- 	position = { ['x'] = 255.001098632813, ['y'] = 225.855895996094, ['z'] = 101.005694274902 },
+	-- 	reward = math.random(150000,350000),
+	-- 	nameofbank = "Хранилище (Pacific Standard)",
+	-- 	timeToRob = 200,
+	-- 	lastrobbed = 0
+	-- },
+	-- ["fleeca3"] = {
+	-- 	position = { ['x'] = -354.01, ['y'] = -53.95, ['z'] = 49.05 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameofbank = "Сейф (Fleeca Hevick ave.)",
+	-- 	timeToRob = 200,
+	-- 	lastrobbed = 0
+	-- },
+	-- ["fleeca4"] = {
+	-- 	position = { ['x'] = 310.99, ['y'] = -283.13, ['z'] = 54.17 },
+	-- 	reward = math.random(10000, 20000),
+	-- 	nameofbank = "Сейф (Fleeca Meteor st.)",
+	-- 	timeToRob = 200,
+	-- 	lastrobbed = 0
+	-- },
 	["fleeca5"] = {
 		position = { ['x'] = 1176.85, ['y'] = 2711.77, ['z'] = 38.1 },
 		reward = math.random(10000, 20000),
