@@ -188,8 +188,12 @@ function SetPropertyOwned(name, owned)
 		enteringName = property.name
 	else
 		local gateway = GetGateway(property)
-		entering      = gateway.entering
-		enteringName  = gateway.name
+		if gateway ~= nil then
+			entering      = gateway.entering
+			enteringName  = gateway.name
+		else
+			print("Wrong gateway for property: ".. name)
+		end
 	end
 
 	if owned then
