@@ -11,7 +11,7 @@ files({
 	'html/index.html',
 	'html/js/script.js',
 	'html/img/walkietalkie.png',
-	'html/css/styles.css',
+	'html/css/style.css',
 })
 
 client_scripts {
