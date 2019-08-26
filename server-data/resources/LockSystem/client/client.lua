@@ -1,3 +1,11 @@
+ESX = nil
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 ----------------------
 -- Author : Deediezi
 -- Version 3.0
@@ -283,12 +291,16 @@ function Notify(text, duration)
 			if(not duration)then
 				duration = 0.080
 			end
+--[[
 			SetNotificationTextEntry("STRING")
 			AddTextComponentString(text)
 			Citizen.InvokeNative(0x1E6611149DB3DB6B, "CHAR_LIFEINVADER", "CHAR_LIFEINVADER", true, 1, "LockSystem V" .. _VERSION, "By Deediezi", duration)
 			DrawNotification_4(false, true)
+]]--
+			ESX.ShowNotification(text)
 		elseif(globalConf['CLIENT'].notification == 2)then
-			TriggerEvent('chatMessage', '^1LockSystem V' .. _VERSION, {255, 255, 255}, text)
+--			TriggerEvent('chatMessage', '^1LockSystem V' .. _VERSION, {255, 255, 255}, text)
+			TriggerEvent('chatMessage', '^1SYSTEM', {255, 255, 255}, text)
 		else
 			return
 		end
