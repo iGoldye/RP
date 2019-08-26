@@ -11,7 +11,8 @@ server_scripts {
 	'locales/en.lua',
 	'config.lua',
 	'config.weapons.lua',
-	'server/main.lua'
+	'server/main.lua',
+	'server/actions.lua',
 }
 
 client_scripts {
@@ -19,7 +20,8 @@ client_scripts {
 	'locales/en.lua',
 	'config.lua',
 	'config.weapons.lua',
-	'client/main.lua'
+	'client/main.lua',
+	'client/actions.lua',
 }
 
 exports {

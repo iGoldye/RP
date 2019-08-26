@@ -12,8 +12,6 @@ local Keys = {
 
 ESX = nil
 
-local InventoryInitialized = false
-
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -85,7 +83,7 @@ end)
 
 function inventoryAddMoneyItems(elements)
 	local playerData = ESX.GetPlayerData()
-	if playerData.money > 0 then
+--	if playerData.money > 0 then
 		local formattedMoney = _U('locale_currency', ESX.Math.GroupDigits(playerData.money))
 
 		local item = {}
@@ -107,10 +105,10 @@ function inventoryAddMoneyItems(elements)
 			item      = item,
 		})
 
-	end
+--	end
 
 	for i=1, #playerData.accounts, 1 do
-		if playerData.accounts[i].money > 0 then
+--		if playerData.accounts[i].money > 0 then
 			local formattedMoney = _U('locale_currency', ESX.Math.GroupDigits(playerData.accounts[i].money))
 
 			local item = {}
@@ -136,7 +134,7 @@ function inventoryAddMoneyItems(elements)
 				actions	  = {},
 			})
 
-		end
+--		end
 	end
 end
 
@@ -184,7 +182,7 @@ function inventoryAddESXItems(elements)
 				label     = playerData.inventory[i].label,
                                 description = "",
 				count     = item.amount,
-                                weight    = 1.0,
+                                weight    = 0,
 				name      = item.name,
 				item      = item,
 			})
@@ -250,18 +248,6 @@ function generateInventoryElements(inventory)
 					label = act.label,
 				})
 			end
-		end
-
-		if elem.item.droppable ~= false then
-			if elements[i].actions == nil then
-				elements[i].actions = {}
-			end
-
-			table.insert(elements[i].actions, {
-				key = "drop",
-				icon = "close-circle",
-				label = _U("inventory_action_drop"),
-			})
 		end
 
 		table.insert(elements[i].actions, {
@@ -475,46 +461,8 @@ RegisterNUICallback('do_action', function(act)
 
 end)
 
-Citizen.CreateThread(function()
-	while InventoryInitialized == false do
-		TriggerEvent('esx_inventory:initialized', function(val) InventoryInitialized = val end)
-		Citizen.Wait(100)
-	end
 
-	TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), function(item)
-
-		if item.extra.weapon.ammo > 0 then
-			showInputBox("unequip-box", "Сколько разэкипировать?", "Введите количество патронов", function(text)
-				local val = tonumber(text)
-				if val ~= nil and val >= 0 and val <= item.extra.weapon.ammo then
-					TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, val)
-				else
-					ESX.ShowNotification(_U('amount_invalid'))
-				end
-			end)
-		else
-			TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, 0)
-		end
-	end)
-
-	TriggerEvent('esx_inventory:registerItemAction', "weapon", "equip", _U("inventory_action_equip"), function(item)
-		TriggerServerEvent('esx_inventory:equipWeapon', item)
-	end)
-
-	TriggerEvent('esx_inventory:registerItemAction', "esx_item", "esx_use", _U("inventory_action_use"), function(item)
-		TriggerServerEvent('esx:useItem', item.extra.name)
-		TriggerEvent('esx_inventory:updateInventory')
-	end, function(item)
-		return item.extra and item.extra.usable == true
-	end)
-
-	TriggerEvent('esx_inventory:registerItemAction', "money_pack", "unpack", _U("inventory_action_unpack"), function(item)
-		TriggerServerEvent('esx_inventory:actionUnpackMoney', item)
-	end)
-
-	TriggerEvent('esx_inventory:registerItemAction', "passport", "show", "Просмотреть", function(item)
-		hideInventoryMenu()
-		TriggerServerEvent('sosamba_ui:actionShowPassport', item)
-	end)
-
+RegisterNetEvent('sosamba_ui:showInputBox')
+AddEventHandler('sosamba_ui:showInputBox', function(id, title, hint, cb)
+	showInputBox(id, title, hint, cb)
 end)
