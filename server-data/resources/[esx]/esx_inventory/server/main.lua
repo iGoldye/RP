@@ -155,6 +155,15 @@ function createItem(name, extra, amount, weight)
 end
 
 function addItem(name, owner, item)
+	if name == "pocket" and item.name == "esx_item" then
+		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+		if xPlayer ~= nil then
+			xPlayer.addInventoryItem(item.extra.name, item.amount)
+			return true
+		end
+		return false
+	end
+
 	local old_item_index, old_item = findItem(name, owner, item)
 	if item.amount < 0 then
 		print("Wrong item amount!")
@@ -187,6 +196,15 @@ function addItem(name, owner, item)
 end
 
 function removeItem(name, owner, item)
+	if name == "pocket" and item.name == "esx_item" then
+		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+		if xPlayer ~= nil then
+			xPlayer.removeInventoryItem(item.extra.name, item.amount)
+			return true
+		end
+		return false
+	end
+
 	local old_item_index, old_item = findItem(name, owner, item)
 	if item.amount < 0 then
 		print("Wrong item amount!")
@@ -218,8 +236,17 @@ function removeItem(name, owner, item)
 	return true
 end
 
-
+--[[
 function setItem(name, owner, item)
+	if name == "pocket" and item.name == "esx_item" then
+		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+		if xPlayer ~= nil then
+			xPlayer.addInventoryItem(item.extra.name, item.amount)
+			return true
+		end
+		return false
+	end
+
 	local old_amount = item.amount
 	local old_item_index, old_item = findItem(name, owner, item)
 	if item.amount < 0 then
@@ -257,7 +284,7 @@ function setItem(name, owner, item)
 
 	return true
 end
-
+]]--
 
 function reloadInventories()
 	Inventories = { ["pocket"] = {} }
@@ -402,6 +429,7 @@ function sendAllPickups(source)
 	end
 end
 
+--[[
 function addOrSetItem(name, owner, item, add)
 	local old_item_index, old_item = findItem(name, owner, item)
 
@@ -430,7 +458,7 @@ function addOrSetItem(name, owner, item, add)
 
 	return true
 end
-
+]]--
 
 RegisterServerEvent('esx_inventory:dropItem')
 AddEventHandler('esx_inventory:dropItem', function(name, shared, item)
@@ -611,10 +639,30 @@ AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight
 	cb(createItem(name, extra, amount, weight))
 end)
 
+
+ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, playerid, item)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local xTarget = ESX.GetPlayerFromId(playerid)
+
+	if removeItem("pocket", xPlayer.identifier, item) == true then
+		cb(addItem("pocket", xTarget.identifier, item))
+	else
+		cb(false)
+	end
+end)
+
+
+--[[
 RegisterServerEvent('esx_inventory:addItem')
 AddEventHandler('esx_inventory:addItem', function(name, owner, item, cb)
 	cb(addItem(name, owner, item))
 end)
+
+RegisterServerEvent('esx_inventory:removeItem')
+AddEventHandler('esx_inventory:removeItem', function(name, owner, item, cb)
+	cb(removeItem(name, owner, item))
+end)
+]]--
 
 RegisterServerEvent('esx_inventory:playerSpawned')
 AddEventHandler('esx_inventory:playerSpawned', function()
