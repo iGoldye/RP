@@ -71,10 +71,10 @@ Citizen.CreateThread(function()
                                 vehicle.lock()
                                 time = 0
                             else
-                                TriggerEvent("ls:notify", "You have to wait " .. (timer / 1000) .." seconds")
+                                TriggerEvent("ls:notify", "Вам нужно подождать " .. (timer / 1000) .." секунд")
                             end
                         else
-                            TriggerEvent("ls:notify", "The keys aren't inside")
+                            TriggerEvent("ls:notify", "Нет ключей внутри")
                         end
                     end
                 end
@@ -91,9 +91,9 @@ Citizen.CreateThread(function()
                         else
                             -- If the player doesn't find the keys
                             -- Lock the vehicle (players can't try to find the keys again)
-                            vehicles[localVehPlate] = "locked"
+                            vehicles[localVehPlate] = "Закрыто"
                             TriggerServerEvent("ls:lockTheVehicle", localVehPlate)
-                            TriggerEvent("ls:notify", "The keys aren't inside")
+                            TriggerEvent("ls:notify", "Нет ключей внутри")
                         end
                     end
                 end

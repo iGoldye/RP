@@ -64,7 +64,7 @@ function DrawText3D(x,y,z, text)
 
         -- Formalize the text
         SetTextColour(Config.TextColor.r,Config.TextColor.g,Config.TextColor.b,Config.TextColor.alpha)
-        SetTextScale(0.0*scale, 0.55*scale)
+        SetTextScale(0.0*scale, 0.25*scale)
         SetTextFont(Config.TextFont)
         SetTextProportional(1)
         SetTextCentre(true)

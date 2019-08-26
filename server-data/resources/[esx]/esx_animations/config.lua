@@ -136,7 +136,7 @@ Config.Animations = {
 	},
 	{
 		name  = 'sit',
-		label = 'Сидеть/лежать',
+		label = 'Сидеть/Лежать',
 		items = {
 			{label = "На земле", type = "scenario", data = {anim = "WORLD_HUMAN_PICNIC"}},
 			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
