@@ -393,8 +393,8 @@ AddEventHandler('esx_ambulancejob:revive', function()
 		RespawnPed(playerPed, formattedCoords, 0.0)
 
 		if health < 1 then
-			SetEntityMaxHealth(playerPed, 100)
-			SetEntityHealth(playerPed, 100)
+			SetEntityMaxHealth(playerPed, 125)
+			SetEntityHealth(playerPed, 125)
 
 			local injured_anim = "move_m@injured"
 

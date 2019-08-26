@@ -1,3 +1,12 @@
+ESX          = nil
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 local holdingCam = false
 local usingCam = false
 local holdingMic = false
@@ -26,6 +35,16 @@ local UI = {
 ---------------------------------------------------------------------------
 RegisterNetEvent("Cam:ToggleCam")
 AddEventHandler("Cam:ToggleCam", function()
+    if holdingMic then
+        ESX.ShowNotification("Вы уже держите микрофон")
+	return
+    end
+
+    if holdingBmic then
+        ESX.ShowNotification("Вы уже держите микрофон-удочку")
+	return
+    end
+
     if not holdingCam then
         RequestModel(GetHashKey(camModel))
         while not HasModelLoaded(GetHashKey(camModel)) do
@@ -352,6 +371,17 @@ end
 ---------------------------------------------------------------------------
 RegisterNetEvent("Mic:ToggleMic")
 AddEventHandler("Mic:ToggleMic", function()
+
+    if holdingCam then
+        ESX.ShowNotification("Вы уже держите камеру")
+	return
+    end
+
+    if holdingBmic then
+        ESX.ShowNotification("Вы уже держите микрофон-удочку")
+	return
+    end
+
     if not holdingMic then
         RequestModel(GetHashKey(micModel))
         while not HasModelLoaded(GetHashKey(micModel)) do
@@ -390,6 +420,17 @@ end)
 ---------------------------------------------------------------------------
 RegisterNetEvent("Mic:ToggleBMic")
 AddEventHandler("Mic:ToggleBMic", function()
+
+    if holdingCam then
+        ESX.ShowNotification("Вы уже держите камеру")
+	return
+    end
+
+    if holdingMic then
+        ESX.ShowNotification("Вы уже держите микрофон")
+	return
+    end
+
     if not holdingBmic then
         RequestModel(GetHashKey(bmicModel))
         while not HasModelLoaded(GetHashKey(bmicModel)) do

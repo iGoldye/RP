@@ -95,14 +95,16 @@ AddEventHandler('esx_jobs:caution', function(cautionType, cautionAmount, spawnPo
 		TriggerClientEvent('esx_jobs:spawnJobVehicle', source, spawnPoint, vehicle)
 	elseif cautionType == "give_back" then
 
+-- FIXME: In future we need to get caution amount from server config to prevent cheating!
+--[[
 		if cautionAmount > 1 then
 			print(('esx_jobs: %s is using cheat engine!'):format(xPlayer.identifier))
 			return
 		end
-
+]]--
 		TriggerEvent('esx_addonaccount:getAccount', 'caution', xPlayer.identifier, function(account)
-			local caution = account.money
-			local toGive = ESX.Math.Round(caution * cautionAmount)
+--			local caution = account.money
+			local toGive = ESX.Math.Round(cautionAmount)
 
 			xPlayer.addAccountMoney('bank', toGive)
 			account.removeMoney(toGive)
