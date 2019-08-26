@@ -27,7 +27,7 @@ TokoVoipConfig = {
 		TSChannelWait = "Server Waiting",
 
 		-- Blocking screen informations
-		TSServer = "sosamba", -- TeamSpeak server address to be displayed on blocking screen
+		TSServer = "chillout", -- TeamSpeak server address to be displayed on blocking screen
 		TSChannelSupport = "S1: Waiting For Support", -- TeamSpeak support channel name displayed on blocking screen
 		TSDownload = "url.ru", -- Download link displayed on blocking screen
 		TSChannelWhitelist = { -- Black screen will not be displayed when users are in those TS channels
