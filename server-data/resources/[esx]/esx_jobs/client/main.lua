@@ -147,7 +147,13 @@ AddEventHandler('esx_jobs:action', function(job, zone)
 									if myPlate[i] == plate then
 
 										local vehicleHealth = GetVehicleEngineHealth(vehicleInCaseofDrop)
-										local giveBack = ESX.Math.Round(vehicleHealth / vehicleMaxHealth, 2)
+										if vehicleHealth > 1000 then
+											vehicleHealth = 1000
+										elseif vehicleHealth < 0 then
+											vehicleHealth = 0
+										end
+
+										local giveBack = ESX.Math.Round(w.Caution * vehicleHealth / 1000, 2)
 
 										TriggerServerEvent('esx_jobs:caution', "give_back", giveBack, 0, 0)
 										DeleteVehicle(GetVehiclePedIsIn(playerPed, false))
