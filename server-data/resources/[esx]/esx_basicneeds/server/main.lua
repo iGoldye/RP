@@ -9,7 +9,7 @@ for k,v in pairs(Config.Food) do
 
 		xPlayer.removeInventoryItem(k, 1)
 
-		TriggerClientEvent('esx_status:add', source, 'hunger', v)
+		TriggerClientEvent('esx_status:add', source, 'hunger', v*4)
 		TriggerClientEvent('esx_basicneeds:onEat', source)
 		TriggerClientEvent('esx:showNotification', source, message)
 	end)
