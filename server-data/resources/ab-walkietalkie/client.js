@@ -1,19 +1,20 @@
+let ESX = null;
+let HasWT = false;
 let GuiOpened = false;
 let attachedPropRadio;
 
 let playerServerId = GetPlayerServerId(PlayerId());
 
+setTick(() => {
+    if (ESX === null) {
+        emit('esx:getSharedObject', (obj) => { ESX = obj });
+    }
+});
+
 Delay = (ms) => new Promise(res => setTimeout(res, ms));
 
 on('radioGui', () => {
     openGui();
-});
-
-RegisterNetEvent('ResetRadioChannel');
-onNet('ResetRadioChannel', () => {
-    console.log('reset freq');
-    // Если умер, Конфликт с волнами телефона, или еще что-то шлем сюда?
-    SendNuiMessage(JSON.stringify({reset: true}));
 });
 
 attachedPropRadio = 0;
@@ -114,18 +115,12 @@ on("__cfx_nui:close", (data, cb) => {
     let testN = parseFloat(data.channel);
     let newChannel = Math.ceil(testN * 10);
 
-
-
-
     emitNet('TokoVoip:removePlayerFromRadio', lastRadio, playerServerId);
     if (newChannel !== 0) {
-        emitNet('TokoVoip:addPlayerToRadio', newChannel, playerServerId); //FIXME: Тут тоже хрень какая-то
+        emitNet('TokoVoip:addPlayerToRadio', newChannel, playerServerId);
     }
     lastRadio = newChannel;
-    /*
-    There is currently no interface to join the radio / phone calls,
-    you will have to make your own script and commands that call the function addPlayerToRadio and removePlayerFromRadio
-    */
+
     GuiOpened = false;
     SetNuiFocus(false, false);
     SendNuiMessage(JSON.stringify({open: false}));
@@ -143,7 +138,11 @@ onNet("ab-radio:phoneCallEndedCallback", function (){
 
 setTick(() => {
     if (IsControlJustReleased(0, 168)) {
-        emit('radioGui');
+        hasWTItem((haswalkie) => {
+            if (haswalkie) {
+                emit('radioGui');
+            }
+        });
     }
 
     if (GuiOpened) {
@@ -161,3 +160,7 @@ setTick(() => {
         DisableControlAction(0, 142, GuiOpened);
     }
 });
+
+function hasWTItem(cb) {
+    ESX.TriggerServerCallback('ab-radio:getItemAmount', (qt) => { cb(qt > 0) }, 'walkietalkie');
+}

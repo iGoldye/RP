@@ -63,7 +63,7 @@ function TokoVoip.updateTokoVoipInfo(self, forceUpdate) -- Update the top-left i
 	end
 
 	if (self.plugin_data.radioTalking) then
-		info = info .. " on radio ";
+		info = info .. " в рацию ";
 	end
 	if (self.talking == 1 or self.plugin_data.radioTalking) then
 		info = "<font class='talking'>" .. info .. "</font>";
