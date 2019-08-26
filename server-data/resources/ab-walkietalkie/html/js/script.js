@@ -11,8 +11,7 @@ $(document).ready(() => {
 
     window.addEventListener('message', (event) => {
         if (event.data.open === true) {
-            console.log('msg '+Powered)
-            if (RadioChannel != '0.0' && Powered && RadioChannel) {
+            if (RadioChannel != '0.0' && Powered && !RadioChannel) {
                 console.log('return');
                 $('#radioChannel').val(RadioChannel);
             } else {
