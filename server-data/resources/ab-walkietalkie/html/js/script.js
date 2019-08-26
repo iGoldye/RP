@@ -12,10 +12,15 @@ $(document).ready(() => {
     window.addEventListener('message', (event) => {
         if (event.data.open == true) {
             $(".full-screen").css("display", "flex");
-            if (RadioChannel != '0.0' && Powered) {
+            if (RadioChannel != '0.0' && Powered && !RadioChannel) {
                 $('#radioChannel').val(RadioChannel);
             } else {
-                $('#radioChannel').val('');
+                if (Powered) {
+                    $('#radioChannel').val('');
+                    $('#radioChannel').attr('placeholder', '0-99.9');
+                } else {
+                    $('#radioChannel').attr('placeholder', 'OFF');
+                }
             }
         } else if (event.data.open == false) {
             $(".full-screen").css("display", "none");
@@ -24,10 +29,12 @@ $(document).ready(() => {
 
     $('#radioForm').submit((e) => {e.preventDefault();});
     $('#power').click(() => {
-        if (Powered === true) {
+        if (Powered === false) {
+            Powered = true;
             $('#radioChannel').val(RadioChannel);
         } else {
             $.post('http://ab-radio/close', JSON.stringify({ channel: '0.0' }));
+            Powered = false;
             closeGui();
         }
      });
@@ -35,6 +42,9 @@ $(document).ready(() => {
     document.onkeyup = function (data){
         if (data.which == 27) {
             RadioChannel = $('#radioChannel').val();
+            if (!RadioChannel) {
+                RadioChannel = '0.0';
+            }
             closeGui();
         }
     }
