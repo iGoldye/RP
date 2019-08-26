@@ -53,7 +53,7 @@ Config.Animations = {
 			{label = "Обнять", type = "anim", data = {lib = "anim@amb@nightclub@djs@switch@bmad_djset_switchover@", anim = "bmad_out_soldix_in_a_bg_male1"}},
 			{label = "Поцеловать", type = "anim", data = {lib = "mp_ped_interaction", anim = "kisses_guy_a", flag = 9}},
 			{label = "Братство", type = "anim", data = {lib = "anim@random@shop_clothes@watches", anim = "base", upper=true, control=true, flag = 9}},
-			{label = "Отдать честь", type = "anim", data = {lib = "mp_player_int_uppersalute", anim = "mp_player_int_salute", stop_last_frame=true}},
+			{label = "Отдать честь", type = "anim", data = {lib = "mp_player_int_uppersalute", anim = "mp_player_int_salute", stop_last_frame=true, upper=true, control=true,}},
 			{label = "Бро", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@bro_love", anim = "bro_love"}},
       {label = "Воздушный поцелуй", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@blow_kiss", anim = "blow_kiss"}},
 	 
