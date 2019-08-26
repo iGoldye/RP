@@ -6,7 +6,7 @@ $(document).ready(() => {
         if (RadioChannel < 0.1 || RadioChannel > 99.9) {
             RadioChannel = '0.0';
         }
-        $.post('http://ab-radio/close', JSON.stringify({ channel: RadioChannel }));
+        $.post('http://ab-walkietalkie/close', JSON.stringify({ channel: RadioChannel }));
     }
 
     window.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ $(document).ready(() => {
             Powered = true;
             $('#radioChannel').val(RadioChannel);
         } else {
-            $.post('http://ab-radio/close', JSON.stringify({ channel: '0.0' }));
+            $.post('http://ab-walkietalkie/close', JSON.stringify({ channel: '0.0' }));
             Powered = false;
             closeGui();
         }
