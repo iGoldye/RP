@@ -4,7 +4,7 @@
       <v-card>
         <v-card-title class="title">{{title}}</v-card-title>
         <v-card-text>
-            <v-text-field :label="hint" ref="textfield" v-model="text"></v-text-field>
+            <v-text-field :label="hint" ref="textfield" v-model="text" v-on:keydown="onKeyDown"></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -29,7 +29,7 @@ export default {
     },
 
     data () {
-      return {
+      return {        
         callback: undefined,
         active: false,
         text: "",
@@ -37,10 +37,7 @@ export default {
     },
 
     methods: {
-        key_down: function(event) {
-          if (this.active == false) {
-            return;
-          }
+        onKeyDown: function(event) {
           if (event.key == "Enter") {
             this.hide();
           }
@@ -49,11 +46,10 @@ export default {
         show: function(callback) {
             this.callback = callback;
             this.active = true;
-            this.data.text = "";
 
             this.$nextTick(function() {
                 this.$refs.textfield.focus();
-            })
+            })            
         },
 
         hide: function() {
@@ -63,15 +59,7 @@ export default {
             }
         },
 
-    },
-
-    created: function () {
-        this.$eventHub.$on('key_down', this.key_down);
-    },
-
-    beforeDestroy() {
-        this.$eventHub.$off('key_down');
-    },
+    }
 
 }
 
