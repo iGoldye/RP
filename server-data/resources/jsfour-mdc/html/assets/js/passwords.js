@@ -2,9 +2,9 @@
 const passwords = {
   // 'test' : 1234, // test will be the password, 1234 will be the lastdigits of the player
   // 'password' : 4321, // password will be the password, 4321 will be the lastdigits of the player
-  'sosi': 3228,
-  'suka': 1382,
-  'ebani': 8212,
+  'bibaofbuba': 9521, //klarus
+  '123456': 2481, //darthjktu
+  '46459': 5974, //stuart
 }
 
 // Number + Latdigits of the players you want to give admin rights too (they can check the logs)
@@ -12,7 +12,5 @@ const passwords = {
 const admins = {
   // '1' : 1234, // 1 is just a number the script needs, 1234 is the lastidigts of the player
   // '2' : 5678, // 2 is just a number the script needs, 5678 is the lastidigts of the player
-  '1': 3228,
-  '2': 1382,
-  '3': 8212,
+  '1': 9521,
 }
