@@ -14,6 +14,7 @@ end)
 RegisterNetEvent('esx_property:teleportOutside')
 AddEventHandler('esx_property:teleportOutside', function(outside)
 	ESX.Game.Teleport(PlayerPedId(), outside, function()
+		TriggerServerEvent('esx_property:deleteLastProperty')
 	end)
 end)
 
