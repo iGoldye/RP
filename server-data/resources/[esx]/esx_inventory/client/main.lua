@@ -1,8 +1,23 @@
 ESX = nil
 
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+
+	while ESX.GetPlayerData().job == nil do
+		Citizen.Wait(10)
+	end
+
+	TriggerEvent('esx_inventory:registerActions')
+--	ESX.PlayerData = ESX.GetPlayerData()
+end)
+
 --inventory = {}
 pickups = {}
 itemActions = {}
+itemActions["@shared"] = {}
 
 pocketWeight = 0.0
 movementSpeed = 1.0
@@ -96,16 +111,20 @@ function registerItemAction(itemName, actionName, actionLabel, cb_use, cb_if)
 end
 
 function getItemActions(itemName)
+
 	if itemActions[itemName] == nil then
-		return {}
+		itemActions[itemName] = {}
 	end
 
-	return itemActions[itemName]
+	local actions = itemActions[itemName]
+	for k,v in pairs(itemActions["@shared"]) do actions[k] = v end
+
+	return actions
 end
 
 function runItemAction(itemName, actionName, item)
-	if actionName == "drop" then
-		return action_drop(item)
+	if actionName == "giveto" then
+		return action_giveto(item)
 	elseif actionName == "return" then
 		return
 	end
@@ -121,31 +140,15 @@ function runItemAction(itemName, actionName, item)
 	return itemActions[itemName][actionName].cb(item)
 end
 
-function action_drop(item)
+function action_giveto(item)
 	local amount = item.amount
--- 	local amount = 1
---	if item.amount > 1 then
---		amount = tonumber(showInputDialog("inventory_drop_item_dialog", _U("amount")))
---	end
 
 	if amount ~= nil and amount > 0 then
-		TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
+		TriggerServerEvent('esx_inventory:giveItemTo', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
 		TriggerEvent('esx_inventory:updateInventory')
 	end
 end
 
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
-
-	while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
-	end
-
---	ESX.PlayerData = ESX.GetPlayerData()
-end)
 
 --RegisterNetEvent('esx:setJob')
 --AddEventHandler('esx:setJob', function(job)
@@ -162,7 +165,7 @@ Citizen.CreateThread(function()
 
 		for id,v in pairs(pickups) do
 			local distance = GetDistanceBetweenCoords(coords, v.coords.x, v.coords.y, v.coords.z, true)
-			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+--			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 --		 	print("Pickup distance: "..closestDistance)
 
 			if distance <= 5.0 then
@@ -173,7 +176,7 @@ Citizen.CreateThread(function()
 				}, v.label .. ' ['..v.item.amount..']')
 			end
 
-			if (closestDistance == -1 or closestDistance > 3) and distance <= 1.0 and not v.inRange and IsPedOnFoot(playerPed) then
+			if distance <= 1.0 and not v.inRange and IsPedOnFoot(playerPed) then
 				TriggerServerEvent('esx_inventory:onPickup', id)
 				PlaySoundFrontend(-1, 'PICK_UP', 'HUD_FRONTEND_DEFAULT_SOUNDSET', false)
 				v.inRange = true
@@ -355,7 +358,13 @@ function inventoryAddESXItems(elements)
 		if playerData.inventory[i].count > 0 then
 			local item = {}
 			item.name = "esx_item"
-			item.extra = {["name"]=playerData.inventory[i].name, ["label"]=playerData.inventory[i].label, ["usable"] = playerData.inventory[i].usable , ["rare"] = playerData.inventory[i].rare, ["canRemove"] = playerData.inventory[i].canRemove}
+			item.extra = {
+				["name"]=playerData.inventory[i].name,
+				["label"]=playerData.inventory[i].label,
+				["usable"] = playerData.inventory[i].usable,
+				["rare"] = playerData.inventory[i].rare,
+				["canRemove"] = playerData.inventory[i].canRemove
+			}
 			item.amount = playerData.inventory[i].count
 			item.droppable = playerData.inventory[i].canRemove
 

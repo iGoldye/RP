@@ -1,10 +1,10 @@
 <template>
   <v-layout justify-center>
-    <v-dialog v-model="active" persistent modal max-width="290">
+    <v-dialog v-model="active" persistent modal max-width="290" ref="dialog">
       <v-card>
         <v-card-title class="title">{{title}}</v-card-title>
         <v-card-text>
-            <v-text-field :label="hint" ref="textfield" v-model="text" v-on:keydown="onKeyDown"></v-text-field>
+            <v-text-field :label="hint" ref="textfield" v-if="active" v-model="text" autofocus></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -29,7 +29,7 @@ export default {
     },
 
     data () {
-      return {        
+      return {
         callback: undefined,
         active: false,
         text: "",
@@ -37,7 +37,10 @@ export default {
     },
 
     methods: {
-        onKeyDown: function(event) {
+        key_down: function(event) {
+          if (this.active == false) {
+            return;
+          }
           if (event.key == "Enter") {
             this.hide();
           }
@@ -46,10 +49,13 @@ export default {
         show: function(callback) {
             this.callback = callback;
             this.active = true;
+            this.data.text = "";
+
+            this.$refs.textfield.$el.click();
 
             this.$nextTick(function() {
-                this.$refs.textfield.focus();
-            })            
+                this.$refs.textfield.$el.click();
+            })
         },
 
         hide: function() {
@@ -59,7 +65,15 @@ export default {
             }
         },
 
-    }
+    },
+
+    created: function () {
+        this.$eventHub.$on('key_down', this.key_down);
+    },
+
+    beforeDestroy() {
+        this.$eventHub.$off('key_down');
+    },
 
 }
 

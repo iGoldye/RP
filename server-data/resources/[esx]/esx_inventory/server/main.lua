@@ -155,6 +155,31 @@ function createItem(name, extra, amount, weight)
 end
 
 function addItem(name, owner, item)
+
+	if name == "pocket" then
+		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+
+		if item.name == "esx_item" then
+			if xPlayer ~= nil then
+				xPlayer.addInventoryItem(item.extra.name, item.amount)
+				return true
+			end
+			return false
+		elseif item.name == "money" then
+			if xPlayer then
+				xPlayer.addMoney(item.amount)
+				return true
+			end
+			return false
+		elseif item.name == "black_money" then
+			if xPlayer  then
+				xPlayer.addAccountMoney('black_money', item.amount)
+				return true
+			end
+			return false
+		end
+	end
+
 	local old_item_index, old_item = findItem(name, owner, item)
 	if item.amount < 0 then
 		print("Wrong item amount!")
@@ -187,11 +212,52 @@ function addItem(name, owner, item)
 end
 
 function removeItem(name, owner, item)
-	local old_item_index, old_item = findItem(name, owner, item)
+
+	if item == nil then
+		print("Nil item!")
+		return false
+	end
+
 	if item.amount < 0 then
 		print("Wrong item amount!")
 		return false
 	end
+
+	if name == "pocket" then
+		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+
+		if item.name == "esx_item" then
+			if xPlayer ~= nil and item.extra ~= nil then
+				local curitem = xPlayer.getInventoryItem(item.extra.name)
+				if curitem == nil then
+					return false
+				end
+				if curitem.count ~= nil and curitem.count >= item.amount then
+					xPlayer.removeInventoryItem(item.extra.name, item.amount)
+				else
+					return false
+				end
+				return true
+			end
+			return false
+
+		elseif item.name == "money" then
+			if xPlayer and ESX.Round(xPlayer.getMoney() - item.amount, 2) >= 0 then
+				xPlayer.removeMoney(item.amount)
+				return true
+			end
+			return false
+		elseif item.name == "black_money" then
+			if xPlayer and ESX.Round(xPlayer.getAccount('black_money').money - item.amount, 2) >= 0 then
+				xPlayer.removeAccountMoney('black_money', item.amount)
+				return true
+			end
+			return false
+		end
+
+	end
+
+	local old_item_index, old_item = findItem(name, owner, item)
 
 	if old_item_index then
 		if old_item.amount - item.amount > 0 then
@@ -218,8 +284,17 @@ function removeItem(name, owner, item)
 	return true
 end
 
-
+--[[
 function setItem(name, owner, item)
+	if name == "pocket" and item.name == "esx_item" then
+		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
+		if xPlayer ~= nil then
+			xPlayer.addInventoryItem(item.extra.name, item.amount)
+			return true
+		end
+		return false
+	end
+
 	local old_amount = item.amount
 	local old_item_index, old_item = findItem(name, owner, item)
 	if item.amount < 0 then
@@ -257,7 +332,7 @@ function setItem(name, owner, item)
 
 	return true
 end
-
+]]--
 
 function reloadInventories()
 	Inventories = { ["pocket"] = {} }
@@ -385,7 +460,7 @@ function createPickup(source, item, label)
 	local pickup = {}
 
 	pickup.id = global_pickup_id
-	pickup.item = item
+	pickup.item = duplicateItem(item)
 	pickup.label = label
 	pickup.coords = players[source].coords + players[source].forward * -2.0
 	pickup.source = source
@@ -402,6 +477,7 @@ function sendAllPickups(source)
 	end
 end
 
+--[[
 function addOrSetItem(name, owner, item, add)
 	local old_item_index, old_item = findItem(name, owner, item)
 
@@ -430,7 +506,7 @@ function addOrSetItem(name, owner, item, add)
 
 	return true
 end
-
+]]--
 
 RegisterServerEvent('esx_inventory:dropItem')
 AddEventHandler('esx_inventory:dropItem', function(name, shared, item)
@@ -457,46 +533,11 @@ AddEventHandler('esx_inventory:dropItem', function(name, shared, item)
 		owner = xPlayer.identifier
 	end	
 
-	if item.name == "money" then
---		print(item.amount)
-		if ESX.Round(xPlayer.getMoney() - item.amount, 2) >= 0 then
-			local item = {name = "money", extra = {}, amount = item.amount}
-			if createPickup(source, item, getItemLabel(item)) == true then
-				xPlayer.removeMoney(item.amount)
-			end
-		end
-	elseif item.name == "black_money" and xPlayer.getAccount('black_money') ~= nil then
-		if ESX.Round(xPlayer.getAccount('black_money').money - item.amount, 2) >= 0 then
-			local item = {name = "black_money", extra = {}, amount = item.amount}
-			if createPickup(source, item, getItemLabel(item)) == true then
-				xPlayer.removeAccountMoney('black_money', item.amount)
-			end
-		end
-	elseif item.name == "weapon" then			
-			if removeItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount}) then
-				if (createPickup(source, item, getItemLabel(item)) == false) then
-					addItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount})
-				end
-			end
-	elseif item.name == "esx_item" then			
-			if createPickup(source, item, item.extra.label) == true then
-				xPlayer.removeInventoryItem(item.extra.name, item.amount)
-			end
-
-	else
-		local ind, val = findItem(name, owner, item)
-		if val == nil then
-			print("Unable to drop item "..json.encode(item).."!")
-		else
-			if removeItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount}) then
-				if createPickup(source, item, getItemLabel(item)) == false then
-					addItem(name, owner, {name = item.name, extra = item.extra, amount = item.amount})
-				end
-			end
+	if removeItem(name, owner, item) then
+		if createPickup(source, item, getItemLabel(item)) == false then
+			addItem(name, owner, item)
 		end
 	end
-
-
 end)
 
 RegisterServerEvent('esx_inventory:onPickup')
@@ -611,10 +652,30 @@ AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight
 	cb(createItem(name, extra, amount, weight))
 end)
 
+
+ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, playerid, item)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local xTarget = ESX.GetPlayerFromId(playerid)
+
+	if removeItem("pocket", xPlayer.identifier, item) == true then
+		cb(addItem("pocket", xTarget.identifier, item))
+	else
+		cb(false)
+	end
+end)
+
+
+--[[
 RegisterServerEvent('esx_inventory:addItem')
 AddEventHandler('esx_inventory:addItem', function(name, owner, item, cb)
 	cb(addItem(name, owner, item))
 end)
+
+RegisterServerEvent('esx_inventory:removeItem')
+AddEventHandler('esx_inventory:removeItem', function(name, owner, item, cb)
+	cb(removeItem(name, owner, item))
+end)
+]]--
 
 RegisterServerEvent('esx_inventory:playerSpawned')
 AddEventHandler('esx_inventory:playerSpawned', function()
