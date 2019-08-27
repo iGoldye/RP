@@ -61,7 +61,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				end
 
 				if v.fourrieremecano then
-					vehicleLabel = vehicleName..': Fourrière externe'
+					vehicleLabel = vehicleName..': Машина снаружи'
 				elseif v.stored then
 					vehicleLabel = vehicleName..': В гараже'
 				else
@@ -96,13 +96,13 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 			}}, function(data2, menu2)
 				if data2.current.value == "get_vehicle_out" then
 					if data.current.fourrieremecano then
-						TriggerEvent('esx:showNotification', 'Votre véhicule est dans la fourrieremecano')
+						TriggerEvent('esx:showNotification', 'Ваш транспорт конфискован')
 					elseif data.current.stored then
 						menu.close()
 						menu2.close()
 						SpawnVehicle(vehicleProps, garage, KindOfVehicle)
 					else
-						TriggerEvent('esx:showNotification', 'Этот транспорт где то в другом месте')
+						TriggerEvent('esx:showNotification', 'Этот транспорт где-то в другом месте')
 					end
 				elseif data2.current.value == "rename_vehicle" then
 					ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'rename_vehicle', {
@@ -178,7 +178,7 @@ function StockVehicleMenu(KindOfVehicle)
 						end
 						DeleteEntity(TrailerHandle)
 						TriggerServerEvent('eden_garage:modifystored', trailerProps.plate, true)
-						TriggerEvent('esx:showNotification', 'Votre remorque est dans le garage')
+						TriggerEvent('esx:showNotification', 'Автомобиль припаркован')
 					else
 						TriggerEvent('esx:showNotification', 'Вы не можете оставить этот автомобиль')
 					end
