@@ -9,6 +9,7 @@ const passwords = {
   'madash1': 2114, //madash
   'dimon123': 7164, //d.mon
   '3333': 7527, //tanuha
+  '128297': 0000, //laser
 }
 
 // Number + Latdigits of the players you want to give admin rights too (they can check the logs)
