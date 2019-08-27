@@ -1,3 +1,12 @@
+ESX = nil
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 local function _ch(hash)
 	if type(hash) == 'string' then
 		return GetHashKey(hash)
@@ -58,8 +67,7 @@ AddEventHandler('admin_commands:repair', function(args)
 
 end)
 
-RegisterNetEvent('admin_commands:setmodel')
-AddEventHandler('admin_commands:setmodel', function(model)
+function setModel(model)
 		local characterModel = _ch(model)
 
 		RequestModel(characterModel)
@@ -81,4 +89,33 @@ AddEventHandler('admin_commands:setmodel', function(model)
 		end
 
 		SetModelAsNoLongerNeeded(characterModel)
+end
+
+RegisterNetEvent('admin_commands:setmodel')
+AddEventHandler('admin_commands:setmodel', function(model)
+
+		if model == "skin" then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+				if skin['sex'] == 0 then
+					setModel('mp_m_freemode_01')
+				else
+					setModel('mp_f_freemode_01')
+				end
+
+				TriggerEvent('skinchanger:loadSkin', skin)
+			end)
+		else
+			setModel(model)
+		end
+end)
+
+RegisterNetEvent('admin_commands:spawncar')
+AddEventHandler('admin_commands:spawncar', function(props)
+	local playerPed = PlayerPedId()
+	local coords    = GetEntityCoords(playerPed)
+
+	ESX.Game.SpawnVehicle(props.model, coords, 90.0, function(vehicle)
+		ESX.Game.SetVehicleProperties(vehicle, props)
+		TaskWarpPedIntoVehicle(playerPed,  vehicle, -1)
+	end)
 end)

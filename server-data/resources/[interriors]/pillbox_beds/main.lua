@@ -9,7 +9,7 @@ Citizen.CreateThread(function()
 			local PlayerCoords = GetEntityCoords(PlayerPed)
 
 			for k,v in pairs(Beds) do
-				local ClosestBed = GetClosestObjectOfType(PlayerCoords, 1.5, GetHashKey(v), false, false)
+				local ClosestBed = GetClosestObjectOfType(PlayerCoords, 1.0, GetHashKey(v), false, false)
 
 				if ClosestBed ~= 0 and ClosestBed ~= nil then
 					CurrentBed = ClosestBed

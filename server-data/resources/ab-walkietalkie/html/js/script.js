@@ -1,6 +1,6 @@
 $(document).ready(() => {
     let RadioChannel = '0.0';
-    let Powered = false;
+    let Powered = true;
 
     function closeGui() {
         if (RadioChannel < 0.1 || RadioChannel > 99.9) {
@@ -10,19 +10,21 @@ $(document).ready(() => {
     }
 
     window.addEventListener('message', (event) => {
-        if (event.data.open == true) {
-            $(".full-screen").css("display", "flex");
+        if (event.data.open === true) {
             if (RadioChannel != '0.0' && Powered && !RadioChannel) {
+                console.log('return');
                 $('#radioChannel').val(RadioChannel);
             } else {
                 if (Powered) {
                     $('#radioChannel').val('');
                     $('#radioChannel').attr('placeholder', '0-99.9');
                 } else {
+                    console.log('Powered')
                     $('#radioChannel').attr('placeholder', 'OFF');
                 }
             }
-        } else if (event.data.open == false) {
+            $(".full-screen").css("display", "flex");
+        } else if (event.data.open === false) {
             $(".full-screen").css("display", "none");
         }
     });
@@ -33,6 +35,7 @@ $(document).ready(() => {
             Powered = true;
             $('#radioChannel').val(RadioChannel);
         } else {
+            console.log('OFF')
             $.post('http://ab-walkietalkie/close', JSON.stringify({ channel: '0.0' }));
             Powered = false;
             closeGui();
@@ -41,7 +44,7 @@ $(document).ready(() => {
 
     document.onkeyup = function (data){
         if (data.which == 27) {
-            RadioChannel = $('#radioChannel').val();
+            RadioChannel = parseFloat($('#radioChannel').val());
             if (!RadioChannel) {
                 RadioChannel = '0.0';
             }

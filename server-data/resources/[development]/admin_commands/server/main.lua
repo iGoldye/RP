@@ -68,4 +68,23 @@ TriggerEvent('es:addGroupCommand', 'setmodel', 'admin', function(source, args, u
 
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
-end, {help = "Установить хэш игрока"})
+end, {help = "Установить хэш игрока", params = {{name = "userid", help = "ID игрока"},{name = "hash", help = "имя хэша или skin"}}})
+
+
+TriggerEvent('es:addGroupCommand', 'spawncar', 'admin', function(source, args, user)
+	local plate = table.concat(args, " ")
+	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE `stored` = false and fourrieremecano = false', {
+	}, function(results)
+
+		for i=1,#results do
+			local res = results[i]
+			if res.plate == plate then
+				local props = json.decode(res.vehicle)
+				TriggerClientEvent('admin_commands:spawncar', source, props)
+				break
+			end
+		end
+	end)
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Заспавнить автомобиль игрока", params = {{name = "plate", help = "Автомобильный номер"}}})
