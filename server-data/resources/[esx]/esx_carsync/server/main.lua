@@ -6,13 +6,12 @@ TriggerEvent('esx:getSharedObject', function(obj)
 	ESX = obj 
 end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
-	local xPlayers = ESX.GetPlayers()
-	if #xPlayers ~= 1 then
-		print("Not first player!")
-		return
-	end
+function spawnCars(playerId, xPlayer)
+--	local xPlayers = ESX.GetPlayers()
+--	if #xPlayers ~= 1 then
+--		print("Not first player!")
+--		return
+--	end
 
 	if xPlayer == nil then
 		print('esx_carsync: loaded nil xPlayer!')
@@ -29,9 +28,16 @@ AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 			if res.position ~= nil then
 				local pos = json.decode(res.position)
 				local props = json.decode(res.vehicle)
+				local plate = res.plate
 
---				print("Spawning!")
-				TriggerClientEvent('esx_carsync:spawnCar', xPlayer.source, props, pos)
+				if car_db[plate] == nil then
+					car_db[plate] = {}
+				end
+
+				if car_db[plate].spawned ~= true then
+					print("Spawning!")
+					TriggerClientEvent('esx_carsync:spawnCar', xPlayer.source, props, pos)
+				end
 			end
 
 --			local xPlayer = ESX.GetPlayerFromIdentifier(res.owner)
@@ -45,6 +51,20 @@ AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 		end
 	end)
 
+end
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
+	spawnCars(playerId, xPlayer)
+end)
+
+RegisterServerEvent('esx_carsync:carSpawned')
+AddEventHandler('esx_carsync:carSpawned', function(plate)
+	if car_db[plate] == nil then
+		car_db[plate] = {}
+	end
+
+	car_db[plate].spawned = true
 end)
 
 RegisterServerEvent('esx_carsync:updateCarPos')
@@ -136,5 +156,22 @@ Citizen.CreateThread(function()
 	while true do
 		syncdb()
 		Citizen.Wait(6000)
+	end
+end)
+
+AddEventHandler('onResourceStart', function(resource)
+	if resource == GetCurrentResourceName() then
+		Citizen.CreateThread(function()
+			Citizen.Wait(1000)
+			local xPlayers = ESX.GetPlayers()
+
+			for i=1, #xPlayers, 1 do
+				local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+				if xPlayer ~= nil then
+					spawnCars(xPlayer.source, xPlayer)
+					break
+				end
+			end
+		end)
 	end
 end)

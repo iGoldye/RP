@@ -15,7 +15,7 @@ AddEventHandler('esx_carsync:spawnCar', function(props,pos)
 	local coords = vector3(pos.x,pos.y,pos.z)
 	local tries = 0
 
-	while not ESX.Game.IsSpawnPointClear(coords, 3.0) do
+	while not ESX.Game.IsSpawnPointClear(coords, 2.0) do
 		local coords2 = GetSafeCoordForPed(coords, true, 16)
 		if coords2 ~= false then
 			coords = coords2
@@ -31,6 +31,7 @@ AddEventHandler('esx_carsync:spawnCar', function(props,pos)
 
 	ESX.Game.SpawnVehicle(props.model, coords, pos.r, function(vehicle)
 		ESX.Game.SetVehicleProperties(vehicle, props)
+		TriggerServerEvent("esx_carsync:carSpawned", props.plate)
 	end)
 end)
 
