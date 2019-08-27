@@ -30,6 +30,21 @@ Config.Documents['en'] = {
             { label = "Содержание", type = "textarea", value = "", can_be_emtpy = true },
           }
         },
+        {
+          headerTitle = "Заявление",
+          headerSubtitle = "Форма",
+          elements = {
+            { label = "Дата", type = "input", value = "", can_be_emtpy = false },
+            { label = "Суть заявления", type = "textarea", value = "", can_be_emtpy = false },
+          }
+        },
+        -- {
+        --   headerTitle = "Заявление",
+        --   headerSubtitle = "Форма",
+        --   elements = {
+        --     { label = "Суть заявления", type = "textarea", value = "", can_be_emtpy = false },
+        --   }
+        -- },
         -- {
         --   headerTitle = "DEBT STATEMENT TOWARDS CITIZEN",
         --   headerSubtitle = "Official debt statement towards another citizen.",
@@ -53,18 +68,12 @@ Config.Documents['en'] = {
         -- }
       },
       ["police"] = {
-        {
-          headerTitle = "Заявление",
-          headerSubtitle = "Форма",
-          elements = {
-            { label = "Суть заявления", type = "textarea", value = "", can_be_emtpy = false },
-          }
-        },
+        
         {
           headerTitle = "Показания свидетеля",
           headerSubtitle = "Официальные показания свидетеля.",
           elements = {
-            { label = "Дата события", type = "input", value = "", can_be_emtpy = false },
+            { label = "Имя Фамилия", type = "input", value = "", can_be_emtpy = false },
             { label = "Показания", type = "textarea", value = "", can_be_emtpy = false },
           }
         },
