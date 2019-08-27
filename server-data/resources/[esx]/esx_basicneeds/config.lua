@@ -2,7 +2,7 @@ Config = {}
 Config.Locale = 'ru'
 
 Config.Food = { -- ccal * g
-	bread = 350 * 300,
+	bread = 350 * 150,
 	donut = 452 * 40,
 	donut2 = 452 * 40,
 	donut3 = 452 * 40,
@@ -15,9 +15,9 @@ Config.Food = { -- ccal * g
 	bolcacahuetes = 567 * 100,
 	blackberry = 43 * 100,
 
-	snikers = 480 * 0.505,
-	saucisson = 256 * 0.5,
-	mixapero = 150 * 2.00,
+	snikers = 480 * 50.5,
+	saucisson = 256 * 50,
+	mixapero = 150 * 200,
 }
 
 Config.Drinks = {  -- %
