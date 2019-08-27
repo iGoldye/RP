@@ -191,6 +191,13 @@ function ProneMovement()
 				end
 
 				headingChange(ped)
+
+				if IsControlJustPressed(0, 73) then
+					setState("stand")
+					ClearPedTasks(ped)
+					return
+				end
+
 				Citizen.Wait(0)
 			end
 
@@ -200,6 +207,13 @@ function ProneMovement()
 				end
 
 				headingChange(ped)
+
+				if IsControlJustPressed(0, 73) then
+					setState("stand")
+					ClearPedTasks(ped)
+					return
+				end
+
 				Citizen.Wait( 0 )
 			end
 
@@ -212,6 +226,13 @@ function ProneMovement()
 				end
 
 				headingChange(ped)
+
+				if IsControlJustPressed(0, 73) then
+					setState("stand")
+					ClearPedTasks(ped)
+					return
+				end
+
 				Citizen.Wait(0)
 			end
 
@@ -221,6 +242,13 @@ function ProneMovement()
 				end
 
 				headingChange(ped)
+
+				if IsControlJustPressed(0, 73) then
+					setState("stand")
+					ClearPedTasks(ped)
+					return
+				end
+
 				Citizen.Wait( 0 )
 			end
 
