@@ -2,10 +2,37 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
+	MySQL.Async.fetchAll('SELECT last_property FROM users WHERE identifier = @identifier', {
+		['@identifier'] = xPlayer.identifier
+	}, function(users)
+		local propertyName = users[1].last_property
+		if propertyName and propertyName ~= '' then
+			local property = GetProperty(propertyName)
+			local outside = property.outside
+			if not property.isSingle then
+				outside = GetGateway(property).outside
+			end
+			Citizen.Wait(10000)
+			TriggerClientEvent('esx_property:teleportOutside', xPlayer.source, outside)
+		end
+	end)
+end)
+
 function GetProperty(name)
 	for i=1, #Config.Properties, 1 do
 		if Config.Properties[i].name == name then
 			return Config.Properties[i]
+		end
+	end
+end
+
+function GetGateway(property)
+	for i=1, #Config.Properties, 1 do
+		local property2 = Config.Properties[i]
+
+		if property2.isGateway and property2.name == property.gateway then
+			return property2
 		end
 	end
 end

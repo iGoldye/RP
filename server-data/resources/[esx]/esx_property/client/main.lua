@@ -10,6 +10,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+RegisterNetEvent('esx_property:teleportOutside')
+AddEventHandler('esx_property:teleportOutside', function(outside)
+	ESX.Game.Teleport(PlayerPedId(), outside, function()
+	end)
+end)
+
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.TriggerServerCallback('esx_property:getProperties', function(properties)
@@ -716,6 +723,7 @@ AddEventHandler('instance:loaded', function()
 end)
 
 AddEventHandler('playerSpawned', function()
+--[[
 	if firstSpawn then
 		Citizen.CreateThread(function()
 			while not ESX.IsPlayerLoaded() do
@@ -745,6 +753,7 @@ AddEventHandler('playerSpawned', function()
 
 		firstSpawn = false
 	end
+]]--
 end)
 
 AddEventHandler('esx_property:getProperties', function(cb)
