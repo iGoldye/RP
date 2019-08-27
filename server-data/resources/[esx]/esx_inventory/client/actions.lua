@@ -97,9 +97,6 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Пе�
 	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 	local amount = item.amount or 0
 
-	closestPlayer = PlayerId()
-	closestDistance = 1.0
-
 	if item ~= nil and amount > 0 and closestPlayer > 0 and closestDistance < 3.0 then
 		TriggerEvent("sosamba_ui:showInputBox", "giveto-box", "Сколько передать?", "Введите количество предметов", function(text)
 			amount = tonumber(text)
