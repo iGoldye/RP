@@ -6,7 +6,7 @@ html, body {
 .full-screen {
   width: 100%;
   height: 100%;
-  display: none;
+  display: flex;
   align-items: flex-end;
 }
 
@@ -14,8 +14,11 @@ html, body {
   background-image: url("nui://ab-walkietalkie/html/img/walkietalkie.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  opacity: 1;
+  display: none;
   width: 170px;
   height: 600px;
+  z-index: 999999;
   margin-left: 1%;
   margin-bottom: 2%;
 }
