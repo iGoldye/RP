@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
 
 		Citizen.Wait(sleep)
 	end
-end)
+end
 
 Sit = function(bumcartObject)
 	local closestPlayer, closestPlayerDist = GetClosestPlayer()
