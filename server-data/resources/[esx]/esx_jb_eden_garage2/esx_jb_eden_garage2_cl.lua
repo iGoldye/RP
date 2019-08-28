@@ -222,9 +222,9 @@ function StockVehicleFourriereMenu()
 					if(valid) then
 						DeleteVehicle(TrailerHandle)
 						TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', trailerProps, true)
-						TriggerEvent('esx:showNotification', 'La remorque est rentré dans la fourrière')
+						-- TriggerEvent('esx:showNotification', 'La remorque est rentré dans la fourrière')
 					else
-						TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker cette remorque dans la fourrière')
+						-- TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker cette remorque dans la fourrière')
 					end
 				end,trailerProps)
 			else
@@ -233,17 +233,17 @@ function StockVehicleFourriereMenu()
 					if(valid) then
 						DeleteVehicle(vehicle)
 						TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', vehicleProps, true)
-						TriggerEvent('esx:showNotification', 'Le véhicule est rentré dans la fourrière')
+						-- TriggerEvent('esx:showNotification', 'Le véhicule est rentré dans la fourrière')
 					else
-						TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker ce véhicule dans la fourrière')
+						-- TriggerEvent('esx:showNotification', 'Vous ne pouvez pas stocker ce véhicule dans la fourrière')
 					end
 				end,vehicleProps)
 			end
 		else
-			TriggerEvent('esx:showNotification', 'Vous etes pas conducteur du vehicule')
+			-- TriggerEvent('esx:showNotification', 'Vous etes pas conducteur du vehicule')
 		end
 	else
-		TriggerEvent('esx:showNotification', 'Il n\' y a pas de vehicule à rentrer')
+		-- TriggerEvent('esx:showNotification', 'Il n\' y a pas de vehicule à rentrer')
 	end
 end
 -- Fin fonction qui permet de rentrer un vehicule dans fourriere
@@ -326,7 +326,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 			local vehicleProps = vehiclePropsList[data.current.plate]
 
 			if data.current.action == 'fourrieremecano' then
-				ESX.ShowNotification("Va voir la police ou mecano pour savoir comment recuperer ton véhicule.")
+				ESX.ShowNotification("Проконсультируйтесь с полицией")
 			elseif data.current.action == 'store' then
 				local doesVehicleExist = false
 
@@ -356,7 +356,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 							menu.close()
 							SpawnVehicle(vehicleProps, garage, KindOfVehicle)
 						else
-							ESX.ShowNotification('Vous n\'avez pas assez d\'argent')
+							ESX.ShowNotification('Вам не хватает денег')
 						end
 					end)
 				else
