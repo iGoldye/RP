@@ -3,7 +3,7 @@ Config.Blip			= {sprite= 290, color = 30}
 Config.MecanoBlip	= {sprite= 290, color = 20}
 Config.Price		= 50
 
-Config.StoreOnServerStart = false -- Store all vehicles in garage on server start?
+Config.StoreOnServerStart = true -- Store all vehicles in garage on server start?
 
 -- Центральная
 
