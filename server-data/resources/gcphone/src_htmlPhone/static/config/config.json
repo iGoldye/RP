@@ -126,6 +126,20 @@
           ]
        },
        {
+        "display":"Журналисты",
+        "icon":"/html/static/img/icons_app/services/reporter.png",
+        "backgroundColor":"grey",
+        "subMenu":[
+           {
+              "title":"Отправить сообщение",
+              "eventName":"esx_addons_gcphone:call",
+              "type":{
+                 "number":"reporter"
+              }
+           }
+        ]
+       },
+       {
           "display":"Служба спасения",
           "icon":"/html/static/img/icons_app/services/emergency.png",
           "backgroundColor":"grey",
