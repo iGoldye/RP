@@ -41,7 +41,7 @@ Locales['en'] = {
     -- Vehicles
     ['vehicle_menu']             = 'Транспорт',
     ['vehicle_out']              = 'Транспорт уже снаружи',
-    ['vehicle_spawner']          = 'Нажмите ~INPUT_CONTEXT~ to exit a vehicle',
+    ['vehicle_spawner']          = 'Нажмите ~INPUT_CONTEXT~ чтобы выгнать транспорт',
     ['store_vehicle']            = 'Нажмите ~INPUT_CONTEXT~ чтобы загнать авто в гараж',
     ['service_max']              = 'Full service: ',
     ['spawn_point_busy']         = 'A vehicle is near the exit point',

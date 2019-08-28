@@ -30,7 +30,7 @@ Config.BlipMeleeTime = 7
 Config.BlipMeleeRadius = 100.0
 
 -- In seconds
-Config.BlipJackingTime = 10
+Config.BlipJackingTime = 40
 
 -- Blip radius, in float value!
 Config.BlipJackingRadius = 100.0

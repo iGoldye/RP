@@ -315,11 +315,11 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 				end
 			end
 		else
-			table.insert(elements, {label = "Pas de véhicule a sortir", action = 'nothing'})
+			table.insert(elements, {label = "Нет транспорта", action = 'nothing'})
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'return_vehicle', {
-			title    = 'Garage',
+			title    = 'Гараж',
 			align    = 'top-left',
 			elements = elements
 		}, function(data, menu)
