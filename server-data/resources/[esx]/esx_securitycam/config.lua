@@ -15,7 +15,7 @@ Config.CameraBreakTimer = 600 -- seconds to autofix camera
 -- Place: In the polices armory room
 Config.Zones = {
 	Cameras = {
-		Pos   = {x = 440.38, y = -975.35, z = 29.72},
+		Pos   = {x = 465.53, y = -975.92, z = 24.1},
 		Size  = {x = 1.7, y = 1.7, z = 0.5},
 		Color = {r = 26, g = 55, b = 186},
 		Type = 27,
@@ -28,7 +28,7 @@ Config.Zones = {
 
 Config.HackingPolice = {
 	HackingPolice = {
-		Pos   = {x = 454.77, y = -979.484, z = 28.69},
+		Pos   = {x = 454.77, y = -979.484, z = -28.69},
 		Size  = {x = 1.7, y = 1.7, z = 0.5},
 		Color = {r = 26, g = 55, b = 186},
 		Type = 27,
@@ -37,7 +37,7 @@ Config.HackingPolice = {
 
 Config.UnHackPolice = {
 	UnHackPolice = {
-		Pos   = {x = 454.77, y = -979.484, z = 28.69},
+		Pos   = {x = 454.77, y = -979.484, z = -28.69},
 		Size  = {x = 1.7, y = 1.7, z = 0.5},
 		Color = {r = 26, g = 55, b = 186},
 		Type = 27,
@@ -92,11 +92,13 @@ Config.Locations = {
 			{label = _U('pcam3'), x = 465.344, y = -997.877, z = 26.85, r = {x = -35.0, y = 0.0, z = 90.46}, canRotate = true},
 			{label = _U('pcam4'), x = 465.344, y = -1001.7, z = 26.85, r = {x = -25.0, y = 0.0, z = 90.01}, canRotate = true},
 			{label = _U('pcam5'), x = 421.721, y = -1032.010, z = 31.30, r = {x = -25.0, y = 0.0, z = -30.95}, canRotate = true},
-			{label = _U('pcam8'), x = 483.58, y = -990.046, z = 26.90, r = {x = -30.0, y = 0.0, z = 90.29}, canRotate = true},
-			{label = _U('pcam9'), x = 474.94, y = -992.076, z = 26.90, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
-			{label = _U('pcam10'), x = 475.4, y = -983.256, z = 26.50, r = {x = -30.0, y = 0.0, z = 220.29}, canRotate = true},
+			{label = _U('pcam8'), x = 474.71, y = -1003.07, z = 26.90, r = {x = -30.0, y = 0.0, z = 0.29}, canRotate = true},
+			{label = _U('pcam9'), x = 468.11, y = -1004.27, z = 26.90, r = {x = -40.0, y = 0.0, z = 200.29}, canRotate = true},
+			{label = _U('pcam11'), x = 476.370, y = -1004.239, z = 26.90, r = {x = -40.0, y = 0.0, z = 200.50}, canRotate = true},
+			{label = _U('pcam10'), x = 472.04, y = -985.45, z = 26.90, r = {x = -30.0, y = 0.0, z = 260.29}, canRotate = true},
 			{label = _U('pcam6'), x = 433.54, y = -978.100, z = 33.304, r = {x = -40.0, y = 0.0, z = 100.49}, canRotate = true},
 			{label = _U('pcam7'), x = 449.520, y = -988.719, z = 33.00, r = {x = -30.0, y = 0.0, z = 50.50}, canRotate = true},
+			
 		},
 	},
 

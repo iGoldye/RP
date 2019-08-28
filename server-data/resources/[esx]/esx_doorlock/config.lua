@@ -78,6 +78,14 @@ Config.DoorList = {
 		locked = true
 	},
 
+	{
+		objName = 'v_ilev_ph_gendoor002',
+		objYaw = 0.0,
+		objCoords  = vector3(462.77, -1000.99, 35.93),
+		textCoords = vector3(462.77, -1000.99, 35.93),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
 	-- To downstairs (double doors)
 	{
 		textCoords = vector3(444.6, -989.4, 31.7),
@@ -99,54 +107,74 @@ Config.DoorList = {
 		}
 	},
 -- Допросные
-	{
-		textCoords = vector3(465.53, -989.91, 25.7),
-		authorizedJobs = { 'police' },
-		locked = true,
-		distance = 4,
-		doors = {
-			{
-				objName = 'v_ilev_ph_gendoor005',
-				objYaw = 90.0,
-				objCoords = vector3(465.2, -989.66, 24.6)
-			},
+	-- {
+	-- 	textCoords = vector3(465.53, -989.91, 25.7),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = true,
+	-- 	distance = 4,
+	-- 	doors = {
+	-- 		{
+	-- 			objName = 'v_ilev_ph_gendoor005',
+	-- 			objYaw = 90.0,
+	-- 			objCoords = vector3(465.2, -989.66, 24.6)
+	-- 		},
 
-			{
-				objName = 'v_ilev_ph_gendoor005',
-				objYaw = 270.0,
-				objCoords = vector3(465.23, -990.32, 24.6)
-			}
-		}
-	},
+	-- 		{
+	-- 			objName = 'v_ilev_ph_gendoor005',
+	-- 			objYaw = 270.0,
+	-- 			objCoords = vector3(465.23, -990.32, 24.6)
+	-- 		}
+	-- 	}
+	-- },
+
+	-- STORAGE
 	{
-		objName = 'v_ilev_ph_gendoor005',
-		objYaw = 0.0,
-		objCoords  = vector3(472.08, -988.82, 24.6),
-		textCoords = vector3(472.1, -988.3, 25.5),
+		objName = 'v_ilev_ph_gendoor006',
+		objYaw = -90.0,
+		objCoords  = vector3(471.41, -985.37, 24.91),
+		textCoords = vector3(471.41, -985.37, 24.91),
 		authorizedJobs = { 'police' },
 		locked = true
 	},
 	{
-		objName = 'v_ilev_ph_gendoor005',
-		objYaw = 0.0,
-		objCoords  = vector3(472.02, -991.13, 24.6),
-		textCoords = vector3(472.04, -991.75, 25.5),
+		objName = 'prop_fnclink_02gate7',
+		objYaw = 90.0,
+		objCoords  = vector3(475.44, -986.87, 24.91),
+		textCoords = vector3(475.51, -985.89, 24.91),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+-- SERVER
+{
+	objName = 'v_ilev_ph_gendoor006',
+	objYaw = 180.0,
+	objCoords  = vector3(468.25, -977.83, 24.91),
+	textCoords = vector3(468.25, -977.83, 24.91),
+	authorizedJobs = { 'police' },
+	locked = true
+},
+-- laba
+{
+	objName = 'v_ilev_ph_gendoor006',
+	objYaw = 90.0,
+	objCoords  = vector3(463.67, -981.24, 24.91),
+	textCoords = vector3(463.67, -981.24, 24.91),
+	authorizedJobs = { 'police' },
+	locked = true
+},
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 180.0,
+		objCoords  = vector3(467.91, -1003.38, 24.91),
+		textCoords = vector3(467.91, -1003.38, 24.91),
 		authorizedJobs = { 'police' },
 		locked = true
 	},
 	{
-		objName = 'v_ilev_ph_gendoor005',
-		objYaw = 0.0,
-		objCoords  = vector3(477.73, -991.19, 24.6),
-		textCoords = vector3(477.63, -991.83, 25.5),
-		authorizedJobs = { 'police' },
-		locked = true
-	},
-	{
-		objName = 'v_ilev_ph_gendoor005',
-		objYaw = 0.0,
-		objCoords  = vector3(477.66, -988.74, 24.6),
-		textCoords = vector3(477.66, -988.33, 25.5),
+		objName = 'v_ilev_gtdoor',
+		objYaw = 180.0,
+		objCoords  = vector3(476.4, -1003.43, 24.91),
+		textCoords = vector3(476.4, -1003.43, 24.91),
 		authorizedJobs = { 'police' },
 		locked = true
 	},
@@ -196,47 +224,67 @@ Config.DoorList = {
 	},
 	-- Cell 4
 	{
-		objName = 'v_ilev_ph_cellgate',
-		objYaw = 90.0,
-		objCoords  = vector3(465.69, -998.29, 24.6),
-		textCoords = vector3(465.63, -998.43, 25.5),
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(472.2, -996.35, 24.91),
+		textCoords = vector3(472.2, -996.35, 24.91),
 		authorizedJobs = { 'police' },
 		locked = true
 	},
 -- Cell 5
 {
-	objName = 'v_ilev_ph_cellgate',
-	objYaw = 90.0,
-	objCoords  = vector3(465.69, -998.29, 24.6),
-	textCoords = vector3(465.63, -998.43, 25.5),
+	objName = 'v_ilev_gtdoor',
+	objYaw = 0.0,
+	objCoords  = vector3(467.83, -996.64, 24.91),
+	textCoords = vector3(467.83, -996.64, 24.91),
 	authorizedJobs = { 'police' },
 	locked = true
 },
+-- Cell 6
+{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(476.4, -996.5, 24.91),
+		textCoords = vector3(476.4, -996.5, 24.91),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	-- Cell 7 
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(480.75, -996.42, 24.91),
+		textCoords = vector3(480.75, -996.42, 24.91),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
 	-- To Back
 	{
-		objName = 'v_ilev_ph_cellgate',
-		objYaw = 90.0,
-		objCoords  = vector3(465.8, -1002.01, 25.0),
-		textCoords = vector3(465.8, -1002.01, 25.5),
-		authorizedJobs = { 'police' },
-		locked = true
-	},
-	{
-		objName = 'v_ilev_ph_cellgate',
+		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
-		objCoords  = vector3(481.9, -988.73, 25.0),
-		textCoords = vector3(481.8, -988.13, 25.5),
+		objCoords  = vector3(464.18, -1003.58, 25.0),
+		textCoords = vector3(464.18, -1003.58, 25.0),
 		authorizedJobs = { 'police' },
 		locked = true
 	},
-	{
-		objName = 'v_ilev_ph_cellgate',
-		objYaw = 0.0,
-		objCoords  = vector3(482.1, -991.1, 25.0),
-		textCoords = vector3(482.1, -991.8, 25.5),
-		authorizedJobs = { 'police' },
-		locked = true
-	},
+	-- {
+	-- 	objName = 'v_ilev_ph_cellgate',
+	-- 	objYaw = 0.0,
+	-- 	objCoords  = vector3(481.9, -988.73, 25.0),
+	-- 	textCoords = vector3(481.8, -988.13, 25.5),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = true
+	-- },
+	-- {
+	-- 	objName = 'v_ilev_ph_cellgate',
+	-- 	objYaw = 0.0,
+	-- 	objCoords  = vector3(482.1, -991.1, 25.0),
+	-- 	textCoords = vector3(482.1, -991.8, 25.5),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = true
+	-- },
+	-- Balk
+	
 
 	--
 	-- Mission Row Back
@@ -310,6 +358,25 @@ Config.DoorList = {
 				objName = 'v_ilev_shrf2door',
 				objYaw = 135.0,
 				objCoords  = vector3(-443.9, 6016.6, 31.7)
+			}
+		}
+	},
+	{
+		textCoords = vector3(445.9, -999.1, 30.7),
+		authorizedJobs = { 'police' },
+		locked = false,
+		distance = 2.5,
+		doors = {
+			{
+				objName = 'v_ilev_gtdoor',
+				objYaw = -0.0,
+				objCoords  = vector3(444.75, -999.36, 30.7),
+			},
+
+			{
+				objName = 'v_ilev_gtdoor',
+				objYaw = 180.0,
+				objCoords  = vector3(446.85, -999.54, 30.7)
 			}
 		}
 	},
