@@ -1,3 +1,3 @@
 Locales['en'] = {
-  ['used_item'] = 'You used ~y~1x~s~ ~b~%s~s~',
+  ['used_item'] = 'Вы чувствуете себя лучше',
 }

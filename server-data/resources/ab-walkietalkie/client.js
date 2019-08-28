@@ -1,30 +1,15 @@
 let ESX = null;
 let HasWT = false;
 let GuiOpened = false;
-let attachedPropRadio;
-
+let attachedPropRadio = 0;
+let lastRadio = 0;
 let playerServerId = GetPlayerServerId(PlayerId());
-
-setTick(() => {
-    if (ESX === null) {
-        emit('esx:getSharedObject', (obj) => { ESX = obj });
-    }
-});
 
 Delay = (ms) => new Promise(res => setTimeout(res, ms));
 
 on('radioGui', () => {
     openGui();
 });
-
-attachedPropRadio = 0;
-
-function removeAttachedPropRadio() {
-    if (DoesEntityExist(attachedPropRadio)) {
-        DeleteEntity(attachedPropRadio);
-        attachedPropRadio = 0
-    }
-}
 
 on('destroyPropRadio', () => {
     removeAttachedPropRadio();
@@ -94,22 +79,6 @@ on('animation:radio', async (enable) => {
     }
 });
 
-
-function openGui() {
-    GuiOpened = !GuiOpened;
-    emit('animation:radio', GuiOpened);
-
-    if (GuiOpened) {
-        SetNuiFocus(false, false);
-        SetNuiFocus(true, true);
-        SendNuiMessage(JSON.stringify({open: GuiOpened}));
-    } else {
-        SetNuiFocus(false, false);
-        SendNuiMessage(JSON.stringify({open: GuiOpened}));
-    }
-}
-
-let lastRadio = 0;
 RegisterNuiCallbackType("close");
 on("__cfx_nui:close", (data, cb) => {
     let testN = parseFloat(data.channel);
@@ -128,12 +97,19 @@ on("__cfx_nui:close", (data, cb) => {
 });
 
 onNet("ab-radio:phoneCallStartedCallback", function (){
-  emitNet('TokoVoip:removePlayerFromRadio', lastRadio, playerServerId);
+    emitNet('TokoVoip:removePlayerFromRadio', lastRadio, playerServerId);
 });
+
 onNet("ab-radio:phoneCallEndedCallback", function (){
-  if (lastRadio !== 0) {
-    emitNet('TokoVoip:addPlayerToRadio', lastRadio, playerServerId);
-  }
+    if (lastRadio !== 0) {
+        emitNet('TokoVoip:addPlayerToRadio', lastRadio, playerServerId);
+    }
+});
+
+setTick(() => {
+    if (ESX === null) {
+        emit('esx:getSharedObject', (obj) => { ESX = obj });
+    }
 });
 
 setTick(() => {
@@ -163,4 +139,25 @@ setTick(() => {
 
 function hasWTItem(cb) {
     ESX.TriggerServerCallback('ab-radio:getItemAmount', (qt) => { cb(qt > 0) }, 'walkietalkie');
+}
+
+function removeAttachedPropRadio() {
+    if (DoesEntityExist(attachedPropRadio)) {
+        DeleteEntity(attachedPropRadio);
+        attachedPropRadio = 0
+    }
+}
+
+function openGui() {
+    GuiOpened = !GuiOpened;
+    emit('animation:radio', GuiOpened);
+
+    if (GuiOpened) {
+        SetNuiFocus(false, false);
+        SetNuiFocus(true, true);
+        SendNuiMessage(JSON.stringify({open: GuiOpened}));
+    } else {
+        SetNuiFocus(false, false);
+        SendNuiMessage(JSON.stringify({open: GuiOpened}));
+    }
 }

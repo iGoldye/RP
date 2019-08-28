@@ -9,15 +9,17 @@ Config.Food = { -- ccal * g
 	donut4 = 452 * 40,
 	donut5 = 452 * 40,
 	donut6 = 452 * 40,
+	blackberry = 43 * 100,
+	snikers = 480 * 50.5,
+	mixapero = 150 * 200,
+
+	-- UNICRON --
 	bolpistache = 561 * 100,
 	bolnoixcajou = 553 * 100,
 	bolchips = 510 * 100,
 	bolcacahuetes = 567 * 100,
-	blackberry = 43 * 100,
-
-	snikers = 480 * 50.5,
 	saucisson = 256 * 50,
-	mixapero = 150 * 200,
+	grapperaisin = 67 * 100,
 }
 
 Config.Drinks = {  -- %
@@ -26,6 +28,5 @@ Config.Drinks = {  -- %
 	limonade = 10,
 	jusfruit = 10,
 	icetea = 20,
-	energy = 20,
 	drpepper = 15,
 }

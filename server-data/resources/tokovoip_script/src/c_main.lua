@@ -21,6 +21,7 @@ local scriptVersion = "1.3.4";
 local animStates = {}
 local displayingPluginScreen = false;
 local HeadBone = 0x796e;
+local animPlay = false;
 
 --------------------------------------------------------------------------------
 --	Plugin functions
@@ -49,11 +50,18 @@ end);
 -- Receives data from the TS plugin on microphone toggle
 RegisterNUICallback("setPlayerTalking", function(data)
 	voip.talking = tonumber(data.state);
-
 	if (voip.talking == 1) then
+		animPlay = true
 		setPlayerData(voip.serverId, "voip:talking", 1, true);
-		PlayFacialAnim(GetPlayerPed(PlayerId()), "mic_chatter", "mp_facial");
+		Citizen.CreateThread(function()
+			while animPlay do
+				Citizen.Wait(0)
+				PlayFacialAnim(GetPlayerPed(PlayerId()), "mic_chatter", "mp_facial");
+				Citizen.Wait(8000)
+			end
+		end)
 	else
+		animPlay = false
 		setPlayerData(voip.serverId, "voip:talking", 0, true);
 		PlayFacialAnim(PlayerPedId(), "mood_normal_1", "facials@gen_male@base");
 	end

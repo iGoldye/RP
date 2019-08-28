@@ -1,37 +1,3 @@
-
-ESX.RegisterUsableItem('icetea', function(source)
-    local xPlayer = ESX.GetPlayerFromId(source)
-
-    xPlayer.removeInventoryItem('icetea', 1)
-
-    TriggerClientEvent('esx_status:add', source, 'thirst', 300000)
-    TriggerClientEvent('esx_basicneeds:onDrink', source)
-    TriggerClientEvent('esx:showNotification', source, _U('used_icetea'))
-	
-end)
-
-ESX.RegisterUsableItem('limonade', function(source)
-    local xPlayer = ESX.GetPlayerFromId(source)
-
-    xPlayer.removeInventoryItem('limonade', 1)
-
-    TriggerClientEvent('esx_status:add', source, 'thirst', 300000)
-    TriggerClientEvent('esx_basicneeds:onDrink', source)
-    TriggerClientEvent('esx:showNotification', source, _U('used_limonade'))
-	
-end)
-
-ESX.RegisterUsableItem('drpepper', function(source)
-    local xPlayer = ESX.GetPlayerFromId(source)
-
-    xPlayer.removeInventoryItem('drpepper', 1)
-
-    TriggerClientEvent('esx_status:add', source, 'thirst', 350000)
-    TriggerClientEvent('esx_basicneeds:onDrink', source)
-    TriggerClientEvent('esx:showNotification', source, _U('used_drpepper'))
-	
-end)
-
 ESX.RegisterUsableItem('energy', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -40,18 +6,6 @@ ESX.RegisterUsableItem('energy', function(source)
     TriggerClientEvent('esx_status:add', source, 'thirst', 400000)
     TriggerClientEvent('esx_basicneeds:onDrink', source)
     TriggerClientEvent('esx:showNotification', source, _U('used_energy'))
-	
-end)
-
-ESX.RegisterUsableItem('mixapero', function(source)
-    local xPlayer = ESX.GetPlayerFromId(source)
-	
-	xPlayer.removeInventoryItem('mixapero', 1)
-
-    TriggerClientEvent('esx_status:add', source, 'hunger', 100000)
-    TriggerClientEvent('esx_status:remove', source, 'thirst', 50000)
-    TriggerClientEvent('esx_basicneeds:onEat', source)
-    TriggerClientEvent('esx:showNotification', source, _U('used_mixapero'))
 	
 end)
 
