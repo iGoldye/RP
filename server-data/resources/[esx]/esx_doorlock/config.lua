@@ -392,7 +392,32 @@ Config.DoorList = {
 		locked = true
 	},
 
-	
+	-- UNICORN
+	{
+		objName = 'prop_strip_door_01',
+		objYaw = 30.0,
+		objCoords  = vector3(128.93, -1298.93, 29.23),
+		textCoords = vector3(128.54, -1298.19, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+	{
+		objName = 'prop_magenta_door',
+		objYaw = 210.0,
+		objCoords  = vector3(95.48, -1285.14, 29.50),
+		textCoords = vector3(95.48, -1285.14, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_roc_door2',
+		objYaw = 30.0,
+		objCoords  = vector3(99.64, -1293.47, 29.50),
+		textCoords = vector3(99.64, -1293.47, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+
 
 
 --
