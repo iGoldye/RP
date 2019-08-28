@@ -12,6 +12,16 @@
 owners = {} -- owners[plate] = identifier
 secondOwners = {} -- secondOwners[plate] = {identifier, identifier, ...}
 
+MySQL.ready(function()
+	local result = MySQL.Sync.fetchAll('SELECT * FROM owned_vehicles', {
+	}, function(result)
+		for i=1, #result, 1 do
+			local res = result[i]
+			owners[res.plate] = res.owner
+		end
+	end)
+end)
+
 RegisterServerEvent("ls:retrieveVehiclesOnconnect")
 AddEventHandler("ls:retrieveVehiclesOnconnect", function()
     local src = source
