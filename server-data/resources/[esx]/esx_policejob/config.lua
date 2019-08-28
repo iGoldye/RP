@@ -77,7 +77,7 @@ Config.PoliceStations = {
 		},
 
 		BossActions = {
-			vector3(448.4, -973.2, 29.7)
+			vector3(461.38, -1007.68, 35.0)
 		}
 
 	}

@@ -147,6 +147,13 @@ Stores = {
 		secondsRemaining = 90, -- seconds
 		lastRobbed = 0
 	},
+	["route15"] = {
+		position = { x = 2549.6, y = 384.85, z = 108.62 },
+		reward = math.random(1000, 5000),
+		nameOfStore = "24/7. (Route15)",
+		secondsRemaining = 90, -- seconds
+		lastRobbed = 0
+	},
 -- 
 	-- ["pacific_standard"] = {
 	-- 	position = { x = 254.06, y = 225.37, z = 101.88 },

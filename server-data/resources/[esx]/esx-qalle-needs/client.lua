@@ -82,7 +82,7 @@ function OpenNeedsMenu()
             align    = 'top-right',
             elements = { 
                 { label = 'Малая', value = 'pee' },
-                { label = 'Большая', value = 'poop' }
+                -- { label = 'Большая', value = 'poop' }
             }
         },
     function(data, menu)
@@ -128,7 +128,7 @@ function OpenNeedsMenu()
                     end
                 end)
             else
-                TriggerServerEvent('esx-qalle-needs:sync', GetPlayerServerId(PlayerId()), 'poop')
+                -- TriggerServerEvent('esx-qalle-needs:sync', GetPlayerServerId(PlayerId()), 'poop')
             end
         end
 

@@ -23,6 +23,7 @@ Config.Shops = {
     {coords = vector3(1958.92, 3741.38, 32.16-0.98), heading = 299.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
     {coords = vector3(2676.49, 3280.08, 55.16-0.98), heading = 334.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
     {coords = vector3(1698.99, 4922.31, 42.16-0.98), heading = 326.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(2555.4, 380.77, 108.62-0.98), heading = 3.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
     {coords = vector3(1728.47, 6416.87, 35.16-0.98), heading = 242.0, money = {100, 1200}, cops = 4, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false}
 }
 

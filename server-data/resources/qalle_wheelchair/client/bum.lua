@@ -1,11 +1,11 @@
 RegisterCommand('bumcart', function()
-	LoadModel('prop_skid_trolley_1elchair_01')
+	LoadModel('prop_skid_trolley_1')
 
-	local bumcart = CreateObject(GetHashKey('prop_skid_trolley_1elchair_01'), GetEntityCoords(PlayerPedId()), true)
+	local bumcart = CreateObject(GetHashKey('prop_skid_trolley_1'), GetEntityCoords(PlayerPedId()), true)
 end, false)
 
 RegisterCommand('removebumcart', function()
-	local bumcart = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 10.0, GetHashKey('prop_skid_trolley_1elchair_01'))
+	local bumcart = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 10.0, GetHashKey('prop_skid_trolley_1'))
 
 	if DoesEntityExist(bumcart) then
 		DeleteEntity(bumcart)
@@ -19,7 +19,7 @@ Citizen.CreateThread(function()
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)
 
-		local closestObject = GetClosestObjectOfType(pedCoords, 3.0, GetHashKey("prop_skid_trolley_1elchair_01"), false)
+		local closestObject = GetClosestObjectOfType(pedCoords, 3.0, GetHashKey("prop_skid_trolley_1"), false)
 
 		if DoesEntityExist(closestObject) then
 			sleep = 5
@@ -30,8 +30,8 @@ Citizen.CreateThread(function()
 			local sitCoords = (bumcartCoords + bumcartForward * - 0.5)
 			local pickupCoords = (bumcartCoords + bumcartForward * 0.3)
 
-			-- if GetDistanceBetweenCoords(pedCoords, sitCoords, true) <= 1.0 then
-			-- 	DrawText3Ds(sitCoords, "[E] Сесть", 0.4)
+			if GetDistanceBetweenCoords(pedCoords, sitCoords, true) <= 1.0 then
+				DrawText3Ds(sitCoords, "[E] Сесть", 0.4)
 
 				if IsControlJustPressed(0, 38) then
 					Sit(closestObject)
