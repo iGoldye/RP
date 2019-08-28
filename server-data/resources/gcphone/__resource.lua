@@ -26,6 +26,7 @@ files {
 	'html/static/img/background/back006.jpg',
 	
 
+	'html/static/img/icons_app/services/reporter.png',
 	'html/static/img/icons_app/services/ambulance.png',
 	'html/static/img/icons_app/services/emergency.png',
 	'html/static/img/icons_app/services/mechanic.png',

@@ -52,9 +52,7 @@ function OpenActionMenuInteraction(target)
 	table.insert(elements, {label = ('Снять верх'), value = 'tul'})
 	table.insert(elements, {label = ('Снять низ'), value = 'spo'})
 	table.insert(elements, {label = ('Снять обувь'), value = 'but'})
-  		ESX.UI.Menu.CloseAll()	
-
-
+--  		ESX.UI.Menu.CloseAll()
 	ESX.UI.Menu.Open(
 		'default', GetCurrentResourceName(), 'action_menu',
 		{
@@ -62,27 +60,24 @@ function OpenActionMenuInteraction(target)
 			align    = 'top-left',
 			elements = elements
 		},
-    function(data, menu)
-
-
-
-		
+	    function(data, menu)
 		if data.current.value == 'ubie' then			
-		ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-		TriggerEvent('skinchanger:loadSkin', skin)
-		end)
-		ESX.UI.Menu.CloseAll()	
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+				TriggerEvent('skinchanger:loadSkin', skin)
+			end)
 		elseif data.current.value == 'tul' then
-		TriggerEvent('smerfikubrania:koszulka')
-		ESX.UI.Menu.CloseAll()	
+			TriggerEvent('smerfikubrania:koszulka')
 		elseif data.current.value == 'spo' then
-		TriggerEvent('smerfikubrania:spodnie')
-		ESX.UI.Menu.CloseAll()	
+			TriggerEvent('smerfikubrania:spodnie')
 		elseif data.current.value == 'but' then
-		TriggerEvent('smerfikubrania:buty')
-		ESX.UI.Menu.CloseAll()	
-	  end
-	end)
+			TriggerEvent('smerfikubrania:buty')
+	        end
+		menu.close()
+	    end,
+	    function(data, menu)
+		menu.close()
+	    end
+	)
 
 
 end
