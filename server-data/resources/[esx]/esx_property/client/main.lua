@@ -377,11 +377,12 @@ function OpenGatewayOwnedPropertiesMenu(property)
 end
 
 function OpenGatewayAvailablePropertiesMenu(property)
+  ESX.TriggerServerCallback('esx_property:getAnyoneOwnedProperties', function(AnyoneOwnedProperties)
 	local gatewayProperties = GetGatewayProperties(property)
 	local elements          = {}
 
 	for i=1, #gatewayProperties, 1 do
-		if not PropertyIsOwned(gatewayProperties[i]) then
+		if not AnyoneOwnedProperties[gatewayProperties[i].name] then
 			local label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price)
 			if gatewayProperties[i].isRentOnly == true then
 				label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price / 200) .. " в сутки"
@@ -436,6 +437,7 @@ function OpenGatewayAvailablePropertiesMenu(property)
 	end, function(data, menu)
 		menu.close()
 	end)
+  end)
 end
 
 function OpenPlayerDressingMenu(title)
