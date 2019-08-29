@@ -60,7 +60,7 @@ function removePlayerFromRadio(channelId, playerServerId)
 		-- TriggerClientEvent("ResetRadioChannel", playerServerId);
 		TriggerClientEvent("TokoVoip:onPlayerLeaveChannel", playerServerId, channelId, playerServerId);
 		if(channelId > 1000) then
-			TriggerClientEvent("ab-radio:phoneCallEndedCallback", subscriberServerId);
+			TriggerClientEvent("ab-walkietalkie:phoneCallEndedCallback", subscriberServerId);
 		end
 
 		-- Channel does not exist, no need to update anyone else
