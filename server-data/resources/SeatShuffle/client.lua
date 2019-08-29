@@ -9,6 +9,11 @@ end
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
+
+		if IsControlJustPressed(0, 170) then
+			TriggerEvent("SeatShuffle")
+		end
+
 		if IsPedInAnyVehicle(GetPlayerPed(-1), false) and disableShuffle then
 			if GetPedInVehicleSeat(GetVehiclePedIsIn(GetPlayerPed(-1), false), 0) == GetPlayerPed(-1) then
 				if GetIsTaskActive(GetPlayerPed(-1), 165) then
