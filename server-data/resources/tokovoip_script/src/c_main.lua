@@ -32,6 +32,7 @@ local animPlaySync = false;
 local function setPlayerTalkingState(player, playerServerId)
 	local talking = tonumber(getPlayerData(playerServerId, "voip:talking"));
 	if (animStates[playerServerId] == 0 and talking == 1) then
+		animPlaySync = true
 		Citizen.CreateThread(function()
 			while animPlaySync do
 				Citizen.Wait(0)
@@ -40,6 +41,7 @@ local function setPlayerTalkingState(player, playerServerId)
 			end
 		end)
 	elseif (animStates[playerServerId] == 1 and talking == 0) then
+		animPlaySync = false
 		PlayFacialAnim(GetPlayerPed(player), "mood_normal_1", "facials@gen_male@base");
 	end
 	animStates[playerServerId] = talking;
