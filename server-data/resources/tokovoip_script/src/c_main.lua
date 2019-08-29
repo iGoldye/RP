@@ -22,6 +22,7 @@ local animStates = {}
 local displayingPluginScreen = false;
 local HeadBone = 0x796e;
 local animPlay = false;
+local animPlaySync = false;
 
 --------------------------------------------------------------------------------
 --	Plugin functions
@@ -31,7 +32,13 @@ local animPlay = false;
 local function setPlayerTalkingState(player, playerServerId)
 	local talking = tonumber(getPlayerData(playerServerId, "voip:talking"));
 	if (animStates[playerServerId] == 0 and talking == 1) then
-		PlayFacialAnim(GetPlayerPed(player), "mic_chatter", "mp_facial");
+		Citizen.CreateThread(function()
+			while animPlaySync do
+				Citizen.Wait(0)
+				PlayFacialAnim(GetPlayerPed(player), "mic_chatter", "mp_facial");
+				Citizen.Wait(8000)
+			end
+		end)
 	elseif (animStates[playerServerId] == 1 and talking == 0) then
 		PlayFacialAnim(GetPlayerPed(player), "mood_normal_1", "facials@gen_male@base");
 	end

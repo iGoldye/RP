@@ -371,6 +371,24 @@ ESX.RegisterServerCallback('esx_property:getOwnedProperties', function(source, c
 	end)
 end)
 
+ESX.RegisterServerCallback('esx_property:getAnyoneOwnedProperties', function(source, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer == nil then
+		cb(nil)
+		return
+	end
+
+	MySQL.Async.fetchAll('SELECT name FROM owned_properties', {}, function(ownedProperties)
+		local properties = {}
+
+		for i=1, #ownedProperties, 1 do
+			properties[ownedProperties[i].name] = true
+		end
+
+		cb(properties)
+	end)
+end)
+
 ESX.RegisterServerCallback('esx_property:getLastProperty', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
