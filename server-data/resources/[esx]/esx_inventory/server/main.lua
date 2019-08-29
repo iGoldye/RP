@@ -161,6 +161,10 @@ function addItem(name, owner, item)
 
 		if item.name == "esx_item" then
 			if xPlayer ~= nil then
+				if item.extra == nil then
+					return false
+				end
+
 				xPlayer.addInventoryItem(item.extra.name, item.amount)
 				return true
 			end
@@ -168,12 +172,14 @@ function addItem(name, owner, item)
 		elseif item.name == "money" then
 			if xPlayer then
 				xPlayer.addMoney(item.amount)
+				TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, getItemLabel(item), item.amount)
 				return true
 			end
 			return false
 		elseif item.name == "black_money" then
 			if xPlayer  then
 				xPlayer.addAccountMoney('black_money', item.amount)
+				TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, getItemLabel(item), item.amount)
 				return true
 			end
 			return false
@@ -204,7 +210,7 @@ function addItem(name, owner, item)
 	if owner ~= nil and owner ~= "" then
 		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
 		if xPlayer ~= nil then
-			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, { ["label"] = getItemLabel(item) }, item.amount)
+			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, getItemLabel(item), item.amount)
 		end
 	end
 
@@ -244,12 +250,14 @@ function removeItem(name, owner, item)
 		elseif item.name == "money" then
 			if xPlayer and ESX.Round(xPlayer.getMoney() - item.amount, 2) >= 0 then
 				xPlayer.removeMoney(item.amount)
+				TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, getItemLabel(item), item.amount)
 				return true
 			end
 			return false
 		elseif item.name == "black_money" then
 			if xPlayer and ESX.Round(xPlayer.getAccount('black_money').money - item.amount, 2) >= 0 then
 				xPlayer.removeAccountMoney('black_money', item.amount)
+				TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, getItemLabel(item), item.amount)
 				return true
 			end
 			return false
@@ -277,7 +285,7 @@ function removeItem(name, owner, item)
 	if owner ~= nil and owner ~= "" then
 		local xPlayer = ESX.GetPlayerFromIdentifier(owner)
 		if xPlayer ~= nil then
-			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, { ["label"] = getItemLabel(item) }, item.amount)
+			TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, getItemLabel(item), item.amount)
 		end
 	end
 
@@ -352,8 +360,15 @@ function reloadInventories()
 		-- load empty inventory
 		local inv = getInventory(name, owner)
 
-		local item = createItem(result[i].item, json.decode(result[i].extra), result[i].amount)
-		addItem(name, owner, item)
+		if result[i].extra == nil or json.decode(result[i].extra) == nil then
+			print("Wrong extra field while loading inventory! "..tostring(name).." "..tostring(owner))
+		else
+			local item = createItem(result[i].item, json.decode(result[i].extra), result[i].amount)
+			if item ~= nil and item.name ~= "equipped_weapon" then
+				addItem(name, owner, item)
+			end
+		end
+
 	end
 
 	for name,_ in pairs(Inventories) do

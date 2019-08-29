@@ -526,8 +526,8 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 end)
 
 RegisterNetEvent('esx_inventory:showItemNotification')
-AddEventHandler('esx_inventory:showItemNotification', function(add, item, count)
-	ESX.UI.ShowInventoryItemNotification(add, item, count)
+AddEventHandler('esx_inventory:showItemNotification', function(add, label, count)
+	ESX.UI.ShowInventoryItemNotification(add, {['label'] = label}, count)
 end)
 
 AddEventHandler("playerSpawned", function()
