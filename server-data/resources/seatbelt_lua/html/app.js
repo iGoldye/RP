@@ -6,7 +6,6 @@ var inCar = false;
 
 window.addEventListener('message',
     function (e) {
-	console.log(e)
         if (e.data.transactionType === 'isBuckled') {
             if (inCar != e.data.inCar) {
                 if (!e.data.inCar) {
