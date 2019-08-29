@@ -12,6 +12,10 @@ Config.Food = { -- ccal * g
 	blackberry = 43 * 100,
 	snikers = 480 * 50.5,
 	mixapero = 150 * 200,
+	candy1 =  452 * 40,
+	candy2 =  452 * 40,
+	snaks =  452 * 40,
+	
 
 	-- UNICRON --
 	bolpistache = 561 * 100,
@@ -29,4 +33,10 @@ Config.Drinks = {  -- %
 	jusfruit = 10,
 	icetea = 20,
 	drpepper = 15,
+	chokodrink = 20,
+	coffee1 = 20
+	coffee2 = 20
+	tea1 = 20
+	tea2 = 20
+	kakao = 20
 }
