@@ -57,16 +57,15 @@ function removePlayerFromRadio(channelId, playerServerId)
 		print("Removed [" .. playerServerId .. "] " .. (GetPlayerName(playerServerId) or "") .. " from channel " .. channelId);
 
 		-- Tell unsubscribed player he's left the channel as well
-		-- TriggerClientEvent("ResetRadioChannel", playerServerId);
 		TriggerClientEvent("TokoVoip:onPlayerLeaveChannel", playerServerId, channelId, playerServerId);
-		if(channelId > 1000) then
-			TriggerClientEvent("ab-walkietalkie:phoneCallEndedCallback", subscriberServerId);
-		end
 
 		-- Channel does not exist, no need to update anyone else
 		if (not channels[channelId]) then return end
 
 		for _, subscriberServerId in pairs(channels[channelId].subscribers) do
+			if(channelId > 1000) then
+				TriggerClientEvent("ab-walkietalkie:phoneCallEndedCallback", subscriberServerId);
+			end
 			TriggerClientEvent("TokoVoip:onPlayerLeaveChannel", subscriberServerId, channelId, playerServerId);
 		end
 	end
