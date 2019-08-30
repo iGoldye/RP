@@ -8,6 +8,7 @@ Locales['en'] = {
   ['level'] = 'уровень %s',
   ['neon'] = 'неон',
   ['blip_name'] = 'los Santos Customs',
+  ['blip_name_bennys'] = 'Benny\'s Original Motorworks',
 -- Paint Colors
   -- Black
   ['black'] = 'Черный',
