@@ -183,7 +183,7 @@ AddEventHandler("ls:getHasOwner", function(hasOwner, localVehId, localVehPlate, 
 
         TriggerEvent("ls:notify", getRandomMsg())
     else
-        TriggerEvent("ls:notify", "This vehicle is not yours")
+        TriggerEvent("ls:notify", "Этот транспорт не ваш")
     end
 end)
 
