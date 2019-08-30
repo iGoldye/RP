@@ -55,7 +55,7 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 		TriggerClientEvent('esx:showNotification', _source, _U('you_confiscated_weapon', ESX.GetWeaponLabel(itemName), targetXPlayer.name, amount))
 		TriggerClientEvent('esx:showNotification', target,  _U('got_confiscated_weapon', ESX.GetWeaponLabel(itemName), amount, sourceXPlayer.name))
 	elseif itemType == 'item_new' then
-		exports["esx_inventory"]:giveItemTo(sourceXPlayer.source, targetXPlayer.source, itemName)
+		exports["esx_inventory"]:giveItemTo(targetXPlayer.source, sourceXPlayer.source, itemName)
 		TriggerClientEvent('esx:showNotification', _source, _U('you_confiscated_weapon', itemName.name, targetXPlayer.name, amount))
 		TriggerClientEvent('esx:showNotification', target,  _U('got_confiscated_weapon', itemName.name, amount, sourceXPlayer.name))
 	end
