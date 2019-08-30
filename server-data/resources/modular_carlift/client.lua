@@ -45,17 +45,22 @@ function spawnProp(propName, x, y, z)
 		local heading = GetEntityHeading(GetPlayerPed(-1))
 		local xVector = forward * math.sin(math.rad(heading)) * -1.0
 		local yVector = forward * math.cos(math.rad(heading))
+
+		elevatorProp = GetClosestObjectOfType(vector3(x,y,z), 1.5, model, false, false)
 		
-		elevatorProp = createObject(model, x, y, z)
-		local propNetId = ObjToNet(elevatorProp)
-		SetNetworkIdExistsOnAllMachines(propNetId, true)
-		NetworkSetNetworkIdDynamic(propNetId, true)
-		SetNetworkIdCanMigrate(propNetId, false)
+		if elevatorProp < 1 then
+			elevatorProp = createObject(model, x, y, z)
+			local propNetId = ObjToNet(elevatorProp)
+			SetNetworkIdExistsOnAllMachines(propNetId, true)
+			NetworkSetNetworkIdDynamic(propNetId, true)
+			SetNetworkIdCanMigrate(propNetId, false)
 		
-		SetEntityLodDist(elevatorProp, 0xFFFF)
-		SetEntityCollision(elevatorProp, true, true)
-		FreezeEntityPosition(elevatorProp, true)
-		SetEntityCoords(elevatorProp, x, y, z, false, false, false, false) -- Patch un bug pour certains props.
+			SetEntityLodDist(elevatorProp, 0xFFFF)
+			SetEntityCollision(elevatorProp, true, true)
+			FreezeEntityPosition(elevatorProp, true)
+			SetEntityCoords(elevatorProp, x, y, z, false, false, false, false) -- Patch un bug pour certains props.
+		end
+
 	else
 		drawNotification("Modèle invalide.")
 	end

@@ -54,6 +54,10 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 
 		TriggerClientEvent('esx:showNotification', _source, _U('you_confiscated_weapon', ESX.GetWeaponLabel(itemName), targetXPlayer.name, amount))
 		TriggerClientEvent('esx:showNotification', target,  _U('got_confiscated_weapon', ESX.GetWeaponLabel(itemName), amount, sourceXPlayer.name))
+	elseif itemType == 'item_new' then
+		exports["esx_inventory"]:giveItemTo(targetXPlayer.source, sourceXPlayer.source, itemName)
+		TriggerClientEvent('esx:showNotification', _source, _U('you_confiscated_weapon', itemName.name, targetXPlayer.name, amount))
+		TriggerClientEvent('esx:showNotification', target,  _U('got_confiscated_weapon', itemName.name, amount, sourceXPlayer.name))
 	end
 end)
 
@@ -153,6 +157,8 @@ ESX.RegisterServerCallback('esx_policejob:getOtherPlayerData', function(source, 
 			['@identifier'] = xPlayer.identifier
 		})
 
+		local new_inventory = exports["esx_inventory"]:getInventory("pocket", xPlayer.identifier)
+
 		local firstname = result[1].firstname
 		local lastname  = result[1].lastname
 		local sex       = result[1].sex
@@ -163,6 +169,7 @@ ESX.RegisterServerCallback('esx_policejob:getOtherPlayerData', function(source, 
 			name      = GetPlayerName(target),
 			job       = xPlayer.job,
 			inventory = xPlayer.inventory,
+			new_inventory = new_inventory,
 			accounts  = xPlayer.accounts,
 			weapons   = xPlayer.loadout,
 			firstname = firstname,

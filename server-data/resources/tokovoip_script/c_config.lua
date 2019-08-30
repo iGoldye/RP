@@ -5,7 +5,7 @@ TokoVoipConfig = {
 	minVersion = "1.2.4", -- Version of the TS plugin required to play on the server
 
 	distance = {
-		25, -- Normal speech distance in gta distance units
+		15, -- Normal speech distance in gta distance units
 		5, -- Whisper speech distance in gta distance units
 		40, -- Shout speech distance in gta distance units
 	},

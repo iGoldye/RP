@@ -1,6 +1,6 @@
 Locales['en'] = {
-  ['have_withdrawn'] = 'you have withdrawn ~y~x%s~s~ ~b~%s~s~',
-  ['have_deposited'] = 'you have deposited ~y~x%s~s~ ~b~%s~s~',
+  ['have_withdrawn'] = 'вы забрали ~y~x%s~s~ ~b~%s~s~',
+  ['have_deposited'] = 'вы положили~y~x%s~s~ ~b~%s~s~',
   ['free_prop'] = 'Недвижимость на продажу',
   ['property'] = 'Недвижимость',
   ['enter'] = 'Войти',

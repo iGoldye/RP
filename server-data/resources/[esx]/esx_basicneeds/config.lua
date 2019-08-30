@@ -34,9 +34,9 @@ Config.Drinks = {  -- %
 	icetea = 20,
 	drpepper = 15,
 	chokodrink = 20,
-	coffee1 = 20
-	coffee2 = 20
-	tea1 = 20
-	tea2 = 20
-	kakao = 20
+	coffee1 = 20,
+	coffee2 = 20,
+	tea1 = 20,
+	tea2 = 20,
+	kakao = 20,
 }

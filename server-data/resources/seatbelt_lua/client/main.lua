@@ -98,6 +98,10 @@ Citizen.CreateThread(function()
                 DisableControlAction(0, 75, true)
             end
 
+            if IsControlJustPressed(0, 170) and not beltOn then
+                TriggerEvent("SeatShuffle")
+            end
+
             speedBuffer[2] = speedBuffer[1]
             speedBuffer[1] = GetEntitySpeed(vehicle)
 

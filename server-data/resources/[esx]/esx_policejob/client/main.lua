@@ -606,7 +606,6 @@ end
 function OpenPoliceActionsMenu()
 	ESX.UI.Menu.CloseAll()
 
-
 	local topElements = {
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
@@ -648,6 +647,9 @@ function OpenPoliceActionsMenu()
 				elements = elements
 			}, function(data2, menu2)
 				local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+--				closestPlayer = PlayerId()
+--				closestDistance = 1.0
+
 				if closestPlayer ~= -1 and closestDistance <= 3.0 then
 					local action = data2.current.value
 
@@ -899,6 +901,18 @@ function OpenBodySearchMenu(player)
 		end
 
 		table.insert(elements, {label = _U('guns_label')})
+
+		for i=1, #data.new_inventory.items, 1 do
+			local item = data.new_inventory.items[i]
+			if item.name == "weapon" and item.extra ~= nil then
+				table.insert(elements, {
+					label    = item.extra.weapon_label,
+					value    = item,
+					itemType = 'item_new',
+					amount   = item.extra.ammo
+				})
+			end
+		end
 
 		for i=1, #data.weapons, 1 do
 			table.insert(elements, {

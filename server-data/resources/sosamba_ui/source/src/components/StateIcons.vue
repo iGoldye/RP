@@ -40,7 +40,7 @@ export default {
             var alpha = this.needs["armor"];
             if (alpha === undefined) alpha = 0;
 
-            return 'rgba(255,128,0, ' + alpha*0.7 + ')';
+            return 'rgba(255,128,0, ' + Math.floor(alpha*0.7*255)/255.0 + ')';
         },
         hungerColor: function() {
             var alpha = this.needs["hunger"];
@@ -48,7 +48,10 @@ export default {
             if (alpha > thresh) alpha = thresh;
             alpha = (thresh-alpha)/thresh;
             if (alpha === undefined) alpha = 0;
-            return 'rgba(255,128,0, ' + alpha*0.7 + ')';
+
+            var green = Math.floor(this.needs["hunger"]*255.0);
+
+            return 'rgba(255,'+Math.floor(green)+',0, ' + Math.floor(alpha*0.7*255)/255.0 + ')';
         },
         thirstColor: function() {
             var alpha = this.needs["thirst"];
@@ -56,7 +59,10 @@ export default {
             if (alpha > thresh) alpha = thresh;
             alpha = (thresh-alpha)/thresh;
             if (alpha === undefined) alpha = 0;
-            return 'rgba(255,128,0, ' + alpha*0.7 + ')';
+
+            var green = this.needs["thirst"]*255.0
+
+            return 'rgba(255,'+Math.floor(green)+',0, ' + Math.floor(alpha*0.7*255)/255.0 + ')';
         },
         healthColor: function() {
             var red = 255 - this.needs["health"]*255;
@@ -73,7 +79,7 @@ export default {
             if (alpha > thresh) alpha = thresh;
             alpha = Math.sqrt((thresh-alpha)/thresh);
             if (alpha === undefined) alpha = 0;
-            return 'rgba('+red+','+green+',0, ' + alpha*0.7 + ')';
+            return 'rgba('+Math.floor(red)+','+Math.floor(green)+',0, ' + Math.floor(alpha*0.7*255)/255.0 + ')';
         },
     },
 

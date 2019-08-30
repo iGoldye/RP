@@ -477,7 +477,7 @@ function createPickup(source, item, label)
 	pickup.id = global_pickup_id
 	pickup.item = duplicateItem(item)
 	pickup.label = label
-	pickup.coords = players[source].coords + players[source].forward * -2.0
+	pickup.coords = players[source].coords + players[source].forward * 0.2
 	pickup.source = source
 
 	pickups[pickup.id] = pickup
@@ -592,10 +592,9 @@ AddEventHandler('esx_inventory:onPickup', function(id)
 	end
 end)
 
-RegisterServerEvent('esx_inventory:getInventory')
-AddEventHandler('esx_inventory:getInventory', function(name, shared, client_event)
-
+ESX.RegisterServerCallback('esx_inventory:getInventory', function(source, cb, name, shared)
 	local xPlayer = ESX.GetPlayerFromId(source)
+
 	if xPlayer == nil then
 		print("esx_inventory:getInventory Unknown player!")
 		return
@@ -610,12 +609,7 @@ AddEventHandler('esx_inventory:getInventory', function(name, shared, client_even
 	updateWeight(name, owner)
 
 	local inv = getInventory(name, owner)
---	addItem(name, owner, createItem("money_pack", { ["cash"] = 1000, ["black"] = 2000 }, 1))
-
-	if client_event then
-		TriggerClientEvent(client_event, source, inv)
-	end
-
+	cb(inv)
 end)
 
 RegisterServerEvent('esx_inventory:actionUnpackMoney')
@@ -667,18 +661,21 @@ AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight
 	cb(createItem(name, extra, amount, weight))
 end)
 
-
-ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, playerid, item)
+function giveItemTo(source, target, item)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xTarget = ESX.GetPlayerFromId(playerid)
+	local xTarget = ESX.GetPlayerFromId(target)
 
 	if removeItem("pocket", xPlayer.identifier, item) == true then
-		cb(addItem("pocket", xTarget.identifier, item))
-	else
-		cb(false)
+		return addItem("pocket", xTarget.identifier, item)
 	end
-end)
 
+	return false
+
+end
+
+ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, playerid, item)
+	return giveItemTo(source, playerid, item)
+end)
 
 --[[
 RegisterServerEvent('esx_inventory:addItem')

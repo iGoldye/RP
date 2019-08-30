@@ -247,7 +247,10 @@ function OpenMenu()
 		if cmd == 'inventory' then
 --			ESX.ShowInventory()
 --			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
-			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'sosamba_ui:showInventoryMenu')
+			ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
+				TriggerEvent('sosamba_ui:showInventoryMenu', inventory)
+			end, "pocket", false)
+
 		elseif cmd == 'animations' then
 			TriggerEvent('esx_animations:openAnimationsMenu')
 		elseif cmd == 'billing' then
