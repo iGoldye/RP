@@ -5,3 +5,4 @@ server-data/cache/*
 server-data/server.cfg
 server-data/resources/3dme/log.txt
 server/*
+server-data/mysql-async.log
