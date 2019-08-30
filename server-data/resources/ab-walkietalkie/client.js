@@ -100,7 +100,7 @@ onNet("ab-walkietalkie:phoneCallStartedCallback", function (){
     emitNet('TokoVoip:removePlayerFromRadio', lastRadio, playerServerId);
 });
 
-onNet("ab-walkietalkie:phoneCallEndedCallback", function (){
+onNet("ab-walkietalkie:phoneCallEndedCallback", function (playerServerId){
     if (lastRadio !== 0) {
         emitNet('TokoVoip:addPlayerToRadio', lastRadio, playerServerId);
     }

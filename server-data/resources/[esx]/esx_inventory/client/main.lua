@@ -145,7 +145,7 @@ function action_giveto(item)
 
 	if amount ~= nil and amount > 0 then
 		TriggerServerEvent('esx_inventory:giveItemTo', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
-		TriggerEvent('esx_inventory:updateInventory')
+		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
 	end
 end
 
@@ -181,9 +181,11 @@ Citizen.CreateThread(function()
 				PlaySoundFrontend(-1, 'PICK_UP', 'HUD_FRONTEND_DEFAULT_SOUNDSET', false)
 				v.inRange = true
 
-				if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory-menu') or ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory-item-menu') then
-					TriggerEvent('esx_inventory:updateInventory')
-				end
+				TriggerEvent('esx_inventory:updateInventory', "pocket", false)
+			end
+
+			if v.inRange and distance > 1.2 then
+				v.inRange = false
 			end
 		end
 	end
@@ -210,10 +212,11 @@ Citizen.CreateThread(function()
 	end
 end)
 
-
 RegisterNetEvent('esx_inventory:updateInventory')
-AddEventHandler('esx_inventory:updateInventory', function()
-	TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:onInventoryUpdate')
+AddEventHandler('esx_inventory:updateInventory', function(name, shared)
+	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
+		TriggerEvent('esx_inventory:onInventoryUpdate', inventory)
+	end, name, shared)
 end)
 
 RegisterNetEvent('esx_inventory:createPickup')
@@ -261,6 +264,7 @@ AddEventHandler('esx_inventory:createPickup', function(id, pickup)
 		coords = pickup.coords,
 		source = pickup.source,
 		obj = obj,
+		inRange = true,
 	}
 end)
 
@@ -521,7 +525,7 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 		ESX.ShowNotification(_U('already_equipped'))
 	else
 		GiveWeaponToPed(playerPed, weaponHash, item.extra.ammo, false, true)
-		TiggerEvent('esx_inventory:onInventoryUpdate')
+		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
 	end
 end)
 

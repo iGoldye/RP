@@ -19,7 +19,7 @@ Config.Zones = {
 		Size  = {x = 3.0, y = 3.0, z = 0.2},
 		Color = {r = 204, g = 204, b = 0},
 		Marker= 0,
-		Name  = _U('blip_name'),
+		Name  = _U('blip_name_bennys'),
 		Hint  = _U('press_custom')
 	},
 

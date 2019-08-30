@@ -73,15 +73,15 @@ AddEventHandler('esx:setJob', function(source, job, lastJob)
   if PhoneNumbers[job.name] ~= nil then
     TriggerEvent('esx_addons_gcphone:addSource', job.name, source)
   end
---[[
+
   if PhoneNumbers["mechanic"] ~= nil and lastJob == "mechanic-bennys" then
     TriggerEvent('esx_addons_gcphone:removeSource', "mechanic", source)
   end
 
-  if PhoneNumbers["mechanic"] ~= nil and job == "mechanic-bennys" then
+  if PhoneNumbers["mechanic"] ~= nil and job.name == "mechanic-bennys" then
     TriggerEvent('esx_addons_gcphone:addSource', "mechanic", source)
   end
-]]--
+
 end)
 
 AddEventHandler('esx_addons_gcphone:addSource', function(number, source)
@@ -141,11 +141,10 @@ AddEventHandler('esx:playerLoaded', function(source)
     if PhoneNumbers[xPlayer.job.name] ~= nil then
       TriggerEvent('esx_addons_gcphone:addSource', xPlayer.job.name, source)
     end
---[[
+
     if PhoneNumbers["mechanic"] ~= nil and xPlayer.job.name == "mechanic-bennys" then
       TriggerEvent('esx_addons_gcphone:addSource', "mechanic", source)
     end
-]]--
   end)
 
 end)
@@ -157,11 +156,9 @@ AddEventHandler('esx:playerDropped', function(source)
   if PhoneNumbers[xPlayer.job.name] ~= nil then
     TriggerEvent('esx_addons_gcphone:removeSource', xPlayer.job.name, source)
   end
---[[
   if PhoneNumbers["mechanic"] ~= nil and xPlayer.job.name == "mechanic-bennys" then
     TriggerEvent('esx_addons_gcphone:removeSource', "mechanic", source)
   end
-]]--
 end)
 
 function getPhoneNumber (source, callback) 

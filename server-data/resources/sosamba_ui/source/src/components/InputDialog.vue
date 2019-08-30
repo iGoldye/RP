@@ -49,7 +49,7 @@ export default {
         show: function(callback) {
             this.callback = callback;
             this.active = true;
-            this.data.text = "";
+            data.text = "";
 
             this.$refs.textfield.$el.click();
 
@@ -61,7 +61,7 @@ export default {
         hide: function() {
             this.active = false;
             if (this.callback) {
-                this.callback(this.text);
+                this.callback(data.text);
             }
         },
 
