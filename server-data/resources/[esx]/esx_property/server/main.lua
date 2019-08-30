@@ -73,7 +73,9 @@ function RemoveOwnedProperty(name, owner)
 end
 
 MySQL.ready(function()
+	Citizen.Wait(1000) -- give players some time to load new resource after restart
 	MySQL.Async.fetchAll('SELECT * FROM properties', {}, function(properties)
+		Config.Properties = {}
 
 		for i=1, #properties, 1 do
 			local entering  = nil
