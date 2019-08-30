@@ -23,7 +23,7 @@ end)
 
 TriggerEvent('esx_inventory:registerItemAction', "esx_item", "esx_use", _U("inventory_action_use"), function(item)
 	TriggerServerEvent('esx:useItem', item.extra.name)
-	TriggerEvent('esx_inventory:updateInventory')
+	TriggerEvent('esx_inventory:updateInventory', "pocket", false)
 end, function(item)
 	if item.extra == nil then
 		return false
@@ -77,7 +77,8 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "drop", "Выбро�
 
 	if item.amount == 1 then
 		TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = 1 }))
-		TriggerEvent('esx_inventory:updateInventory')
+		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
+		TaskPlayAnim(PlayerPedId(), 'pickup_object', 'pickup_low', 8.0, -8.0, -1, 48, 0, false, false, false)
 	else
 		TriggerEvent("sosamba_ui:showInputBox", "drop-box", "Сколько выбросить?", "Введите количество предметов", function(text)
 			local val = tonumber(text)
@@ -87,7 +88,8 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "drop", "Выбро�
 
 			if amount ~= nil and amount > 0 then
 				TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
-				TriggerEvent('esx_inventory:updateInventory')
+				TriggerEvent('esx_inventory:updateInventory', "pocket", false)
+				TaskPlayAnim(PlayerPedId(), 'pickup_object', 'pickup_low', 8.0, -8.0, -1, 48, 0, false, false, false)
 			end
 		end)
 	end
@@ -124,10 +126,12 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Пе�
 
         if amount < 2 then
 		local ditem = duplicateItem(item, { ["amount"] = amount })
-		ESX.TriggerServerCallback('esx_inventory:giveItemTo', function()
---			print(json.encode(ditem))
+		ESX.TriggerServerCallback('esx_inventory:giveItemTo', function(success)
+			if success then
+				TaskPlayAnim(PlayerPedId(), 'mp_common', 'givetake1_a', 8.0, -8.0, -1, 48, 0, false, false, false)
+				TriggerEvent('esx:showNotification', "Предмет передан")
+			end
 		end, GetPlayerServerId(closestPlayer), ditem)
-		TriggerEvent('esx:showNotification', "Предмет передан")
 	else
 		TriggerEvent("sosamba_ui:showInputBox", "giveto-box", "Сколько передать?", "Введите количество предметов", function(text)
 			amount = tonumber(text)
@@ -135,8 +139,11 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Пе�
 			if amount ~= nil and amount > 0 then
 				local ditem = duplicateItem(item, { ["amount"] = amount })
 
-				ESX.TriggerServerCallback('esx_inventory:giveItemTo', function()
---					print(json.encode(ditem))
+				ESX.TriggerServerCallback('esx_inventory:giveItemTo', function(success)
+					if success then
+						TaskPlayAnim(PlayerPedId(), 'mp_common', 'givetake1_a', 8.0, -8.0, -1, 48, 0, false, false, false)
+						TriggerEvent('esx:showNotification', "Предмет передан")
+					end
 				end, GetPlayerServerId(closestPlayer), ditem)
 			else
 				TriggerEvent('esx:showNotification', "Неверное количество предметов для передачи")

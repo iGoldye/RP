@@ -1,7 +1,5 @@
 <template>
-<v-container>
-    <v-layout v-show="shown()" style="position: absolute; right: 100px; top: 10%; width: 400px; height: 70%">
-        <v-dialog scrollable modal max-width="400px" no-click-animation v-model="dialogVisible"
+        <v-dialog ref="dialog" scrollable modal max-width="400px" no-click-animation v-model="shown" style="position: absolute; right: 100px; top: 10%; width: 400px; height: 70%"
             content-class="inventory-dialog-content"
             transition="inventory-transition"
             :disabled="disabled"
@@ -64,8 +62,6 @@
                     </template>
                 </ListMenu>
         </v-dialog>
-    </v-layout>
-</v-container>
 </template>
 
 <script>
@@ -107,7 +103,6 @@ export default {
             "close-circle": mdiCloseCircle,
             "keyboard-return": mdiKeyboardReturn,
         },
-        dialogVisible: false,
     }),
 
     computed: {
@@ -117,6 +112,11 @@ export default {
             },
             set: function(val) {
                 this._disabled = val;
+            }
+        },
+        shown: {
+            get: function() {
+                return this.state != "hide";
             }
         }
     },
@@ -131,7 +131,8 @@ export default {
          //state machine
         state: function (new_state/*, old_state*/) {
 //            this.console.log("Inventory state changed to: "+new_state);
-            this.dialogVisible = (new_state != "hide");
+            //this.dialogVisible = (new_state != "hide");
+            this.$refs["dialog"].$el.style.display = (new_state != "hide")?'block':'none';
 
             this.$nextTick(function() {
                 switch (new_state) {
@@ -180,10 +181,6 @@ export default {
 
         hide: function() {
             this.state = "hide";
-        },
-
-        shown: function() {
-            return this.state != "hide";
         },
 
         key_down: function(event) {
