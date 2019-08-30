@@ -8,7 +8,7 @@ client_script {										-- Client Scripts
 			  }
 
 server_script {										-- Server Scripts
-			   'SERVER/UpdateCheck.lua',
+--			   'SERVER/UpdateCheck.lua',
 }
 
 -- MinimapValues.lua	By		glitchdetector						[ https://forum.fivem.net/u/glitchdetector ] 	[ https://forum.fivem.net/t/release-utility-minimap-anchor-script/81912 ] 	[ https://github.com/glitchdetector/fivem-minimap-anchor ]
