@@ -661,18 +661,21 @@ AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight
 	cb(createItem(name, extra, amount, weight))
 end)
 
-
-ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, playerid, item)
+function giveItemTo(source, target, item)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xTarget = ESX.GetPlayerFromId(playerid)
+	local xTarget = ESX.GetPlayerFromId(target)
 
 	if removeItem("pocket", xPlayer.identifier, item) == true then
-		cb(addItem("pocket", xTarget.identifier, item))
-	else
-		cb(false)
+		return addItem("pocket", xTarget.identifier, item)
 	end
-end)
 
+	return false
+
+end
+
+ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, playerid, item)
+	return giveItemTo(source, playerid, item)
+end)
 
 --[[
 RegisterServerEvent('esx_inventory:addItem')

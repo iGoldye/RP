@@ -32,4 +32,8 @@ exports {
 	'registerItemAction',
 }
 
+server_export 'getInventory'
+server_export 'getItemLabel'
+server_export 'giveItemTo'
+
 dependency 'es_extended'
