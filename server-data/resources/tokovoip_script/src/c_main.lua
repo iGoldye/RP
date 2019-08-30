@@ -37,7 +37,7 @@ local function setPlayerTalkingState(player, playerServerId)
 			while animPlaySync do
 				Citizen.Wait(0)
 				PlayFacialAnim(GetPlayerPed(player), "mic_chatter", "mp_facial");
-				Citizen.Wait(8000)
+				Citizen.Wait(1000)
 			end
 		end)
 	elseif (animStates[playerServerId] == 1 and talking == 0) then
@@ -66,7 +66,7 @@ RegisterNUICallback("setPlayerTalking", function(data)
 			while animPlay do
 				Citizen.Wait(0)
 				PlayFacialAnim(GetPlayerPed(PlayerId()), "mic_chatter", "mp_facial");
-				Citizen.Wait(8000)
+				Citizen.Wait(1000)
 			end
 		end)
 	else
