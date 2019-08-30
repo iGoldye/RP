@@ -269,12 +269,12 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 				y = garage.ExteriorSpawnPoint.Pos.y,
 				z = garage.ExteriorSpawnPoint.Pos.z
 			}
-
+--[[
 			SetEntityCoords(vehicle, spawnCoords.x, spawnCoords.y, spawnCoords.z, 0, 0, 0, true)
 			SetEntityHeading(vehicle, garage.ExteriorSpawnPoint.Heading)
 			NetworkSetEntityInvisibleToNetwork(vehicle, false)
 			TriggerEvent('instance:close')
---[[
+]]--
 			ESX.Game.DeleteVehicle(vehicle)
 
 			ESX.Game.Teleport(playerPed, spawnCoords, function()
@@ -288,7 +288,6 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 				end)
 
 			end)
-]]--
 		else
 
 
