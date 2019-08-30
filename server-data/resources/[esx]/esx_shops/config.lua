@@ -80,6 +80,7 @@ Config.Zones = {
 		
 		},
 		showBlip = true,
+		blipColor = 9,
 	},
 
 	HideCrime = {
