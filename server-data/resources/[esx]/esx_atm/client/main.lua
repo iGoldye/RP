@@ -108,13 +108,29 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(PlayerPedId())
 		local canSleep = true
 		isInATMMarker = false
-
+--[[
 		for k,v in pairs(Config.ATMLocations) do
 			if GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < 1.0 then
 				isInATMMarker, canSleep = true, false
 				currentMarker = v
 				break
 			end
+		end
+]]--
+		local atm_entity = GetClosestObjectOfType(coords, 1.0, GetHashKey("prop_fleeca_atm"), false, false)
+		if atm_entity == 0 then
+			atm_entity = GetClosestObjectOfType(coords, 1.0, GetHashKey("prop_atm_02"), false, false)
+		end
+		if atm_entity == 0 then
+			atm_entity = GetClosestObjectOfType(coords, 1.0, GetHashKey("prop_atm_01"), false, false)
+		end
+		if atm_entity == 0 then
+			atm_entity = GetClosestObjectOfType(coords, 1.0, GetHashKey("prop_atm_03"), false, false)
+		end
+
+		if atm_entity > 0 then
+			isInATMMarker = true
+			currentMarker = GetEntityCoords(atm_entity)
 		end
 
 		if isInATMMarker and not hasAlreadyEnteredMarker then
