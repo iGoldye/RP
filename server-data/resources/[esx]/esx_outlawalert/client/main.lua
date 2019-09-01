@@ -205,6 +205,9 @@ Citizen.CreateThread(function()
 
 			Citizen.Wait(3000)
 			local vehicle = GetVehiclePedIsIn(playerPed, true)
+			if vehicle == 0 then
+				vehicle = GetClosestVehicle(playerCoords, 2.0, 0, 71)
+			end
 
 			if vehicle and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
 				local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
@@ -215,7 +218,11 @@ Citizen.CreateThread(function()
 						local vehicleLabel = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
 						vehicleLabel = GetLabelText(vehicleLabel)
 
-						local witness = getWitness(60,10)
+						if vehicleLabel == "NULL" then
+							vehicleLabel = "автомобиль"
+						end
+
+						local witness, isHear = getWitness(60,10, true)
 						if witness then
 							DecorSetInt(playerPed, 'isOutlaw', 2)
 
@@ -242,10 +249,10 @@ Citizen.CreateThread(function()
 				end, plate)
 			end
 
-		elseif IsPedInMeleeCombat(playerPed) and GetTimeSincePlayerHitPed(playerPed) < 1000 and Config.MeleeAlert then
+		elseif IsPedInMeleeCombat(playerPed) and IsShockingEventInSphere(112, playerCoords.x, playerCoords.y, playerCoords.z, 5.0) and Config.MeleeAlert then
 
-			Citizen.Wait(3000)
-			local witness = getWitness(10,3)
+			Citizen.Wait(10000)
+			local witness, isHear = getWitness(15,3, true)
 
 			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
 				DecorSetInt(playerPed, 'isOutlaw', 2)
@@ -274,7 +281,7 @@ Citizen.CreateThread(function()
 			Citizen.Wait(10000)
 			local hearDistance = 60
 			if IsPedCurrentWeaponSilenced(playerPed) then hearDistance = 10 end -- does not actually work, because IsPedShooting already skips silencers at least for pistols
-			local witness = getWitness(30,hearDistance)
+			local witness, isHear = getWitness(60, hearDistance, true)
 
 			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
 				DecorSetInt(playerPed, 'isOutlaw', 2)
@@ -283,6 +290,9 @@ Citizen.CreateThread(function()
 					TriggerEvent('skinchanger:getSkin', function(skin)
 						local desc = exports.esx_skin:getSkinDescription(skin)
 						local descText = exports.esx_skin:skinDescriptionToText(desc)
+						if isHear then
+							descText = nil
+						end
 
 						TriggerServerEvent('esx_outlawalert:gunshotInProgress', {
 							x = ESX.Math.Round(playerCoords.x, 1),

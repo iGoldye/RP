@@ -142,6 +142,7 @@ function OpenMechanicActionsMenu()
 						ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, 90.0, function(vehicle)
 							local playerPed = PlayerPedId()
 							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+							SetVehicleNumberPlateText(vehicle, string.format("WORK%04d", math.random(1,9999)))
 						end)
 					else
 						ESX.TriggerServerCallback('esx_service:enableService', function(canTakeService, maxInService, inServiceCount)
@@ -350,6 +351,7 @@ function OpenMobileMechanicActionsMenu()
 					SetVehicleUndriveable(vehicle, false)
 					SetVehicleEngineOn(vehicle, true, true)
 					ClearPedTasksImmediately(playerPed)
+					TriggerEvent('esx_carsync:updateCarHealth', vehicle)
 
 					ESX.ShowNotification(_U('vehicle_repaired'))
 					isBusy = false
@@ -970,9 +972,9 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		if IsControlJustReleased(0, 167) and not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
-			OpenMobileMechanicActionsMenu()
-		end
+--		if IsControlJustReleased(0, 167) and not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+--			OpenMobileMechanicActionsMenu()
+--		end
 
 		if IsControlJustReleased(0, 178) and not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
 			if NPCOnJob then
@@ -1002,4 +1004,10 @@ end)
 
 AddEventHandler('playerSpawned', function(spawn)
 	isDead = false
+end)
+
+AddEventHandler('esx_mechanicjob:OpenMobileMechanicActionsMenu', function()
+	if not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
+		OpenMobileMechanicActionsMenu()
+	end
 end)

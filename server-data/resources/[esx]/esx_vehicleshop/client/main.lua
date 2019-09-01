@@ -40,7 +40,7 @@ Citizen.CreateThread(function ()
 	end)
 
 	if Config.EnablePlayerManagement then
-		if ESX.PlayerData.job.name == 'cardealer' then
+		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
 			if ESX.PlayerData.job.grade_name == 'boss' then
@@ -59,7 +59,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.PlayerData = xPlayer
 
 	if Config.EnablePlayerManagement then
-		if ESX.PlayerData.job.name == 'cardealer' then
+		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
 			if ESX.PlayerData.job.grade_name == 'boss' then
@@ -761,7 +761,7 @@ AddEventHandler('esx:setJob', function (job)
 	ESX.PlayerData.job = job
 
 	if Config.EnablePlayerManagement then
-		if ESX.PlayerData.job.name == 'cardealer' then
+		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'cardealer' then
 			Config.Zones.ShopEntering.Type = 1
 
 			if ESX.PlayerData.job.grade_name == 'boss' then

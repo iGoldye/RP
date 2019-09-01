@@ -66,7 +66,7 @@ Citizen.CreateThread(function()
 	RegisterNUICallback('menu_cancel', function(data, cb)
 		local menu = ESX.UI.Menu.GetOpened(MenuType, data._namespace, data._name)
 
-		if menu.cancel ~= nil then
+		if menu and menu.cancel ~= nil then
 			menu.cancel(data, menu)
 		end
 

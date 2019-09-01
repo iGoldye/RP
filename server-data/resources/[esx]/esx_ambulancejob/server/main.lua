@@ -117,19 +117,25 @@ ESX.RegisterServerCallback('esx_ambulancejob:buyJobVehicle', function(source, cb
 
 	-- vehicle model not found
 	if price == 0 then
-		print(('esx_ambulancejob: %s attempted to exploit the shop! (invalid vehicle model)'):format(xPlayer.identifier))
+		print(('esx_ambulancejob: %s attempted to exploit the shop! (invalid vehicle model: %s)'):format(xPlayer.identifier, vehicleProps.model))
 		cb(false)
 	else
+		local displayName = type
+		if vehicleProps.label ~= nil then
+			displayName = vehicleProps.label
+		end
+
 		if xPlayer.getMoney() >= price then
 			xPlayer.removeMoney(price)
 	
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`) VALUES (@owner, @vehicle, @plate, @type, @job, @stored)', {
+			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`, vehiclename) VALUES (@owner, @vehicle, @plate, @type, @job, @stored, @vehiclename)', {
 				['@owner'] = xPlayer.identifier,
 				['@vehicle'] = json.encode(vehicleProps),
 				['@plate'] = vehicleProps.plate,
 				['@type'] = type,
 				['@job'] = xPlayer.job.name,
-				['@stored'] = true
+				['@stored'] = true,
+				['@vehiclename'] = displayName,
 			}, function (rowsChanged)
 				cb(true)
 			end)
@@ -141,17 +147,17 @@ end)
 
 ESX.RegisterServerCallback('esx_ambulancejob:storeNearbyVehicle', function(source, cb, nearbyVehicles)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local foundPlate, foundNum
+	local foundPlate, foundProps, foundNum
 
 	for k,v in ipairs(nearbyVehicles) do
-		local result = MySQL.Sync.fetchAll('SELECT plate FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND job = @job', {
+		local result = MySQL.Sync.fetchAll('SELECT plate, vehicle FROM owned_vehicles WHERE owner = @owner AND plate = @plate AND job = @job', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = v.plate,
 			['@job'] = xPlayer.job.name
 		})
 
 		if result[1] then
-			foundPlate, foundNum = result[1].plate, k
+			foundPlate, foundProps, foundNum = result[1].plate, result[1].vehicle, k
 			break
 		end
 	end
@@ -159,10 +165,28 @@ ESX.RegisterServerCallback('esx_ambulancejob:storeNearbyVehicle', function(sourc
 	if not foundPlate then
 		cb(false)
 	else
-		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true WHERE owner = @owner AND plate = @plate AND job = @job', {
+		if foundProps ~= nil then
+			foundProps = json.decode(foundProps)
+		end
+		local props = nearbyVehicles[foundNum].props
+
+		if props.health ~= nil then
+			foundProps.health = math.floor(props.health)
+		end
+
+		if props.engineHealth ~= nil then
+			foundProps.engineHealth = math.floor(props.engineHealth)
+		end
+
+		if props.bodyHealth ~= nil then
+			foundProps.bodyHealth = math.floor(props.bodyHealth)
+		end
+
+		MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true, `vehicle` = @vehicle WHERE owner = @owner AND plate = @plate AND job = @job', {
 			['@owner'] = xPlayer.identifier,
 			['@plate'] = foundPlate,
-			['@job'] = xPlayer.job.name
+			['@job'] = xPlayer.job.name,
+			['@vehicle'] = json.encode(foundProps),
 		}, function (rowsChanged)
 			if rowsChanged == 0 then
 				print(('esx_ambulancejob: %s has exploited the garage!'):format(xPlayer.identifier))

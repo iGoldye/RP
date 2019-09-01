@@ -10,7 +10,7 @@ TriggerEvent('esx_phone:registerNumber', 'taxi', _U('taxi_client'), true, true)
 TriggerEvent('esx_society:registerSociety', 'taxi', 'Taxi', 'society_taxi', 'society_taxi', 'society_taxi', {type = 'public'})
 
 RegisterServerEvent('esx_taxijob:success')
-AddEventHandler('esx_taxijob:success', function()
+AddEventHandler('esx_taxijob:success', function(JobDistance)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
 	if xPlayer.job.name ~= 'taxi' then
@@ -20,7 +20,11 @@ AddEventHandler('esx_taxijob:success', function()
 
 	math.randomseed(os.time())
 
-	local total = math.random(Config.NPCJobEarnings.min, Config.NPCJobEarnings.max)
+	if JobDistance == nil then
+		JobDistance = 3000
+	end
+
+	local total = math.random(Config.NPCJobEarnings.min, Config.NPCJobEarnings.max) * JobDistance / 1500.0
 	local societyAccount
 
 	if xPlayer.job.grade >= 3 then

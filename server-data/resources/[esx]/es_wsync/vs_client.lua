@@ -73,14 +73,19 @@ Citizen.CreateThread(function()
 	local minute = 0
 	local second = 0
 	local timer = GetGameTimer()
+	local currentTimeScale = Config.DayTimeScale
+
+	while serverTime == 0 do
+		Citizen.Wait(100)
+	end
 
 	while true do
 		Citizen.Wait(0)
-		local newClientTime = clientTime
 		local deltaTime = 0
+		local spd = 1
 
 		if GetGameTimer() > timer and not freezeTime then
-			deltaTime = (GetGameTimer() - timer)/1000.0
+			deltaTime = ((GetGameTimer() - timer)/1000.0) * currentTimeScale
 			timer = GetGameTimer()
 		end
 
@@ -91,20 +96,25 @@ Citizen.CreateThread(function()
 			clientTime = serverTime
 		end
 
-		-- time adjust for small changes
-		if clientTime > serverTime then
-			clientTime = clientTime + deltaTime*0.5
-		else
-			clientTime = clientTime + deltaTime
+		spd = 1-(clientTime-serverTime)*0.02
+
+		if spd < 0.5 then
+			spd = 0.5
+		end
+		if spd > 2.0 then
+			spd = 2.0
 		end
 
-		-- x2 speedup for medium range changes
-		if (clientTime < serverTime-1) then
-			clientTime = clientTime + deltaTime
-		end
+		clientTime = clientTime + deltaTime*spd
 
 		hour, minute, second = timeToHMS(clientTime)
+		if hour >= 6 and hour < 22 then
+			currentTimeScale = Config.DayTimeScale
+		else
+			currentTimeScale = Config.NightTimeScale
+		end
 
+--		print(string.format("%02i:%02i:%02i x%.2f",hour,minute,second,spd))
 		NetworkOverrideClockTime(hour, minute, second)
 	end
 end)

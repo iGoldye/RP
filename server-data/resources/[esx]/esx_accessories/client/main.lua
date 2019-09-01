@@ -242,3 +242,7 @@ Citizen.CreateThread(function()
 
 	end
 end)
+
+AddEventHandler('esx_accessories:openAccessoryMenu', function()
+	OpenAccessoryMenu()
+end)

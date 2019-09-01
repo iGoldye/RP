@@ -34,9 +34,6 @@ end
 local templateStr
 
 function updatePlayerNames()
-    -- re-run this function the next frame
-    SetTimeout(0, updatePlayerNames)
-
     -- return if no template string is set
     if not templateStr then
         return
@@ -44,11 +41,12 @@ function updatePlayerNames()
 
     -- get local coordinates to compare to
     local localCoords = GetEntityCoords(PlayerPedId())
+    local playerId = PlayerId()
 
     -- for each valid player index
-    for i = 0, 255 do
+    for _,i in ipairs(GetActivePlayers()) do
         -- if the player exists
-        if NetworkIsPlayerActive(i) and i ~= PlayerId() then
+        if i ~= playerId then
             -- get their ped
             local ped = GetPlayerPed(i)
             local pedCoords = GetEntityCoords(ped)
@@ -187,5 +185,9 @@ SetTimeout(0, function()
     TriggerServerEvent('playernames:init')
 end)
 
+
+Citizen.CreateThread(function()
 -- run this function every frame
-SetTimeout(0, updatePlayerNames)
+	updatePlayerNames()
+	Citizen.Wait(0)
+end)

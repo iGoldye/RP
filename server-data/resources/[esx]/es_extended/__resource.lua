@@ -56,6 +56,7 @@ client_scripts {
 	'client/modules/death.lua',
 	'client/modules/scaleform.lua',
 	'client/modules/streaming.lua',
+	'client/modules/vehicle_damage.lua',
 
 	'common/modules/math.lua',
 	'common/modules/table.lua',

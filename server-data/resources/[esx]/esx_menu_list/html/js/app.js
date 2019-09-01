@@ -182,7 +182,7 @@
 	};
 
 	document.onkeyup = function(data) {
-		if(data.which == 27) {
+		if(data.which == 27 || data.which == 8) {
 			let focused = ESX_MENU.getFocused();
 			ESX_MENU.cancel(focused.namespace, focused.name);
 		}

@@ -9,12 +9,14 @@ server_scripts {
 	'locales/de.lua',
 	'locales/br.lua',
 	'locales/en.lua',
+	'locales/ru.lua',
 	'locales/fi.lua',
 	'locales/fr.lua',
 	'locales/sv.lua',
 	'locales/pl.lua',
 	'config.lua',
-	'server/main.lua'
+	'server/main.lua',
+	'server/itemeffects.lua',
 }
 
 client_scripts {
@@ -22,6 +24,7 @@ client_scripts {
 	'locales/de.lua',
 	'locales/br.lua',
 	'locales/en.lua',
+	'locales/ru.lua',
 	'locales/fi.lua',
 	'locales/fr.lua',
 	'locales/sv.lua',

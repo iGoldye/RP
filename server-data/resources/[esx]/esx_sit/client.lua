@@ -19,6 +19,18 @@ local currentScenario = nil
 
 local debugProps = {}
 
+function drawBoxMarker(base_coord, radius)
+	local c2 = vector3(radius,radius,radius) + base_coord
+	local c1 = vector3(-radius,-radius,-radius) + base_coord
+	DrawBox(c1, c2, 255, 0, blue, 0.5)
+end
+
+function calcBoxMarker(base_coord, rx,ry,rz)
+	local c2 = vector3(rx,ry,rz) + base_coord
+	local c1 = -vector3(rx,ry,rz) + base_coord
+	return c1,c2
+end
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -81,19 +93,18 @@ Citizen.CreateThread(function()
 			wakeup()
 		end
 
-		if (GetLastInputMethod(2) and IsControlJustPressed(1, 38) and IsControlPressed(1, 21)) and not IsPedInAnyVehicle(playerPed, true) then			
+		if (GetLastInputMethod(2) and IsControlJustPressed(1, 20) and IsControlPressed(1, 21)) and not IsPedInAnyVehicle(playerPed, true) then			
 
 			if sitting then
 				wakeup()
 			else
-
 				local object, distance = ESX.Game.GetClosestObject(Config.Interactables)
 
 				if Config.debug then
 					table.insert(debugProps, object)
 				end
 
-				if distance < 1.5 then
+				if distance < 1.5 and distance >= 0 then
 
 					local hash = GetEntityModel(object)
 					local data = nil
@@ -113,9 +124,12 @@ Citizen.CreateThread(function()
 						sit(object, modelName, data)
 					end
 
+				else
+					sitInPlace()
 				end
 
 			end
+			Citizen.Wait(100)
 			
 		end
 
@@ -127,8 +141,12 @@ function wakeup()
 	sitting = false
 	SetEntityCoords(playerPed, lastPos)
 	FreezeEntityPosition(playerPed, false)
-	FreezeEntityPosition(currentSitObj, false)
-	TriggerServerEvent('esx_interact:leavePlace', currentSitObj)
+
+	if currentSitObj ~= nil then
+		FreezeEntityPosition(currentSitObj, false)
+		TriggerServerEvent('esx_interact:leavePlace', currentSitObj)
+	end
+
 	currentSitObj = nil
 	currentScenario = nil
 end
@@ -159,5 +177,243 @@ function sit(object, modelName, data)
 		end
 
 	end)
+
+end
+
+function startAnim(lib, anim, flag)
+	flag = flag or 0
+	ESX.Streaming.RequestAnimDict(lib, function()
+		TaskPlayAnim(PlayerPedId(), lib, anim, 8.0, -8.0, -1, flag, 0, false, false, false)
+	end)
+end
+
+
+function worldCollisionTest(point1, point2, radius, ignore)
+--[[
+	for i=0,10 do
+		DrawBox(point1+vector3(-radius,-radius,0), point2+vector3(radius,radius,0), 255, 0, 0, 0.5)
+		Citizen.Wait(0)
+	end
+]]--
+	local handle = StartShapeTestCapsule(point1.x, point1.y, point1.z, point2.x, point2.y, point2.z, radius, 17, ignore, 7)
+	return GetShapeTestResult(handle)
+end
+
+function sitAttachLedge()
+	local playerPed = GetPlayerPed(-1)
+	local playerPos = GetEntityCoords(playerPed)
+	local heading = GetEntityHeading(playerPed)
+	local forward = GetEntityForwardVector(playerPed)
+
+	currentScenario = "PROP_HUMAN_SEAT_LEDGE"
+	currentSitObj = nil
+
+	local timer1 = GetGameTimer()
+	local boneIndex = GetPedBoneIndex(playerPed, 0) --pelvis 0x2E28, root 0
+	local pelvisCoords = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
+	local obj = CreateObjectNoOffset(GetHashKey("prop_a4_pile_01"), pelvisCoords.x,  pelvisCoords.y,  pelvisCoords.z, true, false, false)
+	SetEntityVisible(obj, false)
+
+	if obj ~= 0 then
+		local x,y,z = table.unpack(GetEntityCoords(playerPed))
+		local rot = GetEntityRotation(playerPed)
+
+--		SetGameplayCoordHint(x,y,z+1.0, 0, 1000, 1000, 0)
+
+		local offset = vector3(0,0,0)
+
+		local z_change = 0
+
+		startAnim('amb@world_human_seat_wall@male@hands_by_sides@enter','enter_low_left', 2)
+		SetEntityRotation(obj, rot)
+		AttachEntityToEntity(playerPed, obj, boneIndex, 0, 0, 0, 0,0,0, 0, false, false, true, 0, true)
+		sitting = true
+		while GetGameTimer()-timer1 < 1500 do
+			local delta = GetGameTimer()-timer1
+			local pelvisCoords2 = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
+			local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(pelvisCoords2+vector3(0,0,0.02),pelvisCoords2-vector3(0,0,0.02), 0.1, playerPed)
+			if (hit ~= 0) then
+				z_change = z_change + delta*0.00001
+			else
+				z_change = z_change - delta*0.00001
+			end
+
+			local forward = GetEntityForwardVector(playerPed)
+			offset = vector3(0,0,z_change-delta*0.0005) - forward * delta *0.0000
+			local nc = pelvisCoords + offset
+
+--			DrawBox(c1, c2, 255, 0, 0, 0.5)
+
+			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+
+			Citizen.Wait(0)
+		end
+
+		startAnim('amb@world_human_seat_wall@male@hands_by_sides@base','base', 1)
+		Citizen.Wait(0)
+
+		while IsEntityPlayingAnim(playerPed, 'amb@world_human_seat_wall@male@hands_by_sides@base','base', 3) do
+			local nc = pelvisCoords + offset
+			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+			Citizen.Wait(0)
+		end
+
+		startAnim('amb@world_human_seat_wall@male@hands_by_sides@exit','back_to_wall', 0)
+		Citizen.Wait(0)
+
+		timer1 = GetGameTimer()
+		local offset2 = vector3(0,0,0)
+		while IsEntityPlayingAnim(playerPed, 'amb@world_human_seat_wall@male@hands_by_sides@exit','back_to_wall', 3) do
+			local delta = GetGameTimer()-timer1
+
+			offset2 = vector3(0,0,0)
+--			local forward = GetEntityForwardVector(playerPed)
+			if delta > 2800 then
+				offset2 = vector3(0,0,-(delta-2800)*0.00095)-- - forward * delta *0.0002
+			end
+
+			local nc = pelvisCoords + offset - offset2
+
+			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+			Citizen.Wait(0)
+		end
+		local nc = pelvisCoords
+		SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+
+		DetachEntity(playerPed)
+		DeleteObject(obj)
+	end
+end
+
+
+function sitAttachBench()
+	local playerPed = GetPlayerPed(-1)
+	local playerPos = GetEntityCoords(playerPed)
+	local heading = GetEntityHeading(playerPed)
+	local forward = GetEntityForwardVector(playerPed)
+
+	currentScenario = "PROP_HUMAN_SEAT_BENCH"
+	currentSitObj = nil
+
+	local timer1 = GetGameTimer()
+	local boneIndex = GetPedBoneIndex(playerPed, 0) --pelvis 0x2E28, root 0
+	local pelvisCoords = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
+	local obj = CreateObjectNoOffset(GetHashKey("prop_a4_pile_01"), pelvisCoords.x,  pelvisCoords.y,  pelvisCoords.z, true, false, false)
+	SetEntityVisible(obj, false)
+
+	if obj ~= 0 then
+		local x,y,z = table.unpack(GetEntityCoords(playerPed))
+		local rot = GetEntityRotation(playerPed)
+
+--		SetGameplayCoordHint(x,y,z+1.0, 0, 1000, 1000, 0)
+
+		local offset = vector3(0,0,0)
+
+		local z_change = 0
+
+		startAnim('amb@prop_human_seat_chair@male@generic@enter','enter_forward', 2)
+		SetEntityRotation(obj, rot)
+		AttachEntityToEntity(playerPed, obj, boneIndex, 0, 0, 0, 0,0,0, 0, false, false, true, 0, true)
+		sitting = true
+		while GetGameTimer()-timer1 < 1500 do
+			local delta = GetGameTimer()-timer1
+			local pelvisCoords2 = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
+			local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(pelvisCoords2+vector3(0,0,0.02),pelvisCoords2-vector3(0,0,0.02), 0.1, playerPed)
+			if (hit ~= 0) then
+				z_change = z_change + delta*0.00001
+			else
+				z_change = z_change - delta*0.00001
+			end
+
+			local forward = GetEntityForwardVector(playerPed)
+			offset = vector3(0,0,z_change-delta*0.0004) - forward * delta *0.0003
+			local nc = pelvisCoords + offset
+
+--			DrawBox(c1, c2, 255, 0, 0, 0.5)
+
+			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+
+			Citizen.Wait(0)
+		end
+
+		startAnim('amb@prop_human_seat_chair@male@generic@base','base', 1)
+		Citizen.Wait(0)
+
+		while IsEntityPlayingAnim(playerPed, 'amb@prop_human_seat_chair@male@generic@base','base', 3) do
+			local nc = pelvisCoords + offset
+			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+			Citizen.Wait(0)
+		end
+
+		startAnim('amb@prop_human_seat_chair@male@generic@exit','exit_forward', 0)
+		Citizen.Wait(0)
+
+		timer1 = GetGameTimer()
+		local offset2 = vector3(0,0,0)
+		while IsEntityPlayingAnim(playerPed, 'amb@prop_human_seat_chair@male@generic@exit','exit_forward', 3) do
+			local delta = GetGameTimer()-timer1
+
+			local forward = GetEntityForwardVector(playerPed)
+			offset2 = vector3(0,0,-delta*0.0003) - forward * delta *0.0002
+
+			local nc = pelvisCoords + offset - offset2
+
+			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+			Citizen.Wait(0)
+		end
+
+		DetachEntity(playerPed)
+		DeleteObject(obj)
+	end
+end
+
+function sitInPlace(rec)
+	local playerPed = GetPlayerPed(-1)
+
+	if IsPedSwimming(playerPed) or IsEntityInAir(playerPed) or IsEntityDead(playerPed) or IsEntityAttached(playerPed) then
+		return
+	end
+
+	lastPos = GetEntityCoords(playerPed)
+	local heading = GetEntityHeading(playerPed)
+
+	local forward = GetEntityForwardVector(playerPed)
+	local behind_pos = lastPos - forward*0.35
+	local forward_pos = lastPos + forward*0.45
+
+	local flags = 1
+
+	Citizen.Wait(20)
+
+	local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(behind_pos+vector3(0,0,-0.7),behind_pos+vector3(0,0,-0.5), 0.1, playerPed)
+	local sit_point = hit ~= 0
+
+	Citizen.Wait(20)
+
+	local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(behind_pos+vector3(0,0,0.0),behind_pos+vector3(0,0,0.4), 0.1, playerPed)
+	local stand_point = hit ~= 0
+
+	Citizen.Wait(20)
+
+	local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(forward_pos+vector3(0,0,-1.6),forward_pos+vector3(0,0,-0.6), 0.1, playerPed)
+	local ledge_point = hit ~= 0
+
+	Citizen.Wait(20)
+
+	local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(forward_pos+vector3(0,0,0.0),forward_pos+vector3(0,0,0.4), 0.1, playerPed)
+	local forward_point = hit ~= 0
+
+	Citizen.Wait(20)
+
+	if stand_point == true then
+		TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_LEANING", 0, true)
+	elseif ledge_point == false then
+		sitAttachLedge()
+	elseif sit_point == true then
+		sitAttachBench()
+	elseif forward_point and rec ~= 1 then
+		SetEntityHeading(playerPed, heading+180)
+		sitInPlace(1)
+	end
 
 end

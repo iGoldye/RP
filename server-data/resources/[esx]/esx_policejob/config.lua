@@ -14,7 +14,8 @@ Config.EnableLicenses             = true -- enable if you're using esx_license
 Config.EnableHandcuffTimer        = false -- enable handcuff timer? will unrestrain player after the time ends
 Config.HandcuffTimer              = 10 * 60000 -- 10 mins
 
-Config.EnableJobBlip              = false -- enable blips for colleagues, requires esx_society
+Config.EnableMoneyWash		  = true -- allow cops to wash black money
+Config.EnableJobBlip              = true -- enable blips for colleagues, requires esx_society
 
 Config.MaxInService               = -1
 Config.Locale = 'en'
@@ -35,14 +36,18 @@ Config.PoliceStations = {
 			vector3(452.6, -992.8, 29.8)
 		},
 
+		Computers = {
+			vector3(441.86, -978.77, 29.8)
+		},
+
 		Armories = {
 			vector3(451.7, -980.1, 29.8)
 		},
 
 		Vehicles = {
 			{
-				Spawner = vector3(450.0, -1010.0, 27.0),
-				InsideShop = vector3(228.5, -993.5, -99.5),
+				Spawner = vector3(462.94, -1017.0, 27.3),
+				InsideShop = vector3(448.1, -1021.4, 28.44),
 				SpawnPoints = {
 					{ coords = vector3(438.4, -1018.3, 27.7), heading = 90.0, radius = 6.0 },
 					{ coords = vector3(441.0, -1024.2, 28.3), heading = 90.0, radius = 6.0 },
@@ -72,7 +77,7 @@ Config.PoliceStations = {
 		},
 
 		BossActions = {
-			vector3(448.4, -973.2, 29.7)
+			vector3(461.38, -1007.68, 35.0)
 		}
 
 	}
@@ -143,21 +148,36 @@ Config.AuthorizedWeapons = {
 
 Config.AuthorizedVehicles = {
 	Shared = {
-		{ model = 'police', label = 'Police Cruiser', price = 10000 },
-		{ model = 'pbus', label = 'Police Prison Bus', price = 5000 }
+		{ model = 'police', label = 'Police Cruiser', price = 100 },
+		{ model = 'police2', label = 'Police Buffalo', price = 200 },
+		{ model = 'police3', label = 'Police Interceptor', price = 200 },
+		{ model = 'policet', label = 'Police Transporter', price = 400 },
+		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
+		{ model = 'riot', label = 'Police Riot', price = 500 },
+		{ model = 'fbi2', label = 'FIB SUV', price = 300 },
+		{ model = 'fbi', label = 'FIB Buffalo', price = 300 },
+		{ model = 'police4', label = 'FIB Cruiser', price = 300 },
+		{ model = 'policeb', label = 'Police Bike', price = 50 },
+		{ model = 'lp770cop', label = 'Speed Unit', price = 100000 },
 	},
 
 	recruit = {
-
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
 	},
 
 	officer = {
-		{ model = 'police3', label = 'Police Interceptor', price = 20000 }
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
 	},
 
 	sergeant = {
-		{ model = 'policet', label = 'Police Transporter', price = 18500 },
-		{ model = 'policeb', label = 'Police Bike', price = 30500 }
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
 	},
 
 	intendent = {
@@ -165,16 +185,43 @@ Config.AuthorizedVehicles = {
 	},
 
 	lieutenant = {
-		{ model = 'riot', label = 'Police Riot', price = 70000 },
-		{ model = 'fbi2', label = 'FIB SUV', price = 60000 }
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
+		-- { model = 'riot', label = 'Police Riot', price = 500 },
+		-- { model = 'fbi2', label = 'FIB SUV', price = 300 },
+		-- { model = 'fbi', label = 'FIB Buffalo', price = 300 },
+		-- { model = 'police4', label = 'FIB Cruiser', price = 300 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'pbus', label = 'Police Prison Bus', price = 500 },
+		-- { model = 'lp770cop', label = 'Speed Unit', price = 100000 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
 	},
 
 	chef = {
-
+		-- { model = 'lp770cop', label = 'Speed Unit', price = 100000 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'riot', label = 'Police Riot', price = 500 },
+		-- { model = 'fbi2', label = 'FIB SUV', price = 300 },
+		-- { model = 'fbi', label = 'FIB Buffalo', price = 300 },
+		-- { model = 'police4', label = 'FIB Cruiser', price = 300 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'pbus', label = 'Police Prison Bus', price = 500 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
 	},
 
 	boss = {
-
+		-- { model = 'riot', label = 'Police Riot', price = 500 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'fbi2', label = 'FIB SUV', price = 300 },
+		-- { model = 'fbi', label = 'FIB Buffalo', price = 300 },
+		-- { model = 'police4', label = 'FIB Cruiser', price = 300 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
+		-- { model = 'policeb', label = 'Police Bike', price = 50 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'pbus', label = 'Police Prison Bus', price = 500 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'lp770cop', label = 'Speed Unit', price = 10000 },
 	}
 }
 
@@ -379,13 +426,6 @@ Config.Uniforms = {
 			['bproof_1'] = 13,  ['bproof_2'] = 1
 		}
 	},
-	gilet_wear = {
-		male = {
-			['tshirt_1'] = 59,  ['tshirt_2'] = 1
-		},
-		female = {
-			['tshirt_1'] = 36,  ['tshirt_2'] = 1
-		}
-	}
+	
 
 }

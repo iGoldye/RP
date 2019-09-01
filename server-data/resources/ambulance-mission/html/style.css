@@ -1,0 +1,33 @@
+
+body {
+    display: none;
+    overflow: hidden;
+    font-size: 1.5em;
+    font-variant: small-caps;
+    font-family: 'Helvetica';
+    color: white;
+}
+
+#container {
+    position: absolute;
+    width: 275px;
+    right: 1%;
+    top: 50%;
+}
+
+.row {
+    background-color: white;
+    margin-bottom: 5px;
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.label {
+    display: inline-block;
+    text-align: right;
+    margin-right: 10px;
+    width: 175px;
+}
+
+.value {
+    font-weight: bolder;
+}

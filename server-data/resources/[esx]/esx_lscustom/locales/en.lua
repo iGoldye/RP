@@ -2,12 +2,13 @@ Locales['en'] = {
   ['by_default'] = 'По умолчанию',
   ['installed'] = 'Установлено',
   ['already_own'] = 'Уже приобретено: ~b~%s~s~',
-  ['not_enough_money'] = 'Не достаточно денег!',
+  ['not_enough_money'] = 'Недостаточно денег!',
   ['purchased'] = 'Приобретено!',
   ['press_custom'] = 'Нажмите ~INPUT_PICKUP~ чтобы открыть ~y~Каталог~s~ ',
   ['level'] = 'уровень %s',
   ['neon'] = 'неон',
   ['blip_name'] = 'los Santos Customs',
+  ['blip_name_bennys'] = 'Benny\'s Original Motorworks',
 -- Paint Colors
   -- Black
   ['black'] = 'Черный',
@@ -18,7 +19,7 @@ Locales['en'] = {
   ['matteblack'] = 'Матовый черный',
   ['darknight'] = 'Ночной черный',
   ['deepblack'] = 'Глубоко-черный',
-  ['oil'] = 'Масленный',
+  ['oil'] = 'Масляный',
   ['carbon'] = 'Карбоновый',
   -- White
   ['white'] = 'Белый',
@@ -35,7 +36,7 @@ Locales['en'] = {
   ['grey'] = 'Серый',
   ['silver'] = 'Серебряный',
   ['metallicgrey'] = 'Серый металлик',
-  ['laminatedsteel'] = 'Ламинированый серый',
+  ['laminatedsteel'] = 'Ламинированный серый',
   ['darkgray'] = 'Темно-серый',
   ['rockygray'] = 'Каменно-серый',
   ['graynight'] = 'Ночной серый',
@@ -170,7 +171,7 @@ Locales['en'] = {
   -- Purple
   ['purple'] = 'Фиолетовый',
   ['indigo'] = 'Индиго',
-  ['deeppurple'] = 'Насыщеный темно-фиолетовый',
+  ['deeppurple'] = 'Насыщенный темно-фиолетовый',
   ['darkviolet'] = 'Темно-фиолетовый',
   ['amethyst'] = 'Аметист',
   ['mysticalviolet'] = 'Мистик',

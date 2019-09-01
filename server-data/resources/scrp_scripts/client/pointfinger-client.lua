@@ -99,10 +99,10 @@ Citizen.CreateThread(function()
 				local ray = Cast_3dRayPointToPoint(coords.x, coords.y, coords.z - 0.2, coords.x, coords.y, coords.z + 0.2, 0.4, 95, ped, 7);
 				nn,blocked,coords,coords = GetRaycastResult(ray)
 
-				Citizen.InvokeNative(0xD5BB4025AE449A4E, ped, "Pitch", camPitch)
-				Citizen.InvokeNative(0xD5BB4025AE449A4E, ped, "Heading", camHeading * -1.0 + 1.0)
-				Citizen.InvokeNative(0xB0A6CFD2C69C1088, ped, "isBlocked", blocked)
-				Citizen.InvokeNative(0xB0A6CFD2C69C1088, ped, "isFirstPerson", Citizen.InvokeNative(0xEE778F8C7E1142E2, Citizen.InvokeNative(0x19CAFA3C87F7C2FF)) == 4)
+				SetTaskPropertyFloat(ped, "Pitch", camPitch)
+				SetTaskPropertyFloat(ped, "Heading", camHeading * -1.0 + 1.0)
+				SetTaskPropertyBool(ped, "isBlocked", blocked)
+				SetTaskPropertyBool(ped, "isFirstPerson", Citizen.InvokeNative(0xEE778F8C7E1142E2, Citizen.InvokeNative(0x19CAFA3C87F7C2FF)) == 4)
 
 			end
 		end

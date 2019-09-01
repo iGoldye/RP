@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Locale = 'en'
+Config.Locale = 'ru'
 Config.Debug = false
 Config.DynamicWeather = true  -- set this to false if you don't want the weather to change automatically
 Config.WeatherDuration = 30 -- how many minutes single weather stage goes
@@ -21,3 +21,6 @@ Config.WeatherDurationMult = { -- min and max multiplier for certain stages
 	['XMAS'] 	= 1,
 	['HALLOWEEN'] 	= 1
 }
+
+Config.DayTimeScale = 8    -- day time speedup,   1 = realtime, 8  =  2 real hours   per game day   (06:00 - 22:00)
+Config.NightTimeScale = 12 -- night time speedup, 1 = realtime, 12 = 40 real minutes per game night (22:00 - 06:00)

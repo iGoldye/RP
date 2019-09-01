@@ -2,20 +2,24 @@ Config                            = {}
 
 Config.DrawDistance               = 100.0
 
-Config.NPCJobEarnings             = {min = 300, max = 600}
-Config.MinimumDistance            = 3000 -- Minimum NPC job destination distance from the pickup in GTA units, a higher number prevents nearby destionations.
+Config.NPCJobEarnings             = {min = 30, max = 75} -- $ per km
+Config.MinimumDistance            = 1500 -- Minimum NPC job destination distance from the pickup in GTA units, a higher number prevents nearby destionations.
 
 Config.MaxInService               = -1
-Config.EnablePlayerManagement     = false
+Config.EnablePlayerManagement     = true
 Config.EnableSocietyOwnedVehicles = false
 
-Config.Locale = 'en'
+Config.Locale                     = 'ru'
 
 Config.AuthorizedVehicles = {
 
 	{
 		model = 'taxi',
-		label = 'Taxi'
+		label = 'Такси',
+	},
+	{
+		model = 'rentalbus',
+		label = 'Автобус',
 	}
 
 }
@@ -44,17 +48,17 @@ Config.Zones = {
 	},
 
 	TaxiActions = {
-		Pos   = {x = 903.32, y = -170.55, z = 74.0},
+		Pos   = {x = 903.01, y = -154.2, z = 83.49},
 		Size  = {x = 1.0, y = 1.0, z = 1.0},
 		Color = {r = 204, g = 204, b = 0},
 		Type  = 20, Rotate = true
 	},
 
 	Cloakroom = {
-		Pos     = {x = 894.88, y = -180.23, z = 74.5},
+		Pos     = {x = 890.35, y = -178.15, z = 80.69},
 		Size    = {x = 1.0, y = 1.0, z = 1.0},
 		Color   = {r = 204, g = 204, b = 0},
-		Type    = 21, Rotate = true
+		Type    = 23, Rotate = true
 	}
 }
 

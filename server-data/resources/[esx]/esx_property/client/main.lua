@@ -10,6 +10,14 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+RegisterNetEvent('esx_property:teleportOutside')
+AddEventHandler('esx_property:teleportOutside', function(outside)
+	ESX.Game.Teleport(PlayerPedId(), outside, function()
+		TriggerServerEvent('esx_property:deleteLastProperty')
+	end)
+end)
+
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.TriggerServerCallback('esx_property:getProperties', function(properties)
@@ -22,6 +30,8 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 			SetPropertyOwned(ownedProperties[i], true)
 		end
 	end)
+
+	TriggerEvent('esx_property:initialized')
 end)
 
 -- only used when script is restarting mid-session
@@ -35,6 +45,8 @@ AddEventHandler('esx_property:sendProperties', function(properties)
 			SetPropertyOwned(ownedProperties[i], true)
 		end
 	end)
+
+	TriggerEvent('esx_property:initialized')
 end)
 
 function DrawSub(text, time)
@@ -51,7 +63,13 @@ function CreateBlips()
 		if property.entering then
 			Blips[property.name] = AddBlipForCoord(property.entering.x, property.entering.y, property.entering.z)
 
-			SetBlipSprite (Blips[property.name], 369)
+			if property.isRentOnly == true then
+				SetBlipSprite (Blips[property.name], 40)
+				SetBlipColour (Blips[property.name], 50)
+			else
+				SetBlipSprite (Blips[property.name], 369)
+			end
+
 			SetBlipDisplay(Blips[property.name], 4)
 			SetBlipScale  (Blips[property.name], 1.0)
 			SetBlipAsShortRange(Blips[property.name], true)
@@ -178,8 +196,12 @@ function SetPropertyOwned(name, owned)
 		enteringName = property.name
 	else
 		local gateway = GetGateway(property)
-		entering      = gateway.entering
-		enteringName  = gateway.name
+		if gateway ~= nil then
+			entering      = gateway.entering
+			enteringName  = gateway.name
+		else
+			print("Wrong gateway for property: ".. name)
+		end
 	end
 
 	if owned then
@@ -238,11 +260,17 @@ function OpenPropertyMenu(property)
 		end
 	else
 		if not Config.EnablePlayerManagement then
-			table.insert(elements, {label = _U('buy'), value = 'buy'})
+
+			if property.isRentOnly ~= true then
+				table.insert(elements, {label = _U('buy'), value = 'buy'})
+			end
+
 			table.insert(elements, {label = _U('rent'), value = 'rent'})
 		end
 
-		table.insert(elements, {label = _U('visit'), value = 'visit'})
+		if property.isRentOnly ~= true then
+			table.insert(elements, {label = _U('visit'), value = 'visit'})
+		end
 	end
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'property', {
@@ -349,13 +377,19 @@ function OpenGatewayOwnedPropertiesMenu(property)
 end
 
 function OpenGatewayAvailablePropertiesMenu(property)
+  ESX.TriggerServerCallback('esx_property:getAnyoneOwnedProperties', function(AnyoneOwnedProperties)
 	local gatewayProperties = GetGatewayProperties(property)
 	local elements          = {}
 
 	for i=1, #gatewayProperties, 1 do
-		if not PropertyIsOwned(gatewayProperties[i]) then
+		if not AnyoneOwnedProperties[gatewayProperties[i].name] then
+			local label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price)
+			if gatewayProperties[i].isRentOnly == true then
+				label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price / 200) .. " в сутки"
+			end
+
 			table.insert(elements, {
-				label = gatewayProperties[i].label .. ' $' .. ESX.Math.GroupDigits(gatewayProperties[i].price),
+				label = label,
 				value = gatewayProperties[i].name,
 				price = gatewayProperties[i].price
 			})
@@ -369,14 +403,25 @@ function OpenGatewayAvailablePropertiesMenu(property)
 	}, function(data, menu)
 		menu.close()
 
+		local elems = {}
+		if property.isRentOnly ~= true then
+			elems = {
+					{label = _U('buy'), value = 'buy'},
+					{label = _U('rent'), value = 'rent'},
+					{label = _U('visit'), value = 'visit'}
+				}
+		else
+			elems = {
+					{label = _U('rent'), value = 'rent'},
+				}
+		end
+
+
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'gateway_available_properties_actions', {
 			title    = property.label .. ' - ' .. _U('available_properties'),
 			align    = 'top-left',
-			elements = {
-				{label = _U('buy'), value = 'buy'},
-				{label = _U('rent'), value = 'rent'},
-				{label = _U('visit'), value = 'visit'}
-		}}, function(data2, menu2)
+			elements = elems
+		}, function(data2, menu2)
 			menu2.close()
 
 			if data2.current.value == 'buy' then
@@ -391,6 +436,44 @@ function OpenGatewayAvailablePropertiesMenu(property)
 		end)
 	end, function(data, menu)
 		menu.close()
+	end)
+  end)
+end
+
+function OpenPlayerDressingMenu(title)
+	if title then
+		title = title .. ' - ' .. _U('player_clothes')
+	else
+		title = _U('player_clothes')
+	end
+
+	ESX.TriggerServerCallback('esx_property:getPlayerDressing', function(dressing)
+		local elements = {}
+
+		for i=1, #dressing, 1 do
+			table.insert(elements, {
+				label = dressing[i],
+				value = i
+			})
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'player_dressing', {
+			title    = title,
+				align    = 'top-left',
+				elements = elements
+		}, function(data2, menu2)
+			TriggerEvent('skinchanger:getSkin', function(skin)
+				ESX.TriggerServerCallback('esx_property:getPlayerOutfit', function(clothes)
+					TriggerEvent('skinchanger:loadClothes', skin, clothes)
+					TriggerEvent('esx_skin:setLastSkin', skin)
+					TriggerEvent('skinchanger:getSkin', function(skin)
+						TriggerServerEvent('esx_skin:save', skin)
+					end)
+				end, data2.current.value)
+			end)
+		end, function(data2, menu2)
+			menu2.close()
+		end)
 	end)
 end
 
@@ -443,36 +526,8 @@ function OpenRoomMenu(property, owner)
 			end)
 
 		elseif data.current.value == 'player_dressing' then
+			OpenPlayerDressingMenu(property.label)
 
-			ESX.TriggerServerCallback('esx_property:getPlayerDressing', function(dressing)
-				local elements = {}
-
-				for i=1, #dressing, 1 do
-					table.insert(elements, {
-						label = dressing[i],
-						value = i
-					})
-				end
-
-				ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'player_dressing', {
-					title    = property.label .. ' - ' .. _U('player_clothes'),
-					align    = 'top-left',
-					elements = elements
-				}, function(data2, menu2)
-					TriggerEvent('skinchanger:getSkin', function(skin)
-						ESX.TriggerServerCallback('esx_property:getPlayerOutfit', function(clothes)
-							TriggerEvent('skinchanger:loadClothes', skin, clothes)
-							TriggerEvent('esx_skin:setLastSkin', skin)
-
-							TriggerEvent('skinchanger:getSkin', function(skin)
-								TriggerServerEvent('esx_skin:save', skin)
-							end)
-						end, data2.current.value)
-					end)
-				end, function(data2, menu2)
-					menu2.close()
-				end)
-			end)
 
 		elseif data.current.value == 'remove_cloth' then
 
@@ -671,6 +726,7 @@ AddEventHandler('instance:loaded', function()
 end)
 
 AddEventHandler('playerSpawned', function()
+--[[
 	if firstSpawn then
 		Citizen.CreateThread(function()
 			while not ESX.IsPlayerLoaded() do
@@ -681,6 +737,8 @@ AddEventHandler('playerSpawned', function()
 				if propertyName then
 					if propertyName ~= '' then
 						local property = GetProperty(propertyName)
+						CurrentProperty      = property
+						CurrentPropertyOwner = ESX.GetPlayerData().identifier
 
 						for i=1, #property.ipls, 1 do
 							RequestIpl(property.ipls[i])
@@ -690,7 +748,7 @@ AddEventHandler('playerSpawned', function()
 							end
 						end
 
-						TriggerEvent('instance:create', 'property', {property = propertyName, owner = ESX.GetPlayerData().identifier})
+						TriggerEvent('instance:create', 'property', {property = propertyName, owner = CurrentPropertyOwner})
 					end
 				end
 			end)
@@ -698,6 +756,7 @@ AddEventHandler('playerSpawned', function()
 
 		firstSpawn = false
 	end
+]]--
 end)
 
 AddEventHandler('esx_property:getProperties', function(cb)
@@ -888,4 +947,9 @@ Citizen.CreateThread(function()
 			Citizen.Wait(500)
 		end
 	end
+end)
+
+
+AddEventHandler('esx_property:OpenPlayerDressingMenu', function(label)
+	OpenPlayerDressingMenu(label)
 end)

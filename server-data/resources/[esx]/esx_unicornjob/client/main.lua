@@ -1168,9 +1168,9 @@ Citizen.CreateThread(function()
     end
 
 
-    if IsControlJustReleased(0,  Keys['F6']) and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'unicorn_actions') then
-        OpenSocietyActionsMenu()
-    end
+--    if IsControlJustReleased(0,  Keys['F6']) and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'unicorn_actions') then
+--        OpenSocietyActionsMenu()
+--    end
 
 
   end
@@ -1254,4 +1254,11 @@ Citizen.CreateThread(function()
     end
 
   end
+end)
+
+
+AddEventHandler('esx_unicornjob:OpenSocietyActionsMenu', function(position)
+    if IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'unicorn_actions') then
+        OpenSocietyActionsMenu()
+    end
 end)

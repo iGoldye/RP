@@ -2,10 +2,37 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
+	MySQL.Async.fetchAll('SELECT last_property FROM users WHERE identifier = @identifier', {
+		['@identifier'] = xPlayer.identifier
+	}, function(users)
+		local propertyName = users[1].last_property
+		if propertyName and propertyName ~= '' then
+			local property = GetProperty(propertyName)
+			local outside = property.outside
+			if not property.isSingle then
+				outside = GetGateway(property).outside
+			end
+			Citizen.Wait(10000)
+			TriggerClientEvent('esx_property:teleportOutside', xPlayer.source, outside)
+		end
+	end)
+end)
+
 function GetProperty(name)
 	for i=1, #Config.Properties, 1 do
 		if Config.Properties[i].name == name then
 			return Config.Properties[i]
+		end
+	end
+end
+
+function GetGateway(property)
+	for i=1, #Config.Properties, 1 do
+		local property2 = Config.Properties[i]
+
+		if property2.isGateway and property2.name == property.gateway then
+			return property2
 		end
 	end
 end
@@ -46,7 +73,9 @@ function RemoveOwnedProperty(name, owner)
 end
 
 MySQL.ready(function()
+	Citizen.Wait(1000) -- give players some time to load new resource after restart
 	MySQL.Async.fetchAll('SELECT * FROM properties', {}, function(properties)
+		Config.Properties = {}
 
 		for i=1, #properties, 1 do
 			local entering  = nil
@@ -56,6 +85,7 @@ MySQL.ready(function()
 			local isSingle  = nil
 			local isRoom    = nil
 			local isGateway = nil
+			local isRentOnly= nil
 			local roomMenu  = nil
 
 			if properties[i].entering ~= nil then
@@ -92,6 +122,12 @@ MySQL.ready(function()
 				isGateway = true
 			end
 
+			if properties[i].is_rentonly == 1 then
+				isRentOnly = true
+			else
+				isRentOnly = false
+			end
+
 			if properties[i].room_menu ~= nil then
 				roomMenu = json.decode(properties[i].room_menu)
 			end
@@ -108,6 +144,7 @@ MySQL.ready(function()
 				isSingle  = isSingle,
 				isRoom    = isRoom,
 				isGateway = isGateway,
+				isRentOnly= isRentOnly,
 				roomMenu  = roomMenu,
 				price     = properties[i].price
 			})
@@ -318,6 +355,10 @@ end)
 
 ESX.RegisterServerCallback('esx_property:getOwnedProperties', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer == nil then
+		cb({})
+		return
+	end
 
 	MySQL.Async.fetchAll('SELECT * FROM owned_properties WHERE owner = @owner', {
 		['@owner'] = xPlayer.identifier
@@ -326,6 +367,24 @@ ESX.RegisterServerCallback('esx_property:getOwnedProperties', function(source, c
 
 		for i=1, #ownedProperties, 1 do
 			table.insert(properties, ownedProperties[i].name)
+		end
+
+		cb(properties)
+	end)
+end)
+
+ESX.RegisterServerCallback('esx_property:getAnyoneOwnedProperties', function(source, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer == nil then
+		cb(nil)
+		return
+	end
+
+	MySQL.Async.fetchAll('SELECT name FROM owned_properties', {}, function(ownedProperties)
+		local properties = {}
+
+		for i=1, #ownedProperties, 1 do
+			properties[ownedProperties[i].name] = true
 		end
 
 		cb(properties)
@@ -433,7 +492,9 @@ function PayRent(d, h, m)
 			end
 
 			TriggerEvent('esx_addonaccount:getSharedAccount', 'society_realestateagent', function(account)
-				account.addMoney(result[i].price)
+				if account ~= nil then
+					account.addMoney(result[i].price)
+				end
 			end)
 		end
 	end)

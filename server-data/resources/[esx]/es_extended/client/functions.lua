@@ -45,9 +45,10 @@ ESX.SetPlayerData = function(key, val)
 end
 
 ESX.ShowNotification = function(msg)
-	SetNotificationTextEntry('STRING')
-	AddTextComponentSubstringPlayerName(msg)
-	DrawNotification(false, true)
+--	SetNotificationTextEntry('STRING')
+--	AddTextComponentSubstringPlayerName(msg)
+--	DrawNotification(false, true)
+	TriggerEvent('sosamba_ui:showNotification', { text = msg })
 end
 
 ESX.ShowAdvancedNotification = function(title, subject, msg, icon, iconType)
@@ -716,7 +717,10 @@ ESX.Game.GetVehicleProperties = function(vehicle)
 		modTrimB          = GetVehicleMod(vehicle, 44),
 		modTank           = GetVehicleMod(vehicle, 45),
 		modWindows        = GetVehicleMod(vehicle, 46),
-		modLivery         = GetVehicleLivery(vehicle)
+		modLivery         = GetVehicleLivery(vehicle),
+
+		bodyHealth        = GetVehicleBodyHealth(vehicle),
+		engineHealth      = GetVehicleEngineHealth(vehicle),
 	}
 end
 
@@ -972,6 +976,20 @@ ESX.Game.SetVehicleProperties = function(vehicle, props)
 		SetVehicleMod(vehicle, 48, props.modLivery, false)
 		SetVehicleLivery(vehicle, props.modLivery)
 	end
+
+	local vehicleClass = GetVehicleClass(vehicle)
+
+--	if vehicleClass ~= 8 and vehicleClass ~= 13 and vehicleClass ~= 14 and vehicleClass ~= 15 and vehicleClass ~= 16 and vehicleClass ~= 21 then
+
+	if props.bodyHealth ~= nil then
+		SetVehicleBodyHealth(vehicle, props.bodyHealth*1.0)
+		ApplyDamageRandom(vehicle, props.bodyHealth)
+	end
+
+	if props.engineHealth ~= nil then
+		SetVehicleEngineHealth(vehicle, props.engineHealth*1.0)
+	end
+--	end
 end
 
 ESX.Game.Utils.DrawText3D = function(coords, text, size)

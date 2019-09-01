@@ -6,15 +6,31 @@ Config.Locale = 'en' -- 'en', 'sv' or 'custom'
 
 Config.Shops = {
     -- {coords = vector3(x, y, z), heading = peds heading, money = {min, max}, cops = amount of cops required to rob, blip = true: add blip on map false: don't add blip, name = name of the store (when cops get alarm, blip name etc)}
-    {coords = vector3(24.03, -1345.63, 29.5-0.98), heading = 266.0, money = {5000, 15000}, cops = 1, blip = true, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
-    {coords = vector3(-705.73, -914.91, 19.22-0.98), heading = 91.0, money = {7500, 20000}, cops = 1, blip = true, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false}
-
+    {coords = vector3(24.03, -1345.63, 29.5-0.98), heading = 266.0, money = {100, 700}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-705.73, -912.91, 19.22-0.98), heading = 91.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-46.29, -1757.48, 29.42-0.98), heading = 45.0, money = {100, 700}, cops = 4, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(1134.01, -983.78, 46.42-0.98), heading = 277.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(1164.62, -321.86, 69.21-0.98), heading = 100.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(373.01, 328.09, 103.57-0.98), heading = 257.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-1221.41, -907.86, 12.33-0.98), heading = 30.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-1820.75, 794.83, 138.09-0.98), heading = 130.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-1486.61, -377.46, 40.16-0.98), heading = 135.0, money = {100, 1200}, cops = 1, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-2966.39, 391.51, 15.04-0.98), heading = 88.0, money = {100, 1200}, cops = 4, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-3040.61, 584.06, 7.91-0.98), heading = 14.0, money = {100, 1200}, cops = 4, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(-3244.01, 1000.16, 12.16-0.98), heading = 350.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(549.26, 2669.7, 42.16-0.98), heading = 97.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(1165.39, 2710.82, 39.16-0.98), heading = 177.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(1958.92, 3741.38, 32.16-0.98), heading = 299.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(2676.49, 3280.08, 55.16-0.98), heading = 334.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(1698.99, 4922.31, 42.16-0.98), heading = 326.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(2555.4, 380.77, 108.62-0.98), heading = 3.0, money = {100, 1200}, cops = 2, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false},
+    {coords = vector3(1728.47, 6416.87, 35.16-0.98), heading = 242.0, money = {100, 1200}, cops = 4, blip = false, name = '7/11', cooldown = {hour = 0, minute = 30, second = 0}, robbed = false}
 }
 
 Translation = {
     ['en'] = {
         ['shopkeeper'] = 'Продавец',
-        ['robbed'] = "Меня только что ограбили. У меня ~r~нет~w~ денег",
+        ['robbed'] = "Сжальтесь! У меня больше ~r~нет~w~ денег!",
         ['cashrecieved'] = 'Вы получили:',
         ['currency'] = '$',
         ['scared'] = 'Напуган:',

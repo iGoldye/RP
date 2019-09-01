@@ -33,10 +33,10 @@ em {
   position: absolute;
   top: 1.5%;
   left: 0.8%;
-  width: 38%;
-  height: 22%;
+  width: 30%;
+  height: 17%;
   max-width: 1000px;
-  background-color: rgba(52, 73, 94, 0.7);
+  background-color: rgba(52, 73, 94, 0.5);
   -webkit-animation-duration: 2s;
 }
 
@@ -56,9 +56,9 @@ em {
   font-size: 1.65vh;
   position: absolute;
 
-  top: 23.8%;
+  top: 19%;
   left: 0.8%;
-  width: 38%;
+  width: 30%;
   max-width: 1000px;
   box-sizing: border-box;
 }

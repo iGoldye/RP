@@ -1,5 +1,6 @@
 -- https://forum.fivem.net/t/how-to-disable-aggressive-npcs-in-sandy-shores/62822/2
 
+--[[
 local relationshipTypes = {
 	'GANG_1',
 	'GANG_2',
@@ -32,14 +33,35 @@ local relationshipTypes = {
 	'MISSION7',
 	'MISSION8'
 }
+]]--
+
+function setRelationships(roleName)
+	local relationships = Config.RoleRelationships[roleName]
+
+	if relationships == nil then
+		return false
+	end
+
+	local ph = GetHashKey('PLAYER')
+
+	for group,v in pairs(relationships) do
+		SetRelationshipBetweenGroups(v, GetHashKey(group), ph)
+	end
+
+	return true
+end
+
+RegisterNetEvent('scrp_scripts:setRelationships')
+AddEventHandler('scrp_scripts:setRelationships', function(roles)
+	for _,v in ipairs(roles) do
+		setRelationships(v)
+	end
+end)
+
 
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(5000)
-
-		for _, group in ipairs(relationshipTypes) do
-			SetRelationshipBetweenGroups(1, GetHashKey('PLAYER'), GetHashKey(group)) -- could be removed
-			SetRelationshipBetweenGroups(1, GetHashKey(group), GetHashKey('PLAYER'))
-		end
+		TriggerServerEvent('scrp_scripts:updateRelationships')
 	end
 end)

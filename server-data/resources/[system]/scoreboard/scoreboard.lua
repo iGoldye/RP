@@ -5,7 +5,7 @@ Citizen.CreateThread(function()
     while true do
         Wait(0)
 
-        if IsControlPressed(0, 27)--[[ INPUT_PHONE ]] then
+        if IsControlPressed(0, INPUT_PHONE) then
             if not listOn then
                 local players = {}
                 ptable = GetPlayers()
@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
                 listOn = true
                 while listOn do
                     Wait(0)
-                    if(IsControlPressed(0, 27) == false) then
+                    if(IsControlPressed(0, ) == false) then
                         listOn = false
                         SendNUIMessage({
                             meta = 'close'
@@ -38,10 +38,8 @@ end)
 function GetPlayers()
     local players = {}
 
-    for i = 0, 31 do
-        if NetworkIsPlayerActive(i) then
-            table.insert(players, i)
-        end
+    for _,i in ipairs(GetActivePlayers()) do
+        table.insert(players, i)
     end
 
     return players

@@ -195,11 +195,11 @@ AddEventHandler('es_wsync:set_time', function(hh, mm, cb)
 end)
 
 function ShiftToMinute(minute)
-	timeOffset = timeOffset - ( ( math.floor(baseTime+timeOffset) % 60 ) - minute )
+	timeOffset = timeOffset - (( ( math.floor(baseTime+timeOffset)/60) % 60 ) - minute ) * 60
 end
 
 function ShiftToHour(hour)
-	timeOffset = timeOffset - ( ( math.floor((baseTime+timeOffset)/60) % 24 ) - hour ) * 60
+	timeOffset = timeOffset - ( ( math.floor((baseTime+timeOffset)/3600) % 24 ) - hour ) * 3600
 end
 
 TriggerEvent('es:addGroupCommand', 'time', 'admin', function(source, args, user)
@@ -244,9 +244,13 @@ end, function(source, args, user)
 end, {help = "Change the time", params = {{ name="hours", help="A number between 0 - 23"}, { name="minutes", help="A number between 0 - 59"}}})
 
 Citizen.CreateThread(function()
+	local currentTimeScale = Config.DayTimeScale
+	baseTime = 129600
+	local newBaseTime = baseTime
+
 	while true do
 		Citizen.Wait(500)
-		local newBaseTime = os.time(os.date("!*t"))/2 + 360
+		newBaseTime = baseTime + currentTimeScale / 2.0
 
 		if freezeTime then
 			timeOffset = timeOffset + baseTime - newBaseTime
@@ -254,6 +258,13 @@ Citizen.CreateThread(function()
 
 		local h1,_,_ = timeToHMS(baseTime+timeOffset)
 		local h2,_,_ = timeToHMS(newBaseTime+timeOffset)
+--		print(string.format("%02i:%02i:%02i",h2,m2,s2))
+
+		if h2 >= 6 and h2 < 22 then
+			currentTimeScale = Config.DayTimeScale
+		else
+			currentTimeScale = Config.NightTimeScale
+		end
 
 		if h2 ~= h1 then
 			TriggerEvent('es_wsync:hour_started', h2)

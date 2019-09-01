@@ -1,5 +1,6 @@
 local HasAlreadyEnteredMarker, OnJob, IsNearCustomer, CustomerIsEnteringVehicle, CustomerEnteredVehicle, IsDead, CurrentActionData = false, false, false, false, false, false, {}
 local CurrentCustomer, CurrentCustomerBlip, DestinationBlip, targetCoords, LastZone, CurrentAction, CurrentActionMsg
+local JobDistance = 1000
 
 ESX = nil
 
@@ -626,7 +627,7 @@ Citizen.CreateThread(function()
 
 								TaskGoStraightToCoord(CurrentCustomer, targetCoords.x, targetCoords.y, targetCoords.z, 1.0, -1, 0.0, 0.0)
 								SetEntityAsMissionEntity(CurrentCustomer, false, true)
-								TriggerServerEvent('esx_taxijob:success')
+								TriggerServerEvent('esx_taxijob:success', JobDistance)
 								RemoveBlip(DestinationBlip)
 
 								local scope = function(customer)
@@ -653,6 +654,7 @@ Citizen.CreateThread(function()
 
 								targetCoords = Config.JobLocations[GetRandomIntInRange(1, #Config.JobLocations)]
 								distance = #(playerCoords - targetCoords)
+								JobDistance = distance
 							end
 
 							local street = table.pack(GetStreetNameAtCoord(targetCoords.x, targetCoords.y, targetCoords.z))
@@ -742,9 +744,9 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		if IsControlJustReleased(0, 167) and IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
-			OpenMobileTaxiActionsMenu()
-		end
+--		if IsControlJustReleased(0, 166) and IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
+--			OpenMobileTaxiActionsMenu()
+--		end
 	end
 end)
 
@@ -754,4 +756,10 @@ end)
 
 AddEventHandler('playerSpawned', function(spawn)
 	IsDead = false
+end)
+
+AddEventHandler('esx_taxijob:OpenMobileTaxiActionsMenu', function()
+		if IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
+			OpenMobileTaxiActionsMenu()
+		end
 end)

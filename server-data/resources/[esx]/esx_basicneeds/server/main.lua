@@ -2,25 +2,30 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-ESX.RegisterUsableItem('bread', function(source)
-	local xPlayer = ESX.GetPlayerFromId(source)
+for k,v in pairs(Config.Food) do
+	ESX.RegisterUsableItem(k, function(source)
+		local message = string.format(_U('used_item'), k)
+		local xPlayer = ESX.GetPlayerFromId(source)
 
-	xPlayer.removeInventoryItem('bread', 1)
+		xPlayer.removeInventoryItem(k, 1)
 
-	TriggerClientEvent('esx_status:add', source, 'hunger', 200000)
-	TriggerClientEvent('esx_basicneeds:onEat', source)
-	TriggerClientEvent('esx:showNotification', source, _U('used_bread'))
-end)
+		TriggerClientEvent('esx_status:add', source, 'hunger', v*4)
+		TriggerClientEvent('esx_basicneeds:onEat', source)
+		TriggerClientEvent('esx:showNotification', source, message)
+	end)
+end
 
-ESX.RegisterUsableItem('water', function(source)
-	local xPlayer = ESX.GetPlayerFromId(source)
+for k,v in pairs(Config.Drinks) do
+	ESX.RegisterUsableItem(k, function(source)
+		local xPlayer = ESX.GetPlayerFromId(source)
 
-	xPlayer.removeInventoryItem('water', 1)
+		xPlayer.removeInventoryItem(k, 1)
 
-	TriggerClientEvent('esx_status:add', source, 'thirst', 200000)
-	TriggerClientEvent('esx_basicneeds:onDrink', source)
-	TriggerClientEvent('esx:showNotification', source, _U('used_water'))
-end)
+		TriggerClientEvent('esx_status:add', source, 'thirst', v*10000)
+		TriggerClientEvent('esx_basicneeds:onDrink', source)
+		TriggerClientEvent('esx:showNotification', source, string.format(_U('used_item'), k))
+	end)
+end
 
 TriggerEvent('es:addGroupCommand', 'heal', 'admin', function(source, args, user)
 	-- heal another player - don't heal source

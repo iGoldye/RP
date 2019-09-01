@@ -17,6 +17,10 @@ end, function(source, args, user)
 end, {help = "Teleport to coordinates", params = {{name = "x", help = "X coords"}, {name = "y", help = "Y coords"}, {name = "z", help = "Z coords"}}})
 
 TriggerEvent('es:addGroupCommand', 'setjob', 'jobmaster', function(source, args, user)
+	if #args > 0 and args[1] == 'me' then
+		args[1] = source
+	end
+
 	if tonumber(args[1]) and args[2] and tonumber(args[3]) then
 		local xPlayer = ESX.GetPlayerFromId(args[1])
 
@@ -123,6 +127,72 @@ TriggerEvent('es:addGroupCommand', 'setmoney', 'admin', function(source, args, u
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = _U('setmoney'), params = {{name = "id", help = _U('id_param')}, {name = "money type", help = _U('money_type')}, {name = "amount", help = _U('money_amount')}}})
+
+TriggerEvent('es:addGroupCommand', 'addmoney', 'admin', function(source, args, user)
+	local _source = source
+	local target = tonumber(args[1])
+	local money_type = args[2]
+	local money_amount = tonumber(args[3])
+
+	local xPlayer = ESX.GetPlayerFromId(target)
+
+	if target and money_type and money_amount and xPlayer ~= nil then
+		if money_type == 'cash' then
+			xPlayer.addMoney(money_amount)
+		elseif money_type == 'bank' then
+			xPlayer.addAccountMoney('bank', money_amount)
+		elseif money_type == 'black' then
+			xPlayer.addAccountMoney('black_money', money_amount)
+		else
+			TriggerClientEvent('chatMessage', _source, "SYSTEM", {255, 0, 0}, "^2" .. money_type .. " ^0 is not a valid money type!")
+			return
+		end
+	else
+		TriggerClientEvent('chatMessage', _source, "SYSTEM", {255, 0, 0}, "Invalid arguments.")
+		return
+	end
+
+	print('es_extended: ' .. GetPlayerName(source) .. ' just add $' .. money_amount .. ' (' .. money_type .. ') to ' .. xPlayer.name)
+
+	if xPlayer.source ~= _source then
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('money_add', money_amount, money_type))
+	end
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = _U('addmoney'), params = {{name = "id", help = _U('id_param')}, {name = "money type", help = _U('money_type')}, {name = "amount", help = _U('money_amount')}}})
+
+TriggerEvent('es:addGroupCommand', 'removemoney', 'admin', function(source, args, user)
+	local _source = source
+	local target = tonumber(args[1])
+	local money_type = args[2]
+	local money_amount = tonumber(args[3])
+
+	local xPlayer = ESX.GetPlayerFromId(target)
+
+	if target and money_type and money_amount and xPlayer ~= nil then
+		if money_type == 'cash' then
+			xPlayer.removeMoney(money_amount)
+		elseif money_type == 'bank' then
+			xPlayer.removeAccountMoney('bank', money_amount)
+		elseif money_type == 'black' then
+			xPlayer.removeAccountMoney('black_money', money_amount)
+		else
+			TriggerClientEvent('chatMessage', _source, "SYSTEM", {255, 0, 0}, "^2" .. money_type .. " ^0 is not a valid money type!")
+			return
+		end
+	else
+		TriggerClientEvent('chatMessage', _source, "SYSTEM", {255, 0, 0}, "Invalid arguments.")
+		return
+	end
+
+	print('es_extended: ' .. GetPlayerName(source) .. ' just remove $' .. money_amount .. ' (' .. money_type .. ') to ' .. xPlayer.name)
+
+	if xPlayer.source ~= _source then
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('money_remove', money_amount, money_type))
+	end
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = _U('removemoney'), params = {{name = "id", help = _U('id_param')}, {name = "money type", help = _U('money_type')}, {name = "amount", help = _U('money_amount')}}})
 
 TriggerEvent('es:addGroupCommand', 'giveaccountmoney', 'admin', function(source, args, user)
 	local _source = source

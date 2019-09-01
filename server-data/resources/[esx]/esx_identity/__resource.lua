@@ -19,8 +19,9 @@ ui_page 'html/index.html'
 
 files {
 	'html/index.html',
-	'html/script.js',
-	'html/style.css'
+	'html/assets/js/app.js',
+	'html/assets/css/app.css',
+	'html/assets/img/logo.jpg'
 }
 
 dependency 'es_extended'

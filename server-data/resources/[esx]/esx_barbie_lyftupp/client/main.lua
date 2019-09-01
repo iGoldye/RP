@@ -20,8 +20,6 @@ local CurrentActionData       = {}
 local Blips                   = {}
 
 local isCarry 				  = false
-local hasRope 				  = true
-local hasUsedRope 			= true
 
 ESX                     = nil
 
@@ -33,12 +31,47 @@ Citizen.CreateThread(function()
 end)
 
 
+function LiftUp(target)
+		local xPlayer = ESX.GetPlayerData()
+
+		ESX.ShowNotification('Вы поднимаете этого человека...')
+		TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', target)
+		local dict = "anim@heists@box_carry@"
+
+		RequestAnimDict(dict)
+		while not HasAnimDictLoaded(dict) do
+			Citizen.Wait(1)
+		end
+
+		TriggerServerEvent('esx_barbie_lyftupp:lyfter', target)
+
+		TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
+		isCarry = true
+end
+
+function LiftUpRequest()
+		local target, distance = ESX.Game.GetClosestPlayer()
+--		target = PlayerId(-1)
+--		distance = 1
+
+		if distance ~= -1 and distance <= 3.0 then
+			local xPlayer = ESX.GetPlayerData()
+			local targetid = GetPlayerServerId(target)
+
+			TriggerServerEvent('esx_barbie_lyftupp:startRequest', targetid, "разрешение поднять вас на руки", 'esx_barbie_lyftupp:liftupp_afterRequest')
+		else
+			ESX.ShowNotification("Рядом никого нет...")
+		end
+
+end
+
+--[[
 function OpenActionMenuInteraction(target)
 
 	local elements = {}
 
 	table.insert(elements, {label = ('Lyft upp'), value = 'drag'})
-  
+
 	ESX.UI.Menu.CloseAll()
 
 	ESX.UI.Menu.Open(
@@ -50,44 +83,18 @@ function OpenActionMenuInteraction(target)
 		},
     function(data, menu)
 
-		local player, distance = ESX.Game.GetClosestPlayer()
 
-		ESX.UI.Menu.CloseAll()	
-		
-		if data.current.value == 'drag' then			
-			TriggerServerEvent('esx_barbie_lyftupp:checkRope')
-			ESX.ShowNotification('Вы поднимаете этого человека...')
-			TriggerServerEvent('esx_barbie_lyftupp:lyfteruppn', GetPlayerServerId(player))
-			Citizen.Wait(5000)
-			if hasRope == true then
-				local dict = "anim@heists@box_carry@"
-				
-				RequestAnimDict(dict)
-				while not HasAnimDictLoaded(dict) do
-					Citizen.Wait(100)
-				end
-				
-				local player, distance = ESX.Game.GetClosestPlayer()
-				local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-				
-				if distance ~= -1 and distance <= 3.0 then
-					local closestPlayer, distance = ESX.Game.GetClosestPlayer()
-					TriggerServerEvent('esx_barbie_lyftupp:lyfter', GetPlayerServerId(closestPlayer))		
-					
-					TaskPlayAnim(GetPlayerPed(-1), dict, "idle", 8.0, 8.0, -1, 50, 0, false, false, false)
-					isCarry = true
-				else
-					ESX.ShowNotification("Рядом никого нет...")
-				end
-			else
-				--ESX.ShowNotification("Du har inget rep att använda...")
-			end
+		ESX.UI.Menu.CloseAll()
+
+		if data.current.value == 'drag' then
+			LiftUpRequest()
 			menu.close()
 		end
 
   end)
 
 end
+]]--
 
 function LoadAnimationDictionary(animationD)
 	while(not HasAnimDictLoaded(animationD)) do
@@ -98,38 +105,57 @@ end
 
 RegisterNetEvent('esx_barbie_lyftupp:upplyft')
 AddEventHandler('esx_barbie_lyftupp:upplyft', function(target)
+--	print('esx_barbie_lyftupp:upplyft '..tostring(target))
 	local playerPed = GetPlayerPed(-1)
 	local targetPed = GetPlayerPed(GetPlayerFromServerId(target))
-	local lPed = GetPlayerPed(-1)
-	local dict = "amb@code_human_in_car_idles@low@ps@"
-	
+	local dict = "anim@amb@clubhouse@boss@female@"
+	local anim = "base"
+
 	if isCarry == false then
-		LoadAnimationDictionary("amb@code_human_in_car_idles@generic@ps@base")
-		TaskPlayAnim(lPed, "amb@code_human_in_car_idles@generic@ps@base", "base", 8.0, -8, -1, 33, 0, 0, 40, 0)
-		
-		AttachEntityToEntity(GetPlayerPed(-1), targetPed, 9816, 0.015, 0.38, 0.11, 0.9, 0.30, 90.0, false, false, false, false, 2, false)
-		
+		LoadAnimationDictionary(dict)
+		TaskPlayAnim(playerPed, dict, anim, 8.0, -8, -1, 33, 0, 0, 40, 0)
+
+		AttachEntityToEntity(playerPed, targetPed, 9816, -0.315, 0.18, 0.08, 0.9, 0.30, -80.0, false, false, false, false, 2, false)
+
 		isCarry = true
-	else
-		DetachEntity(GetPlayerPed(-1), true, false)
-		ClearPedTasksImmediately(targetPed)
-		ClearPedTasksImmediately(GetPlayerPed(-1))
-		
-		isCarry = false
+		Citizen.Wait(0)
+
+		while IsEntityPlayingAnim(GetPlayerPed(-1), dict, anim, 3) do
+			Citizen.Wait(0)
+		end
 	end
+
+	DetachEntity(playerPed, true, false)
+	ClearPedTasksImmediately(targetPed)
+	ClearPedTasksImmediately(playerPed)
+
+	isCarry = false
 end)
 
-
---[[Citizen.CreateThread(function()
+--[[
+Citizen.CreateThread(function()
   while true do
     Citizen.Wait(0)
-    if IsControlJustReleased(0, Keys['F3']) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'action_menu') then
-		OpenActionMenuInteraction()
+    if IsControlJustReleased(0, Keys['G']) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'action_menu') then
+			OpenActionMenuInteraction()
     end
   end
-end)]]--
+end)
+]]--
 
+--[[
 RegisterNetEvent('esx_barbie_lyftupp')
 AddEventHandler('esx_barbie_lyftupp', function()
   OpenActionMenuInteraction()
+end)
+]]--
+
+RegisterNetEvent('esx_barbie_lyftupp:liftupp_afterRequest')
+AddEventHandler('esx_barbie_lyftupp:liftupp_afterRequest', function(player)
+--	print("esx_barbie_lyftupp:liftupp_afterRequest "..tostring(player))
+	LiftUp(player)
+end)
+
+AddEventHandler('esx_barbie_lyftupp:liftUp', function()
+	LiftUpRequest()
 end)

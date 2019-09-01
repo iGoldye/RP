@@ -1,7 +1,7 @@
 Config                   = {}
 Config.DrawDistance      = 100.0
 Config.Locale = 'en'
-Config.IsMechanicJobOnly = false
+Config.IsMechanicJobOnly = true
 
 Config.Zones = {
 
@@ -9,46 +9,56 @@ Config.Zones = {
 		Pos   = { x = -337.38, y = -136.92, z = 38.57},
 		Size  = {x = 3.0, y = 3.0, z = 0.2},
 		Color = {r = 204, g = 204, b = 0},
-		Marker= 1,
+		Marker= 72,
 		Name  = _U('blip_name'),
 		Hint  = _U('press_custom')
 	},
 
-	ls2 = {
-		Pos   = { x = -1155.53, y = -2007.18, z = 12.74},
+	bennys = {
+		Pos   = { x = -222.77, y = -1329.89, z = 30.0},
 		Size  = {x = 3.0, y = 3.0, z = 0.2},
 		Color = {r = 204, g = 204, b = 0},
-		Marker= 1,
-		Name  = _U('blip_name'),
+		Marker= 0,
+		Name  = _U('blip_name_bennys'),
 		Hint  = _U('press_custom')
 	},
 
-	ls3 = {
-		Pos   = { x = 731.81, y = -1088.82, z = 21.73},
-		Size  = {x = 3.0, y = 3.0, z = 0.2},
-		Color = {r = 204, g = 204, b = 0},
-		Marker= 1,
-		Name  = _U('blip_name'),
-		Hint  = _U('press_custom')
-	},
-
-	ls4 = {
-		Pos   = { x = 1175.04, y = 2640.21, z = 37.32},
-		Size  = {x = 3.0, y = 3.0, z = 0.2},
-		Color = {r = 204, g = 204, b = 0},
-		Marker= 1,
-		Name  = _U('blip_name'),
-		Hint  = _U('press_custom')
-	},
-
-	ls5 = {
-		Pos   = { x = 110.99, y = 6626.39, z = 30.89},
-		Size  = {x = 3.0, y = 3.0, z = 0.2},
-		Color = {r = 204, g = 204, b = 0},
-		Marker= 1,
-		Name  = _U('blip_name'),
-		Hint  = _U('press_custom')
-	}
+-- ЛСК АЕРОПОРТ
+	-- ls2 = {
+	-- 	Pos   = { x = -1155.53, y = -2007.18, z = 12.74},
+	-- 	Size  = {x = 3.0, y = 3.0, z = 0.2},
+	-- 	Color = {r = 204, g = 204, b = 0},
+	-- 	Marker= 72,
+	-- 	Name  = _U('blip_name'),
+	-- 	Hint  = _U('press_custom')
+	-- },
+-- ЛСК ПОД МОСТОМ
+	-- ls3 = {
+	-- 	Pos   = { x = 731.81, y = -1088.82, z = 21.73},
+	-- 	Size  = {x = 3.0, y = 3.0, z = 0.2},
+	-- 	Color = {r = 204, g = 204, b = 0},
+	-- 	Marker= 72,
+	-- 	Name  = _U('blip_name'),
+	-- 	Hint  = _U('press_custom')
+	-- },
+-- СЭНДИ ЛСК
+	-- ls4 = {
+	-- 	Pos   = { x = 1175.04, y = 2640.21, z = 37.32},
+	-- 	Size  = {x = 3.0, y = 3.0, z = 0.2},
+	-- 	Color = {r = 204, g = 204, b = 0},
+	-- 	Marker= 72,
+	-- 	Name  = _U('blip_name'),
+	-- 	Hint  = _U('press_custom')
+	-- },
+-- ПАЛЕТО ЛСК
+	-- ls5 = {
+	-- 	Pos   = { x = 110.99, y = 6626.39, z = 30.89},
+	-- 	Size  = {x = 3.0, y = 3.0, z = 0.2},
+	-- 	Color = {r = 204, g = 204, b = 0},
+	-- 	Marker= 72,
+	-- 	Name  = _U('blip_name'),
+	-- 	Hint  = _U('press_custom')
+	-- }
 
 }
 

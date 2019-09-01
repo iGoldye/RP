@@ -30,6 +30,8 @@ function OpenShopMenu()
 					if bought then
 						TriggerEvent('skinchanger:getSkin', function(skin)
 							TriggerServerEvent('esx_skin:save', skin)
+							TriggerServerEvent('esx_accessories:save', skin, "Helmet")
+							TriggerServerEvent('esx_accessories:save', skin, "Glasses")
 						end)
 
 						hasPaid = true
@@ -118,7 +120,7 @@ AddEventHandler('esx_clotheshop:hasExitedMarker', function(zone)
 	currentAction = nil
 
 	if not hasPaid then
-		TriggerEvent('esx_skin:getLastSkin', function(skin)
+		ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 			TriggerEvent('skinchanger:loadSkin', skin)
 		end)
 	end

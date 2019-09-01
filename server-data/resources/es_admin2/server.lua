@@ -368,7 +368,7 @@ RegisterCommand('removerole', function(source, args, raw)
 	end
 end, true)
 
-RegisterCommand('setmoney', function(source, args, raw)
+RegisterCommand('esadmin_setmoney', function(source, args, raw)
 	local player = tonumber(args[1])
 	local money = tonumber(args[2])
 	if args[1] then
@@ -456,23 +456,31 @@ TriggerEvent("es:addGroupCommand", 'ban', "admin", function(source, args, user)
 	end
 end)
 
--- Report to admins
-TriggerEvent('es:addCommand', 'report', function(source, args, user)
+function report(source, text)
 	TriggerClientEvent('chat:addMessage', source, {
-		args = {"^1REPORT", " (^2" .. GetPlayerName(source) .. " | " .. source .. "^0) " .. table.concat(args, " ")}
+		args = {"^1REPORT", " (^2" .. GetPlayerName(source) .. " | " .. source .. "^0) " .. text}
 	})
 
 	TriggerEvent("es:getPlayers", function(pl)
 		for k,v in pairs(pl) do
 			TriggerEvent("es:getPlayerFromId", k, function(user)
-				if(user.getPermissions() > 0 and k ~= source)then
+				if (user.getPermissions() > 0 and k ~= source) then
 					TriggerClientEvent('chat:addMessage', k, {
-						args = {"^1REPORT", " (^2" .. GetPlayerName(source) .." | "..source.."^0) " .. table.concat(args, " ")}
+						args = {"^1REPORT", " (^2" .. GetPlayerName(source) .." | "..source.."^0) " .. text}
 					})
 				end
 			end)
 		end
 	end)
+end
+
+AddEventHandler('es_admin:report', function(_source, text)
+	report(_source, text)
+end)
+
+-- Report to admins
+TriggerEvent('es:addCommand', 'report', function(source, args, user)
+	report(source, table.concat(args, " "))
 end, {help = "Report a player or an issue", params = {{name = "report", help = "What you want to report"}}})
 
 -- Noclip

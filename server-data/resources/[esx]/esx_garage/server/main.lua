@@ -3,7 +3,7 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterServerEvent('esx_garage:setParking')
-AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps)
+AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps, silent)
 	local _source = source
 	local xPlayer  = ESX.GetPlayerFromId(_source)
 
@@ -15,17 +15,21 @@ AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps)
 			['@garage']     = garage;
 			['@zone']       = zone
 		}, function(rowsChanged)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_released'))
+			if not silent then
+				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_released'))
+			end
 		end)
 	else
-		MySQL.Async.execute('INSERT INTO `user_parkings` (`identifier`, `garage`, `zone`, `vehicle`) VALUES (@identifier, @garage, @zone, @vehicle)',
+		MySQL.Async.execute('REPLACE INTO `user_parkings` (`identifier`, `garage`, `zone`, `vehicle`) VALUES (@identifier, @garage, @zone, @vehicle)',
 		{
 			['@identifier'] = xPlayer.identifier,
 			['@garage']     = garage;
 			['@zone']       = zone,
 			['vehicle']     = json.encode(vehicleProps)
 		}, function(rowsChanged)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_stored'))
+			if not silent then
+				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_stored'))
+			end
 		end)
 	end
 end)

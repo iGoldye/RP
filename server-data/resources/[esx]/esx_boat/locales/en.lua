@@ -1,6 +1,6 @@
 Locales['en'] = {
   -- shop
-  ['boat_shop'] = 'boat shop',
+  ['boat_shop'] = 'Причал',
   ['boat_shop_open'] = 'press ~INPUT_CONTEXT~ to access the ~y~boat shop~s~.',
   ['boat_shop_confirm'] = 'buy <span style="color: yellow;">%s</span> for <span style="color: orange;">$%s</span>?',
   ['boat_shop_bought'] = 'you have ~y~bought~s~ a ~b~%s~s~ for ~g~$%s~s~',
@@ -26,6 +26,6 @@ Locales['en'] = {
   ['license_nomoney'] = 'you cannot ~r~afford~s~ the ~y~Boat License~s~!',
 
   -- blips
-  ['blip_garage'] = 'boat Garage',
-  ['blip_shop'] = 'boat Shop',
+  ['blip_garage'] = 'Лодочный гараж',
+  ['blip_shop'] = 'Причал',
 }

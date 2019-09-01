@@ -22,14 +22,19 @@ AddEventHandler('playerSpawned', function(spawn)
 end)
 
 function EnableGui(state)
-	SetNuiFocus(state, state)
 	guiEnabled = state
+	SetNuiFocus(state,state)
 
 	SendNUIMessage({
 		type = "enableui",
 		enable = state
 	})
 end
+
+RegisterNetEvent('esx_identity:hasIdentity')
+AddEventHandler('esx_identity:hasIdentity', function(cb)
+	cb(hasIdentity)
+end)
 
 RegisterNetEvent('esx_identity:showRegisterIdentity')
 AddEventHandler('esx_identity:showRegisterIdentity', function()
@@ -59,10 +64,15 @@ end)
 RegisterNUICallback('register', function(data, cb)
 	local reason = ""
 	myIdentity = data
+
+	local ped = PlayerPedId()
+	SetEntityCoordsNoOffset(ped, -1042.31, -2745.59, 21.36, false, false, false, true)
+	SetEntityHeading(ped, 328.56)
+
 	for theData, value in pairs(myIdentity) do
 		if theData == "firstname" or theData == "lastname" then
 			reason = verifyName(value)
-			
+
 			if reason ~= "" then
 				break
 			end
@@ -84,16 +94,26 @@ RegisterNUICallback('register', function(data, cb)
 			end
 		end
 	end
-	
+
 	if reason == "" then
 		TriggerServerEvent('esx_identity:setIdentity', data, myIdentifiers)
 		EnableGui(false)
 		Citizen.Wait(500)
-		TriggerEvent('esx_skin:openSaveableMenu', myIdentifiers.id)
+
+		openSkinMenu()
 	else
 		ESX.ShowNotification(reason)
+		EnableGui(true)
 	end
 end)
+
+function openSkinMenu()
+	TriggerEvent('esx_skin:openSaveableMenu', function()
+-- successfully registered
+	end, function()
+		openSkinMenu()
+	end)
+end
 
 Citizen.CreateThread(function()
 	while true do
@@ -117,8 +137,15 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 143, true) -- disable melee
 			DisableControlAction(0, 75,  true) -- disable exit vehicle
 			DisableControlAction(27, 75, true) -- disable exit vehicle
+			DisableControlAction(0, 243, true) -- disable tilde
+			SetNuiFocus(true,true)
 		end
-		Citizen.Wait(10)
+
+		if hasIdentity == false then
+			SetEntityVisible(PlayerPedId(), not guiEnabled)
+		end
+
+		Citizen.Wait(0)
 	end
 end)
 
@@ -128,7 +155,7 @@ function verifyName(name)
 	if nameLength > 25 or nameLength < 2 then
 		return 'Your player name is either too short or too long.'
 	end
-	
+
 	-- Don't allow special characters (doesn't always work)
 	local count = 0
 	for i in name:gmatch('[abcdefghijklmnopqrstuvwxyzåäöABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ0123456789 -]') do
@@ -137,9 +164,9 @@ function verifyName(name)
 	if count ~= nameLength then
 		return 'Your player name contains special characters that are not allowed on this server.'
 	end
-	
+
 	-- Does the player carry a first and last name?
-	-- 
+	--
 	-- Example:
 	-- Allowed:     'Bob Joe'
 	-- Not allowed: 'Bob'
@@ -158,7 +185,7 @@ function verifyName(name)
 	if spacesInName > 2 then
 		return 'Your name contains more than two spaces'
 	end
-	
+
 	if spacesWithUpper ~= spacesInName then
 		return 'your name must start with a capital letter.'
 	end

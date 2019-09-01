@@ -1,0 +1,9 @@
+.vscode/*
+111/*
+Run.bat
+server-data/cache/*
+server-data/server.cfg
+server-data/resources/3dme/log.txt
+server/*
+server-data/mysql-async.log
+server-data/resources/vMenu/vmenu.log

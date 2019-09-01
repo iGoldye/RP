@@ -108,7 +108,8 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 	ESX.UI.Menu.CloseAll()
 
 	if itemName == 'medikit' then
-		local lib, anim = 'anim@heists@narcotics@funding@gang_idle', 'gang_chatting_idle01' -- TODO better animations
+--[[
+		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
 		local playerPed = PlayerPedId()
 
 		ESX.Streaming.RequestAnimDict(lib, function()
@@ -119,13 +120,14 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 				Citizen.Wait(0)
 				DisableAllControlActions(0)
 			end
-
+]]--
 			TriggerEvent('esx_ambulancejob:heal', 'big', true)
 			ESX.ShowNotification(_U('used_medikit'))
-		end)
+--		end)
 
 	elseif itemName == 'bandage' then
-		local lib, anim = 'anim@heists@narcotics@funding@gang_idle', 'gang_chatting_idle01' -- TODO better animations
+--[[
+		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
 		local playerPed = PlayerPedId()
 
 		ESX.Streaming.RequestAnimDict(lib, function()
@@ -136,10 +138,10 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 				Citizen.Wait(0)
 				DisableAllControlActions(0)
 			end
-
+]]--
 			TriggerEvent('esx_ambulancejob:heal', 'small', true)
 			ESX.ShowNotification(_U('used_bandage'))
-		end)
+--		end)
 	end
 end)
 
@@ -268,18 +270,19 @@ function StartDeathTimer()
 		while bleedoutTimer > 0 and IsDead do
 			Citizen.Wait(0)
 			text = _U('respawn_bleedout_in', secondsToClock(bleedoutTimer))
+			subtext = ""
 
 			if not Config.EarlyRespawnFine then
-				text = text .. _U('respawn_bleedout_prompt')
+				subtext = _U('respawn_bleedout_prompt')
 
-				if IsControlPressed(0, Keys['E']) and timeHeld > 60 then
+				if IsControlPressed(0, Keys['E']) and timeHeld > 10 then
 					RemoveItemsAfterRPDeath()
 					break
 				end
 			elseif Config.EarlyRespawnFine and canPayFine then
-				text = text .. _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
+				subtext = _U('respawn_bleedout_fine', ESX.Math.GroupDigits(Config.EarlyRespawnFineAmount))
 
-				if IsControlPressed(0, Keys['E']) and timeHeld > 60 then
+				if IsControlPressed(0, Keys['E']) and timeHeld > 10 then
 					TriggerServerEvent('esx_ambulancejob:payFine')
 					RemoveItemsAfterRPDeath()
 					break
@@ -293,10 +296,14 @@ function StartDeathTimer()
 			end
 
 			DrawGenericTextThisFrame()
-
 			SetTextEntry("STRING")
 			AddTextComponentString(text)
 			DrawText(0.5, 0.8)
+
+			DrawGenericTextThisFrame()
+			SetTextEntry("STRING")
+			AddTextComponentString(subtext)
+			DrawText(0.5, 0.85)
 		end
 
 		if bleedoutTimer < 1 and IsDead then
@@ -383,7 +390,24 @@ AddEventHandler('esx_ambulancejob:revive', function()
 
 		TriggerServerEvent('esx:updateLastPosition', formattedCoords)
 
+		local health = GetEntityHealth(playerPed)
+
 		RespawnPed(playerPed, formattedCoords, 0.0)
+
+		if health < 1 then
+			SetEntityMaxHealth(playerPed, 125)
+			SetEntityHealth(playerPed, 125)
+
+			local injured_anim = "move_m@injured"
+
+		        RequestAnimSet(injured_anim)
+			if not HasAnimSetLoaded(injured_anim) then
+				Citizen.Wait(100)
+			end
+
+			ESX.SetPlayerData('gait', injured_anim)
+			SetPedMovementClipset(playerPed, injured_anim, true)
+		end
 
 		StopScreenEffect('DeathFailOut')
 		DoScreenFadeIn(800)

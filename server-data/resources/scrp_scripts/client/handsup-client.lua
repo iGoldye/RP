@@ -22,13 +22,20 @@ Citizen.CreateThread(function()
 
 	while true do
 		Citizen.Wait(10)
-		if IsControlJustPressed(1, Keys['X']) and GetLastInputMethod(2) and IsPedOnFoot(PlayerPedId()) then
+
+		local playerPed = PlayerPedId()
+
+		if handsup == true then
+			DisablePlayerFiring(playerPed, true)
+		end
+
+		if IsControlJustPressed(1, Keys['F2']) and GetLastInputMethod(2) and IsPedOnFoot(playerPed) then
 			if not handsup then
-				TaskPlayAnim(PlayerPedId(), dict, "handsup_enter", 8.0, 8.0, -1, 50, 0, false, false, false)
+				TaskPlayAnim(playerPed, dict, "handsup_enter", 8.0, 8.0, -1, 50, 0, false, false, false)
 				handsup = true
 			else
 				handsup = false
-				ClearPedTasks(PlayerPedId())
+				ClearPedSecondaryTask(playerPed)
 			end
 		end
 	end

@@ -13,7 +13,7 @@ Config.DefaultWeight = 0
 
 
 -- If true, ignore rest of file
-Config.WeightSqlBased = false
+Config.WeightSqlBased = true
 
 -- I Prefer to edit weight on the config.lua and I have switched Config.WeightSqlBased to false:
 

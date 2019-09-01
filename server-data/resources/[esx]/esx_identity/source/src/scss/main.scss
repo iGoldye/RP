@@ -1,0 +1,36 @@
+// core
+@import 'utils/mixins';
+@import 'utils/fonts';
+@import 'utils/libs';
+
+// comon
+::placeholder {
+  color: #666;
+}
+
+::selection {
+  color: #fff;
+}
+
+button {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+body {
+  font-size: 16px;
+  min-width: 320px;
+  position: relative;
+  line-height: 1.65;
+  font-family: sans-serif;
+  overflow-x: hidden;
+  color: #000;
+
+  input,
+  textarea {
+    border: #666 1px solid;
+    outline: none;
+  }
+}

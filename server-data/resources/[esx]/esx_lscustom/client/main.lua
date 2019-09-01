@@ -17,6 +17,10 @@ local lsMenuIsShowed	= false
 local isInLSMarker		= false
 local myCar				= {}
 
+function isMechanic()
+	return PlayerData.job ~= nil and (PlayerData.job.name == 'mechanic' or PlayerData.job.name == 'mechanic-bennys')
+end
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -47,6 +51,7 @@ end)
 RegisterNetEvent('esx_lscustom:cancelInstallMod')
 AddEventHandler('esx_lscustom:cancelInstallMod', function()
 	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+	myCar["extras"] = nil
 	ESX.Game.SetVehicleProperties(vehicle, myCar)
 end)
 
@@ -368,13 +373,15 @@ end
 -- Blips
 Citizen.CreateThread(function()
 	for k,v in pairs(Config.Zones) do
-		local blip = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
-		SetBlipSprite(blip, 72)
-		SetBlipScale(blip, 0.8)
-		SetBlipAsShortRange(blip, true)
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(v.Name)
-		EndTextCommandSetBlipName(blip)
+		if Config.Zones.Marker ~= 0 then
+			local blip = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
+			SetBlipSprite(blip, Config.Zones.Marker)
+			SetBlipScale(blip, 0.8)
+			SetBlipAsShortRange(blip, true)
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString(v.Name)
+			EndTextCommandSetBlipName(blip)
+		end
 	end
 end)
 
@@ -388,7 +395,7 @@ Citizen.CreateThread(function()
 			local currentZone = nil
 			local zone 		  = nil
 			local lastZone    = nil
-			if (PlayerData.job ~= nil and PlayerData.job.name == 'mechanic') or Config.IsMechanicJobOnly == false then
+			if isMechanic() or Config.IsMechanicJobOnly == false then
 				for k,v in pairs(Config.Zones) do
 					if GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < v.Size.x then
 						isInLSMarker  = true
@@ -401,7 +408,7 @@ Citizen.CreateThread(function()
 			end
 
 			if IsControlJustReleased(0, Keys['E']) and not lsMenuIsShowed and isInLSMarker then
-				if (PlayerData.job ~= nil and PlayerData.job.name == 'mechanic') or Config.IsMechanicJobOnly == false then
+				if isMechanic() or Config.IsMechanicJobOnly == false then
 					lsMenuIsShowed = true
 
 					local vehicle = GetVehiclePedIsIn(playerPed, false)

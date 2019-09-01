@@ -22,6 +22,7 @@ AddEventHandler('esx_basicneeds:healPlayer', function()
 
 	-- restore hp
 	local playerPed = PlayerPedId()
+	SetEntityMaxHealth(playerPed, 200)
 	SetEntityHealth(playerPed, GetEntityMaxHealth(playerPed))
 end)
 

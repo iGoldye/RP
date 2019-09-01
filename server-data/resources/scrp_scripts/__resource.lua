@@ -19,6 +19,7 @@ server_scripts {
 	-- 'server/generic_messages-server.lua'
 	--'server/restart_alert-server.lua'
 	--'server/check_name-server.lua'
+	'server/friendly_npc-server.lua',
 }
 
 client_scripts {
@@ -26,8 +27,9 @@ client_scripts {
 	'locales/en.lua',
 	'locales/sv.lua',
 	'config.lua',
-	'client/fixtraffic-client.lua',
-	'client/npc_drop-client.lua',
+	'client/lock_cars-client.lua',
+--	'client/fixtraffic-client.lua',
+--	'client/npc_drop-client.lua',
 	'client/pointfinger-client.lua',
 	'client/speed_limit-client.lua',
 	-- 'client/no_drive_by-client.lua',
@@ -35,11 +37,13 @@ client_scripts {
 	'client/handsup-client.lua',
 	-- 'client/gpstools-client.lua',
 	'client/commands-client.lua',
-	'client/no_vehicle_rewards-client.lua',
+--	'client/no_vehicle_rewards-client.lua',
 	-- 'client/disable_dispatch-client.lua',
 	'client/street_display-client.lua',
-	'client/no_crosshair-client.lua',
+--	'client/no_crosshair-client.lua',
 	-- 'client/drift_mode-client.lua',
+	'client/everyframe-client.lua',
+	'client/no_police-client.lua',
 	'client/friendly_npc-client.lua',
 	'client/discord_rich_presence-client.lua'
 }
