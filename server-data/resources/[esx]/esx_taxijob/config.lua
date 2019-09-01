@@ -15,7 +15,11 @@ Config.AuthorizedVehicles = {
 
 	{
 		model = 'taxi',
-		label = 'Taxi'
+		label = 'Такси',
+	},
+	{
+		model = 'rentalbus',
+		label = 'Автобус',
 	}
 
 }
