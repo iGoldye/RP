@@ -5,6 +5,25 @@ TriggerEvent('esx:getSharedObject', function(obj)
   ESX = obj
 end)
 
+
+MySQL.ready(function()
+	if Config.WeightSqlBased == false then
+		return
+	end
+
+	arrayWeight = {}
+
+	local items = MySQL.Sync.fetchAll('SELECT name, weight FROM items')
+
+	for i=1, #items, 1 do
+		arrayWeight[items[i].name] = items[i].weight
+	end
+end)
+
+ESX.RegisterServerCallback('esx_vehicle_inventory:getItemWeights', function(source, cb)
+	cb(arrayWeight)
+end)
+
 RegisterServerEvent('esx_truck_inventory:getOwnedVehicule')
 AddEventHandler('esx_truck_inventory:getOwnedVehicule', function()
   local vehicules = {}
