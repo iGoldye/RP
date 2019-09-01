@@ -5,7 +5,7 @@ Config.LimitToAmbulanceJob = true
 Config.AmbulanceModel = 'AMBULANCE'
 
 Config.ActivationKey = 178
-Config.ActivationKeyText = 'INPUT_CONTEXT'
+Config.ActivationKeyText = 'INPUT_FRONTEND_DELETE'
 
 Config.InitialSeconds = 120
 Config.MaxPatientsPerTrip = 3
