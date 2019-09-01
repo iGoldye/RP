@@ -96,11 +96,13 @@ on("__cfx_nui:close", (data, cb) => {
     emit('animation:radio', GuiOpened);
 });
 
-onNet("ab-walkietalkie:phoneCallStartedCallback", function (){
+RegisterNetEvent('ab-walkietalkie:phoneCallStartedCallback');
+onNet("ab-walkietalkie:phoneCallStartedCallback", function (playerServerId) {
     emitNet('TokoVoip:removePlayerFromRadio', lastRadio, playerServerId);
 });
 
-onNet("ab-walkietalkie:phoneCallEndedCallback", function (playerServerId){
+RegisterNetEvent('ab-walkietalkie:phoneCallEndedCallback');
+onNet("ab-walkietalkie:phoneCallEndedCallback", function (playerServerId) {
     if (lastRadio !== 0) {
         emitNet('TokoVoip:addPlayerToRadio', lastRadio, playerServerId);
     }
