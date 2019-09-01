@@ -37,9 +37,6 @@ function addPlayerToRadio(channelId, playerServerId)
 		else
 			-- Send whole channel data to new subscriber
 			TriggerClientEvent("TokoVoip:onPlayerJoinChannel", subscriberServerId, channelId, playerServerId, channels[channelId]);
-			if(channelId > 1000) then
-				TriggerClientEvent("ab-walkietalkie:phoneCallStartedCallback", subscriberServerId);
-			end
 		end
 	end
 end

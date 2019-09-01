@@ -44,6 +44,9 @@ RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
   	PlayerData = xPlayer
     TriggerServerEvent("esx_truck_inventory:getOwnedVehicule")
+    ESX.TriggerServerCallback('esx_vehicle_inventory:getItemWeights', function(items)
+	arrayWeight = items
+    end)
 end)
 
 RegisterNetEvent('esx_truck_inventory:setOwnedVehicule')
