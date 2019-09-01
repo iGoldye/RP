@@ -108,6 +108,7 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 	ESX.UI.Menu.CloseAll()
 
 	if itemName == 'medikit' then
+--[[
 		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
 		local playerPed = PlayerPedId()
 
@@ -119,12 +120,13 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 				Citizen.Wait(0)
 				DisableAllControlActions(0)
 			end
-
+]]--
 			TriggerEvent('esx_ambulancejob:heal', 'big', true)
 			ESX.ShowNotification(_U('used_medikit'))
-		end)
+--		end)
 
 	elseif itemName == 'bandage' then
+--[[
 		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
 		local playerPed = PlayerPedId()
 
@@ -136,10 +138,10 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 				Citizen.Wait(0)
 				DisableAllControlActions(0)
 			end
-
+]]--
 			TriggerEvent('esx_ambulancejob:heal', 'small', true)
 			ESX.ShowNotification(_U('used_bandage'))
-		end)
+--		end)
 	end
 end)
 
