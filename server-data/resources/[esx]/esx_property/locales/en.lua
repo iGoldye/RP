@@ -31,5 +31,5 @@ Locales['en'] = {
   ['invalid_quantity'] = 'Неверное колличество',
   ['paid_rent'] = 'Вы ~g~заплатили~s~ за аренду: ~g~$%s~s~',
   ['not_enough_in_property'] = 'Не хватает  ~r~этого~s~ в собственности',
-  ['player_cannot_hold'] = 'Вам ~r~не хватает~s~ ~y~месьа~s~ в инвенторе!',
+  ['player_cannot_hold'] = 'Вам ~r~не хватает~s~ ~y~места~s~ в инвентаре!',
 }
