@@ -6,13 +6,13 @@ client_scripts {
 }
 
 ui_page {
-	'dist/index.html'
+	'index.html'
 }
 
 files {
-	'dist/index.html',
-	'dist/assets/css/app.css',
-	'dist/assets/js/app.js'
+	'sourceCode/dist/index.html',
+	'sourceCode/dist/assets/css/app.css',
+	'sourceCode/dist/assets/js/app.js'
 }
 
 dependencies {
