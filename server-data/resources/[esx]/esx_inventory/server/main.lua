@@ -70,6 +70,16 @@ AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight
 	cb(CreateItem(name, extra, amount, weight))
 end)
 
+AddEventHandler('esx_inventory:addItem', function(name, owner, item, cb)
+	local inv = getInventory(name, owner)
+	cb(inv.addItem(item))
+end)
+
+AddEventHandler('esx_inventory:removeItem', function(name, owner, item, cb)
+	local inv = getInventory(name, owner)
+	cb(inv.removeItem(item))
+end)
+
 function giveItemTo(source, target, item)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xTarget = ESX.GetPlayerFromId(target)
@@ -89,3 +99,14 @@ RegisterServerEvent('esx_inventory:playerSpawned')
 AddEventHandler('esx_inventory:playerSpawned', function()
 	sendAllPickups(source)
 end)
+
+-- ---------------------------------- exports ---------------------------------------------
+
+function createItem(name, extra, amount, weight)
+	return CreateItem(name, extra, amount, weight)
+end
+
+function findItem(name, owner, item)
+	local inv = getInventory(name, owner)
+	return inv.findItem(item)
+end

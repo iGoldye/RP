@@ -39,5 +39,7 @@ exports {
 server_export 'getInventory'
 server_export 'getItemLabel'
 server_export 'giveItemTo'
+server_export 'createItem'
+server_export 'findItem'
 
 dependency 'es_extended'
