@@ -206,7 +206,7 @@ function inventoryAddNativeItems(elements, inventory)
 	for k,v in pairs(inventory.items) do
 		local itemlabel = v.name
 		local itemdesc = ''
---		print(v.name)
+--		print(json.encode(v))
 
 		local melee = false
 		local ammo = 0
@@ -216,6 +216,11 @@ function inventoryAddNativeItems(elements, inventory)
 			itemlabel = v.extra.weapon_label
 			ammo = v.extra.ammo
 			melee = v.extra.melee
+
+		elseif v.name == "carkey" and v.extra ~= nil then
+--			print(json.encode(v))
+			itemlabel = "Ключ от машины"
+			itemdesc = "Номер: "..v.extra.plate
 		end
 
 		table.insert(elements, {
@@ -224,7 +229,7 @@ function inventoryAddNativeItems(elements, inventory)
 			count = v.amount,
 			melee = melee,
 			ammo = ammo,
-			weight = 1.0,
+			weight = 0.0,
 			name = v.name,
 			item = v,
 			actions = {},
@@ -252,6 +257,7 @@ function generateInventoryElements(inventory)
 				table.insert(elements[i].actions, {
 					key = name,
 					label = act.label,
+					priority = act.priority,
 				})
 			end
 		end
@@ -268,8 +274,6 @@ function generateInventoryElements(inventory)
 end
 
 function showInventoryMenu(inventory)
-	print("showInventoryMenu")
-
 	SendNUIMessage({
 		action  = 'showInventory',
 		value = true,

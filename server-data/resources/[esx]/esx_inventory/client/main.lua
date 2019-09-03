@@ -96,13 +96,14 @@ function GetWeaponConfig(name)
 	return nil
 end
 
-function registerItemAction(itemName, actionName, actionLabel, cb_use, cb_if)
+function registerItemAction(itemName, actionName, actionLabel, actionPriority, cb_use, cb_if)
 	if itemActions[itemName] == nil then
 		itemActions[itemName] = {}
 	end
 
 	local act = {}
 	act.label = actionLabel
+	act.priority = actionPriority
 	act.cb = cb_use
 	act.condition = cb_if
 
@@ -372,8 +373,8 @@ AddEventHandler('esx_inventory:itemAction', function(act)
 	runItemAction(act.item.name, act.key, act.item)
 end)
 
-AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, cb_action, cb_condition)
-	return registerItemAction(itemName, actionName, actionLabel, cb_action, cb_condition)
+AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, actionPriority, cb_action, cb_condition)
+	return registerItemAction(itemName, actionName, actionLabel, actionPriority, cb_action, cb_condition)
 end)
 
 

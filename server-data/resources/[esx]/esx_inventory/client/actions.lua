@@ -1,7 +1,7 @@
 AddEventHandler('esx_inventory:registerActions', function()
 
 
-TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), function(item)
+TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), 0, function(item)
 
 	if item.extra.weapon.ammo > 0 then
 		TriggerEvent("sosamba_ui:showInputBox", "unequip-box", "Сколько разэкипировать?", "Введите количество патронов", function(text)
@@ -17,11 +17,11 @@ TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _
 	end
 end)
 
-TriggerEvent('esx_inventory:registerItemAction', "weapon", "equip", _U("inventory_action_equip"), function(item)
+TriggerEvent('esx_inventory:registerItemAction', "weapon", "equip", _U("inventory_action_equip"), 0, function(item)
 	TriggerServerEvent('esx_inventory:equipWeapon', item)
 end)
 
-TriggerEvent('esx_inventory:registerItemAction', "esx_item", "esx_use", _U("inventory_action_use"), function(item)
+TriggerEvent('esx_inventory:registerItemAction', "esx_item", "esx_use", _U("inventory_action_use"), 1, function(item)
 	TriggerServerEvent('esx:useItem', item.extra.name)
 	TriggerEvent('esx_inventory:updateInventory', "pocket", false)
 end, function(item)
@@ -57,17 +57,17 @@ end, function(item)
 	return item.extra.usable == true
 end)
 
-TriggerEvent('esx_inventory:registerItemAction', "money_pack", "unpack", _U("inventory_action_unpack"), function(item)
+TriggerEvent('esx_inventory:registerItemAction', "money_pack", "unpack", _U("inventory_action_unpack"), 1, function(item)
 	TriggerServerEvent('esx_inventory:actionUnpackMoney', item)
 end)
 
-TriggerEvent('esx_inventory:registerItemAction', "passport", "show", "Просмотреть", function(item)
+TriggerEvent('esx_inventory:registerItemAction', "passport", "show", "Просмотреть", 1, function(item)
 	hideInventoryMenu()
 	TriggerServerEvent('sosamba_ui:actionShowPassport', item)
 end)
 
 
-TriggerEvent('esx_inventory:registerItemAction', "@shared", "drop", "Выбросить", function(item) -- action
+TriggerEvent('esx_inventory:registerItemAction', "@shared", "drop", "Выбросить", -1, function(item) -- action
 	local amount = 0
 
 	if item == nil or item.amount == nil or item.amount < 1 then
@@ -102,7 +102,7 @@ end, function(item) -- condition
 	return true
 end)
 
-TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Передать", function(item)
+TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Передать", 0, function(item)
 	local amount = item.amount
 
 	if item == nil then
