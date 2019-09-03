@@ -65,6 +65,12 @@ function OpenLSMenu(elems, menuName, menuTitle, parent)
 		local isRimMod, found = false, false
 		local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 
+		if vehicle ~= nil and data.current.modType == "duplicateKey" then
+			local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+			TriggerServerEvent('esx_lscustom:duplicateKey', plate)
+			return
+		end
+
 		if data.current.modType == "modFrontWheels" then
 			isRimMod = true
 		end

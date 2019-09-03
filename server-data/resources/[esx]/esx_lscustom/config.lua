@@ -454,8 +454,23 @@ Config.Menus = {
 		label		= 'LS CUSTOMS',
 		parent		= nil,
 		upgrades	= _U('upgrades'),
-		cosmetics	= _U('cosmetics')
+		cosmetics	= _U('cosmetics'),
+		maintenance     = _U('maintenance'),
 	},
+
+	maintenance = {
+		label           = _U('maintenance'),
+		parent          = 'main',
+		duplicateKey    = _U('duplicate_key'),
+	},
+
+	duplicateKey = {
+		label = _U('duplicate_key'),
+		parent = 'maintenance',
+		modType = 'duplicateKey',
+		price = 10.0,
+	},
+
 	upgrades = {
 		label			= _U('upgrades'),
 		parent			= 'main',
