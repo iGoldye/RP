@@ -1,0 +1,154 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh;
+}
+
+.menu {
+  display: flex;
+  width: 100%;
+  max-width: 416px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: rgba(46, 48, 51, 0.85);
+  border-radius: 4px 4px 0px 0px;
+  transition: all 0.5s linear;
+  transform: translateY(100px);
+
+  &.is-active {
+    transform: translateY(0);
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: hidden;
+
+    &-standalone {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      width: 100%;
+
+      .menu__list {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 52px;
+    height: 52px;
+
+    &.is-active {
+      background-color: #f5a417;
+
+      .menu__item-icon {
+        fill: #fff;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &-icon {
+      fill: #898d99;
+    }
+  }
+
+  &__submenu {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 416px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    &-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 130px;
+      height: 35px;
+      margin: 0 5px;
+      background: rgba(46, 48, 51, 0.85);
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 19px;
+      color: #ced4e6;
+
+      &:nth-child(1) {
+        margin-left: 0;
+      }
+
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+
+      &.is-active {
+        color: #ced4e6;
+        background-color: #f5a417;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__list {
+    position: relative;
+    width: 100%;
+    max-width: 416px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    background: rgba(46, 48, 51, 0.85);
+    border-radius: 4px;
+
+    &-head {
+      padding: 12px 14px 13px;
+      background: #2e3033;
+      border-radius: 4px 4px 0 0;
+
+      &er {
+        margin-bottom: 0;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #fff;
+      }
+    }
+
+    &-item {
+      display: block;
+      width: 100%;
+      height: 36px;
+      padding: 8px 14px 9px;
+      font-size: 16px;
+      line-height: 19px;
+      color: #ced4e6;
+
+      &.is-active {
+        color: #fff;
+        text-decoration: none;
+        background: rgba(245, 164, 23, 0.85);
+      }
+    }
+
+    &-controls {
+      position: absolute;
+      left: -140px;
+      top: 0;
+
+      &-item {
+        @extend .menu__submenu-item;
+
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

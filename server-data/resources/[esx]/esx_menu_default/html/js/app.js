@@ -3,7 +3,7 @@
 	let MenuTpl =
 		'<div id="menu_{{_namespace}}_{{_name}}" class="menu{{#align}} align-{{align}}{{/align}}">' +
 			'<div class="head"><span>{{{title}}}</span></div>' +
-				'<div class="menu-items">' + 
+				'<div class="menu-items">' +
 					'{{#elements}}' +
 						'<div class="menu-item {{#selected}}selected{{/selected}}">' +
 							'{{{label}}}{{#isSlider}} : &lt;{{{sliderLabel}}}&gt;{{/isSlider}}' +
@@ -64,13 +64,13 @@
 			namespace: namespace,
 			name     : name
 		});
-		
+
 		ESX_MENU.render();
 		$('#menu_' + namespace + '_' + name).find('.menu-item.selected')[0].scrollIntoView();
 	};
 
 	ESX_MENU.close = function(namespace, name) {
-		
+
 		delete ESX_MENU.opened[namespace][name];
 
 		for (let i=0; i<ESX_MENU.focus.length; i++) {

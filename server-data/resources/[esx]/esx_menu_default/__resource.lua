@@ -11,6 +11,7 @@ client_scripts {
 
 ui_page {
 	'html/ui.html'
+	-- 'html/index.html'
 }
 
 files {
@@ -20,6 +21,9 @@ files {
 	'html/js/app.js',
 	'html/fonts/pdown.ttf',
 	'html/fonts/bankgothic.ttf'
+	-- 'html/index.html',
+	-- 'html/assets/css/app.css',
+	-- 'html/assets/js/app.js'
 }
 
 dependencies {
