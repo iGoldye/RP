@@ -4,10 +4,9 @@
       a.menu__item(v-for='item in menu.items', :href='item.url')
         svg.menu__item-icon(:width="item.img.width" :height="item.img.height" :viewbox="item.img.viewbox" xmlns="http://www.w3.org/2000/svg")
           path(v-for='path in item.img.path'  :d="path")
-    .menu__submenu#personal
-      a.menu__submenu-item(href='#passport') Паспорт
-      a.menu__submenu-item(href='#') Лицензии
-      a.menu__submenu-item(href='#') Собственность
+    //- .menu__submenu#personal
+    //-   a.menu__submenu-item(href='#', v-for='item in elements')
+    MenuBtns(ref='btns')
     .menu__list
       .menu__list-head
         p.menu__list-header Паспорт
@@ -23,11 +22,13 @@
 
 <script>
 // import MenuList from "./menu-list";
+import MenuBtns from './MenuBtns'
 
 export default {
   name: "Menu",
   components: {
     // MenuList
+    MenuBtns
   },
   data() {
     return {
@@ -135,8 +136,7 @@ export default {
             }
           }
         ]
-      },
-      elements: {}
+      }
     };
   },
   mounted() {
@@ -148,14 +148,12 @@ export default {
     window.addEventListener("message", this.focusItem);
   },
   methods: {
-    focusItem: event => {
-      // console.log(event);
-      console.log(event.data);
+    focusItem: function(event) {
+      console.log(event)
       let mainMenu = document.querySelector("#menu");
       let next = document.activeElement.nextSibling;
       let prev = document.activeElement.previousSibling;
       let nextMenu = document.activeElement.hash;
-      console.log(nextMenu);
 
       switch (event.data.action) {
         case "openMenu":
@@ -178,7 +176,8 @@ export default {
               }
               break;
             case "ENTER":
-              document.querySelector(nextMenu).firstChild.focus();
+              this.$children[0].open(event.data.namespace, event.data.name, event.data.elements)
+              // document.querySelector(nextMenu).firstChild.focus();
               history.pushState({ id: "menu" }, "", nextMenu);
               break;
             case "BACKSPACE":
@@ -191,9 +190,10 @@ export default {
       }
 
       document.activeElement.parentElement.childNodes.forEach(item => {
-        item.classList.remove("is-active");
+        if(item.parentElement.classList.contains('menu')) {
+          item.classList.remove("is-active");
+        }
       });
-
       document.activeElement.classList.add("is-active");
     }
   }
