@@ -7,24 +7,16 @@ version '1.6.0'
 dependency 'bob74_ipl'
 
 client_scripts {
-  --JOB-- 
   '@es_extended/locale.lua',
-  'locales/en.lua',
-  'locales/de.lua',
+  'locales/fr.lua',
   'config.lua',
+  'nightclub.lua',
   'client/main.lua',
-  --------------------------
-  --Extras--
-  'scripts/nightclub.lua',
-  'scripts/screens.lua',
-  'scripts/teleport.lua'
-  ---------------------------
 }
 
 server_scripts {
   '@es_extended/locale.lua',
-  'locales/en.lua',
-  'locales/de.lua',
+  'locales/fr.lua',
   'config.lua',
   'server/main.lua'
 }

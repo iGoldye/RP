@@ -2,7 +2,7 @@ Locales['en'] = {
 
 	['robbery_cancelled'] = 'Кража прервана, вы не получили ничего',
 	['robbery_successful'] = 'Успешное ограбление ~g~$',
-	['bank_robbery'] = 'Bank robbery',
+	['bank_robbery'] = 'Хранилище',
 	['press_to_rob'] = 'Нажмите ~INPUT_CONTEXT~ что бы начать красть ~b~',
 	['press_to_cancel'] = 'Нажмите ~INPUT_CONTEXT~ что бы отменить взлом ~b~',
 	['press_to_hack'] = 'Нажмите ~INPUT_CONTEXT~ что бы взломать дверь ~b~',
