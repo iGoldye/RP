@@ -194,6 +194,9 @@ Locales['en'] = {
   ['yellow_blue'] = 'Желтый на синем',
   ['blue_on_white_2'] = 'Синий на белом 2',
   ['blue_on_white_3'] = 'Синий на белом 3',
+-- Maintenance
+  ['maintenance'] = 'Обслуживание',
+  ['duplicate_key'] = 'Изготовить ключ',
 -- Upgrades
   ['upgrades'] = 'Улучшения',
   ['engine'] = 'Двигатель',

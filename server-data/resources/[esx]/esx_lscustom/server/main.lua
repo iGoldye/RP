@@ -2,6 +2,28 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 local Vehicles = nil
 
+RegisterServerEvent('esx_lscustom:duplicateKey')
+AddEventHandler('esx_lscustom:duplicateKey', function(plate)
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	if string.find(plate, " ") == nil then
+		TriggerClientEvent('esx:showNotification', _source, "Ключ сломался")
+		return
+	end
+
+	TriggerEvent('esx_addonaccount:getSharedAccount', 'society_mechanic', function(account)
+		if account.money >= 10 then
+			local item = exports['esx_inventory']:createItem("carkey", { ["plate"] = plate }, 1, 0)
+			TriggerEvent('esx_inventory:addItem', "pocket", xPlayer.identifier, item, function()
+				TriggerClientEvent('esx:showNotification', _source, _U('purchased'))
+				account.removeMoney(10)
+			end)
+		else
+			TriggerClientEvent('esx:showNotification', _source, _U('not_enough_money'))
+		end
+	end)
+end)
+
 RegisterServerEvent('esx_lscustom:buyMod')
 AddEventHandler('esx_lscustom:buyMod', function(price)
 	local _source = source

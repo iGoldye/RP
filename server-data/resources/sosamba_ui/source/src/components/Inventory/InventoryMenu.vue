@@ -227,6 +227,10 @@ export default {
                 this.currentActions.push(aobj);
             }
 
+            this.currentActions.sort(function(a, b) {
+                return b.priority - a.priority;
+            });
+
             this.$refs["actionMenu"].$forceUpdate();
             this.state = "actions";
             this.$refs["actionMenu"].selection_set(0);

@@ -12,8 +12,11 @@ server_scripts {
 	'config.lua',
 	'config.weapons.lua',
 	'common.lua',
+	'server/classes/item.lua',
+	'server/classes/inventory.lua',
 	'server/main.lua',
 	'server/actions.lua',
+	'server/pickups.lua',
 }
 
 client_scripts {
@@ -24,6 +27,7 @@ client_scripts {
 	'common.lua',
 	'client/main.lua',
 	'client/actions.lua',
+	'client/pickups.lua',
 }
 
 exports {
@@ -35,5 +39,7 @@ exports {
 server_export 'getInventory'
 server_export 'getItemLabel'
 server_export 'giveItemTo'
+server_export 'createItem'
+server_export 'findItem'
 
 dependency 'es_extended'

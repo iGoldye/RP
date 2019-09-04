@@ -57,6 +57,11 @@ AddEventHandler('esx_vehicleshop:setVehicleOwned', function (vehicleProps)
 		['@vehicle'] = json.encode(vehicleProps)
 	}, function (rowsChanged)
 		TriggerClientEvent('esx:showNotification', _source, _U('vehicle_belongs', vehicleProps.plate))
+
+		TriggerEvent('esx_inventory:createItem', "carkey", { ["plate"] = vehicleProps.plate }, 1, 0, function(item)
+			TriggerEvent('esx_inventory:addItem', "pocket", xPlayer.identifier, item, function()
+			end)
+		end)
 	end)
 end)
 

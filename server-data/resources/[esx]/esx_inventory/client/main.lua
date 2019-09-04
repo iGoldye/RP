@@ -15,7 +15,6 @@ Citizen.CreateThread(function()
 end)
 
 --inventory = {}
-pickups = {}
 itemActions = {}
 itemActions["@shared"] = {}
 
@@ -56,7 +55,7 @@ function duplicateItem(item, modifiers)
 	if modifiers ~= nil then
 		for k,v in pairs(modifiers) do
 			item2[k] = v
-		end		
+		end
 	end
 
 	return item2
@@ -65,7 +64,7 @@ end
 function showInputDialog(name, title, cb)
         local dialog_flag = false
 	local text = nil
-	
+
 	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), name, {
 		title = title
 	}, function(data3, menu3)
@@ -97,13 +96,14 @@ function GetWeaponConfig(name)
 	return nil
 end
 
-function registerItemAction(itemName, actionName, actionLabel, cb_use, cb_if)
+function registerItemAction(itemName, actionName, actionLabel, actionPriority, cb_use, cb_if)
 	if itemActions[itemName] == nil then
 		itemActions[itemName] = {}
 	end
 
 	local act = {}
 	act.label = actionLabel
+	act.priority = actionPriority
 	act.cb = cb_use
 	act.condition = cb_if
 
@@ -149,59 +149,6 @@ function action_giveto(item)
 	end
 end
 
-
---RegisterNetEvent('esx:setJob')
---AddEventHandler('esx:setJob', function(job)
---	ESX.PlayerData.job = job
---end)
-
--- pickups
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-
-		local playerPed = PlayerPedId()
-		local coords = GetEntityCoords(playerPed)
-
-		for id,v in pairs(pickups) do
-			local distance = GetDistanceBetweenCoords(coords, v.coords.x, v.coords.y, v.coords.z, true)
---			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
---		 	print("Pickup distance: "..closestDistance)
-
-			if distance <= 5.0 then
-				ESX.Game.Utils.DrawText3D({
-					x = v.coords.x,
-					y = v.coords.y,
-					z = v.coords.z + 0.25
-				}, v.label .. ' ['..v.item.amount..']')
-			end
-
-			if distance <= 1.0 and not v.inRange and IsPedOnFoot(playerPed) then
-				TriggerServerEvent('esx_inventory:onPickup', id)
-				PlaySoundFrontend(-1, 'PICK_UP', 'HUD_FRONTEND_DEFAULT_SOUNDSET', false)
-				v.inRange = true
-
-				TriggerEvent('esx_inventory:updateInventory', "pocket", false)
-			end
-
-			if v.inRange and distance > 1.2 then
-				v.inRange = false
-			end
-		end
-	end
-end)
-
---[[
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		if IsControlJustReleased(0, 243) and IsControlPressed(2, 19) and IsInputDisabled(0) and not isDead and not ESX.UI.Menu.IsOpen('default', 'es_extended', 'inventory') then
-			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')	
-		end
-	end
-end)
-]]--
-
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1000)
@@ -217,68 +164,6 @@ AddEventHandler('esx_inventory:updateInventory', function(name, shared)
 	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
 		TriggerEvent('esx_inventory:onInventoryUpdate', inventory)
 	end, name, shared)
-end)
-
-RegisterNetEvent('esx_inventory:createPickup')
-AddEventHandler('esx_inventory:createPickup', function(id, pickup)
-	local ped     = PlayerPedId()
-	local player_coords  = GetEntityCoords(ped)
---	local forward = GetEntityForwardVector(ped)
---	local x, y, z = table.unpack(coords)
---	local coords = pickup.coords + forward * -2.0
-	local dist = #(player_coords - pickup.coords)
-	local rotation = vector3(0,0,0)
-
-	local propName = 'prop_money_bag_01'
-
-	if pickup.item.name == "weapon" then
-		local weaponConfig = GetWeaponConfig(pickup.item.extra.weapon_name)
-		if weaponConfig ~= nil and weaponConfig.prop ~= nil then
-			propName = weaponConfig.prop
-		end
-
-		rotation = vector3(90,0,0)
-	end
-
-	if pickup.item.name == "money" or pickup.item.name == "black_money" then
-		propName = "prop_cash_pile_02"
-		if pickup.item.amount >= 10000 then
-			propName = "prop_cash_case_02"
-		elseif pickup.item.amount >= 1000 then
-			propName = "prop_poly_bag_money"
-		end
-	end
-
-	local propHash = GetHashKey(propName)
-	ESX.Streaming.RequestModel(propHash)
-	local obj = CreateObject(propHash, pickup.coords.x, pickup.coords.y, pickup.coords.z, false, false, false)
-
-	SetEntityCollision(obj, false, false)
-	SetEntityAsMissionEntity(obj, true, false)
-	PlaceObjectOnGroundProperly(obj)
-	SetEntityRotation(obj, rotation, 2, true)
-
-	pickups[id] = {
-		item = pickup.item,
-		label = pickup.label,
-		coords = pickup.coords,
-		source = pickup.source,
-		obj = obj,
-		inRange = true,
-	}
-end)
-
-RegisterNetEvent('esx_inventory:removePickup')
-AddEventHandler('esx_inventory:removePickup', function(id)
-	if pickups[id] == nil then
-		return
-	end
-
-	if pickups[id].obj ~= nil then
-		ESX.Game.DeleteObject(pickups[id].obj)
-	end
-	                                                                                     
-	pickups[id] = nil
 end)
 
 RegisterNetEvent('esx_inventory:showInventoryMenu')
@@ -320,7 +205,7 @@ function inventoryAddMoneyItems(elements)
 
 			item.amount = playerData.accounts[i].money
 			item.droppable = playerData.accounts[i].name ~= 'bank'
-			
+
 			table.insert(elements, {
 				label     = ('%s: <span style="color:green;">%s</span>'):format(playerData.accounts[i].label, formattedMoney),
 				value     = item,
@@ -387,7 +272,7 @@ function showInventoryMenu(inventory)
 
 	if inventory == nil or inventory.items == nil then
 		return
-	end	
+	end
 
 	if inventory.name == "pocket" then
 		inventoryAddMoneyItems(elements)
@@ -396,7 +281,7 @@ function showInventoryMenu(inventory)
 	for k,v in pairs(inventory.items) do
 		local itemlabel = v.name .. " [" .. v.amount .. "]"
 		if v.name == "weapon" then
-			itemlabel = _U(v.extra.weapon_name:lower())  
+			itemlabel = _U(v.extra.weapon_name:lower())
 			local amount_mod = ""
 			if v.amount > 1 then
 				amount_mod = " x" .. v.amount
@@ -407,6 +292,8 @@ function showInventoryMenu(inventory)
 			else
 				itemlabel = itemlabel .. " [" .. v.extra.ammo .. amount_mod .. "]"
 			end
+		elseif v.name == "carkey" and v.extra.plate ~= nil then
+			itemLabel = "Ключ от машины "..v.extra.plate
 		end
 
 		table.insert(elements, {
@@ -434,63 +321,6 @@ function showInventoryMenu(inventory)
 	end)
 
 end
-
---[[
-function showInventoryItemMenu(inventory, item, menu_label)
-
-	elements = {}
-	local actions = getItemActions(item.name)
-
-	for act_name,act_data in pairs(actions) do
-		if act_data.condition == nil or act_data.condition(item) == true then
-			table.insert(elements, {label = act_data.label, value = act_name})
-		end
-	end
-
-	if item.droppable ~= false then
-		table.insert(elements, {label = _U("inventory_action_drop"), value = "drop"})
-	end
-
-	table.insert(elements, {label = _U("inventory_action_return"), value = "return"})
-
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'inventory-item-menu',
-	{
-		title    = menu_label,
-		align    = 'bottom-right',
-		elements = elements,
-	}, function(data, menu)
-		local cmd = data.current.value
-
-		if cmd == "return" then
-			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
-		elseif cmd == "drop" then
-			local amount = 1
-			if item.amount > 1 then
-				amount = tonumber(showInputDialog("inventory_drop_item_dialog", _U("amount")))
-			end
-
-			if amount ~= nil and amount > 0 then
-				TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = amount }))
-				TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
-			end
-		else
-			for act_name,act_data in pairs(actions) do
-				if cmd == act_name then
-					act_data.cb(item)
-					menu.close()
-					TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
-					break
-				end
-			end
-		end
-
-
-	end, function(data, menu)
-		TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'esx_inventory:showInventoryMenu')
-		menu.close()
-	end)
-end
-]]--
 
 RegisterNetEvent('esx_inventory:unequipWeapon')
 AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
@@ -543,8 +373,8 @@ AddEventHandler('esx_inventory:itemAction', function(act)
 	runItemAction(act.item.name, act.key, act.item)
 end)
 
-AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, cb_action, cb_condition)
-	return registerItemAction(itemName, actionName, actionLabel, cb_action, cb_condition)
+AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionName, actionLabel, actionPriority, cb_action, cb_condition)
+	return registerItemAction(itemName, actionName, actionLabel, actionPriority, cb_action, cb_condition)
 end)
 
 
