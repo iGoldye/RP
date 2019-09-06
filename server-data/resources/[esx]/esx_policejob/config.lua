@@ -426,6 +426,12 @@ Config.Uniforms = {
 			['bproof_1'] = 13,  ['bproof_2'] = 1
 		}
 	},
+	hidden_bullet_wear = {
+		male = {
+		},
+		female = {
+		}
+	},
 	
 
 }
