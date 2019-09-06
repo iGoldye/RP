@@ -142,8 +142,8 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Пе�
 	end
 
 	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
-	closestPlayer = PlayerId()
-	closestDistance = 1.0
+--	closestPlayer = PlayerId()
+--	closestDistance = 1.0
 
 	if closestPlayer < 1 or closestDistance > 3.0 then
 		TriggerEvent('esx:showNotification', "Рядом никого нет")
