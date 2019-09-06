@@ -157,4 +157,12 @@ Locales['en'] = {
   -- Notifications
   ['alert_police'] = 'Полицейская тревога',
   ['phone_police'] = 'Полиция',
+ -- Weapon license
+  ['add_weapon_license'] = 'Выдать лицензию на оружие',
+  ['player_has_weapon_license'] = 'Гражданин уже имеет разрешение на ношение оружия',
+  ['weapon_license_added'] = 'Разрешение на ношение оружия выдано',
+
+  ['remove_weapon_license'] = 'Отозвать лицензию на оружие',
+  ['no_weapon_license'] = 'Гражданин не имеет разрешения на ношение оружия',
+  ['weapon_license_removed'] = 'Разрешение на ношение оружия отозвано',
 }

@@ -635,6 +635,8 @@ function OpenPoliceActionsMenu()
 				{label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
 				{label = _U('fine'), value = 'fine'},
 				{label = _U('unpaid_bills'), value = 'unpaid_bills'},
+				{label = _U('add_weapon_license'), value ='add_weapon_license'},
+				{label = _U('remove_weapon_license'), value ='remove_weapon_license'},
 --				{label = _U('get_dna'), value = 'get_dna'},
 --				{label = _U('remove_dna'), value = 'remove_dna'}
 			}
@@ -674,10 +676,16 @@ function OpenPoliceActionsMenu()
 						ShowPlayerLicense(closestPlayer)
 					elseif action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
+					elseif action == 'add_weapon_license' then
+						TriggerServerEvent('esx_policejob:addWeaponLicense', GetPlayerServerId(closestPlayer))
+					elseif action == 'remove_weapon_license' then
+						TriggerServerEvent('esx_policejob:removeWeaponLicense', GetPlayerServerId(closestPlayer))
+--[[
 					elseif action == 'get_dna' then
 						TriggerEvent('jsfour-dna:get', closestPlayer)
 					elseif action == 'remove_dna' then
 						 TriggerEvent('jsfour-dna:remove')
+]]--
 					end
 				else
 					ESX.ShowNotification(_U('no_players_nearby'))
