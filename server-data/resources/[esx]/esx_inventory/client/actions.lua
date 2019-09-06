@@ -1,19 +1,45 @@
+function unequip_weapon(weaponName, amount)
+
+	local playerPed = PlayerPedId()
+	local weaponHash = GetHashKey(weaponName)
+	local current_ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
+
+	if HasPedGotWeapon(playerPed, weaponHash, false) and current_ammo >= amount then
+		if GetSelectedPedWeapon(playerPed) == weaponHash then
+			SetCurrentPedWeapon(playerPed, GetHashKey("WEAPON_UNARMED"), true)
+		end
+
+		SetPedAmmo(playerPed, weaponHash, current_ammo - amount)
+		RemoveWeaponFromPed(playerPed, weaponHash)
+
+		TriggerServerEvent('esx_inventory:unequipWeapon', weaponName, amount)
+		return true
+	end
+
+	return false
+end
+
 AddEventHandler('esx_inventory:registerActions', function()
 
 
 TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), 0, function(item)
 
-	if item.extra.weapon.ammo > 0 then
+	if item.extra == nil then
+		TriggerEvent('esx:showNotification', "Что-то пошло не так")
+		return
+	end
+
+	if item.extra.ammo > 0 then
 		TriggerEvent("sosamba_ui:showInputBox", "unequip-box", "Сколько разэкипировать?", "Введите количество патронов", function(text)
 			local val = tonumber(text)
-			if val ~= nil and val >= 0 and val <= item.extra.weapon.ammo then
-				TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, val)
+			if val ~= nil and val >= 0 and val <= item.extra.ammo then
+				unequip_weapon(item.extra.weapon_name, val)
 			else
 				ESX.ShowNotification(_U('amount_invalid'))
 			end
 		end)
 	else
-		TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon.name, 0)
+		TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon_name, 0)
 	end
 end)
 
@@ -76,7 +102,7 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "drop", "Выбро�
 	end
 
 	if item.amount == 1 then
-		TriggerServerEvent('esx_inventory:dropItem', "pocket", false, duplicateItem(item, { ["amount"] = 1 }))
+		TriggerServerEvent('esx_inventory:dropItem', "pocket", false, json.encode(duplicateItem(item, { ["amount"] = 1 })))
 		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
 		TaskPlayAnim(PlayerPedId(), 'pickup_object', 'pickup_low', 8.0, -8.0, -1, 48, 0, false, false, false)
 	else
@@ -116,8 +142,8 @@ TriggerEvent('esx_inventory:registerItemAction', "@shared", "giveitemto", "Пе�
 	end
 
 	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
---	closestPlayer = PlayerId()
---	closestDistance = 1.0
+	closestPlayer = PlayerId()
+	closestDistance = 1.0
 
 	if closestPlayer < 1 or closestDistance > 3.0 then
 		TriggerEvent('esx:showNotification', "Рядом никого нет")

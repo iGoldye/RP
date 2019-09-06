@@ -36,6 +36,10 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function vector3FromArr(arr)
+	return vector3(arr.x,arr.y,arr.z)
+end
+
 RegisterNetEvent('esx_inventory:createPickup')
 AddEventHandler('esx_inventory:createPickup', function(id, pickup)
 	local ped     = PlayerPedId()
@@ -43,20 +47,17 @@ AddEventHandler('esx_inventory:createPickup', function(id, pickup)
 --	local forward = GetEntityForwardVector(ped)
 --	local x, y, z = table.unpack(coords)
 --	local coords = pickup.coords + forward * -2.0
-	local dist = #(player_coords - pickup.coords)
+
+	local dist = #(player_coords - vector3FromArr(pickup.coords))
 	local rotation = vector3(0,0,0)
 
-	local propName = 'prop_money_bag_01'
+	local propName = pickup.prop or 'prop_money_bag_01'
 
 	if pickup.item.name == "weapon" then
-		local weaponConfig = GetWeaponConfig(pickup.item.extra.weapon_name)
-		if weaponConfig ~= nil and weaponConfig.prop ~= nil then
-			propName = weaponConfig.prop
-		end
-
 		rotation = vector3(90,0,0)
 	end
 
+--[[
 	if pickup.item.name == "money" or pickup.item.name == "black_money" then
 		propName = "prop_cash_pile_02"
 		if pickup.item.amount >= 10000 then
@@ -65,7 +66,7 @@ AddEventHandler('esx_inventory:createPickup', function(id, pickup)
 			propName = "prop_poly_bag_money"
 		end
 	end
-
+]]--
 	local propHash = GetHashKey(propName)
 	ESX.Streaming.RequestModel(propHash)
 	local obj = CreateObject(propHash, pickup.coords.x, pickup.coords.y, pickup.coords.z, false, false, false)

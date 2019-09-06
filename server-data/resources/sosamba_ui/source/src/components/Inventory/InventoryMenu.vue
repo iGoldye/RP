@@ -29,6 +29,7 @@
                 </ListMenu>
                 <ListMenu ref="itemMenu" title="Инвентарь"
                         :items="items"
+                        :description="Math.floor(weight)+' кг'"
                         :parent_disabled="disabled"
                         v-on:item_clicked="item_clicked"
                         v-on:back_clicked="back_clicked"
@@ -99,6 +100,7 @@ export default {
         currentItem: null,
         currentActions: [],
         items: {},
+        weight: 0,
         icons: {
             "close-circle": mdiCloseCircle,
             "keyboard-return": mdiKeyboardReturn,
@@ -164,6 +166,7 @@ export default {
             switch (data.action) {
                 case 'updateInventory':
                     this.items = data.items;
+                    this.weight = data.weight || 0;
 
                     if (!this.items) {
                         this.items = {};
