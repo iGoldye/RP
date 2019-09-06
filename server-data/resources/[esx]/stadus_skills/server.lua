@@ -14,7 +14,7 @@ AddEventHandler('esx:playerLoaded', function(source)
 		if ( skillInfo and skillInfo[1] ) then
 			TriggerClientEvent('stadus_skills:sendPlayerSkills', _source, skillInfo[1].stamina, skillInfo[1].strength, skillInfo[1].driving, skillInfo[1].shooting, skillInfo[1].fishing, skillInfo[1].drugs)
 			else
-				MySQL.Async.execute('INSERT INTO `essentialmode`.`stadus_skills` (`identifier`, `strength`, `stamina`, `driving`, `shooting`, `fishing`, `drugs`) VALUES (@identifier, @strength, @stamina, @driving, @shooting, @fishing, @drugs);',
+				MySQL.Async.execute('INSERT INTO `stadus_skills` (`identifier`, `strength`, `stamina`, `driving`, `shooting`, `fishing`, `drugs`) VALUES (@identifier, @strength, @stamina, @driving, @shooting, @fishing, @drugs);',
 				{
 				['@identifier'] = xPlayer.identifier,
 				['@strength'] = 0,
