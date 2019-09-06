@@ -8,7 +8,7 @@ Config.MinLetter	   = 1 -- Maximum de lettre par point
 Config.MaxColis		   = 2 -- Maximum de colis par point
 Config.MinColis		   = 0 -- Maximum de colis par point
 
-Config.Caution 		   = 2000
+Config.Caution 		   = 100
 Config.PricePerLetter  = 7
 Config.PricePerColis   = 15
 
@@ -64,7 +64,8 @@ Config.Uniforms = { -- Tenue de service
 		['shoes_1'] = 54,   ['shoes_2'] = 0,
 		['helmet_1'] = -1,  ['helmet_2'] = 0,
 		['chain_1'] = 12,    ['chain_2'] = 2,
-		['ears_1'] = -1,     ['ears_2'] = 0
+		['ears_1'] = -1,     ['ears_2'] = 0,
+		['bag'] = 45,        ['bag_color'] = 0
 	},
 	female = {
 		['tshirt_1'] = 34,  ['tshirt_2'] = 0,
@@ -75,7 +76,8 @@ Config.Uniforms = { -- Tenue de service
 		['shoes_1'] = 52,   ['shoes_2'] = 0,
 		['helmet_1'] = -1,  ['helmet_2'] = 0,
 		['chain_1'] = 0,    ['chain_2'] = 2,
-		['ears_1'] = -1,     ['ears_2'] = 0
+		['ears_1'] = -1,     ['ears_2'] = 0,
+		['bag'] = 45,        ['bag_color'] = 0
 	}
 }
 
@@ -141,25 +143,25 @@ Config.Livraisons = {
         Type  = 1
 	},
 
-	SLS = {
-		Pos = {
-			{x = -50.930358886719, y = -1783.6270751953, z = 27.300802230835, letter = true, colis = false},
-			{x = 13.642129898071, y = -1850.1307373047, z = 23.055648803711, letter = true, colis = false},
-			{x = 110.53960418701, y = -1956.0163574219, z = 19.751287460327, letter = true, colis = false},
-			{x = 151.61938476563, y = -1896.3343505859, z = 22.092262268066, letter = true, colis = false},
-			{x = 158.33076477051, y = -1876.6044921875, z = 22.980903625488, letter = true, colis = true},
-			{x = 221.90466308594, y = -1720.8103027344, z = 28.202871322632, letter = true, colis = false},
-			{x = 249.87113952637, y = -1730.8135986328, z = 28.669330596924, letter = true, colis = false},
-			{x = 263.07949829102, y = -1704.0960693359, z = 28.205499649048, letter = true, colis = false},
-			{x = 332.95666503906, y = -1742.1281738281, z = 28.730531692505, letter = true, colis = false},
-			{x = 326.57717895508, y = -1763.9366455078, z = 28.015428543091, letter = true, colis = false},
-			{x = 321.9792175293, y = -1838.9698486328, z = 26.227586746216, letter = true, colis = false},
-			{x = 440.62481689453, y = -1840.9602050781, z = 26.871042251587, letter = true, colis = false},
-			{x = 385.88714599609, y = -1882.3186035156, z = 24.838005065918, letter = true, colis = false},
-		},
-		Size  = {x = 1.5, y = 1.5, z = 1.0},
-        Color = {r = 241, g = 196, b = 15},
-        Type  = 1
-    }
+	-- SLS = {
+	-- 	Pos = {
+	-- 		{x = -50.930358886719, y = -1783.6270751953, z = 27.300802230835, letter = true, colis = false},
+	-- 		{x = 13.642129898071, y = -1850.1307373047, z = 23.055648803711, letter = true, colis = false},
+	-- 		{x = 110.53960418701, y = -1956.0163574219, z = 19.751287460327, letter = true, colis = false},
+	-- 		{x = 151.61938476563, y = -1896.3343505859, z = 22.092262268066, letter = true, colis = false},
+	-- 		{x = 158.33076477051, y = -1876.6044921875, z = 22.980903625488, letter = true, colis = true},
+	-- 		{x = 221.90466308594, y = -1720.8103027344, z = 28.202871322632, letter = true, colis = false},
+	-- 		{x = 249.87113952637, y = -1730.8135986328, z = 28.669330596924, letter = true, colis = false},
+	-- 		{x = 263.07949829102, y = -1704.0960693359, z = 28.205499649048, letter = true, colis = false},
+	-- 		{x = 332.95666503906, y = -1742.1281738281, z = 28.730531692505, letter = true, colis = false},
+	-- 		{x = 326.57717895508, y = -1763.9366455078, z = 28.015428543091, letter = true, colis = false},
+	-- 		{x = 321.9792175293, y = -1838.9698486328, z = 26.227586746216, letter = true, colis = false},
+	-- 		{x = 440.62481689453, y = -1840.9602050781, z = 26.871042251587, letter = true, colis = false},
+	-- 		{x = 385.88714599609, y = -1882.3186035156, z = 24.838005065918, letter = true, colis = false},
+	-- 	},
+	-- 	Size  = {x = 1.5, y = 1.5, z = 1.0},
+  --       Color = {r = 241, g = 196, b = 15},
+  --       Type  = 1
+  --   }
 
 }

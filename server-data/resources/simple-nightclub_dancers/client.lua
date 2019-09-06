@@ -1,55 +1,55 @@
 local simplePedPos = {
-	{ pos = vector3(-1599.286, -3014.479, -79.00606), heading = 74.99979 },
-	{ pos = vector3(-1599.256, -3012.859, -79.00606), heading = 89.9997 },
-	{ pos = vector3(-1599.485, -3011.013, -79.00606), heading = 99.99955 },
-	{ pos = vector3(-1599.478, -3009.316, -79.00606), heading = 109.9995 },
-	{ pos = vector3(-1598.276, -3010.419, -79.00606), heading = 89.99937 },
-	{ pos = vector3(-1598.178, -3012.107, -79.00606), heading = 94.99931 },
-	{ pos = vector3(-1597.81, -3013.999, -79.00606), heading = 64.99922 },
-	{ pos = vector3(-1596.136, -3014.376, -79.00606), heading = 64.99922 },
-	{ pos = vector3(-1596.532, -3012.257, -79.00606), heading = 84.99911 },
-	{ pos = vector3(-1597.38, -3009.078, -79.00606), heading = 84.99911 },
-	{ pos = vector3(-1596.245, -3010.349, -79.00606), heading = 94.99898 },
-	{ pos = vector3(-1594.98, -3011.497, -79.00606), heading = 74.99896 },
-	{ pos = vector3(-1594.685, -3013.496, -79.00606), heading = 89.99895 },
-	{ pos = vector3(-1594.415, -3009.547, -79.00606), heading = 94.99889 },
-	{ pos = vector3(-1593.241, -3011.182, -79.00606), heading = 94.99889 },
-	{ pos = vector3(-1593.164, -3013.143, -79.00606), heading = 69.99878 },
+	-- { pos = vector3(-1599.286, -3014.479, -79.00606), heading = 74.99979 },
+	-- { pos = vector3(-1599.256, -3012.859, -79.00606), heading = 89.9997 },
+	-- { pos = vector3(-1599.485, -3011.013, -79.00606), heading = 99.99955 },
+	-- { pos = vector3(-1599.478, -3009.316, -79.00606), heading = 109.9995 },
+	-- { pos = vector3(-1598.276, -3010.419, -79.00606), heading = 89.99937 },
+	-- { pos = vector3(-1598.178, -3012.107, -79.00606), heading = 94.99931 },
+	-- { pos = vector3(-1597.81, -3013.999, -79.00606), heading = 64.99922 },
+	-- { pos = vector3(-1596.136, -3014.376, -79.00606), heading = 64.99922 },
+	-- { pos = vector3(-1596.532, -3012.257, -79.00606), heading = 84.99911 },
+	-- { pos = vector3(-1597.38, -3009.078, -79.00606), heading = 84.99911 },
+	-- { pos = vector3(-1596.245, -3010.349, -79.00606), heading = 94.99898 },
+	-- { pos = vector3(-1594.98, -3011.497, -79.00606), heading = 74.99896 },
+	-- { pos = vector3(-1594.685, -3013.496, -79.00606), heading = 89.99895 },
+	-- { pos = vector3(-1594.415, -3009.547, -79.00606), heading = 94.99889 },
+	-- { pos = vector3(-1593.241, -3011.182, -79.00606), heading = 94.99889 },
+	-- { pos = vector3(-1593.164, -3013.143, -79.00606), heading = 69.99878 },
 	{ pos = vector3(-1593.243, -3014.435, -79.00606), heading = 69.99878 },
 	{ pos = vector3(-1593.338, -3009.497, -79.00606), heading = 99.99875 },
 	{ pos = vector3(-1597.302, -3013.429, -79.00606), heading = 89.99841 },
 	{ pos = vector3(-1597.293, -3011.11, -79.00606), heading = 89.99841 },
 	{ pos = vector3(-1595.858, -3012.948, -79.00606), heading = 89.99841 },
 	{ pos = vector3(-1594.718, -3012.382, -79.00606), heading = 84.99833 },
-	{ pos = vector3(-1592.485, -3011.958, -79.00606), heading = 104.9983 },
-	{ pos = vector3(-1592.1, -3009.135, -79.00606), heading = 104.9983 },
-	{ pos = vector3(-1594.456, -3010.849, -79.00606), heading = 74.99818 },
-	{ pos = vector3(-1594.935, -3014.76, -79.00606), heading = 79.99802 },
-	{ pos = vector3(-1593.958, -3012.06, -79.00606), heading = 79.99802 },
-	{ pos = vector3(-1592.025, -3014.925, -79.00606), heading = 74.99796 },
-	{ pos = vector3(-1592.057, -3013.273, -79.00606), heading = 74.99796 },
-	{ pos = vector3(-1597.023, -3015.123, -79.00606), heading = 84.99932 },
-	{ pos = vector3(-1596.166, -3011.476, -79.00606), heading = 119.999 },
-	{ pos = vector3(-1595.68, -3009.549, -79.00606), heading = 119.999 },
-	{ pos = vector3(-1592.181, -3010.726, -79.00606), heading = 119.999 },
-	{ pos = vector3(-1598.637, -3008.974, -79.00606), heading = 129.9987 },
-	{ pos = vector3(-1589.201, -3013.824, -79.00606), heading = 349.998 },
+	-- { pos = vector3(-1592.485, -3011.958, -79.00606), heading = 104.9983 },
+	-- { pos = vector3(-1592.1, -3009.135, -79.00606), heading = 104.9983 },
+	-- { pos = vector3(-1594.456, -3010.849, -79.00606), heading = 74.99818 },
+	-- { pos = vector3(-1594.935, -3014.76, -79.00606), heading = 79.99802 },
+	-- { pos = vector3(-1593.958, -3012.06, -79.00606), heading = 79.99802 },
+	-- { pos = vector3(-1592.025, -3014.925, -79.00606), heading = 74.99796 },
+	-- { pos = vector3(-1592.057, -3013.273, -79.00606), heading = 74.99796 },
+	-- { pos = vector3(-1597.023, -3015.123, -79.00606), heading = 84.99932 },
+	-- { pos = vector3(-1596.166, -3011.476, -79.00606), heading = 119.999 },
+	-- { pos = vector3(-1595.68, -3009.549, -79.00606), heading = 119.999 },
+	-- { pos = vector3(-1592.181, -3010.726, -79.00606), heading = 119.999 },
+	-- { pos = vector3(-1598.637, -3008.974, -79.00606), heading = 129.9987 },
+	-- { pos = vector3(-1589.201, -3013.824, -79.00606), heading = 349.998 },
 	{ pos = vector3(-1588.086, -3012.85, -79.00606), heading = 139.9975 },
 	{ pos = vector3(-1589.525, -3011.373, -79.00606), heading = 104.9997 },
 	{ pos = vector3(-1589.588, -3009.793, -79.00606), heading = 134.9996 },
 	{ pos = vector3(-1590.238, -3016.211, -79.00606), heading = 64.99924 },
-	{ pos = vector3(-1612.493, -3008.006, -79.00598), heading = 0.0 },
-	{ pos = vector3(-1612.234, -3007.077, -79.00598), heading = 184.9996 },
-	{ pos = vector3(-1603.387, -3004.944, -79.00606), heading = 199.9994 },
-	{ pos = vector3(-1601.498, -3005.343, -79.00606), heading = 164.9993 },
-	{ pos = vector3(-1601.012, -3006.264, -79.00606), heading = 159.9992 },
-	{ pos = vector3(-1597.325, -3017.721, -79.00606), heading = 59.99892 },
-	{ pos = vector3(-1598.735, -3018.321, -79.00606), heading = 34.99891 },
-	{ pos = vector3(-1599.519, -3017.069, -79.00606), heading = 34.99886 },
-	{ pos = vector3(-1598.335, -3016.935, -79.00606), heading = 34.99886 },
-	{ pos = vector3(-1600.323, -3017.858, -79.00606), heading = 24.99882 },
-	{ pos = vector3(-1605.931, -3014.545, -77.79105), heading = 309.9981 },
-	{ pos = vector3(-1606.391, -3013.633, -77.79105), heading = 274.998 },
+	-- { pos = vector3(-1612.493, -3008.006, -79.00598), heading = 0.0 },
+	-- { pos = vector3(-1612.234, -3007.077, -79.00598), heading = 184.9996 },
+	-- { pos = vector3(-1603.387, -3004.944, -79.00606), heading = 199.9994 },
+	-- { pos = vector3(-1601.498, -3005.343, -79.00606), heading = 164.9993 },
+	-- { pos = vector3(-1601.012, -3006.264, -79.00606), heading = 159.9992 },
+	-- { pos = vector3(-1597.325, -3017.721, -79.00606), heading = 59.99892 },
+	-- { pos = vector3(-1598.735, -3018.321, -79.00606), heading = 34.99891 },
+	-- { pos = vector3(-1599.519, -3017.069, -79.00606), heading = 34.99886 },
+	-- { pos = vector3(-1598.335, -3016.935, -79.00606), heading = 34.99886 },
+	-- { pos = vector3(-1600.323, -3017.858, -79.00606), heading = 24.99882 },
+	-- { pos = vector3(-1605.931, -3014.545, -77.79105), heading = 309.9981 },
+	-- { pos = vector3(-1606.391, -3013.633, -77.79105), heading = 274.998 },
 	--[[{ pos = vector3(-1606.21, -3011.844, -77.79105), heading = 254.9979 },
 	{ pos = vector3(-1606.034, -3010.969, -77.79105), heading = 254.9979 },
 	{ pos = vector3(-1605.556, -3012.632, -77.79105), heading = 279.9979 },
@@ -209,7 +209,7 @@ local toggleInt = {
 		["Int01_ba_dj02"] = false,
 		["Int01_ba_dj03"] = true,
 		["Int01_ba_dj04"] = false,
-		["DJ_01_Lights_01"] = false,
+		["DJ_01_Lights_01"] = false, -- Цвет освещеия
 		["DJ_01_Lights_02"] = false,
 		["DJ_01_Lights_03"] = false,
 		["DJ_01_Lights_04"] = false,
@@ -221,15 +221,15 @@ local toggleInt = {
 		["DJ_03_Lights_02"] = false,
 		["DJ_03_Lights_03"] = false,
 		["DJ_03_Lights_04"] = false,
-		["DJ_04_Lights_01"] = false,
-		["DJ_04_Lights_02"] = false,
-		["DJ_04_Lights_03"] = false,
-		["DJ_04_Lights_04"] = true,
+		["DJ_04_Lights_01"] = true,
+		["DJ_04_Lights_02"] = true,
+		["DJ_04_Lights_03"] = true,
+		["DJ_04_Lights_04"] = false,
 		["light_rigs_off"] = false,
 		["Int01_ba_lightgrid_01"] = true,
 		["Int01_ba_Clutter"] = false,
 		["Int01_ba_equipment_upgrade"] = true,
-		["Int01_ba_clubname_01"] = false,
+		["Int01_ba_clubname_01"] = false, -- Эмблемы названия
 		["Int01_ba_clubname_02"] = false,
 		["Int01_ba_clubname_03"] = false,
 		["Int01_ba_clubname_04"] = false,
@@ -447,24 +447,24 @@ Citizen.CreateThread(BuildNightclub)
 local danceAnim = {
 	{
 		Name = "Banging Tunes",
-		LowIntensityAnimDict = "anim@mp_player_intupperbanging_tunes",
-		LowIntensityAnimFile = "idle_a",
-		HighIntensityAnimDict = "anim@mp_player_intcelebrationmale@banging_tunes",
-		HighIntensityAnimFile = "banging_tunes"
+		LowIntensityAnimDict = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@",
+		LowIntensityAnimFile = "low_center",
+		HighIntensityAnimDict = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@",
+		HighIntensityAnimFile = "high_center"
 	},
 	{
 		Name = "Cats Cradle",
-		LowIntensityAnimDict = "anim@mp_player_intuppercats_cradle",
-		LowIntensityAnimFile = "idle_a",
-		HighIntensityAnimDict = "anim@mp_player_intcelebrationmale@cats_cradle",
-		HighIntensityAnimFile = "cats_cradle"
+		LowIntensityAnimDict = "anim@amb@nightclub@mini@dance@dance_solo@male@var_a@",
+		LowIntensityAnimFile = "med_center",
+		HighIntensityAnimDict = "anim@amb@nightclub@mini@dance@dance_solo@male@var_a@",
+		HighIntensityAnimFile = "high_center"
 	},
 	{
 		Name = "Find The Fish",
-		LowIntensityAnimDict = "anim@mp_player_intupperfind_the_fish",
-		LowIntensityAnimFile = "idle_a",
-		HighIntensityAnimDict = "anim@mp_player_intcelebrationmale@find_the_fish",
-		HighIntensityAnimFile = "find_the_fish"
+		LowIntensityAnimDict = "anim@amb@nightclub@mini@dance@dance_solo@male@var_b@",
+		LowIntensityAnimFile = "med_center",
+		HighIntensityAnimDict = "anim@amb@nightclub@mini@dance@dance_solo@male@var_b@",
+		HighIntensityAnimFile = "high_center"
 	},
 	{
 		Name = "Heart Pumping",
@@ -590,57 +590,59 @@ local function DrawTopNotification(txt, beep)
 	DisplayHelpTextFromStringLabel(0, 0, beep, -1)
 end
 
-local grooving = false
-local function HandleNightclubDance()
-	local ped = GetPlayerPed(-1)
-	local plyPos = GetEntityCoords(ped)
+-- Танцпол
 
-	if GetDistanceBetweenCoords(plyPos, -1595.837, -3012.552, -79.006) <= 8 then
-		if not grooving then
-			SetMovementClipset(ped, "anim@move_m@grooving@")
-			grooving = true
-		end
+-- local grooving = false
+-- local function HandleNightclubDance()
+-- 	local ped = GetPlayerPed(-1)
+-- 	local plyPos = GetEntityCoords(ped)
 
-		DrawTopNotification("~INPUT_CONTEXT~ чтобы начать/закончить тусоваться.")
+-- 	if GetDistanceBetweenCoords(plyPos, -1595.837, -3012.552, -79.006) <= 8 then
+-- 		if not grooving then
+-- 			SetMovementClipset(ped, "anim@move_m@grooving@")
+-- 			grooving = true
+-- 		end
 
-		if IsControlJustPressed(0, 51) and InNightClub then
-			Citizen.Wait(0)
+-- 		-- DrawTopNotification("~INPUT_CONTEXT~ чтобы начать/закончить тусоваться.")
 
-			local index = 1
-			local flag = false
-			TaskPlayAnim2(ped, danceAnim[index].LowIntensityAnimDict, danceAnim[index].LowIntensityAnimFile, 9, -1)
+-- 		if IsControlJustPressed(0, 51) and InNightClub then
+-- 			Citizen.Wait(0)
 
-			while not IsControlJustPressed(0, 51) do
-				Citizen.Wait(0)
+-- 			local index = 1
+-- 			local flag = false
+-- 			TaskPlayAnim2(ped, danceAnim[index].LowIntensityAnimDict, danceAnim[index].LowIntensityAnimFile, 9, -1)
 
-				if IsControlJustPressed(0, 22) then
-					flag = not flag
-					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
-				end
+-- 			while not IsControlJustPressed(0, 51) do
+-- 				Citizen.Wait(0)
 
-				if IsControlJustPressed(0, 24) then
-					index = index + 1
-					if index > #danceAnim then index = 1 end
-					flag = false
-					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
-				end
+-- 				if IsControlJustPressed(0, 22) then
+-- 					flag = not flag
+-- 					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
+-- 				end
 
-				if IsControlPressed(0, 44) then
-					SetEntityHeading(ped, GetEntityHeading(ped) + 2.0)
-				end
+-- 				if IsControlJustPressed(0, 24) then
+-- 					index = index + 1
+-- 					if index > #danceAnim then index = 1 end
+-- 					flag = false
+-- 					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
+-- 				end
 
-				if IsControlPressed(0, 51) then
-					SetEntityHeading(ped, GetEntityHeading(ped) - 2.0)
-				end
-				DrawTopNotification("~INPUT_ATTACK~ Стиль: " .. danceAnim[index].Name .. "~n~~INPUT_JUMP~ Темп ~n~~INPUT_COVER~ Поворот ~INPUT_CONTEXT~ ~n~~INPUT_CONTENT~ Прекратить танцевать")
-			end
-			ClearPedTasks(ped)
-		end
-	elseif grooving then
-		grooving = false
-		ResetPedMovementClipset(ped, 0.0)
-	end
-end
+-- 				if IsControlPressed(0, 44) then
+-- 					SetEntityHeading(ped, GetEntityHeading(ped) + 2.0)
+-- 				end
+
+-- 				if IsControlPressed(0, 51) then
+-- 					SetEntityHeading(ped, GetEntityHeading(ped) - 2.0)
+-- 				end
+-- 				DrawTopNotification("~INPUT_ATTACK~ Стиль: " .. danceAnim[index].Name .. "~n~~INPUT_JUMP~ Темп ~n~~INPUT_COVER~ Поворот ~INPUT_CONTEXT~ ~n~~INPUT_CONTENT~ Прекратить танцевать")
+-- 			end
+-- 			ClearPedTasks(ped)
+-- 		end
+-- 	elseif grooving then
+-- 		grooving = false
+-- 		ResetPedMovementClipset(ped, 0.0)
+-- 	end
+-- end
 
 local pedCreated = false
 Citizen.CreateThread(function()

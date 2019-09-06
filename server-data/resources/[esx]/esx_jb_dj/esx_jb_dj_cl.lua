@@ -52,7 +52,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 						-- local volume = round((1-number), 2)
 						local number =distance/v.dancefloor.Marker.w
 						local volume = round(((1-number)/10), 2)
-						SendNUIMessage({setvolume = volume})	
+						SendNUIMessage({setvolume = volume})
 					end,
 				},
 				exit = {
@@ -67,7 +67,7 @@ AddEventHandler('ft_libs:OnClientReady', function()
 				},
 			},
 		})
-		
+
 		exports.ft_libs:AddArea("esx_jb_dj_"..k.."_djbooth", {
 			enable = false,
 			marker = {
@@ -105,17 +105,17 @@ end)
 
 function OpenDjMenu()
 	local elements = {}
-	table.insert(elements, {label = 'Résumer la musique', value = 'play_music'})
-	table.insert(elements, {label = 'Pause la musique', value = 'pause_music'})
-	table.insert(elements, {label = 'Stop la musique', value = 'stop_music'})
+	table.insert(elements, {label = 'Включить музыку', value = 'play_music'})
+	table.insert(elements, {label = 'Пауза', value = 'pause_music'})
+	table.insert(elements, {label = 'Остановить', value = 'stop_music'})
 	for k,v in pairs (Config.Songs) do
 		table.insert(elements, {label = v.label, value = v.song})
 	end
-	
+
 	ESX.UI.Menu.Open(
 		'default', GetCurrentResourceName(), 'menuperso_gpsrapide',
 		{
-			title    = 'Playlist chansons',
+			title    = 'Плейлист',
 			align    = 'top-left',
 			elements = elements,
 		},

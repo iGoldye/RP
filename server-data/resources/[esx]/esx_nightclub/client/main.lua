@@ -724,20 +724,20 @@ local FightsInClub = {
         id = 05
     }
 }
-local DancersInClub = {
-    {
-        pos = {x = -1598.59, y = -3015.69, z = -79.21, h = 282.30},
-        lib = "anim@amb@nightclub@peds@",
-        anim = "mini_strip_club_lap_dance_ld_girl_a_song_a_p1",
-        ped
-    },
-    {
-        pos = { x = -1596.21, y = -3007.97, z = -79.21, h = 151.05 },
-        lib = "anim@amb@nightclub@peds@",
-        anim = "mini_strip_club_lap_dance_ld_girl_a_song_a_p1",
-        ped
-    }
-}
+-- local DancersInClub = {
+--     {
+--         pos = {x = -1598.59, y = -3015.69, z = -80.21, h = 282.30},
+--         lib = "anim@amb@nightclub@peds@",
+--         anim = "mini_strip_club_lap_dance_ld_girl_a_song_a_p1",
+--         ped
+--     },
+--     {
+--         pos = { x = -1596.21, y = -3007.97, z = -80.21, h = 151.05 },
+--         lib = "anim@amb@nightclub@peds@",
+--         anim = "mini_strip_club_lap_dance_ld_girl_a_song_a_p1",
+--         ped
+--     }
+-- }
 
 ESX = nil
 Citizen.CreateThread(
@@ -1471,9 +1471,9 @@ function startSecurity()
         missionStarted = true
         local maxTimer = JOBTIME * 100
         workTimer = maxTimer
-        ESX.ShowNotification('Choisissez les meilleurs ~y~clients~w~ pour faire gagner de l\'argent au ~p~Club~w~.')
+        ESX.ShowNotification('Внимательно выбирайте ~y~Клиентов~w~ чтобы ваш клуб заработал ~p~Прибыль~w~.')
         Citizen.Wait(5000)
-        ESX.ShowNotification('~r~Ne prenez pas n\'importe qui~w~, sinon vous risquez d\'attirer des ennuis au ~p~Club~w~.')
+        -- ESX.ShowNotification('~r~Ne prenez pas n\'importe qui~w~, sinon vous risquez d\'attirer des ennuis au ~p~Club~w~.')
         while workTimer > 0 and missionStarted do
             Citizen.Wait(0)
             if (workTimer < maxTimer) and not waiting  then
@@ -1496,7 +1496,7 @@ function startSecurity()
         end
         resetWork()
     else
-        ESX.ShowNotification('~r~Vous devez être en tenue de sécurité.')
+        ESX.ShowNotification('~r~Вы одеты не по форме.')
     end
 end
 
@@ -1546,11 +1546,11 @@ function incomingCustomers()
         TaskGoToCoordAnyMeans(v.ped, GOTOPED, 1.0, 0, 0, 0, 0)
         incomingCustomer = true
     end
-    ESX.ShowNotification("~y~Client~w~ en approche, occupez vous en.")
+    ESX.ShowNotification("Приближается ~y~клиент~w~.")
 end
 
 function rejectCustomer()
-    ESX.ShowNotification('Vous avez ~r~refusé~w~.')
+    ESX.ShowNotification('Вы ~r~отказали~w~.')
     incomingCustomer = false
     for i, v in pairs(SpawnedCustomers) do
         if ((v.name == 'bad') and (diceBadAngry == 0)) then
@@ -1568,7 +1568,7 @@ function acceptCustomer()
     incomingCustomer = false
     for i, v in pairs(SpawnedCustomers) do
         if v.ped ~= nil then
-            ESX.ShowNotification('Vous avez ~g~accepté~w~.')
+            ESX.ShowNotification('Вы ~g~пропустили~w~.')
             if ((v.name == 'rich') and (diceIsFamous > 0)) or ((v.name == 'default') and (diceDefaultIsBad > 0)) or ((v.name == 'bad') and (diceBadIsBad > 0)) or ((v.name == 'poor') and (dicePoorIsBad > 0)) then
                 TriggerServerEvent('esx_nightclub:sellEntry', v.name, 'good')
             elseif ((v.name == 'default') and (diceDefaultIsBad == 0)) or ((v.name == 'bad') and (diceBadIsBad == 0)) or ((v.name == 'poor') and (dicePoorIsBad == 0)) then
@@ -1871,10 +1871,10 @@ function SpawnCarNightClub()
             GetCurrentResourceName(),
             "veh_nc_menu",
             {
-                title = "Véhicules Night-Club",
+                title = "Транспорт клуба",
                 elements = {
-                    {label = "Limousine", value = 'limo'},
-                    {label = "Bus Night-Club", value = 'bus'}
+                    {label = "Лемузин", value = 'limo'},
+                    {label = "Автобус", value = 'bus'}
                 }
             },
             function(data, menu)
@@ -2211,7 +2211,7 @@ Citizen.CreateThread(
                                 elseif IsJobTrue() and IsEmployed() then
                                     TPClub(true)
                                 else
-                                    ESX.ShowNotification("~r~Le Club est fermé.")
+                                    ESX.ShowNotification("~r~Клуб закрыт.")
                                 end
                             end
                         )
@@ -2365,13 +2365,13 @@ Citizen.CreateThread(
             if missionStarted then
                 local player = PlayerPedId()
                 local playerPos = GetEntityCoords(player)
-                showTextHUD(0.66, 1.40, 1.0, 1.0, 0.4, '~p~Sécurité', 0, 0, 0, 255)
-                showTextHUD(0.66, 1.43, 1.0, 1.0, 0.4, '~p~Filles :' .. girlsTotal .. ' ~g~Clients :' .. guysTotal .. ' ~r~Perturbateurs :' .. badguysTotal, 0, 0, 0, 255)
+                showTextHUD(0.66, 1.40, 1.0, 1.0, 0.4, '~p~Охрана', 0, 0, 0, 255)
+                showTextHUD(0.66, 1.43, 1.0, 1.0, 0.4, '~p~Девушки :' .. girlsTotal .. ' ~g~Мужчины :' .. guysTotal .. ' ~r~Дебоширы :' .. badguysTotal, 0, 0, 0, 255)
                 if Vdist(playerPos.x, playerPos.y, playerPos.z, WORKPOS.x, WORKPOS.y, WORKPOS.z) > (MAXDISTANCE - 2) then
-                    ESX.ShowNotification("Restez près de l'~y~entrée~w~ sinon le ~y~travail~w~ sera ~r~annulé~w~.")
+                    ESX.ShowNotification("Оставайтесь у ~y~входа~w~ иначе ~y~работа~w~ будет ~r~прекращена~w~.")
                 end
                 if Vdist(playerPos.x, playerPos.y, playerPos.z, WORKPOS.x, WORKPOS.y, WORKPOS.z) > MAXDISTANCE then
-                    ESX.ShowNotification('Le ~y~travail~w~ est ~r~annulé~w~!')
+                    ESX.ShowNotification('~y~Вы~w~ прекратили ~r~охранять~w~ вход!')
                     resetWork()
                 end
                 if IsPedDeadOrDying(player) ~= false then
@@ -2424,14 +2424,14 @@ Citizen.CreateThread(
                             if IsPedDeadOrDying(v.ped) == false then
                                 if incomingCustomer then
                                     if distancePlayer < CLOSE then
-                                        ESX.ShowHelpNotification('Appuyez sur ~INPUT_CONTEXT~ pour ~g~accepter~w~ ou sur ~INPUT_CREATOR_LT~ pour ~r~refuser~w~.')
+                                        ESX.ShowHelpNotification('~INPUT_CONTEXT~ ~g~Пропустить~w~ или ~INPUT_CREATOR_LT~ ~r~Отказать~w~.')
                                         if v.name == 'bad' then
                                             if diceSellDrug == 0 then
-                                                ESX.ShowNotification("Un ~y~client~w~ vous propose d'acheter de la ~r~drogue~w~.")
+                                                ESX.ShowNotification("~y~Клиент~w~ предлагает купить ~r~наркотики~w~.")
                                                 customerSellDrug = true
                                             else
                                                 if diceOfferMoney == 0 then
-                                                    ESX.ShowNotification("Un ~y~client~w~ vous propose ~g~" .. diceHowMuch .. "~w~$ pour le laisser entrer.")
+                                                    ESX.ShowNotification("~y~Клиент~w~ предлагает вам ~g~" .. diceHowMuch .. "~w~$ что бы вы его впустили.")
                                                     customerOfferMoney = true
                                                 end
                                             end

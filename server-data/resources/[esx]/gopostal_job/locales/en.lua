@@ -1,57 +1,57 @@
 Locales['en'] = {
 
-	['blip_job']				= 'GoPostal',
+	['blip_job']				= 'Компания GoPostal',
 
 	--Vestiaire
-	['no_outfit']			    = 'No clothing available',
-	['open_cloakroom']			= 'press ~INPUT_PICKUP~ to change',
+	['no_outfit']			    = 'Нет одежды',
+	['open_cloakroom']			= 'Нажмите ~INPUT_PICKUP~ чтобы переодеться',
 
 	--Garage
-	['sort_vehicle']			= 'press ~INPUT_PICKUP~ to retrieve the vehicle',
-	['return_vehicle']			= 'press ~INPUT_PICKUP~ to return the vehicle',
-	['vehiclespawner']			= 'Choose your delivery vehicle.',
+	['sort_vehicle']			= 'Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт',
+	['return_vehicle']			= 'Нажмите ~INPUT_PICKUP~ чтобы вернуть транспорт',
+	['vehiclespawner']			= 'Выберите транспорт',
 
 	--Livraison
-	['Richman']					= 'Sector : "~o~Richman Neighborhood~w~" ',
-	['RockfordHills']		    = 'Sector : "~g~Rockford Hills Neighborhood~w~" ',
-	['Vespucci']				= 'Sector : "~b~Vespucci Neighborhood~w~" ',
-	['SLS']						= 'Sector : "~y~Spud of Los Santos~w~" ',
+	['Richman']					= 'Район: "~o~Richman Neighborhood~w~" ',
+	['RockfordHills']		    = 'Район : "~g~Rockford Hills Neighborhood~w~" ',
+	['Vespucci']				= 'Район : "~b~Vespucci Neighborhood~w~" ',
+	['SLS']						= 'Район : "~y~Spud of Los Santos~w~" ',
 
-	['join_next']				= '~g~[•] ~b~Go to ~w~the property~r~ indicated on your  GPS',
-	['pickup']					= 'Press ~INPUT_PICKUP~ to deliver',
-	['must_be_walking']			= '~r~[ERROR]: You MUST Be on FOOT.',
+	['join_next']				= '~g~[•] ~b~Направляйтесь ~w~к дому~r~ отмеченному на GPS',
+	['pickup']					= '~INPUT_PICKUP~ Доставить',
+	['must_be_walking']			= '~r~[ERROR]: Вы должны быть вне транспорта.',
 
-	['cancel_delivery']			= '~r~Deliveries have been cancelled!, Return to Depot.',
-	['finish_delivery']			= '✉  ~o~Delivery Finished, Return to Depot.',
+	['cancel_delivery']			= '~r~Доставка прервана! Возвращайтесь в офис.',
+	['finish_delivery']			= '✉  ~o~Доставка окончена! Возвращайтесь в офис',
 
-	['create_itinary']			= 'I took care of setting up your GPS, you just have to follow the route',
+	['create_itinary']			= 'Я позаботился о настройке вашего GPS, следуйте маршруту',
 
-	['not_enought_letter']		= '~r~You\re Missing %s letters.',
-	['not_enought_colis']		= '~r~You\re Missing %s Parcels.',
+	['not_enought_letter']		= '~r~Вам не хватает %s писем.',
+	['not_enought_colis']		= '~r~Вам не хватает %s посылок.',
 
-	['gain']					= '~g~| 💰 | ~w~This delivery has been reported  ~g~%s$',
+	['gain']					= '~g~| 💰 | ~w~За доставку вы получили~g~%s$',
 
 	--Distribution
-	['open_distribution']		= 'Press ~INPUT_PICKUP~ To recover mail and parcels',
+	['open_distribution']		= 'Нажмите ~INPUT_PICKUP~ зайти в почтовый склад',
 
-	['letter']					= 'Letter',
-	['colis']					= 'Parcel',
+	['letter']					= 'Письмо',
+	['colis']					= 'Посылка',
 
-	['distribution']			= 'Distribution Center',
-	['deposit']					= 'Deposit',
-	['pick']					= 'Pick',
-	['take']					= 'You have taken ~y~x%s %s',
-	['remove']					= 'You have deposited ~y~x%s %s',
+	['distribution']			= 'Центр доставки',
+	['deposit']					= 'Положить',
+	['pick']					= 'Взять',
+	['take']					= 'Вы взяли ~y~x%s %s',
+	['remove']					= 'Вы отправили на склад ~y~x%s %s',
 
 	['player_cannot_hold']		= '~r~[ERROR]: You CANNOT Hold any more.',
-	['not_enough']				= '~r~[ERROR]: Invalid Quantity.',
+	['not_enough']				= '~r~[ERROR]: Неверное количество.',
 
 		-- Notification Delivery
 	['notif_title_delivery']    = '~r~GoPostal',
-	['notif_district']			= '[Your Sector:]\n----------------------\n%s',
+	['notif_district']			= '[Ваш район:]\n----------------------\n%s',
 
-	['bank_deposit_returned']   = 'une caution de ~g~$%s~s~ vous a été rendue.',
-  	['bank_deposit_taken']      = 'une caution de ~g~$%s~s~ vous a été prélevée.',
+	['bank_deposit_returned']   = 'Ваш депозит ~g~$%s~s~ был возвращен.',
+  	['bank_deposit_taken']      = 'Вы внесли депозит ~g~$%s~s~.',
 
 
 }

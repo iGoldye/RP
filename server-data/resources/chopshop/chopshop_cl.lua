@@ -4,7 +4,7 @@ local randomVehicles = {
     {model = "LANDSTAL", label = "Landstalker", price = 1000},
     {model = "SUPERDIAMOND", label = "Superdiamond", price = 1600},
     {model = "SABREGT", label = "Sabre GT", price = 900},
-    {model = "PANTO", label = "Panto", price = 750}
+    {model = "PANTO", label = "Panto", price = 500}
     -- Add more vehicles you want.
 }
 
@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
                             selectRandomVehicle = randomVehicles[math.random(1, #randomVehicles)]
                             Countdown = GetGameTimer() + 600 * 1000
                             timer = true
-                            TriggerEvent('chatMessage', 'Chop Shop', {255, 123, 0}, "^4Find the Chop Shop a "..selectRandomVehicle.label.."")
+                            TriggerEvent('chatMessage', 'Разборка', {255, 123, 0}, "^4Найдите - "..selectRandomVehicle.label.."")
                         end
                     elseif timer and vehicle ~= false then
                         drawText('Нажмите ~r~E~s~ чтобы сдать автомобиль',0,1,0.5,0.8,0.6,255,255,255,255)
@@ -57,7 +57,7 @@ Citizen.CreateThread(function()
                                 local vehicleIn = GetVehiclePedIsUsing(ped)
                                 deleteCar(vehicleIn)
                             else
-                                TriggerEvent("ISRP_Notification:Error", "Chop Shop", "Это не тот автомобиль", 5000, false, "leftCenter")
+                                TriggerEvent("ISRP_Notification:Error", "Разборка", "Это не тот автомобиль", 5000, false, "leftCenter")
                             end
                         end
                     elseif timer then

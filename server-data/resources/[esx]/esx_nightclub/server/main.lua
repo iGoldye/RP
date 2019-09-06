@@ -2,16 +2,16 @@ local SecurityPlayer = {}
 local Open = false
 
 local pay = {
-    ['rich'] = {100, 200},
-    ['default'] = {50, 70},
-    ['bad'] = {10, 30},
-    ['poor'] = {5, 9},
+    ['rich'] = {20, 35},
+    ['default'] = {10, 20},
+    ['bad'] = {5, 7},
+    ['poor'] = {2, 4},
     ['girl'] = {0, 0},
 }
 
 local caution = {
-    ['limo'] = 2500,
-    ['bus'] = 7500
+    ['limo'] = 100,
+    ['bus'] = 100
 }
 
 local badguyCount = 0
@@ -753,15 +753,15 @@ AddEventHandler(
                 societyTotal = societyTotal + (societyPay * math.random(20, 100))
                 playerTotal = playerTotal + newPlayerPay
             end
-            TriggerClientEvent('esx:showNotification', _source, "Bien joué, vous avez fait rentrer un ~y~VIP~w~!")
+            TriggerClientEvent('esx:showNotification', _source, "Ваш клуб посетил ~y~VIP~w~!")
         elseif customerdata == 'girl' then
             checkInCustomer(_source, customerdata)
-            TriggerClientEvent('esx:showNotification', _source, "On gagne rien avec les ~p~filles~w~ mais ça fait marcher le club!")
+            TriggerClientEvent('esx:showNotification', _source, "~p~Девушкам~w~ вход бесплатный.")
         elseif customerdata == 'bad' then
             checkBadGuy(_source)
             newSocietyRemove = societyPay * badguyCount
             societyRemove = societyRemove + newSocietyRemove
-            TriggerClientEvent('esx:showNotification', _source, "Vous avez laissé rentrer un ~r~perturbateur~w~, faites attention!")
+            TriggerClientEvent('esx:showNotification', _source, "Вы впустили ~r~дебошира~w~!")
         end
     end
 )
@@ -960,9 +960,9 @@ AddEventHandler(
         if price <= money then
             xPlayer.removeMoney(price)
             TriggerClientEvent('esx_nightclub:spawnDriverCar', _source, vehicleType)
-            TriggerClientEvent('esx:showNotification', _source, 'Ramenerez le ~y~véhicule en ~g~bonne état~w~ pour récupérer la caution (~r~-' .. price .. '~w~$)')
+            TriggerClientEvent('esx:showNotification', _source, 'Верните ~y~транспорт в ~g~хорошем состоянии~w~ чтобы вернуть депозит (~r~-' .. price .. '~w~$)')
         else
-            TriggerClientEvent('esx:showNotification', _source, 'Vous n\'avez ~r~pas assez~w~ d\'argent, caution (~r~' .. price .. '~w~$)')
+            TriggerClientEvent('esx:showNotification', _source, 'Вам не хватает ~r~денег для залога ~w~  (~r~' .. price .. '~w~$)')
         end
     end
 )
@@ -975,7 +975,7 @@ AddEventHandler(
         local xPlayer = ESX.GetPlayerFromId(_source)
         local price = caution[vehicleType]
         xPlayer.addMoney(price)
-        TriggerClientEvent('esx:showNotification', _source, 'Vous avez récupéré la caution ~g~+' .. price .. '~w~$')
+        TriggerClientEvent('esx:showNotification', _source, 'Вы вернули транспорт и получили депозит ~g~+' .. price .. '~w~$')
     end
 )
 
@@ -1057,11 +1057,11 @@ AddEventHandler(
         if societyTotal ~= 0 then
             societyAccount.addMoney(societyTotal)
             xPlayer.addMoney(playerTotal)
-            TriggerClientEvent('esx:showNotification', _source, "Gains : ~y~Vous ~g~+" .. playerTotal .. "~w~$ | ~p~Le Club ~g~+" .. societyTotal .. "~w~$")
-        end 
+            TriggerClientEvent('esx:showNotification', _source, "Доля : ~y~Ваша ~g~+" .. playerTotal .. "~w~$ | ~p~Клуба ~g~+" .. societyTotal .. "~w~$")
+        end
         if societyRemove ~= 0 then
             societyAccount.removeMoney(societyRemove)
-            TriggerClientEvent('esx:showNotification', _source, "Pertes : ~p~Le Club ~r~-" .. societyRemove .. "~w~$")
+            TriggerClientEvent('esx:showNotification', _source, "Клуб понес : ~p~убытки~r~-" .. societyRemove .. "~w~$")
         end
         societyTotal = 0
         societyRemove = 0
@@ -1074,7 +1074,7 @@ ESX.RegisterServerCallback(
     function(source, cb)
         if Open then
             cb(true)
-        else 
+        else
             cb(false)
         end
     end

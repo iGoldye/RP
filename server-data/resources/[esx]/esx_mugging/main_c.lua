@@ -86,7 +86,7 @@ function robNpc(targetPed)
                     PlayAmbientSpeech1(targetPed, "GUN_BEG", "SPEECH_PARAMS_FORCE_NORMAL_CLEAR")
                     currentrobbing = true
                     TaskHandsUp(targetPed, 1000, 0, 0, true)
-                    ESX.ShowNotification("Already Mugged this person.")
+                    ESX.ShowNotification("Этот человек уже ограблен!")
 
                     TaskSmartFleePed(targetPed, GetPlayerPed(-1), -1, -1, true, true)
                     Citizen.Wait(3000)
@@ -97,7 +97,7 @@ function robNpc(targetPed)
                     currentrobbing = true
                     TaskHandsUp(targetPed, Config.RobWaitTime * 1000, 0, 0, true)
                     if Config.progressBars then
-                    exports['progressBars']:startUI(Config.RobWaitTime * 1000, "Mugging...")
+                    exports['progressBars']:startUI(Config.RobWaitTime * 1000, "Грабеж...")
                     end
                     Citizen.Wait(Config.RobWaitTime * 1000)
                     playerPed = GetPlayerPed(-1)
