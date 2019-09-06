@@ -25,6 +25,17 @@ local paused = true
 local menuActive = false
 local nuiFocus = false
 local inputBoxes = {}
+local isBeltOn = nil
+
+Citizen.CreateThread(function()
+	while true do
+		TriggerEvent('seatbelt_lua:isBeltOn', function(res)
+			isBeltOn = res
+		end)
+
+		Citizen.Wait(1000)
+	end
+end)
 
 Citizen.CreateThread(function()
 	SetNuiFocus(false, false)
@@ -35,7 +46,6 @@ end)
 
 Citizen.CreateThread(function()
 while true do
-
 	if menuActive == true and nuiFocus == false then
 		SetNuiFocus(true,true)
 		nuiFocus = true
@@ -63,11 +73,8 @@ while true do
 	local PlayerStamina = GetPlayerSprintStaminaRemaining(PlayerId()) / 100.0
 	local PlayerSeatbelt = 0
 
-	if exports["seatbelt_lua"] then
-		local sb = exports["seatbelt_lua"]:isBeltOn()
-		if sb == false then
-			PlayerSeatbelt = 1
-		end
+	if isBeltOn == false then
+		PlayerSeatbelt = 1
 	end
 
 	SendNUIMessage({

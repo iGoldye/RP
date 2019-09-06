@@ -13,17 +13,19 @@ Citizen.CreateThread(function()
 	end
 end)
 
-function isBeltOn()
+AddEventHandler("seatbelt_lua:isBeltOn", function(cb)
 	if IsPedInAnyVehicle(PlayerPedId(), false) then
 	        local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 		if not IsCar(vehicle) then
-			return nil
+			cb(nil)
+			return
 		end
-		return beltOn
+		cb(beltOn)
+		return
 	end
 
-	return nil
-end
+	cb(nil)
+end)
 
 function drawTxt(x, y, scale, text, red, green, blue, alpha)
 	SetTextFont(4)
