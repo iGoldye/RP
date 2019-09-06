@@ -131,7 +131,7 @@ ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, play
 	return giveItemTo(source, playerid, item);
 })
 
-//RegisterServerEvent('esx_inventory:playerSpawned')
+RegisterServerEvent('esx_inventory:playerSpawned')
 AddEventHandler('esx_inventory:playerSpawned', function() {
 	sendAllPickups(source)
 })
