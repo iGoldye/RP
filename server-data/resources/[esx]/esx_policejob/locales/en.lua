@@ -5,7 +5,6 @@ Locales['en'] = {
   ['police_wear'] = 'Полицейская одежда',
   ['gilet_wear'] = 'Светоотражающий жилет',
   ['bullet_wear'] = 'Бронежилет',
-  ['hidden_bullet_wear'] = 'Скрытый бронежилет',
   ['change_wear'] = 'Сменить одежду',
   ['no_outfit'] = 'Нет униформы которая подходит вам',
   ['open_cloackroom'] = 'Нажмите ~INPUT_CONTEXT~ чтобы сменить ~y~одежду~s~.',

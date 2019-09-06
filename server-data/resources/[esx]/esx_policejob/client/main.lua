@@ -34,7 +34,7 @@ function setUniform(job, playerPed)
 				ESX.ShowNotification(_U('no_outfit'))
 			end
 
-			if job == 'bullet_wear' or job == 'hidden_bullet_wear' then
+			if job == 'bullet_wear' then
 				SetPedArmour(playerPed, 100)
 			end
 		else
@@ -44,7 +44,7 @@ function setUniform(job, playerPed)
 				ESX.ShowNotification(_U('no_outfit'))
 			end
 
-			if job == 'bullet_wear' or job == 'hidden_bullet_wear' then
+			if job == 'bullet_wear' then
 				SetPedArmour(playerPed, 100)
 			end
 		end
@@ -58,7 +58,6 @@ function OpenCloakroomMenu()
 	local elements = {
 		{ label = _U('citizen_wear'), value = 'citizen_wear' },
 		{ label = _U('bullet_wear'), value = 'bullet_wear' },
-		{ label = _U('hidden_bullet_wear'), value = 'hidden_bullet_wear' },
 		{ label = _U('change_wear'), value = 'change_wear' },
 	}
 
@@ -184,8 +183,7 @@ function OpenCloakroomMenu()
 			data.current.value == 'lieutenant_wear' or
 			data.current.value == 'chef_wear' or
 			data.current.value == 'boss_wear' or
-			data.current.value == 'bullet_wear' or
-			data.current.value == 'hidden_bullet_wear'
+			data.current.value == 'bullet_wear'
 
 		then
 			setUniform(data.current.value, playerPed)
