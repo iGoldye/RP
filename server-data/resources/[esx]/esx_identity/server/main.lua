@@ -148,6 +148,11 @@ function setIdentity(identifier, data, callback)
 		['@lastdigits']			= lastdigits
 	}, function(rowsChanged)
 		if callback then
+			local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
+			if xPlayer ~= nil then
+				xPlayer.setMoney(500)
+				xPlayer.setBankBalance(1500)
+			end
 			callback(true)
 		end
 	end)
