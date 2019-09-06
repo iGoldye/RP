@@ -2,13 +2,30 @@
       <v-card v-show="show" elevation="0"
         tile>
         <v-card-title class="pa-0">
-        <v-toolbar dark>
+        <v-toolbar dark :extended="description != ''" extension-height=32>
+            <template v-if="description != ''" #extension>
+                <v-toolbar-items>
+                    <v-text-field
+                        @focus="filter_focus = true"
+                        @blur="filter_focus = false"
+                        ref="filterField"
+                        v-show="filter_title"
+                        class="pt-0 mt-0"
+                        label="Поиск"
+                        append-icon="mdi-magnify"
+                        height="30px"
+                        style="width: 370px"
+                        v-on:input="search_field_changed($event)"
+                    ></v-text-field>
+                </v-toolbar-items>
+            </template>
+
           <v-btn v-show="back_button"
             v-on:click="$emit('back_clicked')"
             ref="backButton"
-            small 
-            text 
-            icon 
+            small
+            text
+            icon
             color="white">
               <v-icon>{{mdi_arrow_left}}</v-icon>
           </v-btn>
@@ -16,18 +33,7 @@
           <v-toolbar-title style="user-select: none;">{{title}}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-text-field
-                @focus="filter_focus = true"
-                @blur="filter_focus = false"
-                ref="filterField"
-                v-show="filter_title"
-                class="pt-4"
-                label="Поиск"
-                append-icon="mdi-magnify"
-                height="30px"
-                style="max-width: 150px"
-                v-on:input="search_field_changed($event)"
-            ></v-text-field>
+            <span class="white--text title pa-4">{{description}}</span>
           </v-toolbar-items>
         </v-toolbar>
         </v-card-title>
@@ -74,6 +80,11 @@ export default {
         title:{
             type: String,
             default: ""
+        },
+
+        description: {
+            type: String,
+            default: "",
         },
 
         items:{
@@ -184,7 +195,7 @@ export default {
             return i.toString();
         },
 
-        moveScroll: function() {            
+        moveScroll: function() {
             if (!this.selected_index) {
                 this.selected_index = 0;
             }
