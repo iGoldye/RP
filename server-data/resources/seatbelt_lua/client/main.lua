@@ -13,6 +13,18 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function isBeltOn()
+	if IsPedInAnyVehicle(PlayerPedId(), false) then
+	        local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+		if not IsCar(vehicle) then
+			return nil
+		end
+		return beltOn
+	end
+
+	return nil
+end
+
 function drawTxt(x, y, scale, text, red, green, blue, alpha)
 	SetTextFont(4)
 	SetTextProportional(1)

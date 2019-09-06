@@ -61,7 +61,14 @@ while true do
 	local PlayerHealth = (GetEntityHealth(PlayerPedId()) - 100) / 100.0
 	local PlayerArmour = GetPedArmour(PlayerPedId()) / 100.0
 	local PlayerStamina = GetPlayerSprintStaminaRemaining(PlayerId()) / 100.0
+	local PlayerSeatbelt = 0
 
+	if exports["seatbelt_lua"] then
+		local sb = exports["seatbelt_lua"]:isBeltOn()
+		if sb == false then
+			PlayerSeatbelt = 1
+		end
+	end
 
 	SendNUIMessage({
 		action  = 'setNeeds',
@@ -70,6 +77,7 @@ while true do
 		health = PlayerHealth,
 		armor  = PlayerArmour,
 		stamina= PlayerStamina,
+		seatbelt= PlayerSeatbelt,
 	})
 
 	SendNUIMessage({
