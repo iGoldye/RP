@@ -47,6 +47,7 @@ function OpenMobileAmbulanceActionsMenu()
 					{label = _U('ems_menu_small'), value = 'small'},
 					{label = _U('ems_menu_big'), value = 'big'},
 					{label = _U('ems_menu_putincar'), value = 'put_in_vehicle'},
+					{label = _U('ems_menu_alcotest'), value = 'alcotest'},
 					{label = _U('billing'), value = 'billing'},
 				}
 			}, function(data, menu)
@@ -176,6 +177,8 @@ function OpenMobileAmbulanceActionsMenu()
 								ESX.ShowNotification(_U('not_enough_medikit'))
 							end
 						end, 'medikit')
+					elseif data.current.value == 'alcotest' then
+						TriggerServerEvent('esx_ambulancejob:alcotest', GetPlayerServerId(closestPlayer))
 
 					elseif data.current.value == 'put_in_vehicle' then
 						TriggerServerEvent('esx_ambulancejob:putInVehicle', GetPlayerServerId(closestPlayer))

@@ -26,6 +26,29 @@ AddEventHandler('esx_ambulancejob:heal', function(target, type)
 	end
 end)
 
+RegisterServerEvent('esx_ambulancejob:alcotest')
+AddEventHandler('esx_ambulancejob:alcotest', function(target)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	if xPlayer.job.name == 'ambulance' then
+		TriggerEvent('esx_status:getStatus', target, 'drunk', function(status)
+	                if status.val < 1 then
+				TriggerClientEvent('esx:showNotification', xPlayer.source, "Степень опьянения: не выявлено")
+			elseif status.val < 250000 then
+				TriggerClientEvent('esx:showNotification', xPlayer.source, "Степень опьянения: ~g~лёгкое")
+			elseif status.val < 500000 then
+				TriggerClientEvent('esx:showNotification', xPlayer.source, "Степень опьянения: ~y~умеренное")
+			elseif status.val < 750000 then
+				TriggerClientEvent('esx:showNotification', xPlayer.source, "Степень опьянения: ~r~тяжёлое")
+			else
+				TriggerClientEvent('esx:showNotification', xPlayer.source, "Степень опьянения: ~r~крайне тяжёлое")
+			end
+		end)
+	else
+		print(('esx_ambulancejob: %s attempted to start alcohol test!'):format(xPlayer.identifier))
+	end
+end)
+
 RegisterServerEvent('esx_ambulancejob:putInVehicle')
 AddEventHandler('esx_ambulancejob:putInVehicle', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)

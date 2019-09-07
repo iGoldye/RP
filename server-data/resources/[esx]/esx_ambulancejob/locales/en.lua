@@ -67,6 +67,7 @@ Locales['en'] = {
   ['ems_menu_putincar'] = 'Погрузить в машину',
   ['ems_menu_small'] = 'Оказать первую помощь',
   ['ems_menu_big'] = 'Вылечить серьезные травмы',
+  ['ems_menu_alcotest'] = 'Определить уровень опьянения',
   -- Phone
   ['alert_ambulance'] = 'Вызвать Скорую помощь',
   -- Death
