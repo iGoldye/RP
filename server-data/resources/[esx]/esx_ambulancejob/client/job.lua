@@ -48,10 +48,16 @@ function OpenMobileAmbulanceActionsMenu()
 					{label = _U('ems_menu_big'), value = 'big'},
 					{label = _U('ems_menu_putincar'), value = 'put_in_vehicle'},
 					{label = _U('ems_menu_alcotest'), value = 'alcotest'},
+					{label = _U('ems_menu_removenpcs'), value = 'removenpcs'},
 					{label = _U('billing'), value = 'billing'},
 				}
 			}, function(data, menu)
 				if IsBusy then return end
+
+				if data.current.value == 'removenpcs' then
+					TriggerEvent('esx_ambulancejob:removedeadnpcs')
+					return
+				end
 
 				local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 
@@ -179,7 +185,6 @@ function OpenMobileAmbulanceActionsMenu()
 						end, 'medikit')
 					elseif data.current.value == 'alcotest' then
 						TriggerServerEvent('esx_ambulancejob:alcotest', GetPlayerServerId(closestPlayer))
-
 					elseif data.current.value == 'put_in_vehicle' then
 						TriggerServerEvent('esx_ambulancejob:putInVehicle', GetPlayerServerId(closestPlayer))
 					end
@@ -960,6 +965,16 @@ function WarpPedInClosestVehicle(ped)
 		ESX.ShowNotification(_U('no_vehicles'))
 	end
 end
+
+RegisterNetEvent('esx_ambulancejob:removedeadnpcs')
+AddEventHandler('esx_ambulancejob:removedeadnpcs', function()
+	local peds = ESX.Game.GetPeds()
+	for i=1, #peds, 1 do
+		if IsPedDeadOrDying(peds[i], 1) and not IsPedAPlayer(peds[i]) then
+			DeletePed(peds[i])
+		end
+	end
+end)
 
 RegisterNetEvent('esx_ambulancejob:heal')
 AddEventHandler('esx_ambulancejob:heal', function(healType, quiet)

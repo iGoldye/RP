@@ -808,12 +808,7 @@ function OpenPoliceActionsMenu()
 				menu2.close()
 			end)
 		elseif data.current.value == 'remove_npcs' then
-			local peds = ESX.Game.GetPeds()
-			for i=1, #peds, 1 do
-				if IsPedHuman(peds[i]) and IsPedDeadOrDying(peds[i], 1) and not IsPedAPlayer(peds[i]) then
-					DeletePed(peds[i])
-				end
-			end
+			TriggerEvent('esx_ambulancejob:removedeadnpcs')
 		end
 	end, function(data, menu)
 		menu.close()
