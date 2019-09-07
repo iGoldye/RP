@@ -64,7 +64,7 @@ function VehicleInFront()
         return entityHit, endCoords
     end
 
-    return nil, nil
+    return 0, 10000
 end
 
 function VehicleMaxSpeed(vehicle,weight,maxweight)
@@ -99,21 +99,21 @@ Citizen.CreateThread(function()
 		dist = #(playerPos-vehPos)
 	    end
 
-      if closecar ~= nil and dist < 1.5 and GetPedInVehicleSeat(closecar, -1) ~= GetPlayerPed(-1) then
+      if closecar > 0 and dist < 1.5 and GetPedInVehicleSeat(closecar, -1) ~= GetPlayerPed(-1) then
             lastVehicle = closecar
             local model = GetDisplayNameFromVehicleModel(GetEntityModel(closecar))
             local locked = GetVehicleDoorLockStatus(closecar)
-            local class = GetVehicleClass(vehFront)
+            local class = GetVehicleClass(closecar)
  --           print(locked)
             ESX.UI.Menu.CloseAll()
             if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'inventory') then
-                SetVehicleDoorShut(vehFront, 5, false)
+                SetVehicleDoorShut(closecar, 5, false)
             else
                 if locked == 1 or class == 15 or class == 16 or class == 14 then
-                      SetVehicleDoorOpen(vehFront, 5, false, false)
+                      SetVehicleDoorOpen(closecar, 5, false, false)
                       ESX.UI.Menu.CloseAll()
 
-                      TriggerServerEvent("esx_truck_inventory:getInventory", GetVehicleNumberPlateText(vehFront))
+                      TriggerServerEvent("esx_truck_inventory:getInventory", GetVehicleNumberPlateText(closecar))
                 else
                       ESX.ShowNotification('Багажник закрыт ~r~')
                 end
@@ -136,7 +136,7 @@ end)
 RegisterNetEvent('esx_truck_inventory:getInventoryLoaded')
 AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,weight)
 	local elements = {}
-  print(weight)
+--  print(weight)
 	local vehFrontBack = VehicleInFront()
   TriggerServerEvent("esx_truck_inventory:getOwnedVehicule")
 
