@@ -2,6 +2,7 @@ Locales['en'] = {
   ['hunger'] = 'Голод: %s',
   ['givefood'] = 'Дать еду',
   ['attachpet'] = 'Ожидать',
+  ['detachpet'] = 'Позвать',
   ['getpeddown'] = 'Высадить питомца',
   ['getpedinside'] = 'Посадить в питомца в транспорт',
   ['giveorders'] = 'Приказать',
