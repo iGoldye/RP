@@ -826,6 +826,13 @@ AddEventHandler('esx_property:hasEnteredMarker', function(name, part)
 		CurrentAction     = 'room_exit'
 		CurrentActionMsg  = _U('press_to_exit')
 		CurrentActionData = {propertyName = name}
+
+		if CurrentProperty == nil then
+			ESX.Game.Teleport(PlayerPedId(), vector3(-97.58, -1013.94, 27.28), function()
+				TriggerServerEvent('esx_property:deleteLastProperty')
+			end)
+		end
+
 	elseif part == 'roomMenu' then
 		CurrentAction     = 'room_menu'
 		CurrentActionMsg  = _U('press_to_menu')
