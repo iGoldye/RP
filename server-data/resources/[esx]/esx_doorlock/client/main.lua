@@ -72,17 +72,27 @@ Citizen.CreateThread(function()
 			if distance < 50 then
 				if doorID.doors then
 					for _,v in ipairs(doorID.doors) do
-						FreezeEntityPosition(v.object, doorID.locked)
+						if doorID.forceCoords ~= nil and doorID.locked then
+							SetEntityCoordsNoOffset(v.object, doorID.forceCoords.x,doorID.forceCoords.y,doorID.forceCoords.z, 0, 0, 0)
+							SetEntityRotation(v.object, doorID.forceRot.x,doorID.forceRot.y,doorID.forceRot.z)
+						else
+							FreezeEntityPosition(v.object, doorID.locked)
 
-						if doorID.locked and v.objYaw and GetEntityRotation(v.object).z ~= v.objYaw then
-							SetEntityRotation(v.object, 0.0, 0.0, v.objYaw, 2, true)
+							if doorID.locked and v.objYaw and GetEntityRotation(v.object).z ~= v.objYaw then
+								SetEntityRotation(v.object, 0.0, 0.0, v.objYaw, 2, true)
+							end
 						end
 					end
 				else
-					FreezeEntityPosition(doorID.object, doorID.locked)
+					if doorID.forceCoords ~= nil and doorID.locked then
+						SetEntityCoordsNoOffset(doorID.object, doorID.forceCoords.x,doorID.forceCoords.y,doorID.forceCoords.z, 0, 0, 0)
+						SetEntityRotation(doorID.object, doorID.forceRot.x,doorID.forceRot.y,doorID.forceRot.z)
+					else
+						FreezeEntityPosition(doorID.object, doorID.locked)
 
-					if doorID.locked and doorID.objYaw and GetEntityRotation(doorID.object).z ~= doorID.objYaw then
-						SetEntityRotation(doorID.object, 0.0, 0.0, doorID.objYaw, 2, true)
+						if doorID.locked and doorID.objYaw and GetEntityRotation(doorID.object).z ~= doorID.objYaw then
+							SetEntityRotation(doorID.object, 0.0, 0.0, doorID.objYaw, 2, true)
+						end
 					end
 				end
 			end
