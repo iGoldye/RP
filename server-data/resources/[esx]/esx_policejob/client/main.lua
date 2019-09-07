@@ -611,7 +611,8 @@ function OpenPoliceActionsMenu()
 	local topElements = {
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
-			{label = _U('object_spawner'), value = 'object_spawner'}
+			{label = _U('object_spawner'), value = 'object_spawner'},
+			{label = _U('remove_npcs'), value = 'remove_npcs'},
 	}
 
 	if IsPedSittingInAnyVehicle(PlayerPedId()) then
@@ -806,6 +807,13 @@ function OpenPoliceActionsMenu()
 			end, function(data2, menu2)
 				menu2.close()
 			end)
+		elseif data.current.value == 'remove_npcs' then
+			local peds = ESX.Game.GetPeds()
+			for i=1, #peds, 1 do
+				if IsPedHuman(peds[i]) and IsPedDeadOrDying(peds[i], 1) and not IsPedAPlayer(peds[i]) then
+					DeletePed(peds[i])
+				end
+			end
 		end
 	end, function(data, menu)
 		menu.close()
