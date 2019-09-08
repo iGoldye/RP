@@ -928,6 +928,9 @@ function OpenPharmacyMenu()
 			{label = _U('pharmacy_take', _U('medikit')), value = 'medikit'},
 			{label = _U('pharmacy_take', _U('bandage')), value = 'bandage'},
 			{label = _U('pharmacy_take', _U('pill')), value = 'pill'},
+			{label = _U('pharmacy_take', _U('drug1')), value = 'drug1'},
+			{label = _U('pharmacy_take', _U('drug2')), value = 'drug2'},
+			{label = _U('pharmacy_take', _U('drug3')), value = 'drug3'},
 		}
 	}, function(data, menu)
 		TriggerServerEvent('esx_ambulancejob:giveItem', data.current.value)

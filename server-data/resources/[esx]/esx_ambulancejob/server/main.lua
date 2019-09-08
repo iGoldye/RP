@@ -234,6 +234,12 @@ AddEventHandler('esx_ambulancejob:removeItem', function(item)
 		TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
 	elseif item == 'pill' then
 		TriggerClientEvent('esx:showNotification', _source, _U('used_pill'))
+	elseif item == 'drug1' then
+		TriggerClientEvent('esx:showNotification', _source, _U('used_drug1'))
+	elseif item == 'drug2' then
+		TriggerClientEvent('esx:showNotification', _source, _U('used_drug2'))
+	elseif item == 'drug3' then
+		TriggerClientEvent('esx:showNotification', _source, _U('used_drug3'))
 	end
 end)
 
@@ -244,7 +250,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName)
 	if xPlayer.job.name ~= 'ambulance' then
 		print(('esx_ambulancejob: %s attempted to spawn in an item!'):format(xPlayer.identifier))
 		return
-	elseif (itemName ~= 'medikit' and itemName ~= 'bandage' and itemName ~= 'pill') then
+	elseif (itemName ~= 'medikit' and itemName ~= 'bandage' and itemName ~= 'pill' and itemName ~= 'drug1' and itemName ~= 'drug2' and itemName ~= 'drug3') then
 		print(('esx_ambulancejob: %s attempted to spawn in an item!'):format(xPlayer.identifier))
 		return
 	end
@@ -309,6 +315,45 @@ ESX.RegisterUsableItem('pill', function(source)
 
 		playersHealing[source] = true
 		TriggerClientEvent('esx_ambulancejob:useItem', source, 'pill')
+
+		Citizen.Wait(10000)
+		playersHealing[source] = nil
+	end
+end)
+
+ESX.RegisterUsableItem('drug1', function(source)
+	if not playersHealing[source] then
+		local xPlayer = ESX.GetPlayerFromId(source)
+		xPlayer.removeInventoryItem('drug1', 1)
+
+		playersHealing[source] = true
+		TriggerClientEvent('esx_ambulancejob:useItem', source, 'drug1')
+
+		Citizen.Wait(10000)
+		playersHealing[source] = nil
+	end
+end)
+
+ESX.RegisterUsableItem('drug2', function(source)
+	if not playersHealing[source] then
+		local xPlayer = ESX.GetPlayerFromId(source)
+		xPlayer.removeInventoryItem('drug2', 1)
+
+		playersHealing[source] = true
+		TriggerClientEvent('esx_ambulancejob:useItem', source, 'drug2')
+
+		Citizen.Wait(10000)
+		playersHealing[source] = nil
+	end
+end)
+
+ESX.RegisterUsableItem('drug3', function(source)
+	if not playersHealing[source] then
+		local xPlayer = ESX.GetPlayerFromId(source)
+		xPlayer.removeInventoryItem('drug3', 1)
+
+		playersHealing[source] = true
+		TriggerClientEvent('esx_ambulancejob:useItem', source, 'drug3')
 
 		Citizen.Wait(10000)
 		playersHealing[source] = nil
