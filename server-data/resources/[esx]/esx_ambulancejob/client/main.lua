@@ -141,6 +141,11 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 ]]--
 			TriggerEvent('esx_ambulancejob:heal', 'small', true)
 			ESX.ShowNotification(_U('used_bandage'))
+
+		elseif itemName == 'pill' then
+
+			TriggerEvent('esx_ambulancejob:heal', 'small', true)
+			ESX.ShowNotification(_U('used_pill'))
 --		end)
 	end
 end)

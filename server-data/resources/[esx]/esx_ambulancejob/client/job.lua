@@ -926,7 +926,8 @@ function OpenPharmacyMenu()
 		align    = 'top-left',
 		elements = {
 			{label = _U('pharmacy_take', _U('medikit')), value = 'medikit'},
-			{label = _U('pharmacy_take', _U('bandage')), value = 'bandage'}
+			{label = _U('pharmacy_take', _U('bandage')), value = 'bandage'},
+			{label = _U('pharmacy_take', _U('pill')), value = 'pill'},
 		}
 	}, function(data, menu)
 		TriggerServerEvent('esx_ambulancejob:giveItem', data.current.value)

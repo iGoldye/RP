@@ -25,7 +25,7 @@ INSERT INTO `jobs` (name, label) VALUES
 
 INSERT INTO `items` (name, label, `limit`) VALUES
 	('bandage','Bandage', 20),
-	('medikit','Medikit', 5)
+	('medikit','Medikit', 5),
 ;
 
 ALTER TABLE `users`

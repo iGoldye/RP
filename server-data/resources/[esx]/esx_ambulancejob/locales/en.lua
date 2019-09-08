@@ -59,6 +59,7 @@ Locales['en'] = {
   ['pharmacy_take'] = 'Взять <span style="color:blue;">%s</span>',
   ['medikit'] = 'Аптечка',
   ['bandage'] = 'Бинт',
+  ['pill'] = 'Препарат',
   ['max_item'] = 'Достигнуто макс. кол-во',
   -- F6 Menu
   ['ems_menu'] = 'Меню доктора',
@@ -84,6 +85,7 @@ Locales['en'] = {
   -- Item
   ['used_medikit'] = 'Вы использовали ~y~1x~s~ аптечку',
   ['used_bandage'] = 'Вы использовали ~y~1x~s~ бинт',
+  ['used_pill'] = 'Вы использовали ~y~1x~s~ Препарат',
   ['not_enough_medikit'] = 'У вас нет ~b~аптечки~s~.',
   ['not_enough_bandage'] = 'У вас нет ~b~бинта~s~.',
   ['healed'] = 'Вы были вылечены',

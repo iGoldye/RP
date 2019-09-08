@@ -127,7 +127,7 @@ ESX.RegisterServerCallback('esx_ambulancejob:buyJobVehicle', function(source, cb
 
 		if xPlayer.getMoney() >= price then
 			xPlayer.removeMoney(price)
-	
+
 			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`, vehiclename) VALUES (@owner, @vehicle, @plate, @type, @job, @stored, @vehiclename)', {
 				['@owner'] = xPlayer.identifier,
 				['@vehicle'] = json.encode(vehicleProps),
@@ -232,6 +232,8 @@ AddEventHandler('esx_ambulancejob:removeItem', function(item)
 		TriggerClientEvent('esx:showNotification', _source, _U('used_bandage'))
 	elseif item == 'medikit' then
 		TriggerClientEvent('esx:showNotification', _source, _U('used_medikit'))
+	elseif item == 'pill' then
+		TriggerClientEvent('esx:showNotification', _source, _U('used_pill'))
 	end
 end)
 
@@ -242,7 +244,7 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName)
 	if xPlayer.job.name ~= 'ambulance' then
 		print(('esx_ambulancejob: %s attempted to spawn in an item!'):format(xPlayer.identifier))
 		return
-	elseif (itemName ~= 'medikit' and itemName ~= 'bandage') then
+	elseif (itemName ~= 'medikit' and itemName ~= 'bandage' and itemName ~= 'pill') then
 		print(('esx_ambulancejob: %s attempted to spawn in an item!'):format(xPlayer.identifier))
 		return
 	end
@@ -278,7 +280,7 @@ ESX.RegisterUsableItem('medikit', function(source)
 	if not playersHealing[source] then
 		local xPlayer = ESX.GetPlayerFromId(source)
 		xPlayer.removeInventoryItem('medikit', 1)
-	
+
 		playersHealing[source] = true
 		TriggerClientEvent('esx_ambulancejob:useItem', source, 'medikit')
 
@@ -291,9 +293,22 @@ ESX.RegisterUsableItem('bandage', function(source)
 	if not playersHealing[source] then
 		local xPlayer = ESX.GetPlayerFromId(source)
 		xPlayer.removeInventoryItem('bandage', 1)
-	
+
 		playersHealing[source] = true
 		TriggerClientEvent('esx_ambulancejob:useItem', source, 'bandage')
+
+		Citizen.Wait(10000)
+		playersHealing[source] = nil
+	end
+end)
+
+ESX.RegisterUsableItem('pill', function(source)
+	if not playersHealing[source] then
+		local xPlayer = ESX.GetPlayerFromId(source)
+		xPlayer.removeInventoryItem('pill', 1)
+
+		playersHealing[source] = true
+		TriggerClientEvent('esx_ambulancejob:useItem', source, 'pill')
 
 		Citizen.Wait(10000)
 		playersHealing[source] = nil
