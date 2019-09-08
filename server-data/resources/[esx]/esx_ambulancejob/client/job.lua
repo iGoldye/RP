@@ -463,6 +463,8 @@ function OpenCloakroomMenu()
 			{label = _U('ems_clothes_civil'), value = 'citizen_wear'},
 			{label = "Сменить одежду", value = 'change_wear'},
 			{label = _U('ems_clothes_ems'), value = 'ambulance_wear'},
+			{label = _U('deposit_stock'),  value = 'put_stock'},
+			{label = _U('withdraw_stock'), value = 'get_stock'},
 		}
 	}, function(data, menu)
 		if data.current.value == 'citizen_wear' then
@@ -479,6 +481,10 @@ function OpenCloakroomMenu()
 					TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_female)
 				end
 			end)
+		elseif data.current.value == 'put_stock' then
+			OpenPutStocksMenu()
+		elseif data.current.value == 'get_stock' then
+			OpenGetStocksMenu()
 		end
 
 		menu.close()
@@ -1001,3 +1007,92 @@ AddEventHandler('esx_ambulancejob:OpenMobileAmbulanceActionsMenu', function()
 		OpenMobileAmbulanceActionsMenu()
 	end
 end)
+
+function OpenPutStocksMenu()
+	ESX.TriggerServerCallback('esx_ambulancejob:getPlayerInventory', function(inventory)
+		local elements = {}
+
+		for i=1, #inventory.items, 1 do
+			local item = inventory.items[i]
+
+			if item.count > 0 then
+				table.insert(elements, {
+					label = item.label .. ' x' .. item.count,
+					type  = 'item_standard',
+					value = item.name
+				})
+			end
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stocks_menu', {
+			title    = _U('inventory'),
+			align    = 'top-left',
+			elements = elements
+		}, function(data, menu)
+			local itemName = data.current.value
+
+			ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'stocks_menu_put_item_count', {
+				title = _U('quantity')
+			}, function(data2, menu2)
+				local count = tonumber(data2.value)
+
+				if count == nil then
+					ESX.ShowNotification(_U('invalid_quantity'))
+				else
+					menu2.close()
+					menu.close()
+					TriggerServerEvent('esx_ambulancejob:putStockItems', itemName, count)
+
+					Citizen.Wait(1000)
+					OpenPutStocksMenu()
+				end
+			end, function(data2, menu2)
+				menu2.close()
+			end)
+		end, function(data, menu)
+			menu.close()
+		end)
+	end)
+end
+
+function OpenGetStocksMenu()
+	ESX.TriggerServerCallback('esx_ambulancejob:getStockItems', function(items)
+		local elements = {}
+
+		for i=1, #items, 1 do
+			table.insert(elements, {
+				label = 'x' .. items[i].count .. ' ' .. items[i].label,
+				value = items[i].name
+			})
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stocks_menu', {
+			title    = _U('ambulance_stock'),
+			align    = 'top-left',
+			elements = elements
+		}, function(data, menu)
+			local itemName = data.current.value
+
+			ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'stocks_menu_get_item_count', {
+				title = _U('quantity')
+			}, function(data2, menu2)
+				local count = tonumber(data2.value)
+
+				if count == nil then
+					ESX.ShowNotification(_U('invalid_quantity'))
+				else
+					menu2.close()
+					menu.close()
+					TriggerServerEvent('esx_ambulancejob:getStockItem', itemName, count)
+
+					Citizen.Wait(1000)
+					OpenGetStocksMenu()
+				end
+			end, function(data2, menu2)
+				menu2.close()
+			end)
+		end, function(data, menu)
+			menu.close()
+		end)
+	end)
+end
