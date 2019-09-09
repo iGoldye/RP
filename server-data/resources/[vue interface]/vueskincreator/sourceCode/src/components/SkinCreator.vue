@@ -19,99 +19,18 @@
                 img.parent-img(:src='mother.img')
             .tab__group
               h3.tab__group-header Генетика Отец / Мать
+              .range__wrapper
+                input(type='range', min='0', max='16', value='8', class='range')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button')
+                  input(type='button', value='>', class='range--arrows__button')
 
 
 
 </template>
 
 <style lang="scss" scoped>
-.skincreator {
-  &__wrapper {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-  }
-
-  &__outer {
-    position: absolute;
-    right: 10%;
-    top: 15%;
-    width: 100%;
-    max-width: 420px;
-  }
-}
-
-.tab {
-  &__wrapper {
-    display: flex;
-    border-radius: 4px 4px 0px 0px;
-    background-color: #2e3033;
-    overflow: hidden;
-  }
-
-  &__link {
-    width: calc(100% / 3);
-    height: 65px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    color: rgba(255, 255, 255, 0.9);
-
-    &.active {
-      background: #f5a417;
-    }
-  }
-
-  &__content {
-    padding: 20px;
-
-    &-wrapper {
-      width: 100%;
-      height: 100%;
-      max-height: 550px;
-      overflow-y: auto;
-      flex: 1 0 100%;
-      background: rgba(46, 48, 51, 0.85);
-
-      &::-webkit-scrollbar {
-        width: 0px;
-        background: transparent;
-      }
-    }
-  }
-}
-
-.parent {
-  &__group {
-    position: relative;
-    width: calc(100% / 8);
-  }
-
-  &-input {
-    width: 0px;
-    height: 0px;
-    opacity: 0;
-    margin: 0;
-    padding: 0;
-    border: none;
-    position: absolute;
-
-    &:checked {
-      ~ .parent-img {
-        border: 1px solid #fff;
-      }
-    }
-  }
-
-  &-img {
-    border: 1px solid transparent;
-    width: 100%;
-    height: 100%;
-  }
-}
+@import "../scss/style";
 </style>
 
 <script>
