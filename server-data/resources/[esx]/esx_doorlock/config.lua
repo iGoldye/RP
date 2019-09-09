@@ -249,7 +249,7 @@ Config.DoorList = {
 		authorizedJobs = { 'police' },
 		locked = true
 	},
-	-- Cell 7 
+	-- Cell 7
 	{
 		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
@@ -284,7 +284,7 @@ Config.DoorList = {
 	-- 	locked = true
 	-- },
 	-- Balk
-	
+
 
 	--
 	-- Mission Row Back
@@ -380,8 +380,26 @@ Config.DoorList = {
 			}
 		}
 	},
+-- BANKS
 
 	--
+	{
+		objName = 'hei_v_ilev_bk_gate2_pris',
+		objYaw = 250.0,
+		objCoords  = vector3(262.0, 221.91, 106.2),
+		textCoords = vector3(261.9, 221.94, 106.2),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_cbankvaulgate01',
+		objYaw = 50.0,
+		objCoords  = vector3(-104.92, 6473.58, 31.63),
+		textCoords = vector3(-105.25, 6472.83, 31.63),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
 	-- Bolingbroke Penitentiary
 	--
 
