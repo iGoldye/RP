@@ -51,7 +51,12 @@ function OpenPetMenu()
 
 		table.insert(elements, {label = _U('hunger', status), value = nil})
 		table.insert(elements, {label = _U('givefood'), value = 'graille'})
-		table.insert(elements, {label = _U('attachpet'), value = 'attached_animal'})
+
+		if isAttached then
+			table.insert(elements, {label = _U('detachpet'), value = 'attached_animal'})
+		else
+			table.insert(elements, {label = _U('attachpet'), value = 'attached_animal'})
+		end
 
 		if isInVehicle then
 			table.insert(elements, {label = _U('getpeddown'), value = 'vehicle'})
@@ -131,9 +136,11 @@ function OpenPetMenu()
 				if isAttached == false then
 					attached()
 					isAttached = true
+					ESX.UI.Menu.CloseAll()
 				else
 					detached()
 					isAttached = false
+					ESX.UI.Menu.CloseAll()
 				end
 				else
 				ESX.ShowNotification(_U('dontattachhiminacar'))

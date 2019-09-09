@@ -69,6 +69,7 @@ Locales['en'] = {
   ['citizen_interaction'] = 'Действия с гражданскими',
   ['vehicle_interaction'] = 'Действия с транспортом',
   ['object_spawner'] = 'Установить объект',
+  ['remove_npcs'] = 'Убрать тела',
 
   ['id_card'] = 'ID карта',
   ['search'] = 'Обыскать',

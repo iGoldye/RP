@@ -611,7 +611,8 @@ function OpenPoliceActionsMenu()
 	local topElements = {
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
-			{label = _U('object_spawner'), value = 'object_spawner'}
+			{label = _U('object_spawner'), value = 'object_spawner'},
+			{label = _U('remove_npcs'), value = 'remove_npcs'},
 	}
 
 	if IsPedSittingInAnyVehicle(PlayerPedId()) then
@@ -806,6 +807,8 @@ function OpenPoliceActionsMenu()
 			end, function(data2, menu2)
 				menu2.close()
 			end)
+		elseif data.current.value == 'remove_npcs' then
+			TriggerEvent('esx_ambulancejob:removedeadnpcs')
 		end
 	end, function(data, menu)
 		menu.close()

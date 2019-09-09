@@ -48,6 +48,14 @@ Locales['en'] = {
   ['player_not_conscious'] = 'Этот человек не в сознании!',
   -- Boss Menu
   ['boss_actions'] = 'Компьютер Главврача',
+  ['ambulance_stock'] = 'Склад больницы',
+  ['deposit_stock']   = 'Положить на склад',
+  ['withdraw_stock']  = 'Открыть склад',
+  ['have_withdrawn']  = 'Вы забрали ~y~x%s~s~ ~b~%s~s~',
+  ['have_deposited']  = 'Вы положили ~y~x%s~s~ ~b~%s~s~',
+  ['quantity']        = 'Количество',
+  ['invalid_quantity'] = 'Неверное количество',
+  ['inventory']        = 'Склад',
   -- Misc
   ['invalid_amount'] = '~r~Недопустимая сумма',
   ['actions_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы получить доступ к ~y~шкафчику~s~.',
@@ -71,6 +79,8 @@ Locales['en'] = {
   ['ems_menu_putincar'] = 'Погрузить в машину',
   ['ems_menu_small'] = 'Оказать первую помощь',
   ['ems_menu_big'] = 'Вылечить серьезные травмы',
+  ['ems_menu_removenpcs'] = 'Убрать тела',
+  ['ems_menu_alcotest'] = 'Определить уровень опьянения',
   -- Phone
   ['alert_ambulance'] = 'Вызвать Скорую помощь',
   -- Death

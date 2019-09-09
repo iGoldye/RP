@@ -65,6 +65,12 @@ Citizen.CreateThread(function()
 
 			ESX.TriggerServerCallback('esx_locksystem:haveKeys', function(res)
 				if res == true then
+					local dict = "anim@mp_player_intmenu@key_fob@"
+					RequestAnimDict(dict)
+					while not HasAnimDictLoaded(dict) do
+					    Citizen.Wait(100)
+					end
+					TaskPlayAnim(GetPlayerPed(-1), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
 					carLock(vehicle, plate)
 				else
 			            TriggerEvent('esx:showNotification', "У вас нет ключей от этой машины")

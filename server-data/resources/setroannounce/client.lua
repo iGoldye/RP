@@ -18,7 +18,7 @@ function Initialize(scaleform)
     while not HasScaleformMovieLoaded(scaleform) do
         Citizen.Wait(0)
     end
-    PushScaleformMovieFunction(scaleform, "SHOW_SHARD_WASTED_MP_MESSAGE")
+    PushScaleformMovieFunction(scaleform, "SHOW_SHARD_CENTERED_TOP_MP_MESSAGE")
 	PushScaleformMovieFunctionParameterString("~y~Внимание")
     PushScaleformMovieFunctionParameterString(announcestring)
     PopScaleformMovieFunctionVoid()

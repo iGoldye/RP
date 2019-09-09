@@ -484,9 +484,36 @@ Config.DoorList = {
 		authorizedJobs = { 'unicorn' },
 		locked = true
 	},
+-- LS CUSTOMS
+	{
+		objName = 'prop_com_ls_door_01',
+		objYaw = -110.0,
 
+		forceCoords = vector3(-356.09829711914,-134.76858520508,40.047782897949),
+		forceRot = vector3(0, 0, -110),
 
+		objCoords  = vector3(-355.02698, -135.1586, 41.99147),
+		textCoords = vector3(-355.02698, -135.1586, 39),
+		authorizedJobs = { 'mechanic' },
+		locked = false,
+		distance = 5,
+		size = 1,
+	},
+-- Benny's
+	{
+		objName = 'lr_prop_supermod_door_01',
+		objYaw = 0.0,
 
+		forceCoords = vector3(-205.68283081055,-1310.6826171875,30.297708511353),
+		forceRot = vector3(0, 0, 0),
+
+		objCoords  = vector3(-205.68283081055,-1310.6826171875,34.997708511353),
+		textCoords = vector3(-205.68283081055,-1310.6826171875,32.297708511353),
+		authorizedJobs = { 'mechanic-bennys' },
+		locked = false,
+		distance = 5,
+		size = 1,
+	},
 --
 
 	--
