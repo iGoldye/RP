@@ -94,7 +94,7 @@ function OpenAdminMenuPlayers()
 	ESX.TriggerServerCallback('esx_playermenu:adminGetPlayers', function(players)
 		local elements = {}
 		for k,v in pairs(players) do
-			table.insert(elements, {label = v.name, value = v})
+			table.insert(elements, {label = tostring(v.id)..". "..v.name, value = v})
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_players', {
