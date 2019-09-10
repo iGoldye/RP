@@ -1,0 +1,211 @@
+.skincreator {
+  &__wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  &__outer {
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+.tab {
+  &__wrapper {
+    display: flex;
+    border-radius: 4px 4px 0px 0px;
+    background-color: #2e3033;
+    overflow: hidden;
+  }
+
+  &__link {
+    width: calc(100% / 3);
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(255, 255, 255, 0.9);
+
+    &.active {
+      background: #f5a417;
+    }
+  }
+
+  &__content {
+    padding: 20px;
+
+    &-wrapper {
+      width: 100%;
+      height: 100%;
+      max-height: 550px;
+      overflow-y: auto;
+      flex: 1 0 100%;
+      background: rgba(46, 48, 51, 0.85);
+
+      &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+    }
+  }
+}
+
+.parent {
+  &__group {
+    position: relative;
+    width: calc(100% / 8);
+  }
+
+  &-input {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: absolute;
+
+    &:checked {
+      ~.parent-img {
+        border: 1px solid #fff;
+      }
+    }
+  }
+
+  &-img {
+    border: 1px solid transparent;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.range {
+  -webkit-appearance: none;
+  width: 75%;
+
+  &:focus {
+    outline: none;
+
+    &::-webkit-slider-runnable-track {
+      background: rgba(115, 115, 115, 0.44);
+    }
+
+    &::-ms-fill-lower {
+      background: rgba(102, 102, 102, 0.44);
+    }
+
+    &::-ms-fill-upper {
+      background: rgba(115, 115, 115, 0.44);
+    }
+
+    &::-moz-range-track {
+      width: 100%;
+      height: 2.3px;
+      cursor: pointer;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(13, 13, 13, 0.04);
+      background: rgba(102, 102, 102, 0.44);
+      border-radius: 25px;
+      border: 0px solid rgba(0, 1, 1, 0);
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2.3px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(13, 13, 13, 0.04);
+    background: rgba(102, 102, 102, 0.44);
+    border-radius: 25px;
+    border: 0px solid rgba(0, 1, 1, 0);
+  }
+
+  &::-webkit-slider-thumb {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    border: 0px solid #000000;
+    height: 16px;
+    width: 16px;
+    border-radius: 50px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6.85px;
+  }
+
+  &::-moz-range-thumb {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    border: 0px solid #000000;
+    height: 16px;
+    width: 16px;
+    border-radius: 50px;
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  &::-ms-track {
+    width: 100%;
+    height: 2.3px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  &::-ms-fill-lower {
+    background: rgba(89, 89, 89, 0.44);
+    border: 0px solid rgba(0, 1, 1, 0);
+    border-radius: 50px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(13, 13, 13, 0.04);
+  }
+
+  &::-ms-fill-upper {
+    background: rgba(102, 102, 102, 0.44);
+    border: 0px solid rgba(0, 1, 1, 0);
+    border-radius: 50px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(13, 13, 13, 0.04);
+  }
+
+  &::-ms-thumb {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    border: 0px solid #000000;
+    height: 16px;
+    width: 16px;
+    border-radius: 50px;
+    background: #ffffff;
+    cursor: pointer;
+    height: 2.3px;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 25px;
+    border-radius: 35px;
+    background: rgba(33, 37, 41, 0.3);
+  }
+
+  &--arrows {
+    display: flex;
+    align-items: center;
+    width: 60px;
+    margin-right: 0;
+    margin-left: auto;
+    background: #2E3033;
+    border-radius: 4px;
+    overflow: hidden;
+
+    &__button {
+      flex: 1 0 50%;
+      background: transparent;
+      border: none;
+      color: #fff;
+    }
+  }
+}
