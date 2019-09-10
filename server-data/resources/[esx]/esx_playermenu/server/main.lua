@@ -26,3 +26,45 @@ AddEventHandler('onResourceStart', function(resource)
 		end)
 	end
 end)
+
+
+ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb)
+    xPlayer = ESX.GetPlayerFromId(source)
+    if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
+        return
+    end
+
+    local xPlayers = ESX.GetPlayers()
+    local arr = {}
+    for i=1, #xPlayers, 1 do
+        local pl = ESX.GetPlayerFromId(xPlayers[i])
+        table.insert(arr, {
+            ["name"] = pl.name,
+            ["identifier"] = pl.identifier,
+	    ["money"] = pl.getMoney(),
+        })
+    end
+
+    cb(arr)
+end)
+
+ESX.RegisterServerCallback('esx_playermenu:adminMoney', function(source, cb, identifier, act, val)
+    xPlayer = ESX.GetPlayerFromId(source)
+    if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
+        return
+    end
+    local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
+    if act == "set" then
+	xPlayer.setMoney(val)
+	cb(true)
+    elseif act == "add" then
+	xPlayer.addMoney(val)
+	cb(true)
+    elseif act == "remove" then
+	xPlayer.removeMoney(val)
+	cb(true)
+    else
+	cb(false)
+    end
+
+end)
