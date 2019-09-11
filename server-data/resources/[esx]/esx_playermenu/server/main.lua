@@ -39,7 +39,7 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
     for i=1, #xPlayers, 1 do
         local pl = ESX.GetPlayerFromId(xPlayers[i])
         table.insert(arr, {
-            ["id"] = i,
+            ["id"] = pl.source,
             ["name"] = pl.name,
             ["identifier"] = pl.identifier,
 	    ["money"] = pl.getMoney(),
