@@ -1,3 +1,14 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span {
+  font-family: 'font';
+}
+
 .skincreator {
   &__wrapper {
     width: 100vw;
@@ -53,6 +64,16 @@
         width: 0px;
         background: transparent;
       }
+    }
+  }
+
+  &__header {
+    color: #fff;
+  }
+
+  &__group {
+    &-header {
+      color: #fff;
     }
   }
 }
