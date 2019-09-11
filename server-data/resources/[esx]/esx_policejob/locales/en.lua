@@ -70,6 +70,7 @@ Locales['en'] = {
   ['vehicle_interaction'] = 'Действия с транспортом',
   ['object_spawner'] = 'Установить объект',
   ['remove_npcs'] = 'Убрать тела',
+  ['billing'] = 'Выписать штраф',
 
   ['id_card'] = 'ID карта',
   ['search'] = 'Обыскать',

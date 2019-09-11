@@ -1,4 +1,5 @@
 ESX = nil
+local FuelInfo = {}
 
 if Config.UseESX then
 	TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -12,4 +13,22 @@ if Config.UseESX then
 			xPlayer.removeMoney(amount)
 		end
 	end)
+
+ESX.RegisterServerCallback('legacyfuel:getFuel', function(source, cb, plate)
+--	local xPlayer = ESX.GetPlayerFromId(source)
+	if FuelInfo[plate] == nil then
+		FuelInfo[plate] = math.random(200, 800) / 10
+	end
+
+--	print("getFuel "..tostring(FuelInfo[plate]))
+	cb(FuelInfo[plate])
+end)
+
+RegisterServerEvent('legacyfuel:setFuel')
+AddEventHandler('legacyfuel:setFuel', function(plate, amount)
+--	print("setFuel "..tostring(amount))
+	FuelInfo[plate] = amount
+end)
+
+
 end

@@ -299,6 +299,12 @@ Citizen.CreateThread(function()
                                     robbing = false
                                     scared = false
                                 end
+                            elseif canRob == 'you_are_cop' then
+                                local wait = GetGameTimer()+5000
+                                while wait >= GetGameTimer() do
+                                    Wait(0)
+                                    DrawText3D(GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 1.5, 0.4), Translation[Config.Locale]['you_are_cop'])
+                                end
                             elseif canRob == 'no_cops' then
                                 local wait = GetGameTimer()+5000
                                 while wait >= GetGameTimer() do

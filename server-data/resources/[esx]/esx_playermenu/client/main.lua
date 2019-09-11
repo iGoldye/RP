@@ -11,6 +11,7 @@ Keys = {
 }
 
 ESX = nil
+isAdmin = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -28,6 +29,173 @@ Citizen.CreateThread(function()
 			end
 	end
 end)
+
+RegisterNetEvent('esx_playermenu:setAdmin')
+AddEventHandler('esx_playermenu:setAdmin', function(val)
+	isAdmin = val
+end)
+
+function OpenTextInput(title, defaultText, maxInputLength)
+
+	if title == nil then
+		title = "FMMC_KEY_TIP8"
+	else
+		AddTextEntry('FT_TEXT', title)
+		title = "FT_TEXT"
+        end
+
+	DisplayOnscreenKeyboard(true, title, "", defaultText, "", "", "", maxInputLength)
+
+	while UpdateOnscreenKeyboard() == 0 do
+		DisableAllControlActions(0)
+		Citizen.Wait(10)
+	end
+
+	local result = GetOnscreenKeyboardResult()
+	if result then
+		return result
+	else
+		return nil
+	end
+
+end
+
+
+function OpenAdminMenu()
+	local elements = {}
+
+	table.insert(elements, {label = 'Игроки', value = 'players'})
+	table.insert(elements, {label = 'Транспорт', value = 'transport'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu', {
+		title    = "Администрирование",
+		align    = 'top-right',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+		menu.close()
+
+		if cmd == "players" then
+			OpenAdminMenuPlayers()
+		end
+
+
+		if cmd == "transport" then
+			OpenAdminMenuVehicle()
+		end
+
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
+function OpenAdminMenuPlayers()
+
+	ESX.TriggerServerCallback('esx_playermenu:adminGetPlayers', function(players)
+		local elements = {}
+		for k,v in pairs(players) do
+			table.insert(elements, {label = tostring(v.id)..". "..v.name, value = v})
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_players', {
+			title    = "Администрирование: Игроки",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+
+			OpenAdminMenuPlayer(cmd)
+
+		end, function(data, menu)
+			menu.close()
+		end)
+	end)
+end
+
+function OpenAdminMenuPlayer(player)
+		local elements = {}
+		table.insert(elements, {label = "Наличка: $"..tostring(player.money), value = "cash"})
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
+			title    = "Администрирование: Игроки",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+			if cmd == "cash" then
+				OpenAdminMenuPlayerMoney(player, "cash")
+			end
+
+		end, function(data, menu)
+			menu.close()
+		end)
+end
+
+function OpenAdminMenuPlayerMoney(player, moneytype)
+		local elements = {}
+		table.insert(elements, {label = "Добавить", value = "add"})
+		table.insert(elements, {label = "Установить", value = "set"})
+		table.insert(elements, {label = "Забрать", value = "remove"})
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
+			title    = "Администрирование: Деньги игрока",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+
+			local amount = OpenTextInput("Введите количество денег", "", 60)
+			if tonumber(amount) ~= nil then
+				ESX.TriggerServerCallback('esx_playermenu:adminMoney', function(res) end, player.identifier, cmd, tonumber(amount))
+			end
+
+		end, function(data, menu)
+			menu.close()
+		end)
+end
+
+
+function OpenAdminMenuVehicle()
+	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+	local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+	if vehicle == 0 then
+		return
+	end
+
+	local elements = {}
+	table.insert(elements, {label = 'Починить', value = 'repair'})
+	table.insert(elements, {label = 'Установить количество горючего', value = 'setfuel'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_vehicle', {
+		title    = "Администрирование: Транспорт",
+		align    = 'top-right',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+		menu.close()
+
+		if cmd == "repair" then
+			SetVehicleFixed(vehicle)
+			SetVehicleDeformationFixed(vehicle)
+			SetVehicleUndriveable(vehicle, false)
+			SetVehicleEngineOn(vehicle, true, true)
+		elseif cmd == "setfuel" then
+			local amount = OpenTextInput("Введите количество горючего", "", 6)
+			if tonumber(amount) ~= nil then
+				amount = tonumber(amount)*1.0
+				TriggerServerEvent('legacyfuel:setFuel', plate, amount)
+				SetVehicleFuelLevel(vehicle, amount)
+			end
+		end
+
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
 
 function OpenVehicleMenu()
 	local vehicle  = GetVehiclePedIsIn(PlayerPedId(), false)
@@ -234,6 +402,10 @@ function OpenMenu()
 		table.insert(elements, {label = "Транспорт", value = 'vehicle'})
 	end
 
+	if isAdmin == true then
+		table.insert(elements, {label = "Действия администрации", value = 'admin-actions'})
+	end
+
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'global-menu',
 	{
 		title = "Меню игрока",
@@ -281,6 +453,8 @@ function OpenMenu()
 			TriggerEvent('esx_unicornjob:OpenSocietyActionsMenu')
 		elseif cmd == 'reporter-actions'then
 			OpenReporterMenu()
+		elseif cmd == 'admin-actions'then
+			OpenAdminMenu()
 		elseif cmd == 'personal' then
 			-- TriggerServerEvent('jsfour-idcard:open', GetPlayerServerId(PlayerId()), GetPlayerServerId(PlayerId()))
 			OpenPersonalMenu()
