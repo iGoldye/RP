@@ -612,7 +612,7 @@ function OpenPoliceActionsMenu()
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
 			{label = _U('object_spawner'), value = 'object_spawner'},
-			{label = _U('medic'), value = 'medic'},
+			{label = _U('revive'), value = 'revive'},
 			{label = _U('remove_npcs'), value = 'remove_npcs'},
 	}
 
@@ -810,6 +810,11 @@ function OpenPoliceActionsMenu()
 			end)
 		elseif data.current.value == 'remove_npcs' then
 			TriggerEvent('esx_ambulancejob:removedeadnpcs')
+		elseif data.current.value == 'revive' then
+			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+			if closestPlayer > 0 and closestDistance < 1.5 then
+				TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
+			end
 		end
 	end, function(data, menu)
 		menu.close()
