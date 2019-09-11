@@ -26,11 +26,32 @@ span {
 }
 
 .tab {
+
+  &__header {
+    margin-top: 5px;
+    margin-bottom: 16px;
+  }
+
   &__wrapper {
     display: flex;
     border-radius: 4px 4px 0px 0px;
     background-color: #2e3033;
     overflow: hidden;
+  }
+
+  &__group {
+    margin-bottom: 16px;
+
+    &-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-legend {
+      color: #fff;
+      margin-right: 5px;
+    }
   }
 
   &__link {
@@ -228,5 +249,39 @@ span {
       border: none;
       color: #fff;
     }
+  }
+}
+
+.radio {
+  opacity: 0;
+  border: 0;
+  z-index: -1;
+  position: absolute;
+
+  &:checked {
+    ~.radio__color {
+      border-color: #fff
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__outer {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px
+  }
+
+  &__color {
+    border: 2px solid transparent;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
   }
 }

@@ -20,16 +20,69 @@
             .tab__group
               h3.tab__group-header Генетика Отец / Мать
               .range__wrapper
-                input(type='range', min='0', max='16', value='8', class='range')
+                input(type='range', :min='genetics.min', :max='genetics.max', :value='genetics.value' step='1', class='range')
                 .range--arrows
                   input(type='button', value='<', class='range--arrows__button')
                   input(type='button', value='>', class='range--arrows__button')
+            .tab__group
+              h3.tab__group-header Цвет глаз
+              .radio__wrapper
+                label.radio__outer(v-for="color in eyeColors", :for="'eye'+color.id")
+                  input(type='radio', name='eyecolor', class='radio', :checked='color.checked', :value='color.value', :id="'eye'+color.id")
+                  span.radio__color(:data-color='color.color')
+            h2.tab__header Кожа
+            .tab__group
+              h3.tab__group-header Цвет кожи
+              .radio__wrapper
+                label.radio__outer(v-for="color in skinColors", :for="'skin'+color.id")
+                  input(type='radio', name='skincolor', class='radio', :checked='color.checked', :value='color.value', :id="'skin'+color.id")
+                  span.radio__color(:data-color='color.color')
+            .tab__group
+              .tab__group-head
+                h3.tab__group-header Угри
+                .tab__group-legend
+                  span.tab__group-legend-current {{ acne.value }}
+                  | /
+                  span.tab__group-legend-total {{ acne.max }}
+              .range__wrapper
+                input(type='range', :min='acne.min', :max='acne.max', step='1', class='range', v-model='acne.value')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='decrease')
+                  input(type='button', value='>', class='range--arrows__button range--increase', @click='increase')
+            //- .tab__group
+            //-   h3.tab__group-header Проблемы кожи
+            //-   .range__wrapper
+            //-     input(type='range', :min='skinProblems.min', :max='skinProblems.max', :value='skinProblems.value' step='1', class='range')
+            //-     .range--arrows
+            //-       input(type='button', value='<', class='range--arrows__button')
+            //-       input(type='button', value='>', class='range--arrows__button')
+            //- .tab__group
+            //-   h3.tab__group-header Веснушки
+            //-   .range__wrapper
+            //-     input(type='range', :min='freckles.min', :max='freckles.max', :value='freckles.value' step='1', class='range')
+            //-     .range--arrows
+            //-       input(type='button', value='<', class='range--arrows__button')
+            //-       input(type='button', value='>', class='range--arrows__button')
+            //- .tab__group
+            //-   h3.tab__group-header Морщины
+            //-   .range__wrapper
+            //-     input(type='range', :min='wrinkles.min', :max='wrinkles.max', :value='wrinkles.value' step='1', class='range')
+            //-     .range--arrows
+            //-       input(type='button', value='<', class='range--arrows__button')
+            //-       input(type='button', value='>', class='range--arrows__button')
+            //- .tab__group
+            //-   h3.tab__group-header Глубина морщин
+            //-   .range__wrapper
+            //-     input(type='range', :min='wrinkles.min', :max='wrinkles.max', :value='wrinkles.value' step='1', class='range')
+            //-     .range--arrows
+            //-       input(type='button', value='<', class='range--arrows__button')
+            //-       input(type='button', value='>', class='range--arrows__button')
 
 
 
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../scss/style";
 </style>
 
@@ -303,8 +356,146 @@ export default {
           img: "./assets/img/heritage/Face-45.jpg",
           isChecked: false
         }
-      ]
+      ],
+      genetics: {
+        value: 5,
+        min: 0,
+        max: 10
+      },
+      eyeColors: [
+        {
+          value: 0,
+          id: 1,
+          color: "#525e37",
+          checked: true
+        },
+        {
+          value: 1,
+          id: 2,
+          color: "#263419",
+          checked: false
+        },
+        {
+          value: 2,
+          id: 3,
+          color: "#83b7d5",
+          checked: false
+        },
+        {
+          value: 3,
+          id: 4,
+          color: "#3e66a3",
+          checked: false
+        },
+        {
+          value: 4,
+          id: 5,
+          color: "#8d6833",
+          checked: false
+        },
+        {
+          value: 5,
+          id: 6,
+          color: "#523711",
+          checked: false
+        },
+        {
+          value: 6,
+          id: 7,
+          color: "#d08418",
+          checked: false
+        },
+        {
+          value: 8,
+          id: 9,
+          color: "#bebebe",
+          checked: false
+        },
+        {
+          value: 12,
+          id: 13,
+          color: "#0d0d0c",
+          checked: false
+        }
+      ],
+      skinColors: [
+        {
+          value: 12,
+          id: 1,
+          color: "#ecc8ae",
+          checked: true
+        },
+        {
+          value: 25,
+          id: 2,
+          color: "#ce9874",
+          checked: false
+        },
+        {
+          value: 19,
+          id: 3,
+          color: "#925a41",
+          checked: false
+        },
+        {
+          value: 14,
+          id: 4,
+          color: "#4e3a26",
+          checked: false
+        }
+      ],
+      acne: {
+        value: 0,
+        min: 0,
+        max: 23
+      },
+      skinProblems: {
+        value: 0,
+        min: 0,
+        max: 23
+      },
+      freckles: {
+        value: 0,
+        min: 0,
+        max: 17
+      },
+      wrinkles: {
+        value: 0,
+        min: 0,
+        max: 14
+      },
+      wrinklesDepth: {
+        value: 0,
+        min: 0,
+        max: 10
+      }
     };
+  },
+  mounted() {
+    let spans = document.querySelectorAll(".radio__color");
+    spans.forEach(item => {
+      let color = item.dataset.color;
+      item.style.backgroundColor = color;
+    });
+  },
+  methods: {
+    increase() {
+      event.preventDefault();
+      let input = event.target.parentElement.parentElement.children[0];
+
+      let max = input.getAttribute("max");
+      let min = input.getAttribute("min");
+      let value = parseInt(input.value);
+      input.value = value + 1;
+    },
+    decrease() {
+      event.preventDefault();
+      let input = event.target.parentElement.parentElement.children[0];
+      let max = input.getAttribute("max");
+      let min = input.getAttribute("min");
+      let value = parseInt(input.value);
+      input.value = value - 1;
+    }
   }
 };
 </script>
