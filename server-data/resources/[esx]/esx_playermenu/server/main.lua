@@ -50,22 +50,11 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
 end)
 
 ESX.RegisterServerCallback('esx_playermenu:adminMoney', function(source, cb, identifier, act, val)
-    xPlayer = ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
     if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
         return
     end
-    local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
-    if act == "set" then
-	xPlayer.setMoney(val)
-	cb(true)
-    elseif act == "add" then
-	xPlayer.addMoney(val)
-	cb(true)
-    elseif act == "remove" then
-	xPlayer.removeMoney(val)
-	cb(true)
-    else
-	cb(false)
-    end
-
+    xTarget = ESX.GetPlayerFromIdentifier(identifier)
+    TriggerEvent('admin_commands:setmoney', xPlayer.source, xTarget.source, "cash", act, val)
+    cb()
 end)
