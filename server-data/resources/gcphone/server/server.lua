@@ -275,7 +275,13 @@ RegisterServerEvent('gcPhone:sendMessage')
 AddEventHandler('gcPhone:sendMessage', function(phoneNumber, message)
     local sourcePlayer = tonumber(source)
     local identifier = getPlayerID(source)
-    addMessage(sourcePlayer, identifier, phoneNumber, message)
+
+    if #message > 0 and message:sub(1,1) == '#' then
+        addFakeMessage("#####", phoneNumber, message:sub(2))
+    else
+        addMessage(sourcePlayer, identifier, phoneNumber, message)
+    end
+
 end)
 
 RegisterServerEvent('gcPhone:deleteMessage')
