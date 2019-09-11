@@ -612,6 +612,7 @@ function OpenPoliceActionsMenu()
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
 			{label = _U('object_spawner'), value = 'object_spawner'},
+			{label = _U('medic'), value = 'medic'},
 			{label = _U('remove_npcs'), value = 'remove_npcs'},
 	}
 
@@ -1035,24 +1036,6 @@ function OpenFineCategoryMenu(player, category)
 	end)
 end
 
-ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
-	title = _U('invoice_amount')
-}, function(data, menu)
-
-	local amount = tonumber(data.value)
-	if amount == nil then
-		ESX.ShowNotification(_U('amount_invalid'))
-	else
-		menu.close()
-		if closestDistance < 3.0 then
-			TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_police', 'Police', amount)
-			ESX.ShowNotification(_U('billing_sent'))
-		end
-	end
-
-end, function(data, menu)
-	menu.close()
-end)
 
 function LookupVehicle()
 	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'lookup_vehicle',
