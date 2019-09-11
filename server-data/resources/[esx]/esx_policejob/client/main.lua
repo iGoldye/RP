@@ -1036,7 +1036,6 @@ function OpenFineCategoryMenu(player, category)
 	end)
 end
 
-
 function LookupVehicle()
 	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'lookup_vehicle',
 	{

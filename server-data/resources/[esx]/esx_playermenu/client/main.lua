@@ -64,6 +64,7 @@ end
 function OpenAdminMenu()
 	local elements = {}
 
+	table.insert(elements, {label = 'Игроки', value = 'players'})
 	table.insert(elements, {label = 'Транспорт', value = 'transport'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu', {
@@ -74,6 +75,11 @@ function OpenAdminMenu()
 		local cmd = data.current.value
 		menu.close()
 
+		if cmd == "players" then
+			OpenAdminMenuPlayers()
+		end
+
+
 		if cmd == "transport" then
 			OpenAdminMenuVehicle()
 		end
@@ -83,11 +89,84 @@ function OpenAdminMenu()
 	end)
 end
 
+function OpenAdminMenuPlayers()
+
+	ESX.TriggerServerCallback('esx_playermenu:adminGetPlayers', function(players)
+		local elements = {}
+		for k,v in pairs(players) do
+			table.insert(elements, {label = tostring(v.id)..". "..v.name, value = v})
+		end
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_players', {
+			title    = "Администрирование: Игроки",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+
+			OpenAdminMenuPlayer(cmd)
+
+		end, function(data, menu)
+			menu.close()
+		end)
+	end)
+end
+
+function OpenAdminMenuPlayer(player)
+		local elements = {}
+		table.insert(elements, {label = "Наличка: $"..tostring(player.money), value = "cash"})
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
+			title    = "Администрирование: Игроки",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+			if cmd == "cash" then
+				OpenAdminMenuPlayerMoney(player, "cash")
+			end
+
+		end, function(data, menu)
+			menu.close()
+		end)
+end
+
+function OpenAdminMenuPlayerMoney(player, moneytype)
+		local elements = {}
+		table.insert(elements, {label = "Добавить", value = "add"})
+		table.insert(elements, {label = "Установить", value = "set"})
+		table.insert(elements, {label = "Забрать", value = "remove"})
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
+			title    = "Администрирование: Деньги игрока",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+
+			local amount = OpenTextInput("Введите количество денег", "", 60)
+			if tonumber(amount) ~= nil then
+				ESX.TriggerServerCallback('esx_playermenu:adminMoney', function(res) end, player.identifier, cmd, tonumber(amount))
+			end
+
+		end, function(data, menu)
+			menu.close()
+		end)
+end
+
+
 function OpenAdminMenuVehicle()
 	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 	local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+	if vehicle == 0 then
+		return
+	end
 
 	local elements = {}
+	table.insert(elements, {label = 'Починить', value = 'repair'})
 	table.insert(elements, {label = 'Установить количество горючего', value = 'setfuel'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_vehicle', {
@@ -98,7 +177,12 @@ function OpenAdminMenuVehicle()
 		local cmd = data.current.value
 		menu.close()
 
-		if cmd == "setfuel" then
+		if cmd == "repair" then
+			SetVehicleFixed(vehicle)
+			SetVehicleDeformationFixed(vehicle)
+			SetVehicleUndriveable(vehicle, false)
+			SetVehicleEngineOn(vehicle, true, true)
+		elseif cmd == "setfuel" then
 			local amount = OpenTextInput("Введите количество горючего", "", 6)
 			if tonumber(amount) ~= nil then
 				amount = tonumber(amount)*1.0

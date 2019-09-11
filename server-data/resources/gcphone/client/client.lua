@@ -1,3 +1,12 @@
+ESX = nil
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 --====================================================================================
 -- #Author: Jonathan D @ Gannon
 --====================================================================================
@@ -722,20 +731,6 @@ RegisterNUICallback('setIgnoreFocus', function (data, cb)
   cb()
 end)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 RegisterNUICallback('takePhoto', function(data, cb)
 	CreateMobilePhone(1)
   CellCamActivate(true, true)
@@ -775,4 +770,12 @@ RegisterNUICallback('takePhoto', function(data, cb)
   end
   Citizen.Wait(1000)
   PhonePlayAnim('text', false, true)
+end)
+
+RegisterNUICallback('transferMoney', function (data, cb)
+  local number = ESX.UI.OpenTextInput("Введите номер телефона", "", 10)
+  local amount = tonumber(ESX.UI.OpenTextInput("Введите сумму для перевода", "", 10))
+
+  TriggerServerEvent('gcPhone:bankTransferMoney', number, amount)
+  cb()
 end)

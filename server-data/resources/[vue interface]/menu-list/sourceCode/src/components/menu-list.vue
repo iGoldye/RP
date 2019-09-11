@@ -64,7 +64,7 @@ export default {
           JSON.stringify({
             _namespace: this.namespace,
             _name: this.name,
-            current: this.mockData,
+            current: this.elements[document.activeElement.dataset.index],
             elements: this.elements
           })
         )

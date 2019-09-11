@@ -45,6 +45,10 @@ class PhoneAPI {
     return text
   }
 
+  async transferMoney () {
+    return this.post('transferMoney')
+  }
+
   // === Gestion des messages
   async sendMessage (phoneNumber, message) {
     return this.post('sendMessage', {phoneNumber, message})
