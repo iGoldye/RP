@@ -9,6 +9,7 @@ Locales['en'] = {
 	--Garage
 	['sort_vehicle']			= 'Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт',
 	['return_vehicle']			= 'Нажмите ~INPUT_PICKUP~ чтобы вернуть транспорт',
+        ['start_game_help'] =                   'Нажмите ~INPUT_FRONTEND_DELETE~ чтобы начать задание.',
 	['vehiclespawner']			= 'Выберите транспорт',
 
 	--Livraison
