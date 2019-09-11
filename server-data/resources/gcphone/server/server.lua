@@ -1,3 +1,6 @@
+ESX                = nil
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
 --====================================================================================
 -- #Author: Jonathan D @Gannon
 -- #Version 2.0
@@ -226,6 +229,18 @@ function addMessage(source, identifier, phone_number, message)
     end
     local memess = _internalAddMessage(phone_number, myPhone, message, 1)
     TriggerClientEvent("gcPhone:receiveMessage", sourcePlayer, memess)
+end
+
+function addFakeMessage(fake_number, to_number, message)
+    local otherIdentifier = getIdentifierByPhoneNumber(to_number)
+    if otherIdentifier ~= nil then
+        local tomess = _internalAddMessage(fake_number, to_number, message, 0)
+        getSourceFromIdentifier(otherIdentifier, function (osou)
+            if tonumber(osou) ~= nil then
+                TriggerClientEvent("gcPhone:receiveMessage", tonumber(osou), tomess)
+            end
+        end)
+    end
 end
 
 function setReadMessageNumber(identifier, num)
@@ -517,6 +532,34 @@ AddEventHandler('gcPhone:appelsDeleteAllHistorique', function ()
     local sourcePlayer = tonumber(source)
     local srcIdentifier = getPlayerID(source)
     appelsDeleteAllHistorique(srcIdentifier)
+end)
+
+RegisterServerEvent('gcPhone:bankTransferMoney')
+AddEventHandler('gcPhone:bankTransferMoney', function(target_phone_number, amount)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local otherIdentifier = getIdentifierByPhoneNumber(target_phone_number)
+
+    local source_phone_number = getNumberPhone(xPlayer.identifier)
+
+    if otherIdentifier == nil or xPlayer == nil then
+	TriggerClientEvent('esx:showNotification', xPlayer.source, "Абонент недоступен")
+        return
+    end
+
+    local xTarget = ESX.GetPlayerFromIdentifier(otherIdentifier)
+    if xTarget == nil then
+	TriggerClientEvent('esx:showNotification', xPlayer.source, "Абонент недоступен")
+        return
+    end
+
+    if amount > 0 and xPlayer.getBank() >= amount then
+	xPlayer.removeBank(amount)
+	xTarget.addBank(amount)
+	addFakeMessage("MAZEBANK", target_phone_number, "Вы получили перевод на сумму $"..tostring(amount).." от абонента "..source_phone_number)
+	addFakeMessage("MAZEBANK", source_phone_number, "Вы отправили перевод на сумму $"..tostring(amount).." абоненту "..target_phone_number)
+    else
+	TriggerClientEvent('esx:showNotification', xPlayer.source, "Недостаточно средств")
+    end
 end)
 
 
