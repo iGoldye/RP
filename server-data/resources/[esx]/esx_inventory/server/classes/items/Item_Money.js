@@ -14,7 +14,7 @@ class Item_Money extends Item_Abstract {
 		}
 
                 xPlayer.addMoney(this.amount);
-                TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.getLabel(), this.amount);
+                TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.label, this.amount);
                 return true;
 	}
 
@@ -26,14 +26,14 @@ class Item_Money extends Item_Abstract {
 
                 if (ESX.Round(xPlayer.getMoney() - this.amount, 2) >= 0) {
                     xPlayer.removeMoney(this.amount);
-                    TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.getLabel(), this.amount);
+                    TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.label, this.amount);
                     return true;
                 }
 
                 return false;
 	}
 
-	getLabel() {
+	get label() {
             return _U('cash');
 	}
 

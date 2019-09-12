@@ -20,7 +20,7 @@ class Item_EquippedWeapon extends Item_Abstract {
                 return false;
 	}
 
-	getLabel() {
+	get label() {
 		return this.config.label;
 	}
 

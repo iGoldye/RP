@@ -9,7 +9,7 @@ class Item_Weapon extends Item_Abstract {
 //		this.actions.push(new Action_EquipWeapon(this));
 	}
 
-	getLabel() {
+	get label() {
 		return this.config.label;
 	}
 

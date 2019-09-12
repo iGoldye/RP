@@ -6,7 +6,7 @@ class Item_CarKey extends Item_Abstract {
 		this.priority = 1;
 	}
 
-	getLabel() {
+	get label() {
 		return "Ключ от машины " + this.extra.plate;
  	}
 }

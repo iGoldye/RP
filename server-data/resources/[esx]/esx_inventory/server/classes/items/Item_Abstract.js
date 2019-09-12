@@ -49,7 +49,7 @@ class Item_Abstract {
 	serialize(inventory) {
 		var ser = {};
 		ser.name = this.name;
-		ser.label = this.getLabel();
+		ser.label = this.label;
 		ser.extra = this.extra;
 		ser.amount = this.amount;
 		ser.weight = this.weight;
@@ -82,7 +82,7 @@ class Item_Abstract {
 		return 'prop_money_bag_01'; 
 	}
 
-	getLabel() {
+	get label() {
 	        return _U(this.name);
 	}
 
@@ -102,7 +102,7 @@ class Item_Abstract {
 		}
 
 	        if (xPlayer != null) {
-	            TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.getLabel(), this.amount);
+	            TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.label, this.amount);
 	        }
 
 	        return true;
@@ -126,7 +126,7 @@ class Item_Abstract {
 		}
 
 		if (xPlayer != null) {
-	            TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.getLabel(), this.amount);
+	            TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.label, this.amount);
 	        }
 
 		return true;

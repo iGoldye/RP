@@ -47,7 +47,7 @@ class Item_ESX extends Item_Abstract {
                 return true;
 	}
 
-	getLabel() {
+	get label() {
 		return this.extra.label;
 	}
 

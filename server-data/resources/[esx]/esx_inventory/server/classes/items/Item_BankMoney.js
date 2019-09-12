@@ -14,7 +14,7 @@ class Item_BankMoney extends Item_Abstract {
 		}
 
         	xPlayer.addAccountMoney('bank', this.amount);
- 	       TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.getLabel(), this.amount);
+	       TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.label, this.amount);
 	        return true;
 	}
 
@@ -26,14 +26,14 @@ class Item_BankMoney extends Item_Abstract {
 
                 if (ESX.Round(xPlayer.getAccount('bank').money - this.amount, 2) >= 0) {
                     xPlayer.removeAccountMoney('bank', this.amount);
-                    TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.getLabel(), this.amount);
+                    TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.label, this.amount);
                     return true;
                 }
 
                 return false;
 	}
 
-	getLabel() {
+	get label() {
             return _U('bank');
 	}
 
