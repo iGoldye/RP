@@ -49,6 +49,33 @@
                 .range--arrows
                   input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
                   input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
+          .tab__outer(v-if="tab.name == 'hair'")
+            h2.tab__header {{ tab.header }}
+            .tab__group
+              h3.tab__group-header Цвет волос
+              .radio__wrapper
+                label.radio__outer(v-for="color in hairColors", :for="'hair'+color.id")
+                  input(type='radio', name='haircolor', class='radio', :checked='color.checked', :value='color.value', :id="'hair'+color.id")
+                  span.radio__color(:data-color='color.color')
+            .tab__group(v-for='item in hairGroupSliders')
+              .tab__group-head
+                h3.tab__group-header {{ item.header }}
+                .tab__group-legend
+                  span.tab__group-legend-current {{ item.value }}
+                  | /
+                  span.tab__group-legend-total {{ item.max }}
+              .range__wrapper
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
+            .tab__group
+              h3.tab__group-header Цвет бороды
+              .radio__wrapper
+                label.radio__outer(v-for="color in hairColors", :for="'hair'+color.id")
+                  input(type='radio', name='haircolor', class='radio', :checked='color.checked', :value='color.value', :id="'hair'+color.id")
+                  span.radio__color(:data-color='color.color')
+
 </template>
 
 <style lang="scss">
@@ -76,7 +103,7 @@ export default {
           link: "hair",
           activeClass: "is-active",
           isActive: false,
-          header: "Морфология"
+          header: "Волосы"
         },
         {
           name: "clothes",
@@ -218,7 +245,7 @@ export default {
         {
           value: 21,
           img: "./assets/img/heritage/Face-21.jpg",
-          isChecked: false
+          isChecked: true
         },
         {
           value: 22,
@@ -448,6 +475,197 @@ export default {
           value: 0,
           min: 0,
           max: 10
+        }
+      ],
+      hairColors: [
+        {
+          value: 0,
+          id: 1,
+          color: "#1D1D1A",
+          checked: true
+        },
+        {
+          value: 2,
+          id: 2,
+          color: "#4B392D",
+          checked: false
+        },
+        {
+          value: 4,
+          id: 3,
+          color: "#7A3B1F",
+          checked: false
+        },
+        {
+          value: 6,
+          id: 4,
+          color: "#A35631",
+          checked: false
+        },
+        {
+          value: 8,
+          id: 5,
+          color: "#A96F49",
+          checked: false
+        },
+        {
+          value: 10,
+          id: 6,
+          color: "#A96F49",
+          checked: false
+        },
+        {
+          value: 12,
+          id: 7,
+          color: "#CBA66F",
+          checked: false
+        },
+        {
+          value: 14,
+          id: 8,
+          color: "#E8BE78",
+          checked: false
+        },
+        {
+          value: 16,
+          id: 9,
+          color: "#D09E6A",
+          checked: false
+        },
+        {
+          value: 18,
+          id: 10,
+          color: "#993524",
+          checked: false
+        },
+        {
+          value: 20,
+          id: 11,
+          color: "#9C1611",
+          checked: false
+        },
+        {
+          value: 22,
+          id: 12,
+          color: "#D1381E",
+          checked: false
+        },
+        {
+          value: 24,
+          id: 13,
+          color: "#C85831",
+          checked: false
+        },
+        {
+          value: 26,
+          id: 14,
+          color: "#947A67",
+          checked: false
+        },
+        {
+          value: 28,
+          id: 15,
+          color: "#D8C1AC",
+          checked: false
+        },
+        {
+          value: 30,
+          id: 16,
+          color: "#734F61",
+          checked: false
+        },
+        {
+          value: 32,
+          id: 17,
+          color: "#AD476A",
+          checked: false
+        },
+        {
+          value: 35,
+          id: 18,
+          color: "#FFAEBC",
+          checked: false
+        },
+        {
+          value: 36,
+          id: 19,
+          color: "#089A8D",
+          checked: false
+        },
+        {
+          value: 40,
+          id: 20,
+          color: "#309060",
+          checked: false
+        },
+        {
+          value: 43,
+          id: 21,
+          color: "#A3C015",
+          checked: false
+        },
+        {
+          value: 45,
+          id: 22,
+          color: "#EEC85C",
+          checked: false
+        },
+        {
+          value: 48,
+          id: 23,
+          color: "#FE8B10",
+          checked: false
+        },
+        {
+          value: 53,
+          id: 24,
+          color: "#D40B0E",
+          checked: false
+        }
+      ],
+      hairGroupSliders: [
+        {
+          name: "hairstyle",
+          header: "Прическа",
+          value: 0,
+          min: 0,
+          max: 74
+        },
+        {
+          name: "eyebrowsShape",
+          header: "Форма бровей",
+          value: 0,
+          min: 0,
+          max: 34
+        },
+        {
+          name: "eyebrowsTickness",
+          header: "Толщина бровей",
+          value: 0,
+          min: 0,
+          max: 10
+        },
+        {
+          name: "beardType",
+          header: "Тип бороды",
+          value: 0,
+          min: 0,
+          max: 28
+        },
+        {
+          name: "beardTickness",
+          header: "Толщина бороды",
+          value: 0,
+          min: 0,
+          max: 10
+        }
+      ],
+      beardColors: [
+        {
+          value: 0,
+          id: 1,
+          color: "#1D1D1A",
+          checked: true
         }
       ]
     };

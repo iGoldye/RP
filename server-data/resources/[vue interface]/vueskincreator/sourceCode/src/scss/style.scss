@@ -67,11 +67,16 @@ span {
     &.active {
       background: #f5a417;
     }
+
+    &:hover {
+      color: #fff;
+      cursor: pointer;
+    }
   }
 
   &__content {
     display: none;
-    padding: 20px;
+    padding: 0 20px;
 
     &.active {
       display: block;
@@ -270,6 +275,7 @@ span {
 
   &__wrapper {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
   }
