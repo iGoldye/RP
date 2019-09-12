@@ -39,6 +39,11 @@ local soundDistanceMax = 8.0
 
 local TokoVoipID = nil
 
+RegisterNetEvent('gcPhone:isOpen')
+AddEventHandler('gcPhone:isOpen', function(cb)
+	cb(menuIsOpen)
+end)
+
 --====================================================================================
 --  Check si le joueurs poséde un téléphone
 --  Callback true or false
