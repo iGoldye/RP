@@ -8,8 +8,8 @@ class Item_BlackMoney extends Item_Abstract {
 
 	addItem(inventory) {
 		var xPlayer = inventory.getXPlayer();
-        if (!xPlayer) {
-			return false;
+	        if (!xPlayer) {
+			return super.addItem(inventory);
 		}
 
         xPlayer.addAccountMoney('black_money', this.amount);
@@ -20,7 +20,7 @@ class Item_BlackMoney extends Item_Abstract {
 	removeItem(inventory) {
 		var xPlayer = inventory.getXPlayer()
                 if (!xPlayer) {
-			return false;
+			return super.removeItem(inventory);
 		}
 
                 if (ESX.Round(xPlayer.getAccount('black_money').money - this.amount, 2) >= 0) {

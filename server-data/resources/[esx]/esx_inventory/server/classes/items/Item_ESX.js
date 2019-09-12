@@ -15,8 +15,9 @@ class Item_ESX extends Item_Abstract {
 	addItem(inventory) {
 		var xPlayer = inventory.getXPlayer();
 		if (xPlayer == null) {
-			return false;
+			return super.addItem(inventory);
 		}
+
 		if (this.extra == null) {
 			return false;
 		}
@@ -28,8 +29,9 @@ class Item_ESX extends Item_Abstract {
 	removeItem(inventory) {
 		var xPlayer = inventory.getXPlayer();
 		if (xPlayer == null) {
-			return false;
+			return super.removeItem(inventory);
 		}
+
 		if (this.extra == null) {
 			return false;
 		}

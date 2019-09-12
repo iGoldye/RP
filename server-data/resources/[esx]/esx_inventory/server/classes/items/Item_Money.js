@@ -10,7 +10,7 @@ class Item_Money extends Item_Abstract {
 	addItem(inventory) {
 		var xPlayer = inventory.getXPlayer();
                 if (!xPlayer) {
-			return false;
+			return super.addItem(inventory);
 		}
 
                 xPlayer.addMoney(this.amount);
@@ -21,7 +21,7 @@ class Item_Money extends Item_Abstract {
 	removeItem(inventory) {
 		var xPlayer = inventory.getXPlayer()
                 if (!xPlayer) {
-			return false;
+			return super.removeItem(inventory);
 		}
 
                 if (ESX.Round(xPlayer.getMoney() - this.amount, 2) >= 0) {
