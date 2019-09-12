@@ -24,9 +24,9 @@ ESX.RegisterServerCallback('esx_vehicle_inventory:getItemWeights', function(sour
 	cb(arrayWeight)
 end)
 
-RegisterServerEvent('esx_truck_inventory:getOwnedVehicule')
-AddEventHandler('esx_truck_inventory:getOwnedVehicule', function()
-  local vehicules = {}
+RegisterServerEvent('esx_truck_inventory:getOwnedVehicle')
+AddEventHandler('esx_truck_inventory:getOwnedVehicle', function()
+  local vehicles = {}
   local _source = source
   local xPlayer = ESX.GetPlayerFromId(_source)
   MySQL.Async.fetchAll(
@@ -39,10 +39,10 @@ AddEventHandler('esx_truck_inventory:getOwnedVehicule', function()
           for _,v in pairs(result) do
       			local vehicle = json.decode(v.vehicle)
             --print(vehicle.plate)
-      			table.insert(vehicules, {plate = vehicle.plate})
+			table.insert(vehicles, {plate = vehicle.plate})
       		end
       end
-    TriggerClientEvent('esx_truck_inventory:setOwnedVehicule', _source, vehicules)
+    TriggerClientEvent('esx_truck_inventory:setOwnedVehicle', _source, vehicles)
     end)
 end)
 
