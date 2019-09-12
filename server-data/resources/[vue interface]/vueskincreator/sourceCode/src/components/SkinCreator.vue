@@ -2,9 +2,9 @@
   .skincreator__wrapper
     .skincreator__outer
       .tab__wrapper
-        a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :class="[tab.name, { active : tab.isActive}]") {{ tab.label }}
+        a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :class="[tab.name, { active : tab.isActive}]", @click='switchPane') {{ tab.label }}
       .tab__content-wrapper
-        .tab__content(v-for='tab in tabs', :class="['tab-'+ tab.link, { active : tab.isActive}]")
+        .tab__content(v-for='tab in tabs', :class="{ active : tab.isActive}", :id="'tab-' + tab.link")
           .tab__outer(v-if="tab.name == 'face'")
             h2.tab__header {{ tab.header }}
             .tab__group
@@ -20,10 +20,10 @@
             .tab__group
               h3.tab__group-header Генетика Отец / Мать
               .range__wrapper
-                input(type='range', :min='genetics.min', :max='genetics.max', :value='genetics.value' step='1', class='range')
+                input(type='range', :min='genetics.min', :max='genetics.max', step='1', class='range', v-model='genetics.value')
                 .range--arrows
-                  input(type='button', value='<', class='range--arrows__button')
-                  input(type='button', value='>', class='range--arrows__button')
+                  input(type='button', value='<', class='range--arrows__button', @click='genetics.value > genetics.min ? genetics.value-- : genetics.min')
+                  input(type='button', value='>', class='range--arrows__button', @click='genetics.value < genetics.max ? genetics.value++ : genetics.max')
             .tab__group
               h3.tab__group-header Цвет глаз
               .radio__wrapper
@@ -37,49 +37,18 @@
                 label.radio__outer(v-for="color in skinColors", :for="'skin'+color.id")
                   input(type='radio', name='skincolor', class='radio', :checked='color.checked', :value='color.value', :id="'skin'+color.id")
                   span.radio__color(:data-color='color.color')
-            .tab__group
+            .tab__group(v-for='item in skinGroupSlider')
               .tab__group-head
-                h3.tab__group-header Угри
+                h3.tab__group-header {{ item.header }}
                 .tab__group-legend
-                  span.tab__group-legend-current {{ acne.value }}
+                  span.tab__group-legend-current {{ item.value }}
                   | /
-                  span.tab__group-legend-total {{ acne.max }}
+                  span.tab__group-legend-total {{ item.max }}
               .range__wrapper
-                input(type='range', :min='acne.min', :max='acne.max', step='1', class='range', v-model='acne.value')
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value')
                 .range--arrows
-                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='decrease')
-                  input(type='button', value='>', class='range--arrows__button range--increase', @click='increase')
-            //- .tab__group
-            //-   h3.tab__group-header Проблемы кожи
-            //-   .range__wrapper
-            //-     input(type='range', :min='skinProblems.min', :max='skinProblems.max', :value='skinProblems.value' step='1', class='range')
-            //-     .range--arrows
-            //-       input(type='button', value='<', class='range--arrows__button')
-            //-       input(type='button', value='>', class='range--arrows__button')
-            //- .tab__group
-            //-   h3.tab__group-header Веснушки
-            //-   .range__wrapper
-            //-     input(type='range', :min='freckles.min', :max='freckles.max', :value='freckles.value' step='1', class='range')
-            //-     .range--arrows
-            //-       input(type='button', value='<', class='range--arrows__button')
-            //-       input(type='button', value='>', class='range--arrows__button')
-            //- .tab__group
-            //-   h3.tab__group-header Морщины
-            //-   .range__wrapper
-            //-     input(type='range', :min='wrinkles.min', :max='wrinkles.max', :value='wrinkles.value' step='1', class='range')
-            //-     .range--arrows
-            //-       input(type='button', value='<', class='range--arrows__button')
-            //-       input(type='button', value='>', class='range--arrows__button')
-            //- .tab__group
-            //-   h3.tab__group-header Глубина морщин
-            //-   .range__wrapper
-            //-     input(type='range', :min='wrinkles.min', :max='wrinkles.max', :value='wrinkles.value' step='1', class='range')
-            //-     .range--arrows
-            //-       input(type='button', value='<', class='range--arrows__button')
-            //-       input(type='button', value='>', class='range--arrows__button')
-
-
-
+                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
 </template>
 
 <style lang="scss">
@@ -444,31 +413,43 @@ export default {
           checked: false
         }
       ],
-      acne: {
-        value: 0,
-        min: 0,
-        max: 23
-      },
-      skinProblems: {
-        value: 0,
-        min: 0,
-        max: 23
-      },
-      freckles: {
-        value: 0,
-        min: 0,
-        max: 17
-      },
-      wrinkles: {
-        value: 0,
-        min: 0,
-        max: 14
-      },
-      wrinklesDepth: {
-        value: 0,
-        min: 0,
-        max: 10
-      }
+      skinGroupSlider: [
+        {
+          name: "acne",
+          header: "Угри",
+          value: 0,
+          min: 0,
+          max: 23
+        },
+        {
+          name: "skinProblems",
+          header: "Проблемы кожи",
+          value: 0,
+          min: 0,
+          max: 23
+        },
+        {
+          name: "freckles",
+          header: "Веснушки",
+          value: 0,
+          min: 0,
+          max: 17
+        },
+        {
+          name: "wrinkles",
+          header: "Морщины",
+          value: 0,
+          min: 0,
+          max: 14
+        },
+        {
+          name: "wrinklesDepth",
+          header: "Глубина морщин",
+          value: 0,
+          min: 0,
+          max: 10
+        }
+      ]
     };
   },
   mounted() {
@@ -479,22 +460,23 @@ export default {
     });
   },
   methods: {
-    increase() {
-      event.preventDefault();
-      let input = event.target.parentElement.parentElement.children[0];
+    switchPane(e) {
+      e.preventDefault();
+      let siblings = document.querySelectorAll(".tab__link");
+      let targets = document.querySelectorAll(".tab__content");
 
-      let max = input.getAttribute("max");
-      let min = input.getAttribute("min");
-      let value = parseInt(input.value);
-      input.value = value + 1;
-    },
-    decrease() {
-      event.preventDefault();
-      let input = event.target.parentElement.parentElement.children[0];
-      let max = input.getAttribute("max");
-      let min = input.getAttribute("min");
-      let value = parseInt(input.value);
-      input.value = value - 1;
+      targets.forEach(item => {
+        item.classList.remove("active");
+      });
+
+      siblings.forEach(item => {
+        item.classList.remove("active");
+        if (event.target == item) {
+          let target = item.dataset.link;
+          document.querySelector("#tab-" + target).classList.add("active");
+          item.classList.add("active");
+        }
+      });
     }
   }
 };
