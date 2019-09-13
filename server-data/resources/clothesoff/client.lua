@@ -9,13 +9,25 @@ end)
 
 RegisterNetEvent('clothesoff:overdress')
 AddEventHandler('clothesoff:overdress', function()
-	TriggerEvent('skinchanger:getSkin', function(skin)
-		local clothesSkin = {
+	local clothesSkin = {
 		['tshirt_1'] = 15, ['tshirt_2'] = 0,
 		['torso_1'] = 15, ['torso_2'] = 0,
 		['arms'] = 15, ['arms_2'] = 0
-		}
-		TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+	}
+
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		if skin["torso_1"] == clothesSkin["torso_1"] and skin["tshirt_1"] == clothesSkin["tshirt_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['tshirt_1'] = orig_skin['tshirt_1'], ['tshirt_2'] = orig_skin['tshirt_2'],
+					['torso_1'] = orig_skin['torso_1'], ['torso_2'] = orig_skin['torso_2'],
+					['arms'] = orig_skin['arms'], ['arms_2'] = orig_skin['arms_2']
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
 	end)
 end)
 RegisterNetEvent('clothesoff:pants')
@@ -29,7 +41,16 @@ AddEventHandler('clothesoff:pants', function()
 			clothesSkin = {['pants_1'] = 21, ['pants_2'] = 0}
 		end
 
-		TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		if skin["pants_1"] == clothesSkin["pants_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['pants_1'] = orig_skin['pants_1'], ['pants_2'] = orig_skin['pants_2'],
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
 	end)
 end)
 
@@ -44,7 +65,16 @@ AddEventHandler('clothesoff:shoes', function()
 			clothesSkin = {['shoes_1'] = 34, ['shoes_2'] = 0}
 		end
 
-		TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		if skin["shoes_1"] == clothesSkin["shoes_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['shoes_1'] = orig_skin['shoes_1'], ['shoes_2'] = orig_skin['shoes_2'],
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
 	end)
 end)
 
@@ -52,9 +82,9 @@ function OpenActionMenuInteraction(target)
 	local elements = {}
 
 	table.insert(elements, {label = ('Одеться'), value = 'clotheson'})
-	table.insert(elements, {label = ('Снять верх'), value = 'overdress'})
-	table.insert(elements, {label = ('Снять низ'), value = 'pants'})
-	table.insert(elements, {label = ('Снять обувь'), value = 'shoes'})
+	table.insert(elements, {label = ('Верхняя одежда'), value = 'overdress'})
+	table.insert(elements, {label = ('Штаны'), value = 'pants'})
+	table.insert(elements, {label = ('Обувь'), value = 'shoes'})
 --  		ESX.UI.Menu.CloseAll()
 	ESX.UI.Menu.Open(
 		'default', GetCurrentResourceName(), 'action_menu',

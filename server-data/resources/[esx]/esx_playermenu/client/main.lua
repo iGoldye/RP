@@ -377,6 +377,45 @@ function OpenPersonalMenu()
 	end)
 end
 
+function OpenClothesMenu()
+	local elements = {}
+
+	table.insert(elements, {label = ('Одеться'), value = 'clotheson'})
+	table.insert(elements, {label = ('Верхняя одежда'), value = 'overdress'})
+	table.insert(elements, {label = ('Штаны'), value = 'pants'})
+	table.insert(elements, {label = ('Обувь'), value = 'shoes'})
+	table.insert(elements, {label = ('Головной убор'), value = 'Helmet'})
+	table.insert(elements, {label = ('Украшения для ушей'), value = 'Ears'})
+	table.insert(elements, {label = ('Маска'), value = 'Mask'})
+	table.insert(elements, {label = ('Очки'), value = 'Glasses'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'clothes_menu', {
+		title    = "Одежда",
+		align    = 'top-right',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+		if cmd == 'clotheson' then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+				TriggerEvent('skinchanger:loadSkin', skin)
+			end)
+		elseif cmd == 'overdress' then
+			TriggerEvent('clothesoff:overdress')
+		elseif cmd == 'pants' then
+			TriggerEvent('clothesoff:pants')
+		elseif cmd == 'shoes' then
+			TriggerEvent('clothesoff:shoes')
+		else -- be careful
+			TriggerEvent('esx_accessories:SetUnsetAccessory', cmd)
+	        end
+
+		menu.close()
+
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
 function OpenMenu()
 	elements = {
 		{label = "Инвентарь", value = 'inventory'},
@@ -384,8 +423,7 @@ function OpenMenu()
 		{label = "Персональная информация", value = 'personal'},
 		{label = "Счета", value = 'billing'},
 		{label = "Поднять игрока", value = 'liftup'},
-		{label = "Аксессуары", value = 'accessories'},
-		{label = "Одежда", value = 'clothesoff'},
+		{label = "Одежда", value = 'clothes'},
 		{label = "Питомцы", value = 'pets'},
 		{label = "Документация", value = 'documents'},
 	}
@@ -441,10 +479,8 @@ function OpenMenu()
 			TriggerEvent('esx_billing:showBillsMenu')
 		elseif cmd == 'liftup' then
 			TriggerEvent('esx_barbie_lyftupp:liftUp')
-		elseif cmd == 'accessories' then
-			TriggerEvent('esx_accessories:openAccessoryMenu')
-		elseif cmd == 'clothesoff' then
-			TriggerEvent('clothesoff:openActionMenuInteraction')
+		elseif cmd == 'clothes' then
+			OpenClothesMenu()
 		elseif cmd == 'pets' then
 			TriggerEvent('eden_animal:openPetMenu')
 		elseif cmd == 'vehicle' then
