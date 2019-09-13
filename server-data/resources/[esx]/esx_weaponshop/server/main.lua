@@ -143,11 +143,11 @@ ESX.RegisterServerCallback('esx_weashop:requestDBItems', function(source, cb)
 
       for i=1, #result, 1 do
 
-        if shopItems[result[i].name] == nil then
-          shopItems[result[i].name] = {}
+        if shopItems[result[i].zone] == nil then
+          shopItems[result[i].zone] = {}
         end
 
-        table.insert(shopItems[result[i].name], {
+        table.insert(shopItems[result[i].zone], {
           name  = result[i].item,
           price = result[i].price,
           label = ESX.GetWeaponLabel(result[i].item)
