@@ -16,6 +16,11 @@ Config.Food = { -- ccal * g
 	candy2 =  452 * 40,
 	snaks =  452 * 40,
 	croquettes = 452 * 40,
+	obed2 =  452 * 40,
+	obed1 =  452 * 40,
+	obed3 = 452 * 40,
+	fruitpot = 452 * 40,
+
 
 	-- UNICRON --
 	bolpistache = 561 * 100,
