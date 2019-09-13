@@ -7,18 +7,9 @@ Citizen.CreateThread(function()
   end
 end)
 
-<<<<<<< HEAD
-RegisterNetEvent('smerfikubrania:koszulka')
-AddEventHandler('smerfikubrania:koszulka', function()
-	TriggerEvent('skinchanger:getSkin', function(skin)
-
-
-		local clothesSkin = {
-=======
 RegisterNetEvent('clothesoff:overdress')
 AddEventHandler('clothesoff:overdress', function()
 	local clothesSkin = {
->>>>>>> 9dd7046e8ff092e4c0083bcaa5da0a4326b25ab9
 		['tshirt_1'] = 15, ['tshirt_2'] = 0,
 		['torso_1'] = 15, ['torso_2'] = 0,
 		['arms'] = 15, ['arms_2'] = 0
@@ -42,11 +33,7 @@ end)
 RegisterNetEvent('clothesoff:pants')
 AddEventHandler('clothesoff:pants', function()
 	TriggerEvent('skinchanger:getSkin', function(skin)
-<<<<<<< HEAD
-
-=======
 		local clothesSkin = nil
->>>>>>> 9dd7046e8ff092e4c0083bcaa5da0a4326b25ab9
 
 		if skin.sex == 1 then
 			clothesSkin = {['pants_1'] = 15, ['pants_2'] = 0}
@@ -70,9 +57,6 @@ end)
 RegisterNetEvent('clothesoff:shoes')
 AddEventHandler('clothesoff:shoes', function()
 	TriggerEvent('skinchanger:getSkin', function(skin)
-<<<<<<< HEAD
-
-=======
 		local clothesSkin
 
 		if skin.sex == 1 then
@@ -80,7 +64,6 @@ AddEventHandler('clothesoff:shoes', function()
 		else
 			clothesSkin = {['shoes_1'] = 34, ['shoes_2'] = 0}
 		end
->>>>>>> 9dd7046e8ff092e4c0083bcaa5da0a4326b25ab9
 
 		if skin["shoes_1"] == clothesSkin["shoes_1"] then
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
@@ -111,11 +94,7 @@ function OpenActionMenuInteraction(target)
 			elements = elements
 		},
 	    function(data, menu)
-<<<<<<< HEAD
-		if data.current.value == 'ubie' then
-=======
 		if data.current.value == 'clotheson' then
->>>>>>> 9dd7046e8ff092e4c0083bcaa5da0a4326b25ab9
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 				TriggerEvent('skinchanger:loadSkin', skin)
 			end)
