@@ -26,7 +26,6 @@ span {
 }
 
 .tab {
-
   &__header {
     margin-top: 5px;
     margin-bottom: 16px;
@@ -55,9 +54,9 @@ span {
   }
 
   &__link {
+    display: flex;
     width: calc(100% / 3);
     height: 65px;
-    display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 500;
@@ -68,10 +67,20 @@ span {
     &.active {
       background: #f5a417;
     }
+
+    &:hover {
+      color: #fff;
+      cursor: pointer;
+    }
   }
 
   &__content {
-    padding: 20px;
+    display: none;
+    padding: 0 20px;
+
+    &.active {
+      display: block;
+    }
 
     &-wrapper {
       width: 100%;
@@ -239,7 +248,7 @@ span {
     width: 60px;
     margin-right: 0;
     margin-left: auto;
-    background: #2E3033;
+    background: #2e3033;
     border-radius: 4px;
     overflow: hidden;
 
@@ -260,12 +269,13 @@ span {
 
   &:checked {
     ~.radio__color {
-      border-color: #fff
+      border-color: #fff;
     }
   }
 
   &__wrapper {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
   }
@@ -274,7 +284,7 @@ span {
     position: relative;
     width: 20px;
     height: 20px;
-    margin-right: 5px
+    margin-right: 5px;
   }
 
   &__color {

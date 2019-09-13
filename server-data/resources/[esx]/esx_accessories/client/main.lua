@@ -246,3 +246,7 @@ end)
 AddEventHandler('esx_accessories:openAccessoryMenu', function()
 	OpenAccessoryMenu()
 end)
+
+AddEventHandler('esx_accessories:SetUnsetAccessory', function(accessory)
+	SetUnsetAccessory(accessory)
+end)

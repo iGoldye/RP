@@ -10,16 +10,22 @@ local Keys = {
   ["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
 }
 
-
-ESX                           = nil
-local GUI      = {}
-local PlayerData                = {}
+ESX = nil
+local GUI = {}
+local PlayerData = {}
 local lastVehicle = nil
 local lastOpen = false
 local vehiclePlate = {}
 local arrayWeight = Config.localWeight
 
-function getItemyWeight(item)
+Citizen.CreateThread(function()
+  while ESX == nil do
+    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+    Citizen.Wait(0)
+  end
+end)
+
+function getItemWeight(item)
   local weight = 0
   local itemWeight = 0
 
@@ -32,25 +38,17 @@ function getItemyWeight(item)
   return itemWeight
 end
 
-
-Citizen.CreateThread(function()
-  while ESX == nil do
-    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-    Citizen.Wait(0)
-  end
-end)
-
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
   	PlayerData = xPlayer
-    TriggerServerEvent("esx_truck_inventory:getOwnedVehicule")
+    TriggerServerEvent("esx_truck_inventory:getOwnedVehicle")
     ESX.TriggerServerCallback('esx_vehicle_inventory:getItemWeights', function(items)
 	arrayWeight = items
     end)
 end)
 
-RegisterNetEvent('esx_truck_inventory:setOwnedVehicule')
-AddEventHandler('esx_truck_inventory:setOwnedVehicule', function(vehicle)
+RegisterNetEvent('esx_truck_inventory:setOwnedVehicle')
+AddEventHandler('esx_truck_inventory:setOwnedVehicle', function(vehicle)
     vehiclePlate = vehicle
 end)
 
@@ -138,7 +136,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 	local elements = {}
 --  print(weight)
 	local vehFrontBack = VehicleInFront()
-  TriggerServerEvent("esx_truck_inventory:getOwnedVehicule")
+  TriggerServerEvent("esx_truck_inventory:getOwnedVehicle")
 
 	table.insert(elements, {
       label     = 'Положить',
@@ -195,7 +193,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 				  },
 				  function(data4, menu4)
             local quantity = tonumber(data4.value)
-            local Itemweight =tonumber(getItemyWeight(data3.current.value)) * quantity
+            local Itemweight =tonumber(getItemWeight(data3.current.value)) * quantity
             local totalweight = tonumber(weight) + Itemweight
             vehFront = VehicleInFront()
 
@@ -279,7 +277,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 			ESX.UI.Menu.Open(
 			  'dialog', GetCurrentResourceName(), 'inventory_item_count_give',
 			  {
-			    title = 'Колличество'
+			    title = 'Количество'
 			  },
 			  function(data2, menu2)
 
@@ -288,7 +286,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 			    vehFront = VehicleInFront()
 
           --test
-          local Itemweight =tonumber(getItemyWeight(data.current.value)) * quantity
+          local Itemweight =tonumber(getItemWeight(data.current.value)) * quantity
           local poid = weight - Itemweight
 
 

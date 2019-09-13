@@ -8,31 +8,31 @@ class Item_BlackMoney extends Item_Abstract {
 
 	addItem(inventory) {
 		var xPlayer = inventory.getXPlayer();
-        if (!xPlayer) {
-			return false;
+	        if (!xPlayer) {
+			return super.addItem(inventory);
 		}
 
         xPlayer.addAccountMoney('black_money', this.amount);
-        TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.getLabel(), this.amount);
+        TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.label, this.amount);
         return true;
 	}
 
 	removeItem(inventory) {
 		var xPlayer = inventory.getXPlayer()
                 if (!xPlayer) {
-			return false;
+			return super.removeItem(inventory);
 		}
 
                 if (ESX.Round(xPlayer.getAccount('black_money').money - this.amount, 2) >= 0) {
                     xPlayer.removeAccountMoney('black_money', this.amount);
-                    TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.getLabel(), this.amount);
+                    TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, false, this.label, this.amount);
                     return true;
                 }
 
                 return false;
 	}
 
-	getLabel() {
+	get label() {
             return _U('black_money');
 	}
 

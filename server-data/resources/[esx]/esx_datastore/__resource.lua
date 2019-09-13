@@ -9,3 +9,5 @@ server_scripts {
 	'server/classes/datastore.lua',
 	'server/main.lua'
 }
+
+server_export 'GetDataStore'

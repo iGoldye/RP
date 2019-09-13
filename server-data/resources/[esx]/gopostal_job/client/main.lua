@@ -120,6 +120,10 @@ function cloakroom()
 			TriggerEvent('skinchanger:loadSkin', skin)
 			TriggerEvent('esx:restoreLoadout')
     	end)
+		if CurrentDelivery == true then
+			Livraison()
+		end
+
 		isInService = false
 	else
 	    setUniform(PlayerPedId())
@@ -348,8 +352,14 @@ Citizen.CreateThread(function()
             end
         end
 
-        if IsControlJustReleased(0, 167) and IsJobTrucker() and isInService then -- Touche F6 si il est bien dans le job & en service
-        	Livraison()
+        if IsJobTrucker() and isInService then -- DEL
+		if CurrentDelivery == false then
+			ESX.ShowHelpNotification(_U('start_game_help'))
+		end
+
+		if IsControlJustReleased(0, 178) then
+			Livraison()
+		end
         end
 
     end
@@ -531,7 +541,7 @@ Citizen.CreateThread(function()
 
 		      	if GetDistanceBetweenCoords(coords, zone.Pos[progress].x, zone.Pos[progress].y, zone.Pos[progress].z, true) < 100.0 then
 		      		DrawMarker(zone.Type, zone.Pos[progress].x, zone.Pos[progress].y, zone.Pos[progress].z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, zone.Size.x, zone.Size.y, zone.Size.z, zone.Color.r, zone.Color.g, zone.Color.b, 100, false, true, 2, false, false, false, false)
-		      		Draw3DText(zone.Pos[progress].x, zone.Pos[progress].y, zone.Pos[progress].z + 1.5 , _U('letter') .. lettre .. '\n' .. _U('colis') .. colis)
+				Draw3DText(zone.Pos[progress].x, zone.Pos[progress].y, zone.Pos[progress].z + 1.5 , _U('letter') .. " " .. lettre .. '\n' .. _U('colis') .. " " .. colis)
 		      		if GetDistanceBetweenCoords(coords, zone.Pos[progress].x, zone.Pos[progress].y, zone.Pos[progress].z, true) < 3.0 then
 			        	HelpPromt(_U('pickup'))
 			        	if IsControlJustReleased(0, 38) and IsJobTrucker() and isInService then

@@ -78,7 +78,7 @@ AddEventHandler('esx_inventory:dropItem', function(name, shared, iteminfo) {
 		var inv = getInventory(name,owner)
 		var item = DeserializeItem(iteminfo)
 		if (inv.removeItem(item)) {
-				if (createPickup(xPlayer.source, item, item.getLabel()) == false) {
+				if (createPickup(xPlayer.source, item, item.label) == false) {
 					inv.addItem(item)
 				}
 		}

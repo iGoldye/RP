@@ -141,21 +141,23 @@ class Inventory {
 
 	save(force) {
 //		console.log("Trying to save!")
-		var xPlayer = this.getXPlayer();
-		var name = this.name;
-
-		if (xPlayer == false) {
-			return false;
-		}
-
 		if (this.dirty == false && !force) {
 			return false;
 		}
 
 		var ser = this.serialize(true);
 
-		TriggerEvent('esx_datastore:getDataStore', 'esx_inventory', xPlayer.identifier, function(store) {
-			store.set(name, ser.items);
+		let invname = 'esx_inventory';
+		if (this.name != 'pocket') {
+			invname = 'esx_inventory_' + this.name
+		}
+
+		TriggerEvent('esx_datastore:getDataStore', invname, this.owner, function(store) {
+			if (store !== undefined) {
+				store.set(ser.name, ser.items);
+			} else {
+				print("Unable to get datastore with name '"+this.name+"' and owner '"+this.owner+"'")
+			}
 		});
 
 		this.dirty = false;
@@ -170,7 +172,7 @@ class Inventory {
 
 		ser.items = []
 		for (var i in this.items) {
-			if (!forSaving || this.items[i].saveable) {
+			if (!forSaving || this.items[i].saveable || this.name != "pocket") {
 				var item_ser_str = this.items[i].serialize()
 				if (item_ser_str != null) {
 					ser.items.push(item_ser_str)
@@ -214,14 +216,15 @@ class Inventory {
 
 		for (var i in playerData.inventory) {
 			if (playerData.inventory[i].count > 0) {
+				var esx_item = playerData.inventory[i]
 				var item = {}
 				item.name = "esx_item"
 				item.extra = {
-					name:      playerData.inventory[i].name,
-					label:     playerData.inventory[i].label,
-					usable:    playerData.inventory[i].usable,
-					rare:      playerData.inventory[i].rare,
-					canRemove: playerData.inventory[i].canRemove,
+					name:      esx_item.name,
+					label:     esx_item.label,
+					usable:    esx_item.usable,
+					rare:      esx_item.rare,
+					canRemove: esx_item.canRemove,
 				}
 				item.amount = playerData.inventory[i].count
 				item.droppable = playerData.inventory[i].canRemove

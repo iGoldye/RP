@@ -38,23 +38,28 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
     local arr = {}
     for i=1, #xPlayers, 1 do
         local pl = ESX.GetPlayerFromId(xPlayers[i])
+	local identity = pl.getSessionVar("identity")
+
         table.insert(arr, {
-            ["id"] = i,
+            ["id"] = pl.source,
             ["name"] = pl.name,
+            ["identity"] = identity,
             ["identifier"] = pl.identifier,
 	    ["money"] = pl.getMoney(),
+            ["bank"] = pl.getBank(),
+            ["black_money"] = pl.getAccount('black_money').money,
         })
     end
 
     cb(arr)
 end)
 
-ESX.RegisterServerCallback('esx_playermenu:adminMoney', function(source, cb, identifier, act, val)
+ESX.RegisterServerCallback('esx_playermenu:adminMoney', function(source, cb, identifier, moneytype, act, val)
     local xPlayer = ESX.GetPlayerFromId(source)
     if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
         return
     end
     xTarget = ESX.GetPlayerFromIdentifier(identifier)
-    TriggerEvent('admin_commands:setmoney', xPlayer.source, xTarget.source, "cash", act, val)
+    TriggerEvent('admin_commands:setmoney', xPlayer.source, xTarget.source, moneytype, act, val)
     cb()
 end)
