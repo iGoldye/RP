@@ -107,25 +107,25 @@ Config.DoorList = {
 		}
 	},
 -- Допросные
-	-- {
-	-- 	textCoords = vector3(465.53, -989.91, 25.7),
-	-- 	authorizedJobs = { 'police' },
-	-- 	locked = true,
-	-- 	distance = 4,
-	-- 	doors = {
-	-- 		{
-	-- 			objName = 'v_ilev_ph_gendoor005',
-	-- 			objYaw = 90.0,
-	-- 			objCoords = vector3(465.2, -989.66, 24.6)
-	-- 		},
+	{
+		textCoords = vector3(460.9, -990.88, 30.7),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 270.0,
+				objCoords = vector3(461.3, -992.1, 30.6)
+			},
 
-	-- 		{
-	-- 			objName = 'v_ilev_ph_gendoor005',
-	-- 			objYaw = 270.0,
-	-- 			objCoords = vector3(465.23, -990.32, 24.6)
-	-- 		}
-	-- 	}
-	-- },
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 90.0,
+				objCoords = vector3(461.32, -989.77, 30.6)
+			}
+		}
+	},
 
 	-- STORAGE
 	{
@@ -267,6 +267,8 @@ Config.DoorList = {
 		authorizedJobs = { 'police' },
 		locked = true
 	},
+
+
 	-- {
 	-- 	objName = 'v_ilev_ph_cellgate',
 	-- 	objYaw = 0.0,
