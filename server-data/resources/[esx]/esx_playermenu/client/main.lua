@@ -94,7 +94,13 @@ function OpenAdminMenuPlayers()
 	ESX.TriggerServerCallback('esx_playermenu:adminGetPlayers', function(players)
 		local elements = {}
 		for k,v in pairs(players) do
-			table.insert(elements, {label = tostring(v.id)..". "..v.name, value = v})
+			local name = tostring(v.id)..". "..v.name
+			print(json.encode(v))
+			if v.identity ~= nil then
+				name = name .." &lt; ".. v.identity.firstname .. " " .. v.identity.lastname .." &gt;"
+			end
+
+			table.insert(elements, {label = name, value = v})
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_players', {
@@ -116,6 +122,8 @@ end
 function OpenAdminMenuPlayer(player)
 		local elements = {}
 		table.insert(elements, {label = "Наличка: $"..tostring(player.money), value = "cash"})
+		table.insert(elements, {label = "Банк: $"..tostring(player.bank), value = "bank"})
+		table.insert(elements, {label = "Грязные деньги: $"..tostring(player.black_money), value = "black_money"})
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
 			title    = "Администрирование: Игроки",
@@ -126,6 +134,10 @@ function OpenAdminMenuPlayer(player)
 			menu.close()
 			if cmd == "cash" then
 				OpenAdminMenuPlayerMoney(player, "cash")
+			elseif cmd == "bank" then
+				OpenAdminMenuPlayerMoney(player, "bank")
+			elseif cmd == "black_money" then
+				OpenAdminMenuPlayerMoney(player, "black")
 			end
 
 		end, function(data, menu)
@@ -149,7 +161,7 @@ function OpenAdminMenuPlayerMoney(player, moneytype)
 
 			local amount = OpenTextInput("Введите количество денег", "", 60)
 			if tonumber(amount) ~= nil then
-				ESX.TriggerServerCallback('esx_playermenu:adminMoney', function(res) end, player.identifier, cmd, tonumber(amount))
+				ESX.TriggerServerCallback('esx_playermenu:adminMoney', function(res) end, player.identifier, moneytype, cmd, tonumber(amount))
 			end
 
 		end, function(data, menu)
