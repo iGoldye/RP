@@ -1,3 +1,11 @@
+function getTarget(arg, source)
+	if arg == 'me' then
+		return source
+	end
+
+	return tonumber(arg)
+end
+
 TriggerEvent('es:addGroupCommand', 'tp', 'admin', function(source, args, user)
 	local x = tonumber(args[1])
 	local y = tonumber(args[2])
@@ -17,16 +25,14 @@ end, function(source, args, user)
 end, {help = "Teleport to coordinates", params = {{name = "x", help = "X coords"}, {name = "y", help = "Y coords"}, {name = "z", help = "Z coords"}}})
 
 TriggerEvent('es:addGroupCommand', 'setjob', 'jobmaster', function(source, args, user)
-	if #args > 0 and args[1] == 'me' then
-		args[1] = source
-	end
-
-	if tonumber(args[1]) and args[2] and tonumber(args[3]) then
-		local xPlayer = ESX.GetPlayerFromId(args[1])
+	local target = getTarget(args[1], source)
+	if target and args[2] and tonumber(args[3]) then
+		local xPlayer = ESX.GetPlayerFromId(target)
 
 		if xPlayer then
 			if ESX.DoesJobExist(args[2], args[3]) then
 				xPlayer.setJob(args[2], args[3])
+				TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Success.' } })
 			else
 				TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'That job does not exist.' } })
 			end
@@ -97,7 +103,7 @@ end, {help = _U('spawn_object'), params = {{name = "name"}}})
 
 TriggerEvent('es:addGroupCommand', 'setmoney', 'admin', function(source, args, user)
 	local _source = source
-	local target = tonumber(args[1])
+	local target = getTarget(args[1], _source)
 	local money_type = args[2]
 	local money_amount = tonumber(args[3])
 	
@@ -130,7 +136,7 @@ end, {help = _U('setmoney'), params = {{name = "id", help = _U('id_param')}, {na
 
 TriggerEvent('es:addGroupCommand', 'addmoney', 'admin', function(source, args, user)
 	local _source = source
-	local target = tonumber(args[1])
+	local target = getTarget(args[1], _source)
 	local money_type = args[2]
 	local money_amount = tonumber(args[3])
 
@@ -163,7 +169,7 @@ end, {help = _U('addmoney'), params = {{name = "id", help = _U('id_param')}, {na
 
 TriggerEvent('es:addGroupCommand', 'removemoney', 'admin', function(source, args, user)
 	local _source = source
-	local target = tonumber(args[1])
+	local target = getTarget(args[1], _source)
 	local money_type = args[2]
 	local money_amount = tonumber(args[3])
 
@@ -196,7 +202,8 @@ end, {help = _U('removemoney'), params = {{name = "id", help = _U('id_param')}, 
 
 TriggerEvent('es:addGroupCommand', 'giveaccountmoney', 'admin', function(source, args, user)
 	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(args[1])
+	local target = getTarget(args[1], _source)
+	local xPlayer = ESX.GetPlayerFromId(target)
 	local account = args[2]
 	local amount  = tonumber(args[3])
 
@@ -215,7 +222,8 @@ end, {help = _U('giveaccountmoney'), params = {{name = "id", help = _U('id_param
 
 TriggerEvent('es:addGroupCommand', 'giveitem', 'admin', function(source, args, user)
 	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(args[1])
+	local target = getTarget(args[1], _source)
+	local xPlayer = ESX.GetPlayerFromId(target)
 	local item    = args[2]
 	local count   = (args[3] == nil and 1 or tonumber(args[3]))
 
@@ -233,7 +241,8 @@ end, function(source, args, user)
 end, {help = _U('giveitem'), params = {{name = "id", help = _U('id_param')}, {name = "item", help = _U('item')}, {name = "amount", help = _U('amount')}}})
 
 TriggerEvent('es:addGroupCommand', 'giveweapon', 'admin', function(source, args, user)
-	local xPlayer    = ESX.GetPlayerFromId(args[1])
+	local target = getTarget(args[1], source)
+	local xPlayer    = ESX.GetPlayerFromId(target)
 	local weaponName = string.upper(args[2])
 
 	xPlayer.addWeapon(weaponName, tonumber(args[3]))

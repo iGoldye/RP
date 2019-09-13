@@ -27,7 +27,11 @@ Citizen.CreateThread(function()
 
 	ESX.TriggerServerCallback('esx_shops:requestDBItems', function(ShopItems)
 		for k,v in pairs(ShopItems) do
-			Config.Zones[k].Items = v
+			if Config.Zones[k] ~= nil then
+				Config.Zones[k].Items = v
+			else
+				print("^1esx_shops: unknown zone name '"..tostring(k).."'")
+			end
 		end
 	end)
 end)

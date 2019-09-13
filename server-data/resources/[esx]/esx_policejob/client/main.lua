@@ -612,6 +612,7 @@ function OpenPoliceActionsMenu()
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
 			{label = _U('object_spawner'), value = 'object_spawner'},
+			{label = _U('revive'), value = 'revive'},
 			{label = _U('remove_npcs'), value = 'remove_npcs'},
 	}
 
@@ -809,6 +810,11 @@ function OpenPoliceActionsMenu()
 			end)
 		elseif data.current.value == 'remove_npcs' then
 			TriggerEvent('esx_ambulancejob:removedeadnpcs')
+		elseif data.current.value == 'revive' then
+			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+			if closestPlayer > 0 and closestDistance < 1.5 then
+				TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
+			end
 		end
 	end, function(data, menu)
 		menu.close()
@@ -972,7 +978,8 @@ function OpenFineMenu(player)
 			{label = _U('traffic_offense'), value = 0},
 			{label = _U('minor_offense'),   value = 1},
 			{label = _U('average_offense'), value = 2},
-			{label = _U('major_offense'),   value = 3}
+			{label = _U('major_offense'),   value = 3},
+			{label = _U('billing'), value = 'billing'},
 	}}, function(data, menu)
 		OpenFineCategoryMenu(player, data.current.value)
 	end, function(data, menu)
@@ -1013,6 +1020,25 @@ function OpenFineCategoryMenu(player, category)
 			menu.close()
 		end)
 	end, category)
+
+	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
+		title = _U('invoice_amount')
+	}, function(data, menu)
+
+		local amount = tonumber(data.value)
+		if amount == nil then
+			ESX.ShowNotification(_U('amount_invalid'))
+		else
+			menu.close()
+			if closestDistance < 3.0 then
+				TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_police', 'Police', amount)
+				ESX.ShowNotification(_U('billing_sent'))
+			end
+		end
+
+	end, function(data, menu)
+		menu.close()
+	end)
 end
 
 function LookupVehicle()

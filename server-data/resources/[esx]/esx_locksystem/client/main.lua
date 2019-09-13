@@ -4,7 +4,7 @@ lockStatus = {}
 
 function IsCar(vehicle)
     local vc = GetVehicleClass(vehicle)
-    return (vc >= 0 and vc <= 7) or (vc >= 9 and vc <= 12) or (vc >= 17 and vc <= 20)
+    return (vc >= 0 and vc <= 7) or (vc >= 9 and vc <= 12) or (vc >= 17 and vc <= 20) or (vc == 8) -- 8 = bike
 end
 
 Citizen.CreateThread(function()
@@ -60,17 +60,27 @@ Citizen.CreateThread(function()
     	            vehicle = GetTargetedVehicle(pos, ped)
                 end
 
+		if vehicle == nil or vehicle < 1 then
+			local vehs = ESX.Game.GetVehiclesInArea(pos, 1.1)
+			if #vehs > 0 then
+				vehicle = vehs[1]
+			end
+		end
+
 		if vehicle ~= nil and vehicle > 0 and IsCar(vehicle) then
 			local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+                        local vc = GetVehicleClass(vehicle)
 
 			ESX.TriggerServerCallback('esx_locksystem:haveKeys', function(res)
 				if res == true then
-					local dict = "anim@mp_player_intmenu@key_fob@"
-					RequestAnimDict(dict)
-					while not HasAnimDictLoaded(dict) do
-					    Citizen.Wait(100)
+                                        if vc ~= 8 then
+						local dict = "anim@mp_player_intmenu@key_fob@"
+						RequestAnimDict(dict)
+						while not HasAnimDictLoaded(dict) do
+						    Citizen.Wait(100)
+						end
+						TaskPlayAnim(GetPlayerPed(-1), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
 					end
-					TaskPlayAnim(GetPlayerPed(-1), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
 					carLock(vehicle, plate)
 				else
 			            TriggerEvent('esx:showNotification', "У вас нет ключей от этой машины")

@@ -2,9 +2,9 @@
   .skincreator__wrapper
     .skincreator__outer
       .tab__wrapper
-        a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :class="[tab.name, { active : tab.isActive}]") {{ tab.label }}
+        a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :class="[tab.name, { active : tab.isActive}]", @click='switchPane') {{ tab.label }}
       .tab__content-wrapper
-        .tab__content(v-for='tab in tabs', :class="['tab-'+ tab.link, { active : tab.isActive}]")
+        .tab__content(v-for='tab in tabs', :class="{ active : tab.isActive}", :id="'tab-' + tab.link")
           .tab__outer(v-if="tab.name == 'face'")
             h2.tab__header {{ tab.header }}
             .tab__group
@@ -20,16 +20,65 @@
             .tab__group
               h3.tab__group-header Генетика Отец / Мать
               .range__wrapper
-                input(type='range', min='0', max='16', value='8', class='range')
+                input(type='range', :min='genetics.min', :max='genetics.max', step='1', class='range', v-model='genetics.value')
                 .range--arrows
-                  input(type='button', value='<', class='range--arrows__button')
-                  input(type='button', value='>', class='range--arrows__button')
-
-
+                  input(type='button', value='<', class='range--arrows__button', @click='genetics.value > genetics.min ? genetics.value-- : genetics.min')
+                  input(type='button', value='>', class='range--arrows__button', @click='genetics.value < genetics.max ? genetics.value++ : genetics.max')
+            .tab__group
+              h3.tab__group-header Цвет глаз
+              .radio__wrapper
+                label.radio__outer(v-for="color in eyeColors", :for="'eye'+color.id")
+                  input(type='radio', name='eyecolor', class='radio', :checked='color.checked', :value='color.value', :id="'eye'+color.id")
+                  span.radio__color(:data-color='color.color')
+            h2.tab__header Кожа
+            .tab__group
+              h3.tab__group-header Цвет кожи
+              .radio__wrapper
+                label.radio__outer(v-for="color in skinColors", :for="'skin'+color.id")
+                  input(type='radio', name='skincolor', class='radio', :checked='color.checked', :value='color.value', :id="'skin'+color.id")
+                  span.radio__color(:data-color='color.color')
+            .tab__group(v-for='item in skinGroupSlider')
+              .tab__group-head
+                h3.tab__group-header {{ item.header }}
+                .tab__group-legend
+                  span.tab__group-legend-current {{ item.value }}
+                  | /
+                  span.tab__group-legend-total {{ item.max }}
+              .range__wrapper
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
+          .tab__outer(v-if="tab.name == 'hair'")
+            h2.tab__header {{ tab.header }}
+            .tab__group
+              h3.tab__group-header Цвет волос
+              .radio__wrapper
+                label.radio__outer(v-for="color in hairColors", :for="'hair'+color.id")
+                  input(type='radio', name='haircolor', class='radio', :checked='color.checked', :value='color.value', :id="'hair'+color.id")
+                  span.radio__color(:data-color='color.color')
+            .tab__group(v-for='item in hairGroupSliders')
+              .tab__group-head
+                h3.tab__group-header {{ item.header }}
+                .tab__group-legend
+                  span.tab__group-legend-current {{ item.value }}
+                  | /
+                  span.tab__group-legend-total {{ item.max }}
+              .range__wrapper
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
+            .tab__group
+              h3.tab__group-header Цвет бороды
+              .radio__wrapper
+                label.radio__outer(v-for="color in hairColors", :for="'hair'+color.id")
+                  input(type='radio', name='haircolor', class='radio', :checked='color.checked', :value='color.value', :id="'hair'+color.id")
+                  span.radio__color(:data-color='color.color')
 
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../scss/style";
 </style>
 
@@ -54,7 +103,7 @@ export default {
           link: "hair",
           activeClass: "is-active",
           isActive: false,
-          header: "Морфология"
+          header: "Волосы"
         },
         {
           name: "clothes",
@@ -196,7 +245,7 @@ export default {
         {
           value: 21,
           img: "./assets/img/heritage/Face-21.jpg",
-          isChecked: false
+          isChecked: true
         },
         {
           value: 22,
@@ -303,8 +352,350 @@ export default {
           img: "./assets/img/heritage/Face-45.jpg",
           isChecked: false
         }
+      ],
+      genetics: {
+        value: 5,
+        min: 0,
+        max: 10
+      },
+      eyeColors: [
+        {
+          value: 0,
+          id: 1,
+          color: "#525e37",
+          checked: true
+        },
+        {
+          value: 1,
+          id: 2,
+          color: "#263419",
+          checked: false
+        },
+        {
+          value: 2,
+          id: 3,
+          color: "#83b7d5",
+          checked: false
+        },
+        {
+          value: 3,
+          id: 4,
+          color: "#3e66a3",
+          checked: false
+        },
+        {
+          value: 4,
+          id: 5,
+          color: "#8d6833",
+          checked: false
+        },
+        {
+          value: 5,
+          id: 6,
+          color: "#523711",
+          checked: false
+        },
+        {
+          value: 6,
+          id: 7,
+          color: "#d08418",
+          checked: false
+        },
+        {
+          value: 8,
+          id: 9,
+          color: "#bebebe",
+          checked: false
+        },
+        {
+          value: 12,
+          id: 13,
+          color: "#0d0d0c",
+          checked: false
+        }
+      ],
+      skinColors: [
+        {
+          value: 12,
+          id: 1,
+          color: "#ecc8ae",
+          checked: true
+        },
+        {
+          value: 25,
+          id: 2,
+          color: "#ce9874",
+          checked: false
+        },
+        {
+          value: 19,
+          id: 3,
+          color: "#925a41",
+          checked: false
+        },
+        {
+          value: 14,
+          id: 4,
+          color: "#4e3a26",
+          checked: false
+        }
+      ],
+      skinGroupSlider: [
+        {
+          name: "acne",
+          header: "Угри",
+          value: 0,
+          min: 0,
+          max: 23
+        },
+        {
+          name: "skinProblems",
+          header: "Проблемы кожи",
+          value: 0,
+          min: 0,
+          max: 23
+        },
+        {
+          name: "freckles",
+          header: "Веснушки",
+          value: 0,
+          min: 0,
+          max: 17
+        },
+        {
+          name: "wrinkles",
+          header: "Морщины",
+          value: 0,
+          min: 0,
+          max: 14
+        },
+        {
+          name: "wrinklesDepth",
+          header: "Глубина морщин",
+          value: 0,
+          min: 0,
+          max: 10
+        }
+      ],
+      hairColors: [
+        {
+          value: 0,
+          id: 1,
+          color: "#1D1D1A",
+          checked: true
+        },
+        {
+          value: 2,
+          id: 2,
+          color: "#4B392D",
+          checked: false
+        },
+        {
+          value: 4,
+          id: 3,
+          color: "#7A3B1F",
+          checked: false
+        },
+        {
+          value: 6,
+          id: 4,
+          color: "#A35631",
+          checked: false
+        },
+        {
+          value: 8,
+          id: 5,
+          color: "#A96F49",
+          checked: false
+        },
+        {
+          value: 10,
+          id: 6,
+          color: "#A96F49",
+          checked: false
+        },
+        {
+          value: 12,
+          id: 7,
+          color: "#CBA66F",
+          checked: false
+        },
+        {
+          value: 14,
+          id: 8,
+          color: "#E8BE78",
+          checked: false
+        },
+        {
+          value: 16,
+          id: 9,
+          color: "#D09E6A",
+          checked: false
+        },
+        {
+          value: 18,
+          id: 10,
+          color: "#993524",
+          checked: false
+        },
+        {
+          value: 20,
+          id: 11,
+          color: "#9C1611",
+          checked: false
+        },
+        {
+          value: 22,
+          id: 12,
+          color: "#D1381E",
+          checked: false
+        },
+        {
+          value: 24,
+          id: 13,
+          color: "#C85831",
+          checked: false
+        },
+        {
+          value: 26,
+          id: 14,
+          color: "#947A67",
+          checked: false
+        },
+        {
+          value: 28,
+          id: 15,
+          color: "#D8C1AC",
+          checked: false
+        },
+        {
+          value: 30,
+          id: 16,
+          color: "#734F61",
+          checked: false
+        },
+        {
+          value: 32,
+          id: 17,
+          color: "#AD476A",
+          checked: false
+        },
+        {
+          value: 35,
+          id: 18,
+          color: "#FFAEBC",
+          checked: false
+        },
+        {
+          value: 36,
+          id: 19,
+          color: "#089A8D",
+          checked: false
+        },
+        {
+          value: 40,
+          id: 20,
+          color: "#309060",
+          checked: false
+        },
+        {
+          value: 43,
+          id: 21,
+          color: "#A3C015",
+          checked: false
+        },
+        {
+          value: 45,
+          id: 22,
+          color: "#EEC85C",
+          checked: false
+        },
+        {
+          value: 48,
+          id: 23,
+          color: "#FE8B10",
+          checked: false
+        },
+        {
+          value: 53,
+          id: 24,
+          color: "#D40B0E",
+          checked: false
+        }
+      ],
+      hairGroupSliders: [
+        {
+          name: "hairstyle",
+          header: "Прическа",
+          value: 0,
+          min: 0,
+          max: 74
+        },
+        {
+          name: "eyebrowsShape",
+          header: "Форма бровей",
+          value: 0,
+          min: 0,
+          max: 34
+        },
+        {
+          name: "eyebrowsTickness",
+          header: "Толщина бровей",
+          value: 0,
+          min: 0,
+          max: 10
+        },
+        {
+          name: "beardType",
+          header: "Тип бороды",
+          value: 0,
+          min: 0,
+          max: 28
+        },
+        {
+          name: "beardTickness",
+          header: "Толщина бороды",
+          value: 0,
+          min: 0,
+          max: 10
+        }
+      ],
+      beardColors: [
+        {
+          value: 0,
+          id: 1,
+          color: "#1D1D1A",
+          checked: true
+        }
       ]
     };
+  },
+  mounted() {
+    let spans = document.querySelectorAll(".radio__color");
+    spans.forEach(item => {
+      let color = item.dataset.color;
+      item.style.backgroundColor = color;
+    });
+  },
+  methods: {
+    switchPane(e) {
+      e.preventDefault();
+      let siblings = document.querySelectorAll(".tab__link");
+      let targets = document.querySelectorAll(".tab__content");
+
+      targets.forEach(item => {
+        item.classList.remove("active");
+      });
+
+      siblings.forEach(item => {
+        item.classList.remove("active");
+        if (event.target == item) {
+          let target = item.dataset.link;
+          document.querySelector("#tab-" + target).classList.add("active");
+          item.classList.add("active");
+        }
+      });
+    }
   }
 };
 </script>

@@ -18,7 +18,8 @@ local useMilesPerHour = 0 -- 0 is kmh; 1 is mph
 
 -- Script starts here
 local helicam = false
-local polmav_hash = GetHashKey("polmav") -- change to another heli if you want :P
+local vehhashes = {GetHashKey("polmav"),GetHashKey("newsheli"),GetHashKey("newsheli2")}
+
 local fov = (fov_max + fov_min) * 0.5
 local vision_state = 0 -- 0 is normal, 1 is night vision, 2 is thermal vision
 
@@ -153,7 +154,12 @@ AddEventHandler(
 
 function IsPlayerInPolmav()
 	local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1))
-	return IsVehicleModel(vehicle, polmav_hash)
+	for _,v in pairs(vehhashes) do
+		if IsVehicleModel(vehicle, v) then
+			return true
+		end
+	end
+	return false
 end
 
 function IsHeliHighEnough(heli)

@@ -42,6 +42,22 @@ AddEventHandler('esx:setJob', function(job)
   PlayerData.job = job
 end)
 
+RegisterNetEvent('esx_duty:dutyOn')
+AddEventHandler('esx_duty:dutyOn', function(target, jobname)
+	if PlayerData and PlayerData.job.name == jobname then
+		print(GetPlayerName(target))
+		TriggerEvent('esx:showNotification', _U('ondutynotify', target))
+	end
+end)
+
+RegisterNetEvent('esx_duty:dutyOff')
+AddEventHandler('esx_duty:dutyOff', function(target, jobname)
+	if PlayerData and PlayerData.job.name == jobname then
+		print(GetPlayerName(target))
+		TriggerEvent('esx:showNotification', _U('offdutynotify', target))
+	end
+end)
+
 ----markers
 AddEventHandler('esx_duty:hasEnteredMarker', function (zone)
   if zone ~= nil then
@@ -71,7 +87,7 @@ Citizen.CreateThread(function ()
 
         if CurrentAction ~= nil then
             for k,v in pairs(jobs) do
-                if PlayerData.job.name == v then
+                if PlayerData and PlayerData.job.name == v then
                     SetTextComponentFormat('STRING')
                     AddTextComponentString(CurrentActionMsg)
                     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
