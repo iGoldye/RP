@@ -8,25 +8,25 @@ Config.DoorList = {
 	--
 
 	-- Entrance Doors
-	{
-		textCoords = vector3(434.7, -982.0, 31.5),
-		authorizedJobs = { 'police' },
-		locked = false,
-		distance = 2.5,
-		doors = {
-			{
-				objName = 'v_ilev_ph_door01',
-				objYaw = -90.0,
-				objCoords = vector3(434.7, -980.6, 30.8)
-			},
+	-- {
+	-- 	textCoords = vector3(434.7, -982.0, 31.5),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = false,
+	-- 	distance = 2.5,
+	-- 	doors = {
+	-- 		{
+	-- 			objName = 'v_ilev_ph_door01',
+	-- 			objYaw = -90.0,
+	-- 			objCoords = vector3(434.7, -980.6, 30.8)
+	-- 		},
 
-			{
-				objName = 'v_ilev_ph_door002',
-				objYaw = -90.0,
-				objCoords = vector3(434.7, -983.2, 30.8)
-			}
-		}
-	},
+	-- 		{
+	-- 			objName = 'v_ilev_ph_door002',
+	-- 			objYaw = -90.0,
+	-- 			objCoords = vector3(434.7, -983.2, 30.8)
+	-- 		}
+	-- 	}
+	-- },
 
 	-- To locker room & roof
 	{
@@ -59,14 +59,14 @@ Config.DoorList = {
 	},
 
 	-- Armory
-	{
-		objName = 'v_ilev_arm_secdoor',
-		objYaw = -90.0,
-		objCoords  = vector3(452.6, -982.7, 30.6),
-		textCoords = vector3(453.0, -982.6, 31.7),
-		authorizedJobs = { 'police' },
-		locked = true
-	},
+	-- {
+	-- 	objName = 'v_ilev_arm_secdoor',
+	-- 	objYaw = -90.0,
+	-- 	objCoords  = vector3(452.6, -982.7, 30.6),
+	-- 	textCoords = vector3(453.0, -982.6, 31.7),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = true
+	-- },
 
 	-- Captain Office
 	{
@@ -364,7 +364,7 @@ Config.DoorList = {
 	{
 		textCoords = vector3(445.9, -999.1, 30.7),
 		authorizedJobs = { 'police' },
-		locked = false,
+		locked = true,
 		distance = 2.5,
 		doors = {
 			{

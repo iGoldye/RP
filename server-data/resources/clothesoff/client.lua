@@ -10,7 +10,7 @@ end)
 RegisterNetEvent('smerfikubrania:koszulka')
 AddEventHandler('smerfikubrania:koszulka', function()
 	TriggerEvent('skinchanger:getSkin', function(skin)
-	
+
 
 		local clothesSkin = {
 		['tshirt_1'] = 15, ['tshirt_2'] = 0,
@@ -23,7 +23,7 @@ end)
 RegisterNetEvent('smerfikubrania:spodnie')
 AddEventHandler('smerfikubrania:spodnie', function()
 	TriggerEvent('skinchanger:getSkin', function(skin)
-	
+
 
 		local clothesSkin = {
 		['pants_1'] = 21, ['pants_2'] = 0
@@ -35,7 +35,7 @@ end)
 RegisterNetEvent('smerfikubrania:buty')
 AddEventHandler('smerfikubrania:buty', function()
 	TriggerEvent('skinchanger:getSkin', function(skin)
-	
+
 
 		local clothesSkin = {
 		['shoes_1'] = 34, ['shoes_2'] = 0
@@ -61,7 +61,7 @@ function OpenActionMenuInteraction(target)
 			elements = elements
 		},
 	    function(data, menu)
-		if data.current.value == 'ubie' then			
+		if data.current.value == 'ubie' then
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 				TriggerEvent('skinchanger:loadSkin', skin)
 			end)

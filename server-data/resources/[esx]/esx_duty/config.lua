@@ -6,9 +6,9 @@ Config.Locale                     = 'en'
 Config.Zones = {
 
   PoliceDuty = {
-    Pos   = { x = 441.425, y = -1000.343, z = 29.85 },
+    Pos   = { x = 457.86, y = -1008.213, z = 27.55 },
     Size  = { x = 2.5, y = 2.5, z = 1.5 },
-    Color = { r = 0, g = 255, b = 0 },  
+    Color = { r = 0, g = 255, b = 0 },
     Type  = 27,
     Job   = "police",
   },

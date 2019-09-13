@@ -125,10 +125,10 @@ function OpenMechanicActionsMenu()
 
 				local elements = {
 					{label = _U('flat_bed'),  value = 'flatbed'},
-					{label = _U('tow_truck'), value = 'towtruck2'}
+					-- {label = _U('tow_truck'), value = 'towtruck2'}
 				}
 
-				if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief' or ESX.PlayerData.job.grade_name == 'experimente') then
+				if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief' or ESX.PlayerData.job.grade_name == 'experimente' or ESX.PlayerData.job.grade_name == 'novice' or ESX.PlayerData.job.grade_name == 'recrue') then
 					table.insert(elements, {label = 'SlamVan', value = 'slamvan3'})
 				end
 
@@ -204,7 +204,7 @@ function OpenMechanicHarvestMenu()
 		local elements = {
 			{label = _U('gas_can'), value = 'gaz_bottle'},
 			{label = _U('repair_tools'), value = 'fix_tool'},
-			{label = _U('body_work_tools'), value = 'caro_tool'}
+			{label = _U('body_work_tools'), value = 'caro_tool'},
 		}
 
 		ESX.UI.Menu.CloseAll()
@@ -750,6 +750,7 @@ AddEventHandler('esx_mechanicjob:hasExitedMarker', function(zone)
 		TriggerServerEvent('esx_mechanicjob:stopHarvest')
 		TriggerServerEvent('esx_mechanicjob:stopHarvest2')
 		TriggerServerEvent('esx_mechanicjob:stopHarvest3')
+		TriggerServerEvent('esx_mechanicjob:stopHarvest4')
 	end
 
 	CurrentAction = nil
