@@ -34,7 +34,7 @@ Locales['en'] = {
     -- Shops
     ['shop']                     = 'Ассортимент',
     ['shop_menu']                = 'Нажмите ~INPUT_CONTEXT~ чтобы посмотреть ассортимент',
-    ['bought']                   = 'купить ~b~ 1x',
+    ['bought']                   = 'Куплено: ~b~ 1x ',
     ['not_enough_money']         = 'У вас недостаточно денег',
     ['max_item']                 = 'Вам уже достаточно',
 
@@ -103,8 +103,9 @@ Locales['en'] = {
     ['jagercerbere']             = 'Ягермастер "Цербер"',
     ['assembling_cocktail']      = 'Смешивание!',
     ['craft_miss']               = 'Вышло очень плохо ...',
-    ['not_enough']               = 'Нехватает ~r~ ',
+    ['not_enough']               = 'Недостаточно ~r~ ',
     ['craft']                    = 'Вы смешали ~g~',
+    ['not_enough_budget']        = 'В бюджете недостаточно денег',
 
     -- Misc
     ['map_blip']                 = 'Юникорн',
