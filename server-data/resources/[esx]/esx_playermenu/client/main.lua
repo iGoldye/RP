@@ -425,8 +425,10 @@ function OpenMenu()
 		{label = "Поднять игрока", value = 'liftup'},
 		{label = "Одежда", value = 'clothes'},
 		{label = "Питомцы", value = 'pets'},
+		{label = "Сумка", value = 'bag'},
 		{label = "Документация", value = 'documents'},
 	}
+
 	local PlayerData = ESX.GetPlayerData()
 	if PlayerData.job then
 		if PlayerData.job.name == 'police' then
@@ -483,6 +485,8 @@ function OpenMenu()
 			OpenClothesMenu()
 		elseif cmd == 'pets' then
 			TriggerEvent('eden_animal:openPetMenu')
+		elseif cmd == 'bag' then
+			TriggerEvent('esx-kr-bag-inventory:openBag')
 		elseif cmd == 'vehicle' then
 			OpenVehicleMenu()
 		elseif cmd == 'police-actions' then

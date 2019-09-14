@@ -384,12 +384,13 @@ Citizen.CreateThread(function()
         end
     end)
 
-Citizen.CreateThread(function()
-    while true do
-        Wait(5)
+RegisterNetEvent('esx-kr-bag-inventory:openBag')
+AddEventHandler('esx-kr-bag-inventory:openBag', function()
+	if not HasBag then
+		ESX.ShowNotification("У вас нет сумки!")
+	end
 
-        if IsControlJustReleased(0, Keys['F5']) and HasBag and not IsPedInAnyVehicle(GetPlayerPed(-1), true) and not IsEntityInAir(PlayerPedId()) then -- Change F5 to the key you want to open the meny with
+        if HasBag and not IsPedInAnyVehicle(GetPlayerPed(-1), true) and not IsEntityInAir(PlayerPedId()) then -- Change F5 to the key you want to open the meny with
             Bag()
         end
-    end
 end)
