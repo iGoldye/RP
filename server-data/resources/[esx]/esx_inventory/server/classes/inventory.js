@@ -291,6 +291,32 @@ function DeserializeInventory(name, owner, items) {
 	return inv;
 }
 
+function LoadInventoryIfNotExists(name, owner) {
+	if (Inventories[name] !== undefined && Inventories[name][owner] !== undefined) {
+		return Inventories[name][owner];
+	}
+
+	if (Inventories[name] == null) {
+		Inventories[name] = []
+	}
+
+	let invname = 'esx_inventory';
+	if (name != 'pocket') {
+		invname = 'esx_inventory_' + this.name
+	}
+
+	var items = [];
+	var store = exports["esx_datastore"]["GetDataStore"](invname, owner, true)
+	if (store) {
+		items = store.get(name) || [];
+	}
+
+	Inventories[name][owner] = DeserializeInventory(name, owner, items) // replace new inventory
+	Inventories[name][owner].onChange()
+
+	return Inventories[name][owner]
+}
+
 function LoadInventory(name, owner) {
 	TriggerEvent('esx_datastore:getDataStore', 'esx_inventory', owner, function(store) {
 		var items = store.get(name) || [];
