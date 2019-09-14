@@ -164,45 +164,45 @@ Config.Zones = {
 -----------------------
 ----- TELEPORTERS -----
 
--- Config.TeleportZones = {
---   EnterBuilding = {
---     Pos       = { x = 132.608, y = -1293.978, z = 28.269 },
---     Size      = { x = 1.2, y = 1.2, z = 0.1 },
---     Color     = { r = 128, g = 128, b = 128 },
+-- -- Config.TeleportZones = {
+-- --   EnterBuilding = {
+-- --     Pos       = { x = 132.608, y = -1293.978, z = 28.269 },
+-- --     Size      = { x = 1.2, y = 1.2, z = 0.1 },
+-- --     Color     = { r = 128, g = 128, b = 128 },
+-- --     Marker    = 1,
+-- --     Hint      = _U('e_to_enter_1'),
+-- --     Teleport  = { x = 132.41, y = -1287.64, z = 28.569 }
+-- --   },
+
+-- --   ExitBuilding = {
+-- --     Pos       = { x = 132.517, y = -1290.901, z = 28.269 },
+-- --     Size      = { x = 1.2, y = 1.2, z = 0.1 },
+-- --     Color     = { r = 128, g = 128, b = 128 },
+-- --     Marker    = 1,
+-- --     Hint      = _U('e_to_exit_1'),
+-- --     Teleport  = { x = 131.175, y = -1295.598, z = 28.569 },
+-- --   },
+
+-- --[[
+--   EnterHeliport = {
+--     Pos       = { x = 126.843, y = -729.012, z = 241.201 },
+--     Size      = { x = 2.0, y = 2.0, z = 0.2 },
+--     Color     = { r = 204, g = 204, b = 0 },
 --     Marker    = 1,
---     Hint      = _U('e_to_enter_1'),
---     Teleport  = { x = 132.41, y = -1287.64, z = 28.569 }
+--     Hint      = _U('e_to_enter_2),
+--     Teleport  = { x = -65.944, y = -818.589, z =  320.801 }
 --   },
 
---   ExitBuilding = {
---     Pos       = { x = 132.517, y = -1290.901, z = 28.269 },
---     Size      = { x = 1.2, y = 1.2, z = 0.1 },
---     Color     = { r = 128, g = 128, b = 128 },
+--   ExitHeliport = {
+--     Pos       = { x = -67.236, y = -821.702, z = 320.401 },
+--     Size      = { x = 2.0, y = 2.0, z = 0.2 },
+--     Color     = { r = 204, g = 204, b = 0 },
 --     Marker    = 1,
---     Hint      = _U('e_to_exit_1'),
---     Teleport  = { x = 131.175, y = -1295.598, z = 28.569 },
+--     Hint      = _U('e_to_exit_2'),
+--     Teleport  = { x = 124.164, y = -728.231, z = 241.801 },
 --   },
-
---[[
-  EnterHeliport = {
-    Pos       = { x = 126.843, y = -729.012, z = 241.201 },
-    Size      = { x = 2.0, y = 2.0, z = 0.2 },
-    Color     = { r = 204, g = 204, b = 0 },
-    Marker    = 1,
-    Hint      = _U('e_to_enter_2),
-    Teleport  = { x = -65.944, y = -818.589, z =  320.801 }
-  },
-
-  ExitHeliport = {
-    Pos       = { x = -67.236, y = -821.702, z = 320.401 },
-    Size      = { x = 2.0, y = 2.0, z = 0.2 },
-    Color     = { r = 204, g = 204, b = 0 },
-    Marker    = 1,
-    Hint      = _U('e_to_exit_2'),
-    Teleport  = { x = 124.164, y = -728.231, z = 241.801 },
-  },
-]]--
-}
+-- ]]--
+-- }
 
 
 -- CHECK SKINCHANGER CLIENT MAIN.LUA for matching elements

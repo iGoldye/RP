@@ -183,6 +183,7 @@ Config.Animations = {
 		name  = 'attitudem',
 		label = 'Походки М',
 		items = {
+			{label = "Обычная", type = "attitude", data = {lib = "move_m@shocked@a", anim = "move_m@shocked@a"}},
 			{label = "Сдержанная", type = "attitude", data = {lib = "move_m@confident", anim = "move_m@confident"}},
 			{label = "Депрессивная", type = "attitude", data = {lib = "move_m@sad@a", anim = "move_m@sad@a"}},
 			{label = "Спокойная", type = "attitude", data = {lib = "move_m@business@a", anim = "move_m@business@a"}},
@@ -199,7 +200,7 @@ Config.Animations = {
 			{label = "В стельку", type = "attitude", data = {lib = "move_m@drunk@verydrunk", anim = "move_m@drunk@verydrunk"}},
 			{label = "Альфа", type = "attitude", data = {lib = "move_p_m_zero_slow", anim = "move_p_m_zero_slow"}},
 			{label = "Гордая", type = "attitude", data = {lib = "move_m@muscle@a", anim = "move_m@muscle@a"}},
-			{label = "Обычная", type = "attitude", data = {lib = "move_m@shocked@a", anim = "move_m@shocked@a"}},
+
 			{label = "В развалку", type = "attitude", data = {lib = "move_m@shadyped@a", anim = "move_m@shadyped@a"}},
 			{label = "Уставшая", type = "attitude", data = {lib = "move_m@buzzed", anim = "move_m@buzzed"}},
 			{label = "Очень уставшая", type = "attitude", data = {lib = "move_m@depressed@a", anim = "move_m@depressed@a"}},
@@ -215,6 +216,7 @@ Config.Animations = {
 		name  = 'attitudem2',
 		label = 'Походки Ж',
 		items = {
+			{label = "Обычная", type = "attitude", data = {lib = "move_f@generic", anim = "walk"}},
 			{label = "Сдержанная Ж", type = "attitude", data = {lib = "move_f@heels@c", anim = "move_f@heels@c"}},
 			{label = "Депрессивная Ж", type = "attitude", data = {lib = "move_f@depressed@a", anim = "move_f@depressed@a"}},
 			{label = "Ритмичная Ж", type = "attitude", data = {lib = "anim@move_f@grooving@", anim = "anim@move_f@grooving@"}},
