@@ -72,7 +72,7 @@ end)
 RegisterServerEvent("stadus_skills:addDriving")
 AddEventHandler("stadus_skills:addDriving", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	TriggerClientEvent('esx:showNotification', source, 'Вы на ~g~' .. round(amount, 2) .. '% ~s~лучше чувствуете себя за рулем!')
+--	TriggerClientEvent('esx:showNotification', source, 'Вы на ~g~' .. round(amount, 2) .. '% ~s~лучше чувствуете себя за рулем!')
 	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
 		MySQL.Async.execute('UPDATE `stadus_skills` SET `driving` = @driving WHERE `identifier` = @identifier',
 			{
