@@ -220,8 +220,6 @@ AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
 	local weaponHash = GetHashKey(weaponName)
 	local current_ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
 
---	print("Unequip "..weaponName.." "..amount)
-
 	if HasPedGotWeapon(playerPed, weaponHash, false) and current_ammo >= amount then
 		if GetSelectedPedWeapon(playerPed) == weaponHash then
 			SetCurrentPedWeapon(playerPed, GetHashKey("WEAPON_UNARMED"), true)
@@ -239,8 +237,6 @@ AddEventHandler('esx_inventory:equipWeapon', function(item)
 	local weaponName = item.extra.weapon_name
 	local playerPed = PlayerPedId()
 	local weaponHash = GetHashKey(weaponName)
-
---	print("Equip "..weaponName.." "..item.extra.ammo)
 
 	if HasPedGotWeapon(playerPed, weaponHash, false) then
 		ESX.ShowNotification(_U('already_equipped'))
@@ -274,7 +270,6 @@ end)
 
 RegisterNetEvent('esx_inventory:onInventoryUpdate')
 AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
-	print("onInventoryUpdate "..json.encode(inventory))
 	if inventory.name == "pocket" then
 		pocketWeight = inventory.weight or 0
 	end

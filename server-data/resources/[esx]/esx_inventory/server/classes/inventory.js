@@ -20,7 +20,9 @@ class Inventory {
 		this.dirty = true;
 
 		var xPlayer = this.getXPlayer();
-		TriggerClientEvent('esx_inventory:onInventoryUpdate', xPlayer.source, this.serialize());
+		if (xPlayer) {
+			TriggerClientEvent('esx_inventory:onInventoryUpdate', xPlayer.source, this.serialize());
+		}
 //		console.log("onChange: " + JSON.stringify(this.serialize()));
 	}
 
@@ -60,7 +62,6 @@ class Inventory {
 		}
 */
 		this.weight = weight
-//		print(weight)
 	}
 
 	findItem(item) {
@@ -302,7 +303,7 @@ function LoadInventoryIfNotExists(name, owner) {
 
 	let invname = 'esx_inventory';
 	if (name != 'pocket') {
-		invname = 'esx_inventory_' + this.name
+		invname = 'esx_inventory_' + name
 	}
 
 	var items = [];
@@ -317,13 +318,26 @@ function LoadInventoryIfNotExists(name, owner) {
 	return Inventories[name][owner]
 }
 
-function LoadInventory(name, owner) {
-	TriggerEvent('esx_datastore:getDataStore', 'esx_inventory', owner, function(store) {
+function LoadInventory(name, owner, cb) {
+	var storeName = 'esx_inventory';
+	if (name != 'pocket') {
+		storeName = 'esx_inventory_' + name
+	}
+
+	TriggerEvent('esx_datastore:getDataStore', storeName, owner, function(store) {
 		var items = store.get(name) || [];
 
-		getInventory(name, owner) // create new inventory if (not exists
+//		getInventory(name, owner) // create new inventory if (not exists
+		if (Inventories[name] == null) {
+			Inventories[name] = []
+		}
+
 		Inventories[name][owner] = DeserializeInventory(name, owner, items) // replace new inventory
 		Inventories[name][owner].onChange()
+
+		if (cb !== undefined) {
+			cb(Inventories[name][owner])
+		}
 	})
 }
 
@@ -353,28 +367,29 @@ function getInventoryLoadout(name, owner) {
 }
 
 
-function getInventory(name, owner) {
-	if (Inventories[name] == null) {
-		Inventories[name] = []
-	}
+function getInventory(name, owner, serialized) {
+	var inv = LoadInventoryIfNotExists(name, owner)
+		if (name == "pocket") {
+			inv.updateLoadout();
+			inv.updateESXItems();
+			inv.updateMoneyItems();
+		}
 
-	if (Inventories[name][owner] == null) {
-		Inventories[name][owner] = new Inventory(name, owner, [])
-	}
+		inv.updateWeight();
 
-	var inv = Inventories[name][owner]
-	inv.updateLoadout();
-	inv.updateESXItems();
-	inv.updateMoneyItems();
-	inv.updateWeight();
-	inv.items.sort(function(a,b) {
-	var s1 = b.priority - a.priority
-	if (s1 == 0 && b.weight && a.weight && b.amount && a.amount) {
-		s1 = b.weight*b.amount - a.weight*a.amount
-	}
+		inv.items.sort(function(a,b) {
+			var s1 = b.priority - a.priority
+			if (s1 == 0 && b.weight && a.weight && b.amount && a.amount) {
+				s1 = b.weight*b.amount - a.weight*a.amount
+			}
 
-        return s1;
-    })
+			return s1;
+		})
 
-	return inv;
+		if (serialized == true) {
+			return inv.serialize();
+		} else {
+			return inv;
+		}
+//	})
 }

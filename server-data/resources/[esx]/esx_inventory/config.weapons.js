@@ -262,6 +262,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_PUMPSHOTGUN_VARMOD_LOWRIDER') }
 		],
 		prop: 'w_sg_pumpshotgun',
+		weight: 3.50,
 	},
 
 	{
@@ -271,6 +272,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_SAWNOFFSHOTGUN_VARMOD_LUXE') }
 		],
 		prop: 'w_sg_sawnoff',
+		weight: 2.50,
 	},
 
 	{
@@ -284,6 +286,7 @@ Config.Weapons = [
 			{ name: 'grip', label: _U('component_grip'), hash: GetHashKey('COMPONENT_AT_AR_AFGRIP') }
 		],
 		prop: 'w_sg_assaultshotgun',
+		weight: 3.50,
 	},
 
 	{
@@ -295,6 +298,7 @@ Config.Weapons = [
 			{ name: 'grip', label: _U('component_grip'), hash: GetHashKey('COMPONENT_AT_AR_AFGRIP') }
 		],
 		prop: 'w_sg_bullpupshotgun',
+		weight: 3.00,
 	},
 
 	{
@@ -309,6 +313,7 @@ Config.Weapons = [
 			{ name: 'grip', label: _U('component_grip'), hash: GetHashKey('COMPONENT_AT_AR_AFGRIP') }
 		],
 		prop: 'w_sg_heavyshotgun',
+		weight: 4.00,
 	},
 
 	{
@@ -325,6 +330,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_ASSAULTRIFLE_VARMOD_LUXE') }
 		],
 		prop: 'w_ar_assaultrifle',
+		weight: 3.00,
 	},
 
 	{
@@ -341,6 +347,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_CARBINERIFLE_VARMOD_LUXE') }
 		],
 		prop: 'w_ar_carbinerifle',
+		weight: 3.00,
 	},
 
 	{
@@ -355,6 +362,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_ADVANCEDRIFLE_VARMOD_LUXE') }
 		],
 		prop: 'w_ar_advancedrifle',
+		weight: 3.00,
 	},
 
 	{
@@ -371,6 +379,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_SPECIALCARBINE_VARMOD_LOWRIDER') }
 		],
 		prop: 'w_ar_specialcarbine',
+		weight: 3.00,
 	},
 
 	{
@@ -386,6 +395,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_BULLPUPRIFLE_VARMOD_LOW') }
 		],
 		prop: 'w_ar_bullpuprifle',
+		weight: 3.00,
 	},
 
 	{
@@ -397,6 +407,7 @@ Config.Weapons = [
 			{ name: 'clip_drum', label: _U('component_clip_drum'), hash: GetHashKey('COMPONENT_COMPACTRIFLE_CLIP_03') }
 		],
 		prop: 'w_ar_assaultrifle_smg',
+		weight: 2.50,
 	},
 
 	{
@@ -409,6 +420,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_MG_VARMOD_LOWRIDER') }
 		],
 		prop: 'w_mg_mg',
+		weight: 3.00,
 	},
 
 	{
@@ -422,6 +434,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_COMBATMG_VARMOD_LOWRIDER') }
 		],
 		prop: 'w_mg_combatmg',
+		weight: 3.00,
 	},
 
 	{
@@ -432,6 +445,7 @@ Config.Weapons = [
 			{ name: 'clip_extended', label: _U('component_clip_extended'), hash: GetHashKey('COMPONENT_GUSENBERG_CLIP_02') },
 		],
 		prop: 'w_sb_gusenberg',
+		weight: 3.00,
 	},
 
 	{
@@ -444,6 +458,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_SNIPERRIFLE_VARMOD_LUXE') }
 		],
 		prop: 'w_sr_sniperrifle',
+		weight: 3.00,
 	},
 
 	{
@@ -454,6 +469,7 @@ Config.Weapons = [
 			{ name: 'scope_advanced', label: _U('component_scope_advanced'), hash: GetHashKey('COMPONENT_AT_SCOPE_MAX') }
 		],
 		prop: 'w_sr_heavysniper',
+		weight: 3.00,
 	},
 
 	{
@@ -469,6 +485,7 @@ Config.Weapons = [
 			{ name: 'luxary_finish', label: _U('component_luxary_finish'), hash: GetHashKey('COMPONENT_MARKSMANRIFLE_VARMOD_LUXE') }
 		],
 		prop: 'w_sr_marksmanrifle',
+		weight: 3.00,
 	},
 
 	{
@@ -476,6 +493,7 @@ Config.Weapons = [
 		label: _U('weapon_grenadelauncher'),
 		components: [],
 		prop: 'w_lr_grenadelauncher',
+		weight: 4.00,
 	},
 
 	{
@@ -483,245 +501,286 @@ Config.Weapons = [
 		label: _U('weapon_rpg'),
 		components: [],
 		prop: 'w_lr_rpg',
+		weight: 4.00,
 	},
 
 	{
 		name: 'WEAPON_STINGER',
 		label: _U('weapon_stinger'),
 		components: [],
+		weight: 5.00,
 	},
 
 	{
 		name: 'WEAPON_MINIGUN',
 		label: _U('weapon_minigun'),
-		components: []
+		components: [],
+		weight: 20.00,
 	},
 
 	{
 		name: 'WEAPON_GRENADE',
 		label: _U('weapon_grenade'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_STICKYBOMB',
 		label: _U('weapon_stickybomb'),
-		components: []
+		components: [],
+		weight: 1.00,
 	},
 
 	{
 		name: 'WEAPON_SMOKEGRENADE',
 		label: _U('weapon_smokegrenade'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_BZGAS',
 		label: _U('weapon_bzgas'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_MOLOTOV',
 		label: _U('weapon_molotov'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_FIREEXTINGUISHER',
 		label: _U('weapon_fireextinguisher'),
-		components: []
+		components: [],
+		weight: 1.00,
 	},
 
 	{
 		name: 'WEAPON_PETROLCAN',
 		label: _U('weapon_petrolcan'),
-		components: []
+		components: [],
+		weight: 3.00,
 	},
 
 	{
 		name: 'WEAPON_DIGISCANNER',
 		label: _U('weapon_digiscanner'),
-		components: []
+		components: [],
+		weight: 1.00,
 	},
 
 	{
 		name: 'WEAPON_BALL',
 		label: _U('weapon_ball'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_BOTTLE',
 		label: _U('weapon_bottle'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_DAGGER',
 		label: _U('weapon_dagger'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_FIREWORK',
 		label: _U('weapon_firework'),
-		components: []
+		components: [],
+		weight: 3.00,
 	},
 
 	{
 		name: 'WEAPON_MUSKET',
 		label: _U('weapon_musket'),
-		components: []
+		components: [],
+		weight: 2.50,
 	},
 
 	{
 		name: 'WEAPON_STUNGUN',
 		label: _U('weapon_stungun'),
-		components: []
+		components: [],
+		weight: 1.00,
 	},
 
 	{
 		name: 'WEAPON_HOMINGLAUNCHER',
 		label: _U('weapon_hominglauncher'),
-		components: []
+		components: [],
+		weight: 3.50,
 	},
 
 	{
 		name: 'WEAPON_PROXMINE',
 		label: _U('weapon_proxmine'),
-		components: []
+		components: [],
+		weight: 1.00,
 	},
 
 	{
 		name: 'WEAPON_SNOWBALL',
 		label: _U('weapon_snowball'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_FLAREGUN',
 		label: _U('weapon_flaregun'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_GARBAGEBAG',
 		label: _U('weapon_garbagebag'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_HANDCUFFS',
 		label: _U('weapon_handcuffs'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_MARKSMANPISTOL',
 		label: _U('weapon_marksmanpistol'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_KNUCKLE',
 		label: _U('weapon_knuckle'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_HATCHET',
 		label: _U('weapon_hatchet'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_RAILGUN',
 		label: _U('weapon_railgun'),
-		components: []
+		components: [],
+		weight: 3.50,
 	},
 
 	{
 		name: 'WEAPON_MACHETE',
 		label: _U('weapon_machete'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_SWITCHBLADE',
 		label: _U('weapon_switchblade'),
-		components: []
+		components: [],
+		weight: 0.20,
 	},
 
 	{
 		name: 'WEAPON_DBSHOTGUN',
 		label: _U('weapon_dbshotgun'),
-		components: []
+		components: [],
+		weight: 2.50,
 	},
 
 	{
 		name: 'WEAPON_AUTOSHOTGUN',
 		label: _U('weapon_autoshotgun'),
-		components: []
+		components: [],
+		weight: 2.50,
 	},
 
 	{
 		name: 'WEAPON_BATTLEAXE',
 		label: _U('weapon_battleaxe'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_COMPACTLAUNCHER',
 		label: _U('weapon_compactlauncher'),
-		components: []
+		components: [],
+		weight: 1.50,
 	},
 
 	{
 		name: 'WEAPON_PIPEBOMB',
 		label: _U('weapon_pipebomb'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_POOLCUE',
 		label: _U('weapon_poolcue'),
-		components: []
+		components: [],
+		weight: 0.20,
 	},
 
 	{
 		name: 'WEAPON_WRENCH',
 		label: _U('weapon_wrench'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_FLASHLIGHT',
 		label: _U('weapon_flashlight'),
-		components: []
+		components: [],
+		weight: 0.20,
 	},
 
 	{
 		name: 'GADGET_NIGHTVISION',
 		label: _U('gadget_nightvision'),
-		components: []
+		components: [],
+		weight: 0.20,
 	},
 
 	{
 		name: 'GADGET_PARACHUTE',
 		label: _U('gadget_parachute'),
-		components: []
+		components: [],
+		weight: 0.50,
 	},
 
 	{
 		name: 'WEAPON_FLARE',
 		label: _U('weapon_flare'),
-		components: []
+		components: [],
+		weight: 0.10,
 	},
 
 	{
 		name: 'WEAPON_DOUBLEACTION',
 		label: _U('weapon_doubleaction'),
-		components: []
+		components: [],
+		weight: 0.50,
 	}
 ];
