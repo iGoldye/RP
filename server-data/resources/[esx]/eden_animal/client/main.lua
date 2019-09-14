@@ -12,7 +12,7 @@ local Keys = {
 
 -- internal variables
 ESX = nil
-local ped = {}
+local ped = 0
 local model = {}
 local status = 100
 local objCoords = nil
@@ -31,18 +31,21 @@ Citizen.CreateThread(function()
 	end
 
 	Citizen.Wait(5000)
-	DoRequestModel(-1788665315) -- chien
-	DoRequestModel(1462895032) -- chat
-	DoRequestModel(1682622302) -- loup
-	DoRequestModel(-541762431) -- lapin
-	DoRequestModel(1318032802) -- husky
-	DoRequestModel(-1323586730) -- cochon
-	DoRequestModel(1125994524) -- caniche
-	DoRequestModel(1832265812) -- carlin
-	DoRequestModel(882848737) -- retriever
-	DoRequestModel(1126154828) -- berger
-	DoRequestModel(-1384627013) -- westie
-	DoRequestModel(351016938)  -- rottweiler
+
+	for k,v in pairs(Config.PetShop) do
+		DoRequestModel(v.model)
+	end
+end)
+
+-- Display markers
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		local coords = GetEntityCoords(PlayerPedId())
+		for k,v in pairs(Config.Zones) do
+			DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Color.r, v.Color.g, v.Color.b, 100, false, true, 2, false, false, false, false)
+		end
+	end
 end)
 
 function OpenPetMenu()
@@ -79,60 +82,24 @@ function OpenPetMenu()
 	}, function(data, menu)
 		if data.current.value == 'come_animal' and come == 0 then
 			ESX.TriggerServerCallback('eden_animal:getPet', function(pet)
-				if pet == 'chien' then
-					model = -1788665315
-					come = 1
-					openchien()
-				elseif pet == 'chat' then
-					model = 1462895032
-					come = 1
-					openchien()
-				elseif pet == 'loup' then
-					model = 1682622302
-					come = 1
-					openchien()
-				elseif pet == 'lapin' then
-					model = -541762431
-					come = 1
-					openchien()
-				elseif pet == 'husky' then
-					model = 1318032802
-					come = 1
-					openchien()
-				elseif pet == 'cochon' then
-					model = -1323586730
-					come = 1
-					openchien()
-				elseif pet == 'caniche' then
-					model = 1125994524
-					come = 1
-					openchien()
-				elseif pet == 'carlin' then
-					model = 1832265812
-					come = 1
-					openchien()
-				elseif pet == 'retriever' then
-					model = 882848737
-					come = 1
-					openchien()
-				elseif pet == 'berger' then
-					model = 1126154828
-					come = 1
-					openchien()
-				elseif pet == 'westie' then
-					model = -1384627013
-					come = 1
-					openchien()
-				elseif pet == 'rottweiler' then
-					model = 351016938
-					come = 1
-				else
+				local found = false
+				for k,v in pairs(Config.PetShop) do
+					if k == pet then
+						model = v.model
+						come = 1
+						found = true
+						opendog()
+						break
+					end
+				end
+
+				if not found then
 					print('eden_animal: unknown pet ' .. pet)
 				end
 			end)
 			menu.close()
 		elseif data.current.value == 'attached_animal' then
-			if not IsPedSittingInAnyVehicle(ped) then
+			if ped > 0 and not IsPedSittingInAnyVehicle(ped) then
 				if isAttached == false then
 					attached()
 					isAttached = true
@@ -147,7 +114,7 @@ function OpenPetMenu()
 			end
 		elseif data.current.value == 'give_orders' then
 			GivePetOrders()
-		elseif data.current.value == 'graille' then
+		elseif data.current.value == 'graille' and ped > 0 then
 			local inventory = ESX.GetPlayerData().inventory
 			local coords1   = GetEntityCoords(PlayerPedId())
 			local coords2   = GetEntityCoords(ped)
@@ -178,7 +145,7 @@ function OpenPetMenu()
 			else
 				ESX.ShowNotification(_U('hestoofar'))
 			end
-		elseif data.current.value == 'vehicle' then
+		elseif data.current.value == 'vehicle' and ped > 0 then
 			local playerPed = PlayerPedId()
 			local vehicle  = GetVehiclePedIsUsing(playerPed)
 			local coords   = GetEntityCoords(playerPed)
@@ -226,31 +193,54 @@ function OpenPetMenu()
 	end)
 end
 
+function returnHome()
+	if ped == 0 then
+		return
+	end
+
+	local GroupHandle = GetPlayerGroup(PlayerId())
+	local coords      = GetEntityCoords(PlayerPedId())
+
+	ESX.ShowNotification(_U('doghouse_returning'))
+
+	SetGroupSeparationRange(GroupHandle, 1.9)
+	SetPedNeverLeavesGroup(ped, false)
+	TaskGoToCoordAnyMeans(ped, coords.x + 40, coords.y, coords.z, 5.0, 0, 0, 786603, 0xbf800000)
+	come = 0
+
+	Citizen.Wait(5000)
+	DeleteEntity(ped)
+	ped = 0
+end
+
 function GivePetOrders()
 	ESX.TriggerServerCallback('eden_animal:getPet', function(pet)
 		local elements = {}
+		if ped == 0 then
+			return
+		end
 
 		if not inanimation then
-			if pet ~= 'chat' then
+			if Config.PetShop[pet] and (Config.PetShop[pet].bringBall == nil or Config.PetShop[pet].bringBall == true) then
 				table.insert(elements, {label = _U('balle'), value = 'balle'})
 			end
 
 			table.insert(elements, {label = _U('pied'),     value = 'pied'})
 			table.insert(elements, {label = _U('doghouse'), value = 'return_doghouse'})
 
-			if pet == 'chien' then
-				table.insert(elements, {label = _U('sitdown'), value = 'assis'})
-				table.insert(elements, {label = _U('getdown'), value = 'coucher'})
-			elseif pet == 'chat' then
-				table.insert(elements, {label = _U('getdown'), value = 'coucher2'})
-			elseif pet == 'loup' then
-				table.insert(elements, {label = _U('getdown'), value = 'coucher3'})
-			elseif pet == 'carlin' then
-				table.insert(elements, {label = _U('sitdown'), value = 'assis2'})
+			if pet == 'dog' then
+				table.insert(elements, {label = _U('sitdown'), value = 'sitdown'})
+				table.insert(elements, {label = _U('getdown'), value = 'getdown'})
+			elseif pet == 'cat' then
+				table.insert(elements, {label = _U('getdown'), value = 'getdown2'})
+			elseif pet == 'wolf' then
+				table.insert(elements, {label = _U('getdown'), value = 'getdown3'})
+			elseif pet == 'pug' then
+				table.insert(elements, {label = _U('sitdown'), value = 'sitdown2'})
 			elseif pet == 'retriever' then
-				table.insert(elements, {label = _U('sitdown'), value = 'assis3'})
+				table.insert(elements, {label = _U('sitdown'), value = 'sitdown3'})
 			elseif pet == 'rottweiler' then
-				table.insert(elements, {label = _U('sitdown'), value = 'assis4'})
+				table.insert(elements, {label = _U('sitdown'), value = 'sitdown4'})
 			end
 		else
 			table.insert(elements, {label = _U('getup'), value = 'debout'})
@@ -262,20 +252,9 @@ function GivePetOrders()
 			elements = elements
 		}, function(data, menu)
 			if data.current.value == 'return_doghouse' then
-				local GroupHandle = GetPlayerGroup(PlayerId())
-				local coords      = GetEntityCoords(PlayerPedId())
-
-				ESX.ShowNotification(_U('doghouse_returning'))
-
-				SetGroupSeparationRange(GroupHandle, 1.9)
-				SetPedNeverLeavesGroup(ped, false)
-				TaskGoToCoordAnyMeans(ped, coords.x + 40, coords.y, coords.z, 5.0, 0, 0, 786603, 0xbf800000)
-
-				Citizen.Wait(5000)
-				DeleteEntity(ped)
-				come = 0
-
 				ESX.UI.Menu.CloseAll()
+				returnHome()
+
 			elseif data.current.value == 'pied' then
 				local coords = GetEntityCoords(PlayerPedId())
 				TaskGoToCoordAnyMeans(ped, coords, 5.0, 0, 0, 786603, 0xbf800000)
@@ -295,37 +274,37 @@ function GivePetOrders()
 				else
 					ESX.ShowNotification(_U('noball'))
 				end
-			elseif data.current.value == 'assis' then -- [chien ]
+			elseif data.current.value == 'sitdown' then -- [dog ]
 				DoRequestAnimSet('creatures@rottweiler@amb@world_dog_sitting@base')
 				TaskPlayAnim(ped, 'creatures@rottweiler@amb@world_dog_sitting@base', 'base' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
 				menu.close()
-			elseif data.current.value == 'coucher' then -- [chien ]
+			elseif data.current.value == 'getdown' then -- [dog ]
 				DoRequestAnimSet('creatures@rottweiler@amb@sleep_in_kennel@')
 				TaskPlayAnim(ped, 'creatures@rottweiler@amb@sleep_in_kennel@', 'sleep_in_kennel' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
 				menu.close()
-			elseif data.current.value == 'coucher2' then -- [chat ]
+			elseif data.current.value == 'getdown2' then -- [cat ]
 				DoRequestAnimSet('creatures@cat@amb@world_cat_sleeping_ground@idle_a')
 				TaskPlayAnim(ped, 'creatures@cat@amb@world_cat_sleeping_ground@idle_a', 'idle_a' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
 				menu.close()
-			elseif data.current.value == 'coucher3' then -- [loup ]
+			elseif data.current.value == 'getdown3' then -- [wolf ]
 				DoRequestAnimSet('creatures@coyote@amb@world_coyote_rest@idle_a')
 				TaskPlayAnim(ped, 'creatures@coyote@amb@world_coyote_rest@idle_a', 'idle_a' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
 				menu.close()
-			elseif data.current.value == 'assis2' then -- [carlin ]
+			elseif data.current.value == 'sitdown2' then -- [pug ]
 				DoRequestAnimSet('creatures@carlin@amb@world_dog_sitting@idle_a')
 				TaskPlayAnim(ped, 'creatures@carlin@amb@world_dog_sitting@idle_a', 'idle_b' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
 				menu.close()
-			elseif data.current.value == 'assis3' then -- [retriever ]
+			elseif data.current.value == 'sitdown3' then -- [retriever ]
 				DoRequestAnimSet('creatures@retriever@amb@world_dog_sitting@idle_a')
 				TaskPlayAnim(ped, 'creatures@retriever@amb@world_dog_sitting@idle_a', 'idle_c' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
 				menu.close()
-			elseif data.current.value == 'assis4' then -- [rottweiler ]
+			elseif data.current.value == 'sitdown4' then -- [rottweiler ]
 				DoRequestAnimSet('creatures@rottweiler@amb@world_dog_sitting@idle_a')
 				TaskPlayAnim(ped, 'creatures@rottweiler@amb@world_dog_sitting@idle_a', 'idle_c' ,8.0, -8, -1, 1, 0, false, false, false)
 				inanimation = true
@@ -345,7 +324,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(30)
 
-		if balle then
+		if balle and ped > 0 then
 			local coords1 = GetEntityCoords(PlayerPedId())
 			local coords2 = GetEntityCoords(ped)
 			local distance  = GetDistanceBetweenCoords(objCoords, coords2, true)
@@ -360,7 +339,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		if getball then
+		if getball and ped > 0 then
 			local coords1 = GetEntityCoords(PlayerPedId())
 			local coords2 = GetEntityCoords(ped)
 			local distance2 = GetDistanceBetweenCoords(coords1, coords2, true)
@@ -382,6 +361,10 @@ Citizen.CreateThread(function()
 end)
 
 function attached()
+	if ped == 0 then
+		return
+	end
+
 	local GroupHandle = GetPlayerGroup(PlayerId())
 	SetGroupSeparationRange(GroupHandle, 1.9)
 	SetPedNeverLeavesGroup(ped, false)
@@ -389,6 +372,10 @@ function attached()
 end
 
 function detached()
+	if ped == 0 then
+		return
+	end
+
 	local GroupHandle = GetPlayerGroup(PlayerId())
 	SetGroupSeparationRange(GroupHandle, 999999.9)
 	SetPedNeverLeavesGroup(ped, true)
@@ -396,7 +383,7 @@ function detached()
 	FreezeEntityPosition(ped, false)
 end
 
-function openchien()
+function opendog()
 	local playerPed = PlayerPedId()
 	local LastPosition = GetEntityCoords(playerPed)
 	local GroupHandle = GetPlayerGroup(PlayerId())
@@ -407,6 +394,10 @@ function openchien()
 
 	Citizen.SetTimeout(5000, function()
 		ped = CreatePed(28, model, LastPosition.x +1, LastPosition.y +1, LastPosition.z -1, 1, 1)
+		Citizen.Wait(50)
+		if ped == 0 then
+			return
+		end
 
 		SetPedAsGroupLeader(playerPed, GroupHandle)
 		SetPedAsGroupMember(ped, GroupHandle)
@@ -415,9 +406,9 @@ function openchien()
 		SetEntityAsMissionEntity(ped, true,true)
 
 		status = math.random(40, 90)
-		Citizen.Wait(5)
+		Citizen.Wait(50)
 		attached()
-		Citizen.Wait(5)
+		Citizen.Wait(50)
 		detached()
 	end)
 end
@@ -430,7 +421,7 @@ Citizen.CreateThread(function()
 			status = status - 1
 		end
 
-		if status == 0 then
+		if status == 0 and ped > 0 then
 			TriggerServerEvent('eden_animal:petDied')
 			DeleteEntity(ped)
 			ESX.ShowNotification(_U('pet_dead'))
@@ -485,13 +476,14 @@ Citizen.CreateThread(function()
 end)
 
 function OpenPetShop()
+	returnHome()
 	local elements = {}
 
-	for i=1, #Config.PetShop, 1 do
+	for k,v in pairs(Config.PetShop) do
 		table.insert(elements, {
-			label = ('%s - <span style="color:green;">%s</span>'):format(Config.PetShop[i].label, _U('shop_item', ESX.Math.GroupDigits(Config.PetShop[i].price))),
-			pet = Config.PetShop[i].pet,
-			price = Config.PetShop[i].price
+			label = ('%s - <span style="color:green;">%s</span>'):format(v.label, _U('shop_item', ESX.Math.GroupDigits(v.price))),
+			pet = k,
+			price = v.price
 		})
 	end
 
