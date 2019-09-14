@@ -1,6 +1,6 @@
 <template lang="pug">
   .skincreator__wrapper
-    .skincreator__outer
+    form.skincreator__outer
       .tab__wrapper
         a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :class="[tab.name, { active : tab.isActive}]", @click='switchPane') {{ tab.label }}
       .tab__content-wrapper
@@ -20,7 +20,7 @@
             .tab__group
               h3.tab__group-header Генетика Отец / Мать
               .range__wrapper
-                input(type='range', :min='genetics.min', :max='genetics.max', step='1', class='range', v-model='genetics.value')
+                input(type='range', :min='genetics.min', :max='genetics.max', step='1', class='range', v-model='genetics.value', :name='genetics.name')
                 .range--arrows
                   input(type='button', value='<', class='range--arrows__button', @click='genetics.value > genetics.min ? genetics.value-- : genetics.min')
                   input(type='button', value='>', class='range--arrows__button', @click='genetics.value < genetics.max ? genetics.value++ : genetics.max')
@@ -45,10 +45,10 @@
                   | /
                   span.tab__group-legend-total {{ item.max }}
               .range__wrapper
-                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value')
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value', :name='item.name')
                 .range--arrows
-                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
-                  input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
+                  input(type='button', value='<', class='range--arrows__button ', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button ', @click='item.value < item.max ? item.value++ : item.max')
           .tab__outer(v-if="tab.name == 'hair'")
             h2.tab__header {{ tab.header }}
             .tab__group
@@ -65,16 +65,32 @@
                   | /
                   span.tab__group-legend-total {{ item.max }}
               .range__wrapper
-                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value')
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value', :name='item.name')
                 .range--arrows
-                  input(type='button', value='<', class='range--arrows__button range--decrease', @click='item.value > item.min ? item.value-- : item.min')
-                  input(type='button', value='>', class='range--arrows__button range--increase', @click='item.value < item.max ? item.value++ : item.max')
+                  input(type='button', value='<', class='range--arrows__button ', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button ', @click='item.value < item.max ? item.value++ : item.max')
             .tab__group
               h3.tab__group-header Цвет бороды
               .radio__wrapper
-                label.radio__outer(v-for="color in hairColors", :for="'hair'+color.id")
-                  input(type='radio', name='haircolor', class='radio', :checked='color.checked', :value='color.value', :id="'hair'+color.id")
+                label.radio__outer(v-for="color in beardColors", :for="'beard'+color.id")
+                  input(type='radio', name='beardcolor', class='radio', :checked='color.checked', :value='color.value', :id="'beard'+color.id")
                   span.radio__color(:data-color='color.color')
+          .tab__outer(v-if="tab.name == 'clothes'")
+            h2.tab__header {{ tab.header }}
+            .tab__group(v-for='item in clothesGroupSliders')
+              .tab__group-head
+                h3.tab__group-header {{ item.header }}
+                .tab__group-legend
+                  span.tab__group-legend-current {{ item.value }}
+                  | /
+                  span.tab__group-legend-total {{ item.max }}
+              .range__wrapper
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value', :name='item.name')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button ', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button ', @click='item.value < item.max ? item.value++ : item.max')
+      .skincreator__submit
+        button.skincreator__submit-btn(type='button') Применить
 
 </template>
 
@@ -83,6 +99,8 @@
 </style>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SkinCreator",
   data() {
@@ -111,7 +129,7 @@ export default {
           link: "clothes",
           activeClass: "is-active",
           isActive: false,
-          header: "Морфология"
+          header: "Одежда"
         }
       ],
       fathers: [
@@ -356,7 +374,8 @@ export default {
       genetics: {
         value: 5,
         min: 0,
-        max: 10
+        max: 10,
+        name: "genetics"
       },
       eyeColors: [
         {
@@ -667,6 +686,57 @@ export default {
           color: "#1D1D1A",
           checked: true
         }
+      ],
+      clothesGroupSliders: [
+        {
+          name: "head",
+          header: "Голова",
+          value: 0,
+          min: 0,
+          max: 32
+        },
+        {
+          name: "glass",
+          header: "Очки",
+          value: 0,
+          min: 0,
+          max: 11
+        },
+        {
+          name: "bejelwes",
+          header: "Бижутерия",
+          value: 0,
+          min: 0,
+          max: 15
+        },
+        {
+          name: "shirts",
+          header: "Верхняя одежда",
+          value: 0,
+          min: 0,
+          max: 118
+        },
+        {
+          name: "pants",
+          header: "Штаны",
+          value: 0,
+          min: 0,
+          max: 57
+        },
+        {
+          name: "shoes",
+          header: "Обувь",
+          value: 0,
+          min: 0,
+          max: 50
+        },
+        {
+          name: "watches",
+          header: "Часы",
+          value: 0,
+          min: 0,
+          max: 7
+        }
       ]
     };
   },
@@ -675,6 +745,27 @@ export default {
     spans.forEach(item => {
       let color = item.dataset.color;
       item.style.backgroundColor = color;
+    });
+
+    let ul = document.querySelectorAll("ul");
+    ul.forEach(li => {
+      li.firstChild.classList.add("active");
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      let inputs = document.querySelectorAll("input");
+      inputs.forEach(input => {
+        // input.addEventListener("change", e => {
+        //   console.log(document.querySelector("input[name=genetics]").value);
+        // });
+      });
+
+      let arrows = document.querySelectorAll(".range--arrows__button");
+      arrows.forEach(button => {
+        button.addEventListener("click", e => {
+          console.log(1);
+        });
+      });
     });
   },
   methods: {
@@ -695,6 +786,44 @@ export default {
           item.classList.add("active");
         }
       });
+    },
+    postData(e) {
+      e.preventDefault();
+      axios.post(
+        "http://vueskincreator/updateSkin",
+        JSON.stringify({
+          dad: document.querySelector("input[name=father]:checked").value, //$("input[name=pere]:checked", "#formSkinCreator").val()
+          mum: document.querySelector("input[name=mother]:checked").value,
+          dadmumpercent: document.querySelector("input[name=genetics]").value,
+          skin: document.querySelector("input[name=skincolor]:checked").value,
+          eyecolor: document.querySelector("input[name=eyecolor]:checked")
+            .value,
+          acne: document.querySelector("input[name=acne]").value,
+          skinproblem: document.querySelector("input[name=skinpProblems]")
+            .value,
+          freckle: document.querySelector("input[name=freckles]").value,
+          wrinkle: document.querySelector("input[name=wrinkles]").value,
+          wrinkleopacity: document.querySelector("input[name=wrinklesDepth]")
+            .value,
+          hair: document.querySelector("input[name=hairstyle]").value,
+          haircolor: document.querySelector("input[name=haircolor]").value,
+          eyebrow: document.querySelector("input[name=eyebrowsShape]").value,
+          eyebrowopacity: document.querySelector("input[name=eyebrowsTickness]")
+            .value,
+          beard: document.querySelector("input[name=beardType]").value,
+          beardopacity: document.querySelector("input[name=beardTickness]")
+            .value,
+          beardcolor: document.querySelector("input[name=beardColor]").value,
+          // Clothes
+          hats: $(".chapeaux .active").attr("data"),
+          glasses: $(".lunettes .active").attr("data"),
+          ears: $(".oreilles .active").attr("data"),
+          tops: $(".hauts .active").attr("data"),
+          pants: $(".pantalons .active").attr("data"),
+          shoes: $(".chaussures .active").attr("data"),
+          watches: $(".montre .active").attr("data")
+        })
+      );
     }
   }
 };
