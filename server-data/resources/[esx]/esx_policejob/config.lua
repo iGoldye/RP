@@ -148,16 +148,29 @@ Config.AuthorizedWeapons = {
 
 Config.AuthorizedVehicles = {
 	Shared = {
-		{ model = 'police', label = 'Police Cruiser', price = 100 },
-		{ model = 'police2', label = 'Police Buffalo', price = 200 },
-		{ model = 'police3', label = 'Police Interceptor', price = 200 },
-		{ model = 'policet', label = 'Police Transporter', price = 400 },
-		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
-		{ model = 'riot', label = 'Police Riot', price = 500 },
+		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
+		-- { model = 'policet', label = 'Police Transporter', price = 400 },
+
+		-- { model = 'riot', label = 'Police Riot', price = 500 },
+
+		{ model = 'lapd', label = 'Police Crown Victoria', price = 100 },
+		{ model = 'lapd7', label = 'Police Ford Responder', price = 100 },
+		{ model = 'lapd2', label = 'Police Dodge Charger', price = 100 },
+		{ model = 'lapd8', label = 'Police Dodge Charger AWD', price = 100 },
+		{ model = 'lapd9', label = 'Police Chevrolet Caprice', price = 100 },
+		{ model = 'lapd5', label = 'Police Chevrolet Impala', price = 100 },
+		{ model = 'lapd3', label = 'Police Ford SUV Slam', price = 100 },
+		{ model = 'lapd6', label = 'Police Ford SUV', price = 100 },
+		{ model = 'lapd4', label = 'Police Chevrolet SUV', price = 100 },
+		{ model = 'lapd10', label = 'Police Riot', price = 500 },
+		{ model = 'lapd11', label = 'Police Transporter', price = 500 },
+		{ model = 'policeb', label = 'Police Bike', price = 50 },
 		{ model = 'fbi2', label = 'FIB SUV', price = 300 },
 		{ model = 'fbi', label = 'FIB Buffalo', price = 300 },
 		{ model = 'police4', label = 'FIB Cruiser', price = 300 },
-		{ model = 'policeb', label = 'Police Bike', price = 50 },
+		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
 		{ model = 'lp770cop', label = 'Speed Unit', price = 100000 },
 	},
 
@@ -432,6 +445,6 @@ Config.Uniforms = {
 		female = {
 		}
 	},
-	
+
 
 }
