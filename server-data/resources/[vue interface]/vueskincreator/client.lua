@@ -2,10 +2,10 @@
 --                          Variables
 ------------------------------------------------------------------
 
-local isSkinCreatorOpened = true		-- Change this value to show/hide UI
-local cam = -1							-- Camera control
+local isSkinCreatorOpened = false			-- Change this value to show/hide UI
+local cam = -1						-- Camera control
 local heading = 332.219879				-- Heading coord
-local zoom = "visage"					-- Define which tab is shown first (Default: Head)
+local zoom = "face"					-- Define which tab is shown first (Default: Head)
 
 
 ------------------------------------------------------------------
@@ -69,7 +69,7 @@ RegisterNUICallback('updateSkin', function(data)
 		SetPedDefaultComponentVariation(GetPlayerPed(-1))
 
 		-- Face
-		SetPedHeadBlendData			(GetPlayerPed(-1), dad, mum, dad, skin, skin, skin, dadmumpercent * 0.1, dadmumpercent * 0.1, 1.0, true)
+		SetPedHeadBlendData			(GetPlayerPed(-1), dad, mum, dad, skin, skin, skin, dadmumpercent * 0.1, dadmumpercent * 0.1, 0.0, true)
 		SetPedEyeColor				(GetPlayerPed(-1), eyecolor)
 		if acne == 0 then
 			SetPedHeadOverlay		(GetPlayerPed(-1), 0, acne, 0.0)
@@ -932,9 +932,9 @@ function SkinCreator(enable)
 		DisableControlAction(0, 25, true)
 		DisableControlAction(0, 24, true)
 
-		if IsDisabledControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 142) then -- MeleeAttackAlternate
-			SendNUIMessage({type = "click"})
-		end
+--		if IsDisabledControlJustReleased(0, 24) or IsDisabledControlJustReleased(0, 142) then -- MeleeAttackAlternate
+--			SendNUIMessage({type = "click"})
+--		end
 
 		-- Player
 		SetPlayerInvincible(ped, true)
@@ -951,10 +951,10 @@ function SkinCreator(enable)
 			SetCamCoord(cam, GetEntityCoords(GetPlayerPed(-1)))
 		end
 		local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1)))
-		if zoom == "visage" or zoom == "pilosite" then
+		if zoom == "face" or zoom == "hair" then
 			SetCamCoord(cam, x+0.2, y+0.5, z+0.7)
 			SetCamRot(cam, 0.0, 0.0, 150.0)
-		elseif zoom == "vetements" then
+		elseif zoom == "clothes" then
 			SetCamCoord(cam, x+0.3, y+2.0, z+0.0)
 			SetCamRot(cam, 0.0, 0.0, 170.0)
 		end
@@ -965,12 +965,18 @@ function SkinCreator(enable)
 end
 
 function ShowSkinCreator(enable)
-	SetNuiFocus(enable)
 	SendNUIMessage({
 		openSkinCreator = enable
 	})
 end
 
+function DeleteSkinCam()
+	if cam ~= nil then
+		SetCamActive(cam, false)
+		RenderScriptCams(false, true, 500, true, true)
+		cam = nil
+	end
+end
 
 ------------------------------------------------------------------
 --                          Citizen
@@ -981,9 +987,22 @@ Citizen.CreateThread(function()
 		if isSkinCreatorOpened == true then
 			SkinCreator(true)
 			SetEntityHeading(GetPlayerPed(-1), heading)
+			SetNuiFocus(true, true)
 		else
 			SkinCreator(false)
+			DeleteSkinCam()
 		end
 		Citizen.Wait(0)
 	end
+end)
+
+RegisterNetEvent('vueskincreator:show')
+AddEventHandler('vueskincreator:show', function()
+	isSkinCreatorOpened = true
+end)
+
+RegisterNetEvent('vueskincreator:hide')
+AddEventHandler('vueskincreator:hide', function()
+	isSkinCreatorOpened = false
+	SetNuiFocus(false)
 end)

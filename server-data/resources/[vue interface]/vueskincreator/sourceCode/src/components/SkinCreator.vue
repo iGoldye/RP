@@ -2,7 +2,7 @@
   .skincreator__wrapper
     form.skincreator__outer
       .tab__wrapper
-        a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :class="[tab.name, { active : tab.isActive}]", @click='switchPane') {{ tab.label }}
+        a.tab__link(href='#', v-for='tab in tabs', :data-link='tab.link', :name="tab.name", :class="[tab.name, { active : tab.isActive}]", @click='switchPane') {{ tab.label }}
       .tab__content-wrapper
         .tab__content(v-for='tab in tabs', :class="{ active : tab.isActive}", :id="'tab-' + tab.link")
           .tab__outer(v-if="tab.name == 'face'")
@@ -846,9 +846,9 @@ export default {
           .querySelector(".skincreator__wrapper")
           .classList.remove("is-active");
       }
-      if (event.data.type == "click") {
-        triggerClick(cursorX - 1, cursorY - 1);
-      }
+//      if (event.data.type == "click") {
+//        triggerClick(cursorX - 1, cursorY - 1);
+//      }
     });
   },
   methods: {
@@ -869,6 +869,8 @@ export default {
           item.classList.add("active");
         }
       });
+
+      axios.post("http://vueskincreator/zoom", JSON.stringify({ zoom: event.target.name }));
     },
     postData(event) {
       console.log(event);
@@ -890,14 +892,13 @@ export default {
           wrinkleopacity: document.querySelector("input[name=wrinklesDepth]")
             .value,
           hair: document.querySelector("input[name=hairstyle]").value,
-          haircolor: document.querySelector("input[name=haircolor]").value,
+          haircolor: document.querySelector("input[name=haircolor]:checked").value,
           eyebrow: document.querySelector("input[name=eyebrowsShape]").value,
           eyebrowopacity: document.querySelector("input[name=eyebrowsTickness]")
             .value,
           beard: document.querySelector("input[name=beardType]").value,
-          beardopacity: document.querySelector("input[name=beardTickness]")
-            .value,
-          beardcolor: document.querySelector("input[name=beardcolor]").value,
+          beardopacity: document.querySelector("input[name=beardTickness]").value,
+          beardcolor: document.querySelector("input[name=beardcolor]:checked").value,
           // Clothes
           hats: document.querySelector("input[name=head]").value,
           glasses: document.querySelector("input[name=glass]").value,
