@@ -99,6 +99,8 @@ ESX.RegisterServerCallback('esx_inventory:getInventory', function(source, cb, na
 	var inv = getInventory(name, owner);
 	if (inv != null) {
 		cb(inv.serialize())
+	} else {
+		cb(null)
 	}
 })
 

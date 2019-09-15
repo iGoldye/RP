@@ -58,7 +58,6 @@ class Item_Abstract {
 		ser.actions = [];
 		for (var k in this.actions) {
 			var action = this.actions[k];
-//			print("aA"+ action.getLabel(inventory))
 			if (inventory === undefined || action.condition(inventory) == true) {
 				ser.actions.push({
 					name: action.name,
@@ -73,7 +72,6 @@ class Item_Abstract {
 			return a.priority - b.priority;
 		})
 */
-//		print(JSON.stringify(ser.actions))
 
 		return ser;
 	}

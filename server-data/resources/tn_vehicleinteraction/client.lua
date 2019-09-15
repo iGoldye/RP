@@ -233,6 +233,36 @@ AddEventHandler('animation', function()
     StopAnimTask(pid, "amb@prop_human_bum_bin@idle_b","idle_d", 1.0)
 end)
 
+function isPoliceCar(vehicle)
+	local model = GetEntityModel(vehicle)
+
+	if model == GetHashKey("police") then
+		return true
+	elseif model == GetHashKey("police2") then
+		return true
+	elseif model == GetHashKey("police3") then
+		return true
+	elseif model == GetHashKey("policet") then
+		return true
+	elseif model == GetHashKey("pbus") then
+		return true
+	elseif model == GetHashKey("riot") then
+		return true
+	elseif model == GetHashKey("fbi") then
+		return true
+	elseif model == GetHashKey("fbi2") then
+		return true
+	elseif model == GetHashKey("police4") then
+		return true
+	elseif model == GetHashKey("policeb") then
+		return true
+	elseif model == GetHashKey("lp770cop") then
+		return true
+	end
+
+	return false
+end
+
 Citizen.CreateThread(function()
     while true do
     Citizen.Wait(0)
@@ -240,7 +270,7 @@ Citizen.CreateThread(function()
         local coordA = GetEntityCoords(GetPlayerPed(-1), 1)
         local coordB = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0.0, 1.0, 0.0)
         local vehicle = getVehicleInDirection(coordA, coordB)
-        if DoesEntityExist(vehicle) and IsEntityAVehicle(vehicle) then
+        if DoesEntityExist(vehicle) and IsEntityAVehicle(vehicle) and isPoliceCar(vehicle) then
             local trunkpos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "boot"))
             local Hoodpos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "bonnet"))
             local DSDFpos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "handle_dside_f"))

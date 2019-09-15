@@ -1,5 +1,5 @@
 Keys = {
-	["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57,
+	["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57, ["F11"] = 344,
 	["~"] = 243, ["1"] = 157, ["2"] = 158, ["3"] = 160, ["4"] = 164, ["5"] = 165, ["6"] = 159, ["7"] = 161, ["8"] = 162, ["9"] = 163, ["-"] = 84, ["="] = 83, ["BACKSPACE"] = 177,
 	["TAB"] = 37, ["Q"] = 44, ["W"] = 32, ["E"] = 38, ["R"] = 45, ["T"] = 245, ["Y"] = 246, ["U"] = 303, ["P"] = 199, ["["] = 39, ["]"] = 40, ["ENTER"] = 18,
 	["CAPS"] = 137, ["A"] = 34, ["S"] = 8, ["D"] = 9, ["F"] = 23, ["G"] = 47, ["H"] = 74, ["K"] = 311, ["L"] = 182,
@@ -20,12 +20,41 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function Teleport(x, y)
+	for z = 1000,1,-1 do
+		ESX.Game.Teleport(PlayerPedId(), vector3(x*1.0, y*1.0, z*1.0))
+		local foundGround, z = GetGroundZFor_3dCoord(x*1.0, y*1.0, z*1.0)
+
+		if foundGround then
+			ESX.Game.Teleport(PlayerPedId(), vector3(x*1.0, y*1.0, z*1.0))
+			return z
+		end
+	end
+
+	return nil
+end
+
+function TeleportToWaypoint()
+	local blip = GetFirstBlipInfoId(8)
+	if blip > 0 then
+		NetworkFadeOutEntity(PlayerPedId(), 1, 0)
+		Citizen.Wait(300)
+		local coords = GetBlipInfoIdCoord(blip)
+		Teleport(coords.x, coords.y)
+		Citizen.Wait(300)
+		NetworkFadeInEntity(PlayerPedId(), 0)
+	else
+		ESX.ShowNotification('Точка не установлена')
+	end
+end
 
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 			if IsControlJustPressed(0, Keys['~']) then
 				OpenMenu()
+			elseif isAdmin == true and IsControlJustPressed(0, Keys['F11']) then
+				OpenAdminMenu()
 			end
 	end
 end)
@@ -64,6 +93,7 @@ end
 function OpenAdminMenu()
 	local elements = {}
 
+	table.insert(elements, {label = 'Телепорт', value = 'teleport'})
 	table.insert(elements, {label = 'Игроки', value = 'players'})
 	table.insert(elements, {label = 'Транспорт', value = 'transport'})
 
@@ -75,10 +105,13 @@ function OpenAdminMenu()
 		local cmd = data.current.value
 		menu.close()
 
+		if cmd == "teleport" then
+			TeleportToWaypoint()
+		end
+
 		if cmd == "players" then
 			OpenAdminMenuPlayers()
 		end
-
 
 		if cmd == "transport" then
 			OpenAdminMenuVehicle()
@@ -425,8 +458,10 @@ function OpenMenu()
 		{label = "Поднять игрока", value = 'liftup'},
 		{label = "Одежда", value = 'clothes'},
 		{label = "Питомцы", value = 'pets'},
+		{label = "Сумка", value = 'bag'},
 		{label = "Документация", value = 'documents'},
 	}
+
 	local PlayerData = ESX.GetPlayerData()
 	if PlayerData.job then
 		if PlayerData.job.name == 'police' then
@@ -483,6 +518,8 @@ function OpenMenu()
 			OpenClothesMenu()
 		elseif cmd == 'pets' then
 			TriggerEvent('eden_animal:openPetMenu')
+		elseif cmd == 'bag' then
+			TriggerEvent('esx-kr-bag-inventory:openBag')
 		elseif cmd == 'vehicle' then
 			OpenVehicleMenu()
 		elseif cmd == 'police-actions' then

@@ -37,10 +37,10 @@ AddEventHandler('esx_truck_inventory:getOwnedVehicle', function()
     function(result)
       if result ~= nil and #result > 0 then
           for _,v in pairs(result) do
-      			local vehicle = json.decode(v.vehicle)
+              local vehicle = json.decode(v.vehicle)
             --print(vehicle.plate)
-			table.insert(vehicles, {plate = vehicle.plate})
-      		end
+              table.insert(vehicles, {plate = vehicle.plate})
+          end
       end
     TriggerClientEvent('esx_truck_inventory:setOwnedVehicle', _source, vehicles)
     end)
@@ -72,12 +72,17 @@ RegisterServerEvent('esx_truck_inventory:getInventory')
 AddEventHandler('esx_truck_inventory:getInventory', function(plate)
   local inventory_ = {}
   local _source = source
+  local xPlayer  = ESX.GetPlayerFromId(_source)
+
+--[[
   MySQL.Async.fetchAll(
     'SELECT * FROM `truck_inventory` WHERE `plate` = @plate',
     {
       ['@plate'] = plate
     },
-    function(inventory)
+    ]]--
+--    function(inventory)
+--[[
       if inventory ~= nil and #inventory > 0 then
         for i=1, #inventory, 1 do
           table.insert(inventory_, {
@@ -86,16 +91,45 @@ AddEventHandler('esx_truck_inventory:getInventory', function(plate)
             count     = inventory[i].count
           })
         end
-      end
-    local weight = (getInventoryWeight(inventory_))
-    local xPlayer  = ESX.GetPlayerFromId(_source)
-    TriggerClientEvent('esx_truck_inventory:getInventoryLoaded', xPlayer.source, inventory_,weight)
-    end)
+]]--
+        local inventory = exports["esx_inventory"]:getInventory("car", plate, true)
+        if inventory ~= nil then
+            for k,v in pairs(inventory.items) do
+                table.insert(inventory_, {
+                    label = v.label,
+                    name = v.name,
+                    data = v,
+                    count = v.amount,
+                })
+            end
+        end
+
+        --local weight = (getInventoryWeight(inventory_))
+        local weight = inventory.weight
+        TriggerClientEvent('esx_truck_inventory:getInventoryLoaded', xPlayer.source, inventory_,weight)
+
+--    end
+--    end)
 end)
 
 
 RegisterServerEvent('esx_truck_inventory:removeInventoryItem')
 AddEventHandler('esx_truck_inventory:removeInventoryItem', function(plate, item, count)
+    local _source = source
+    local xPlayer  = ESX.GetPlayerFromId(_source)
+
+    item.amount = count
+
+    if item.extra ~= nil then
+
+      TriggerEvent('esx_inventory:removeItem',  "car", plate, item, function(res)
+          if res == true then
+              TriggerEvent('esx_inventory:addItem', "pocket", xPlayer.identifier, item, function(res) end)
+          end
+      end)
+      return
+    end
+--[[
   local _source = source
   MySQL.Async.fetchAll(
     'UPDATE `truck_inventory` SET `count`= `count` - @qty WHERE `plate` = @plate AND `item`= @item',
@@ -110,12 +144,27 @@ AddEventHandler('esx_truck_inventory:removeInventoryItem', function(plate, item,
         xPlayer.addInventoryItem(item, count)
       end
     end)
+    ]]--
 end)
 
 
 RegisterServerEvent('esx_truck_inventory:addInventoryItem')
 AddEventHandler('esx_truck_inventory:addInventoryItem', function(type, model, plate, item, count, name,ownedV)
   local _source = source
+  local xPlayer  = ESX.GetPlayerFromId(_source)
+
+  item.amount = count
+
+  if item.extra ~= nil then
+
+    TriggerEvent('esx_inventory:removeItem', "pocket", xPlayer.identifier, item, function(res)
+        if res == true then
+            TriggerEvent('esx_inventory:addItem', "car", plate, item, function(res) end)
+        end
+    end)
+    return
+  end
+--[[
   MySQL.Async.fetchAll(
     'INSERT INTO truck_inventory (item,count,plate,name,owned) VALUES (@item,@qty,@plate,@name,@owned) ON DUPLICATE KEY UPDATE count=count+ @qty',
     {
@@ -129,4 +178,5 @@ AddEventHandler('esx_truck_inventory:addInventoryItem', function(type, model, pl
       local xPlayer  = ESX.GetPlayerFromId(_source)
       xPlayer.removeInventoryItem(item, count)
     end)
+    ]]--
 end)

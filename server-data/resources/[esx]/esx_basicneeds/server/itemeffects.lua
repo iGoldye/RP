@@ -42,6 +42,17 @@ ESX.RegisterUsableItem('rhum', function(source)
 
 end)
 
+ESX.RegisterUsableItem('mojito', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('mojito', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 240000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_mojito'))
+
+end)
+
 ESX.RegisterUsableItem('whisky', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 

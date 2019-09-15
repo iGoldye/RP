@@ -295,7 +295,7 @@ Citizen.CreateThread(function()
 				local vehicleCoords = GetEntityCoords(vehicle)
 
 				if DoesEntityExist(vehicle) and GetDistanceBetweenCoords(GetEntityCoords(ped), vehicleCoords) < 2.5 then
-					if not DoesEntityExist(GetPedInVehicleSeat(vehicle, -1)) then
+					if not DoesEntityExist(GetPedInVehicleSeat(vehicle, -1)) and not Config.Blacklist[GetEntityModel(vehicle)] then
 						local stringCoords = GetEntityCoords(isNearPump)
 						local canFuel = true
 

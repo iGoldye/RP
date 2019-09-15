@@ -10,8 +10,6 @@ Citizen.CreateThread(function()
 
 		for id,v in pairs(pickups) do
 			local distance = GetDistanceBetweenCoords(coords, v.coords.x, v.coords.y, v.coords.z, true)
---			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
---		 	print("Pickup distance: "..closestDistance)
 
 			if distance <= 5.0 then
 				ESX.Game.Utils.DrawText3D({
