@@ -205,13 +205,20 @@ end
 
 function OpenAdminMenuVehicle()
 	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
-	local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+
+	if vehicle == 0 then
+		vehicle = GetClosestVehicle(GetEntityCoords(PlayerPedId()), 5.0, 0, 70)
+	end
+
 	if vehicle == 0 then
 		return
 	end
 
+	local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+
 	local elements = {}
 	table.insert(elements, {label = 'Починить', value = 'repair'})
+	table.insert(elements, {label = 'Вскрыть замки', value = 'unlock'})
 	table.insert(elements, {label = 'Установить количество горючего', value = 'setfuel'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_vehicle', {
@@ -227,6 +234,9 @@ function OpenAdminMenuVehicle()
 			SetVehicleDeformationFixed(vehicle)
 			SetVehicleUndriveable(vehicle, false)
 			SetVehicleEngineOn(vehicle, true, true)
+		elseif cmd == "unlock" then
+			SetVehicleDoorsLocked(vehicle, 1)
+			SetVehicleDoorsLockedForAllPlayers(vehicle, false)
 		elseif cmd == "setfuel" then
 			local amount = OpenTextInput("Введите количество горючего", "", 6)
 			if tonumber(amount) ~= nil then

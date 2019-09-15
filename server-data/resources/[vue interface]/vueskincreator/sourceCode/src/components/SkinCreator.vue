@@ -685,6 +685,72 @@ export default {
           id: 1,
           color: "#1D1D1A",
           checked: true
+        },
+        {
+          value: 2,
+          id: 2,
+          color: "#4B392D",
+          checked: false
+        },
+        {
+          value: 4,
+          id: 3,
+          color: "#7A3B1F",
+          checked: false
+        },
+        {
+          value: 6,
+          id: 4,
+          color: "#A35631",
+          checked: false
+        },
+        {
+          value: 8,
+          id: 5,
+          color: "#A96F49",
+          checked: false
+        },
+        {
+          value: 10,
+          id: 6,
+          color: "#BD8D5E",
+          checked: false
+        },
+        {
+          value: 12,
+          id: 7,
+          color: "#CBA66F",
+          checked: false
+        },
+        {
+          value: 14,
+          id: 8,
+          color: "#E8BE78",
+          checked: false
+        },
+        {
+          value: 16,
+          id: 9,
+          color: "#D09E6A",
+          checked: false
+        },
+        {
+          value: 24,
+          id: 13,
+          color: "#C85831",
+          checked: false
+        },
+        {
+          value: 26,
+          id: 14,
+          color: "#947A67",
+          checked: false
+        },
+        {
+          value: 28,
+          id: 15,
+          color: "#D8C1AC",
+          checked: false
         }
       ],
       clothesGroupSliders: [
@@ -741,36 +807,53 @@ export default {
     };
   },
   mounted() {
+    //select active radio
     let spans = document.querySelectorAll(".radio__color");
     spans.forEach(item => {
       let color = item.dataset.color;
       item.style.backgroundColor = color;
     });
-
-    let ul = document.querySelectorAll("ul");
-    ul.forEach(li => {
-      li.firstChild.classList.add("active");
-    });
-
+    // post events
     document.addEventListener("DOMContentLoaded", () => {
       let inputs = document.querySelectorAll("input");
       inputs.forEach(input => {
-        // input.addEventListener("change", e => {
-        //   console.log(document.querySelector("input[name=genetics]").value);
-        // });
+        input.addEventListener("change", event => {
+          this.postData(event);
+        });
       });
 
       let arrows = document.querySelectorAll(".range--arrows__button");
       arrows.forEach(button => {
-        button.addEventListener("click", e => {
-          console.log(1);
+        button.addEventListener("click", event => {
+          this.postData(event);
         });
       });
+
+      let submit = document.querySelector(".skincreator__submit-btn");
+      submit.addEventListener("click", event => {
+        this.submitData(event);
+      });
+    });
+
+    window.addEventListener("message", event => {
+      if (event.data.openSkinCreator == true) {
+        document
+          .querySelector(".skincreator__wrapper")
+          .classList.add("is-active");
+      }
+      if (event.data.openSkinCreator == false) {
+        document
+          .querySelector(".skincreator__wrapper")
+          .classList.remove("is-active");
+      }
+      if (event.data.type == "click") {
+        triggerClick(cursorX - 1, cursorY - 1);
+      }
     });
   },
   methods: {
-    switchPane(e) {
-      e.preventDefault();
+    switchPane(event) {
+      event.preventDefault();
       let siblings = document.querySelectorAll(".tab__link");
       let targets = document.querySelectorAll(".tab__content");
 
@@ -787,20 +870,21 @@ export default {
         }
       });
     },
-    postData(e) {
-      e.preventDefault();
+    postData(event) {
+      console.log(event);
+      event.preventDefault();
       axios.post(
         "http://vueskincreator/updateSkin",
         JSON.stringify({
-          dad: document.querySelector("input[name=father]:checked").value, //$("input[name=pere]:checked", "#formSkinCreator").val()
+          value: false,
+          dad: document.querySelector("input[name=father]:checked").value,
           mum: document.querySelector("input[name=mother]:checked").value,
           dadmumpercent: document.querySelector("input[name=genetics]").value,
           skin: document.querySelector("input[name=skincolor]:checked").value,
           eyecolor: document.querySelector("input[name=eyecolor]:checked")
             .value,
           acne: document.querySelector("input[name=acne]").value,
-          skinproblem: document.querySelector("input[name=skinpProblems]")
-            .value,
+          skinproblem: document.querySelector("input[name=skinProblems]").value,
           freckle: document.querySelector("input[name=freckles]").value,
           wrinkle: document.querySelector("input[name=wrinkles]").value,
           wrinkleopacity: document.querySelector("input[name=wrinklesDepth]")
@@ -813,15 +897,54 @@ export default {
           beard: document.querySelector("input[name=beardType]").value,
           beardopacity: document.querySelector("input[name=beardTickness]")
             .value,
-          beardcolor: document.querySelector("input[name=beardColor]").value,
+          beardcolor: document.querySelector("input[name=beardcolor]").value,
           // Clothes
-          hats: $(".chapeaux .active").attr("data"),
-          glasses: $(".lunettes .active").attr("data"),
-          ears: $(".oreilles .active").attr("data"),
-          tops: $(".hauts .active").attr("data"),
-          pants: $(".pantalons .active").attr("data"),
-          shoes: $(".chaussures .active").attr("data"),
-          watches: $(".montre .active").attr("data")
+          hats: document.querySelector("input[name=head]").value,
+          glasses: document.querySelector("input[name=glass]").value,
+          ears: document.querySelector("input[name=bejelwes]").value,
+          tops: document.querySelector("input[name=shirts]").value,
+          pants: document.querySelector("input[name=pants]").value,
+          shoes: document.querySelector("input[name=shoes]").value,
+          watches: document.querySelector("input[name=watches]").value
+        })
+      );
+    },
+    submitData(event) {
+      console.log(event);
+      event.preventDefault();
+      axios.post(
+        "http://vueskincreator/updateSkin",
+        JSON.stringify({
+          value: true,
+          dad: document.querySelector("input[name=father]:checked").value,
+          mum: document.querySelector("input[name=mother]:checked").value,
+          dadmumpercent: document.querySelector("input[name=genetics]").value,
+          skin: document.querySelector("input[name=skincolor]:checked").value,
+          eyecolor: document.querySelector("input[name=eyecolor]:checked")
+            .value,
+          acne: document.querySelector("input[name=acne]").value,
+          skinproblem: document.querySelector("input[name=skinProblems]").value,
+          freckle: document.querySelector("input[name=freckles]").value,
+          wrinkle: document.querySelector("input[name=wrinkles]").value,
+          wrinkleopacity: document.querySelector("input[name=wrinklesDepth]")
+            .value,
+          hair: document.querySelector("input[name=hairstyle]").value,
+          haircolor: document.querySelector("input[name=haircolor]").value,
+          eyebrow: document.querySelector("input[name=eyebrowsShape]").value,
+          eyebrowopacity: document.querySelector("input[name=eyebrowsTickness]")
+            .value,
+          beard: document.querySelector("input[name=beardType]").value,
+          beardopacity: document.querySelector("input[name=beardTickness]")
+            .value,
+          beardcolor: document.querySelector("input[name=beardcolor]").value,
+          // Clothes
+          hats: document.querySelector("input[name=head]").value,
+          glasses: document.querySelector("input[name=glass]").value,
+          ears: document.querySelector("input[name=bejelwes]").value,
+          tops: document.querySelector("input[name=shirts]").value,
+          pants: document.querySelector("input[name=pants]").value,
+          shoes: document.querySelector("input[name=shoes]").value,
+          watches: document.querySelector("input[name=watches]").value
         })
       );
     }

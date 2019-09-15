@@ -152,6 +152,7 @@ MySQL.ready(function()
 
 		TriggerClientEvent('esx_property:sendProperties', -1, Config.Properties)
 	end)
+--	PayRent(0,0,0)
 end)
 
 ESX.RegisterServerCallback('esx_property:getProperties', function(source, cb)
@@ -482,13 +483,30 @@ function PayRent(d, h, m)
 
 			-- message player if connected
 			if xPlayer then
-				xPlayer.removeAccountMoney('bank', result[i].price)
-				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('paid_rent', ESX.Math.GroupDigits(result[i].price)))
+				if xPlayer.getBank() >= result[i].price then
+					xPlayer.removeAccountMoney('bank', result[i].price)
+					TriggerClientEvent('esx:showNotification', xPlayer.source, _U('paid_rent', ESX.Math.GroupDigits(result[i].price)))
+				else
+					RemoveOwnedProperty(result[i].name, result[i].owner)
+					TriggerClientEvent('esx:showNotification', xPlayer.source, "Вы были выселены, т.к. на банковском счёте недостаточно денег для оплаты ренты.")
+				end
 			else -- pay rent either way
-				MySQL.Sync.execute('UPDATE users SET bank = bank - @bank WHERE identifier = @identifier', {
-					['@bank']       = result[i].price,
-					['@identifier'] = result[i].owner
+				local bankInfo = MySQL.Sync.fetchAll('SELECT bank FROM users WHERE identifier = @identifier', {
+					['@identifier'] = result[i].owner,
 				})
+
+				if #bankInfo > 0 then
+					if bankInfo[1].bank >= result[i].price then
+						MySQL.Sync.execute('UPDATE users SET bank = bank - @bank WHERE identifier = @identifier', {
+							['@bank']       = result[i].price,
+							['@identifier'] = result[i].owner
+						})
+					else
+						RemoveOwnedProperty(result[i].name, result[i].owner)
+					end
+				else
+					RemoveOwnedProperty(result[i].name, result[i].owner)
+				end
 			end
 
 			TriggerEvent('esx_addonaccount:getSharedAccount', 'society_realestateagent', function(account)
@@ -498,6 +516,49 @@ function PayRent(d, h, m)
 			end)
 		end
 	end)
+-- utility costs for non-rented property
+--[[
+	MySQL.Async.fetchAll('SELECT * FROM owned_properties WHERE rented = 0', {}, function (result)
+		for i=1, #result, 1 do
+			local utilcost = math.ceil(result[i].price*0.001)
+			local xPlayer = ESX.GetPlayerFromIdentifier(result[i].owner)
+			local halfprice = math.floor(result[i].price/2)
+
+			if xPlayer then
+				if xPlayer.getBank() <= -halfprice then
+					RemoveOwnedProperty(result[i].name, result[i].owner)
+					TriggerClientEvent('esx:showNotification', xPlayer.source, "Ваша недвижимость была отчуждена в пользу банка за долги.")
+					xPlayer.addAccountMoney('bank', halfprice)
+				else
+					xPlayer.removeAccountMoney('bank', utilcost)
+					TriggerClientEvent('esx:showNotification', xPlayer.source, _U('paid_util', ESX.Math.GroupDigits(utilcost)))
+				end
+			else
+				local bankInfo = MySQL.Sync.fetchAll('SELECT bank FROM users WHERE identifier = @identifier', {
+					['@identifier'] = result[i].owner,
+				})
+
+				if #bankInfo > 0 then
+					if bankInfo[1].bank <= -halfprice then
+						RemoveOwnedProperty(result[i].name, result[i].owner)
+						MySQL.Sync.execute('UPDATE users SET bank = bank + @bank WHERE identifier = @identifier', {
+							['@bank']       = halfprice,
+							['@identifier'] = result[i].owner
+						})
+					else
+						MySQL.Sync.execute('UPDATE users SET bank = bank - @bank WHERE identifier = @identifier', {
+							['@bank']       = utilcost,
+							['@identifier'] = result[i].owner
+						})
+					end
+				else
+					RemoveOwnedProperty(result[i].name, result[i].owner)
+				end
+			end
+
+		end
+	end)
+]]--
 end
 
 TriggerEvent('cron:runAt', 22, 0, PayRent)
