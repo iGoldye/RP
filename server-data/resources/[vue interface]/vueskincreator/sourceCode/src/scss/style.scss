@@ -11,9 +11,14 @@ span {
 
 .skincreator {
   &__wrapper {
+    display: none;
     width: 100vw;
     height: 100vh;
     position: relative;
+
+    &.is-active {
+      display: block;
+    }
   }
 
   &__outer {
