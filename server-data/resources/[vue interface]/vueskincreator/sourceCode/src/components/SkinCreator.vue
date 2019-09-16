@@ -37,7 +37,20 @@
                 label.radio__outer(v-for="color in skinColors", :for="'skin'+color.id")
                   input(type='radio', name='skincolor', class='radio', :checked='color.checked', :value='color.value', :id="'skin'+color.id")
                   span.radio__color(:data-color='color.color')
-            .tab__group(v-for='item in skinGroupSlider')
+            .tab__group(v-for='item in skinGroupSliders')
+              .tab__group-head
+                h3.tab__group-header {{ item.header }}
+                .tab__group-legend
+                  span.tab__group-legend-current {{ item.value }}
+                  | /
+                  span.tab__group-legend-total {{ item.max }}
+              .range__wrapper
+                input(type='range', :min='item.min', :max='item.max', step='1', class='range', v-model='item.value', :name='item.name')
+                .range--arrows
+                  input(type='button', value='<', class='range--arrows__button ', @click='item.value > item.min ? item.value-- : item.min')
+                  input(type='button', value='>', class='range--arrows__button ', @click='item.value < item.max ? item.value++ : item.max')
+            h2.tab__header Лицо
+            .tab__group(v-for='item in faceGroupSliders')
               .tab__group-head
                 h3.tab__group-header {{ item.header }}
                 .tab__group-legend
@@ -459,7 +472,7 @@ export default {
           checked: false
         }
       ],
-      skinGroupSlider: [
+      skinGroupSliders: [
         {
           name: "acne",
           header: "Угри",
@@ -803,6 +816,155 @@ export default {
           min: 0,
           max: 7
         }
+      ],
+      faceGroupSliders: [
+        {
+          name: "nose_width",
+          header: "Ширина носа",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "nose_peak_height",
+          header: "Высота кончика носа",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "nose_peak_length",
+          header: "Длина кончика носа",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "nose_peak_lowering",
+          header: "nose_peak_lowering",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "nose_bone_height",
+          header: "Ширина переносицы",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "nose_peak_twist",
+          header: "Искривление носа",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "eyebrow_height",
+          header: "Высота бровей",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "eyebrow_forward",
+          header: "Выступ бровей",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "cheeks_bone_height",
+          header: "Высота скул",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "cheeks_bone_width",
+          header: "Ширина скул",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "cheeks_width",
+          header: "Полнота щек",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "eyes_opening",
+          header: "Разрез глаз",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "lips_thickness",
+          header: "Полнота губ",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "jaw_bone_width",
+          header: "Ширина челюсти",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "jaw_bone_back_length",
+          header: "Высота челюсти",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "jaw_bone_back_length",
+          header: "Высота челюсти",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "chimp_bone_lowering",
+          header: "chimp_bone_lowering",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "chimp_bone_length",
+          header: "chimp_bone_length",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "chimp_bone_width",
+          header: "chimp_bone_width",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "chimp_hole",
+          header: "chimp_hole",
+          value: 0,
+          min: -10,
+          max: 10
+        },
+        {
+          name: "neck_thickness",
+          header: "Полнота шеи",
+          value: 0,
+          min: -10,
+          max: 10
+        }
       ]
     };
   },
@@ -846,9 +1008,9 @@ export default {
           .querySelector(".skincreator__wrapper")
           .classList.remove("is-active");
       }
-//      if (event.data.type == "click") {
-//        triggerClick(cursorX - 1, cursorY - 1);
-//      }
+      //      if (event.data.type == "click") {
+      //        triggerClick(cursorX - 1, cursorY - 1);
+      //      }
     });
   },
   methods: {
@@ -870,10 +1032,12 @@ export default {
         }
       });
 
-      axios.post("http://vueskincreator/zoom", JSON.stringify({ zoom: event.target.name }));
+      axios.post(
+        "http://vueskincreator/zoom",
+        JSON.stringify({ zoom: event.target.name })
+      );
     },
     postData(event) {
-      console.log(event);
       event.preventDefault();
       axios.post(
         "http://vueskincreator/updateSkin",
@@ -892,13 +1056,16 @@ export default {
           wrinkleopacity: document.querySelector("input[name=wrinklesDepth]")
             .value,
           hair: document.querySelector("input[name=hairstyle]").value,
-          haircolor: document.querySelector("input[name=haircolor]:checked").value,
+          haircolor: document.querySelector("input[name=haircolor]:checked")
+            .value,
           eyebrow: document.querySelector("input[name=eyebrowsShape]").value,
           eyebrowopacity: document.querySelector("input[name=eyebrowsTickness]")
             .value,
           beard: document.querySelector("input[name=beardType]").value,
-          beardopacity: document.querySelector("input[name=beardTickness]").value,
-          beardcolor: document.querySelector("input[name=beardcolor]:checked").value,
+          beardopacity: document.querySelector("input[name=beardTickness]")
+            .value,
+          beardcolor: document.querySelector("input[name=beardcolor]:checked")
+            .value,
           // Clothes
           hats: document.querySelector("input[name=head]").value,
           glasses: document.querySelector("input[name=glass]").value,
@@ -906,12 +1073,60 @@ export default {
           tops: document.querySelector("input[name=shirts]").value,
           pants: document.querySelector("input[name=pants]").value,
           shoes: document.querySelector("input[name=shoes]").value,
-          watches: document.querySelector("input[name=watches]").value
+          watches: document.querySelector("input[name=watches]").value,
+          // face extended
+          nose_width: document.querySelector("input[name=nose_width]").value,
+          nose_peak_height: document.querySelector(
+            "input[name=nose_peak_height]"
+          ).value,
+          nose_peak_length: document.querySelector(
+            "input[name=nose_peak_length]"
+          ).value,
+          nose_bone_height: document.querySelector(
+            "input[name=nose_bone_height]"
+          ).value,
+          nose_peak_lowering: document.querySelector(
+            "input[name=nose_peak_lowering]"
+          ).value,
+          nose_peak_twist: document.querySelector("input[name=nose_peak_twist]")
+            .value,
+          eyebrow_height: document.querySelector("input[name=eyebrow_height]")
+            .value,
+          eyebrow_forward: document.querySelector("input[name=eyebrow_forward]")
+            .value,
+          cheeks_bone_height: document.querySelector(
+            "input[name=cheeks_bone_height]"
+          ).value,
+          cheeks_bone_width: document.querySelector(
+            "input[name=cheeks_bone_width]"
+          ).value,
+          cheeks_width: document.querySelector("input[name=cheeks_width]")
+            .value,
+          eyes_opening: document.querySelector("input[name=eyes_opening]")
+            .value,
+          lips_thickness: document.querySelector("input[name=lips_thickness]")
+            .value,
+          jaw_bone_width: document.querySelector("input[name=jaw_bone_width]")
+            .value,
+          jaw_bone_back_length: document.querySelector(
+            "input[name=jaw_bone_back_length]"
+          ).value,
+          chimp_bone_lowering: document.querySelector(
+            "input[name=chimp_bone_lowering]"
+          ).value,
+          chimp_bone_length: document.querySelector(
+            "input[name=chimp_bone_length]"
+          ).value,
+          chimp_bone_width: document.querySelector(
+            "input[name=chimp_bone_width]"
+          ).value,
+          chimp_hole: document.querySelector("input[name=chimp_hole]").value,
+          neck_thickness: document.querySelector("input[name=neck_thickness]")
+            .value
         })
       );
     },
     submitData(event) {
-      console.log(event);
       event.preventDefault();
       axios.post(
         "http://vueskincreator/updateSkin",
@@ -945,7 +1160,56 @@ export default {
           tops: document.querySelector("input[name=shirts]").value,
           pants: document.querySelector("input[name=pants]").value,
           shoes: document.querySelector("input[name=shoes]").value,
-          watches: document.querySelector("input[name=watches]").value
+          watches: document.querySelector("input[name=watches]").value,
+          // face extended
+          nose_width: document.querySelector("input[name=nose_width]").value,
+          nose_peak_height: document.querySelector(
+            "input[name=nose_peak_height]"
+          ).value,
+          nose_peak_length: document.querySelector(
+            "input[name=nose_peak_length]"
+          ).value,
+          nose_bone_height: document.querySelector(
+            "input[name=nose_bone_height]"
+          ).value,
+          nose_peak_lowering: document.querySelector(
+            "input[name=nose_peak_lowering]"
+          ).value,
+          nose_peak_twist: document.querySelector("input[name=nose_peak_twist]")
+            .value,
+          eyebrow_height: document.querySelector("input[name=eyebrow_height]")
+            .value,
+          eyebrow_forward: document.querySelector("input[name=eyebrow_forward]")
+            .value,
+          cheeks_bone_height: document.querySelector(
+            "input[name=cheeks_bone_height]"
+          ).value,
+          cheeks_bone_width: document.querySelector(
+            "input[name=cheeks_bone_width]"
+          ).value,
+          cheeks_width: document.querySelector("input[name=cheeks_width]")
+            .value,
+          eyes_opening: document.querySelector("input[name=eyes_opening]")
+            .value,
+          lips_thickness: document.querySelector("input[name=lips_thickness]")
+            .value,
+          jaw_bone_width: document.querySelector("input[name=jaw_bone_width]")
+            .value,
+          jaw_bone_back_length: document.querySelector(
+            "input[name=jaw_bone_back_length]"
+          ).value,
+          chimp_bone_lowering: document.querySelector(
+            "input[name=chimp_bone_lowering]"
+          ).value,
+          chimp_bone_length: document.querySelector(
+            "input[name=chimp_bone_length]"
+          ).value,
+          chimp_bone_width: document.querySelector(
+            "input[name=chimp_bone_width]"
+          ).value,
+          chimp_hole: document.querySelector("input[name=chimp_hole]").value,
+          neck_thickness: document.querySelector("input[name=neck_thickness]")
+            .value
         })
       );
     }

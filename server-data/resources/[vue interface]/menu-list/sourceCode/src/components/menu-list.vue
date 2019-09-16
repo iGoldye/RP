@@ -140,6 +140,19 @@ export default {
                     target.selected = false;
                   });
                   this.elements[next.dataset.index].selected = true;
+                } else {
+                  document.querySelector(".menu__list-body").firstChild.focus();
+                  document
+                    .querySelector(".menu__list-body")
+                    .firstChild.classList.add("is-active");
+                  document
+                    .querySelector(".menu__list-body")
+                    .lastChild.classList.remove("is-active");
+                  this.menu_change();
+                  targets.forEach(target => {
+                    target.selected = false;
+                  });
+                  this.elements[prev.dataset.index].selected = true;
                 }
                 break;
               case "TOP":
@@ -149,6 +162,19 @@ export default {
                   });
                   prev.focus();
                   document.activeElement.classList.add("is-active");
+                  this.menu_change();
+                  targets.forEach(target => {
+                    target.selected = false;
+                  });
+                  this.elements[prev.dataset.index].selected = true;
+                } else {
+                  document.querySelector(".menu__list-body").lastChild.focus();
+                  document
+                    .querySelector(".menu__list-body")
+                    .lastChild.classList.add("is-active");
+                  document
+                    .querySelector(".menu__list-body")
+                    .firstChild.classList.remove("is-active");
                   this.menu_change();
                   targets.forEach(target => {
                     target.selected = false;
