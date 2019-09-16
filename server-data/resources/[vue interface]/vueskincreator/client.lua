@@ -41,26 +41,26 @@ RegisterNUICallback('updateSkin', function(data)
 	shoes = tonumber(data.shoes)
 	watches = tonumber(data.watches)
 	-- face extended
-	nose_width = tonumber(data.nose_width)
-	nose_peak_height = tonumber(data.nose_peak_height)
-	nose_peak_length = tonumber(data.nose_peak_length)
-	nose_bone_height = tonumber(data.nose_bone_height)
-	nose_peak_lowering = tonumber(data.nose_peak_lowering)
-	nose_peak_twist = tonumber(data.nose_peak_twist)
-	eyebrow_height = tonumber(data.eyebrow_height)
-	eyebrow_forward = tonumber(data.eyebrow_forward)
-	cheeks_bone_height = tonumber(data.cheeks_bone_height)
-	cheeks_bone_width = tonumber(data.cheeks_bone_width)
-	cheeks_width = tonumber(data.cheeks_width)
-	eyes_opening = tonumber(data.eyes_opening)
-	lips_thickness = tonumber(data.lips_thickness)
-	jaw_bone_width = tonumber(data.jaw_bone_width)
-	jaw_bone_back_length = tonumber(data.jaw_bone_back_length)
-	chimp_bone_lowering = tonumber(data.chimp_bone_lowering)
-	chimp_bone_length = tonumber(data.chimp_bone_length)
-	chimp_bone_width = tonumber(data.chimp_bone_width)
-	chimp_hole = tonumber(data.chimp_hole)
-	neck_thickness = tonumber(data.neck_thickness)
+	nose_width = tonumber(data.nose_width)*0.1
+	nose_peak_height = tonumber(data.nose_peak_height)*0.1
+	nose_peak_length = tonumber(data.nose_peak_length)*0.1
+	nose_bone_height = tonumber(data.nose_bone_height)*0.1
+	nose_peak_lowering = tonumber(data.nose_peak_lowering)*0.1
+	nose_peak_twist = tonumber(data.nose_peak_twist)*0.1
+	eyebrow_height = tonumber(data.eyebrow_height)*0.1
+	eyebrow_forward = tonumber(data.eyebrow_forward)*0.1
+	cheeks_bone_height = tonumber(data.cheeks_bone_height)*0.1
+	cheeks_bone_width = tonumber(data.cheeks_bone_width)*0.1
+	cheeks_width = tonumber(data.cheeks_width)*0.1
+	eyes_opening = tonumber(data.eyes_opening)*0.1
+	lips_thickness = tonumber(data.lips_thickness)*0.1
+	jaw_bone_width = tonumber(data.jaw_bone_width)*0.1
+	jaw_bone_back_length = tonumber(data.jaw_bone_back_length)*0.1
+	chimp_bone_lowering = tonumber(data.chimp_bone_lowering)*0.1
+	chimp_bone_length = tonumber(data.chimp_bone_length)*0.1
+	chimp_bone_width = tonumber(data.chimp_bone_width)*0.1
+	chimp_hole = tonumber(data.chimp_hole)*0.1
+	neck_thickness = tonumber(data.neck_thickness)*0.1
 
 	if(v == true) then
 		local ped = GetPlayerPed(-1)
