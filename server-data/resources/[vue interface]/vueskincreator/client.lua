@@ -40,6 +40,27 @@ RegisterNUICallback('updateSkin', function(data)
 	pants = tonumber(data.pants)
 	shoes = tonumber(data.shoes)
 	watches = tonumber(data.watches)
+	-- face extended
+	nose_width = tonumber(data.nose_width)
+	nose_peak_height = tonumber(data.nose_peak_height)
+	nose_peak_length = tonumber(data.nose_peak_length)
+	nose_bone_height = tonumber(data.nose_bone_height)
+	nose_peak_lowering = tonumber(data.nose_peak_lowering)
+	nose_peak_twist = tonumber(data.nose_peak_twist)
+	eyebrow_height = tonumber(data.eyebrow_height)
+	eyebrow_forward = tonumber(data.eyebrow_forward)
+	cheeks_bone_height = tonumber(data.cheeks_bone_height)
+	cheeks_bone_width = tonumber(data.cheeks_bone_width)
+	cheeks_width = tonumber(data.cheeks_width)
+	eyes_opening = tonumber(data.eyes_opening)
+	lips_thickness = tonumber(data.lips_thickness)
+	jaw_bone_width = tonumber(data.jaw_bone_width)
+	jaw_bone_back_length = tonumber(data.jaw_bone_back_length)
+	chimp_bone_lowering = tonumber(data.chimp_bone_lowering)
+	chimp_bone_length = tonumber(data.chimp_bone_length)
+	chimp_bone_width = tonumber(data.chimp_bone_width)
+	chimp_hole = tonumber(data.chimp_hole)
+	neck_thickness = tonumber(data.neck_thickness)
 
 	if(v == true) then
 		local ped = GetPlayerPed(-1)
@@ -64,7 +85,7 @@ RegisterNUICallback('updateSkin', function(data)
 		local prop_watches = GetPedPropIndex(ped, 6)
 		local prop_watches_text = GetPedPropTextureIndex(ped, 6)
 
-		TriggerServerEvent("updateSkin", dad, mum, dadmumpercent, skin, eyecolor, acne, skinproblem, freckle, wrinkle, wrinkleopacity, eyebrow, eyebrowopacity, beard, beardopacity, beardcolor, hair, haircolor, torso, torsotext, leg, legtext, shoes, shoestext, accessory, accessorytext, undershirt, undershirttext, torso2, torso2text, prop_hat, prop_hat_text, prop_glasses, prop_glasses_text, prop_earrings, prop_earrings_text, prop_watches, prop_watches_text)
+		TriggerServerEvent("updateSkin", dad, mum, dadmumpercent, skin, eyecolor, acne, skinproblem, freckle, wrinkle, wrinkleopacity, eyebrow, eyebrowopacity, beard, beardopacity, beardcolor, hair, haircolor, torso, torsotext, leg, legtext, shoes, shoestext, accessory, accessorytext, undershirt, undershirttext, torso2, torso2text, prop_hat, prop_hat_text, prop_glasses, prop_glasses_text, prop_earrings, prop_earrings_text, prop_watches, prop_watches_text, nose_width, nose_peak_height, nose_peak_length, nose_bone_height, nose_peak_lowering, nose_peak_twist, eyebrow_height, eyebrow_forward, cheeks_bone_height, cheeks_bone_width, cheeks_width, eyes_opening, lips_thickness, jaw_bone_width, jaw_bone_back_length, chimp_bone_lowering, chimp_bone_length, chimp_bone_width, chimp_hole, neck_thickness)
 	else
 		SetPedDefaultComponentVariation(GetPlayerPed(-1))
 
@@ -85,11 +106,31 @@ RegisterNUICallback('updateSkin', function(data)
 		SetPedHeadOverlay       	(GetPlayerPed(-1), 3, wrinkle, wrinkleopacity * 0.1)
 		SetPedComponentVariation	(GetPlayerPed(-1), 2, hair, 0, 2)
 		SetPedHairColor				(GetPlayerPed(-1), haircolor, haircolor)
-		SetPedHeadOverlay       	(GetPlayerPed(-1), 2, eyebrow, eyebrowopacity * 0.1) 
-		SetPedHeadOverlay       	(GetPlayerPed(-1), 1, beard, beardopacity * 0.1)   
-		SetPedHeadOverlayColor  	(GetPlayerPed(-1), 1, 1, beardcolor, beardcolor) 
+		SetPedHeadOverlay       	(GetPlayerPed(-1), 2, eyebrow, eyebrowopacity * 0.1)
+		SetPedHeadOverlay       	(GetPlayerPed(-1), 1, beard, beardopacity * 0.1)
+		SetPedHeadOverlayColor  	(GetPlayerPed(-1), 1, 1, beardcolor, beardcolor)
 		SetPedHeadOverlayColor  	(GetPlayerPed(-1), 2, 1, beardcolor, beardcolor)
-	
+		SetPedFaceFeature( GetPlayerPed(-1),  0  , nose_width, nose_width * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  1  , nose_peak_height, nose_peak_height* 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  2  , nose_peak_length, nose_peak_length * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  3  , nose_bone_height, nose_bone_height * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  4  , nose_peak_lowering, nose_peak_lowering * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  5  , nose_peak_twist, nose_peak_twist * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  6  , eyebrow_height, eyebrow_height * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  7  , eyebrow_forward, eyebrow_forward * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  8  , cheeks_bone_height, cheeks_bone_height * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  9  , cheeks_bone_width, cheeks_bone_width * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  10 , cheeks_width, cheeks_width * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  11 , eyes_opening, eyes_opening * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  12 , lips_thickness, lips_thickness * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  13 , jaw_bone_width, jaw_bone_width * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  14 , jaw_bone_back_length, jaw_bone_back_length * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  15 , chimp_bone_lowering, chimp_bone_lowering * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  16 , chimp_bone_length, chimp_bone_length * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  17 , chimp_bone_width, chimp_bone_width * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  18 , chimp_hole, chimp_hole * 0.1)
+		SetPedFaceFeature( GetPlayerPed(-1),  19 , neck_thickness, neck_thickness * 0.1)
+
 		-- Clothes variations
 		if hats == 0 then		ClearPedProp(GetPlayerPed(-1), 0)
 		elseif hats == 1 then	SetPedPropIndex(GetPlayerPed(-1), 0, 3-1, 1-1, 2)
@@ -125,7 +166,7 @@ RegisterNUICallback('updateSkin', function(data)
 		elseif hats == 31 then	SetPedPropIndex(GetPlayerPed(-1), 0, 77-1, 20-1, 2)
 		elseif hats == 32 then	SetPedPropIndex(GetPlayerPed(-1), 0, 97-1, 3-1, 2)
 		end
-		
+
 		if glasses == 0 then		ClearPedProp(GetPlayerPed(-1), 1)
 		elseif glasses == 1 then	SetPedPropIndex(GetPlayerPed(-1), 1, 4-1, 1-1, 2)
 		elseif glasses == 2 then	SetPedPropIndex(GetPlayerPed(-1), 1, 4-1, 10-1, 2)
@@ -140,7 +181,7 @@ RegisterNUICallback('updateSkin', function(data)
 		elseif glasses == 11 then	SetPedPropIndex(GetPlayerPed(-1), 1, 18-1, 10-1, 2)
 		elseif glasses == 12 then	SetPedPropIndex(GetPlayerPed(-1), 1, 26-1, 1-1, 2)
 		end
-	
+
 		if ears == 0 then		ClearPedProp(GetPlayerPed(-1), 2)
 		elseif ears == 1 then	SetPedPropIndex(GetPlayerPed(-1), 2, 4-1, 1-1, 2)
 		elseif ears == 2 then	SetPedPropIndex(GetPlayerPed(-1), 2, 5-1, 1-1, 2)
@@ -158,7 +199,7 @@ RegisterNUICallback('updateSkin', function(data)
 		elseif ears == 14 then	SetPedPropIndex(GetPlayerPed(-1), 2, 32-1, 1-1, 2)
 		elseif ears == 15 then	SetPedPropIndex(GetPlayerPed(-1), 2, 33-1, 1-1, 2)
 		end
-	
+
 		-- Keep these 4 variations together.
 		-- It avoids empty arms or noisy clothes superposition
 		if tops == 0 then
@@ -757,7 +798,7 @@ RegisterNUICallback('updateSkin', function(data)
 			SetPedComponentVariation(GetPlayerPed(-1), 8, 15, 0, 2) 	-- Undershirt
 			SetPedComponentVariation(GetPlayerPed(-1), 11, 282, 6, 2) 	-- Torso 2
 		end
-	
+
 		if pants == 0 then 		SetPedComponentVariation(GetPlayerPed(-1), 4, 61, 4, 2)
 		elseif pants == 1 then	SetPedComponentVariation(GetPlayerPed(-1), 4, 0, 0, 2)
 		elseif pants == 2 then	SetPedComponentVariation(GetPlayerPed(-1), 4, 0, 2, 2)
@@ -817,7 +858,7 @@ RegisterNUICallback('updateSkin', function(data)
 		elseif pants == 56 then	SetPedComponentVariation(GetPlayerPed(-1), 4, 88, 9, 2)
 		elseif pants == 57 then	SetPedComponentVariation(GetPlayerPed(-1), 4, 100, 9, 2)
 		end
-	
+
 		if shoes == 0 then 	SetPedComponentVariation(GetPlayerPed(-1), 6, 34, 0, 2)
 		elseif shoes == 1 then	SetPedComponentVariation(GetPlayerPed(-1), 6, 0, 10, 2)
 		elseif shoes == 2 then	SetPedComponentVariation(GetPlayerPed(-1), 6, 1, 0, 2)
@@ -870,7 +911,7 @@ RegisterNUICallback('updateSkin', function(data)
 		elseif shoes == 49 then SetPedComponentVariation(GetPlayerPed(-1), 6, 75, 8, 2)
 		elseif shoes == 50 then SetPedComponentVariation(GetPlayerPed(-1), 6, 77, 0, 2)
 		end
-	
+
 		if watches == 0 then		ClearPedProp(GetPlayerPed(-1), 6)
 		elseif watches == 1 then	SetPedPropIndex(GetPlayerPed(-1), 6, 1-1, 1-1, 2)
 		elseif watches == 2 then	SetPedPropIndex(GetPlayerPed(-1), 6, 2-1, 1-1, 2)
@@ -880,7 +921,7 @@ RegisterNUICallback('updateSkin', function(data)
 		elseif watches == 6 then	SetPedPropIndex(GetPlayerPed(-1), 6, 9-1, 1-1, 2)
 		elseif watches == 7 then	SetPedPropIndex(GetPlayerPed(-1), 6, 11-1, 1-1, 2)
 		end
-		
+
 		-- Unused yet
 		-- These presets will be editable in V2 release
 		SetPedHeadOverlay       	(GetPlayerPed(-1), 4, 0, 0.0)   	-- Lipstick
