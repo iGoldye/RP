@@ -40,19 +40,19 @@ Config.nightclubs = {
 }
 
 Config.Songs = {
-	{song = "DanceWithMe.mp3", label ="Sagan - Dance with me"},
-	{song = "ArminvanBuuren-BlahBlahBlah.mp3", label ="Armin van Buuren - BlahBlahBlah"},
-	{song = 'bringoutyourdead.mp3', label ="Greensky Bluegrass - Bring out your dead"},
-	{song = 'elijahwhodontforgettofeedyourneopets.mp3', label ="elijah who - don't forget to feed your neopets"},
-	{song = 'gotyesomebodythatiusedtoknowfeatkimbra.mp3', label ="Gotye - Somebody That I Used To Know"},
-	{song = 'imaginedragonsbeliever.mp3', label ="Imagine Dragons - Believer"},
-	{song = 'macklemoreryanlewisthriftshopfeatwanz.mp3', label =" Macklemore & Ryan Lewis - Thrift Shop"},
-	{song = 'mgmtkidsvideowithfire.mp3', label ="MGMT - Kids"},
-	{song = 'plkhierfeatschclip.mp3', label ="PLK - Hier feat. SCH"},
-	{song = 'poplockdropdead.mp3', label ="Pop lock drop dead"},
-	{song = 'scorpinsrockyoulikeahurricane.mp3', label ="Scorpins - Rock You Like A Hurricane"},
-	{song = 'scorpionsstilllovingyou.mp3', label ="Scorpions - Still Loving You"},
-	{song = 'skimasktheslumpgodnuketownftjuicewrld.mp3', label ="Ski Mask The Slump God - Nuketown"},
-	{song = 'TheDeansListDearProfessor.mp3', label ="The Deans List - Dear Professor"},
+	{song = "DanceWithMe.mp3", label ="1"},
+	{song = "ArminvanBuuren-BlahBlahBlah.mp3", label ="2"},
+	{song = 'bringoutyourdead.mp3', label ="3"},
+	{song = 'elijahwhodontforgettofeedyourneopets.mp3', label ="4"},
+	{song = 'gotyesomebodythatiusedtoknowfeatkimbra.mp3', label ="5"},
+	{song = 'imaginedragonsbeliever.mp3', label ="6"},
+	{song = 'macklemoreryanlewisthriftshopfeatwanz.mp3', label ="7"},
+	{song = 'mgmtkidsvideowithfire.mp3', label ="8"},
+	{song = 'plkhierfeatschclip.mp3', label ="9"},
+	{song = 'poplockdropdead.mp3', label ="10"},
+	{song = 'scorpinsrockyoulikeahurricane.mp3', label ="11"},
+	{song = 'scorpionsstilllovingyou.mp3', label ="12"},
+	{song = 'skimasktheslumpgodnuketownftjuicewrld.mp3', label ="13"},
+	{song = 'TheDeansListDearProfessor.mp3', label ="14"},
 
 }
