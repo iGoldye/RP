@@ -257,6 +257,28 @@ function isPoliceCar(vehicle)
 	elseif model == GetHashKey("policeb") then
 		return true
 	elseif model == GetHashKey("lp770cop") then
+        return true
+    elseif model == GetHashKey("lapd") then
+		return true
+	elseif model == GetHashKey("lapd2") then
+		return true
+	elseif model == GetHashKey("lapd3") then
+		return true
+	elseif model == GetHashKey("lapd4") then
+		return true
+	elseif model == GetHashKey("lapd5") then
+		return true
+	elseif model == GetHashKey("lapd6") then
+		return true
+	elseif model == GetHashKey("lapd7") then
+		return true
+	elseif model == GetHashKey("lapd8") then
+		return true
+	elseif model == GetHashKey("lapd9") then
+		return true
+	elseif model == GetHashKey("lapd10") then
+        return true
+    elseif model == GetHashKey("lapd11") then
 		return true
 	end
 
