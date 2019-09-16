@@ -119,7 +119,7 @@ function StartHuntingSession()
 
 		OnGoingHuntSession = false
 
-		RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_HEAVYSNIPER"), true, true)
+		-- RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_HEAVYSNIPER"), true, true)
 		RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_KNIFE"), true, true)
 
 		DeleteEntity(HuntCar)
