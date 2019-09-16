@@ -158,6 +158,7 @@ Config.Zones = {
 ----- TELEPORTERS -----
 
 Config.TeleportZones = {
+--[[
   EnterBuilding = {
     Pos       = { x = 132.608, y = -1293.978, z = 28.269 },
     Size      = { x = 1.2, y = 1.2, z = 0.1 },
@@ -175,6 +176,7 @@ Config.TeleportZones = {
     Hint      = _U('e_to_exit_1'),
     Teleport  = { x = 131.175, y = -1295.598, z = 28.569 },
   },
+]]--
 
 --[[
   EnterHeliport = {
