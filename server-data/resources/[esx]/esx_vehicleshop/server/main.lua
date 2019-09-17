@@ -350,7 +350,7 @@ ESX.RegisterServerCallback('esx_vehicleshop:resellVehicle', function (source, cb
 	-- calculate the resell price
 	for i=1, #Vehicles, 1 do
 		if GetHashKey(Vehicles[i].model) == model then
-			resellPrice = ESX.Math.Round(Vehicles[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(Vehicles[i].price / 100.0 * Config.ResellPercentage)
 			break
 		end
 	end

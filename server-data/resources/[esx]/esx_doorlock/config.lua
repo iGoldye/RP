@@ -386,6 +386,7 @@ Config.DoorList = {
 
 	--
 	{
+		id = 'pacific_vault',
 		objName = 'hei_v_ilev_bk_gate2_pris',
 		objYaw = 250.0,
 		objCoords  = vector3(262.0, 221.91, 106.2),
@@ -501,6 +502,14 @@ Config.DoorList = {
 		objYaw = 30.0,
 		objCoords  = vector3(99.64, -1293.47, 29.50),
 		textCoords = vector3(99.64, -1293.47, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_door_orangesolid',
+		objYaw = -60.0,
+		objCoords  = vector3(133.49, -1293.50, 29.50),
+		textCoords = vector3(133.49, -1293.50, 29.50),
 		authorizedJobs = { 'unicorn' },
 		locked = true
 	},

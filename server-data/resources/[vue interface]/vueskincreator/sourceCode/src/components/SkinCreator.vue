@@ -827,28 +827,28 @@ export default {
         },
         {
           name: "nose_peak_height",
-          header: "Высота кончика носа",
+          header: "Длина носа",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "nose_peak_length",
-          header: "Длина кончика носа",
+          header: "Выступ кончика носа",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "nose_peak_lowering",
-          header: "nose_peak_lowering",
+          header: "Высота кончика носа",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "nose_bone_height",
-          header: "Ширина переносицы",
+          header: "Высота переносицы",
           value: 0,
           min: -10,
           max: 10
@@ -925,35 +925,35 @@ export default {
         },
         {
           name: "jaw_bone_back_length",
-          header: "Высота челюсти",
+          header: "Подчелюстной выступ",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "chimp_bone_lowering",
-          header: "chimp_bone_lowering",
+          header: "Высота подбородка",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "chimp_bone_length",
-          header: "chimp_bone_length",
+          header: "Длина подбородка",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "chimp_bone_width",
-          header: "chimp_bone_width",
+          header: "Ширина подбородка",
           value: 0,
           min: -10,
           max: 10
         },
         {
           name: "chimp_hole",
-          header: "chimp_hole",
+          header: "Ямочка на подбородке",
           value: 0,
           min: -10,
           max: 10

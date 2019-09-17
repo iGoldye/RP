@@ -451,35 +451,37 @@ end)
 ESX.RegisterServerCallback('esx_policejob:buyJobVehicle', function(source, cb, vehicleProps, type)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local price = getPriceFromHash(vehicleProps.model, xPlayer.job.grade_name, type)
+	TriggerEvent('esx_addonaccount:getSharedAccount', 'society_police', function(account)
 
-	-- vehicle model not found
-	if price == 0 then
-		print(('esx_policejob: %s attempted to exploit the shop! (invalid vehicle model)'):format(xPlayer.identifier))
-		cb(false)
-	else
-		if xPlayer.getMoney() >= price then
-			xPlayer.removeMoney(price)
-
-			local displayName = type
-			if vehicleProps.label ~= nil then
-				displayName = vehicleProps.label
-			end
-
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`, vehiclename) VALUES (@owner, @vehicle, @plate, @type, @job, @stored, @vehiclename)', {
-				['@owner'] = xPlayer.identifier,
-				['@vehicle'] = json.encode(vehicleProps),
-				['@plate'] = vehicleProps.plate,
-				['@type'] = type,
-				['@job'] = xPlayer.job.name,
-				['@stored'] = true,
-				['@vehiclename'] = displayName,
-			}, function (rowsChanged)
-				cb(true)
-			end)
-		else
+		-- vehicle model not found
+		if price == 0 then
+			print(('esx_policejob: %s attempted to exploit the shop! (invalid vehicle model)'):format(xPlayer.identifier))
 			cb(false)
+		else
+			if account.money >= price then
+				account.removeMoney(price)
+
+				local displayName = type
+				if vehicleProps.label ~= nil then
+					displayName = vehicleProps.label
+				end
+
+				MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`, vehiclename) VALUES (@owner, @vehicle, @plate, @type, @job, @stored, @vehiclename)', {
+					['@owner'] = xPlayer.identifier,
+					['@vehicle'] = json.encode(vehicleProps),
+					['@plate'] = vehicleProps.plate,
+					['@type'] = type,
+					['@job'] = xPlayer.job.name,
+					['@stored'] = true,
+					['@vehiclename'] = displayName,
+				}, function (rowsChanged)
+					cb(true)
+				end)
+			else
+				cb(false)
+			end
 		end
-	end
+	end)
 end)
 
 ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, cb, nearbyVehicles)
