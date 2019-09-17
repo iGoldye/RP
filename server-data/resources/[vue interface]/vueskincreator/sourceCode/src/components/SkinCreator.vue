@@ -840,8 +840,8 @@ export default {
           max: 10
         },
         {
-          name: "Высота кончика носа",
-          header: "nose_peak_lowering",
+          name: "nose_peak_lowering",
+          header: "Высота кончика носа",
           value: 0,
           min: -10,
           max: 10
@@ -931,29 +931,29 @@ export default {
           max: 10
         },
         {
-          name: "Высота подбородка",
-          header: "chimp_bone_lowering",
+          name: "chimp_bone_lowering",
+          header: "Высота подбородка",
           value: 0,
           min: -10,
           max: 10
         },
         {
-          name: "Длина подбородка",
-          header: "chimp_bone_length",
+          name: "chimp_bone_length",
+          header: "Длина подбородка",
           value: 0,
           min: -10,
           max: 10
         },
         {
-          name: "Ширина подбородка",
-          header: "chimp_bone_width",
+          name: "chimp_bone_width",
+          header: "Ширина подбородка",
           value: 0,
           min: -10,
           max: 10
         },
         {
-          name: "Ямочка на подбородке",
-          header: "chimp_hole",
+          name: "chimp_hole",
+          header: "Ямочка на подбородке",
           value: 0,
           min: -10,
           max: 10
