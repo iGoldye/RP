@@ -386,6 +386,7 @@ Config.DoorList = {
 
 	--
 	{
+		id = 'pacific_vault',
 		objName = 'hei_v_ilev_bk_gate2_pris',
 		objYaw = 250.0,
 		objCoords  = vector3(262.0, 221.91, 106.2),
