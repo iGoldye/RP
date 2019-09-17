@@ -36,6 +36,16 @@ ESX.RegisterServerCallback('esx_doorlock:getDoorInfo', function(source, cb)
 	cb(doorInfo)
 end)
 
+AddEventHandler('esx_doorlock:setState', function(id, state)
+	for k,doorID in ipairs(Config.DoorList) do
+		if doorID.id == id then
+			doorInfo[k] = state
+			TriggerClientEvent('esx_doorlock:setState', -1, k, state)
+			break
+		end
+	end
+end)
+
 function IsAuthorized(jobName, doorID)
 	for _,job in pairs(doorID.authorizedJobs) do
 		if job == jobName then
