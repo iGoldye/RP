@@ -24,7 +24,8 @@ export default {
       header: {},
       namespace: {},
       name: {},
-      mockData: {}
+      mockData: {},
+      prevMenu: {}
     };
   },
   mounted() {
@@ -33,7 +34,7 @@ export default {
         this.open(event.data.namespace, event.data.name, event.data.data);
       }
       if (event.data.action == "closeMenu") {
-        this.close();
+        this.close(event.data.namespace, event.data.name);
       }
       this.$nextTick(() => {
         this.focus(event);
@@ -69,7 +70,7 @@ export default {
           })
         )
         .then(response => {
-          console.log(response);
+          // console.log(response);
         })
         .catch(error => {
           console.log(error.response);
@@ -90,10 +91,10 @@ export default {
           console.log(response);
         })
         .catch(error => {
-          console.log(error.response);
+          // console.log(error.response);
         });
     },
-    menu_cancel() {
+    menu_cancel(namespace, name) {
       axios
         .post(
           "http://menu-list/menu_cancel",
@@ -103,13 +104,16 @@ export default {
           })
         )
         .then(response => {
-          console.log(response);
+          // console.log(response);
         })
         .catch(error => {
           console.log(error.response);
         });
     },
-    close() {
+    close(namespace, name) {
+      this.namespace = namespace;
+      this.name = name;
+
       document.querySelector(".menu__list").classList.remove("is-active");
     },
     focus(event) {
@@ -123,9 +127,6 @@ export default {
         document.querySelector(".menu__list").classList.contains("is-active")
       ) {
         switch (event.data.action) {
-          case "closeMenu":
-            this.close();
-            break;
           case "controlPressed":
             switch (event.data.control) {
               case "DOWN":
@@ -184,16 +185,9 @@ export default {
                 break;
               case "ENTER":
                 this.menu_submit();
-                this.$nextTick(() => {
-                  // items.forEach(item => {
-                  //   item.classList.remove("is-active");
-                  // });
-                  // mainMenu.children[0].focus();
-                  // mainMenu.children[0].classList.add("is-active");
-                });
                 break;
               case "BACKSPACE":
-                this.close();
+                this.menu_cancel(event.data.namespace, event.data.name);
                 break;
             }
         }
