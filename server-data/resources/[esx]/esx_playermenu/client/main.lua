@@ -378,6 +378,7 @@ function OpenPersonalMenu()
 	table.insert(elements, {label = 'Показать паспорт', value = 'showpass'})
 	table.insert(elements, {label = 'Показать вод.права', value = 'showdrivelic'})
 	table.insert(elements, {label = 'Показать лиц. на оружие', value = 'showgunlic'})
+	table.insert(elements, {label = 'Передать автомобиль', value = 'changecarowner'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'personal_menu', {
 		title    = "Персональная информация",
@@ -411,6 +412,8 @@ function OpenPersonalMenu()
 			else
 				ESX.ShowNotification('Некому показать :(')
 			end
+		elseif cmd == 'changecarowner' then
+			TriggerServerEvent('esx_givecarkeys:frommenu')
 		end
 
 		menu.close()
