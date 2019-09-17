@@ -117,7 +117,7 @@ local lastTested = 0
 function ChopVehicle()
     local seats = MaxSeats(vehicle)
     if seats ~= 0 then
-        TriggerEvent('chat:addMessage', { args = { '[^1Chopshop^0]: Cannot chop with passengers' } })
+        TriggerEvent('chat:addMessage', { args = { '[^1Разборка^0]: Нельзя разбирать с пассажирами' } })
     elseif
         GetGameTimer() - lastTested > Config.CooldownMinutes * 60000 then
         lastTested = GetGameTimer()
@@ -137,7 +137,7 @@ function ChopVehicle()
                 if not HasAlreadyEnteredMarker then
                     HasAlreadyEnteredMarker =  true
                     ChoppingInProgress        = false
-                    exports.pNotify:SendNotification({text = "You Left The Zone. No Rewards For You", type = "error", timeout = 1000, layout = "centerRight", queue = "right", killer = true, animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                    exports.pNotify:SendNotification({text = "Вы покинули зону и не получите вознаграждения", type = "error", timeout = 1000, layout = "centerRight", queue = "right", killer = true, animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                     SetVehicleAlarmTimeLeft(vehicle, 60000)
                 end
             else
@@ -170,50 +170,50 @@ function VehiclePartsRemoval()
     SetVehicleEngineOn(vehicle, false, false, true)
     SetVehicleUndriveable(vehicle, false)
     if ChoppingInProgress == true then
-        exports['progressBars']:startUI(Config.DoorOpenFrontLeftTime, "Opening Front Left Door")
+        exports['progressBars']:startUI(Config.DoorOpenFrontLeftTime, "Открываем переднюю левую дверь")
         Citizen.Wait(Config.DoorOpenFrontLeftTime)
         SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 0, false, false)
     end
     Citizen.Wait(1000)
     if ChoppingInProgress == true then
-        exports['progressBars']:startUI(Config.DoorBrokenFrontLeftTime, "Removing Front Left Door")
+        exports['progressBars']:startUI(Config.DoorBrokenFrontLeftTime, "Снимаем переднюю левую дверь")
         Citizen.Wait(Config.DoorBrokenFrontLeftTime)
         SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 0, true)
     end
     Citizen.Wait(1000)
     if ChoppingInProgress == true then
-        exports['progressBars']:startUI(Config.DoorOpenFrontRightTime, "Opening Front Right Door")
+        exports['progressBars']:startUI(Config.DoorOpenFrontRightTime, "Открываем переднюю правую дверь")
         Citizen.Wait(Config.DoorOpenFrontRightTime)
         SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 1, false, false)
     end
     Citizen.Wait(1000)
     if ChoppingInProgress == true then
-        exports['progressBars']:startUI(Config.DoorBrokenFrontRightTime, "Removing Front Right Door")
+        exports['progressBars']:startUI(Config.DoorBrokenFrontRightTime, "Снимаем переднюю правую дверь")
         Citizen.Wait(Config.DoorBrokenFrontRightTime)
         SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 1, true)
     end
     Citizen.Wait(1000)
 	if rearLeftDoor ~= -1 then
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorOpenRearLeftTime, "Opening Rear Left Door")
+            exports['progressBars']:startUI(Config.DoorOpenRearLeftTime, "Открываем заднюю левую дверь")
             Citizen.Wait(Config.DoorOpenRearLeftTime)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 2, false, false)
         end
         Citizen.Wait(1000)
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorBrokenRearLeftTime, "Removing Rear Left Door")
+            exports['progressBars']:startUI(Config.DoorBrokenRearLeftTime, "Снимаем заднюю левую дверь")
             Citizen.Wait(Config.DoorBrokenRearLeftTime)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 2, true)
         end
         Citizen.Wait(1000)
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorOpenRearRightTime, "Opening Rear Right Door")
+            exports['progressBars']:startUI(Config.DoorOpenRearRightTime, "Окрываем заднюю правую дверь")
             Citizen.Wait(Config.DoorOpenRearRightTime)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 3, false, false)
         end
         Citizen.Wait(1000)
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorBrokenRearRightTime, "Removing Rear Right Door")
+            exports['progressBars']:startUI(Config.DoorBrokenRearRightTime, "Снимаем заднюю правую дверь")
             Citizen.Wait(Config.DoorBrokenRearRightTime)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false), 3, true)
         end
@@ -221,13 +221,13 @@ function VehiclePartsRemoval()
     Citizen.Wait(1000)
 	if bonnet ~= -1 then
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorOpenHoodTime, "Opening Hood")
+            exports['progressBars']:startUI(Config.DoorOpenHoodTime, "Открываем капот")
             Citizen.Wait(Config.DoorOpenHoodTime)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 4, false, false)
         end
         Citizen.Wait(1000)
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorBrokenHoodTime, "Removing Hood")
+            exports['progressBars']:startUI(Config.DoorBrokenHoodTime, "Снимаем капот")
             Citizen.Wait(Config.DoorBrokenHoodTime)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),4, true)
         end
@@ -235,23 +235,23 @@ function VehiclePartsRemoval()
     Citizen.Wait(1000)
 	if boot ~= -1 then
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorOpenTrunkTime, "Opening Trunk")
+            exports['progressBars']:startUI(Config.DoorOpenTrunkTime, "Открываем багажник")
             Citizen.Wait(Config.DoorOpenTrunkTime)
             SetVehicleDoorOpen(GetVehiclePedIsIn(ped, false), 5, false, false)
         end
         Citizen.Wait(1000)
         if ChoppingInProgress == true then
-            exports['progressBars']:startUI(Config.DoorBrokenTrunkTime, "Removing Trunk")
+            exports['progressBars']:startUI(Config.DoorBrokenTrunkTime, "Снимаем багажник")
             Citizen.Wait(Config.DoorBrokenTrunkTime)
             SetVehicleDoorBroken(GetVehiclePedIsIn(ped, false),5, true)
         end
     end
     Citizen.Wait(1000)
-    exports['progressBars']:startUI(Config.DeletingVehicleTime, "Let John take care of the car if allowed!")
+    exports['progressBars']:startUI(Config.DeletingVehicleTime, "Завершение разборки")
     Citizen.Wait(Config.DeletingVehicleTime)
     if ChoppingInProgress == true then
         DeleteVehicle()
-        exports.pNotify:SendNotification({text = "Vehicle Chopped Successfully...", type = "success", timeout = 1000, layout = "centerRight", queue = "right", animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+        exports.pNotify:SendNotification({text = "Разборка завершена...", type = "success", timeout = 1000, layout = "centerRight", queue = "right", animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
     end
 end
 
@@ -284,7 +284,7 @@ AddEventHandler('lenzh_chopshop:hasExitedMarker', function(zone)
     if zone == 'Chopshop' then
 
         if ChoppingInProgress == true then
-            exports.pNotify:SendNotification({text = "You Left The Zone. Go Back In The Zone", type = "error", timeout = 1000, layout = "centerRight", queue = "right", killer = true, animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+            exports.pNotify:SendNotification({text = "Вернитесь в зону", type = "error", timeout = 1000, layout = "centerRight", queue = "right", killer = true, animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
         end
     end
     ChoppingInProgress        = false
