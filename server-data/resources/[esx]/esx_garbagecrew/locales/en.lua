@@ -4,7 +4,7 @@ Locales['en'] = {
 	['citizen_wear']			= 'Надеть свою одежду',
 	['vehiclespawner']			= 'Гараж',
 	['already_have_truck']		= 'У вас уже есть служебный трансопрт!',
-	['delivery']				= 'Нажмите ~INPUT_PICKUP~ что бы начать сбор.',
+	['delivery']				= 'Нажмите ~INPUT_PICKUP~ чтобы начать сбор.',
 	['not_your_truck']			= 'Это не ваш служебный транспорт!',
 	['not_your_truck2']			= 'Вы должны быть в служебном транспорте!',
 	['need_it']					= 'yeah, but we need it !',
@@ -26,5 +26,5 @@ Locales['en'] = {
 	['blip_delivery']			= 'Мусорщики : Точка сбора', --'Garbage company : Delivery',
 	['blip_goal']				= 'Мусорщики : База', --'Garbage company : Delivery point',
 	['blip_depot']				= 'Мусорщики : База', --'Garbage company : depot',
-	['cancel_mission']			= 'Нажмите ~INPUT_PICKUP~ что бы закончить работу',
+	['cancel_mission']			= 'Нажмите ~INPUT_PICKUP~ чтобы закончить работу',
 }

@@ -11,6 +11,7 @@ Citizen.CreateThread(function()
 	end
 
 	PlayerData = ESX.GetPlayerData()
+	updateMainBlip()
 end)
 --------------------------------------------------------------------------------
 -- NE RIEN MODIFIER
@@ -24,11 +25,11 @@ local lettre 		  		  = 0
 local isInService 			  = false
 local hasAlreadyEnteredMarker = false
 local lastZone                = nil
-local Blips                   = {}
 local CurrentAction           = nil
 local CurrentActionMsg        = ''
 local CurrentActionData       = {}
 local vehicleMaxHealth 	      = nil
+local MainBlip = nil
 --------------------------------------------------------------------------------
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
@@ -38,16 +39,19 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
 	PlayerData.job = job
+	updateMainBlip()
 end)
 
 function IsJobTrucker() -- Check si le joueur est bien du métier
-	if PlayerData ~= nil then
-		local isJobTrucker = false
-		if PlayerData.job.name ~= nil and PlayerData.job.name == 'gopostal' then
-			isJobTrucker = true
-		end
-		return isJobTrucker
+	if PlayerData == nil then
+		return false
 	end
+
+	if PlayerData.job ~= nil and PlayerData.job.name == 'gopostal' then
+		return true
+	end
+
+	return false
 end
 
 function Draw3DText(x, y, z, text)
@@ -427,20 +431,26 @@ Citizen.CreateThread(function()
 	end
 end)
 
--- CREATE BLIPS
-Citizen.CreateThread(function()
-	local blip = AddBlipForCoord(Config.Zones.CloakRoom.Pos.x, Config.Zones.CloakRoom.Pos.y, Config.Zones.CloakRoom.Pos.z)
-  
-	SetBlipSprite (blip, 357)
-	SetBlipDisplay(blip, 4)
-	SetBlipScale  (blip, 1.2)
-	SetBlipColour (blip, 5)
-	SetBlipAsShortRange(blip, true)
+function updateMainBlip()
+	if MainBlip ~= nil then
+		RemoveBlip(MainBlip)
+		MainBlip = nil
+	end
 
-	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString(_U('blip_job'))
-	EndTextCommandSetBlipName(blip)
-end)
+	if IsJobTrucker() == true then
+		MainBlip = AddBlipForCoord(Config.Zones.CloakRoom.Pos.x, Config.Zones.CloakRoom.Pos.y, Config.Zones.CloakRoom.Pos.z)
+  
+		SetBlipSprite (MainBlip, 357)
+		SetBlipDisplay(MainBlip, 4)
+		SetBlipScale  (MainBlip, 1.2)
+		SetBlipColour (MainBlip, 5)
+		SetBlipAsShortRange(MainBlip, true)
+
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(_U('blip_job'))
+		EndTextCommandSetBlipName(MainBlip)
+	end
+end
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
