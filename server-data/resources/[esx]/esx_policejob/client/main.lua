@@ -981,7 +981,36 @@ function OpenFineMenu(player)
 			{label = _U('major_offense'),   value = 3},
 			{label = _U('billing'), value = 'billing'},
 	}}, function(data, menu)
-		OpenFineCategoryMenu(player, data.current.value)
+	        local cmd = data.current.value
+		if cmd == 'billing' then
+			ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing_desc', {
+				title = "Описание проступка"
+			}, function(data, menu)
+				local desc = data.value
+				menu.close()
+
+				ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
+					title = "Сумма штрафа"
+				}, function(data, menu)
+					menu.close()
+
+					local amount = tonumber(data.value)
+					if amount == nil then
+						ESX.ShowNotification(_U('amount_invalid'))
+					else
+						menu.close()
+						TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(player), 'society_police', desc, amount)
+						ESX.ShowNotification(_U('billing_sent'))
+					end
+				end, function(data, menu)
+					menu.close()
+				end)
+			end, function(data, menu)
+				menu.close()
+			end)
+		else
+			OpenFineCategoryMenu(player, cmd)
+		end
 	end, function(data, menu)
 		menu.close()
 	end)
@@ -1020,25 +1049,6 @@ function OpenFineCategoryMenu(player, category)
 			menu.close()
 		end)
 	end, category)
-
-	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
-		title = _U('invoice_amount')
-	}, function(data, menu)
-
-		local amount = tonumber(data.value)
-		if amount == nil then
-			ESX.ShowNotification(_U('amount_invalid'))
-		else
-			menu.close()
-			if closestDistance < 3.0 then
-				TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(closestPlayer), 'society_police', 'Police', amount)
-				ESX.ShowNotification(_U('billing_sent'))
-			end
-		end
-
-	end, function(data, menu)
-		menu.close()
-	end)
 end
 
 function LookupVehicle()
