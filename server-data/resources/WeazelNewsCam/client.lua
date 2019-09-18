@@ -401,12 +401,12 @@ AddEventHandler("Mic:ToggleMic", function()
         NetworkSetNetworkIdDynamic(netid, true)
         SetNetworkIdCanMigrate(netid, false)
         AttachEntityToEntity(micspawned, GetPlayerPed(PlayerId()), GetPedBoneIndex(GetPlayerPed(PlayerId()), 60309), 0.055, 0.05, 0.0, 240.0, 0.0, 0.0, 1, 1, 0, 1, 0, 1)
-        TaskPlayAnim(GetPlayerPed(PlayerId()), 1.0, -1, -1, 50, 0, 0, 0, 0) -- 50 = 32 + 16 + 2
-        TaskPlayAnim(GetPlayerPed(PlayerId()), micanimDict, micanimName, 1.0, -1, -1, 50, 0, 0, 0, 0)
+--        TaskPlayAnim(GetPlayerPed(PlayerId()), 1.0, -1, -1, 50, 0, 0, 0, 0) -- 50 = 32 + 16 + 2
+--        TaskPlayAnim(GetPlayerPed(PlayerId()), micanimDict, micanimName, 1.0, -1, -1, 50, 0, 0, 0, 0)
         mic_net = netid
         holdingMic = true
     else
-        ClearPedSecondaryTask(GetPlayerPed(PlayerId()))
+--        ClearPedSecondaryTask(GetPlayerPed(PlayerId()))
         DetachEntity(NetToObj(mic_net), 1, 1)
         DeleteEntity(NetToObj(mic_net))
         mic_net = nil
