@@ -144,13 +144,13 @@ function Bag()
 
     local elements = {}
 
-    table.insert(elements, {label = 'Put object', value = 'put'})
-    table.insert(elements, {label = 'Take object', value = 'take'})
-    table.insert(elements, {label = 'Drop bag', value = 'drop'})
+    table.insert(elements, {label = 'Положить предмет', value = 'put'})
+    table.insert(elements, {label = 'Забрать предмет', value = 'take'})
+    table.insert(elements, {label = 'Выбросить сумку', value = 'drop'})
         
     ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'lel',
         {
-            title    = 'Bag',
+            title    = 'Сумка',
             align    = 'left',
             elements = elements
         }, function(data, menu)
@@ -256,7 +256,7 @@ function TakeItem()
         
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'lels',
         {
-            title    = 'Bag',
+            title    = 'Сумка',
             align    = 'left',
             elements = elements
         }, function(data, menu)
@@ -302,7 +302,7 @@ function PutItem()
         
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'lel3',
         {
-            title    = 'Bag',
+            title    = 'Сумка',
             align    = 'left',
             elements = elements
         }, function(data, menu)
