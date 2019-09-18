@@ -52,6 +52,8 @@ Banks = {
 		hackposition = { ['x'] = -105.42505584717, ['y'] = 6471.7512695313, ['z'] = 31.62670135498 },
 		reward = math.random(15000,25000),
 		nameofbank = "Blaine County Savings",
+		doortype = 'v_ilev_cbankvaulgate01',
+		doorid = 'blane',
 	},
 	["Pacific Standard"] = {
 		position = { ['x'] = 264.99899291992, ['y'] = 213.50576782227, ['z'] = 101.68346405029 },

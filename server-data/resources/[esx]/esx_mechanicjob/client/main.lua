@@ -205,6 +205,7 @@ function OpenMechanicHarvestMenu()
 			{label = _U('gas_can'), value = 'gaz_bottle'},
 			{label = _U('repair_tools'), value = 'fix_tool'},
 			{label = _U('body_work_tools'), value = 'caro_tool'},
+			{label = _U('tire'), value = 'tire'},
 		}
 
 		ESX.UI.Menu.CloseAll()
@@ -222,6 +223,8 @@ function OpenMechanicHarvestMenu()
 				TriggerServerEvent('esx_mechanicjob:startHarvest2')
 			elseif data.current.value == 'caro_tool' then
 				TriggerServerEvent('esx_mechanicjob:startHarvest3')
+			elseif data.current.value == 'tire' then
+				TriggerServerEvent('esx_mechanicjob:startHarvest4')
 			end
 		end, function(data, menu)
 			menu.close()

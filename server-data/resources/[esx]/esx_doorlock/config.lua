@@ -396,6 +396,7 @@ Config.DoorList = {
 	},
 
 	{
+		id = 'blane',
 		objName = 'v_ilev_cbankvaulgate01',
 		objYaw = 50.0,
 		objCoords  = vector3(-104.92, 6473.58, 31.63),

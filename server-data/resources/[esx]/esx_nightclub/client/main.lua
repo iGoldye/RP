@@ -2611,30 +2611,30 @@ Citizen.CreateThread(
                         RemoveBlip(blipDrugZone)
                     end
                 elseif StarType == 'default' then
-                    ESX.ShowNotification('Bonjour, vous pouvez me conduire au ~p~Club~w~?')
+                    ESX.ShowNotification('Отвезете меня в ~p~Клуб~w~?')
                 end
                 if (distance < 15.0) and IsInCarClub() then
                     if StarType == 'fastFail2' then
                         failedMission = false
                         timerEnabled  = false
                         timerDrive = 0
-                        ESX.ShowNotification('Merci de m\'avoir mis en retard.')
+                        ESX.ShowNotification('Спасибо за опоздание.')
                         TriggerServerEvent('esx_nightclub:driverMissionCompleted', StarType)
                     elseif StarType == 'lowerFail' then
-                        ESX.ShowNotification('J\'espère que la prochaine fois sera mieux.')
+                        ESX.ShowNotification('Надеюсь в следующий раз будет лучше.')
                         TriggerServerEvent('esx_nightclub:driverMissionCompleted', StarType)
                     elseif StarType == 'fast' then
                         failedMission = false
                         timerEnabled  = false
                         timerDrive = 0
-                        ESX.ShowNotification('Merci pour cette course d\'enfer.')
-                        ESX.ShowNotification('Je vous ai rajouté un pourboire.')
+                        ESX.ShowNotification('Спасибо за адскую поездку!')
+                        ESX.ShowNotification('Я дам вас совет.')
                         TriggerServerEvent('esx_nightclub:driverMissionCompleted', StarType)
                     elseif StarType == 'lower' then
-                        ESX.ShowNotification('C\'étais fort agréable merci, je vous rajoute un pourboire.')
+                        ESX.ShowNotification('Это было очень приятно, спасибо, я добавляю чаевые.')
                         TriggerServerEvent('esx_nightclub:driverMissionCompleted', StarType)
                     elseif StarType == 'default' then
-                        ESX.ShowNotification('Merci pour le trajet, bonne journée.')
+                        ESX.ShowNotification('Спасибо за поездку, хорошего дня.')
                         TriggerServerEvent('esx_nightclub:driverMissionCompleted', StarType)
                     end
                     missionWorked = false
@@ -2702,11 +2702,11 @@ Citizen.CreateThread(
                 local distanceStarPlayer = Vdist(playerPos.x, playerPos.y, playerPos.z, currentStarPos.x, currentStarPos.y, currentStarPos.z)
                 if (distanceStarPlayer > 20.0) then
                     StopMission()
-                    ESX.ShowNotification('Vous êtes trop loin de la Star!')
+                    ESX.ShowNotification('Вы далеко от звезды!')
                     StarGOTOCar = false
                 elseif (IsPedDeadOrDying(SpawnedStar)) then
                     StopMission()
-                    ESX.ShowNotification('La Star est morte!')
+                    ESX.ShowNotification('Звезда мертва!')
                     StarGOTOCar = false
                 elseif IsPedInAnyVehicle(SpawnedStar, false) and IsInCarClub() then
                     driveVIP()
@@ -2834,13 +2834,19 @@ AddEventHandler(
                 SetBlipScale(copblip, 2.0)
                 SetBlipColour(copblip, 8)
                 PulseBlip(copblip)
-                ESX.ShowNotification('~r~Signalement:~w~ À toutes les unités, une bagarre à éclaté au Night Club.')
+                ESX.ShowNotification('~r~Оповезение:~w~ Началась драка в ночном клубе!')
                 Wait(60000)
                 RemoveBlip(copblip)
             end
         )
     end
 )
+
+AddEventHandler('esx_nightclub:OpenSocietyActionsMenu', function()
+    if not isDead and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'nightclub_actions') then
+        OpenSocietyActionsMenu()
+    end
+end)
 
 
 --[[RegisterNetEvent('esx_nightclub:test')

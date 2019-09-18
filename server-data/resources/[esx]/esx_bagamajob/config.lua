@@ -23,7 +23,7 @@ Config.Blips = {
       Sprite  = 93,
       Display = 4,
       Scale   = 1.2,
-      Colour  = 48,
+      Colour  = 8,
     },
 
 }
@@ -38,7 +38,7 @@ Config.Zones = {
     -- },
 
     Vaults = {
-        Pos   = { x = -575.596, y = 291.31, z = 78.188 },
+        Pos   = { x = -1385.36, y = -606.55, z = 29.32 },
         Size  = { x = 1.3, y = 1.3, z = 1.0 },
         Color = { r = 30, g = 144, b = 255 },
         Type  = 23,
@@ -86,7 +86,7 @@ Config.Zones = {
 ]]--
 
     BossActions = {
-        Pos   = { x = -571.65, y = 289.621, z = 78.18 },
+        Pos   = { x = -1382.17, y = -632.44, z = 29.8 },
         Size  = { x = 1.5, y = 1.5, z = 1.0 },
         Color = { r = 0, g = 100, b = 0 },
         Type  = 1,
@@ -96,7 +96,7 @@ Config.Zones = {
 -------- SHOPS --------
 
     Flacons = {
-        Pos   = { x = -562.82, y = 287.5, z = 81.18 },
+        Pos   = { x = -1389.755, y = -606.36, z = 29.32 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 238, g = 0, b = 0 },
         Type  = 23,
@@ -119,7 +119,7 @@ Config.Zones = {
     },
 
     NoAlcool = {
-        Pos   = { x = -563.23, y = 284.64, z = 81.18 },
+        Pos   = { x = -1390.95, y = -604.46, z = 29.32 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 238, g = 110, b = 0 },
         Type  = 23,
@@ -134,7 +134,7 @@ Config.Zones = {
     },
 
     Apero = {
-        Pos   = { x = -561.78, y = 289.78, z = 81.18 },
+        Pos   = { x = -1391.28, y = -601.98, z = 29.32 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 142, g = 125, b = 76 },
         Type  = 23,

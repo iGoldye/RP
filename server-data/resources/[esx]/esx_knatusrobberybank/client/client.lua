@@ -4,7 +4,7 @@ local bombholdingup = false
 local bank = ""
 local savedbank = {}
 local secondsRemaining = 0
-local dooropen = false
+local dooropen = true
 local blipRobbery = nil
 globalcoords = nil
 globalrotation = nil
@@ -192,7 +192,7 @@ end)
 RegisterNetEvent('esx_holdupbank:opendoors')
 AddEventHandler('esx_holdupbank:opendoors', function(x,y,z,doortype)
 	dooropen = true
---[[
+
 	local coords = {x,y,z}
 	local obs, distance = ESX.Game.GetClosestObject(doortype, coords)
 	local pos = GetEntityCoords(obs)
@@ -209,7 +209,7 @@ AddEventHandler('esx_holdupbank:opendoors', function(x,y,z,doortype)
 		SetEntityHeading(obs, globalrotation)
 	end
 	end)
-]]--
+
 end)
 
 

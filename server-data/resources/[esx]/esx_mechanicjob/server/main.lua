@@ -2,6 +2,7 @@ ESX                = nil
 PlayersHarvesting  = {}
 PlayersHarvesting2 = {}
 PlayersHarvesting3 = {}
+PlayersHarvesting4 = {}
 PlayersCrafting    = {}
 PlayersCrafting2   = {}
 PlayersCrafting3   = {}
@@ -109,6 +110,38 @@ AddEventHandler('esx_mechanicjob:stopHarvest3', function()
 	local _source = source
 	PlayersHarvesting3[_source] = false
 end)
+
+local function Harvest4(source)
+	SetTimeout(4000, function()
+
+		if PlayersHarvesting4[source] == true then
+			local xPlayer = ESX.GetPlayerFromId(source)
+			local CaroToolQuantity = xPlayer.getInventoryItem('tire').count
+			if CaroToolQuantity >= 5 then
+				TriggerClientEvent('esx:showNotification', source, _U('you_do_not_room'))
+			else
+				xPlayer.addInventoryItem('tire', 1)
+				Harvest4(source)
+			end
+		end
+
+	end)
+end
+
+RegisterServerEvent('esx_mechanicjob:startHarvest4')
+AddEventHandler('esx_mechanicjob:startHarvest4', function()
+	local _source = source
+	PlayersHarvesting4[_source] = true
+	TriggerClientEvent('esx:showNotification', _source, _U('tire'))
+	Harvest4(_source)
+end)
+
+RegisterServerEvent('esx_mechanicjob:stopHarvest4')
+AddEventHandler('esx_mechanicjob:stopHarvest4', function()
+	local _source = source
+	PlayersHarvesting4[_source] = false
+end)
+
 
 
 local function Craft(source)
