@@ -44,6 +44,10 @@ Config.PoliceStations = {
 			vector3(451.7, -980.1, 29.8)
 		},
 
+		Stocks = {
+			vector3(477.84, -986.15, 23.95)
+		},
+
 		Vehicles = {
 			{
 				Spawner = vector3(462.94, -1017.0, 27.3),

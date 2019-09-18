@@ -218,6 +218,35 @@ function OpenCloakroomMenu()
 	end)
 end
 
+function OpenStockMenu(station)
+	local elements = {}
+
+	table.insert(elements, {label = _U('remove_object'),  value = 'get_stock'})
+	table.insert(elements, {label = _U('deposit_object'), value = 'put_stock'})
+
+	ESX.UI.Menu.CloseAll()
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stock', {
+		title    = _U('stock'),
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+
+		if data.current.value == 'put_stock' then
+			OpenPutStocksMenu()
+		elseif data.current.value == 'get_stock' then
+			OpenGetStocksMenu()
+		end
+
+	end, function(data, menu)
+		menu.close()
+
+		CurrentAction     = 'menu_stock'
+		CurrentActionMsg  = _U('open_stock')
+		CurrentActionData = {station = station}
+	end)
+end
+
 function OpenArmoryMenu(station)
 	local elements = {
 		-- {label = _U('buy_weapons'), value = 'buy_weapons'}
@@ -226,8 +255,8 @@ function OpenArmoryMenu(station)
 	if Config.EnableArmoryManagement then
 		table.insert(elements, {label = _U('get_weapon'),     value = 'get_weapon'})
 		table.insert(elements, {label = _U('put_weapon'),     value = 'put_weapon'})
-		table.insert(elements, {label = _U('remove_object'),  value = 'get_stock'})
-		table.insert(elements, {label = _U('deposit_object'), value = 'put_stock'})
+--		table.insert(elements, {label = _U('remove_object'),  value = 'get_stock'})
+--		table.insert(elements, {label = _U('deposit_object'), value = 'put_stock'})
 	end
 
 	ESX.UI.Menu.CloseAll()
@@ -244,10 +273,10 @@ function OpenArmoryMenu(station)
 			OpenPutWeaponMenu()
 		elseif data.current.value == 'buy_weapons' then
 			OpenBuyWeaponsMenu()
-		elseif data.current.value == 'put_stock' then
-			OpenPutStocksMenu()
-		elseif data.current.value == 'get_stock' then
-			OpenGetStocksMenu()
+--		elseif data.current.value == 'put_stock' then
+--			OpenPutStocksMenu()
+--		elseif data.current.value == 'get_stock' then
+--			OpenGetStocksMenu()
 		end
 
 	end, function(data, menu)
@@ -1338,10 +1367,12 @@ function OpenGetStocksMenu()
 		local elements = {}
 
 		for i=1, #items, 1 do
-			table.insert(elements, {
-				label = 'x' .. items[i].count .. ' ' .. items[i].label,
-				value = items[i].name
-			})
+			if items[i].count > 0 then
+				table.insert(elements, {
+					label = 'x' .. items[i].count .. ' ' .. items[i].label,
+					value = items[i].name
+				})
+			end
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stocks_menu', {
@@ -1463,6 +1494,10 @@ AddEventHandler('esx_policejob:hasEnteredMarker', function(station, part, partNu
 	elseif part == 'Armory' then
 		CurrentAction     = 'menu_armory'
 		CurrentActionMsg  = _U('open_armory')
+		CurrentActionData = {station = station}
+	elseif part == 'Stock' then
+		CurrentAction     = 'menu_stock'
+		CurrentActionMsg  = _U('open_stock')
 		CurrentActionData = {station = station}
 	elseif part == 'Vehicles' then
 		CurrentAction     = 'menu_vehicle_spawner'
@@ -1845,6 +1880,19 @@ Citizen.CreateThread(function()
 					end
 				end
 
+				for i=1, #v.Stocks, 1 do
+					local distance = GetDistanceBetweenCoords(coords, v.Stocks[i], true)
+
+					if distance < Config.DrawDistance then
+						DrawMarker(25, v.Stocks[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
+						letSleep = false
+					end
+
+					if distance < Config.MarkerSize.x then
+						isInMarker, currentStation, currentPart, currentPartNum = true, k, 'Stock', i
+					end
+				end
+
 				for i=1, #v.Vehicles, 1 do
 					local distance = GetDistanceBetweenCoords(coords, v.Vehicles[i].Spawner, true)
 
@@ -1980,6 +2028,14 @@ Citizen.CreateThread(function()
 					OpenCloakroomMenu()
 				elseif CurrentAction == 'menu_computer' then
 					TriggerEvent('jsfour-mdc:openMenu')
+				elseif CurrentAction == 'menu_stock' then
+					if Config.MaxInService == -1 then
+						OpenStockMenu(CurrentActionData.station)
+					elseif playerInService then
+						OpenStockMenu(CurrentActionData.station)
+					else
+						ESX.ShowNotification(_U('service_not'))
+					end
 				elseif CurrentAction == 'menu_armory' then
 					if Config.MaxInService == -1 then
 						OpenArmoryMenu(CurrentActionData.station)
