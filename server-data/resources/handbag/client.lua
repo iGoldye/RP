@@ -34,12 +34,12 @@ AddEventHandler("Bag:ToggleBag", function()
         NetworkSetNetworkIdDynamic(netid, true)
         SetNetworkIdCanMigrate(netid, false)
         AttachEntityToEntity(bagspawned, GetPlayerPed(PlayerId()), GetPedBoneIndex(GetPlayerPed(PlayerId()), 57005), 0.15, 0, 0, 0, 270.0, 60.0, true, true, false, true, 1, true)
-        TaskPlayAnim(GetPlayerPed(PlayerId()), 1.0, -1, -1, 50, 0, 0, 0, 0) -- 50 = 32 + 16 + 2
-        TaskPlayAnim(GetPlayerPed(PlayerId()), baganimDict, baganimName, 1.0, -1, -1, 50, 0, 0, 0, 0)
+--        TaskPlayAnim(GetPlayerPed(PlayerId()), 1.0, -1, -1, 50, 0, 0, 0, 0) -- 50 = 32 + 16 + 2
+--        TaskPlayAnim(GetPlayerPed(PlayerId()), baganimDict, baganimName, 1.0, -1, -1, 50, 0, 0, 0, 0)
         bag_net = netid
         holdingBag = true
     else
-        ClearPedSecondaryTask(GetPlayerPed(PlayerId()))
+--        ClearPedSecondaryTask(GetPlayerPed(PlayerId()))
         DetachEntity(NetToObj(bag_net), 1, 1)
         DeleteEntity(NetToObj(bag_net))
         bag_net = nil
@@ -52,10 +52,10 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if holdingBag then
-			while not HasAnimDictLoaded(baganimDict) do
-				RequestAnimDict(baganimDict)
-				Citizen.Wait(100)
-			end
+--			while not HasAnimDictLoaded(baganimDict) do
+--				RequestAnimDict(baganimDict)
+--				Citizen.Wait(100)
+--			end
 			DisablePlayerFiring(PlayerId(), true)
 			DisableControlAction(0,25,true) -- disable aim
 			DisableControlAction(0, 44,  true) -- INPUT_COVER
