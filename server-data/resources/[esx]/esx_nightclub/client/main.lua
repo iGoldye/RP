@@ -1887,7 +1887,7 @@ function SpawnCarNightClub()
             end
         )
     else
-        ESX.ShowNotification('~r~Vous avez déjà sorti un véhicule.')
+        ESX.ShowNotification('~r~Вы уже выгнали транспорт.')
     end
 end
 
@@ -1932,10 +1932,10 @@ function DespawnCarNightClub()
                     menu.close()
                 end
             )
-            ESX.ShowNotification('Le véhicule est en ~r~trop mauvais état~w~, vous allez perdre la caution.')
+            ESX.ShowNotification('Автомобиль в плохом состоянии, вы потеряете залог.')
         end
     else
-        ESX.ShowNotification('~r~Ce n\'est pas le bon véhicule!')
+        ESX.ShowNotification('~r~Это не тот автомобиль!')
     end
 end
 
@@ -1947,7 +1947,7 @@ function StartMission()
         ClearGpsPlayerWaypoint(playerPed)
         SetNewWaypoint(StarPos)
         drivingStarted = true
-        ESX.ShowNotification("Un ~y~VIP~w~ a besoin d'une limousine, allez le chercher et ramenez le au ~p~Club~w~.")
+        ESX.ShowNotification("~y~VIP~w~ нуждается в лимузине, заберите его и отвезите в ~p~Клуб~w~.")
     else
         ESX.ShowNotification(_U('not_in_vehicle'))
     end
@@ -1999,22 +1999,22 @@ function driveVIP()
                 timerDrive = coordMissionClub[i][2]
                 initTimer = timerDrive
                 --timeRemaining = timerDrive - (os.time() - startTimer)
-                ESX.ShowNotification('Salut, direction le ~p~Club~w~ et ~r~rapidement~w~. Vous avez ~y~' .. timerDrive .. '~w~s.')
+                ESX.ShowNotification('Привет, поехали в ~p~Клуб~w~ и ~r~быстро~w~. У нас есть ~y~' .. timerDrive .. '~w~.')
                 missionWorked = true
                 timerEnabled = true
                 break
             end
         end
     elseif StarType == 'lower' then
-        ESX.ShowNotification('Bonjour, ~y~j\'ai envie de profiter de la limousine~w~, prenez votre temps.')
-        ESX.ShowNotification('Ne roulez pas à plus de ~r~'..speedLimitVIP..'~w~km/h.')
+        ESX.ShowNotification('Здравствуйте, я хочу насладиться лимузином, не торопитесь.')
+        ESX.ShowNotification('Не превышайте  ~r~'..speedLimitVIP..'~w~км/ч.')
         carHealth = GetEntityHealth(TargetVehicle)
         missionWorked = true
     elseif StarType == 'tourist' then
         -- statements
     elseif StarType == 'drug' then
-        ESX.ShowNotification('Salut man, faut que je passes prendre quelques pochons si t\'es ok et t\'aura un bonus.')
-        ESX.ShowNotification('Ammenez le chercher de la ~y~drogue~w~, ou directement au ~p~Club~w~.')
+        ESX.ShowNotification('Привет чувак, мне нужно забрать пару вещей прежде чем поехать в клуб. Чаевыми не обижу.')
+        ESX.ShowNotification('Отвези его к ~y~дилеру~w~, или сразу в  ~p~Клуб~w~.')
         local blipDrugZone = AddBlipForCoord(posDrugDealerVipZone)
         missionWorked = true
     elseif StarType == 'default' then
@@ -2527,7 +2527,7 @@ Citizen.CreateThread(
                     DrawHudText(math.floor(timerDrive), {255, 0, 0, 255}, 0.43, 0.05, 3.0, 3.0)
                 end
                 if timerDrive == (initTimer / 2) then
-                    ESX.ShowNotification('~r~Attention~w~ la moitier du temps est écoulée, je vais être en retard!')
+                    ESX.ShowNotification('~r~Внимание!~w~ Вы опаздываете!')
                 end
             end
         end
@@ -2546,7 +2546,7 @@ Citizen.CreateThread(
                     randEvent = math.random( 0, 2)
                     print(randEvent)
                     if randEvent == 0 then
-                        ESX.ShowNotification('~r~Stop!~w~ Arrêtez-vous je descends ici! La prochaine fois je prends un taxi...')
+                        ESX.ShowNotification('~r~Остановитесь!~w~ Лучше я возьму такси...')
                         TaskLeaveVehicle(SpawnedStar, TargetVehicle, 0)
                         Citizen.Wait(300)
                         TaskGoStraightToCoord(SpawnedStar, endPosVIP.x, endPosVIP.y, endPosVIP.z, 1.0, -1, 0.0, 0.0)
@@ -2557,7 +2557,7 @@ Citizen.CreateThread(
                         missionWorked = nil
                         starType = 'fastFail'
                     elseif randEvent >= 1 then
-                        ESX.ShowNotification('Un retard de plus, ~r~ne comptez pas sur un pourboire~w~.')
+                        ESX.ShowNotification('Мы опаздываем, ~r~не расчитывайте на чаевые~w~.')
                         starType = 'fastFail2'
                         failedMission = false
                     end
@@ -2567,20 +2567,20 @@ Citizen.CreateThread(
                     if speedVIPVeh > speedLimitVIP then
                         countCurrentAlertSpeed = countCurrentAlertSpeed + 1
                         if countCurrentAlertSpeed <= countAlertSpeed then
-                            ESX.ShowNotification('~r~N\'allez pas trop vite, s\'il vous plait.')
-                            ESX.ShowNotification('Alerte avertissement n°'..countCurrentAlertSpeed..'/'..countAlertSpeed..'.')
+                            ESX.ShowNotification('~r~Не гоните, пожалуйста.')
+                            ESX.ShowNotification('Внимание°'..countCurrentAlertSpeed..'/'..countAlertSpeed..'.')
                         else
-                            ESX.ShowNotification('~r~Bon comme vous roulez trop vite~w~, je vais garder votre pourboire...')
+                            ESX.ShowNotification('~r~Вы слишком быстро едете~w~, я не буду давать вам чаевые...')
                             StarType = 'lowerFail'
                         end
                     end
                     if carHealth < GetEntityHealth(TargetVehicle) then
                         if countCurrentAlertSpeed <= countAlertSpeed then
                             carHealth = GetEntityHealth(TargetVehicle)
-                            ESX.ShowNotification('~r~Attention!~w~ Ne roulez pas comme un chauffard.')
-                            ESX.ShowNotification('Alerte avertissement n°'..countCurrentAlertSpeed..'/'..countAlertSpeed..'.')
+                            ESX.ShowNotification('~r~Внимание!~w~ Вы слишком быстро едeте.')
+                            ESX.ShowNotification('Внимание°'..countCurrentAlertSpeed..'/'..countAlertSpeed..'.')
                         else
-                            ESX.ShowNotification('~r~Vous roulez trop mal~w~, je vais garder votre pourboire...')
+                            ESX.ShowNotification('~r~Вы слишком плохо водите~w~, я не буду давать вам чаевые...')
                             StarType = 'lowerFail'
                         end
                     end
@@ -2588,7 +2588,7 @@ Citizen.CreateThread(
                 elseif StarType == 'drug' then
                     local distanceDrugDealer = Vdist(playerPos.x, playerPos.y, playerPos.z, posDrugDealerVip)
                     if (distanceDrugDealer < 60) and IsInCarClub() and drugDealerVipSpawned == false then
-                        ESX.ShowNotification('Bon arrete toi au fond du parking, je vais parler à mon ami.')
+                        ESX.ShowNotification('Остановись. Я поговорю со своим другом.')
                         RequestModel(drugDealerVip)
                         while not HasModelLoaded(drugDealerVip) do
                             Citizen.Wait(1)
@@ -2597,7 +2597,7 @@ Citizen.CreateThread(
                         drugDealerVipSpawned = true
                     end
                     if drugDealerVipSpawned == true and (distanceDrugDealer < 6) and IsInCarClub() then
-                        ESX.ShowNotification('Voilà arrète toi là, bouge pas je vais prendre le colis.')
+                        ESX.ShowNotification('Остановись, не двигайся. Я возьму посылку.')
                         TaskLeaveVehicle(SpawnedStar, TargetVehicle, 0)
                         Citizen.Wait(100)
                         TaskGoStraightToCoord(SpawnedStar, posDealVip.x, posDealVip.y, posDealVip.z, 1.0, -1, posDealVip.h, 0.0)
@@ -2606,7 +2606,7 @@ Citizen.CreateThread(
                         TaskGoStraightToCoord(SpawnedDrugDealer, posDealerEnd, 1.0, -1, 0.0, 0.0)
                         TaskEnterVehicle(SpawnedStar, TargetVehicle, -1, math.random(1, 2), 2.0, 1, 0)
                         Citizen.Wait(3000)
-                        ESX.ShowNotification('Aller c\'est bon, c\'est parti pour la boite.')
+                        ESX.ShowNotification('Сходи за коробкой.')
                         DeletePed(SpawnedDrugDealer)
                         RemoveBlip(blipDrugZone)
                     end
@@ -2628,7 +2628,7 @@ Citizen.CreateThread(
                         timerEnabled  = false
                         timerDrive = 0
                         ESX.ShowNotification('Спасибо за адскую поездку!')
-                        ESX.ShowNotification('Я дам вас совет.')
+                        ESX.ShowNotification('Я добавлю чаевые.')
                         TriggerServerEvent('esx_nightclub:driverMissionCompleted', StarType)
                     elseif StarType == 'lower' then
                         ESX.ShowNotification('Это было очень приятно, спасибо, я добавляю чаевые.')
