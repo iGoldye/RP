@@ -813,7 +813,7 @@ function OpenPoliceActionsMenu()
 		elseif data.current.value == 'revive' then
 			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 			if closestPlayer > 0 and closestDistance < 1.5 then
-				TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
+				TriggerEvent('esx_ambulancejob:reviveAction', closestPlayer, closestDistance)
 			end
 		end
 	end, function(data, menu)

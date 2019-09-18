@@ -13,17 +13,17 @@ Config.MissCraft                  = 10 -- %
 
 
 Config.AuthorizedVehicles = {
-    { name = 'rentalbus',  label = 'Vanilla Tequila Bus' },
+    { name = 'rentalbus',  label = 'Vanilla bagama Bus' },
 }
 
 Config.Blips = {
 
     Blip = {
-      Pos     = { x = -563.66, y = 281.96, z = 82.18 },
+      Pos     = { x = -1392.5, y = -606.16, z = 43.24 },
       Sprite  = 93,
       Display = 4,
       Scale   = 1.2,
-      Colour  = 68,
+      Colour  = 48,
     },
 
 }
@@ -105,7 +105,7 @@ Config.Zones = {
             { name = 'vodka',      label = _U('vodka'),   price = 4 },
             { name = 'rhum',       label = _U('rhum'),    price = 6 },
             { name = 'whisky',     label = _U('whisky'),  price = 7 },
-            { name = 'tequila',    label = _U('tequila'), price = 5 },
+            { name = 'bagama',    label = _U('bagama'), price = 5 },
             { name = 'martini',    label = _U('martini'), price = 4 },
             { name = 'jagerbomb',      label = _U('jagerbomb'),   price = 10 },
             { name = 'jagercerbere',      label = _U('jagercerbere'),   price = 8 },

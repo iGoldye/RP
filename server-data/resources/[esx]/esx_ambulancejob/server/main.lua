@@ -7,7 +7,7 @@ RegisterServerEvent('esx_ambulancejob:revive')
 AddEventHandler('esx_ambulancejob:revive', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	if xPlayer.job.name == 'ambulance' then
+	if xPlayer.job.name == 'ambulance' or xPlayer.job.name =='police' then
 		xPlayer.addMoney(Config.ReviveReward)
 		TriggerClientEvent('esx_ambulancejob:revive', target)
 	else

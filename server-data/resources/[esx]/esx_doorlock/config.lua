@@ -505,6 +505,7 @@ Config.DoorList = {
 		authorizedJobs = { 'unicorn' },
 		locked = true
 	},
+
 	{
 		objName = 'v_ilev_door_orangesolid',
 		objYaw = -60.0,
@@ -512,7 +513,55 @@ Config.DoorList = {
 		textCoords = vector3(133.49, -1293.50, 29.50),
 		authorizedJobs = { 'unicorn' },
 		locked = true
+  },
+		-- Tequila
+	{
+		objName = 'v_ilev_roc_door4',
+		objYaw = -5.0,
+		objCoords  = vector3(-564.49, 276.61, 83.11),
+		textCoords = vector3(-564.49, 276.61, 83.11),
+		authorizedJobs = { 'tequila' },
+		locked = true
 	},
+	{
+		objName = 'v_ilev_roc_door4',
+		objYaw = 175.0,
+		objCoords  = vector3(-561.94, 293.73, 87.6),
+		textCoords = vector3(-561.94, 293.73, 87.6),
+		authorizedJobs = { 'tequila' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_roc_door2',
+		objYaw = -95.0,
+		objCoords  = vector3(-560.19, 292.33, 82.18),
+		textCoords = vector3(-560.19, 292.33, 82.18),
+		authorizedJobs = { 'tequila' },
+		locked = true
+	},
+
+	-- BAGAMA
+	{
+		textCoords = vector3(-1388.01, -587.23, 30.22),
+		authorizedJobs = { 'bagama' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 32.0,
+				objCoords = vector3(-1387.14, -586.67, 30.22)
+			},
+
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 214.0,
+				objCoords = vector3(-1389.05, -587.76, 30.22)
+			}
+		}
+	},
+
+
 -- LS CUSTOMS
 	{
 		objName = 'prop_com_ls_door_01',

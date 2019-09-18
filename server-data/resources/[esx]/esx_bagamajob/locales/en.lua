@@ -28,7 +28,7 @@ Locales['en'] = {
     ['put_object']               = 'Положить',
     ['fridge']                   = 'Холодильнк',
     ['open_fridge']              = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть холодильник',
-    ['tequila_fridge_stock']     = 'Холодильник',
+    ['bagama_fridge_stock']     = 'Холодильник',
     ['fridge_inventory']         = 'Содержимое холодильника',
 
     -- Shops
@@ -58,7 +58,7 @@ Locales['en'] = {
     ['you_added']                = 'Вы добавили x',
     ['quantity']                 = 'Колличество',
     ['inventory']                = 'Инвентарь',
-    ['tequila_stock']            = 'Склад Текиллы',
+    ['bagama_stock']            = 'Склад Багамы',
 
     -- Billing Menu
     ['billing']                  = 'Счет',
@@ -108,12 +108,12 @@ Locales['en'] = {
     ['beer']                     = 'Пиво',
 
     -- Misc
-    ['map_blip']                 = 'Текила-ла',
-    ['tequila']                  = 'Текила-ла',
+    ['map_blip']                 = 'Багама-Мама',
+    ['bagama']                  = 'Багама-мама',
 
     -- Phone
-    ['tequila_phone']            = 'Текила-ла',
-    ['tequila_customer']         = 'Посетитель',
+    ['bagama_phone']            = 'Багама-мама',
+    ['bagama_customer']         = 'Посетитель',
 
     -- Teleporters
     ['e_to_enter_1']             = 'Нажмите ~INPUT_PICKUP~ чтобы войти за барную стойку',
