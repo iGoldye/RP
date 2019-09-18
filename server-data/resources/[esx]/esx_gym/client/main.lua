@@ -252,7 +252,7 @@ Citizen.CreateThread(function()
 
 							training = true
 						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент что бы начать ~r~упражнение")
+							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
 						end
 					elseif training == true then
 						ESX.ShowNotification("Вам нужено передохнуть...")
@@ -298,7 +298,7 @@ Citizen.CreateThread(function()
 
 							training = true
 						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент что бы начать ~r~упражнение")
+							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
 						end
 					elseif training == true then
 						ESX.ShowNotification("Вам нужено передохнуть...")
@@ -344,7 +344,7 @@ Citizen.CreateThread(function()
 
 							training = true
 						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент что бы начать ~r~упражнение")
+							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
 						end
 					elseif training == true then
 						ESX.ShowNotification("Вам нужено передохнуть...")
@@ -390,7 +390,7 @@ Citizen.CreateThread(function()
 
 							training = true
 						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент что бы начать ~r~упражнение")
+							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
 						end
 					elseif training == true then
 						ESX.ShowNotification("Вам нужено передохнуть...")
@@ -436,7 +436,7 @@ Citizen.CreateThread(function()
 
 							training = true
 						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент что бы начать ~r~упражнение")
+							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
 						end
 					elseif training == true then
 						ESX.ShowNotification("Вам нужено передохнуть...")
