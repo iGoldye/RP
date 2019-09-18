@@ -213,9 +213,10 @@ function OpenAdminMenuPlayer(player)
 		table.insert(elements, {label = "Наличка: $"..tostring(player.money), value = "cash"})
 		table.insert(elements, {label = "Банк: $"..tostring(player.bank), value = "bank"})
 		table.insert(elements, {label = "Грязные деньги: $"..tostring(player.black_money), value = "black_money"})
+		table.insert(elements, {label = "Профессия: "..tostring(player.job), value = "job"})
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
-			title    = "Администрирование: Игроки",
+			title    = "Администрирование: "..player.name,
 			align    = 'top-right',
 			elements = elements
 		}, function(data, menu)

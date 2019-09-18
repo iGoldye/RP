@@ -39,10 +39,15 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
     for i=1, #xPlayers, 1 do
         local pl = ESX.GetPlayerFromId(xPlayers[i])
 	local identity = pl.getSessionVar("identity")
+	local job = "unemployed"
+	if pl.job ~= nil then
+		job = pl.job.name
+	end
 
         table.insert(arr, {
             ["id"] = pl.source,
             ["name"] = pl.name,
+            ["job"] = job,
             ["identity"] = identity,
             ["identifier"] = pl.identifier,
 	    ["money"] = pl.getMoney(),
