@@ -95,6 +95,7 @@ function OpenAdminMenu()
 
 	table.insert(elements, {label = 'Телепорт', value = 'teleport'})
 	table.insert(elements, {label = 'Игроки', value = 'players'})
+	table.insert(elements, {label = 'Организации', value = 'society'})
 	table.insert(elements, {label = 'Транспорт', value = 'transport'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu', {
@@ -113,6 +114,10 @@ function OpenAdminMenu()
 			OpenAdminMenuPlayers()
 		end
 
+		if cmd == "society" then
+			OpenAdminMenuSocietyList()
+		end
+
 		if cmd == "transport" then
 			OpenAdminMenuVehicle()
 		end
@@ -121,6 +126,57 @@ function OpenAdminMenu()
 		menu.close()
 	end)
 end
+
+function OpenAdminMenuSociety(label, societyName)
+	ESX.TriggerServerCallback('esx_playermenu:adminGetSocietyAccount', function(account)
+		local elements = {}
+		table.insert(elements, {label = "Бюджет: $"..tostring(account.money), value = "money"})
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_society', {
+			title    = "Администрирование: "..label,
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+
+		end, function(data, menu)
+			menu.close()
+		end)
+
+	end, 'society_'..societyName)
+end
+
+function OpenAdminMenuSocietyList()
+		local elements = {}
+		table.insert(elements, {label = "Полиция", value = "police"})
+		table.insert(elements, {label = "Медики", value = "ambulance"})
+		table.insert(elements, {label = "Механики", value = "mechanic"})
+		table.insert(elements, {label = "Механики Benny's", value = "mechanic-bennys"})
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_society_list', {
+			title    = "Администрирование: Организации",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+			menu.close()
+
+			if cmd == "police" then
+				OpenAdminMenuSociety("Полиция", "police")
+			elseif cmd == "ambulance" then
+				OpenAdminMenuSociety("Медики", "ambulance")
+			elseif cmd == "mechanic" then
+				OpenAdminMenuSociety("Механики", "mechanic")
+			elseif cmd == "mechanic-bennys" then
+				OpenAdminMenuSociety("Механики Benny's", "mechanic-bennys")
+			end
+
+		end, function(data, menu)
+			menu.close()
+		end)
+end
+
 
 function OpenAdminMenuPlayers()
 

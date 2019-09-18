@@ -54,6 +54,14 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
     cb(arr)
 end)
 
+ESX.RegisterServerCallback('esx_playermenu:adminGetSocietyAccount', function(source, cb, societyName)
+	TriggerEvent('esx_addonaccount:getSharedAccount', societyName, function(account)
+		cb({
+			["money"] = account.money,
+		})
+	end)
+end)
+
 ESX.RegisterServerCallback('esx_playermenu:adminMoney', function(source, cb, identifier, moneytype, act, val)
     local xPlayer = ESX.GetPlayerFromId(source)
     if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
