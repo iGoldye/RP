@@ -9,7 +9,7 @@ end)
 
 local carryingBackInProgress = false
 
-RegisterCommand("carry",function(source, args)
+function Carry()
 	print("carrying")
 	if not carryingBackInProgress then
 		local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
@@ -37,7 +37,7 @@ RegisterCommand("carry",function(source, args)
 				end
 			end, target, "разрешение поднять вас")
 		else
-			print("[CMG Anim] No player nearby")
+			ESX.ShowNotification('Рядом никого нет')
 		end
 	else
 		carryingBackInProgress = false
@@ -49,7 +49,11 @@ RegisterCommand("carry",function(source, args)
 			TriggerServerEvent("cmg2_animations:stop",target)
 		end
 	end
-end,false)
+end
+
+-- RegisterCommand("carry",function(source, args)
+--	Carry()
+-- end,false)
 
 RegisterNetEvent('cmg2_animations:syncTarget')
 AddEventHandler('cmg2_animations:syncTarget', function(target, animationLib, animation2, distance, distance2, height, length,spin,controlFlag)
@@ -91,3 +95,6 @@ AddEventHandler('cmg2_animations:cl_stop', function()
 	DetachEntity(GetPlayerPed(-1), true, false)
 end)
 
+AddEventHandler('CarryPeople:carry', function()
+	Carry()
+end)

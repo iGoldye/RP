@@ -519,13 +519,38 @@ function OpenClothesMenu()
 	end)
 end
 
+function OpenInteractionMenu()
+	local elements = {}
+
+	table.insert(elements, {label = ('Взять на руки'), value = 'liftup'})
+	table.insert(elements, {label = ('Закинуть на плечо'), value = 'carry'})
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'clothes_menu', {
+		title    = "Взаимодействие",
+		align    = 'top-right',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+		if cmd == 'liftup' then
+			TriggerEvent('esx_barbie_lyftupp:liftUp')
+		elseif cmd == 'carry' then
+			TriggerEvent('CarryPeople:carry')
+	        end
+
+		menu.close()
+
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
 function OpenMenu()
 	elements = {
 		{label = "Инвентарь", value = 'inventory'},
 		{label = "Анимации", value = 'animations'},
 		{label = "Персональная информация", value = 'personal'},
+		{label = "Взаимодействие", value = 'interaction'},
 		{label = "Счета", value = 'billing'},
-		{label = "Поднять игрока", value = 'liftup'},
 		{label = "Одежда", value = 'clothes'},
 		{label = "Питомцы", value = 'pets'},
 		{label = "Сумка", value = 'bag'},
@@ -582,8 +607,8 @@ function OpenMenu()
 			TriggerEvent('esx_animations:openAnimationsMenu')
 		elseif cmd == 'billing' then
 			TriggerEvent('esx_billing:showBillsMenu')
-		elseif cmd == 'liftup' then
-			TriggerEvent('esx_barbie_lyftupp:liftUp')
+		elseif cmd == 'interaction' then
+			OpenInteractionMenu()
 		elseif cmd == 'clothes' then
 			OpenClothesMenu()
 		elseif cmd == 'pets' then
