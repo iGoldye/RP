@@ -8,7 +8,7 @@ Locales['en'] = {
     ['dancer_outfit_2'] = 'Наряд танцора 2',
     ['dancer_outfit_3'] = 'Наряд танцора 3',
     ['no_outfit'] = "Нет одежды вашего размера....",
-    ['open_cloackroom'] = 'Нажмите ~INPUT_CONTEXT~ что бы переодеться',
+    ['open_cloackroom'] = 'Нажмите ~INPUT_CONTEXT~ чтобы переодеться',
     -- Vault
     ['get_weapon'] = 'Взять оружие',
     ['put_weapon'] = 'Положить оружие',
@@ -25,7 +25,7 @@ Locales['en'] = {
     ['fridge_inventory'] = 'Содержимое холодильника',
     -- Shops
     ['shop'] = 'Бар',
-    ['shop_menu'] = 'Нажмите ~INPUT_CONTEXT~ что бы выбрать напитки.',
+    ['shop_menu'] = 'Нажмите ~INPUT_CONTEXT~ чтобы выбрать напитки.',
     ['bought'] = 'Вы купили ~b~ 1x',
     ['not_enough_money'] = 'У вас нехватает денег.',
     ['not_in_vehicle'] = '~r~Вы не в лимузине.',

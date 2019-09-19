@@ -1,7 +1,7 @@
 Locales['en'] = {
   -- shop
   ['boat_shop'] = 'Причал',
-  ['boat_shop_open'] = 'Нажмите ~INPUT_CONTEXT~ что бы посмотреть ~y~ассортимент~s~.',
+  ['boat_shop_open'] = 'Нажмите ~INPUT_CONTEXT~ чтобы посмотреть ~y~ассортимент~s~.',
   ['boat_shop_confirm'] = 'Купить <span style="color: yellow;">%s</span> за <span style="color: orange;">$%s</span>?',
   ['boat_shop_bought'] = 'Вы ~y~Купили~s~ a ~b~%s~s~ за ~g~$%s~s~',
   ['boat_shop_nomoney'] = 'Недостаточно средств!',

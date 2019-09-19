@@ -1,11 +1,11 @@
 Locales ['en'] = {
   -- weed
-  ['weed_pickupprompt'] = 'Нажмите ~INPUT_CONTEXT~ что бы сорвать ~g~Каннабис~s~.',
+  ['weed_pickupprompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы сорвать ~g~Каннабис~s~.',
   ['weed_inventoryfull'] = 'У вас нехватает месте для  ~g~Каннабиса~s~.',
-  ['weed_processprompt'] = 'Нажмите ~INPUT_CONTEXT~ что бы переработать ~g~Каннабис~s~.',
+  ['weed_processprompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы переработать ~g~Каннабис~s~.',
   ['weed_processingstarted'] = 'Вы обрабатываете ~g~Каннабис~s~ в ~g~Марихуану~s~...',
   ['weed_processingfull'] = 'Обработка ~r~прервана~s~ недостаточно места!',
-  ['weed_processingenough'] = 'У вас должно быть ~b~3x~s~ ~g~Каннабиса~s~ что бы обработать',
+  ['weed_processingenough'] = 'У вас должно быть ~b~3x~s~ ~g~Каннабиса~s~ чтобы обработать',
   ['weed_processed'] = 'Вы обработали ~b~3x~s~ ~g~Каннабиса~s~ в ~b~1x~s~ ~g~Марихуану~s~',
   ['weed_processingtoofar'] = 'Обработка ~r~отменена~s~ вы ушли слишком далеко.',
 

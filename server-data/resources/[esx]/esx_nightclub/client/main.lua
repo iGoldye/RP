@@ -2431,7 +2431,7 @@ Citizen.CreateThread(
                                                 customerSellDrug = true
                                             else
                                                 if diceOfferMoney == 0 then
-                                                    ESX.ShowNotification("~y~Клиент~w~ предлагает вам ~g~" .. diceHowMuch .. "~w~$ что бы вы его впустили.")
+                                                    ESX.ShowNotification("~y~Клиент~w~ предлагает вам ~g~" .. diceHowMuch .. "~w~$ чтобы вы его впустили.")
                                                     customerOfferMoney = true
                                                 end
                                             end

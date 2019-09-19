@@ -45,6 +45,7 @@ GUI.Time                      = 0
 local hasAlreadyEnteredMarker = false
 local lastZone                = nil
 local Blips                   = {}
+local MainBlip = nil
 local plaquevehicule = ""
 local plaquevehiculeactuel = ""
 local CurrentAction           = nil
@@ -62,6 +63,7 @@ Citizen.CreateThread(function()
 	end
 
 	PlayerData = ESX.GetPlayerData()
+	updateMainBlip()
 end)
 
 RegisterNetEvent('esx:playerLoaded')
@@ -78,6 +80,7 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
 	PlayerData.job = job
+	updateMainBlip()
 end)
 
 RegisterNetEvent('esx_garbagejob:setbin')
@@ -857,19 +860,28 @@ Citizen.CreateThread(function()
 end)
 
 -- CREATE BLIPS
-Citizen.CreateThread(function()
-	local blip = AddBlipForCoord(Config.Cloakroom.CloakRoom.Pos.x, Config.Cloakroom.CloakRoom.Pos.y, Config.Cloakroom.CloakRoom.Pos.z)
+function updateMainBlip()
 
-	SetBlipSprite (blip, 318)
-	SetBlipDisplay(blip, 4)
-	SetBlipScale  (blip, 1.2)
-	SetBlipColour (blip, 5)
-	SetBlipAsShortRange(blip, true)
+	if MainBlip ~= nil then
+		RemoveBlip(MainBlip)
+		MainBlip = nil
+	end
 
-	BeginTextCommandSetBlipName("STRING")
-	AddTextComponentString(_U('blip_job'))
-	EndTextCommandSetBlipName(blip)
-end)
+	if IsJobgarbage() == true then
+
+		MainBlip = AddBlipForCoord(Config.Cloakroom.CloakRoom.Pos.x, Config.Cloakroom.CloakRoom.Pos.y, Config.Cloakroom.CloakRoom.Pos.z)
+
+		SetBlipSprite (MainBlip, 318)
+		SetBlipDisplay(MainBlip, 4)
+		SetBlipScale  (MainBlip, 1.2)
+		SetBlipColour (MainBlip, 5)
+		SetBlipAsShortRange(MainBlip, true)
+
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(_U('blip_job'))
+		EndTextCommandSetBlipName(MainBlip)
+	end
+end
 
 -------------------------------------------------
 -- Fonctions

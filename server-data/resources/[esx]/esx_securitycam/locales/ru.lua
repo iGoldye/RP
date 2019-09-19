@@ -1,6 +1,6 @@
 Locales['ru'] = {
   -- Marker Hint
-  ['marker_hint'] = 'Нажмите ~INPUT_CONTEXT~ что бы присоединиться к  ~g~камерам~s~',
+  ['marker_hint'] = 'Нажмите ~INPUT_CONTEXT~ чтобы присоединиться к  ~g~камерам~s~',
 
   -- Menu
   ['securitycams_menu'] = 'Камеры наблюдения',
