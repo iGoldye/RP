@@ -53,5 +53,15 @@ class Item_ESX extends Item_Abstract {
 		return this.extra.label;
 	}
 
+	getProp() {
+		if (this.extra == null) {
+			return 'prop_money_bag_01';
+		}
+
+		if (ESXItemDB[this.extra.name] !== undefined && ESXItemDB[this.extra.name].prop !== undefined) {
+			return ESXItemDB[this.extra.name].prop;
+		}
+		return 'prop_money_bag_01';
+	}
 }
 
