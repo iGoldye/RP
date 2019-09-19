@@ -1,3 +1,27 @@
+ESX = nil
+Citizen.CreateThread(function()
+    while ESX == nil do
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Citizen.Wait(0)
+    end
+
+    while ESX.GetPlayerData().job == nil do
+        Citizen.Wait(100)
+    end
+
+    ESX.PlayerData = ESX.GetPlayerData()
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function (xPlayer)
+	ESX.PlayerData = xPlayer
+end)
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function (job)
+	ESX.PlayerData.job = job
+end)
+
 local DECOR = {
     FLOAT = 1,
     BOOL = 2,
@@ -5,6 +29,34 @@ local DECOR = {
     UNK = 4,
     TIME = 5,
 }
+
+function OneSyncDecorSetInt(entity, name, val)
+        DecorSetInt(entity, name, val)
+        local netEnt = ObjToNet(entity)
+	TriggerServerEvent('flatbed3:OneSyncDecorSetInt', netEnt, name, val)
+end
+
+RegisterNetEvent('flatbed3:OneSyncDecorSetInt')
+AddEventHandler('flatbed3:OneSyncDecorSetInt', function(netEnt, name, val)
+	local entity = NetToObj(netEnt)
+        if DoesEntityExist(entity) then
+	        DecorSetInt(entity, name, val)
+	end
+end)
+
+function OneSyncDecorSetBool(entity, name, val)
+        DecorSetBool(entity, name, val)
+        local netEnt = ObjToNet(entity)
+	TriggerServerEvent('flatbed3:OneSyncDecorSetBool', netEnt, name, val)
+end
+
+RegisterNetEvent('flatbed3:OneSyncDecorSetBool')
+AddEventHandler('flatbed3:OneSyncDecorSetBool', function(netEnt, name, val)
+	local entity = NetToObj(netEnt)
+        if DoesEntityExist(entity) then
+	        DecorSetBool(entity, name, val)
+	end
+end)
 
 local DECORATORS = {
     ["flatbed3_bed"] = DECOR.INT, -- The bed entity
@@ -50,7 +102,7 @@ function drawMarker(pos)
         return false
     end
     local dist = #(pos - plyPos)
-    if dist < 25.0 then
+    if dist < 25.0 and ESX.PlayerData.job ~= nil and ESX.PlayerData.job.name == "mechanic" or ESX.PlayerData.job.name == "mechanic-bennys" then
         DrawMarker(1, pos, vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0), vector3(1.0, 1.0, 1.0), 255, 255, 255, 150)
         if dist < 1.5 then
             return true
@@ -106,14 +158,15 @@ Citizen.CreateThread(function()
         if veh and DoesEntityExist(veh) and GetEntityModel(veh) == GetHashKey("flatbed3") and NetworkHasControlOfEntity(veh) then
             lastFlatbed = veh
             local rightDir, fwdDir, upDir, pos = GetEntityMatrix(veh)
+	    local speed = GetEntitySpeed(veh)
 
             if not DecorExistOn(veh, "flatbed3_bed") or DecorGetInt(veh, "flatbed3_bed") == 0 then
-                DecorSetInt(veh, "flatbed3_bed", 0)
+                OneSyncDecorSetInt(veh, "flatbed3_bed", 0)
                 local bed = CreateObjectNoOffset("inm_flatbed_base", pos, true, 0, 1)
                 log("GENERATING BED")
                 if DoesEntityExist(bed) then
                     local bedNet = ObjToNet(bed)
-                    DecorSetInt(veh, "flatbed3_bed", bedNet)
+                    OneSyncDecorSetInt(veh, "flatbed3_bed", bedNet)
                     log("DONE GENERATING BED")
                 end
             else
@@ -126,22 +179,22 @@ Citizen.CreateThread(function()
                 lastBed = bed
 
                 if not DecorExistOn(veh, "flatbed3_attached") then
-                    DecorSetBool(veh, "flatbed3_attached", false)
+                    OneSyncDecorSetBool(veh, "flatbed3_attached", false)
                 end
                 local attached = DecorGetBool(veh, "flatbed3_attached")
 
                 if not DecorExistOn(veh, "flatbed3_lowered") then
-                    DecorSetBool(veh, "flatbed3_lowered", true)
+                    OneSyncDecorSetBool(veh, "flatbed3_lowered", true)
                 end
                 local lowered = DecorGetBool(veh, "flatbed3_lowered")
 
                 if not DecorExistOn(veh, "flatbed3_state") then
-                    DecorSetInt(veh, "flatbed3_state", 0)
+                    OneSyncDecorSetInt(veh, "flatbed3_state", 0)
                 end
                 local state = DecorGetInt(veh, "flatbed3_state")
 
                 if not DecorExistOn(veh, "flatbed3_car") then
-                    DecorSetInt(veh, "flatbed3_car", 0)
+                    OneSyncDecorSetInt(veh, "flatbed3_car", 0)
                 end
                 local carNet = DecorGetInt(veh, "flatbed3_car")
                 local car = nil
@@ -161,15 +214,15 @@ Citizen.CreateThread(function()
                         DetachEntity(bed, 0, 0)
                         AttachEntityToEntity(bed, veh, GetEntityBoneIndexByName(veh, "chassis"), raisedOffset[1], raisedOffset[2], 0, 0, 1, 0, 0, 1)
 
-                        DecorSetBool(veh, "flatbed3_lowered", false)
+                        OneSyncDecorSetBool(veh, "flatbed3_lowered", false)
                         lowered = false
                     end
 
-                    if drawMarker(controllerPos) then
+                    if speed < 1 and drawMarker(controllerPos) then
                         showHelpText(controllerMessageRaised)
                         if IsControlJustPressed(0, 38) then
                             state = 1
-                            DecorSetInt(veh, "flatbed3_state", state)
+                            OneSyncDecorSetInt(veh, "flatbed3_state", state)
                         end
                     end
                 elseif state == 1 then
@@ -187,7 +240,7 @@ Citizen.CreateThread(function()
 
                     if LERP_VALUE >= 1.0 then
                         state = state + 1
-                        DecorSetInt(veh, "flatbed3_state", state)
+                        OneSyncDecorSetInt(veh, "flatbed3_state", state)
                         LERP_VALUE = 0.0
                     end
                 elseif state == 2 then
@@ -205,7 +258,7 @@ Citizen.CreateThread(function()
 
                     if LERP_VALUE >= 1.0 then
                         state = state + 1
-                        DecorSetInt(veh, "flatbed3_state", state)
+                        OneSyncDecorSetInt(veh, "flatbed3_state", state)
                         LERP_VALUE = 0.0
                     end
                 elseif state == 3 then
@@ -215,7 +268,7 @@ Citizen.CreateThread(function()
                         local offsetRot = raisedOffset[2] + backOffset[2] + loweredOffset[2]
                         DetachEntity(bed, 0, 0)
                         AttachEntityToEntity(bed, veh, GetEntityBoneIndexByName(veh, "chassis"), offsetPos, offsetRot, 0, 0, 1, 0, 0, 1)
-                        DecorSetBool(veh, "flatbed3_lowered", true)
+                        OneSyncDecorSetBool(veh, "flatbed3_lowered", true)
                         lowered = true
                     end
 
@@ -227,27 +280,27 @@ Citizen.CreateThread(function()
                         end
                         if IsControlJustPressed(0, 38) then
                             state = 4
-                            DecorSetInt(veh, "flatbed3_state", state)
+                            OneSyncDecorSetInt(veh, "flatbed3_state", state)
                         end
                         if IsControlJustPressed(0, 47) then
                             if attached then
                                 DetachEntity(car, 0, 1)
                                 car = nil
-                                DecorSetInt(veh, "flatbed3_car", 0)
+                                OneSyncDecorSetInt(veh, "flatbed3_car", 0)
                                 attached = false
-                                DecorSetBool(veh, "flatbed3_attached", attached)
+                                OneSyncDecorSetBool(veh, "flatbed3_attached", attached)
                             else
                                 local bedPos = GetEntityCoords(bed, false)
                                 local newCar = getVehicleInDirection(bedPos + vector3(0.0, 0.0, 0.25), bedPos + vector3(0.0, 0.0, 2.25))
-                                if newCar then
+                                if newCar > 0 then
                                     local carPos = GetEntityCoords(newCar, false)
 				    NetworkRequestControlOfEntity(newCar)
 				    while not NetworkHasControlOfEntity(newCar) do Wait(0) end
                                     AttachEntityToEntity(newCar, bed, 0, attachmentOffset[1] + vector3(0.0, 0.0, carPos.z - bedPos.z - 0.50), attachmentOffset[2], 0, 0, false, 0, 0, 1)
                                     car = newCar
-                                    DecorSetInt(veh, "flatbed3_car", VehToNet(newCar))
+                                    OneSyncDecorSetInt(veh, "flatbed3_car", VehToNet(newCar))
                                     attached = true
-                                    DecorSetBool(veh, "flatbed3_attached", attached)
+                                    OneSyncDecorSetBool(veh, "flatbed3_attached", attached)
                                 end
                             end
                         end
@@ -267,7 +320,7 @@ Citizen.CreateThread(function()
 
                     if LERP_VALUE >= 1.0 then
                         state = state + 1
-                        DecorSetInt(veh, "flatbed3_state", state)
+                        OneSyncDecorSetInt(veh, "flatbed3_state", state)
                         LERP_VALUE = 0.0
                     end
                 elseif state == 5 then
@@ -285,12 +338,12 @@ Citizen.CreateThread(function()
 
                     if LERP_VALUE >= 1.0 then
                         state = 0
-                        DecorSetInt(veh, "flatbed3_state", state)
+                        OneSyncDecorSetInt(veh, "flatbed3_state", state)
                         LERP_VALUE = 0.0
                     end
                 else
                     state = 0
-                    DecorSetInt(veh, "flatbed3_state", state)
+                    OneSyncDecorSetInt(veh, "flatbed3_state", state)
                 end
 
                 if not IsPedInVehicle(ped, veh, true) then
