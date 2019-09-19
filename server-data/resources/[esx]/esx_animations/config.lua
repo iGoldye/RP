@@ -141,7 +141,8 @@ Config.Animations = {
 			{label = "Свернуться", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@lo_sofa@", anim = "lowsofa_dlg_fuckedup_laz", flag = 9}},
 			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
 			{label = "Лежать на животе", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE"}},
-			{label = "Лежать на боку", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_right_side@base", anim = "base", flag = 9}},
+			{label = "Лежать на боку П", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_right_side@base", anim = "base", flag = 9}},
+			{label = "Лежать на боку Л", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_left_side@base", anim = "base", flag = 9}},
 			{label = "Сидеть отрешенно", type = "anim", data = {lib = "anim@amb@business@bgen@bgen_no_work@", anim = "sit_phone_idle_03_nowork", flag = 9}},
 			{label = "Скучать", type = "anim", data = {lib = "anim@amb@business@cfm@cfm_machine_no_work@", anim = "sleep_cycle_v2_operator", flag = 9}},
       {label = "Сидеть", type = "scenario", data = {anim = "WORLD_HUMAN_PICNIC"}},
@@ -163,7 +164,7 @@ Config.Animations = {
 			{label = "Охрана", type = "scenario", data = {anim = "WORLD_HUMAN_GUARD_STAND"}},
 			{label = "Ожидать", type = "scenario", data = {anim = "WORLD_HUMAN_STAND_IMPATIENT"}},
 			{label = "Ожидать Ж", type = "anim", data = {lib = "friends@fra@ig_1", anim = "base_idle", flag = 9}},
-			{label = "Облокотиться 1", type = "scenario", data = {anim = "PROP_HUMAN_BUM_SHOPPING_CART"}},
+			{label = "Облокотиться", type = "anim", data = {lib= "amb@prop_human_bum_shopping_cart@male@base", anim = "base",  flag = 9}},
 			{label = "Скрестить руки Ж", type = "anim", data = {lib = "amb@world_human_hang_out_street@female_arms_crossed@base", anim = "base", flag = 9}},
 			{label = "Опереться спиной", type = "scenario", data = {anim = "world_human_leaning"}},
 			{label = "Задуматься", type = "anim", data = {lib = "anim@amb@board_room@whiteboard@", anim = "think_01_amy_skater_01", upper=true, control=true, flag = 9}},
@@ -331,6 +332,9 @@ Config.Animations = {
 		  {label = "Стриптиз 2", type = "anim", data = {lib = "mini@strip_club@private_dance@part2", anim = "priv_dance_p2", flag = 9}},
 			{label = "Стриптиз 3", type = "anim", data = {lib = "mini@strip_club@private_dance@part3", anim = "priv_dance_p3", flag = 9}},
 			{label = "Стриптиз 4", type = "anim", data = {lib = "mp_am_stripper", anim = "lap_dance_girl", flag = 9}},
+			{label = "У шеста 1", type = "anim", data = {lib = "mini@strip_club@pole_dance@pole_dance1", anim = "pd_dance_01", flag = 9}},
+			{label = "У шеста 2", type = "anim", data = {lib = "mini@strip_club@pole_dance@pole_dance2", anim = "pd_dance_02", flag = 9}},
+			{label = "У шеста 3", type = "anim", data = {lib = "mini@strip_club@pole_dance@pole_dance3", anim = "pd_dance_03", flag = 9}},
 		}
 	},
 
