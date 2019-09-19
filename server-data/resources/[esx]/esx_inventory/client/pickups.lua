@@ -12,14 +12,20 @@ Citizen.CreateThread(function()
 			local distance = GetDistanceBetweenCoords(coords, v.coords.x, v.coords.y, v.coords.z, true)
 
 			if distance <= 5.0 then
+				local text = v.label .. ' ['..v.item.amount..']'
+				if distance <= 1.0 then
+					text = '~g~[E] ~s~' .. text
+				end
+
 				ESX.Game.Utils.DrawText3D({
 					x = v.coords.x,
 					y = v.coords.y,
 					z = v.coords.z + 0.25
-				}, v.label .. ' ['..v.item.amount..']')
+				}, text)
 			end
 
-			if distance <= 1.0 and not v.inRange and IsPedOnFoot(playerPed) then
+--			if distance <= 1.0 and not v.inRange and IsPedOnFoot(playerPed) then -- press E
+			if IsControlJustReleased(0, 38) and distance <= 1.0 and IsPedOnFoot(playerPed) then -- press E
 				TriggerServerEvent('esx_inventory:onPickup', id)
 				PlaySoundFrontend(-1, 'PICK_UP', 'HUD_FRONTEND_DEFAULT_SOUNDSET', false)
 				v.inRange = true

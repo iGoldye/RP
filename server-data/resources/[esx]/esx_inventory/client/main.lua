@@ -20,6 +20,7 @@ itemActions["@shared"] = {}
 
 pocketWeight = 0.0
 movementSpeed = 1.0
+initialized = false
 
 Citizen.CreateThread(function()
 	while true do
@@ -180,6 +181,16 @@ function runItemAction(itemName, actionName, item)
 	return itemActions[itemName][actionName].cb(item)
 end
 
+RegisterNetEvent("es:addedMoney")
+AddEventHandler("es:addedMoney", function(m, native, current)
+	TriggerEvent('esx_inventory:updateInventory', "pocket", false)
+end)
+
+RegisterNetEvent("es:removedMoney")
+AddEventHandler("es:removedMoney", function(m, native, current)
+	TriggerEvent('esx_inventory:updateInventory', "pocket", false)
+end)
+
 function action_giveto(item)
 	local amount = item.amount
 
@@ -248,7 +259,9 @@ end)
 
 RegisterNetEvent('esx_inventory:showItemNotification')
 AddEventHandler('esx_inventory:showItemNotification', function(add, label, count)
-	ESX.UI.ShowInventoryItemNotification(add, {['label'] = label}, count)
+	if initialized == true then
+		ESX.UI.ShowInventoryItemNotification(add, {['label'] = label}, count)
+	end
 end)
 
 AddEventHandler("playerSpawned", function()
@@ -264,13 +277,16 @@ AddEventHandler('esx_inventory:registerItemAction', function(itemName, actionNam
 	return registerItemAction(itemName, actionName, actionLabel, actionPriority, cb_action, cb_condition)
 end)
 
+--[[
 AddEventHandler('esx_inventory:initialized', function(cb)
 	cb(true)
 end)
+]]--
 
 RegisterNetEvent('esx_inventory:onInventoryUpdate')
 AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
 	if inventory.name == "pocket" then
 		pocketWeight = inventory.weight or 0
+		initialized = true
 	end
 end)
