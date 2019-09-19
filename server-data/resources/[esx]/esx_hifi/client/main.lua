@@ -89,7 +89,7 @@ end
 function OpenhifiMenu()
     menuOpen = true
     ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'hifi', {
-        title   = 'La hifi a momo',
+        title   = 'Бумбокс',
         align   = 'top-left',
         elements = {
             {label = _U('get_hifi'), value = 'get_hifi'},
