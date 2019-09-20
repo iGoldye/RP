@@ -5,8 +5,12 @@
         .menu__list-head
           p.menu__list-header {{ header }}
         .menu__list-body
-          a.menu__list-item(:href="'#' + item.value", v-for='(item, index) in elements' :data-index="index" :key='item')
-            span(v-html='item.label')
+          a.menu__list-item(:href="'#' + item.value", v-for='(item, index) in elements' :data-index="index" :key='index')
+            span(v-if="item.type == 'slider'", :class='item.type', :data-min='item.min',:data-max='item.max', :data-value='item.value')
+              span(v-html='item.label')
+              span : &lt;{{ item.value }}&gt;
+            span(v-else, v-html='item.label')
+
 </template>
 
 <style lang="scss">
@@ -75,6 +79,7 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
+      console.log(this.elements);
     },
     menu_submit() {
       axios
@@ -88,11 +93,12 @@ export default {
           })
         )
         .then(response => {
-          console.log(response);
+          // console.log(response);
         })
         .catch(error => {
-          // console.log(error.response);
+          console.log(error.response);
         });
+      console.log(this.elements);
     },
     menu_cancel(namespace, name) {
       axios
@@ -109,6 +115,7 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
+      console.log(this.elements);
     },
     close(namespace, name) {
       this.namespace = namespace;
@@ -127,6 +134,12 @@ export default {
         document.querySelector(".menu__list").classList.contains("is-active")
       ) {
         switch (event.data.action) {
+          case "openMenu":
+            targets.forEach(target => {
+              target.selected = false;
+            });
+            this.elements[document.activeElement.dataset.index].selected = true;
+            break;
           case "controlPressed":
             switch (event.data.control) {
               case "DOWN":
@@ -140,7 +153,9 @@ export default {
                   targets.forEach(target => {
                     target.selected = false;
                   });
-                  this.elements[next.dataset.index].selected = true;
+                  this.elements[
+                    document.activeElement.dataset.index
+                  ].selected = true;
                 } else {
                   document.querySelector(".menu__list-body").firstChild.focus();
                   document
@@ -153,7 +168,9 @@ export default {
                   targets.forEach(target => {
                     target.selected = false;
                   });
-                  this.elements[prev.dataset.index].selected = true;
+                  this.elements[
+                    document.activeElement.dataset.index
+                  ].selected = true;
                 }
                 break;
               case "TOP":
@@ -167,7 +184,9 @@ export default {
                   targets.forEach(target => {
                     target.selected = false;
                   });
-                  this.elements[prev.dataset.index].selected = true;
+                  this.elements[
+                    document.activeElement.dataset.index
+                  ].selected = true;
                 } else {
                   document.querySelector(".menu__list-body").lastChild.focus();
                   document
@@ -180,7 +199,9 @@ export default {
                   targets.forEach(target => {
                     target.selected = false;
                   });
-                  this.elements[prev.dataset.index].selected = true;
+                  this.elements[
+                    document.activeElement.dataset.index
+                  ].selected = true;
                 }
                 break;
               case "ENTER":
@@ -188,6 +209,33 @@ export default {
                 break;
               case "BACKSPACE":
                 this.menu_cancel(event.data.namespace, event.data.name);
+                break;
+              case "RIGHT":
+                this.elements.forEach(item => {
+                  if (item.selected && item.type == "slider") {
+                    if (item.value < item.max) {
+                      item.value++;
+                      this.menu_change();
+                    } else if (
+                      typeof item.options != "undefined" &&
+                      item.value < item.options.length - 1
+                    ) {
+                      item.value++;
+                      this.menu_change();
+                    }
+                  }
+                });
+                break;
+              case "LEFT":
+                this.elements.forEach(item => {
+                  if (item.selected && item.type == "slider") {
+                    let min = typeof item.min == "undefined" ? 0 : item.min;
+                    if (item.value > min) {
+                      item.value--;
+                      this.menu_change();
+                    }
+                  }
+                });
                 break;
             }
         }
