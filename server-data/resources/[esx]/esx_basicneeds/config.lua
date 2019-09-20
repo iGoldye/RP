@@ -20,6 +20,8 @@ Config.Food = { -- ccal * g
 	obed1 =  452 * 40,
 	obed3 = 452 * 40,
 	fruitpot = 452 * 40,
+	sendwich = 500 * 40,
+	burger = 500 * 40
 
 
 	-- UNICRON --

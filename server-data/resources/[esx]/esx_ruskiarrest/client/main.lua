@@ -88,7 +88,7 @@ Citizen.CreateThread(function()
 	while true do
 		Wait(0)
 
-		if IsControlPressed(0, Keys['LEFTSHIFT']) and IsControlPressed(0, Keys['E']) and not Aresztuje and GetGameTimer() - OstatnioAresztowany > 10 * 1000 and PlayerData.job.name == PracaPolice then	-- Mozesz tutaj zmienic przyciski
+		if IsControlPressed(0, Keys['LEFTALT']) and IsControlPressed(0, Keys['E']) and not Aresztuje and GetGameTimer() - OstatnioAresztowany > 10 * 1000 and PlayerData.job.name == PracaPolice then	-- Mozesz tutaj zmienic przyciski
 			Citizen.Wait(10)
 			local closestPlayer, distance = ESX.Game.GetClosestPlayer()
 
