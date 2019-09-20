@@ -1,6 +1,6 @@
 {
     "reseau":"Gannon",
-    "warningMessageCount":1000,
+    "warningMessageCount":250,
     "themeColor":"#303f9f",
     "colors":[
        "#EF5350",
@@ -241,6 +241,16 @@
           "icons":"/html/static/img/icons_app/bank.png",
           "routeName":"bank",
           "inHomePage":false
+       },
+       {
+          "name":"Биржа",
+          "fr_FR__name":"Биржа",
+          "cs_CZ__name":"Биржа",
+          "en_US__name":"Биржа Market",
+          "de_DE__name":"Биржа",
+          "icons":"/html/static/img/icons_app/bourse.png",
+          "routeName":"bourse",
+          "enabled":true
        },
        {
           "name":"Камера",

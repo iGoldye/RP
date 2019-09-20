@@ -42,7 +42,7 @@ export default {
       this.disableList = true
       Modal.CreateModal({
         choix: [
-          {id: 1, title: this.IntlString('APP_CONTACT_EDIT'), icons: 'fa-circle-o', color: 'orange'},
+          {id: 1, title: this.IntlString('APP_CONTACT_EDIT'), icons: 'fa-pencil-alt', color: 'orange'},
           {id: 3, title: 'Отменить', icons: 'fa-undo'}
         ]
       }).then(rep => {
