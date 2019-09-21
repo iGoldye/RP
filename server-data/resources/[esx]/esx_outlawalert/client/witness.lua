@@ -55,7 +55,7 @@ function getWitness(sight_distance, hear_distance, outside_only)
 	for another_ped_id,another_ped in pairs(peds) do
 		local ped_type = GetPedType(another_ped)
 		-- only alive non-player, non-animal peds
-		if player_ped ~= another_ped and not IsPedDeadOrDying(another_ped) and ped_type ~= PED_TYPE_ANIMAL and ped_type >= 4 then
+		if player_ped ~= another_ped and not IsPedDeadOrDying(another_ped) and ped_type ~= PED_TYPE_ANIMAL and ped_type >= 4 and not IsPedInMeleeCombat(another_ped) and not IsPedAPlayer(another_ped) then
 
 --			local ped_ammo_count = GetAmmoInPedWeapon(GetBestPedWeapon(another_ped,0)) --IsPedArmed(another_ped, 7)
 
