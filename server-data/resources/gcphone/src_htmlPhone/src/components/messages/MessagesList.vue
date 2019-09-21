@@ -53,7 +53,7 @@ export default {
         } else if (rep.id === 6) {
           this.$router.push({name: 'messages.view', params: data})
         } else if (rep.id === 7) {
-          this.$router.push({name: 'messages.view', params: { data, number: '#' + data.number }})
+          this.$router.push({name: 'messages.view', params: { data, action: 'anonymous' }})
         }
         this.disableList = false
       })
