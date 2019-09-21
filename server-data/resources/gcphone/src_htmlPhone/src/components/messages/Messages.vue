@@ -54,7 +54,8 @@ export default {
       display: '',
       phoneNumber: '',
       imgZoom: undefined,
-      message: ''
+      message: '',
+      action: 'default'
     }
   },
   components: {
@@ -107,10 +108,14 @@ export default {
         this.$phoneAPI.getReponseText().then(data => {
           let message = data.text.trim()
           if (message !== '') {
-            this.sendMessage({
-              phoneNumber: this.phoneNumber,
-              message
-            })
+            if (this.action === 'anonymous') {
+              this.sendAnonymous()
+            } else {
+              this.sendMessage({
+                phoneNumber: this.phoneNumber,
+                message
+              })
+            }
           }
         })
       }
@@ -124,8 +129,8 @@ export default {
         message
       })
     },
-    sendAnonymous() {
-      this.$PhoneApi.sendAnonymousMessage("#####", this.phoneNumber, this.message)
+    sendAnonymous () {
+      this.$PhoneApi.sendAnonymousMessage('#####', this.phoneNumber, this.message)
     },
     isSMSImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)
@@ -329,6 +334,7 @@ export default {
     }
   },
   created () {
+    this.action = this.$route.params.action
     this.display = this.$route.params.display
     this.phoneNumber = this.$route.params.number
     if (!this.useMouse) {

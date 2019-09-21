@@ -99,6 +99,7 @@ export default {
           break
         case 2 :
           this.appelsDeleteAllHistorique()
+          break
         case 4 :
           this.startCall({ numero: '#' + numero })
           break
