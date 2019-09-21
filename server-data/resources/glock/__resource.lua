@@ -14,5 +14,6 @@ files {
 
 
 client_script {
+	'client.lua'
 --    'data/vehicle_names.lua' 
 }
