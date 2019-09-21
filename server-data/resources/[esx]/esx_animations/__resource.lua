@@ -6,7 +6,11 @@ version '1.0.0'
 
 client_scripts {
 	'config.lua',
-	'client/main.lua'
+	'client/main.lua',
+}
+
+server_scripts {
+	'server/main.lua',
 }
 
 dependency 'es_extended'

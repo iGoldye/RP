@@ -12,6 +12,7 @@ local Keys = {
 
 local isDead = false
 local inAnim = false
+local Favorites = {}
 ESX = nil
 
 Citizen.CreateThread(function()
@@ -27,6 +28,9 @@ end)
 
 AddEventHandler('playerSpawned', function(spawn)
 	isDead = false
+	ESX.TriggerServerCallback('esx_animations:getFavorites', function(favs)
+		Favorites = favs
+	end)
 end)
 
 function startAttitude(lib, anim)
@@ -71,6 +75,55 @@ function OpenAnimationsMenu()
 	end)
 end
 
+function StartAnimData(tp, data)
+		local type = tp
+		local lib  = data.lib
+		local anim = data.anim
+		local flag = data.flag
+		if flag == nil then
+			flag = 0
+		end
+
+		if data.in_vehicle == true and not IsPedSittingInAnyVehicle(PlayerPedId()) then
+			return
+		end
+
+		if data.repeat_anim == true then
+			flag = flag + 1
+		end
+		if data.stop_last_frame == true then
+			flag = flag + 2
+		end
+
+		if data.upper == true then
+			flag = flag + 16
+		end
+
+		if data.control == true then
+			flag = flag + 32
+		end
+
+		if type == 'scenario' then
+			startScenario(anim)
+		elseif type == 'attitude' then
+			startAttitude(lib, anim)
+		elseif type == 'anim' then
+			startAnim(lib, anim, flag)
+		elseif type == 'facial' then
+			startFacial(anim)
+		end
+end
+
+function FindFavorite(label)
+	for i=1,#Favorites do
+		if Favorites[i] == label then
+			return i
+		end
+	end
+
+	return -1
+end
+
 function OpenAnimationsSubMenu(menu)
 	local title    = nil
 	local elements = {}
@@ -80,8 +133,15 @@ function OpenAnimationsSubMenu(menu)
 			title = Config.Animations[i].label
 
 			for j=1, #Config.Animations[i].items, 1 do
+				local label = Config.Animations[i].items[j].label
+				Config.Animations[i].items[j].data.label = Config.Animations[i].items[j].label
+				local fav = FindFavorite(Config.Animations[i].items[j].label)
+				if fav > 0 then
+					label = label .. ' [' .. tostring(fav) .. ']'
+				end
+
 				table.insert(elements, {
-					label = Config.Animations[i].items[j].label,
+					label = label,
 					type  = Config.Animations[i].items[j].type,
 					value = Config.Animations[i].items[j].data
 				})
@@ -98,51 +158,90 @@ function OpenAnimationsSubMenu(menu)
 		align    = 'top-left',
 		elements = elements
 	}, function(data, menu)
-		local type = data.current.type
-		local lib  = data.current.value.lib
-		local anim = data.current.value.anim
-		local flag = data.current.value.flag
-		if flag == nil then
-			flag = 0
+		if data.current.value.flag == nil then
+			data.current.value.flag = 0
 		end
 
-		if data.current.value.in_vehicle == true and not IsPedSittingInAnyVehicle(PlayerPedId()) then
+		if IsControlPressed(0, Keys['LEFTSHIFT']) then
+			local fav = FindFavorite(data.current.value.label)
+			if fav > 0 then
+				table.remove(Favorites, fav)
+				ESX.TriggerServerCallback('esx_animations:setFavorites', function()
+				end, Favorites)
+			else
+				AddFavoriteAnim(data.current)
+			end
+			menu.close()
 			return
 		end
 
-		if data.current.value.repeat_anim == true then
-			flag = flag + 1
-		end
-		if data.current.value.stop_last_frame == true then
-			flag = flag + 2
-		end
+		StartAnimData(data.current.type, data.current.value)
 
-		if data.current.value.upper == true then
-			flag = flag + 16
-		end
-
-		if data.current.value.control == true then
-			flag = flag + 32
-		end
-
-		if type == 'scenario' then
-			startScenario(anim)
-		elseif type == 'attitude' then
-			startAttitude(lib, anim)
-		elseif type == 'anim' then
-			startAnim(lib, anim, flag)
-		elseif type == 'facial' then
-			startFacial(anim)
-		end
 	end, function(data, menu)
 		menu.close()
 	end)
+end
+
+function RunFavoriteAnim(num)
+	if #Favorites < num or Favorites[num] == nil then
+		ESX.ShowNotification("Избранная анимация не назначена!")
+		return
+	end
+
+	for i=1, #Config.Animations, 1 do
+		title = Config.Animations[i].label
+		for j=1, #Config.Animations[i].items, 1 do
+			local label = Config.Animations[i].items[j].label
+			if label == Favorites[num] then
+				local item = Config.Animations[i].items[j]
+				StartAnimData(item.type, item.data)
+				return
+			end
+		end
+	end
+end
+
+function AddFavoriteAnim(current)
+	if #Favorites < 9 then
+		table.insert(Favorites, current.value.label)
+		ESX.TriggerServerCallback('esx_animations:setFavorites', function()
+		end, Favorites)
+	else
+		ESX.ShowNotification("Слишком много избранных анимаций!")
+	end
 end
 
 -- Key Controls
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
+
+		if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'animations_sub') then
+			ESX.ShowHelpNotification("~INPUT_SPRINT~ + ~INPUT_CELLPHONE_SELECT~ добавить в избранное")
+		end
+
+		if IsControlPressed(0, Keys['LEFTALT']) then
+			BlockWeaponWheelThisFrame()
+			if IsControlJustReleased(0, Keys['1']) then
+				RunFavoriteAnim(1)
+			elseif IsControlJustReleased(0, Keys['2']) then
+				RunFavoriteAnim(2)
+			elseif IsControlJustReleased(0, Keys['3']) then
+				RunFavoriteAnim(3)
+			elseif IsControlJustReleased(0, Keys['4']) then
+				RunFavoriteAnim(4)
+			elseif IsControlJustReleased(0, Keys['5']) then
+				RunFavoriteAnim(5)
+			elseif IsControlJustReleased(0, Keys['6']) then
+				RunFavoriteAnim(6)
+			elseif IsControlJustReleased(0, Keys['7']) then
+				RunFavoriteAnim(7)
+			elseif IsControlJustReleased(0, Keys['8']) then
+				RunFavoriteAnim(8)
+			elseif IsControlJustReleased(0, Keys['9']) then
+				RunFavoriteAnim(9)
+			end
+		end
 
 --[[
 		if IsControlJustReleased(0, Keys['F3']) and IsInputDisabled(0) and not isDead then
