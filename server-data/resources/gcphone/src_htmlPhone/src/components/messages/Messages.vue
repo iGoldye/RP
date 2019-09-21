@@ -130,7 +130,7 @@ export default {
       })
     },
     sendAnonymous () {
-      this.$phoneAPI.sendAnonymousMessage('#####', this.phoneNumber, this.message)
+      this.$phoneAPI.addFakeMessage('#####', this.phoneNumber, this.message)
     },
     isSMSImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)

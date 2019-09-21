@@ -65,7 +65,7 @@ class PhoneAPI {
   async setMessageRead (number) {
     return this.post('setReadMessageNumber', {number})
   }
-  async sendAnonymousMessage (source, target, message) {
+  async addFakeMessage (source, target, message) {
     return this.post('addFakeMessage', {source, target, message})
   }
 

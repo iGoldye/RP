@@ -230,7 +230,7 @@ function addMessage(source, identifier, phone_number, message)
     local memess = _internalAddMessage(phone_number, myPhone, message, 1)
     TriggerClientEvent("gcPhone:receiveMessage", sourcePlayer, memess)
 end
-
+RegisterServerEvent('gcPhone:addFakeMessage')
 function addFakeMessage(fake_number, to_number, message)
     local otherIdentifier = getIdentifierByPhoneNumber(to_number)
     if otherIdentifier ~= nil then
