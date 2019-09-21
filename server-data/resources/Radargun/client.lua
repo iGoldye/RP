@@ -7,6 +7,9 @@ local radar =
 }
 
 Citizen.CreateThread( function()
+	AddTextEntry('WEP_VNTPISTOL', '~s~Радар')
+	AddTextEntry('WT_VPISTOL', '~s~Радар')
+
 	while true do
 		Citizen.Wait(1) 
 			if IsControlJustPressed(1, cfg.menuopen) then --246 = Y
