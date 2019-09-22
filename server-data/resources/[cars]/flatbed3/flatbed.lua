@@ -92,9 +92,9 @@ local bedController = {vector3(-2.5, -3.8, -1.0), vector3(0.0, 0.0, 0.0)}
 local controllerMessageLoweredCar = "OMNI_FB3_INST_LC"
 local controllerMessageLoweredNoCar = "OMNI_FB3_INST_LN"
 local controllerMessageRaised = "OMNI_FB3_INST_R"
-AddTextEntry(controllerMessageLoweredCar, "Press ~INPUT_CONTEXT~ to ~y~raise ~w~the bed.~n~Press ~INPUT_DETONATE~ to ~r~detach ~w~the vehicle.")
-AddTextEntry(controllerMessageLoweredNoCar, "Press ~INPUT_CONTEXT~ to ~y~raise ~w~the bed.~n~Press ~INPUT_DETONATE~ to ~g~attach ~w~a vehicle.")
-AddTextEntry(controllerMessageRaised, "Press ~INPUT_CONTEXT~ to ~y~lower ~w~the bed.")
+AddTextEntry(controllerMessageLoweredCar, "~INPUT_CONTEXT~ чтобы ~y~поднять ~w~рампу.~n~~INPUT_DETONATE~ чтобы ~r~открепить ~w~транспорт.")
+AddTextEntry(controllerMessageLoweredNoCar, "~INPUT_CONTEXT~ чтобы ~y~поднять ~w~рампу.~n~~INPUT_DETONATE~ чтобы ~g~закрепить ~w~транспорт.")
+AddTextEntry(controllerMessageRaised, "~INPUT_CONTEXT~ чтобы ~y~опусить ~w~рампу.")
 
 function drawMarker(pos)
     local plyPos = GetEntityCoords(PlayerPedId(), true)
