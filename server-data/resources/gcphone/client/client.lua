@@ -621,6 +621,13 @@ RegisterNUICallback('sendMessage', function(data, cb)
   end
   TriggerServerEvent('gcPhone:sendMessage', data.phoneNumber, data.message)
 end)
+RegisterNUICallback('', function(data, cb)
+  if data.message == '%pos%' then
+    local myPos = GetEntityCoords(PlayerPedId())
+    data.message = 'GPS: ' .. myPos.x .. ', ' .. myPos.y
+  end
+  TriggerServerEvent('gcPhone:sendMessage', data.phoneNumber, data.message)
+end)
 RegisterNUICallback('deleteMessage', function(data, cb)
   deleteMessage(data.id)
   cb()
