@@ -27,7 +27,7 @@
 
 .menu.align-top-left {
 	left: 40;
-	top: 40;
+	top: 60;
 }
 
 .menu.align-top {
@@ -38,7 +38,7 @@
 
 .menu.align-top-right {
 	right: 10;
-	top: 40;
+	top: 60;
 }
 
 .menu.align-right {
@@ -104,5 +104,5 @@
         color: #fff;
         text-decoration: none;
         background: rgba(245, 164, 23, 0.85);
-	
+
 }
