@@ -37,7 +37,7 @@ function notifyAlertSMS (number, alert, listSrc)
   if PhoneNumbers[number] ~= nil then
 	local mess = '#' .. alert.numero  .. ' : ' .. alert.message
 	if alert.coords ~= nil then
-		mess = mess .. ' ' .. alert.coords.x .. ', ' .. alert.coords.y 
+		mess = mess .. ' ' .. alert.coords.x .. ', ' .. alert.coords.y
 	end
 
     for k, _ in pairs(listSrc) do
@@ -96,7 +96,7 @@ RegisterServerEvent('gcPhone:sendMessage')
 AddEventHandler('gcPhone:sendMessage', function(number, message)
     local sourcePlayer = tonumber(source)
     if PhoneNumbers[number] ~= nil then
-      getPhoneNumber(source, function (phone) 
+      getPhoneNumber(source, function (phone)
         notifyAlertSMS(number, {
           message = message,
           numero = phone,
@@ -106,7 +106,7 @@ AddEventHandler('gcPhone:sendMessage', function(number, message)
 end)
 
 RegisterServerEvent('esx_addons_gcphone:startCall')
-AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coords)
+AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coords, action)
   local source = source
 
   if number == "admin" then
@@ -114,11 +114,16 @@ AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coord
   end
 
   if PhoneNumbers[number] ~= nil then
-    getPhoneNumber(source, function (phone) 
+    getPhoneNumber(source, function (phone)
+      local numero = phone
+      if action == "anonymous" then
+        numero = "#####"
+      end
       notifyAlertSMS(number, {
         message = message,
         coords = coords,
-        numero = phone,
+        numero = numero,
+        action = action,
       }, PhoneNumbers[number].sources)
     end)
   else
@@ -161,7 +166,7 @@ AddEventHandler('esx:playerDropped', function(source)
   end
 end)
 
-function getPhoneNumber (source, callback) 
+function getPhoneNumber (source, callback)
   local xPlayer = ESX.GetPlayerFromId(source)
   if xPlayer == nil then
     callback(nil)
@@ -179,7 +184,7 @@ RegisterServerEvent('esx_phone:send')
 AddEventHandler('esx_phone:send', function(number, message, _, coords)
   local source = source
   if PhoneNumbers[number] ~= nil then
-    getPhoneNumber(source, function (phone) 
+    getPhoneNumber(source, function (phone)
       notifyAlertSMS(number, {
         message = message,
         coords = coords,
