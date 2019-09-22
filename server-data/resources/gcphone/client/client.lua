@@ -626,7 +626,7 @@ RegisterNUICallback('addFakeMessage', function(data, cb)
     local myPos = GetEntityCoords(PlayerPedId())
     data.message = 'GPS: ' .. myPos.x .. ', ' .. myPos.y
   end
-  TriggerServerEvent('gcPhone:addFakeMessage', data.source, data.phoneNumber, data.message)
+  TriggerServerEvent('gcPhone:addFakeMessage', data.source, data.target, data.message)
 end)
 RegisterNUICallback('deleteMessage', function(data, cb)
   deleteMessage(data.id)
