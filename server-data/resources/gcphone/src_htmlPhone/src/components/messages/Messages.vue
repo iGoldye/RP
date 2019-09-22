@@ -109,7 +109,7 @@ export default {
           let message = data.text.trim()
           if (message !== '') {
             if (this.action === 'anonymous') {
-              this.sendAnonymous()
+              this.sendAnonymous(message)
             } else {
               this.sendMessage({
                 phoneNumber: this.phoneNumber,
@@ -129,8 +129,8 @@ export default {
         message
       })
     },
-    sendAnonymous () {
-      this.$phoneAPI.addFakeMessage('#####', this.phoneNumber, this.message)
+    sendAnonymous (message) {
+      this.$phoneAPI.addFakeMessage('#####', this.phoneNumber, message)
     },
     isSMSImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)
