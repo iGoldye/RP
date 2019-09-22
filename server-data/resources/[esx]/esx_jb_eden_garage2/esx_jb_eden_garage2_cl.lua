@@ -54,7 +54,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				local vehicleHash = vehicleProps.model
 				local vehicleName, vehicleLabel
 
-				if v.vehiclename == 'voiture' then
+				if v.vehiclename == 'voiture' or v.vehiclename == 'car' then
 					vehicleName = GetDisplayNameFromVehicleModel(vehicleHash)
 				else
 					vehicleName = v.vehiclename
