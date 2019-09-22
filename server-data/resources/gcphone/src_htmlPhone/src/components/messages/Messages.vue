@@ -334,7 +334,6 @@ export default {
     }
   },
   created () {
-    console.log(this.$route.params)
     this.action = this.$route.params.action
     this.display = this.$route.params.display
     this.phoneNumber = this.$route.params.number
