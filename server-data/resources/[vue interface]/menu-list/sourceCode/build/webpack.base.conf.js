@@ -10,7 +10,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 const PATHS = {
   src: path.join(__dirname, "../src"),
   build: path.join(__dirname, "../build"),
-  dist: path.join(__dirname, "../dist"),
+  dist: path.join(__dirname, "../../dist"),
   assets: "assets/"
 };
 
@@ -33,7 +33,7 @@ module.exports = {
   output: {
     filename: `${PATHS.assets}js/[name].js`,
     path: PATHS.dist,
-    publicPath: "/"
+    publicPath: ""
   },
   module: {
     rules: [

@@ -28,8 +28,7 @@ export default {
       header: {},
       namespace: {},
       name: {},
-      mockData: {},
-      prevMenu: {}
+      prevMenu: []
     };
   },
   mounted() {
@@ -51,7 +50,6 @@ export default {
       this.header = data.title;
       this.namespace = namespace;
       this.name = name;
-      this.mockData = data;
 
       document.querySelector(".menu__list").classList.add("is-active");
 
@@ -79,7 +77,6 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
-      console.log(this.elements);
     },
     menu_submit() {
       axios
@@ -98,7 +95,6 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
-      console.log(this.elements);
     },
     menu_cancel(namespace, name) {
       axios
@@ -115,7 +111,6 @@ export default {
         .catch(error => {
           console.log(error.response);
         });
-      console.log(this.elements);
     },
     close(namespace, name) {
       this.namespace = namespace;
@@ -205,10 +200,18 @@ export default {
                 }
                 break;
               case "ENTER":
+                console.log(this.elements);
+                this.prevMenu.push(this.elements);
+                console.log(this.prevMenu);
                 this.menu_submit();
                 break;
               case "BACKSPACE":
-                this.menu_cancel(event.data.namespace, event.data.name);
+                if (this.prevMenu.length != 0) {
+                  this.elements = this.prevMenu.pop();
+                  this.prevMenu.splice(-1, 1);
+                } else {
+                  this.menu_cancel(event.data.namespace, event.data.name);
+                }
                 break;
               case "RIGHT":
                 this.elements.forEach(item => {
