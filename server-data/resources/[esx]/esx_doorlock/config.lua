@@ -8,25 +8,25 @@ Config.DoorList = {
 	--
 
 	-- Entrance Doors
-	{
-		textCoords = vector3(434.7, -982.0, 31.5),
-		authorizedJobs = { 'police' },
-		locked = false,
-		distance = 2.5,
-		doors = {
-			{
-				objName = 'v_ilev_ph_door01',
-				objYaw = -90.0,
-				objCoords = vector3(434.7, -980.6, 30.8)
-			},
+	-- {
+	-- 	textCoords = vector3(434.7, -982.0, 31.5),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = false,
+	-- 	distance = 2.5,
+	-- 	doors = {
+	-- 		{
+	-- 			objName = 'v_ilev_ph_door01',
+	-- 			objYaw = -90.0,
+	-- 			objCoords = vector3(434.7, -980.6, 30.8)
+	-- 		},
 
-			{
-				objName = 'v_ilev_ph_door002',
-				objYaw = -90.0,
-				objCoords = vector3(434.7, -983.2, 30.8)
-			}
-		}
-	},
+	-- 		{
+	-- 			objName = 'v_ilev_ph_door002',
+	-- 			objYaw = -90.0,
+	-- 			objCoords = vector3(434.7, -983.2, 30.8)
+	-- 		}
+	-- 	}
+	-- },
 
 	-- To locker room & roof
 	{
@@ -267,6 +267,27 @@ Config.DoorList = {
 		authorizedJobs = { 'police' },
 		locked = true
 	},
+
+	{
+		textCoords = vector3(468.6, -1014.4, 27.1),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 2.5,
+		doors = {
+			{
+				objName = 'v_ilev_rc_door2',
+				objYaw = 0.0,
+				objCoords  = vector3(467.3, -1014.4, 26.5)
+			},
+
+			{
+				objName = 'v_ilev_rc_door2',
+				objYaw = 180.0,
+				objCoords  = vector3(469.9, -1014.4, 26.5)
+			}
+		}
+	},
+
 	-- {
 	-- 	objName = 'v_ilev_ph_cellgate',
 	-- 	objYaw = 0.0,
@@ -291,25 +312,7 @@ Config.DoorList = {
 	--
 
 	-- Back (double doors)
-	{
-		textCoords = vector3(468.6, -1014.4, 27.1),
-		authorizedJobs = { 'police' },
-		locked = true,
-		distance = 4,
-		doors = {
-			{
-				objName = 'v_ilev_rc_door2',
-				objYaw = 0.0,
-				objCoords  = vector3(467.3, -1014.4, 26.5)
-			},
-
-			{
-				objName = 'v_ilev_rc_door2',
-				objYaw = 180.0,
-				objCoords  = vector3(469.9, -1014.4, 26.5)
-			}
-		}
-	},
+	
 
 	-- Back Gate
 	-- {
@@ -364,7 +367,7 @@ Config.DoorList = {
 	{
 		textCoords = vector3(445.9, -999.1, 30.7),
 		authorizedJobs = { 'police' },
-		locked = false,
+		locked = true,
 		distance = 2.5,
 		doors = {
 			{
