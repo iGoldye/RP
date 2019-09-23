@@ -15,7 +15,7 @@ Config.CarJackingAlert = true
 Config.MeleeAlert = true
 
 -- Set if show when player carries any gun in public
-Config.OpenCarryAlert = true
+Config.OpenCarryAlert = false
 
 -- In seconds
 Config.BlipGunTime = 5
