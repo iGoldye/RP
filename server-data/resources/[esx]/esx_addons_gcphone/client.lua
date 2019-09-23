@@ -4,6 +4,7 @@ AddEventHandler('esx_addons_gcphone:call', function(data)
   local coords      = GetEntityCoords(playerPed)
   local message     = data.message
   local number      = data.number
+  local action      = data.action
   if message == nil then
     DisplayOnscreenKeyboard(1, "FMMC_MPM_NA", "", "", "", "", "", 200)
     while (UpdateOnscreenKeyboard() == 0) do
@@ -19,6 +20,6 @@ AddEventHandler('esx_addons_gcphone:call', function(data)
       x = coords.x,
       y = coords.y,
       z = coords.z
-    })
+    }, action)
   end
 end)

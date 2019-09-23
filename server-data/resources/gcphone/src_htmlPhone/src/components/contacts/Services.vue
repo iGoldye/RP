@@ -27,18 +27,22 @@ export default {
     onSelect (itemSelect) {
       if (this.ignoreControls === true) return
       this.ignoreControls = true
-      Modal.CreateModal({choix: [...itemSelect.subMenu, {id: 4, title: this.IntlString('APP_MESSAGE_NEW_ANONYMOUS') }, {title: 'Назад'}]}).then(rep => {
-        this.ignoreControls = false
-        if (rep.title === 'Назад') return
-        if (rep.id === 4) {
-          itemSelect.subMenu.action = 'anonymous'
-          itemSelect.subMenu.number = itemSelect.subMenu[0].type.number
-          this.$router.push({ name: 'messages.view', params: itemSelect.subMenu })
-        } else {
-          this.$phoneAPI.callEvent(rep.eventName, rep.type)
-          this.$router.push({name: 'home'})
-        }
-      })
+      Modal.CreateModal({
+        choix: [...itemSelect.subMenu,
+        {id: 4, title: this.IntlString('APP_MESSAGE_NEW_ANONYMOUS')},
+        {title: 'Назад'}
+        ]}).then(rep => {
+          this.ignoreControls = false
+          if (rep.title === 'Назад') return
+          if (rep.id === 4) {
+            rep.action = 'anonymous'
+            rep.number = itemSelect.subMenu[0].type.number
+            this.$phoneAPI.callEvent('esx_addons_gcphone:call', rep)
+          } else {
+            this.$phoneAPI.callEvent(rep.eventName, rep.type)
+            this.$router.push({name: 'home'})
+          }
+        })
     },
     back () {
       if (this.ignoreControls === true) return
