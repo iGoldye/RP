@@ -58,7 +58,7 @@ Stores = {
 	},
 	["sanandreas_liquor"] = {
 		position = { x = -1219.85, y = -916.27, z = 11.32 },
-		reward = math.random(4000, 6000,
+		reward = math.random(4000, 6000),
 		nameOfStore = "Robs Liquor. (San Andreas Avenue)",
 		secondsRemaining = 90, -- seconds
 		lastRobbed = 0
