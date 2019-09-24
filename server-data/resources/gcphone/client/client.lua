@@ -1,3 +1,12 @@
+ESX = nil
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+end)
+
 --====================================================================================
 -- #Author: Jonathan D @ Gannon
 --====================================================================================
@@ -29,6 +38,11 @@ local currentPlaySound = false
 local soundDistanceMax = 8.0
 
 local TokoVoipID = nil
+
+RegisterNetEvent('gcPhone:isOpen')
+AddEventHandler('gcPhone:isOpen', function(cb)
+	cb(menuIsOpen)
+end)
 
 --====================================================================================
 --  Check si le joueurs poséde un téléphone
@@ -607,6 +621,14 @@ RegisterNUICallback('sendMessage', function(data, cb)
   end
   TriggerServerEvent('gcPhone:sendMessage', data.phoneNumber, data.message)
 end)
+RegisterNUICallback('addFakeMessage', function(data, cb)
+  print(json.encode(data))
+  if data.message == '%pos%' then
+    local myPos = GetEntityCoords(PlayerPedId())
+    data.message = 'GPS: ' .. myPos.x .. ', ' .. myPos.y
+  end
+  TriggerServerEvent('gcPhone:addFakeMessage', data.source, data.target, data.message)
+end)
 RegisterNUICallback('deleteMessage', function(data, cb)
   deleteMessage(data.id)
   cb()
@@ -722,20 +744,6 @@ RegisterNUICallback('setIgnoreFocus', function (data, cb)
   cb()
 end)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 RegisterNUICallback('takePhoto', function(data, cb)
 	CreateMobilePhone(1)
   CellCamActivate(true, true)
@@ -775,4 +783,12 @@ RegisterNUICallback('takePhoto', function(data, cb)
   end
   Citizen.Wait(1000)
   PhonePlayAnim('text', false, true)
+end)
+
+RegisterNUICallback('transferMoney', function (data, cb)
+  local number = ESX.UI.OpenTextInput("Введите номер телефона", "", 10)
+  local amount = tonumber(ESX.UI.OpenTextInput("Введите сумму для перевода", "", 10))
+
+  TriggerServerEvent('gcPhone:bankTransferMoney', number, amount)
+  cb()
 end)

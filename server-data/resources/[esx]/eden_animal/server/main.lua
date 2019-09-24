@@ -50,7 +50,7 @@ ESX.RegisterServerCallback('eden_animal:buyPet', function(source, cb, pet)
 			['@identifier'] = xPlayer.identifier,
 			['@pet'] = pet
 		}, function(rowsChanged)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('you_bought', pet, ESX.Math.GroupDigits(price)))
+			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('you_bought', _U(pet), ESX.Math.GroupDigits(price)))
 			cb(true)
 		end)
 	else
@@ -60,10 +60,8 @@ ESX.RegisterServerCallback('eden_animal:buyPet', function(source, cb, pet)
 end)
 
 function GetPriceFromPet(pet)
-	for i=1, #Config.PetShop, 1 do
-		if Config.PetShop[i].pet == pet then
-			return Config.PetShop[i].price
-		end
+	if Config.PetShop[pet] ~= nil then
+		return Config.PetShop[pet].price
 	end
 
 	return 0

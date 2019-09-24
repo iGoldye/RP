@@ -250,6 +250,12 @@ function PropertyIsOwned(property)
 end
 
 function OpenPropertyMenu(property)
+    ESX.TriggerServerCallback('esx_property:getAnyoneOwnedProperties', function(AnyoneOwnedProperties)
+        if not PropertyIsOwned(property) and property.isSingle and AnyoneOwnedProperties[property.name] then
+		ESX.ShowNotification("Недвижимость не продаётся!")
+		return
+        end
+
 	local elements = {}
 
 	if PropertyIsOwned(property) then
@@ -262,10 +268,10 @@ function OpenPropertyMenu(property)
 		if not Config.EnablePlayerManagement then
 
 			if property.isRentOnly ~= true then
-				table.insert(elements, {label = _U('buy'), value = 'buy'})
+				table.insert(elements, {label = _U('buy_for', property.price), value = 'buy'})
 			end
 
-			table.insert(elements, {label = _U('rent'), value = 'rent'})
+			table.insert(elements, {label = _U('rent_for', ESX.Math.Round(property.price / 200)), value = 'rent'})
 		end
 
 		if property.isRentOnly ~= true then
@@ -298,6 +304,7 @@ function OpenPropertyMenu(property)
 		CurrentActionMsg  = _U('press_to_menu')
 		CurrentActionData = {property = property}
 	end)
+    end)
 end
 
 function OpenGatewayMenu(property)
@@ -742,7 +749,7 @@ AddEventHandler('playerSpawned', function()
 
 						for i=1, #property.ipls, 1 do
 							RequestIpl(property.ipls[i])
-				
+
 							while not IsIplActive(property.ipls[i]) do
 								Citizen.Wait(0)
 							end
@@ -826,6 +833,13 @@ AddEventHandler('esx_property:hasEnteredMarker', function(name, part)
 		CurrentAction     = 'room_exit'
 		CurrentActionMsg  = _U('press_to_exit')
 		CurrentActionData = {propertyName = name}
+
+		if CurrentProperty == nil then
+			ESX.Game.Teleport(PlayerPedId(), vector3(-97.58, -1013.94, 27.28), function()
+				TriggerServerEvent('esx_property:deleteLastProperty')
+			end)
+		end
+
 	elseif part == 'roomMenu' then
 		CurrentAction     = 'room_menu'
 		CurrentActionMsg  = _U('press_to_menu')

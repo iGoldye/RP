@@ -18,7 +18,6 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
-	
 	while ESX.GetPlayerData().job == nil do
 		Citizen.Wait(10)
 	end
@@ -48,10 +47,14 @@ RegisterNetEvent('esx:setJob')
 							blocked   = true
 								TaskPlayAnim(ped, "reaction@intimidation@cop@unarmed", "intro", 8.0, 2.0, -1, 50, 2.0, 0, 0, 0 ) -- Change 50 to 30 if you want to stand still when removing weapon
 								-- TaskPlayAnim(ped, "reaction@intimidation@cop@unarmed", "intro", 8.0, 2.0, -1, 30, 2.0, 0, 0, 0 ) --Use this line if you want to stand still when removing weapon
-									Citizen.Wait(Config.CooldownPolice)
-								TaskPlayAnim(ped, "rcmjosh4", "josh_leadout_cop2", 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
-									Citizen.Wait(400)
-								ClearPedTasks(ped)
+								Citizen.Wait(Config.CooldownPolice)
+
+							while IsEntityPlayingAnim(ped, "reaction@intimidation@cop@unarmed", "intro", 3) and not IsDisabledControlPressed(2,25) and not IsDisabledControlPressed(2,24) do
+								Citizen.Wait(0)
+							end
+--							TaskPlayAnim(ped, "rcmjosh4", "josh_leadout_cop2", 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
+--							Citizen.Wait(60)
+							ClearPedTasks(ped)
 							holstered = false
 						else
 							blocked = false
@@ -59,7 +62,6 @@ RegisterNetEvent('esx:setJob')
 					else
 					--elseif not IsPedArmed(ped, 4) then
 						if not holstered then
-					
 								TaskPlayAnim(ped, "rcmjosh4", "josh_leadout_cop2", 8.0, 2.0, -1, 48, 10, 0, 0, 0 )
 									Citizen.Wait(500)
 								TaskPlayAnim(ped, "reaction@intimidation@cop@unarmed", "outro", 8.0, 2.0, -1, 50, 2.0, 0, 0, 0 ) -- Change 50 to 30 if you want to stand still when holstering weapon

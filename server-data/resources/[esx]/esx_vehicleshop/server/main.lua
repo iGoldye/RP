@@ -57,6 +57,11 @@ AddEventHandler('esx_vehicleshop:setVehicleOwned', function (vehicleProps)
 		['@vehicle'] = json.encode(vehicleProps)
 	}, function (rowsChanged)
 		TriggerClientEvent('esx:showNotification', _source, _U('vehicle_belongs', vehicleProps.plate))
+
+		TriggerEvent('esx_inventory:createItem', "carkey", { ["plate"] = vehicleProps.plate }, 1, 0, function(item)
+			TriggerEvent('esx_inventory:addItem', "pocket", xPlayer.identifier, item, function()
+			end)
+		end)
 	end)
 end)
 
@@ -345,7 +350,7 @@ ESX.RegisterServerCallback('esx_vehicleshop:resellVehicle', function (source, cb
 	-- calculate the resell price
 	for i=1, #Vehicles, 1 do
 		if GetHashKey(Vehicles[i].model) == model then
-			resellPrice = ESX.Math.Round(Vehicles[i].price / 100 * Config.ResellPercentage)
+			resellPrice = ESX.Math.Round(Vehicles[i].price / 100.0 * Config.ResellPercentage)
 			break
 		end
 	end

@@ -145,7 +145,7 @@ AddEventHandler('esx_unicornjob:buyItem', function(itemName, price, itemLabel)
             TriggerClientEvent('esx:showNotification', _source, _U('max_item'))
         end
     else
-        TriggerClientEvent('esx:showNotification', _source, _U('not_enough'))
+        TriggerClientEvent('esx:showNotification', _source, _U('not_enough_budget'))
     end
 
 end)

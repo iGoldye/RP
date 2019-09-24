@@ -42,6 +42,17 @@ ESX.RegisterUsableItem('rhum', function(source)
 
 end)
 
+ESX.RegisterUsableItem('mojito', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('mojito', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 240000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_mojito'))
+
+end)
+
 ESX.RegisterUsableItem('whisky', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -195,5 +206,38 @@ ESX.RegisterUsableItem('jagercerbere', function(source)
     TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
     TriggerClientEvent('esx_optionalneeds:onDrink', source)
     TriggerClientEvent('esx:showNotification', source, _U('used_jagercerbere'))
+
+end)
+
+ESX.RegisterUsableItem('drug1', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('drug1', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_drug1'))
+
+end)
+
+ESX.RegisterUsableItem('drug2', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('drug2', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_drug2'))
+
+end)
+
+ESX.RegisterUsableItem('drug3', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('drug3', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_drug3'))
 
 end)

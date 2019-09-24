@@ -115,7 +115,8 @@ function OpenCloakroom()
 		align    = 'top-left',
 		elements = {
 			{ label = _U('wear_citizen'), value = 'wear_citizen' },
-			{ label = _U('wear_work'),    value = 'wear_work'}
+			{ label = _U('wear_work'),    value = 'wear_work'},
+			{label = _U('change_wear'),    value = 'change_wear'},
 		}
 	}, function(data, menu)
 		if data.current.value == 'wear_citizen' then
@@ -130,6 +131,8 @@ function OpenCloakroom()
 					TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_female)
 				end
 			end)
+		elseif data.current.value == 'change_wear' then
+			TriggerEvent('esx_property:OpenPlayerDressingMenu')
 		end
 	end, function(data, menu)
 		menu.close()

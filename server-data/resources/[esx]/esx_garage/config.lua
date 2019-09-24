@@ -229,8 +229,8 @@ Config.Garages = {
 		},
 
 		ExteriorSpawnPoint = {
-			Pos     = {x = -1479.09, y = -576.67, z = 31.35},
-			Heading = 214.42
+			Pos     = {x = -1473.41, y = -571.56, z = 31.62},
+			Heading = 215.42
 		},
 
 		InteriorSpawnPoint = {

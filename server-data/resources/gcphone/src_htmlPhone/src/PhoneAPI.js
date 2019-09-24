@@ -45,6 +45,10 @@ class PhoneAPI {
     return text
   }
 
+  async transferMoney () {
+    return this.post('transferMoney')
+  }
+
   // === Gestion des messages
   async sendMessage (phoneNumber, message) {
     return this.post('sendMessage', {phoneNumber, message})
@@ -60,6 +64,9 @@ class PhoneAPI {
   }
   async setMessageRead (number) {
     return this.post('setReadMessageNumber', {number})
+  }
+  async addFakeMessage (source, target, message) {
+    return this.post('addFakeMessage', {source, target, message})
   }
 
   // === Gestion des contacts

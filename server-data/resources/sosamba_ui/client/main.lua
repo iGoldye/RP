@@ -25,6 +25,17 @@ local paused = true
 local menuActive = false
 local nuiFocus = false
 local inputBoxes = {}
+local isBeltOn = nil
+
+Citizen.CreateThread(function()
+	while true do
+		TriggerEvent('seatbelt_lua:isBeltOn', function(res)
+			isBeltOn = res
+		end)
+
+		Citizen.Wait(1000)
+	end
+end)
 
 Citizen.CreateThread(function()
 	SetNuiFocus(false, false)
@@ -35,6 +46,25 @@ end)
 
 Citizen.CreateThread(function()
 while true do
+	if menuActive == true and nuiFocus == false then
+		SetNuiFocus(true,true)
+		nuiFocus = true
+	end
+
+	if menuActive == false and nuiFocus == true then
+		SetNuiFocus(false, false)
+		nuiFocus = false
+	end
+
+	if menuActive == true and nuiFocus == false then
+		SetNuiFocus(true,true)
+		nuiFocus = true
+	end
+
+	if menuActive == false and nuiFocus == true then
+		SetNuiFocus(false, false)
+		nuiFocus = false
+	end
 
 	if menuActive == true and nuiFocus == false then
 		SetNuiFocus(true,true)
@@ -61,7 +91,11 @@ while true do
 	local PlayerHealth = (GetEntityHealth(PlayerPedId()) - 100) / 100.0
 	local PlayerArmour = GetPedArmour(PlayerPedId()) / 100.0
 	local PlayerStamina = GetPlayerSprintStaminaRemaining(PlayerId()) / 100.0
+	local PlayerSeatbelt = 0
 
+	if isBeltOn == false then
+		PlayerSeatbelt = 1
+	end
 
 	SendNUIMessage({
 		action  = 'setNeeds',
@@ -70,6 +104,7 @@ while true do
 		health = PlayerHealth,
 		armor  = PlayerArmour,
 		stamina= PlayerStamina,
+		seatbelt= PlayerSeatbelt,
 	})
 
 	SendNUIMessage({
@@ -81,6 +116,7 @@ while true do
 end
 end)
 
+--[[
 function inventoryAddMoneyItems(elements)
 	local playerData = ESX.GetPlayerData()
 --	if playerData.money > 0 then
@@ -137,7 +173,8 @@ function inventoryAddMoneyItems(elements)
 --		end
 	end
 end
-
+]]--
+--[[
 function inventoryAddWeaponItems(elements)
 	local playerPed = PlayerPedId()
 	TriggerEvent('esx_inventory:getWeapons', function(weapons)
@@ -167,7 +204,9 @@ function inventoryAddWeaponItems(elements)
 		end
 	end)
 end
+]]--
 
+--[[
 function inventoryAddESXItems(elements)
 	local playerData = ESX.GetPlayerData()
 	for i=1, #playerData.inventory, 1 do
@@ -196,7 +235,7 @@ function inventoryAddESXItems(elements)
 		end
 	end
 end
-
+]]--
 
 function inventoryAddNativeItems(elements, inventory)
 	if inventory == nil or inventory.items == nil then
@@ -205,57 +244,86 @@ function inventoryAddNativeItems(elements, inventory)
 
 	for k,v in pairs(inventory.items) do
 		local itemlabel = v.name
+		if v.label ~= nil then
+			itemlabel = v.label
+		end
+
 		local itemdesc = ''
---		print(v.name)
 
 		local melee = false
 		local ammo = 0
+		local skip_item = false
 
-		if v.name == "weapon" and v.extra ~= nil then
---			print(json.encode(v))
-			itemlabel = v.extra.weapon_label
+		if (v.name == "weapon" or v.name == "equipped_weapon") and v.extra ~= nil then
 			ammo = v.extra.ammo
 			melee = v.extra.melee
+			if v.name == "equipped_weapon" then
+				itemdesc = "Экипировано"
+				if not HasPedGotWeapon(PlayerPedId(), GetHashKey(v.extra.weapon_name:upper()), false) then
+					skip_item = true
+				end
+			end
+
+
+		elseif v.name == "carkey" and v.extra ~= nil then
+--			print(json.encode(v))
+			itemlabel = "Ключ от машины"
+			itemdesc = "Номер: "..v.extra.plate
 		end
 
+		if not skip_item then
 		table.insert(elements, {
 			label = itemlabel,
 			description = itemdesc,
 			count = v.amount,
 			melee = melee,
 			ammo = ammo,
-			weight = 1.0,
+			weight = (v.weight or 0)*v.amount,
 			name = v.name,
 			item = v,
 			actions = {},
 		})
+		end
 	end
 end
 
 function generateInventoryElements(inventory)
 	local elements = {}
 
-	inventoryAddMoneyItems(elements)
+--	inventoryAddMoneyItems(elements)
 	inventoryAddNativeItems(elements, inventory)
-	inventoryAddESXItems(elements)
-	inventoryAddWeaponItems(elements)
+--	inventoryAddESXItems(elements)
+--	inventoryAddWeaponItems(elements)
 
 	for i,elem in pairs(elements) do
 		local actions = exports['esx_inventory']:getItemActions(elem.name)
+--		print(json.encode(actions))
+		if actions == nil then
+			actions = {}
+		end
 
 		if elements[i].actions == nil then
 			elements[i].actions = {}
 		end
 
-		for name,act in pairs(actions) do
-			if act.condition == nil or act.condition(elem.item) == true then
-				table.insert(elements[i].actions, {
-					key = name,
-					label = act.label,
-				})
-			end
+               for name,act in pairs(actions) do
+                       if act.condition == nil or act.condition(elem.item) == true then
+                               table.insert(elements[i].actions, {
+                                       key = name,
+                                       label = act.label,
+                                       priority = act.priority,
+                               })
+                       end
 		end
-
+--[[
+		for j,act in pairs(actions) do
+			table.insert(elements[i].actions, {
+				key = act.name,
+				label = act.label,
+				priority = act.priority,
+			})
+		end
+]]--
 		table.insert(elements[i].actions, {
 			key = "return",
 			icon = "keyboard-return",
@@ -268,8 +336,6 @@ function generateInventoryElements(inventory)
 end
 
 function showInventoryMenu(inventory)
-	print("showInventoryMenu")
-
 	SendNUIMessage({
 		action  = 'showInventory',
 		value = true,
@@ -281,6 +347,7 @@ function showInventoryMenu(inventory)
 	SendNUIMessage({
 		action  = 'updateInventory',
 		items = elements,
+		weight = inventory.weight,
 	})
 
 end
@@ -330,6 +397,40 @@ end
 end)
 
 Citizen.CreateThread(function()
+while true do
+	if menuActive then
+		local playerPed = PlayerPedId()
+
+		DisableAllControlActions(0)
+--[[
+		DisableControlAction(0, 1, true) -- LookLeftRight
+		DisableControlAction(0, 2, true) -- LookUpDown
+		DisablePlayerFiring(playerPed, true) -- Disable weapon firing
+		DisableControlAction(0, 142, true) -- MeleeAttackAlternate
+		DisableControlAction(0, 106, true) -- VehicleMouseControlOverride
+
+		DisableControlAction(0, 12, true) -- WeaponWheelUpDown
+		DisableControlAction(0, 14, true) -- WeaponWheelNext
+		DisableControlAction(0, 15, true) -- WeaponWheelPrev
+		DisableControlAction(0, 16, true) -- SelectNextWeapon
+		DisableControlAction(0, 17, true) -- SelectPrevWeapon
+]]--
+--	else
+--		if IsControlJustPressed(1, 10) then
+--			TriggerEvent('sosamba_ui:toggleweb')
+--			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'sosamba_ui:showInventoryMenu')
+--		end
+	end
+
+	Citizen.Wait(0)
+end
+end)
+
+Citizen.CreateThread(function()
+
+	while GetIsLoadingScreenActive() do
+		Citizen.Wait(1000)
+	end
 
 	while GetIsLoadingScreenActive() do
 		Citizen.Wait(1000)
@@ -420,6 +521,7 @@ AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
 	SendNUIMessage({
 		action  = 'updateInventory',
 		items = elements,
+		weight = inventory.weight,
 	})
 end)
 

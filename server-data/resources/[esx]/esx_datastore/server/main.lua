@@ -46,11 +46,31 @@ MySQL.ready(function()
 	end
 end)
 
-function GetDataStore(name, owner)
+function GetDataStore(name, owner, create)
+	if DataStores[name] == nil then
+		print("Unknown datastore: "..tostring(name).." !")
+		return nil
+	end
+
 	for i=1, #DataStores[name], 1 do
 		if DataStores[name][i].owner == owner then
 			return DataStores[name][i]
 		end
+	end
+
+-- create new datastore if not exists
+	if create then
+		MySQL.Async.execute('INSERT INTO datastore_data (name, owner, data) VALUES (@name, @owner, @data)', {
+			['@name']  = name,
+			['@owner'] = owner,
+			['@data']  = '{}'
+		})
+
+		local dataStore = CreateDataStore(name, owner, {})
+		table.insert(DataStores[name], dataStore)
+		return dataStore
+	else
+		return nil
 	end
 end
 

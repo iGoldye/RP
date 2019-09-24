@@ -5,12 +5,18 @@ description 'Extra admin commands'
 version '1.0.0'
 
 client_scripts {
+	'@es_extended/locale.lua',
+	'config.lua',
+	'locales/en.lua',
 	'client/main.lua'
 }
 
 server_scripts {
-	'server/main.lua',
 	'@mysql-async/lib/MySQL.lua',
+	'@es_extended/locale.lua',
+	'config.lua',
+	'locales/en.lua',
+	'server/main.lua',
 }
 
 dependencies {}

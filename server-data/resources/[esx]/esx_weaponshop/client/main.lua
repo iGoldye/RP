@@ -7,240 +7,449 @@ local Keys = {
 	["LEFTCTRL"] = 36, ["LEFTALT"] = 19, ["SPACE"] = 22, ["RIGHTCTRL"] = 70,
 	["HOME"] = 213, ["PAGEUP"] = 10, ["PAGEDOWN"] = 11, ["DELETE"] = 178,
 	["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173,
-	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
-}
+	["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118}
+-- ESX                           = nil
+-- local HasAlreadyEnteredMarker = false
+-- local LastZone                = nil
+-- local CurrentAction           = nil
+-- local CurrentActionMsg        = ''
+-- local CurrentActionData       = {}
+-- local Licenses                = {}
 
-ESX = nil
+-- Citizen.CreateThread(function()
+--   while ESX == nil do
+--     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+--     Citizen.Wait(0)
+--   end
+-- end)
+
+-- RegisterNetEvent('esx_weashop:loadLicenses')
+-- AddEventHandler('esx_weashop:loadLicenses', function (licenses)
+--   for i = 1, #licenses, 1 do
+--     Licenses[licenses[i].type] = true
+--   end
+-- end)
+
+-- AddEventHandler('onClientMapStart', function()
+--   ESX.TriggerServerCallback('esx_weashop:requestDBItems', function(ShopItems)
+--     for k,v in pairs(ShopItems) do
+--       Config.Zones[k].Items = v
+--     end
+--   end)
+-- end)
+
+-- function OpenBuyLicenseMenu (zone)
+--   ESX.UI.Menu.CloseAll()
+
+--   ESX.UI.Menu.Open(
+--     'default', GetCurrentResourceName(), 'shop_license',
+--     {
+--       title = _U('buy_license'),
+--       elements = {
+--         { label = _U('yes') .. ' ($' .. Config.LicensePrice .. ')', value = 'yes' },
+--         { label = _U('no'), value = 'no' },
+--       }
+--     },
+--     function (data, menu)
+--       if data.current.value == 'yes' then
+--         TriggerServerEvent('esx_weashop:buyLicense')
+--       end
+
+--       menu.close()
+--     end,
+--     function (data, menu)
+--       menu.close()
+--     end
+--   )
+-- end
+
+-- function OpenShopMenu(zone)
+
+--   local elements = {}
+
+--   for i=1, #Config.Zones[zone].Items, 1 do
+
+--     local item = Config.Zones[zone].Items[i]
+
+--     table.insert(elements, {
+--       label     = item.label .. ' - <span style="color:green;">$' .. item.price .. ' </span>',
+--       realLabel = item.label,
+--       value     = item.name,
+--       price     = item.price
+--     })
+
+--   end
+
+
+--   ESX.UI.Menu.CloseAll()
+
+--   ESX.UI.Menu.Open(
+--     'default', GetCurrentResourceName(), 'shop',
+--     {
+--       title  = _U('shop'),
+--       elements = elements
+--     },
+--     function(data, menu)
+--       TriggerServerEvent('esx_weashop:buyItem', data.current.value, data.current.price, zone)
+--     end,
+--     function(data, menu)
+
+--       menu.close()
+
+--       CurrentAction     = 'shop_menu'
+--       CurrentActionMsg  = _U('shop_menu')
+--       CurrentActionData = {zone = zone}
+--     end
+--   )
+-- end
+
+-- AddEventHandler('esx_weashop:hasEnteredMarker', function(zone)
+
+--   CurrentAction     = 'shop_menu'
+--   CurrentActionMsg  = _U('shop_menu')
+--   CurrentActionData = {zone = zone}
+
+-- end)
+
+-- AddEventHandler('esx_weashop:hasExitedMarker', function(zone)
+
+--   CurrentAction = nil
+--   ESX.UI.Menu.CloseAll()
+
+-- end)
+
+-- -- Create Blips
+-- Citizen.CreateThread(function()
+--   for k,v in pairs(Config.Zones) do
+--   if v.legal==0 then
+--     for i = 1, #v.Pos, 1 do
+--     local blip = AddBlipForCoord(v.Pos[i].x, v.Pos[i].y, v.Pos[i].z)
+--     SetBlipSprite (blip, 154)
+--     SetBlipDisplay(blip, 4)
+--     SetBlipScale  (blip, 1.0)
+--     SetBlipColour (blip, 2)
+--     SetBlipAsShortRange(blip, true)
+--     BeginTextCommandSetBlipName("STRING")
+--     AddTextComponentString(_U('map_blip'))
+--     EndTextCommandSetBlipName(blip)
+--     end
+--     end
+--   end
+-- end)
+
+-- -- Display markers
+-- Citizen.CreateThread(function()
+--   while true do
+--     Wait(0)
+--     local coords = GetEntityCoords(GetPlayerPed(-1))
+--     for k,v in pairs(Config.Zones) do
+--       for i = 1, #v.Pos, 1 do
+--         if(Config.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.DrawDistance) then
+--           DrawMarker(Config.Type, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.Size.x, Config.Size.y, Config.Size.z, Config.Color.r, Config.Color.g, Config.Color.b, 100, false, true, 2, false, false, false, false)
+--         end
+--       end
+--     end
+--   end
+-- end)
+
+-- -- Enter / Exit marker events
+-- Citizen.CreateThread(function()
+--   while true do
+--     Wait(0)
+--     local coords      = GetEntityCoords(GetPlayerPed(-1))
+--     local isInMarker  = false
+--     local currentZone = nil
+
+--     for k,v in pairs(Config.Zones) do
+--       for i = 1, #v.Pos, 1 do
+--         if(GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.Size.x) then
+--           isInMarker  = true
+--           ShopItems   = v.Items
+--           currentZone = k
+--           LastZone    = k
+--         end
+--       end
+--     end
+--     if isInMarker and not HasAlreadyEnteredMarker then
+--       HasAlreadyEnteredMarker = true
+--       TriggerEvent('esx_weashop:hasEnteredMarker', currentZone)
+--     end
+--     if not isInMarker and HasAlreadyEnteredMarker then
+--       HasAlreadyEnteredMarker = false
+--       TriggerEvent('esx_weashop:hasExitedMarker', LastZone)
+--     end
+--   end
+-- end)
+
+-- -- Key Controls
+-- Citizen.CreateThread(function()
+--   while true do
+--     Citizen.Wait(0)
+--     if CurrentAction ~= nil then
+
+--       SetTextComponentFormat('STRING')
+--       AddTextComponentString(CurrentActionMsg)
+--       DisplayHelpTextFromStringLabel(0, 0, 1, -1)
+
+--       if IsControlJustReleased(0, Keys['E']) then
+
+--         if CurrentAction == 'shop_menu' then
+--           if Config.EnableLicense == true then
+--             if Licenses['weapon'] ~= nil or Config.Zones[CurrentActionData.zone].legal == 1 then
+--               OpenShopMenu(CurrentActionData.zone)
+--             else
+--               OpenBuyLicenseMenu()
+--             end
+--           else
+--             OpenShopMenu(CurrentActionData.zone)
+--           end
+--         end
+
+--         CurrentAction = nil
+
+--       end
+
+--     end
+--   end
+-- end)
+
+-- -- thx to Pandorina for script
+-- RegisterNetEvent('esx_weashop:clipcli')
+-- AddEventHandler('esx_weashop:clipcli', function()
+--   ped = GetPlayerPed(-1)
+--   if IsPedArmed(ped, 4) then
+--     hash=GetSelectedPedWeapon(ped)
+--     if hash~=nil then
+--       TriggerServerEvent('esx_weashop:remove')
+--       AddAmmoToPed(GetPlayerPed(-1), hash,25)
+--       ESX.ShowNotification("tu a utilisé un chargeur")
+--     else
+--       ESX.ShowNotification("tu n'a pas d'arme en main")
+--     end
+--   else
+--     ESX.ShowNotification("ce type de munision ne convient pas")
+--   end
+-- end)
+
+ESX                           = nil
 local HasAlreadyEnteredMarker = false
-local LastZone = nil
-local CurrentAction = nil
-local CurrentActionMsg = ''
-local CurrentActionData = {}
-local ShopOpen = false
+local LastZone                = nil
+local CurrentAction           = nil
+local CurrentActionMsg        = ''
+local CurrentActionData       = {}
+local Licenses                = {}
 
 Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
-
-	ESX.TriggerServerCallback('esx_weaponshop:getShop', function(shopItems)
-		for k,v in pairs(shopItems) do
-			Config.Zones[k].Items = v
-		end
-	end)
+  while ESX == nil do
+    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+    Citizen.Wait(0)
+  end
 end)
 
-RegisterNetEvent('esx_weaponshop:sendShop')
-AddEventHandler('esx_weaponshop:sendShop', function(shopItems)
-	for k,v in pairs(shopItems) do
-		Config.Zones[k].Items = v
-	end
+RegisterNetEvent('esx_weashop:loadLicenses')
+AddEventHandler('esx_weashop:loadLicenses', function (licenses)
+  for i = 1, #licenses, 1 do
+    Licenses[licenses[i].type] = true
+  end
 end)
 
-function OpenBuyLicenseMenu(zone)
-	ESX.UI.Menu.CloseAll()
+AddEventHandler('onClientMapStart', function()
+  ESX.TriggerServerCallback('esx_weashop:requestDBItems', function(ShopItems)
+    for k,v in pairs(ShopItems) do
+      Config.Zones[k].Items = v
+    end
+  end)
+end)
 
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'shop_license', {
-		title = _U('buy_license'),
-		align = 'top-left',
-		elements = {
-			{ label = _U('no'), value = 'no' },
-			{ label = _U('yes', ('<span style="color: green;">%s</span>'):format((_U('shop_menu_item', ESX.Math.GroupDigits(Config.LicensePrice))))), value = 'yes' },
-		}
-	}, function(data, menu)
-		if data.current.value == 'yes' then
-			ESX.TriggerServerCallback('esx_weaponshop:buyLicense', function(bought)
-				if bought then
-					menu.close()
-					OpenShopMenu(zone)
-				end
-			end)
-		end
-	end, function(data, menu)
-		menu.close()
-	end)
+function OpenBuyLicenseMenu (zone)
+  ESX.UI.Menu.CloseAll()
+
+  ESX.UI.Menu.Open(
+    'default', GetCurrentResourceName(), 'shop_license',
+    {
+      title = _U('buy_license'),
+      elements = {
+        { label = _U('yes') .. ' ($' .. Config.LicensePrice .. ')', value = 'yes' },
+        { label = _U('no'), value = 'no' },
+      }
+    },
+    function (data, menu)
+      if data.current.value == 'yes' then
+        TriggerServerEvent('esx_weashop:buyLicense')
+      end
+
+      menu.close()
+    end,
+    function (data, menu)
+      menu.close()
+    end
+  )
 end
 
 function OpenShopMenu(zone)
-	local elements = {}
-	ShopOpen = true
 
-	for i=1, #Config.Zones[zone].Items, 1 do
-		local item = Config.Zones[zone].Items[i]
+  local elements = {}
 
-		table.insert(elements, {
-			label = ('%s - <span style="color: green;">%s</span>'):format(item.label, _U('shop_menu_item', ESX.Math.GroupDigits(item.price))),
-			price = item.price,
-			weaponName = item.item
-		})
-	end
+  for i=1, #Config.Zones[zone].Items, 1 do
 
-	ESX.UI.Menu.CloseAll()
-	PlaySoundFrontend(-1, 'BACK', 'HUD_AMMO_SHOP_SOUNDSET', false)
+    local item = Config.Zones[zone].Items[i]
 
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'shop', {
-		title = _U('shop_menu_title'),
-		align = 'top-left',
-		elements = elements
-	}, function(data, menu)
-		ESX.TriggerServerCallback('esx_weaponshop:buyWeapon', function(bought)
-			if bought then
-				DisplayBoughtScaleform(data.current.weaponName, data.current.price)
-			else
-				PlaySoundFrontend(-1, 'ERROR', 'HUD_AMMO_SHOP_SOUNDSET', false)
-			end
-		end, data.current.weaponName, zone)
-	end, function(data, menu)
-		PlaySoundFrontend(-1, 'BACK', 'HUD_AMMO_SHOP_SOUNDSET', false)
-		ShopOpen = false
-		menu.close()
+    table.insert(elements, {
+      label     = item.label .. ' - <span style="color:green;">$' .. item.price .. ' </span>',
+      realLabel = item.label,
+      value     = item.name,
+      price     = item.price
+    })
 
-		CurrentAction     = 'shop_menu'
-		CurrentActionMsg  = _U('shop_menu_prompt')
-		CurrentActionData = { zone = zone }
-	end, function(data, menu)
-		PlaySoundFrontend(-1, 'NAV', 'HUD_AMMO_SHOP_SOUNDSET', false)
-	end)
+  end
+
+
+  ESX.UI.Menu.CloseAll()
+
+  ESX.UI.Menu.Open(
+    'default', GetCurrentResourceName(), 'shop',
+    {
+      title  = _U('shop'),
+      elements = elements
+    },
+    function(data, menu)
+      TriggerServerEvent('esx_weashop:buyItem', data.current.value, data.current.price, zone)
+    end,
+    function(data, menu)
+
+      menu.close()
+
+      CurrentAction     = 'shop_menu'
+      CurrentActionMsg  = _U('shop_menu')
+      CurrentActionData = {zone = zone}
+    end
+  )
 end
 
-function DisplayBoughtScaleform(weaponName, price)
-	local scaleform = ESX.Scaleform.Utils.RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
-	local sec = 4
+AddEventHandler('esx_weashop:hasEnteredMarker', function(zone)
 
-	BeginScaleformMovieMethod(scaleform, 'SHOW_WEAPON_PURCHASED')
+  CurrentAction     = 'shop_menu'
+  CurrentActionMsg  = _U('shop_menu')
+  CurrentActionData = {zone = zone}
 
-	PushScaleformMovieMethodParameterString(_U('weapon_bought', ESX.Math.GroupDigits(price)))
-	PushScaleformMovieMethodParameterString(ESX.GetWeaponLabel(weaponName))
-	PushScaleformMovieMethodParameterInt(GetHashKey(weaponName))
-	PushScaleformMovieMethodParameterString('')
-	PushScaleformMovieMethodParameterInt(100)
-
-	EndScaleformMovieMethod()
-
-	PlaySoundFrontend(-1, 'WEAPON_PURCHASE', 'HUD_AMMO_SHOP_SOUNDSET', false)
-
-	Citizen.CreateThread(function()
-		while sec > 0 do
-			Citizen.Wait(0)
-			sec = sec - 0.01
-	
-			DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
-		end
-	end)
-end
-
-AddEventHandler('esx_weaponshop:hasEnteredMarker', function(zone)
-	if zone == 'GunShop' or zone == 'BlackWeashop' then
-		CurrentAction     = 'shop_menu'
-		CurrentActionMsg  = _U('shop_menu_prompt')
-		CurrentActionData = { zone = zone }
-	end
 end)
 
-AddEventHandler('esx_weaponshop:hasExitedMarker', function(zone)
-	CurrentAction = nil
-	ESX.UI.Menu.CloseAll()
-end)
+AddEventHandler('esx_weashop:hasExitedMarker', function(zone)
 
-AddEventHandler('onResourceStop', function(resource)
-	if resource == GetCurrentResourceName() then
-		if ShopOpen then
-			ESX.UI.Menu.CloseAll()
-		end
-	end
+  CurrentAction = nil
+  ESX.UI.Menu.CloseAll()
+
 end)
 
 -- Create Blips
 Citizen.CreateThread(function()
-	for k,v in pairs(Config.Zones) do
-		if v.Legal then
-			for i = 1, #v.Locations, 1 do
-				local blip = AddBlipForCoord(v.Locations[i])
-
-				SetBlipSprite (blip, 110)
-				SetBlipDisplay(blip, 4)
-				SetBlipScale  (blip, 1.0)
-				SetBlipColour (blip, 81)
-				SetBlipAsShortRange(blip, true)
-
-				BeginTextCommandSetBlipName("STRING")
-				AddTextComponentSubstringPlayerName(_U('map_blip'))
-				EndTextCommandSetBlipName(blip)
-			end
-		end
-	end
+  for k,v in pairs(Config.Zones) do
+  if v.legal==0 then
+    for i = 1, #v.Pos, 1 do
+    local blip = AddBlipForCoord(v.Pos[i].x, v.Pos[i].y, v.Pos[i].z)
+    SetBlipSprite (blip, 110)
+    SetBlipDisplay(blip, 4)
+    SetBlipScale  (blip, 1.0)
+    SetBlipColour (blip, 1)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString(_U('map_blip'))
+    EndTextCommandSetBlipName(blip)
+    end
+    end
+  end
 end)
 
 -- Display markers
 Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-
-		local coords = GetEntityCoords(PlayerPedId())
-
-		for k,v in pairs(Config.Zones) do
-			for i = 1, #v.Locations, 1 do
-				if (Config.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Locations[i], true) < Config.DrawDistance) then
-					DrawMarker(Config.Type, v.Locations[i], 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.Size.x, Config.Size.y, Config.Size.z, Config.Color.r, Config.Color.g, Config.Color.b, 100, false, true, 2, false, false, false, false)
-				end
-			end
-		end
-	end
+  while true do
+    Wait(0)
+    local coords = GetEntityCoords(GetPlayerPed(-1))
+    for k,v in pairs(Config.Zones) do
+      for i = 1, #v.Pos, 1 do
+        if(Config.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.DrawDistance) then
+          DrawMarker(Config.Type, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.Size.x, Config.Size.y, Config.Size.z, Config.Color.r, Config.Color.g, Config.Color.b, 100, false, true, 2, false, false, false, false)
+        end
+      end
+    end
+  end
 end)
 
 -- Enter / Exit marker events
 Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		local coords = GetEntityCoords(PlayerPedId())
-		local isInMarker, currentZone = false, nil
+  while true do
+    Wait(0)
+    local coords      = GetEntityCoords(GetPlayerPed(-1))
+    local isInMarker  = false
+    local currentZone = nil
 
-		for k,v in pairs(Config.Zones) do
-			for i=1, #v.Locations, 1 do
-				if GetDistanceBetweenCoords(coords, v.Locations[i], true) < Config.Size.x then
-					isInMarker, ShopItems, currentZone, LastZone = true, v.Items, k, k
-				end
-			end
-		end
-		if isInMarker and not HasAlreadyEnteredMarker then
-			HasAlreadyEnteredMarker = true
-			TriggerEvent('esx_weaponshop:hasEnteredMarker', currentZone)
-		end
-		
-		if not isInMarker and HasAlreadyEnteredMarker then
-			HasAlreadyEnteredMarker = false
-			TriggerEvent('esx_weaponshop:hasExitedMarker', LastZone)
-		end
-	end
+    for k,v in pairs(Config.Zones) do
+      for i = 1, #v.Pos, 1 do
+        if(GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.Size.x) then
+          isInMarker  = true
+          ShopItems   = v.Items
+          currentZone = k
+          LastZone    = k
+        end
+      end
+    end
+    if isInMarker and not HasAlreadyEnteredMarker then
+      HasAlreadyEnteredMarker = true
+      TriggerEvent('esx_weashop:hasEnteredMarker', currentZone)
+    end
+    if not isInMarker and HasAlreadyEnteredMarker then
+      HasAlreadyEnteredMarker = false
+      TriggerEvent('esx_weashop:hasExitedMarker', LastZone)
+    end
+  end
 end)
 
 -- Key Controls
 Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
+  while true do
+    Citizen.Wait(0)
+    if CurrentAction ~= nil then
 
-		if CurrentAction ~= nil then
-			ESX.ShowHelpNotification(CurrentActionMsg)
+      SetTextComponentFormat('STRING')
+      AddTextComponentString(CurrentActionMsg)
+      DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 
-			if IsControlJustReleased(0, Keys['E']) then
+      if IsControlJustReleased(0, Keys['E']) then
 
-				if CurrentAction == 'shop_menu' then
-					if Config.LicenseEnable and Config.Zones[CurrentActionData.zone].Legal then
-						ESX.TriggerServerCallback('esx_license:checkLicense', function(hasWeaponLicense)
-							if hasWeaponLicense then
-								OpenShopMenu(CurrentActionData.zone)
-							else
-								OpenBuyLicenseMenu(CurrentActionData.zone)
-							end
-						end, GetPlayerServerId(PlayerId()), 'weapon')
-					else
-						OpenShopMenu(CurrentActionData.zone)
-					end
-				end
+        if CurrentAction == 'shop_menu' then
+          if Config.EnableLicense == true then
+            if Licenses['weapon'] ~= nil or Config.Zones[CurrentActionData.zone].legal == 1 then
+              OpenShopMenu(CurrentActionData.zone)
+            else
+              OpenBuyLicenseMenu()
+            end
+          else
+            OpenShopMenu(CurrentActionData.zone)
+          end
+        end
 
-				CurrentAction = nil
-			end
-		end
-	end
+        CurrentAction = nil
+
+      end
+
+    end
+  end
+end)
+
+-- thx to Pandorina for script
+RegisterNetEvent('esx_weashop:clipcli')
+AddEventHandler('esx_weashop:clipcli', function()
+  ped = GetPlayerPed(-1)
+  if IsPedArmed(ped, 4) then
+    hash=GetSelectedPedWeapon(ped)
+    if hash~=nil then
+      TriggerServerEvent('esx_weashop:remove')
+      AddAmmoToPed(GetPlayerPed(-1), hash,25)
+      ESX.ShowNotification("Вы перезарядили оружие")
+    else
+      ESX.ShowNotification("Возьмите оружие в руки")
+    end
+  else
+    ESX.ShowNotification("Этот тип патронов не подходит")
+  end
 end)

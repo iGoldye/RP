@@ -8,7 +8,7 @@ Citizen.CreateThread(function()
 end)
 
 Config = {}
-Config.DamageNeeded = 995.0 -- 100.0 being broken and 1000.0 being fixed a lower value than 100.0 will break it
+Config.DamageNeeded = 999.8 -- 100.0 being broken and 1000.0 being fixed a lower value than 100.0 will break it
 Config.MaxWidth = 5.0 -- Will complete soon
 Config.MaxHeight = 5.0
 Config.MaxLength = 5.0
@@ -65,7 +65,7 @@ Citizen.CreateThread(function()
                 end
 
 
-            if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
+            if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded and not IsEntityUpsidedown(Vehicle.Vehicle) then
                 NetworkRequestControlOfEntity(Vehicle.Vehicle)
                 local coords = GetEntityCoords(ped)
                 if Vehicle.IsInFront then

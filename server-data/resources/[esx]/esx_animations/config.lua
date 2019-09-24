@@ -56,7 +56,6 @@ Config.Animations = {
 			{label = "Отдать честь", type = "anim", data = {lib = "mp_player_int_uppersalute", anim = "mp_player_int_salute", stop_last_frame=true, upper=true, control=true,}},
 			{label = "Бро", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@bro_love", anim = "bro_love"}},
       {label = "Воздушный поцелуй", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@blow_kiss", anim = "blow_kiss"}},
-	 
 		}
 	},
 
@@ -141,7 +140,8 @@ Config.Animations = {
 			{label = "Свернуться", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@lo_sofa@", anim = "lowsofa_dlg_fuckedup_laz", flag = 9}},
 			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
 			{label = "Лежать на животе", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE"}},
-			{label = "Лежать на боку", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_right_side@base", anim = "base", flag = 9}},
+			{label = "Лежать на боку П", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_right_side@base", anim = "base", flag = 9}},
+			{label = "Лежать на боку Л", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_left_side@base", anim = "base", flag = 9}},
 			{label = "Сидеть отрешенно", type = "anim", data = {lib = "anim@amb@business@bgen@bgen_no_work@", anim = "sit_phone_idle_03_nowork", flag = 9}},
 			{label = "Скучать", type = "anim", data = {lib = "anim@amb@business@cfm@cfm_machine_no_work@", anim = "sleep_cycle_v2_operator", flag = 9}},
       {label = "Сидеть", type = "scenario", data = {anim = "WORLD_HUMAN_PICNIC"}},
@@ -160,14 +160,14 @@ Config.Animations = {
 			{label = "Пританцовывать бар", type = "anim", data = {lib = "anim@amb@nightclub@dancers@club_ambientpeds_transitions@", anim = "trans_li-mi_to_mi-hi_09_v1_male^3", flag = 9}},
 			{label = "Завлекающая", type = "scenario", data = {anim = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS"}},
 			{label = "Коп", type = "scenario", data = {anim = "WORLD_HUMAN_COP_IDLES"}},
-			{label = "Охрана", type = "scenario", data = {anim = "WORLD_HUMAN_GUARD_STAND"}},	
+			{label = "Охрана", type = "scenario", data = {anim = "WORLD_HUMAN_GUARD_STAND"}},
 			{label = "Ожидать", type = "scenario", data = {anim = "WORLD_HUMAN_STAND_IMPATIENT"}},
 			{label = "Ожидать Ж", type = "anim", data = {lib = "friends@fra@ig_1", anim = "base_idle", flag = 9}},
-			{label = "Облокотиться 1", type = "scenario", data = {anim = "PROP_HUMAN_BUM_SHOPPING_CART"}},
+			{label = "Облокотиться", type = "anim", data = {lib= "amb@prop_human_bum_shopping_cart@male@base", anim = "base",  flag = 9}},
 			{label = "Скрестить руки Ж", type = "anim", data = {lib = "amb@world_human_hang_out_street@female_arms_crossed@base", anim = "base", flag = 9}},
 			{label = "Опереться спиной", type = "scenario", data = {anim = "world_human_leaning"}},
 			{label = "Задуматься", type = "anim", data = {lib = "anim@amb@board_room@whiteboard@", anim = "think_01_amy_skater_01", upper=true, control=true, flag = 9}},
-			{label = "Опереться низко", type = "anim", data = {lib = "anim@amb@board_room@diagram_blueprints@", anim = "idle_04_amy_skater_01"}},
+			{label = "Опереться низко", type = "anim", data = {lib = "anim@amb@board_room@diagram_blueprints@", anim = "idle_04_amy_skater_01", flag = 9}},
 			{label = "Скучать М", type = "anim", data = {lib = "anim@amb@business@cfid@cfid_photograph@", anim = "camera_fiddle_model", flag = 9}},
 			{label = "Скучать Ж", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "amb_world_human_hang_out_street_female_hold_arm_idle_b", flag = 9}},
 			{label = "Облокотиться спиной", type = "anim", data = {lib = "anim@amb@clubhouse@bar@bartender@", anim = "base_bartender", flag = 9}},
@@ -183,6 +183,7 @@ Config.Animations = {
 		name  = 'attitudem',
 		label = 'Походки М',
 		items = {
+			{label = "Обычная", type = "attitude", data = {lib = "move_m@shocked@a", anim = "move_m@shocked@a"}},
 			{label = "Сдержанная", type = "attitude", data = {lib = "move_m@confident", anim = "move_m@confident"}},
 			{label = "Депрессивная", type = "attitude", data = {lib = "move_m@sad@a", anim = "move_m@sad@a"}},
 			{label = "Спокойная", type = "attitude", data = {lib = "move_m@business@a", anim = "move_m@business@a"}},
@@ -199,7 +200,6 @@ Config.Animations = {
 			{label = "В стельку", type = "attitude", data = {lib = "move_m@drunk@verydrunk", anim = "move_m@drunk@verydrunk"}},
 			{label = "Альфа", type = "attitude", data = {lib = "move_p_m_zero_slow", anim = "move_p_m_zero_slow"}},
 			{label = "Гордая", type = "attitude", data = {lib = "move_m@muscle@a", anim = "move_m@muscle@a"}},
-			{label = "Обычная", type = "attitude", data = {lib = "move_m@shocked@a", anim = "move_m@shocked@a"}},
 			{label = "В развалку", type = "attitude", data = {lib = "move_m@shadyped@a", anim = "move_m@shadyped@a"}},
 			{label = "Уставшая", type = "attitude", data = {lib = "move_m@buzzed", anim = "move_m@buzzed"}},
 			{label = "Очень уставшая", type = "attitude", data = {lib = "move_m@depressed@a", anim = "move_m@depressed@a"}},
@@ -207,7 +207,6 @@ Config.Animations = {
 			{label = "Пританцовывая", type = "attitude", data = {lib = "move_m@money", anim = "move_m@money"}},
 			{label = "Бегом", type = "attitude", data = {lib = "move_m@quick", anim = "move_m@quick"}},
 			{label = "На стиле", type = "attitude", data = {lib = "move_m@swagger", anim = "move_m@swagger"}},
-				
 		}
 	},
 
@@ -215,6 +214,7 @@ Config.Animations = {
 		name  = 'attitudem2',
 		label = 'Походки Ж',
 		items = {
+			{label = "Обычная", type = "attitude", data = {lib = "move_f@generic", anim = "move_f@generic"}},
 			{label = "Сдержанная Ж", type = "attitude", data = {lib = "move_f@heels@c", anim = "move_f@heels@c"}},
 			{label = "Депрессивная Ж", type = "attitude", data = {lib = "move_f@depressed@a", anim = "move_f@depressed@a"}},
 			{label = "Ритмичная Ж", type = "attitude", data = {lib = "anim@move_f@grooving@", anim = "anim@move_f@grooving@"}},
@@ -222,38 +222,41 @@ Config.Animations = {
 			{label = "В развалку Ж", type = "attitude", data = {lib = "move_f@arrogant@a", anim = "move_f@arrogant@a"}},
 			{label = "Спешащая Ж", type = "attitude", data = {lib = "move_f@sassy", anim = "move_f@sassy"}},
 			{label = "На стиле Ж", type = "attitude", data = {lib = "move_f@maneater", anim = "move_f@maneater"}},
-	
+
 		}
 	},
-	
+
 	{
 		name  = 'dance',
 		label = 'Танцы Ж',
 		items = {
-        
+
 				{label = "Стильная", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_09_v2_female^1", flag = 9}},
 				{label = "Легкий денс", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_09_v2_female^2", flag = 9}},
 				{label = "На флексе", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_09_v2_female^3", flag = 9}},
 				{label = "Уставшая", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_09_v2_female^4", flag = 9}},
-				{label = "Энергичная", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_11_v1_female^1", flag = 9}},
 				{label = "Звездная", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_15_v1_female^1", flag = 9}},
 				{label = "На волне 2", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "mi_dance_crowd_11_v1_female^3", flag = 9}},
 				{label = "Пьяненькая", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "mi_dance_crowd_15_v2_female^3", flag = 9}},
+				{label = "Энергичная", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "hi_dance_crowd_11_v1_female^1", flag = 9}},
 				{label = "Энергичная2", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@", anim = "mi_dance_crowd_17_v2_female^1", flag = 9}},
+				{label = "Энергичная3", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_13_v2_female^1", flag = 9}},
 	      {label = "Игривая", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_09_v2_female^1", flag = 9}},
 	      {label = "Обычная", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_09_v2_female^2", flag = 9}},
 	      {label = "Игривая2", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_09_v2_female^3", flag = 9}},
 	      {label = "Обычная2", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_11_v1_female^3", flag = 9}},
-	      {label = "Энергичная2", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_13_v2_female^1", flag = 9}},
 	      {label = "В отрыв", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_13_v2_female^2", flag = 9}},
 	      {label = "Легкая", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_13_v2_female^5", flag = 9}},
 	      {label = "Веселая", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_13_v2_male^5", flag = 9}},
 	      {label = "Волнистая", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "hi_dance_facedj_17_v2_female^1", flag = 9}},
 	      {label = "Волнистая2", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_facedj@", anim = "mi_dance_facedj_15_v1_female^1", flag = 9}},
-	      
+				{label = "Соблазнительная", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "mini_strip_club_private_dance_idle_priv_dance_idle", flag = 9}},
+				{label = "Мечтательная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@", anim = "med_center", flag = 9}},
+				{label = "Няшная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_b@", anim = "med_center", flag = 9}},
+
 		}
 	},
-	
+
 	{
 		name  = 'dance2',
 		label = 'Танцы M',
@@ -282,37 +285,35 @@ Config.Animations = {
 	      {label = "Закружило", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@hi_podium@", anim = "danceidle_mi_15_shimmy_laz", flag = 9}},
 	      {label = "Диско", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@hi_podium@", anim = "danceidle_mi_17_crotchgrab_laz", flag = 9}},
 	      {label = "Диско М", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@hi_podium@", anim = "danceidle_mi_17_teapotthrust_laz", flag = 9}},
-	      {label = "Мечтательная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@", anim = "med_center", flag = 9}},
 	      {label = "Принудительная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_b@", anim = "low_center", flag = 9}},
-	      {label = "Няшная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_b@", anim = "med_center", flag = 9}},
 	      {label = "Уставшая", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@male@var_a@", anim = "low_center", flag = 9}},
-	      {label = "Соблазнительная", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "mini_strip_club_private_dance_idle_priv_dance_idle", flag = 9}},
+
 		}
 	},
 -- {
 -- 	name  = 'anims',
 -- 	label = 'testanim',
 -- 	items = {
-		
+
 -- 		{label = "Приват 1", type = "anim", data = {lib = "family_4_mcs_2-12", anim = "cs_tracydisanto_dual-12", flag = 9}},
 -- 		{label = "Приват 2", type = "anim", data = {lib = "family_4_mcs_2-14", anim = "cs_tracydisanto_dual-14", flag = 9}},
 -- 		{label = "Приват 3", type = "anim", data = {lib = "friends@", anim = "pickupwait", flag = 9}},
-		
+
 -- 		{label = "Приват 5", type = "anim", data = {lib = "friends@fra@ig_1", anim = "impatient_idle_a", flag = 9}},
 -- 		{label = "Приват 6", type = "anim", data = {lib = "friends@fra@ig_1", anim = "impatient_idle_a", flag = 9}},
-		
+
 -- 		{label = "Приват 8", type = "anim", data = {lib = "gestures@miss@dockssetup1", anim = "floyd_dh1_atab_01_g1", flag = 9}},
 -- 		{label = "Приват 9", type = "anim", data = {lib = "gestures@miss@dockssetup1", anim = "floyd_dh1_atag_01_g2", flag = 9}},
-		
-		
+
+
 -- 		{label = "Приват 14", type = "anim", data = {lib = "mini@cpr@char_a@cpr_str", anim = "cpr_cpr_to_kol", flag = 9}},
-		
+
 -- 		{label = "Приват 16", type = "anim", data = {lib = "mini@hookers_sp", anim = "idle_wait", flag = 9}},
 -- 		{label = "Приват 17", type = "anim", data = {lib = "mini@hookers_sp", anim = "ilde_d", flag = 9}},
 -- 		{label = "Приват 18", type = "anim", data = {lib = "missfam2_washing_face", anim = "michael_washing_face", flag = 9}},
-		
-		
-	 
+
+
+
 -- 	}
 -- },
 
@@ -328,6 +329,9 @@ Config.Animations = {
 		  {label = "Стриптиз 2", type = "anim", data = {lib = "mini@strip_club@private_dance@part2", anim = "priv_dance_p2", flag = 9}},
 			{label = "Стриптиз 3", type = "anim", data = {lib = "mini@strip_club@private_dance@part3", anim = "priv_dance_p3", flag = 9}},
 			{label = "Стриптиз 4", type = "anim", data = {lib = "mp_am_stripper", anim = "lap_dance_girl", flag = 9}},
+			{label = "У шеста 1", type = "anim", data = {lib = "mini@strip_club@pole_dance@pole_dance1", anim = "pd_dance_01", flag = 9}},
+			{label = "У шеста 2", type = "anim", data = {lib = "mini@strip_club@pole_dance@pole_dance2", anim = "pd_dance_02", flag = 9}},
+			{label = "У шеста 3", type = "anim", data = {lib = "mini@strip_club@pole_dance@pole_dance3", anim = "pd_dance_03", flag = 9}},
 		}
 	},
 
@@ -345,8 +349,8 @@ Config.Animations = {
 		{label = "В машине сверху Ж", type = "anim", data = {lib = "mini@prostitutes@sexlow_veh", anim = "low_car_sex_loop_female", in_vehicle=true, repeat_anim=true, flag = 9}},
 		{label = "В машине сверху Ж2", type = "anim", data = {lib = "oddjobs@assassinate@vice@sex", anim = "frontseat_carsex_loop_f", flag = 9}},
 		{label = "Эскорт", type = "scenario", data = {anim = "WORLD_HUMAN_PROSTITUTE_HIGH_CLASS", flag = 9}},
-		
-		
+
+
 		}
 	},
 	{
@@ -354,7 +358,6 @@ Config.Animations = {
 		label = 'Животные',
 		items = {
 			-- ------------------------ЖИВОТНЫЕ
-		
 			{label = "Кошка свернутся клубочком", type = "scenario", data = {anim = "WORLD_CAT_SLEEPING_GROUND"}},
 			{label = "Cобака найти что-то", type = "scenario", data = {anim = "WORLD_DOG_BARKING_ROTTWEILER"}},
 			{label = "Cобака сесть", type = "scenario", data = {anim = "WORLD_DOG_SITTING_ROTTWEILER"}},
@@ -374,7 +377,6 @@ Config.Animations = {
 			{label = "Свинья", type = "scenario", data = {anim = "WORLD_PIG_GRAZING"}},
 			-- {label = "Cобака ", type = "scenario", data = {anim = "WORLD_DOG_BARKING_RETRIEVER"}},
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_BARKING_SHEPHERD"}},
-			
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_SITTING_RETRIEVER"}},
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_SITTING_SHEPHERD"}},
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_BARKING_SMALL"}},
@@ -386,14 +388,13 @@ Config.Animations = {
 			-- {label = "92", type = "scenario", data = {anim = "WORLD_HEN_STANDING"}},
 			-- -- {label = "93", type = "scenario", data = {anim = "WORLD_MOUNTAIN_LION_REST"}},
 			-- -- {label = "94", type = "scenario", data = {anim = "WORLD_MOUNTAIN_LION_WANDER"}},
-			
+
 			-- {label = "96", type = "scenario", data = {anim = "WORLD_PIGEON_FEEDING"}},
 			-- {label = "97", type = "scenario", data = {anim = "WORLD_PIGEON_STANDING"}},
-			
+
 			-- {label = "A99", type = "scenario", data = {anim = "WORLD_SHARK_SWIM"}},
-		}	
+		}
  },
-			
+
 
 }
-

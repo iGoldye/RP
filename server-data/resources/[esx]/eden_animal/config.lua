@@ -3,81 +3,97 @@ Config = {}
 Config.Locale = 'en'
 
 Config.PetShop = {
-	{
-		pet = 'chien',
+	["dog"] = {
 		label = _U('dog'),
-		price = 5000
+		price = 5000,
+		model = -1788665315,
 	},
 
-	{
-		pet = 'chat',
+	["cat"] = {
 		label = _U('cat'),
-		price = 3500
+		price = 3500,
+		model = 1462895032,
+		bringBall = false,
 	},
 
-	{
-		pet = 'lapin',
+	["chicken"] = {
+		label = _U('chicken'),
+		price = 4000,
+		model = GetHashKey('a_c_hen'),
+		bringBall = false,
+	},
+
+--[[
+-- coyote
+	["wolf"] = {
+		label = _U('wolf'),
+		price = 12000,
+		model = 1682622302,
+	},
+-- chop
+	["rottweiler"] = {
+		label = _U('chop'),
+		price = 12000,
+		model = 351016938,
+	},
+]]--
+	["bunny"] = {
 		label = _U('bunny'),
-		price = 2500
+		price = 2500,
+		model = -541762431,
 	},
 
-	{
-		pet = 'husky',
+	["husky"] = {
 		label = _U('husky'),
-		price = 5500
+		price = 5500,
+		model = 1318032802,
 	},
 
-	{
-		pet = 'cochon',
+	["pig"] = {
 		label = _U('pig'),
-		price = 5000
+		price = 5000,
+		model = -1323586730,
 	},
 
-	{
-		pet = 'caniche',
+	["poodle"] = {
 		label = _U('poodle'),
-		price = 5000
+		price = 5000,
+		model = 1125994524,
 	},
 
-	{
-		pet = 'carlin',
+	["pug"] = {
 		label = _U('pug'),
-		price = 6000
+		price = 6000,
+		model = 1832265812,
 	},
 
-	{
-		pet = 'retriever',
+	["retriever"] = {
 		label = _U('retriever'),
-		price = 5000
+		price = 5000,
+		model = 882848737,
 	},
 
-	{
-		pet = 'berger',
+	["berger"] = {
 		label = _U('asatian'),
-		price = 5500
+		price = 5500,
+		model = 1126154828,
 	},
 
-	{
-		pet = 'westie',
+	["westie"] = {
 		label = _U('westie'),
-		price = 5000
+		price = 5000,
+		model = -1384627013,
 	},
-
-	-- {
-	-- 	pet = 'chop',
-	-- 	label = _U('chop'),
-	-- 	price = 12000
-	-- }
 }
 
 Config.Zones = {
 	PetShop = {
-		Pos = {x = 562.19, y = 2741.30, z = 41.86 },
+		Pos = {x = 562.19, y = 2741.30, z = 41.66 },
 		Sprite = 463,
 		Display = 4,
 		Scale = 1.0,
 		Size  = {x = 1.5, y = 1.5, z = 1.0},
-		Color = {r = 204, g = 204, b = 0},
+		Color = {r = 000, g = 164, b = 224},
 		Type  = 1
 	}
 }

@@ -9,6 +9,43 @@ end
 TriggerEvent('esx_phone:registerNumber', 'police', _U('alert_police'), true, true)
 TriggerEvent('esx_society:registerSociety', 'police', 'Police', 'society_police', 'society_police', 'society_police', {type = 'public'})
 
+RegisterServerEvent('esx_policejob:addWeaponLicense')
+AddEventHandler('esx_policejob:addWeaponLicense', function(target)
+	local _source = source
+	local sourceXPlayer = ESX.GetPlayerFromId(_source)
+	local targetXPlayer = ESX.GetPlayerFromId(target)
+
+	TriggerEvent('esx_license:checkLicense', target, "weapon", function(hasLicense)
+		if hasLicense then
+			TriggerClientEvent('esx:showNotification', _source, _U('player_has_weapon_license'))
+		else
+			TriggerEvent('esx_license:addLicense', target, 'weapon', function()
+				TriggerClientEvent('esx:showNotification', _source, _U('weapon_license_added'))
+				TriggerClientEvent('esx:showNotification', target, _U('weapon_license_added'))
+			end)
+		end
+	end)
+end)
+
+RegisterServerEvent('esx_policejob:removeWeaponLicense')
+AddEventHandler('esx_policejob:removeWeaponLicense', function(target)
+	local _source = source
+	local sourceXPlayer = ESX.GetPlayerFromId(_source)
+	local targetXPlayer = ESX.GetPlayerFromId(target)
+
+	TriggerEvent('esx_license:checkLicense', target, "weapon", function(hasLicense)
+		if hasLicense then
+			TriggerEvent('esx_license:removeLicense', target, 'weapon', function()
+				TriggerClientEvent('esx:showNotification', _source, _U('weapon_license_removed'))
+				TriggerClientEvent('esx:showNotification', target, _U('weapon_license_removed'))
+			end)
+		else
+			TriggerClientEvent('esx:showNotification', _source, _U('no_weapon_license'))
+		end
+	end)
+end)
+
+
 RegisterServerEvent('esx_policejob:confiscatePlayerItem')
 AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType, itemName, amount)
 	local _source = source
@@ -414,35 +451,37 @@ end)
 ESX.RegisterServerCallback('esx_policejob:buyJobVehicle', function(source, cb, vehicleProps, type)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local price = getPriceFromHash(vehicleProps.model, xPlayer.job.grade_name, type)
+	TriggerEvent('esx_addonaccount:getSharedAccount', 'society_police', function(account)
 
-	-- vehicle model not found
-	if price == 0 then
-		print(('esx_policejob: %s attempted to exploit the shop! (invalid vehicle model)'):format(xPlayer.identifier))
-		cb(false)
-	else
-		if xPlayer.getMoney() >= price then
-			xPlayer.removeMoney(price)
-
-			local displayName = type
-			if vehicleProps.label ~= nil then
-				displayName = vehicleProps.label
-			end
-
-			MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`, vehiclename) VALUES (@owner, @vehicle, @plate, @type, @job, @stored, @vehiclename)', {
-				['@owner'] = xPlayer.identifier,
-				['@vehicle'] = json.encode(vehicleProps),
-				['@plate'] = vehicleProps.plate,
-				['@type'] = type,
-				['@job'] = xPlayer.job.name,
-				['@stored'] = true,
-				['@vehiclename'] = displayName,
-			}, function (rowsChanged)
-				cb(true)
-			end)
-		else
+		-- vehicle model not found
+		if price == 0 then
+			print(('esx_policejob: %s attempted to exploit the shop! (invalid vehicle model)'):format(xPlayer.identifier))
 			cb(false)
+		else
+			if account.money >= price then
+				account.removeMoney(price)
+
+				local displayName = type
+				if vehicleProps.label ~= nil then
+					displayName = vehicleProps.label
+				end
+
+				MySQL.Async.execute('INSERT INTO owned_vehicles (owner, vehicle, plate, type, job, `stored`, vehiclename) VALUES (@owner, @vehicle, @plate, @type, @job, @stored, @vehiclename)', {
+					['@owner'] = xPlayer.identifier,
+					['@vehicle'] = json.encode(vehicleProps),
+					['@plate'] = vehicleProps.plate,
+					['@type'] = type,
+					['@job'] = xPlayer.job.name,
+					['@stored'] = true,
+					['@vehiclename'] = displayName,
+				}, function (rowsChanged)
+					cb(true)
+				end)
+			else
+				cb(false)
+			end
 		end
-	end
+	end)
 end)
 
 ESX.RegisterServerCallback('esx_policejob:storeNearbyVehicle', function(source, cb, nearbyVehicles)

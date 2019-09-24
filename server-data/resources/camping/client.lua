@@ -6,7 +6,7 @@ RegisterCommand('tent', function(source, args, rawCommand)
         DeleteObject(prevtent)
         prevtent = 0
     end
-    local x,y,z = table.unpack(GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 2.0, -1.02))
+    local x,y,z = table.unpack(GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 2.0, -1.95))
     local tents = {
         'prop_skid_tent_01',
         'prop_skid_tent_01b',

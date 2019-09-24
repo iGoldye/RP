@@ -1,6 +1,7 @@
 <template>
 
       <div style="position: absolute; bottom:10px; left: 16%;">
+        <v-icon ref="icon-seatbelt" size="50px"  v-show="needs['seatbelt']>0" v-bind:style="{ color: 'rgba(255,0,0,0.5)' }">{{icons["seatbelt"]}}</v-icon>
         <v-icon ref="icon-armor" size="50px"  v-show="needs['armor']>0" v-bind:style="{ color: armorColor }">{{icons["shield-half-full"]}}</v-icon>
         <v-icon ref="icon-hunger" size="50px" v-show="needs['hunger']<0.5" v-bind:style="{ color: hungerColor }">{{icons["food"]}}</v-icon>
         <v-icon ref="icon-thirst" size="50px" v-show="needs['thirst']<0.5" v-bind:style="{ color: thirstColor }">{{icons["water"]}}</v-icon>
@@ -10,7 +11,7 @@
 </template>
 
 <script>
-import { mdiFood, mdiWater, mdiMedicalBag, mdiShieldHalfFull } from '@mdi/js';
+import { mdiFood, mdiWater, mdiMedicalBag, mdiShieldHalfFull, mdiSeatbelt } from '@mdi/js';
 
 
 export default {
@@ -21,6 +22,7 @@ export default {
                 "water": mdiWater,
                 "medical-bag": mdiMedicalBag,
                 "shield-half-full": mdiShieldHalfFull,
+                "seatbelt": mdiSeatbelt,
             },
 
             needs: {},

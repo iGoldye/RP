@@ -42,7 +42,7 @@ local tireBurstLuckyNumber
 
 math.randomseed(GetGameTimer());
 
-local tireBurstMaxNumber = cfg.randomTireBurstInterval * 10000; 												-- the tire burst lottery runs roughly 1200 times per minute
+local tireBurstMaxNumber = cfg.randomTireBurstInterval * 3600; 												-- the tire burst lottery runs roughly 1200 times per minute
 if cfg.randomTireBurstInterval ~= 0 then tireBurstLuckyNumber = math.random(tireBurstMaxNumber) end			-- If we hit this number again randomly, a tire will burst.
 
 local fixMessagePos = math.random(repairCfg.fixMessageCount)
@@ -439,7 +439,7 @@ Citizen.CreateThread(function()
 		else
 			if pedInSameVehicleLast == true then
 				-- We just got out of the vehicle
-				lastVehicle = GetVehiclePedIsIn(ped, true)				
+				lastVehicle = GetVehiclePedIsIn(ped, true)
 				if cfg.deformationMultiplier ~= -1 then SetVehicleHandlingFloat(lastVehicle, 'CHandlingData', 'fDeformationDamageMult', fDeformationDamageMult) end -- Restore deformation multiplier
 				SetVehicleHandlingFloat(lastVehicle, 'CHandlingData', 'fBrakeForce', fBrakeForce)  -- Restore Brake Force multiplier
 				if cfg.weaponsDamageMultiplier ~= -1 then SetVehicleHandlingFloat(lastVehicle, 'CHandlingData', 'fWeaponDamageMult', cfg.weaponsDamageMultiplier) end	-- Since we are out of the vehicle, we should no longer compensate for bodyDamageFactor
@@ -450,4 +450,3 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
-

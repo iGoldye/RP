@@ -8,7 +8,8 @@
   src: url('d-din.otf');
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: 'D-DIN Bold';
@@ -18,8 +19,8 @@ html, body {
   width: 390px;
   height: 155px;
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 185px;
+  right: 30px;
   background-color: #0a0a0a;
   border: 5px solid #000;
   border-radius: 10px;
@@ -54,11 +55,13 @@ html, body {
   color: #666;
 }
 
-#radar .front .lamps, #radar .front .arrows {
+#radar .front .lamps,
+#radar .front .arrows {
   margin-top: 15px;
 }
 
-#radar .rear .lamps, #radar .rear .arrows {
+#radar .rear .lamps,
+#radar .rear .arrows {
   margin-bottom: 15px;
 }
 
@@ -99,14 +102,32 @@ html, body {
   position: absolute;
 }
 
-.display.orange span { color: #f79e00; }
-.display.orange { color: #592c00; background-color: #3d1c00; }
+.display.orange span {
+  color: #f79e00;
+}
 
-.display.red span { color: #ff0000; }
-.display.red { color: #350000; background-color: #230303; }
+.display.orange {
+  color: #592c00;
+  background-color: #3d1c00;
+}
 
-.display.green span { color: #18f400; }
-.display.green { color: #0e3800; background-color: #072600; }
+.display.red span {
+  color: #ff0000;
+}
+
+.display.red {
+  color: #350000;
+  background-color: #230303;
+}
+
+.display.green span {
+  color: #18f400;
+}
+
+.display.green {
+  color: #0e3800;
+  background-color: #072600;
+}
 
 .display.plate {
   display: block;
@@ -149,13 +170,13 @@ html, body {
   background-color: #0a0a0a;
   text-transform: uppercase;
   position: absolute;
-  right: 10px;
-  bottom: 185px;
+  right: 30px;
+  bottom: 360px;
 }
 
 #control .btn-grid button.lit {
-    background-color: #620000;
-    color: #ff0000;
+  background-color: #620000;
+  color: #ff0000;
 }
 
 #control .btn-grid td {
@@ -187,24 +208,24 @@ html, body {
 }
 
 #control button:focus {
-    border: 2px solid #000;
+  border: 2px solid #000;
 }
 
 #control .btn-block {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 #control .btn-sm {
-    height: 25px;
+  height: 25px;
 }
 
 #plates {
   width: 180px;
   height: 100px;
   position: absolute;
-  bottom: 10px;
-  right: 420px;
+  bottom: 185px;
+  right: 440px;
   background-color: #0a0a0a;
   border: 5px solid #000;
   border-radius: 10px;

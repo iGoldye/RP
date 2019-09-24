@@ -1,4 +1,5 @@
 Locales ['en'] = {
+  ['buy'] = 'Куплено: ',
   ['buy_license'] = 'Купить лицензию на оружие?',
   ['yes'] = 'Да',
   ['no'] = 'Нет',
@@ -10,4 +11,6 @@ Locales ['en'] = {
   ['shop_menu_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы зайти в ~y~Арсенал~s~.',
   ['shop_menu_item'] = '$%s',
   ['map_blip'] = 'Амму-Нация',
+  ['shop'] = 'Магазин оружия',
+  ['shop_menu'] = 'Нажмите ~INPUT_CONTEXT~ чтобы зайти в ~y~Арсенал~s~.',
 }

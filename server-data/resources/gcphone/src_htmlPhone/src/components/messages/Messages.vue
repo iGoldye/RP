@@ -6,7 +6,6 @@
     </div>
 
     <textarea ref="copyTextarea" class="copyTextarea"/>
-    
     <div id='sms_list' @contextmenu.prevent="showOptions">
         <div class="sms" v-bind:class="{ select: key === selectMessage}" v-for='(mess, key) in messagesList' v-bind:key="mess.id"
           @click.stop="onActionMessage(mess)"
@@ -16,7 +15,6 @@
               v-bind:class="{ sms_other : mess.owner === 0}" :style="colorSmsOwner[mess.owner]">
               <img v-if="isSMSImage(mess)" @click.stop="onActionMessage(mess)" class="sms-img" :src="mess.message">
               <span v-else @click.stop="onActionMessage(mess)" >{{mess.message}}</span>
-                
                 <span @click.stop="onActionMessage(mess)" ><timeago class="sms_time" :since='mess.time' :auto-update="20" :style="colorSmsOwner[mess.owner]"></timeago></span>
             </span>
         </div>
@@ -54,7 +52,8 @@ export default {
       display: '',
       phoneNumber: '',
       imgZoom: undefined,
-      message: ''
+      message: '',
+      action: 'default'
     }
   },
   components: {
@@ -107,10 +106,14 @@ export default {
         this.$phoneAPI.getReponseText().then(data => {
           let message = data.text.trim()
           if (message !== '') {
-            this.sendMessage({
-              phoneNumber: this.phoneNumber,
-              message
-            })
+            if (this.action === 'anonymous') {
+              this.sendAnonymous(message)
+            } else {
+              this.sendMessage({
+                phoneNumber: this.phoneNumber,
+                message
+              })
+            }
           }
         })
       }
@@ -123,6 +126,9 @@ export default {
         phoneNumber: this.phoneNumber,
         message
       })
+    },
+    sendAnonymous (message) {
+      this.$phoneAPI.addFakeMessage('#####', this.phoneNumber, message)
     },
     isSMSImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)
@@ -326,6 +332,7 @@ export default {
     }
   },
   created () {
+    this.action = this.$route.params.action
     this.display = this.$route.params.display
     this.phoneNumber = this.$route.params.number
     if (!this.useMouse) {
@@ -353,7 +360,7 @@ export default {
     left: 0;
     right: 0;
     height: calc(100% - 20px);
-    background-color: #DDD;    
+    background-color: #DDD;
 }
 #sms_contact{
     background-color: #4CAF50;
@@ -472,7 +479,7 @@ export default {
     margin-right: 10px;
 }
 .sms_send svg{
-    margin: 10px; 
+    margin: 10px;
     width: 36px;
     height: 36px;
     fill: #C0C0C0;

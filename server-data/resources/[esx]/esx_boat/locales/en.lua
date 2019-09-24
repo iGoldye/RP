@@ -1,29 +1,29 @@
 Locales['en'] = {
   -- shop
   ['boat_shop'] = 'Причал',
-  ['boat_shop_open'] = 'press ~INPUT_CONTEXT~ to access the ~y~boat shop~s~.',
-  ['boat_shop_confirm'] = 'buy <span style="color: yellow;">%s</span> for <span style="color: orange;">$%s</span>?',
-  ['boat_shop_bought'] = 'you have ~y~bought~s~ a ~b~%s~s~ for ~g~$%s~s~',
-  ['boat_shop_nomoney'] = 'you cannot ~r~afford~s~ this boat!',
-  ['confirm_no'] = 'no',
-  ['confirm_yes'] = 'yes',
+  ['boat_shop_open'] = 'Нажмите ~INPUT_CONTEXT~ чтобы посмотреть ~y~ассортимент~s~.',
+  ['boat_shop_confirm'] = 'Купить <span style="color: yellow;">%s</span> за <span style="color: orange;">$%s</span>?',
+  ['boat_shop_bought'] = 'Вы ~y~Купили~s~ a ~b~%s~s~ за ~g~$%s~s~',
+  ['boat_shop_nomoney'] = 'Недостаточно средств!',
+  ['confirm_no'] = 'Нет',
+  ['confirm_yes'] = 'Да',
 
   -- garage
   ['garage'] = 'boat garage',
-  ['garage_open'] = 'press ~INPUT_CONTEXT~ to access your ~y~boat garage~s~.',
-  ['garage_store'] = 'press ~INPUT_CONTEXT~ to ~y~store~s~ the boat in your garage.',
-  ['garage_taken'] = 'the boat has been taken out!',
-  ['garage_stored'] = 'the boat has been safely stored in your garage!',
-  ['garage_noboats'] = 'you don\'t have any stored boats! Visit the ~y~boat shop~s~ to buy one.',
-  ['garage_blocked'] = 'the boat cannot be taken out because another vehicle is blocking the spawn point!',
-  ['garage_notowner'] = 'you don\'t own this boat!',
+  ['garage_open'] = 'Нажмите ~INPUT_CONTEXT~ для доступа к ~y~причалу~s~.',
+  ['garage_store'] = 'Нажмите ~INPUT_CONTEXT~ чтобы ~y~пришвартовать~s~ ваш транспорт.',
+  ['garage_taken'] = 'Вы взяли транспорт!',
+  ['garage_stored'] = 'Транспорт пришвартован!',
+  ['garage_noboats'] = 'У вас нет водного транспорта! Посетите ~y~магазин лодок~s~.',
+  ['garage_blocked'] = 'Некуда выгонять транспорт, очистите местность!',
+  ['garage_notowner'] = 'Это не ваш транспорт!',
 
   -- license
-  ['license_menu'] = 'buy Boat License?',
-  ['license_buy_no'] = 'no',
-  ['license_buy_yes'] = 'buy Boat License <span style="color: green;">$%s</span>',
-  ['license_bought'] = 'you have bought the ~y~Boat License~s~ for ~g~$%s~s~',
-  ['license_nomoney'] = 'you cannot ~r~afford~s~ the ~y~Boat License~s~!',
+  ['license_menu'] = 'Купить лицезнию?',
+  ['license_buy_no'] = 'Нет',
+  ['license_buy_yes'] = 'Купить лицензнию <span style="color: green;">$%s</span>',
+  ['license_bought'] = 'Вы купили ~y~Лицензию на управление водным транспортом~s~ за ~g~$%s~s~',
+  ['license_nomoney'] = 'Недостаточно денег!',
 
   -- blips
   ['blip_garage'] = 'Лодочный гараж',

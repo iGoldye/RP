@@ -26,7 +26,7 @@ function formatTime(time) {
 }
 
 const defaultLocales = {
-  'fr_FR': [
+  'ru_RU': [
     "à l'instant",
     ["il y a %s seconde", "il y a %s secondes"],
     ["il y a %s minute",  "il y a %s minutes"],
@@ -37,7 +37,7 @@ const defaultLocales = {
     ["il y a %s an",      "il y a %s ans"]
   ]
 }
-export default function install(Vue, { name = 'timeago', locale = 'fr_FR', locales = defaultLocales} = {} ) {
+export default function install(Vue, { name = 'timeago', locale = 'ru_RU', locales = defaultLocales} = {} ) {
 
   if (!locales || Object.keys(locales).length === 0) {
     throw new TypeError('Expected locales to have at least one locale.')
@@ -65,7 +65,7 @@ export default function install(Vue, { name = 'timeago', locale = 'fr_FR', local
             return locale
           }
         }
-        return locales['fr_FR']
+        return locales['ru_RU']
       },
       sinceTime() {
         return new Date(this.since).getTime()
@@ -161,9 +161,9 @@ export default function install(Vue, { name = 'timeago', locale = 'fr_FR', local
     }
   }
 
-  VueTimeago.locale = 'fr_FR'
+  VueTimeago.locale = 'ru_RU'
   VueTimeago.locales = {}
-  
+
   Vue.prototype.$timeago = {
     setCurrentLocale (locale) {
       VueTimeago.locale = locale

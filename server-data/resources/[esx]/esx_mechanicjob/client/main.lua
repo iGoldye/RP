@@ -72,6 +72,7 @@ function OpenMechanicActionsMenu()
 		{label = _U('vehicle_list'),   value = 'vehicle_list'},
 		{label = _U('work_wear'),      value = 'cloakroom'},
 		{label = _U('civ_wear'),       value = 'cloakroom2'},
+		{label = _U('change_wear'),    value = 'change_wear'},
 		{label = _U('deposit_stock'),  value = 'put_stock'},
 		{label = _U('withdraw_stock'), value = 'get_stock'}
 	}
@@ -124,10 +125,10 @@ function OpenMechanicActionsMenu()
 
 				local elements = {
 					{label = _U('flat_bed'),  value = 'flatbed'},
-					{label = _U('tow_truck'), value = 'towtruck2'}
+					-- {label = _U('tow_truck'), value = 'towtruck2'}
 				}
 
-				if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief' or ESX.PlayerData.job.grade_name == 'experimente') then
+				if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief' or ESX.PlayerData.job.grade_name == 'experimente' or ESX.PlayerData.job.grade_name == 'novice' or ESX.PlayerData.job.grade_name == 'recrue') then
 					table.insert(elements, {label = 'SlamVan', value = 'slamvan3'})
 				end
 
@@ -178,6 +179,8 @@ function OpenMechanicActionsMenu()
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				TriggerEvent('skinchanger:loadSkin', skin)
 			end)
+		elseif data.current.value == 'change_wear' then
+			TriggerEvent('esx_property:OpenPlayerDressingMenu')
 		elseif data.current.value == 'put_stock' then
 			OpenPutStocksMenu()
 		elseif data.current.value == 'get_stock' then
@@ -201,7 +204,8 @@ function OpenMechanicHarvestMenu()
 		local elements = {
 			{label = _U('gas_can'), value = 'gaz_bottle'},
 			{label = _U('repair_tools'), value = 'fix_tool'},
-			{label = _U('body_work_tools'), value = 'caro_tool'}
+			{label = _U('body_work_tools'), value = 'caro_tool'},
+			{label = _U('tire'), value = 'tire'},
 		}
 
 		ESX.UI.Menu.CloseAll()
@@ -219,6 +223,8 @@ function OpenMechanicHarvestMenu()
 				TriggerServerEvent('esx_mechanicjob:startHarvest2')
 			elseif data.current.value == 'caro_tool' then
 				TriggerServerEvent('esx_mechanicjob:startHarvest3')
+			elseif data.current.value == 'tire' then
+				TriggerServerEvent('esx_mechanicjob:startHarvest4')
 			end
 		end, function(data, menu)
 			menu.close()
@@ -747,6 +753,7 @@ AddEventHandler('esx_mechanicjob:hasExitedMarker', function(zone)
 		TriggerServerEvent('esx_mechanicjob:stopHarvest')
 		TriggerServerEvent('esx_mechanicjob:stopHarvest2')
 		TriggerServerEvent('esx_mechanicjob:stopHarvest3')
+		TriggerServerEvent('esx_mechanicjob:stopHarvest4')
 	end
 
 	CurrentAction = nil

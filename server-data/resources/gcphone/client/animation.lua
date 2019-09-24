@@ -93,6 +93,11 @@ function PhonePlayAnim (status, freeze, force)
 	if freeze == true then
 		flag = 14
 	end
+
+	if status == 'out' then
+		flag = 16
+	end
+
 	TaskPlayAnim(myPedId, dict, anim, 3.0, -1, -1, flag, 0, false, false, false)
 
 	if status ~= 'out' and currentStatus == 'out' then
@@ -125,7 +130,7 @@ function PhonePlayCall (freeze)
 	PhonePlayAnim('call', freeze)
 end
 
-function PhonePlayIn () 
+function PhonePlayIn ()
 	if currentStatus == 'out' then
 		PhonePlayText()
 	end

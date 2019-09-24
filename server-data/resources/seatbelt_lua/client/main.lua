@@ -13,6 +13,20 @@ Citizen.CreateThread(function()
 	end
 end)
 
+AddEventHandler("seatbelt_lua:isBeltOn", function(cb)
+	if IsPedInAnyVehicle(PlayerPedId(), false) then
+	        local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+		if not IsCar(vehicle) then
+			cb(nil)
+			return
+		end
+		cb(beltOn)
+		return
+	end
+
+	cb(nil)
+end)
+
 function drawTxt(x, y, scale, text, red, green, blue, alpha)
 	SetTextFont(4)
 	SetTextProportional(1)
@@ -106,7 +120,7 @@ Citizen.CreateThread(function()
             speedBuffer[1] = GetEntitySpeed(vehicle)
 
             if not beltOn and
-                GetEntitySpeedVector(vehicle, true).y > 1.0 and 
+                GetEntitySpeedVector(vehicle, true).y > 1.0 and
 		speedBuffer[2] > Config.MinimalDropSpeed/3.6 and
                 (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[2] * (1-Config.DropSensitivity)) then
                     local coords = GetEntityCoords(playerPed, true)
@@ -126,7 +140,7 @@ Citizen.CreateThread(function()
             speedBuffer = {0.0, 0.0}
             if isUIOpen and IsPlayerDead(playerPed) == false then
                 isUIOpen = false
-            end            
+            end
             NUIBuckled(beltOn) -- Make sure chime is off
         end
 

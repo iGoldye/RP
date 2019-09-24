@@ -44,7 +44,7 @@ local AnimalPositions = {
 local AnimalsInSession = {}
 
 local Positions = {
-	['StartHunting'] = { ['hint'] = '[E] Что бы начать охоту', ['x'] = -769.23773193359, ['y'] = 5595.6215820313, ['z'] = 33.48571395874 },
+	['StartHunting'] = { ['hint'] = '[E] Чтобы начать охоту', ['x'] = -769.23773193359, ['y'] = 5595.6215820313, ['z'] = 33.48571395874 },
 	['Sell'] = { ['hint'] = '[E] Продать трофеи', ['x'] = 969.16375732422, ['y'] = -2107.9033203125, ['z'] = 31.475671768188 },
 	['SpawnATV'] = { ['x'] = -769.63067626953, ['y'] = 5592.7573242188, ['z'] = 33.48571395874 }
 }
@@ -55,12 +55,12 @@ local HuntCar = nil
 function LoadMarkers()
 
 	Citizen.CreateThread(function()
-		for index, v in ipairs(Positions) do
+		for index, v in pairs(Positions) do
 			if index ~= 'SpawnATV' then
 				local StartBlip = AddBlipForCoord(v.x, v.y, v.z)
 				SetBlipSprite(StartBlip, 141)
-				SetBlipColour(StartBlip, 75)
-				SetBlipScale(StartBlip, 2.7)
+				SetBlipColour(StartBlip, 35)
+				SetBlipScale(StartBlip, 1.2)
 				SetBlipAsShortRange(StartBlip, true)
 				BeginTextCommandSetBlipName("STRING")
 				AddTextComponentString('Охота')
@@ -119,7 +119,7 @@ function StartHuntingSession()
 
 		OnGoingHuntSession = false
 
-		RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_HEAVYSNIPER"), true, true)
+		-- RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_HEAVYSNIPER"), true, true)
 		RemoveWeaponFromPed(PlayerPedId(), GetHashKey("WEAPON_KNIFE"), true, true)
 
 		DeleteEntity(HuntCar)

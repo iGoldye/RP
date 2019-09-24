@@ -18,13 +18,12 @@ local BagId = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
-        TriggerEvent('esx:getSharedObject', function(obj) 
-            ESX = obj 
+        TriggerEvent('esx:getSharedObject', function(obj)
+            ESX = obj
         end)
 
 		Citizen.Wait(0)
     end
-    
     -- On restart check down below.
 
     if ESX.IsPlayerLoaded() then
@@ -51,9 +50,9 @@ function Draw3DText(x, y, z, text)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)
     local px,py,pz=table.unpack(GetGameplayCamCoords())
     local dist = GetDistanceBetweenCoords(px,py,pz, x,y,z, 1)
- 
+
     local scale = 0.25
-   
+
     if onScreen then
         SetTextScale(scale, scale)
         SetTextFont(0)
@@ -83,7 +82,6 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
                 TriggerEvent('esx-kr-bag:SpawnBagIntoClient', bags[i].x, bags[i].y, bags[i].z)
                 TriggerEvent('esx-kr-bag:insertIntoClient', bags[i].id)
 
-            
             end
         end
 
@@ -116,7 +114,7 @@ function LoadAnimation(dict)
 
     while not HasAnimDictLoaded(dict) do
       Wait(100)
-    end 
+    end
 end
 
 RegisterNetEvent('esx-kr-bag:insertIntoClient')
@@ -144,13 +142,13 @@ function Bag()
 
     local elements = {}
 
-    table.insert(elements, {label = 'Put object', value = 'put'})
-    table.insert(elements, {label = 'Take object', value = 'take'})
-    table.insert(elements, {label = 'Drop bag', value = 'drop'})
-        
+    table.insert(elements, {label = 'Положить предмет', value = 'put'})
+    table.insert(elements, {label = 'Забрать предмет', value = 'take'})
+    table.insert(elements, {label = 'Выбросить сумку', value = 'drop'})
+
     ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'lel',
         {
-            title    = 'Bag',
+            title    = 'Сумка',
             align    = 'left',
             elements = elements
         }, function(data, menu)
@@ -191,8 +189,8 @@ end)
 RegisterNetEvent('esx-kr-bag:SpawnBagIntoClient')
 AddEventHandler('esx-kr-bag:SpawnBagIntoClient', function(x, y ,z)
     local coords3 = {
-        x = x, 
-        y = y, 
+        x = x,
+        y = y,
         z = z
     }
 
@@ -235,11 +233,11 @@ end
 function IsWeapon(item)
     local hash = GetHashKey(item)
     local IsWeapon = IsWeaponValid(hash)
-    
-    if IsWeapon then 
-        return true 
-    else 
-        return false 
+
+    if IsWeapon then
+        return true
+    else
+        return false
     end
 end
 
@@ -253,10 +251,10 @@ function TakeItem()
         for i=1, #bag, 1 do
             table.insert(elements, {label = bag[i].label .. ' | ' .. bag[i].count .. 'x', value = bag[i].item, count = bag[i].count})
         end
-        
+
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'lels',
         {
-            title    = 'Bag',
+            title    = 'Сумка',
             align    = 'left',
             elements = elements
         }, function(data, menu)
@@ -288,25 +286,23 @@ function PutItem()
                     table.insert(elements, { label = invitem.label .. ' | ' .. invitem.count .. 'x', count = invitem.count, name = invitem.name, label2 = invitem.label})
                 end
             end
-          
           local weaponList = ESX.GetWeaponList()
 
             for i=1, #weaponList, 1 do
                 local weaponHash = GetHashKey(weaponList[i].name)
                 local ammo = GetAmmoInPedWeapon(GetPlayerPed(-1), weaponHash)
-        
                 if HasPedGotWeapon(GetPlayerPed(-1), weaponHash, false) and weaponList[i].name ~= 'WEAPON_UNARMED' then
                     table.insert(elements, {label = weaponList[i].label .. ' | ' .. ammo .. 'x', name = weaponList[i].name, count = ammo, label2 = weaponList[i].label})
                 end
             end
-        
+
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'lel3',
         {
-            title    = 'Bag',
+            title    = 'Сумка',
             align    = 'left',
             elements = elements
         }, function(data, menu)
-            
+
             local IsWeapon = IsWeapon(data.current.name)
             menu.close()
 
@@ -337,7 +333,6 @@ Citizen.CreateThread(function()
 
                 Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.45, '~g~[E]~w~Поднять сумку')
                 Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.35, '~o~[N]~w~Открыть сумку')
-            
                 if IsControlJustReleased(0, Keys['E']) then
                     HasBag = true
                     BagId = Bags[i].id.id
@@ -346,7 +341,6 @@ Citizen.CreateThread(function()
 
                     NetworkFadeOutEntity(Bag, false, false)
                     DeleteObject(Bag)
-                
                     TriggerServerEvent('esx-kr-bag:PickUpBag', Bags[i].id.id)
                 end
 
@@ -358,15 +352,14 @@ Citizen.CreateThread(function()
                     wait = 5
                     Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.45, '~g~[E]~w~Поднять сумку')
                     Draw3DText(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z + 0.35, '~o~[N]~w~Открыть сумку')
-             
                         if IsControlJustReleased(0, Keys['E']) then
                             HasBag = true
                             BagId = Bags[i].id.id
                             local Bag = GetClosestObjectOfType(Bags[i].id.coords.x, Bags[i].id.coords.y, Bags[i].id.coords.z, 1.5, 1626933972, false, false, false)
-    
+
                                 NetworkFadeOutEntity(Bag, false, false)
                                 DeleteObject(Bag)
-                         
+
                                 TriggerServerEvent('esx-kr-bag:PickUpBag', Bags[i].id.id)
                         end
                     if IsControlJustReleased(0, Keys['N']) then
@@ -384,12 +377,13 @@ Citizen.CreateThread(function()
         end
     end)
 
-Citizen.CreateThread(function()
-    while true do
-        Wait(5)
+RegisterNetEvent('esx-kr-bag-inventory:openBag')
+AddEventHandler('esx-kr-bag-inventory:openBag', function()
+	if not HasBag then
+		ESX.ShowNotification("У вас нет сумки!")
+	end
 
-        if IsControlJustReleased(0, Keys['F5']) and HasBag and not IsPedInAnyVehicle(GetPlayerPed(-1), true) and not IsEntityInAir(PlayerPedId()) then -- Change F5 to the key you want to open the meny with
+        if HasBag and not IsPedInAnyVehicle(GetPlayerPed(-1), true) and not IsEntityInAir(PlayerPedId()) then -- Change F5 to the key you want to open the meny with
             Bag()
         end
-    end
 end)

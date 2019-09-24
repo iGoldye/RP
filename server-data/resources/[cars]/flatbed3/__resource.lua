@@ -16,3 +16,4 @@ data_file 'VEHICLE_LAYOUTS_FILE' 'metas/vehiclelayouts.meta'
 data_file 'DLC_ITYP_REQUEST' 'stream/def_flatbed3_props.ytyp'
 
 client_script 'flatbed.lua'
+server_script 'flatbed_sv.lua'

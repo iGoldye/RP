@@ -46,6 +46,12 @@ AddEventHandler('loffe_robbery:pickUp', function(store)
 end)
 
 ESX.RegisterServerCallback('loffe_robbery:canRob', function(source, cb, store)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer.job and xPlayer.job.name == 'police' then
+	cb('you_are_cop')
+	return
+    end
+
     local cops = 0
     local xPlayers = ESX.GetPlayers()
     for i = 1, #xPlayers do

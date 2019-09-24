@@ -4,6 +4,7 @@ Locales['ru'] = {
   ['cloakroom_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы войти в ~y~раздевалку~s~.',
   ['wear_citizen'] = 'Гражданская одежда',
   ['wear_work'] = 'Рабочая одежда',
+  ['change_wear'] = 'Сменить одежду',
 
   -- garage
   ['spawner_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы зайти в ~y~гараж~s~.',

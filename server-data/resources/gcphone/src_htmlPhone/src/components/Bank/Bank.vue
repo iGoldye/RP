@@ -7,6 +7,7 @@
         <div class="element-content">
           <span>$ {{ bankAmontFormat }}</span>
         </div>
+        <div class="button" @click="transferMoney">Перевести</div>
       </div>
     </div>
   </div>
@@ -27,15 +28,23 @@ export default {
     }
   },
   methods: {
+    onEnter: function () {
+      this.transferMoney()
+    },
     onBackspace () {
       this.$router.push({ name: 'home' })
+    },
+    transferMoney () {
+      this.$phoneAPI.transferMoney()
     }
   },
   created () {
     this.$bus.$on('keyUpBackspace', this.onBackspace)
+    this.$bus.$on('keyUpEnter', this.onEnter)
   },
   beforeDestroy () {
     this.$bus.$off('keyUpBackspace', this.onBackspace)
+    this.$bus.$off('keyUpEnter', this.onEnter)
   }
 }
 </script>
@@ -73,7 +82,7 @@ export default {
   background-color: #EB202D;
 }
 .logo_maze {
-  width: 100%; 
+  width: 100%;
   height: auto;
   flex-shrink: 0;
 }
@@ -86,5 +95,17 @@ export default {
   font-weight: 700;
   font-size: 24px;
   color: #EB202D;
+}
+.button {
+    width: 100%;
+    background: #EB202D;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    border-radius: 7px;
+}
+.button:hover {
+    background: rgb(238, 52, 64);
+    cursor: pointer;
 }
 </style>

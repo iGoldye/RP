@@ -270,6 +270,31 @@ ESX.UI.ShowInventoryItemNotification = function(add, item, count)
 	})
 end
 
+ESX.UI.OpenTextInput = function(title, defaultText, maxInputLength)
+
+	if title == nil then
+		title = "FMMC_KEY_TIP8"
+	else
+		AddTextEntry('FT_TEXT', title)
+		title = "FT_TEXT"
+        end
+
+	DisplayOnscreenKeyboard(true, title, "", defaultText, "", "", "", maxInputLength)
+
+	while UpdateOnscreenKeyboard() == 0 do
+		DisableAllControlActions(0)
+		Citizen.Wait(10)
+	end
+
+	local result = GetOnscreenKeyboardResult()
+	if result then
+		return result
+	else
+		return nil
+	end
+
+end
+
 ESX.Game.GetPedMugshot = function(ped)
 	local mugshot = RegisterPedheadshot(ped)
 

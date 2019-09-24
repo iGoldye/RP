@@ -31,7 +31,7 @@ Locales['en'] = {
   ['vehicleshop_title'] = 'Приобрести служебный транспорт',
   ['vehicleshop_confirm'] = 'Вы хотите купить служебный транспорт?',
   ['vehicleshop_bought'] = 'Вы купили ~y~%s~s~ за ~r~$%s~s~',
-  ['vehicleshop_money'] = 'Вы не можете позволить себе служебный транспорт',
+  ['vehicleshop_money'] = 'В бюджете недостаточно средств для покупки служебного транспорта',
   ['vehicleshop_awaiting_model'] = 'Идёт ~g~загрузка~s~ транспорта, ожидайте',
   ['confirm_no'] = 'нет',
   ['confirm_yes'] = 'да',
@@ -48,6 +48,14 @@ Locales['en'] = {
   ['player_not_conscious'] = 'Этот человек не в сознании!',
   -- Boss Menu
   ['boss_actions'] = 'Компьютер Главврача',
+  ['ambulance_stock'] = 'Склад больницы',
+  ['deposit_stock']   = 'Положить на склад',
+  ['withdraw_stock']  = 'Открыть склад',
+  ['have_withdrawn']  = 'Вы забрали ~y~x%s~s~ ~b~%s~s~',
+  ['have_deposited']  = 'Вы положили ~y~x%s~s~ ~b~%s~s~',
+  ['quantity']        = 'Количество',
+  ['invalid_quantity'] = 'Неверное количество',
+  ['inventory']        = 'Склад',
   -- Misc
   ['invalid_amount'] = '~r~Недопустимая сумма',
   ['actions_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы получить доступ к ~y~шкафчику~s~.',
@@ -59,6 +67,10 @@ Locales['en'] = {
   ['pharmacy_take'] = 'Взять <span style="color:blue;">%s</span>',
   ['medikit'] = 'Аптечка',
   ['bandage'] = 'Бинт',
+  ['pill'] = 'Препарат',
+  ['drug1'] = 'Метадон',
+  ['drug2'] = 'Альгерика',
+  ['drug3'] = 'Дезоморфин',
   ['max_item'] = 'Достигнуто макс. кол-во',
   -- F6 Menu
   ['ems_menu'] = 'Меню доктора',
@@ -67,6 +79,8 @@ Locales['en'] = {
   ['ems_menu_putincar'] = 'Погрузить в машину',
   ['ems_menu_small'] = 'Оказать первую помощь',
   ['ems_menu_big'] = 'Вылечить серьезные травмы',
+  ['ems_menu_removenpcs'] = 'Убрать тела',
+  ['ems_menu_alcotest'] = 'Определить уровень опьянения',
   -- Phone
   ['alert_ambulance'] = 'Вызвать Скорую помощь',
   -- Death
@@ -84,6 +98,11 @@ Locales['en'] = {
   -- Item
   ['used_medikit'] = 'Вы использовали ~y~1x~s~ аптечку',
   ['used_bandage'] = 'Вы использовали ~y~1x~s~ бинт',
+  ['used_pill'] = 'Вы использовали ~y~1x~s~ Препарат',
+  ['used_drug1'] = 'Вы использовали ~y~1x~s~ Метадон',
+  ['used_drug2'] = 'Вы использовали ~y~1x~s~ Альгерика',
+  ['used_drug3'] = 'Вы использовали ~y~1x~s~ Дезоморфин',
+
   ['not_enough_medikit'] = 'У вас нет ~b~аптечки~s~.',
   ['not_enough_bandage'] = 'У вас нет ~b~бинта~s~.',
   ['healed'] = 'Вы были вылечены',

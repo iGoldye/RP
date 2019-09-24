@@ -108,6 +108,7 @@ RegisterNUICallback('register', function(data, cb)
 end)
 
 function openSkinMenu()
+-- TriggerEvent('vueskincreator:show')
 	TriggerEvent('esx_skin:openSaveableMenu', function()
 -- successfully registered
 	end, function()

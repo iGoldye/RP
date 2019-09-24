@@ -18,3 +18,8 @@ files {
 	'html/sounds/unbuckle.ogg',
 	'html/sounds/chime.ogg'
 }
+
+
+exports {
+       'isBeltOn',
+}

@@ -40,13 +40,11 @@ AddEventHandler('esx_illegal_drugs:hasEnteredMarker', function(zone)
 	end
 
 	ESX.UI.Menu.CloseAll()
-	
 	if zone == 'exitMarker' then
 		CurrentAction     = zone
 		CurrentActionMsg  = _U('exit_marker')
 		CurrentActionData = {}
 	end
-	
 	if zone == 'CokeField' then
 		CurrentAction     = zone
 		CurrentActionMsg  = _U('press_collect_coke')
@@ -289,7 +287,6 @@ end)
 Citizen.CreateThread(function()
 	if Config.DisableBlip == false then
 	for i=1, #Config.Map, 1 do
-		
 		local blip = AddBlipForCoord(Config.Map[i].x, Config.Map[i].y, Config.Map[i].z)
 		SetBlipSprite (blip, Config.Map[i].id)
 		SetBlipDisplay(blip, 4)
@@ -367,31 +364,46 @@ Citizen.CreateThread(function()
 					Citizen.Wait(1000)
 				elseif CurrentAction == 'CokeField' then
 					TriggerServerEvent('esx_illegal_drugs:startHarvestCoke')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'CokeProcessing' then
 					TriggerServerEvent('esx_illegal_drugs:startTransformCoke')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'CokeDealer' then
 					TriggerServerEvent('esx_illegal_drugs:startSellCoke')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'MethField' then
 					TriggerServerEvent('esx_illegal_drugs:startHarvestMeth')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'MethProcessing' then
 					TriggerServerEvent('esx_illegal_drugs:startTransformMeth')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'MethDealer' then
 					TriggerServerEvent('esx_illegal_drugs:startSellMeth')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'WeedField' then
 					TriggerServerEvent('esx_illegal_drugs:startHarvestWeed')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 					TriggerEvent('esx_illegal_drugs:HarvestWeedAnimation')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'WeedProcessing' then
 					TriggerServerEvent('esx_illegal_drugs:startTransformWeed')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 					TriggerEvent('esx_illegal_drugs:TransformWeedAnimation')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'WeedDealer' then
 					TriggerServerEvent('esx_illegal_drugs:startSellWeed')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 					TriggerEvent('esx_illegal_drugs:SellWeedAnimation')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'OpiumField' then
 					TriggerServerEvent('esx_illegal_drugs:startHarvestOpium')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'OpiumProcessing' then
 					TriggerServerEvent('esx_illegal_drugs:startTransformOpium')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'OpiumDealer' then
 					TriggerServerEvent('esx_illegal_drugs:startSellOpium')
+					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				else
 					isInZone = false -- not a esx_illegal_drugs zone
 				end
@@ -419,7 +431,7 @@ Citizen.CreateThread(function()
 	            TriggerServerEvent('esx_illegal_drugs:stopSellCoke')
 	            TriggerServerEvent('esx_illegal_drugs:stopHarvestMeth')
 	            TriggerServerEvent('esx_illegal_drugs:stopTransformMeth')
-	            TriggerServerEvent('esx_illegal_drugs:stopSellMeth')    
+	            TriggerServerEvent('esx_illegal_drugs:stopSellMeth')
 	            TriggerServerEvent('esx_illegal_drugs:stopHarvestOpium')
 	            TriggerServerEvent('esx_illegal_drugs:stopTransformOpium')
 	            TriggerServerEvent('esx_illegal_drugs:stopSellOpium')

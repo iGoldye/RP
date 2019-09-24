@@ -13,15 +13,15 @@ function NajblizszyGracz() --This function send to server closestplayer
 local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 local player = GetPlayerPed(-1)
 
-if closestPlayer == -1 or closestDistance > 2.0 then 
-    ESX.ShowNotification('~r~There is no player nearby')
+if closestPlayer == -1 or closestDistance > 2.0 then
+    ESX.ShowNotification('~r~Рядом никого нет')
 else
   if not HaveBagOnHead then
     TriggerServerEvent('esx_worek:sendclosest', GetPlayerServerId(closestPlayer))
-    ESX.ShowNotification('~g~You put the head bag on ~w~' .. GetPlayerName(closestPlayer))
+    ESX.ShowNotification('~g~Вы надели мешок на голову ~w~' .. GetPlayerName(closestPlayer))
     TriggerServerEvent('esx_worek:closest')
   else
-    ESX.ShowNotification('~r~This player already have a bag on head')
+    ESX.ShowNotification('~r~Мешок уже надет')
   end
 end
 
@@ -40,7 +40,7 @@ AddEventHandler('esx_worek:nalozNa', function(gracz)
     SetNuiFocus(false,false)
     SendNUIMessage({type = 'openGeneral'})
     HaveBagOnHead = true
-end)    
+end)
 
 AddEventHandler('playerSpawned', function() --This event delete head bag when player is spawn again
 DeleteEntity(Worek)
@@ -51,7 +51,7 @@ end)
 
 RegisterNetEvent('esx_worek:zdejmijc') --This event delete head bag from player head
 AddEventHandler('esx_worek:zdejmijc', function(gracz)
-    ESX.ShowNotification('~g~Someone removed the bag from your head!')
+    ESX.ShowNotification('~g~Кто то снял мешок с вашей головы!')
     DeleteEntity(Worek)
     SetEntityAsNoLongerNeeded(Worek)
     SendNUIMessage({type = 'closeAll'})
@@ -61,43 +61,42 @@ end)
 function OpenBagMenu() --This function is menu function
 
     local elements = {
-          {label = 'Put bag on head', value = 'puton'},
-          {label = 'Remove bag from head', value = 'putoff'},
-          
+          {label = 'Надеть мешок', value = 'puton'},
+          {label = 'Снять мешок', value = 'putoff'},
+
         }
-  
+
     ESX.UI.Menu.CloseAll()
-  
+
     ESX.UI.Menu.Open(
       'default', GetCurrentResourceName(), 'headbagging',
       {
-        title    = 'HEAD BAG MENU',
+        title    = 'Мешок на голову',
         align    = 'top-left',
         elements = elements
         },
-  
+
             function(data2, menu2)
-  
-  
+
+
               local player, distance = ESX.Game.GetClosestPlayer()
-  
+
               if distance ~= -1 and distance <= 2.0 then
-  
+
                 if data2.current.value == 'puton' then
                     NajblizszyGracz()
                 end
-  
+
                 if data2.current.value == 'putoff' then
                   TriggerServerEvent('esx_worek:zdejmij')
                 end
               else
-                ESX.ShowNotification('~r~There is no player nearby.')
+                ESX.ShowNotification('~r~Рядом никого нет.')
               end
             end,
       function(data2, menu2)
         menu2.close()
       end
     )
-  
-  end
 
+  end

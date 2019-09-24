@@ -8,10 +8,10 @@
             <div @click.stop="selectItem(histo)" class="elem-content">
               <div @click.stop="selectItem(histo)" class="elem-content-p">{{histo.display}}</div>
               <div @click.stop="selectItem(histo)" class="elem-content-s">
-                <div 
+                <div
                     @click.stop="selectItem(histo)"
-                    class="elem-histo-pico" 
-                    :class="{'reject': hc.accept === false}" 
+                    class="elem-histo-pico"
+                    :class="{'reject': hc.accept === false}"
                     v-for="(hc, i) in histo.lastCall" :key="i">
                     <svg @click.stop="selectItem(histo)" v-if="hc.accepts === 1 && hc.incoming === 1" viewBox="0 0 24 24" fill="#43a047">
                       <path d="M9,5v2h6.59L4,18.59L5.41,20L17,8.41V15h2V5H9z"/>
@@ -26,7 +26,6 @@
                       <path d="M19.59,7L12,14.59L6.41,9H11V7H3v8h2v-4.59l7,7l9-9L19.59,7z"/>
                     </svg>
                 </div>
-                
                 <div v-if="histo.lastCall.length !==0" class="lastCall">
                   <timeago :since='histo.lastCall[0].date' :auto-update="20"></timeago>
                 </div>
@@ -80,6 +79,7 @@ export default {
       const isValid = numero.startsWith('#') === false
       this.ignoreControls = true
       let choix = [
+        {id: 4, title: this.IntlString('APP_PHONE_CALL_ANONYMOUS'), icons: 'fa-mask'},
         {id: 1, title: this.IntlString('APP_PHONE_DELETE'), icons: 'fa-trash', color: 'orange'},
         {id: 2, title: this.IntlString('APP_PHONE_DELETE_ALL'), icons: 'fa-trash', color: 'red'},
         {id: 3, title: this.IntlString('CANCEL'), icons: 'fa-undo'}
@@ -98,6 +98,10 @@ export default {
           break
         case 2 :
           this.appelsDeleteAllHistorique()
+          break
+        case 4 :
+          this.startCall({ numero: '#' + numero })
+          break
       }
     },
     async onEnter () {

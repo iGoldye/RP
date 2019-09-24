@@ -27,7 +27,11 @@ Citizen.CreateThread(function()
 
 	ESX.TriggerServerCallback('esx_shops:requestDBItems', function(ShopItems)
 		for k,v in pairs(ShopItems) do
-			Config.Zones[k].Items = v
+			if Config.Zones[k] ~= nil then
+				Config.Zones[k].Items = v
+			else
+				print("^1esx_shops: unknown zone name '"..tostring(k).."'")
+			end
 		end
 	end)
 end)
@@ -124,7 +128,7 @@ Citizen.CreateThread(function()
 
 		for k,v in pairs(Config.Zones) do
 			for i = 1, #v.Pos, 1 do
-				if(Config.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.DrawDistance) then
+				if(Config.Type ~= -1 and v.showMarker ~= false and GetDistanceBetweenCoords(coords, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, true) < Config.DrawDistance) then
 					DrawMarker(Config.Type, v.Pos[i].x, v.Pos[i].y, v.Pos[i].z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.Size.x, Config.Size.y, Config.Size.z, Config.Color.r, Config.Color.g, Config.Color.b, 100, false, true, 2, false, false, false, false)
 				end
 			end

@@ -34,8 +34,8 @@ function setUniform(job, playerPed)
 				ESX.ShowNotification(_U('no_outfit'))
 			end
 
-			if job == 'bullet_wear' then
-				SetPedArmour(playerPed, 100)
+			if job == 'bullet_wear' or job == 'hidden_bullet_wear' then
+				SetPedArmour(PlayerPedId(), 100)
 			end
 		else
 			if Config.Uniforms[job].female then
@@ -44,8 +44,8 @@ function setUniform(job, playerPed)
 				ESX.ShowNotification(_U('no_outfit'))
 			end
 
-			if job == 'bullet_wear' then
-				SetPedArmour(playerPed, 100)
+			if job == 'bullet_wear' or job == 'hidden_bullet_wear' then
+				SetPedArmour(PlayerPedId(), 100)
 			end
 		end
 	end)
@@ -58,6 +58,7 @@ function OpenCloakroomMenu()
 	local elements = {
 		{ label = _U('citizen_wear'), value = 'citizen_wear' },
 		{ label = _U('bullet_wear'), value = 'bullet_wear' },
+		{ label = _U('hidden_bullet_wear'), value = 'hidden_bullet_wear' },
 		{ label = _U('change_wear'), value = 'change_wear' },
 	}
 
@@ -183,7 +184,8 @@ function OpenCloakroomMenu()
 			data.current.value == 'lieutenant_wear' or
 			data.current.value == 'chef_wear' or
 			data.current.value == 'boss_wear' or
-			data.current.value == 'bullet_wear'
+			data.current.value == 'bullet_wear' or
+			data.current.value == 'hidden_bullet_wear'
 
 		then
 			setUniform(data.current.value, playerPed)
@@ -216,6 +218,35 @@ function OpenCloakroomMenu()
 	end)
 end
 
+function OpenStockMenu(station)
+	local elements = {}
+
+	table.insert(elements, {label = _U('remove_object'),  value = 'get_stock'})
+	table.insert(elements, {label = _U('deposit_object'), value = 'put_stock'})
+
+	ESX.UI.Menu.CloseAll()
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stock', {
+		title    = _U('stock'),
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+
+		if data.current.value == 'put_stock' then
+			OpenPutStocksMenu()
+		elseif data.current.value == 'get_stock' then
+			OpenGetStocksMenu()
+		end
+
+	end, function(data, menu)
+		menu.close()
+
+		CurrentAction     = 'menu_stock'
+		CurrentActionMsg  = _U('open_stock')
+		CurrentActionData = {station = station}
+	end)
+end
+
 function OpenArmoryMenu(station)
 	local elements = {
 		-- {label = _U('buy_weapons'), value = 'buy_weapons'}
@@ -224,8 +255,8 @@ function OpenArmoryMenu(station)
 	if Config.EnableArmoryManagement then
 		table.insert(elements, {label = _U('get_weapon'),     value = 'get_weapon'})
 		table.insert(elements, {label = _U('put_weapon'),     value = 'put_weapon'})
-		table.insert(elements, {label = _U('remove_object'),  value = 'get_stock'})
-		table.insert(elements, {label = _U('deposit_object'), value = 'put_stock'})
+--		table.insert(elements, {label = _U('remove_object'),  value = 'get_stock'})
+--		table.insert(elements, {label = _U('deposit_object'), value = 'put_stock'})
 	end
 
 	ESX.UI.Menu.CloseAll()
@@ -242,10 +273,10 @@ function OpenArmoryMenu(station)
 			OpenPutWeaponMenu()
 		elseif data.current.value == 'buy_weapons' then
 			OpenBuyWeaponsMenu()
-		elseif data.current.value == 'put_stock' then
-			OpenPutStocksMenu()
-		elseif data.current.value == 'get_stock' then
-			OpenGetStocksMenu()
+--		elseif data.current.value == 'put_stock' then
+--			OpenPutStocksMenu()
+--		elseif data.current.value == 'get_stock' then
+--			OpenGetStocksMenu()
 		end
 
 	end, function(data, menu)
@@ -609,7 +640,9 @@ function OpenPoliceActionsMenu()
 	local topElements = {
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
-			{label = _U('object_spawner'), value = 'object_spawner'}
+			{label = _U('object_spawner'), value = 'object_spawner'},
+			{label = _U('revive'), value = 'revive'},
+			{label = _U('remove_npcs'), value = 'remove_npcs'},
 	}
 
 	if IsPedSittingInAnyVehicle(PlayerPedId()) then
@@ -633,6 +666,8 @@ function OpenPoliceActionsMenu()
 				{label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
 				{label = _U('fine'), value = 'fine'},
 				{label = _U('unpaid_bills'), value = 'unpaid_bills'},
+				{label = _U('add_weapon_license'), value ='add_weapon_license'},
+				{label = _U('remove_weapon_license'), value ='remove_weapon_license'},
 --				{label = _U('get_dna'), value = 'get_dna'},
 --				{label = _U('remove_dna'), value = 'remove_dna'}
 			}
@@ -672,10 +707,16 @@ function OpenPoliceActionsMenu()
 						ShowPlayerLicense(closestPlayer)
 					elseif action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
+					elseif action == 'add_weapon_license' then
+						TriggerServerEvent('esx_policejob:addWeaponLicense', GetPlayerServerId(closestPlayer))
+					elseif action == 'remove_weapon_license' then
+						TriggerServerEvent('esx_policejob:removeWeaponLicense', GetPlayerServerId(closestPlayer))
+--[[
 					elseif action == 'get_dna' then
 						TriggerEvent('jsfour-dna:get', closestPlayer)
 					elseif action == 'remove_dna' then
 						 TriggerEvent('jsfour-dna:remove')
+]]--
 					end
 				else
 					ESX.ShowNotification(_U('no_players_nearby'))
@@ -796,6 +837,13 @@ function OpenPoliceActionsMenu()
 			end, function(data2, menu2)
 				menu2.close()
 			end)
+		elseif data.current.value == 'remove_npcs' then
+			TriggerEvent('esx_ambulancejob:removedeadnpcs')
+		elseif data.current.value == 'revive' then
+			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+			if closestPlayer > 0 and closestDistance < 1.5 then
+				TriggerEvent('esx_ambulancejob:reviveAction', closestPlayer, closestDistance)
+			end
 		end
 	end, function(data, menu)
 		menu.close()
@@ -959,9 +1007,39 @@ function OpenFineMenu(player)
 			{label = _U('traffic_offense'), value = 0},
 			{label = _U('minor_offense'),   value = 1},
 			{label = _U('average_offense'), value = 2},
-			{label = _U('major_offense'),   value = 3}
+			{label = _U('major_offense'),   value = 3},
+			{label = _U('billing'), value = 'billing'},
 	}}, function(data, menu)
-		OpenFineCategoryMenu(player, data.current.value)
+	        local cmd = data.current.value
+		if cmd == 'billing' then
+			ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing_desc', {
+				title = "Описание проступка"
+			}, function(data, menu)
+				local desc = data.value
+				menu.close()
+
+				ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'billing', {
+					title = "Сумма штрафа"
+				}, function(data, menu)
+					menu.close()
+
+					local amount = tonumber(data.value)
+					if amount == nil then
+						ESX.ShowNotification(_U('amount_invalid'))
+					else
+						menu.close()
+						TriggerServerEvent('esx_billing:sendBill', GetPlayerServerId(player), 'society_police', desc, amount)
+						ESX.ShowNotification(_U('billing_sent'))
+					end
+				end, function(data, menu)
+					menu.close()
+				end)
+			end, function(data, menu)
+				menu.close()
+			end)
+		else
+			OpenFineCategoryMenu(player, cmd)
+		end
 	end, function(data, menu)
 		menu.close()
 	end)
@@ -1289,10 +1367,12 @@ function OpenGetStocksMenu()
 		local elements = {}
 
 		for i=1, #items, 1 do
-			table.insert(elements, {
-				label = 'x' .. items[i].count .. ' ' .. items[i].label,
-				value = items[i].name
-			})
+			if items[i].count > 0 then
+				table.insert(elements, {
+					label = 'x' .. items[i].count .. ' ' .. items[i].label,
+					value = items[i].name
+				})
+			end
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stocks_menu', {
@@ -1414,6 +1494,10 @@ AddEventHandler('esx_policejob:hasEnteredMarker', function(station, part, partNu
 	elseif part == 'Armory' then
 		CurrentAction     = 'menu_armory'
 		CurrentActionMsg  = _U('open_armory')
+		CurrentActionData = {station = station}
+	elseif part == 'Stock' then
+		CurrentAction     = 'menu_stock'
+		CurrentActionMsg  = _U('open_stock')
 		CurrentActionData = {station = station}
 	elseif part == 'Vehicles' then
 		CurrentAction     = 'menu_vehicle_spawner'
@@ -1796,6 +1880,19 @@ Citizen.CreateThread(function()
 					end
 				end
 
+				for i=1, #v.Stocks, 1 do
+					local distance = GetDistanceBetweenCoords(coords, v.Stocks[i], true)
+
+					if distance < Config.DrawDistance then
+						DrawMarker(25, v.Stocks[i], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, true, false, false, false)
+						letSleep = false
+					end
+
+					if distance < Config.MarkerSize.x then
+						isInMarker, currentStation, currentPart, currentPartNum = true, k, 'Stock', i
+					end
+				end
+
 				for i=1, #v.Vehicles, 1 do
 					local distance = GetDistanceBetweenCoords(coords, v.Vehicles[i].Spawner, true)
 
@@ -1931,6 +2028,14 @@ Citizen.CreateThread(function()
 					OpenCloakroomMenu()
 				elseif CurrentAction == 'menu_computer' then
 					TriggerEvent('jsfour-mdc:openMenu')
+				elseif CurrentAction == 'menu_stock' then
+					if Config.MaxInService == -1 then
+						OpenStockMenu(CurrentActionData.station)
+					elseif playerInService then
+						OpenStockMenu(CurrentActionData.station)
+					else
+						ESX.ShowNotification(_U('service_not'))
+					end
 				elseif CurrentAction == 'menu_armory' then
 					if Config.MaxInService == -1 then
 						OpenArmoryMenu(CurrentActionData.station)

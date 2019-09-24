@@ -5,19 +5,23 @@ Locales['en'] = {
   ['police_wear'] = 'Полицейская одежда',
   ['gilet_wear'] = 'Светоотражающий жилет',
   ['bullet_wear'] = 'Бронежилет',
+  ['hidden_bullet_wear'] = 'Скрытый бронежилет',
   ['change_wear'] = 'Сменить одежду',
   ['no_outfit'] = 'Нет униформы которая подходит вам',
-  ['open_cloackroom'] = 'Нажмите ~INPUT_CONTEXT~ чтобы сменить ~y~одежду~s~.',
-  -- Armory
+  ['open_cloackroom'] = 'Нажмите ~INPUT_CONTEXT~ чтобы сменить ~y~одежду~s~',
+  -- Stock
+  ['stock'] = 'Склад',
   ['remove_object'] = 'Взять предмет',
   ['deposit_object'] = 'Положить предмет',
+  ['open_stock'] = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть ~y~склад~s~',
+  -- Armory
   ['get_weapon'] = 'Взять оружие из арсенала',
   ['put_weapon'] = 'Сдать оружие в арсенал',
   ['buy_weapons'] = 'Купить оружие',
   ['computer'] = 'Компьютер',
-  ['open_computer'] = 'Нажмите ~INPUT_CONTEXT~ чтобы использовать ~y~Компьютер~s~.',
+  ['open_computer'] = 'Нажмите ~INPUT_CONTEXT~ чтобы использовать ~y~Компьютер~s~',
   ['armory'] = 'Арсенал',
-  ['open_armory'] = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть ~y~Арсенал~s~.',
+  ['open_armory'] = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть ~y~Арсенал~s~',
   ['armory_owned'] = 'Имеется',
   ['armory_free'] = 'Бесплатно',
   ['armory_item'] = '$%s',
@@ -31,7 +35,7 @@ Locales['en'] = {
   -- Vehicles
   ['vehicle_menu'] = 'Транспорт',
   ['vehicle_blocked'] = 'Все доступные выезды заблокированы!',
-  ['garage_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть ~y~гараж~s~.',
+  ['garage_prompt'] = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть ~y~гараж~s~',
   ['garage_title'] = 'Магазин транспорта',
   ['garage_stored'] = 'Поставлено в гараж',
   ['garage_notstored'] = 'Не в гараже',
@@ -52,7 +56,7 @@ Locales['en'] = {
   ['vehicleshop_title'] = 'Магазин транспорта',
   ['vehicleshop_confirm'] = 'Вы хотите купить этот транспорт?',
   ['vehicleshop_bought'] = 'Вы купили ~y~%s~s~ за ~r~$%s~s~',
-  ['vehicleshop_money'] = 'Вы не можете позволить себе этот транспорт.',
+  ['vehicleshop_money'] = 'В бюджете недостаточно средств для покупки этого транспорта.',
   ['vehicleshop_awaiting_model'] = 'Транспорт сейчас ~g~DOWNLOADING & LOADING~s~ пожалуйста подождите',
   ['confirm_no'] = 'нет',
   ['confirm_yes'] = 'да',
@@ -68,6 +72,9 @@ Locales['en'] = {
   ['citizen_interaction'] = 'Действия с гражданскими',
   ['vehicle_interaction'] = 'Действия с транспортом',
   ['object_spawner'] = 'Установить объект',
+  ['revive'] = 'Реанимировать',
+  ['remove_npcs'] = 'Убрать тела',
+  ['billing'] = 'Выписать штраф',
 
   ['id_card'] = 'ID карта',
   ['search'] = 'Обыскать',
@@ -144,8 +151,8 @@ Locales['en'] = {
   -- Boss Menu
   ['open_bossmenu'] = 'Нажмите ~INPUT_CONTEXT~ чтобы открыть меню',
   ['quantity_invalid'] = 'Неверное количество',
-  ['have_withdrawn'] = 'Вы вывели ~y~%sx~s~ ~b~%s~s~',
-  ['have_deposited'] = 'Вы пополнили ~y~%sx~s~ ~b~%s~s~',
+  ['have_withdrawn'] = 'Вы забрали ~y~%sx~s~ ~b~%s~s~',
+  ['have_deposited'] = 'Вы положили ~y~%sx~s~ ~b~%s~s~',
   ['quantity'] = 'Количество',
   ['inventory'] = 'Инвентарь',
   ['police_stock'] = 'Полицейская казна',
@@ -156,4 +163,12 @@ Locales['en'] = {
   -- Notifications
   ['alert_police'] = 'Полицейская тревога',
   ['phone_police'] = 'Полиция',
+ -- Weapon license
+  ['add_weapon_license'] = 'Выдать лицензию на оружие',
+  ['player_has_weapon_license'] = 'Гражданин уже имеет разрешение на ношение оружия',
+  ['weapon_license_added'] = 'Разрешение на ношение оружия выдано',
+
+  ['remove_weapon_license'] = 'Отозвать лицензию на оружие',
+  ['no_weapon_license'] = 'Гражданин не имеет разрешения на ношение оружия',
+  ['weapon_license_removed'] = 'Разрешение на ношение оружия отозвано',
 }
