@@ -1081,7 +1081,7 @@ Config.Garages = {
 	LowEndApartment = {
 
 		IsClosed = true,
-		NeedProperty = 'LowEndApartment',
+		NeedProperty = 'HotelFantastic',
 
 		ExteriorEntryPoint = {
 			Pos = {x= 330.4, y = -1159.93, z = 28.29},
@@ -1090,6 +1090,42 @@ Config.Garages = {
 		ExteriorSpawnPoint = {
 			Pos     = {x = 315.53, y =-1159.48, z =29.29},
 			Heading = 358.87
+		},
+
+		InteriorSpawnPoint = {
+			Pos     = {x = 174.11, y = -1007.15, z = -100.000},
+			Heading = 0.0
+		},
+
+		InteriorExitPoint = {
+			Pos = {x = 171.71, y = -1007.4, z = -100.000},
+		},
+
+		Parkings = {
+			{
+				Pos     = {x = 175.03, y = -1002.39, z = -100.000},
+				Heading = 173.03
+			},
+			{
+				Pos     = {x = 170.73, y = -1002.39, z = -100.000},
+				Heading = 173.03
+			},
+		}
+
+	},
+
+	LowEndApartment = {
+
+		IsClosed = true,
+		NeedProperty = 'HotelTug',
+
+		ExteriorEntryPoint = {
+			Pos = {x= -998.61, y = -1427, z = 4.05},
+		},
+
+		ExteriorSpawnPoint = {
+			Pos     = {x = -1015.66, y =-1431.37, z =5.10},
+			Heading = 284.45
 		},
 
 		InteriorSpawnPoint = {

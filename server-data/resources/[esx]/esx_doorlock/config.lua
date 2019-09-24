@@ -504,6 +504,63 @@ Config.DoorList = {
 		authorizedJobs = { 'ambulance' },
 		locked = true
 	},
+	{
+		textCoords = vector3(334.21, -592.43, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 250.0,
+				objCoords = vector3(334.32, -593.24, 28.79)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 70.0,
+				objCoords = vector3(334.97, -591.56, 28.79)
+			}
+		}
+	},
+	{
+		textCoords = vector3(341.88, -571.4, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 250.0,
+				objCoords = vector3(341.72, -572.6, 28.79)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 70.0,
+				objCoords = vector3(342.22, -570.52, 28.79)
+			}
+		}
+	},
+	{
+		textCoords = vector3(319.89, -560.58, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'hei_prop_heist_cutscene_doorc_r',
+				objYaw = 207.0,
+				objCoords = vector3(319.17, -561.2, 28.78)
+			},
+
+			{
+				objName = 'hei_prop_heist_cutscene_doorc_r',
+				objYaw = 25.0,
+				objCoords = vector3(320.9, -560.13, 28.78)
+			}
+		}
+	},
 
 	-- UNICORN
 	{

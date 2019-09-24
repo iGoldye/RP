@@ -66,16 +66,6 @@ while true do
 		nuiFocus = false
 	end
 
-	if menuActive == true and nuiFocus == false then
-		SetNuiFocus(true,true)
-		nuiFocus = true
-	end
-
-	if menuActive == false and nuiFocus == true then
-		SetNuiFocus(false, false)
-		nuiFocus = false
-	end
-
 	TriggerEvent('esx_status:getStatus', 'hunger', function(status)
 		if status ~= nil then
 			hunger = status.val / 1000000
