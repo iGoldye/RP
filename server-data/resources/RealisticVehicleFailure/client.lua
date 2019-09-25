@@ -439,7 +439,7 @@ Citizen.CreateThread(function()
 		else
 			if pedInSameVehicleLast == true then
 				-- We just got out of the vehicle
-				lastVehicle = GetVehiclePedIsIn(ped, true)				
+				lastVehicle = GetVehiclePedIsIn(ped, true)
 				if cfg.deformationMultiplier ~= -1 then SetVehicleHandlingFloat(lastVehicle, 'CHandlingData', 'fDeformationDamageMult', fDeformationDamageMult) end -- Restore deformation multiplier
 				SetVehicleHandlingFloat(lastVehicle, 'CHandlingData', 'fBrakeForce', fBrakeForce)  -- Restore Brake Force multiplier
 				if cfg.weaponsDamageMultiplier ~= -1 then SetVehicleHandlingFloat(lastVehicle, 'CHandlingData', 'fWeaponDamageMult', cfg.weaponsDamageMultiplier) end	-- Since we are out of the vehicle, we should no longer compensate for bodyDamageFactor
@@ -450,4 +450,3 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
-

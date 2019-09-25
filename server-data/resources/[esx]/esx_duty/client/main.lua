@@ -77,7 +77,6 @@ Citizen.CreateThread(function ()
         Citizen.Wait(1)
 
         local playerPed = GetPlayerPed(-1)
-        
         local jobs = {
             'offambulance',
             'offpolice',
@@ -100,7 +99,7 @@ Citizen.CreateThread(function ()
 
         end
 
-    end       
+    end
 end)
 
 -- Display markers

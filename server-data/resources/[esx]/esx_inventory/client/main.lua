@@ -25,7 +25,7 @@ initialized = false
 Citizen.CreateThread(function()
 	while true do
 		if movementSpeed < 0.9 then
-			DisableControlAction(0, 22, true) -- Jump			
+			DisableControlAction(0, 22, true) -- Jump
 		end
 		Citizen.Wait(0)
 	end
@@ -107,7 +107,6 @@ end
 function showInputDialog(name, title, cb)
         local dialog_flag = false
 	local text = nil
-
 	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), name, {
 		title = title
 	}, function(data3, menu3)

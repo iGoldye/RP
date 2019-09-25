@@ -3,7 +3,7 @@ local shown = false
 
 local radar =
 {
-	info = "~y~Направте его на транспорт. ~w~ Нажмите ~y~E",
+	info = "",
 }
 
 Citizen.CreateThread( function()
@@ -12,6 +12,15 @@ Citizen.CreateThread( function()
 
 	while true do
 		Citizen.Wait(1) 
+		if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(cfg.radargun) then
+			shown = true
+		else
+			if shown == true then
+				shown = false
+				radar.info = string.format("~y~Направьте его на транспорт. ~w~ Нажмите ~y~E")
+			end
+		end
+--[[
 			if IsControlJustPressed(1, cfg.menuopen) then --246 = Y
      			if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey(cfg.radargun) then
 					if shown == true then 
@@ -22,8 +31,9 @@ Citizen.CreateThread( function()
      				end
    				end
   			end
+]]--
 
-		if IsControlJustPressed(1, cfg.bottomfreeze) then --38 = E
+		if IsControlPressed(1, cfg.bottomfreeze) then --38 = E
 			freeze = false
 		end
 
@@ -62,11 +72,11 @@ Citizen.CreateThread( function()
 							local pos = GetEntityCoords(e)
 							local fvspeed = GetEntitySpeed(e)*3.6  -- m/s to kmh
 							local fplate = GetVehicleNumberPlateText(e)
-							radar.info = string.format("~y~Номер: ~w~%s ~y~Модель: ~w~%s ~y~Скорость: ~w~%s km/h", fplate, fmodel, math.ceil(fvspeed))
+							radar.info = string.format("~y~Номер: ~w~%s\n ~y~Модель: ~w~%s\n ~y~Скорость: ~w~%s км/ч\n", fplate, fmodel, math.ceil(fvspeed))
 						else 
 							local fvspeed = GetEntitySpeed(e)*2.23694 -- m/s to mph
 							local fplate = GetVehicleNumberPlateText(e)
-							radar.info = string.format("~y~Номер: ~w~%s ~y~Модель: ~w~%s ~y~Скорость: ~w~%s mph", fplate, fmodel, math.ceil(fvspeed))
+							radar.info = string.format("~y~Номер: ~w~%s\n ~y~Модель: ~w~%s\n ~y~Скорость: ~w~%s mph\n", fplate, fmodel, math.ceil(fvspeed))
 						end
 					end
 				end	

@@ -14,8 +14,8 @@ Config.Zones = {
   },
 
   AmbulanceDuty = {
-    Pos = { x = 334.51, y = -585.13, z = 27.86 },
-    Size = { x = 2.5, y = 2.5, z = 1.5 },
+    Pos = { x = 338.25, y = -585.61, z = 27.86 },
+    Size = { x = 1.2, y = 1.2, z = 1.5 },
     Color = { r = 0, g = 255, b = 0 },
     Type = 27,
     Job  = "ambulance",

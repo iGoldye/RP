@@ -56,7 +56,6 @@ Config.Animations = {
 			{label = "Отдать честь", type = "anim", data = {lib = "mp_player_int_uppersalute", anim = "mp_player_int_salute", stop_last_frame=true, upper=true, control=true,}},
 			{label = "Бро", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@bro_love", anim = "bro_love"}},
       {label = "Воздушный поцелуй", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@blow_kiss", anim = "blow_kiss"}},
-
 		}
 	},
 
@@ -168,7 +167,7 @@ Config.Animations = {
 			{label = "Скрестить руки Ж", type = "anim", data = {lib = "amb@world_human_hang_out_street@female_arms_crossed@base", anim = "base", flag = 9}},
 			{label = "Опереться спиной", type = "scenario", data = {anim = "world_human_leaning"}},
 			{label = "Задуматься", type = "anim", data = {lib = "anim@amb@board_room@whiteboard@", anim = "think_01_amy_skater_01", upper=true, control=true, flag = 9}},
-			{label = "Опереться низко", type = "anim", data = {lib = "anim@amb@board_room@diagram_blueprints@", anim = "idle_04_amy_skater_01"}},
+			{label = "Опереться низко", type = "anim", data = {lib = "anim@amb@board_room@diagram_blueprints@", anim = "idle_04_amy_skater_01", flag = 9}},
 			{label = "Скучать М", type = "anim", data = {lib = "anim@amb@business@cfid@cfid_photograph@", anim = "camera_fiddle_model", flag = 9}},
 			{label = "Скучать Ж", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "amb_world_human_hang_out_street_female_hold_arm_idle_b", flag = 9}},
 			{label = "Облокотиться спиной", type = "anim", data = {lib = "anim@amb@clubhouse@bar@bartender@", anim = "base_bartender", flag = 9}},
@@ -201,7 +200,6 @@ Config.Animations = {
 			{label = "В стельку", type = "attitude", data = {lib = "move_m@drunk@verydrunk", anim = "move_m@drunk@verydrunk"}},
 			{label = "Альфа", type = "attitude", data = {lib = "move_p_m_zero_slow", anim = "move_p_m_zero_slow"}},
 			{label = "Гордая", type = "attitude", data = {lib = "move_m@muscle@a", anim = "move_m@muscle@a"}},
-
 			{label = "В развалку", type = "attitude", data = {lib = "move_m@shadyped@a", anim = "move_m@shadyped@a"}},
 			{label = "Уставшая", type = "attitude", data = {lib = "move_m@buzzed", anim = "move_m@buzzed"}},
 			{label = "Очень уставшая", type = "attitude", data = {lib = "move_m@depressed@a", anim = "move_m@depressed@a"}},
@@ -209,7 +207,6 @@ Config.Animations = {
 			{label = "Пританцовывая", type = "attitude", data = {lib = "move_m@money", anim = "move_m@money"}},
 			{label = "Бегом", type = "attitude", data = {lib = "move_m@quick", anim = "move_m@quick"}},
 			{label = "На стиле", type = "attitude", data = {lib = "move_m@swagger", anim = "move_m@swagger"}},
-
 		}
 	},
 
@@ -217,7 +214,7 @@ Config.Animations = {
 		name  = 'attitudem2',
 		label = 'Походки Ж',
 		items = {
-			{label = "Обычная", type = "attitude", data = {lib = "move_f@generic", anim = "walk"}},
+			{label = "Обычная", type = "attitude", data = {lib = "move_f@generic", anim = "move_f@generic"}},
 			{label = "Сдержанная Ж", type = "attitude", data = {lib = "move_f@heels@c", anim = "move_f@heels@c"}},
 			{label = "Депрессивная Ж", type = "attitude", data = {lib = "move_f@depressed@a", anim = "move_f@depressed@a"}},
 			{label = "Ритмичная Ж", type = "attitude", data = {lib = "anim@move_f@grooving@", anim = "anim@move_f@grooving@"}},
@@ -361,7 +358,6 @@ Config.Animations = {
 		label = 'Животные',
 		items = {
 			-- ------------------------ЖИВОТНЫЕ
-
 			{label = "Кошка свернутся клубочком", type = "scenario", data = {anim = "WORLD_CAT_SLEEPING_GROUND"}},
 			{label = "Cобака найти что-то", type = "scenario", data = {anim = "WORLD_DOG_BARKING_ROTTWEILER"}},
 			{label = "Cобака сесть", type = "scenario", data = {anim = "WORLD_DOG_SITTING_ROTTWEILER"}},
@@ -381,7 +377,6 @@ Config.Animations = {
 			{label = "Свинья", type = "scenario", data = {anim = "WORLD_PIG_GRAZING"}},
 			-- {label = "Cобака ", type = "scenario", data = {anim = "WORLD_DOG_BARKING_RETRIEVER"}},
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_BARKING_SHEPHERD"}},
-
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_SITTING_RETRIEVER"}},
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_SITTING_SHEPHERD"}},
 			-- {label = "Cобака", type = "scenario", data = {anim = "WORLD_DOG_BARKING_SMALL"}},

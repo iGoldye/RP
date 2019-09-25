@@ -56,6 +56,16 @@ while true do
 		nuiFocus = false
 	end
 
+	if menuActive == true and nuiFocus == false then
+		SetNuiFocus(true,true)
+		nuiFocus = true
+	end
+
+	if menuActive == false and nuiFocus == true then
+		SetNuiFocus(false, false)
+		nuiFocus = false
+	end
+
 	TriggerEvent('esx_status:getStatus', 'hunger', function(status)
 		if status ~= nil then
 			hunger = status.val / 1000000
@@ -377,6 +387,40 @@ end
 end)
 
 Citizen.CreateThread(function()
+while true do
+	if menuActive then
+		local playerPed = PlayerPedId()
+
+		DisableAllControlActions(0)
+--[[
+		DisableControlAction(0, 1, true) -- LookLeftRight
+		DisableControlAction(0, 2, true) -- LookUpDown
+		DisablePlayerFiring(playerPed, true) -- Disable weapon firing
+		DisableControlAction(0, 142, true) -- MeleeAttackAlternate
+		DisableControlAction(0, 106, true) -- VehicleMouseControlOverride
+
+		DisableControlAction(0, 12, true) -- WeaponWheelUpDown
+		DisableControlAction(0, 14, true) -- WeaponWheelNext
+		DisableControlAction(0, 15, true) -- WeaponWheelPrev
+		DisableControlAction(0, 16, true) -- SelectNextWeapon
+		DisableControlAction(0, 17, true) -- SelectPrevWeapon
+]]--
+--	else
+--		if IsControlJustPressed(1, 10) then
+--			TriggerEvent('sosamba_ui:toggleweb')
+--			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'sosamba_ui:showInventoryMenu')
+--		end
+	end
+
+	Citizen.Wait(0)
+end
+end)
+
+Citizen.CreateThread(function()
+
+	while GetIsLoadingScreenActive() do
+		Citizen.Wait(1000)
+	end
 
 	while GetIsLoadingScreenActive() do
 		Citizen.Wait(1000)

@@ -163,7 +163,7 @@ export default function install(Vue, { name = 'timeago', locale = 'ru_RU', local
 
   VueTimeago.locale = 'ru_RU'
   VueTimeago.locales = {}
-  
+
   Vue.prototype.$timeago = {
     setCurrentLocale (locale) {
       VueTimeago.locale = locale

@@ -20,7 +20,6 @@ AddEventHandler("Bag:ToggleBag", function()
         while not HasModelLoaded(GetHashKey(bagModel)) do
             Citizen.Wait(100)
         end
-		
 		while not HasAnimDictLoaded(baganimDict) do
 			RequestAnimDict(baganimDict)
 			Citizen.Wait(100)
@@ -45,7 +44,7 @@ AddEventHandler("Bag:ToggleBag", function()
         bag_net = nil
         holdingBag = false
         usingBag = false
-    end	
+    end
 end)
 
 Citizen.CreateThread(function()

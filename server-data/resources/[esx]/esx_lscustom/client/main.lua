@@ -147,7 +147,7 @@ function UpdateMods(data)
 
 	if data.modType ~= nil then
 		local props = {}
-		
+
 		if data.wheelType ~= nil then
 			props['wheels'] = data.wheelType
 			ESX.Game.SetVehicleProperties(vehicle, props)
@@ -222,7 +222,7 @@ function GetAction(data)
 			end
 
 			if v.modType ~= nil then
-				
+
 				if v.modType == 22 then
 					table.insert(elements, {label = " " .. _U('by_default'), modType = k, modNum = false})
 				elseif v.modType == 'neonColor' or v.modType == 'tyreSmokeColor' then -- disable neon
@@ -415,7 +415,6 @@ Citizen.CreateThread(function()
 		local playerPed = PlayerPedId()
 		if IsPedInAnyVehicle(playerPed, false) then
 			local coords      = GetEntityCoords(PlayerPedId())
-
 			if isMechanic() or Config.IsMechanicJobOnly == false then
 				for k,v in pairs(Config.Zones) do
 					if GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < v.Size.x then

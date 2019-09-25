@@ -297,7 +297,7 @@ Config.DoorList = {
 		textCoords = vector3(468.6, -1014.4, 27.1),
 		authorizedJobs = { 'police' },
 		locked = true,
-		distance = 4,
+		distance = 2.5,
 		doors = {
 			{
 				objName = 'v_ilev_rc_door2',
@@ -312,6 +312,30 @@ Config.DoorList = {
 			}
 		}
 	},
+
+	-- {
+	-- 	objName = 'v_ilev_ph_cellgate',
+	-- 	objYaw = 0.0,
+	-- 	objCoords  = vector3(481.9, -988.73, 25.0),
+	-- 	textCoords = vector3(481.8, -988.13, 25.5),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = true
+	-- },
+	-- {
+	-- 	objName = 'v_ilev_ph_cellgate',
+	-- 	objYaw = 0.0,
+	-- 	objCoords  = vector3(482.1, -991.1, 25.0),
+	-- 	textCoords = vector3(482.1, -991.8, 25.5),
+	-- 	authorizedJobs = { 'police' },
+	-- 	locked = true
+	-- },
+	-- Balk
+
+	--
+	-- Mission Row Back
+	--
+
+	-- Back (double doors)
 
 	-- Back Gate
 	-- {
@@ -479,6 +503,63 @@ Config.DoorList = {
 		textCoords = vector3(330.94, -576.16, 29.5),
 		authorizedJobs = { 'ambulance' },
 		locked = true
+	},
+	{
+		textCoords = vector3(334.21, -592.43, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 250.0,
+				objCoords = vector3(334.32, -593.24, 28.79)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 70.0,
+				objCoords = vector3(334.97, -591.56, 28.79)
+			}
+		}
+	},
+	{
+		textCoords = vector3(341.88, -571.4, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 250.0,
+				objCoords = vector3(341.72, -572.6, 28.79)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 70.0,
+				objCoords = vector3(342.22, -570.52, 28.79)
+			}
+		}
+	},
+	{
+		textCoords = vector3(319.89, -560.58, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'hei_prop_heist_cutscene_doorc_r',
+				objYaw = 207.0,
+				objCoords = vector3(319.17, -561.2, 28.78)
+			},
+
+			{
+				objName = 'hei_prop_heist_cutscene_doorc_r',
+				objYaw = 25.0,
+				objCoords = vector3(320.9, -560.13, 28.78)
+			}
+		}
 	},
 
 	-- UNICORN

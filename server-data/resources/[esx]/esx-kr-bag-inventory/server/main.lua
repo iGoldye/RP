@@ -7,7 +7,6 @@ ESX.RegisterUsableItem('bag', function(source)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
     xPlayer.removeInventoryItem('bag', 1)
-    
     TriggerClientEvent('esx-kr-bag:CheckBag', source, HasBag)
     if not HasBag then
         TriggerEvent('esx-kr-bag:InsertBag', source)
@@ -43,7 +42,6 @@ ESX.RegisterServerCallback('esx-kr-bag:getAllBags', function(source, cb)
     local src = source
 
     MySQL.Async.fetchAll('SELECT * FROM owned_bags', {}, function(bags)
-       
         if bags[1] ~= nil then
             cb(bags)
         else
@@ -92,7 +90,7 @@ AddEventHandler('esx-kr-bag:TakeItem', function(id, item, count, type)
         elseif type == 'item' then
             xPlayer.addInventoryItem(item, count)
         end
-                MySQL.Async.execute('UPDATE owned_bags SET itemcount = @itemcount WHERE id = @id', {['@id'] = id, ['@itemcount'] = bag[1].itemcount - 1})    
+                MySQL.Async.execute('UPDATE owned_bags SET itemcount = @itemcount WHERE id = @id', {['@id'] = id, ['@itemcount'] = bag[1].itemcount - 1})
                 MySQL.Async.execute('DELETE FROM owned_bag_inventory WHERE id = @id AND item = @item AND count = @count',{['@id'] = id,['@item'] = item, ['@count'] = count})
             end
         end)
@@ -106,7 +104,6 @@ AddEventHandler('esx-kr-bag:PutItem', function(id, item, label, count, type)
     local identifier = ESX.GetPlayerFromId(src).identifier
 	local update
     local insert
-    
     MySQL.Async.fetchAll('SELECT * FROM owned_bags WHERE identifier = @identifier ',{["@identifier"] = identifier}, function(bag)
 
     if bag[1].itemcount < Config.MaxDifferentItems then
@@ -168,7 +165,6 @@ AddEventHandler('esx-kr-bag:DropBag', function(id, x, y, z)
     MySQL.Async.fetchAll('UPDATE owned_bags SET identifier = @identifier, x = @x, y = @y, z = @z WHERE id = @id', {['@identifier'] = nil, ['@id'] = id, ['@x'] = x, ['@y'] = y, ['@z'] = z})
 
         local xPlayers = ESX.GetPlayers()
-        
     for i=1, #xPlayers, 1 do
         TriggerClientEvent('esx-kr-bag:ReSync', xPlayers[i], id)
     end

@@ -14,7 +14,7 @@ AddEventHandler('duty:onoff', function(job)
     if identity ~= nil then
         plname = identity.firstname .. " " .. identity.lastname
     end
-    
+
     if job == 'police' or job == 'ambulance' then
         xPlayer.setJob('off' ..job, grade)
         TriggerClientEvent('esx:showNotification', _source, _U('offduty'))

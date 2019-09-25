@@ -40,13 +40,11 @@ AddEventHandler('esx_illegal_drugs:hasEnteredMarker', function(zone)
 	end
 
 	ESX.UI.Menu.CloseAll()
-
 	if zone == 'exitMarker' then
 		CurrentAction     = zone
 		CurrentActionMsg  = _U('exit_marker')
 		CurrentActionData = {}
 	end
-
 	if zone == 'CokeField' then
 		CurrentAction     = zone
 		CurrentActionMsg  = _U('press_collect_coke')
@@ -289,7 +287,6 @@ end)
 Citizen.CreateThread(function()
 	if Config.DisableBlip == false then
 	for i=1, #Config.Map, 1 do
-
 		local blip = AddBlipForCoord(Config.Map[i].x, Config.Map[i].y, Config.Map[i].z)
 		SetBlipSprite (blip, Config.Map[i].id)
 		SetBlipDisplay(blip, 4)

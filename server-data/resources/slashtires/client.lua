@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
 			if CanUseWeapon(allowedWeapons) then
 				local closestTire = GetClosestVehicleTire(vehicle)
 				if closestTire ~= nil then
-					
+
 					if IsVehicleTyreBurst(vehicle, closestTire.tireIndex, 0) == false then
 						Draw3DText(closestTire.bonePos.x, closestTire.bonePos.y, closestTire.bonePos.z, tostring("~r~[E] Проткнуть колесо"))
 						if IsControlJustPressed(1, 38) then
@@ -214,7 +214,6 @@ function GetClosestVehicleTire(vehicle)
 	local plyPos = GetEntityCoords(plyPed, false)
 	local minDistance = 1.0
 	local closestTire = nil
-	
 	for a = 1, #tireBones do
 		local bonePos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, tireBones[a]))
 		local distance = Vdist(plyPos.x, plyPos.y, plyPos.z, bonePos.x, bonePos.y, bonePos.z)
@@ -237,11 +236,11 @@ function Draw3DText(x, y, z, text)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)
     local px,py,pz=table.unpack(GetGameplayCamCoords())
     local dist = GetDistanceBetweenCoords(px,py,pz, x,y,z, 1)
- 
+
     local scale = (1/dist)*2
     local fov = (1/GetGameplayCamFov())*100
     local scale = scale*fov
-   
+
     if onScreen then
         SetTextScale(0.0*scale, 0.55*scale)
         SetTextFont(0)

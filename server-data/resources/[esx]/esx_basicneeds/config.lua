@@ -22,6 +22,8 @@ Config.Food = { -- ccal * g
 	fruitpot = 452 * 40,
 	sendwich = 500 * 40,
 	burger = 500 * 40,
+	cring = 500 * 40,
+	cakes = 500 * 40,
 
 
 	-- UNICRON --

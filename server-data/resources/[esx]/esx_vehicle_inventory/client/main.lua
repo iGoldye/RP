@@ -198,7 +198,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
 
             ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
                 for k,v in pairs(inventory.items) do
-                    if v.name ~= "equipped_weapon" then
+                    if v.name ~= "equipped_weapon" and v.name ~= 'account_money' then
                         table.insert(elem, {
                             label = v.label .. ' x' .. tostring(v.amount),
                             count = v.amount,
@@ -212,7 +212,7 @@ AddEventHandler('esx_truck_inventory:getInventoryLoaded', function(inventory,wei
                 ESX.UI.Menu.Open(
                     'default', GetCurrentResourceName(), 'inventory_player',
                     {
-                      title    = 'Содержимое багажника',
+                      title    = 'Инвентарь',
                       align    = 'bottom-right',
                       elements = elem,
                     },function(data3, menu3)

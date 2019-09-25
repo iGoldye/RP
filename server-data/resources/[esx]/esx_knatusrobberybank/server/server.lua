@@ -84,7 +84,6 @@ AddEventHandler('esx_holdupbank:rob', function(robb)
 	local source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xPlayers = ESX.GetPlayers()
-	
 	if Banks[robb] then
 
 		local bank = Banks[robb]
@@ -99,7 +98,7 @@ AddEventHandler('esx_holdupbank:rob', function(robb)
 		local cops = getCopCount()
 
 		if rob == false then
-		
+
 			 if xPlayer.getInventoryItem('blowtorch').count >= 1 then
 				xPlayer.removeInventoryItem('blowtorch', 1)
 
@@ -154,7 +153,6 @@ AddEventHandler('esx_holdupbank:hack', function(robb)
 	local source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xPlayers = ESX.GetPlayers()
-	
 	if Banks[robb] then
 
 		local bank = Banks[robb]

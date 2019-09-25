@@ -311,39 +311,39 @@ Citizen.CreateThread(function()
 
             if distanceToTrunk <= 1.9 then
                 Draw3DText(trunkpos.x, trunkpos.y, trunkpos.z - 0.3, "Багажник")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
             elseif distanceToHood <= 1.75 then
                     Draw3DText(Hoodpos.x, Hoodpos.y, Hoodpos.z - 0.0, "Капот")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
             elseif distanceToDSDF <= 1.1 then
                 if GetVehicleDoorAngleRatio(vehicle, 0) <= 0.1 then
                     Draw3DText(DSDFpos.x, DSDFpos.y, DSDFpos.z - 0.0, "Дверь")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
                 elseif GetVehicleDoorAngleRatio(vehicle, 0) >= 0.1 then
                     Draw3DText(transPos.x, transPos.y, transPos.z - 0.0, "Взять оружие")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
                 end
             elseif distanceToDSDR <= 1.1 then
                     Draw3DText(DSDRpos.x, DSDRpos.y, DSDRpos.z - 0.0, "Дверь")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
             elseif distanceToPSDF <= 1.1 then
                     Draw3DText(PSDFpos.x, PSDFpos.y, PSDFpos.z - 0.0, "Дверь")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
             elseif distanceToPSDR <= 1.1 then
                     Draw3DText(PSDRpos.x, PSDRpos.y, PSDRpos.z - 0.0, "Дверь")
-                    if IsControlJustPressed(0, 19) then
+                    if IsControlJustPressed(0, 73) then
                         OpenMenu()
                     end
                 end

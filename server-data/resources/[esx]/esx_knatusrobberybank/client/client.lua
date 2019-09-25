@@ -209,7 +209,6 @@ AddEventHandler('esx_holdupbank:opendoors', function(x,y,z,doortype)
 		SetEntityHeading(obs, globalrotation)
 	end
 	end)
-
 end)
 
 

@@ -26,7 +26,6 @@
                       <path d="M19.59,7L12,14.59L6.41,9H11V7H3v8h2v-4.59l7,7l9-9L19.59,7z"/>
                     </svg>
                 </div>
-
                 <div v-if="histo.lastCall.length !==0" class="lastCall">
                   <timeago :since='histo.lastCall[0].date' :auto-update="20"></timeago>
                 </div>

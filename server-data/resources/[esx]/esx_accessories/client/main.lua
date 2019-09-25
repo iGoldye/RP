@@ -68,7 +68,7 @@ function OpenShopMenu(accessory)
 	local restrict = {}
 
 	restrict = { _accessory .. '_1', _accessory .. '_2' }
-	
+
 	TriggerEvent('esx_skin:openRestrictedMenu', function(data, menu)
 
 		menu.close()
@@ -222,7 +222,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		
+
 		if CurrentAction ~= nil then
 			ESX.ShowHelpNotification(CurrentActionMsg)
 

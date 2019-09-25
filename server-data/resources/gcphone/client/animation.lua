@@ -130,7 +130,7 @@ function PhonePlayCall (freeze)
 	PhonePlayAnim('call', freeze)
 end
 
-function PhonePlayIn () 
+function PhonePlayIn ()
 	if currentStatus == 'out' then
 		PhonePlayText()
 	end
