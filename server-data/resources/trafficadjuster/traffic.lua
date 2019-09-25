@@ -1,6 +1,8 @@
 Citizen.CreateThread(function()
-	for i = 1, 13 do
-		EnableDispatchService(i, EnableDispatch)
+	for i = 1, 14 do
+		if i ~= 11 then
+			EnableDispatchService(i, EnableDispatch)
+		end
 	end
 	while true do
 		-- These natives has to be called every frame.
