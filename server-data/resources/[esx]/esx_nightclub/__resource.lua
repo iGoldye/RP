@@ -13,6 +13,7 @@ client_scripts {
   'config.lua',
   'nightclub.lua',
   'client/main.lua',
+  'scripts/screens.lua',
 }
 
 server_scripts {

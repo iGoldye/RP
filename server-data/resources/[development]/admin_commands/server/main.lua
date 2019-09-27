@@ -156,3 +156,9 @@ AddEventHandler('admin_commands:setmoney', function(_source, target, money_type,
 		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('money_'..money_action, money_amount, money_type))
 	end
 end)
+
+TriggerEvent('es:addGroupCommand', 'guitar', 'admin', function(source, args, user)
+	TriggerClientEvent('admin_commands:guitar', source, args)
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Играть на гитаре"})
