@@ -292,6 +292,40 @@ function sitAttachBench()
 	local heading = GetEntityHeading(playerPed)
 	local forward = GetEntityForwardVector(playerPed)
 
+	local playerData = ESX.GetPlayerData()
+	local identity = playerData.identity
+
+	local libEnter = 'amb@prop_human_seat_chair@male@generic@enter'
+	local animEnter = 'enter_forward'
+	local libBase = 'amb@prop_human_seat_chair@male@generic@base'
+	local animBase = 'base'
+	local libExit = 'amb@prop_human_seat_chair@male@generic@exit'
+	local animExit = 'exit_forward'
+	local upForce = -0.0001
+	local fForce = 0.0003
+
+	if playerData ~= nil and identity ~=nil and identity.sex == "f" then
+		libEnter = 'amb@prop_human_seat_chair@female@legs_crossed@enter'
+		animEnter = 'enter_fwd'
+		libBase = 'amb@prop_human_seat_chair@female@legs_crossed@base'
+		animBase = 'base'
+		libExit = 'amb@prop_human_seat_chair@female@legs_crossed@exit'
+		animExit = 'exit_fwd'
+		upForce = 0.0001
+		fForce = 0.00015
+	end
+
+	local behind_pos = lastPos - forward*0.5
+	local p1 = behind_pos+vector3(0,0,0.0)
+	local p2 = behind_pos+vector3(0,0,-0.65)
+
+	local rayHandle = CastRayPointToPoint(p1,p2, 511, GetPlayerPed(-1), 0)
+	local numRayHandle, hit1, endCoords, surfaceNormal, entityHit = GetShapeTestResult(rayHandle)
+
+	if not hit1 or #(endCoords) == 0 then
+		return
+	end
+
 	currentScenario = "PROP_HUMAN_SEAT_BENCH"
 	currentSitObj = nil
 
@@ -311,57 +345,69 @@ function sitAttachBench()
 
 		local z_change = 0
 
-		startAnim('amb@prop_human_seat_chair@male@generic@enter','enter_forward', 2)
+		startAnim(libEnter, animEnter, 2)
+
 		SetEntityRotation(obj, rot)
 		AttachEntityToEntity(playerPed, obj, boneIndex, 0, 0, 0, 0,0,0, 0, false, false, true, 0, true)
 		sitting = true
 		while GetGameTimer()-timer1 < 1500 do
 			local delta = GetGameTimer()-timer1
 			local pelvisCoords2 = GetPedBoneCoords(playerPed, boneIndex, 0, 0, 0)
+--[[
 			local numRayHandle, hit, endCoords, surfaceNormal, entityHit = worldCollisionTest(pelvisCoords2+vector3(0,0,0.02),pelvisCoords2-vector3(0,0,0.02), 0.1, playerPed)
 			if (hit ~= 0) then
 				z_change = z_change + delta*0.00001
 			else
 				z_change = z_change - delta*0.00001
 			end
-
+]]--
 			local forward = GetEntityForwardVector(playerPed)
-			offset = vector3(0,0,z_change-delta*0.0004) - forward * delta *0.0003
+			offset = vector3(0,0,z_change+delta*upForce) - forward * delta *fForce
 			local nc = pelvisCoords + offset
 
 --			DrawBox(c1, c2, 255, 0, 0, 0.5)
+--			drawBoxMarker(pelvisCoords2, 0.1)
+--			drawBoxMarker(nc, 0.1)
 
 			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
 
 			Citizen.Wait(0)
 		end
 
-		startAnim('amb@prop_human_seat_chair@male@generic@base','base', 1)
+		startAnim(libBase, animBase, 1)
 		Citizen.Wait(0)
 
-		while IsEntityPlayingAnim(playerPed, 'amb@prop_human_seat_chair@male@generic@base','base', 3) do
-			local nc = pelvisCoords + offset
-			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
+		while IsEntityPlayingAnim(playerPed, libBase, animBase, 3) do
+			DisableControlAction(0, 73, true)
+			local nc = endCoords --pelvisCoords + offset
+			SetEntityCoordsNoOffset(obj, nc, 0, 0, 0)
+
+			if IsDisabledControlJustPressed(0,73) then
+				break
+			end
 			Citizen.Wait(0)
 		end
 
-		startAnim('amb@prop_human_seat_chair@male@generic@exit','exit_forward', 0)
+		DisableControlAction(0, 73, true)
+		startAnim(libExit, animExit, 0)
 		Citizen.Wait(0)
 
 		timer1 = GetGameTimer()
 		local offset2 = vector3(0,0,0)
-		while IsEntityPlayingAnim(playerPed, 'amb@prop_human_seat_chair@male@generic@exit','exit_forward', 3) do
+		while IsEntityPlayingAnim(playerPed, libExit, animExit, 3) do
+			DisableControlAction(0, 73, true)
 			local delta = GetGameTimer()-timer1
 
 			local forward = GetEntityForwardVector(playerPed)
-			offset2 = vector3(0,0,-delta*0.0003) - forward * delta *0.0002
+			offset2 = vector3(0,0,-delta*0.0002) - forward * delta *0.0003
 
-			local nc = pelvisCoords + offset - offset2
+			local nc = endCoords - offset2
 
 			SetEntityCoordsNoOffset(obj, nc.x,nc.y,nc.z, 0, 0, 0)
 			Citizen.Wait(0)
 		end
 
+		SetEntityCoordsNoOffset(obj, pelvisCoords, 0, 0, 0)
 		DetachEntity(playerPed)
 		DeleteObject(obj)
 	end
