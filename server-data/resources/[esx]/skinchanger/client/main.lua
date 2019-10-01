@@ -251,7 +251,7 @@ function GetMaxVals()
 
 	if Config.UseAccordantArms and isDefaultModel() then
 		local acc = getAccordantArms(Character['sex'], Character['torso_1'])
-		data.arms = #acc - 1
+--		data.arms = #acc - 1
 	end
 
 	return data
@@ -360,10 +360,12 @@ function ApplySkin(skin, clothes)
 		local acc = getAccordantArms(Character['sex'], Character['torso_1'])
 		local arms_num = Character['arms']
 		if Character['arms'] < 0 or Character['arms'] >= #acc then
-			arms_num = 0
+			arms_num = Character['arms']
+		else
+			arms_num = acc[arms_num+1]
 		end
 
-		SetPedComponentVariation(playerPed, 3,		acc[arms_num+1],			Character['arms_2'], 2)						-- Arms
+		SetPedComponentVariation(playerPed, 3,		arms_num,			Character['arms_2'], 2)						-- Arms
 	else
 		SetPedComponentVariation	(playerPed, 3,		Character['arms'],				Character['arms_2'], 2)						-- Arms
 	end
