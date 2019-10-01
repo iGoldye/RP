@@ -27,6 +27,54 @@ function loadAnimDict(dict)
 	end
 end
 
+RegisterNetEvent('admin_commands:guitar')
+AddEventHandler('admin_commands:guitar', function(args)
+-- AMP: spawnobject v_res_fh_guitaramp
+	local gtrModel = "prop_el_guitar_03"
+	local x = -0.1
+	local y = -0.2
+	local z = 0.06
+	local xR = 300.0
+	local yR = 70.0
+	local zR = -20.0
+
+
+	if #args > 0 then
+		local num = tostring(args[1])
+		gtrModel = "prop_el_guitar_0"..num
+		if num == "4" then
+			gtrModel = "prop_acc_guitar_01"
+			x = -0.12
+			xR = 304.0
+		end
+	end
+
+	local animDict = 'amb@world_human_musician@guitar@male@idle_a'
+	local animName = 'idle_b' -- idle_a, idle_c
+
+	loadAnimDict(animDict)
+	RequestModel(gtrModel)
+	while not HasModelLoaded(gtrModel) do
+		Citizen.Wait(1)
+	end
+
+	local flag = 49
+        TaskPlayAnim(PlayerPedId(), animDict, animName, 8.0, 8.0, -1, flag, 1.0, false, false, false);
+	Citizen.Wait(50)
+
+        local attachedPropGtr = CreateObject(GetHashKey(gtrModel), 1.0, 1.0, 1.0, true, false, true);
+	local bone = GetPedBoneIndex(PlayerPedId(), 18905)--28422)
+
+	Citizen.Wait(100)
+
+        AttachEntityToEntity(attachedPropGtr, PlayerPedId(), bone, x, y, z, xR, yR, zR, true, true, false, true, 1, true);
+        while IsEntityPlayingAnim(PlayerPedId(), animDict, animName, 3) do
+		Citizen.Wait(0)
+	end
+
+        DeleteObject(attachedPropGtr)
+end)
+
 RegisterNetEvent('admin_commands:emote')
 AddEventHandler('admin_commands:emote', function(args)
 	if #args < 2 then
@@ -38,7 +86,6 @@ AddEventHandler('admin_commands:emote', function(args)
 
 	loadAnimDict(dict)
 	TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, -1, -1, flag, 0, false, false, false)
-	
 end)
 
 RegisterNetEvent('admin_commands:repair')

@@ -204,7 +204,7 @@ AddEventHandler('esx_identity:setIdentity', function(data, myIdentifiers)
 		if callback then
 			local xPlayer = ESX.GetPlayerFromIdentifier(myIdentifiers.steamid)
 			xPlayer.setSessionVar("identity", data)
-			TriggerClientEvent('esx_identity:identityCheck', myIdentifiers.playerid, true)
+			TriggerClientEvent('esx_identity:identityCheck', myIdentifiers.playerid, data)
 		else
 			TriggerClientEvent('chat:addMessage', source, { args = { '^[IDENTITY]', 'Failed to set character, try again later or contact the server admin!' } })
 		end
@@ -222,11 +222,11 @@ AddEventHandler('esx:playerLoaded', function(source)
 		local xPlayer = ESX.GetPlayerFromId(source)
 		if data.firstname == '' then
 			xPlayer.setSessionVar("identity", nil)
-			TriggerClientEvent('esx_identity:identityCheck', source, false)
+			TriggerClientEvent('esx_identity:identityCheck', source, nil)
 			TriggerClientEvent('esx_identity:showRegisterIdentity', source)
 		else
 			xPlayer.setSessionVar("identity", data)
-			TriggerClientEvent('esx_identity:identityCheck', source, true)
+			TriggerClientEvent('esx_identity:identityCheck', source, data)
 		end
 	end)
 end)
@@ -250,11 +250,11 @@ AddEventHandler('onResourceStart', function(resource)
 			getIdentity(xPlayer.source, function(data)
 				if data.firstname == '' then
 					xPlayer.setSessionVar("identity", nil)
-					TriggerClientEvent('esx_identity:identityCheck', xPlayer.source, false)
+					TriggerClientEvent('esx_identity:identityCheck', xPlayer.source, nil)
 					TriggerClientEvent('esx_identity:showRegisterIdentity', xPlayer.source)
 				else
 					xPlayer.setSessionVar("identity", data)
-					TriggerClientEvent('esx_identity:identityCheck', xPlayer.source, true)
+					TriggerClientEvent('esx_identity:identityCheck', xPlayer.source, data)
 				end
 			end)
 		end
@@ -287,10 +287,10 @@ TriggerEvent('es:addGroupCommand', 'charlist', 'user', function(source, args, us
 	getCharacters(source, function(data)
 		if data.firstname1 ~= '' then
 			TriggerClientEvent('chat:addMessage', source, { args = { '^1[IDENTITY] Character 1:', data.firstname1 .. ' ' .. data.lastname1 } })
-			
+
 			if data.firstname2 ~= '' then
 				TriggerClientEvent('chat:addMessage', source, { args = { '^1[IDENTITY] Character 2:', data.firstname2 .. ' ' .. data.lastname2 } })
-				
+
 				if data.firstname3 ~= '' then
 					TriggerClientEvent('chat:addMessage', source, { args = { '^1[IDENTITY] Character 3:', data.firstname3 .. ' ' .. data.lastname3 } })
 				end

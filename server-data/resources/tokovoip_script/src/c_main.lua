@@ -24,6 +24,10 @@ local HeadBone = 0x796e;
 local animPlay = false;
 local animPlaySync = false;
 
+AddEventHandler('sosamba_ui:setHidden', function(val)
+	voip:updatePlugin("setHidden", val);
+end)
+
 --------------------------------------------------------------------------------
 --	Plugin functions
 --------------------------------------------------------------------------------

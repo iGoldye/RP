@@ -18,6 +18,12 @@ local fuelSynced = false
 local inBlacklisted = false
 local lastSyncedFuel = -1
 
+local isHidden = false
+
+AddEventHandler('sosamba_ui:setHidden', function(val)
+	isHidden = val
+end)
+
 --[[
 Citizen.CreateThread(function()
 	while true do
@@ -478,7 +484,7 @@ if Config.EnableHUD then
 
 			local ped = PlayerPedId()
 
-			if IsPedInAnyVehicle(ped) and not (Config.RemoveHUDForBlacklistedVehicle and inBlacklisted) then
+			if not isHidden and IsPedInAnyVehicle(ped) and not (Config.RemoveHUDForBlacklistedVehicle and inBlacklisted) then
 				local vehicle = GetVehiclePedIsIn(ped)
 				local speed = GetEntitySpeed(vehicle)
 

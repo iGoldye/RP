@@ -115,10 +115,17 @@ AddEventHandler("playerConnecting", function(playerName, reason, deferrals)
 		end
 	end
 
+	local dt = os.date("*t")
+
 	-- player is not whitelisted
 	if not found then
 		reason(_U("not_in_whitelist", Config.CommunityLink))
 		deferrals.done(_U("not_in_whitelist", Config.CommunityLink))
+		CancelEvent()
+		ESX.Trace("WHITELIST: " .. _U("log_not_in_whitelist", playerName, steamID))
+	elseif not isVip and (dt.hour > Config.MaintenanceStart and dt.hour < Config.MaintenanceEnd) then
+		reason(_U("maintenance"))
+		deferrals.done(_U("maintenance"))
 		CancelEvent()
 		ESX.Trace("WHITELIST: " .. _U("log_not_in_whitelist", playerName, steamID))
 	end

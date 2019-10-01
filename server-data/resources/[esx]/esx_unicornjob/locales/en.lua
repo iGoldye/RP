@@ -11,7 +11,7 @@ Locales['en'] = {
     ['dancer_outfit_6']          = 'Одежда танцора 6',
     ['dancer_outfit_7']          = 'Одежда танцора 7',
     ['no_outfit']                = 'Нет одежды для вас',
-    ['open_cloackroom']          = 'Нажмите ~INPUT_CONTEXT~ чтобы переодется',
+    ['open_cloackroom']          = 'Нажмите ~INPUT_CONTEXT~ чтобы переодеться',
 
     -- Vault
     ['get_weapon']               = 'Взять оружие',

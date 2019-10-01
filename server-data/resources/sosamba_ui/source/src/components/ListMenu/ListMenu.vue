@@ -131,7 +131,7 @@ export default {
     },
 
     watch: {
-        show: function(val) {
+        show: function(/*val*/) {
             this.$nextTick(function() {
                 if (this.$refs["backButton"]) {
                     this.$refs["backButton"].$el.blur();

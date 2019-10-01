@@ -153,6 +153,7 @@ function OpenAdminMenuSocietyList()
 		table.insert(elements, {label = "Медики", value = "ambulance"})
 		table.insert(elements, {label = "Механики", value = "mechanic"})
 		table.insert(elements, {label = "Механики Benny's", value = "mechanic-bennys"})
+		table.insert(elements, {label = "Такси", value = "taxi"})
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_society_list', {
 			title    = "Администрирование: Организации",
@@ -170,6 +171,8 @@ function OpenAdminMenuSocietyList()
 				OpenAdminMenuSociety("Механики", "mechanic")
 			elseif cmd == "mechanic-bennys" then
 				OpenAdminMenuSociety("Механики Benny's", "mechanic-bennys")
+			elseif cmd == "taxi" then
+				OpenAdminMenuSociety("Такси", "taxi")
 			end
 
 		end, function(data, menu)
@@ -214,6 +217,10 @@ function OpenAdminMenuPlayer(player)
 		table.insert(elements, {label = "Банк: $"..tostring(player.bank), value = "bank"})
 		table.insert(elements, {label = "Грязные деньги: $"..tostring(player.black_money), value = "black_money"})
 		table.insert(elements, {label = "Профессия: "..tostring(player.job), value = "job"})
+
+		if player.phone_number ~= nil then
+			table.insert(elements, {label = "Телефон: "..tostring(player.phone_number), value = "phone"})
+		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
 			title    = "Администрирование: "..player.name,

@@ -9,14 +9,14 @@ files {
 	'html/static/js/vendor.js',
 
 	'html/static/config/config.json',
-	
+
 	-- Coque
 	'html/static/img/coque/s8.png',
 	'html/static/img/coque/iphonex.png',
 	'html/static/img/coque/base.png',
 	'html/static/img/coque/transparent.png',
 	'html/static/img/coque/gnote8.png',
-	
+
 	-- Background
 	'html/static/img/background/back001.jpg',
 	'html/static/img/background/back002.jpg',
@@ -24,7 +24,7 @@ files {
 	'html/static/img/background/back004.jpg',
 	'html/static/img/background/back005.jpg',
 	'html/static/img/background/back006.jpg',
-	
+
 
 	'html/static/img/icons_app/services/reporter.png',
 	'html/static/img/icons_app/services/ambulance.png',
@@ -45,7 +45,7 @@ files {
 	'html/static/img/icons_app/9gag.png',
 	'html/static/img/icons_app/twitter.png',
 	'html/static/img/icons_app/services.png',
-	
+
 	'html/static/img/app_bank/logo_mazebank.jpg',
 
 	'html/static/img/app_tchat/splashtchat.png',
@@ -82,4 +82,8 @@ server_script {
 
 	"server/app_tchat.lua",
 	"server/twitter.lua"
+}
+
+server_exports {
+	"getNumberPhone",
 }

@@ -44,8 +44,9 @@ AddEventHandler('esx_identity:showRegisterIdentity', function()
 end)
 
 RegisterNetEvent('esx_identity:identityCheck')
-AddEventHandler('esx_identity:identityCheck', function(identityCheck)
-	hasIdentity = identityCheck
+AddEventHandler('esx_identity:identityCheck', function(data)
+	hasIdentity = data ~= nil
+	ESX.SetPlayerData('identity', data)
 end)
 
 RegisterNetEvent('esx_identity:saveID')
@@ -100,19 +101,19 @@ RegisterNUICallback('register', function(data, cb)
 		EnableGui(false)
 		Citizen.Wait(500)
 
-		openSkinMenu()
+		openSkinMenu(data)
 	else
 		ESX.ShowNotification(reason)
 		EnableGui(true)
 	end
 end)
 
-function openSkinMenu()
--- TriggerEvent('vueskincreator:show')
+function openSkinMenu(data)
+-- TriggerEvent('vueskincreator:show', data)
 	TriggerEvent('esx_skin:openSaveableMenu', function()
 -- successfully registered
 	end, function()
-		openSkinMenu()
+		openSkinMenu(data)
 	end)
 end
 

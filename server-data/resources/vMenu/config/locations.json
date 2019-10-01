@@ -8,6 +8,17 @@
         "z": 6.2
       },
       "heading": 356.1
+    },
+    {
+      "name": "Home (musician)",
+      "coordinates": {
+        "X": -1145.15186,
+        "Y": -1127.48633,
+        "Z": 6.35678339,
+        "IsNormalized": false,
+        "IsZero": false
+      },
+      "heading": 301.0867
     }
   ],
   "blips": [

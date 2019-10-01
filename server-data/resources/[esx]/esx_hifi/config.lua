@@ -1,3 +1,3 @@
 Config = {}
 Config.Locale = 'fr'
-Config.distance = 20
+Config.distance = 40
