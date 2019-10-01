@@ -18,6 +18,14 @@ Citizen.CreateThread(function()
 			Config.DoorList[doorID].locked = state
 		end
 	end)
+
+	for _,door in ipairs(Config.DoorList) do
+		if door.ajar ~= nil then
+			Citizen.InvokeNative(0x6F8838D03D1DC226, door.ajar, GetHashKey(door.objName), door.objCoords.x, door.objCoords.y, door.objCoords.z, 0,0,0)
+		end
+	end
+
+--	local doorExists = Citizen.InvokeNative(0xC153C43EA202C8C1, 1206354175)
 end)
 
 RegisterNetEvent('esx:setJob')
@@ -55,6 +63,32 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function processDoor(door, locked)
+	SetDoorAjarAngle(1206354175, -1.0, 0, 1)
+	if door.ajar ~= nil then
+		if door.locked then
+			SetDoorAjarAngle(door.ajar, -1.0, 0,1)
+		else
+			SetDoorAjarAngle(door.ajar, 0.0, 0,1)
+		end
+--[[
+	elseif door.forceCoords ~= nil and locked then
+		SetEntityCoordsNoOffset(door.object, door.forceCoords.x,door.forceCoords.y,door.forceCoords.z, 0, 0, 0)
+		SetEntityRotation(door.object, door.forceRot.x,door.forceRot.y,door.forceRot.z)
+		FreezeEntityPosition(door.object, true)
+		SetDoorAjarAngle(1206354175, 0.0, 0,0)
+]]--
+	else
+		FreezeEntityPosition(door.object, locked)
+
+		if locked and door.objYaw and GetEntityRotation(door.object).z ~= door.objYaw then
+			SetEntityRotation(door.object, 0.0, 0.0, door.objYaw, 2, true)
+		end
+	end
+
+	return door
+end
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -71,29 +105,11 @@ Citizen.CreateThread(function()
 
 			if distance < 50 then
 				if doorID.doors then
-					for _,v in ipairs(doorID.doors) do
-						if doorID.forceCoords ~= nil and doorID.locked then
-							SetEntityCoordsNoOffset(v.object, doorID.forceCoords.x,doorID.forceCoords.y,doorID.forceCoords.z, 0, 0, 0)
-							SetEntityRotation(v.object, doorID.forceRot.x,doorID.forceRot.y,doorID.forceRot.z)
-						else
-							FreezeEntityPosition(v.object, doorID.locked)
-
-							if doorID.locked and v.objYaw and GetEntityRotation(v.object).z ~= v.objYaw then
-								SetEntityRotation(v.object, 0.0, 0.0, v.objYaw, 2, true)
-							end
-						end
+					for kk,v in ipairs(doorID.doors) do
+						doorID.doors[kk] = processDoor(v, doorID.locked)
 					end
 				else
-					if doorID.forceCoords ~= nil and doorID.locked then
-						SetEntityCoordsNoOffset(doorID.object, doorID.forceCoords.x,doorID.forceCoords.y,doorID.forceCoords.z, 0, 0, 0)
-						SetEntityRotation(doorID.object, doorID.forceRot.x,doorID.forceRot.y,doorID.forceRot.z)
-					else
-						FreezeEntityPosition(doorID.object, doorID.locked)
-
-						if doorID.locked and doorID.objYaw and GetEntityRotation(doorID.object).z ~= doorID.objYaw then
-							SetEntityRotation(doorID.object, 0.0, 0.0, doorID.objYaw, 2, true)
-						end
-					end
+					Config.DoorList[k] = processDoor(doorID, doorID.locked)
 				end
 			end
 

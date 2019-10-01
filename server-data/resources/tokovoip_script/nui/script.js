@@ -25,6 +25,7 @@ let connected = false;
 let lastPing = 0;
 let lastReconnect = 0;
 let lastOk = 0;
+let hidden = 0;
 
 let voip = {};
 
@@ -36,7 +37,7 @@ const WRONG_CHANNEL = 4;
 const INCORRECT_VERSION = 5;
 
 function init() {
-	console.log('TokoVOIP: attempt new connection');
+//	console.log('TokoVOIP: attempt new connection');
 	websocket = new WebSocket('ws://127.0.0.1:38204/tokovoip');
 
 	websocket.onopen = () => {
@@ -75,7 +76,7 @@ function init() {
 	};
 
 	websocket.onerror = (evt) => {
-		console.log('TokoVOIP: error - ' + evt.data);
+//		console.log('TokoVOIP: error - ' + evt.data);
 	};
 
 	websocket.onclose = () => {
@@ -111,7 +112,7 @@ function init() {
 		else
 			reason = 'Unknown reason';
 
-		console.log('TokoVOIP: closed connection - ' + reason);
+//		console.log('TokoVOIP: closed connection - ' + reason);
 		lastReconnect = getTickCount();
 		connected = false;
 		updateScriptData('pluginStatus', -1);
@@ -152,6 +153,9 @@ function receivedClientCall(event) {
 		} else if (eventName == 'disconnect') {
 			sendData('disconnect');
 			voipStatus = NOT_CONNECTED;
+		} else if (eventName == 'setHidden') {
+			hidden = event.data.payload;
+			updateTokovoipInfo();
 		}
 	}
 
@@ -216,6 +220,12 @@ function updateTokovoipInfo(msg) {
 	document.getElementById('tokovoipInfo').style.fontSize = '12px';
 	let screenMessage;
 
+	if (hidden) {
+		document.getElementById('tokovoipInfo').innerHTML = '';
+		document.getElementById('pluginStatus').innerHTML = '';
+		return;
+	}
+
 	switch (voipStatus) {
 		case NOT_CONNECTED:
 			msg = 'OFFLINE';
@@ -262,7 +272,7 @@ function updatePlugin() {
 	const timeout = getTickCount() - lastPing;
 	const lastRetry = getTickCount() - lastReconnect;
 	if (timeout >= 10000 && lastRetry >= 5000) {
-		console.log('TokoVOIP: timed out - ' + (timeout) + ' - ' + (lastRetry));
+//		console.log('TokoVOIP: timed out - ' + (timeout) + ' - ' + (lastRetry));
 		lastReconnect = getTickCount();
 		connected = false;
 		updateScriptData('pluginStatus', -1);

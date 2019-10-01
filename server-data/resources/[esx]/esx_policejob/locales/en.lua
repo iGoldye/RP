@@ -86,7 +86,8 @@ Locales['en'] = {
   ['unpaid_bills'] = 'Неоплаченные счета',
   ['get_dna'] = 'Собрать днк',
   ['remove_dna'] = 'Удалить днк',
-  ['license_check'] = 'Проверить лицензии',
+  ['license_list'] = 'Лицензии',
+  ['license_check'] = 'Проверить или аннулировать лицензии',
   ['license_revoke'] = 'Аннулировать лицензию',
   ['license_revoked'] = 'Ваша ~b~%s~s~ была ~y~аннулирована~s~!',
   ['licence_you_revoked'] = 'Вы аннулировали ~b~%s~s~ которая принадлежала ~y~%s~s~',
@@ -164,11 +165,20 @@ Locales['en'] = {
   ['alert_police'] = 'Полицейская тревога',
   ['phone_police'] = 'Полиция',
  -- Weapon license
-  ['add_weapon_license'] = 'Выдать лицензию на оружие',
-  ['player_has_weapon_license'] = 'Гражданин уже имеет разрешение на ношение оружия',
-  ['weapon_license_added'] = 'Разрешение на ношение оружия выдано',
+  ['add_license_weapon'] = 'Выдать разрешение на ношение оружия',
+  ['player_has_license_weapon'] = 'Гражданин уже имеет разрешение на ношение оружия',
+  ['license_added_weapon'] = 'Выдано разрешение на ношение оружия',
+ -- Driving license
+  ['add_license_drive'] = 'Выдать лицензию на вождение автомобиля',
+  ['player_has_license_drive'] = 'Гражданин уже имеет водительскую лицензию',
+  ['license_added_drive'] = 'Выдана водительская лицензия',
+ -- Bike license
+  ['add_license_drive_bike'] = 'Выдать лицензию на вождение мотоцикла',
+  ['player_has_license_drive_bike'] = 'Гражданин уже имеет лицензию на вождение мотоцикла',
+  ['license_added_drive_bike'] = 'Выдана лицензия на вождение мотоцикла',
+ -- Truck license
+  ['add_license_drive_truck'] = 'Выдать лицензию на вождение грузовика',
+  ['player_has_license_drive_truck'] = 'Гражданин уже имеет лицензию на вождение грузовика',
+  ['license_added_drive_truck'] = 'Выдана лицензия на вождение грузовика',
 
-  ['remove_weapon_license'] = 'Отозвать лицензию на оружие',
-  ['no_weapon_license'] = 'Гражданин не имеет разрешения на ношение оружия',
-  ['weapon_license_removed'] = 'Разрешение на ношение оружия отозвано',
 }

@@ -12,6 +12,7 @@ local Keys = {
 
 local isDead = false
 local inAnim = false
+local submenuOpened = false
 local Favorites = {}
 ESX = nil
 
@@ -48,6 +49,11 @@ function startAnim(lib, anim, flag)
 	end)
 end
 
+RegisterNetEvent('esx_animations:startAnim')
+AddEventHandler('esx_animations:startAnim', function(lib, anim, flag)
+	startAnim(lib, anim, flag)
+end)
+
 function startFacial(anim)
 	SetFacialIdleAnimOverride(PlayerPedId(), anim, 0)
 end
@@ -55,6 +61,11 @@ end
 function startScenario(anim)
 	TaskStartScenarioInPlace(PlayerPedId(), anim, 0, false)
 end
+
+RegisterNetEvent('esx_animations:startScenario')
+AddEventHandler('esx_animations:startScenario', function(anim)
+	startScenario(anim)
+end)
 
 function OpenAnimationsMenu()
 	local elements = {}
@@ -211,12 +222,19 @@ function AddFavoriteAnim(current)
 	end
 end
 
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(100)
+		submenuOpened = ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'animations_sub')
+	end
+end)
+
 -- Key Controls
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 
-		if ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'animations_sub') then
+		if submenuOpened then
 			ESX.ShowHelpNotification("~INPUT_SPRINT~ + ~INPUT_CELLPHONE_SELECT~ добавить в избранное")
 		end
 

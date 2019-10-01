@@ -65,10 +65,8 @@ function OpenPetMenu()
 			table.insert(elements, {label = _U('getpeddown'), value = 'vehicle'})
 		else
 			table.insert(elements, {label = _U('getpedinside'), value = 'vehicle'})
+			table.insert(elements, {label = _U('giveorders'), value = 'give_orders'})
 		end
-
-		table.insert(elements, {label = _U('giveorders'), value = 'give_orders'})
-
 	else
 		table.insert(elements, {label = _U('callpet'), value = 'come_animal'})
 	end
@@ -198,17 +196,26 @@ function returnHome()
 		return
 	end
 
-	local GroupHandle = GetPlayerGroup(PlayerId())
+--	local GroupHandle = GetPlayerGroup(PlayerId())
 	local coords      = GetEntityCoords(PlayerPedId())
 
 	ESX.ShowNotification(_U('doghouse_returning'))
 
-	SetGroupSeparationRange(GroupHandle, 1.9)
-	SetPedNeverLeavesGroup(ped, false)
-	TaskGoToCoordAnyMeans(ped, coords.x + 40, coords.y, coords.z, 5.0, 0, 0, 786603, 0xbf800000)
+--	SetGroupSeparationRange(GroupHandle, 1.9)
+--	SetPedNeverLeavesGroup(ped, false)
 	come = 0
 
-	Citizen.Wait(5000)
+	local pos = nil
+	local success = 0
+--	success, pos = GetSafeCoordForPed(coords.x + 40, coords.y, coords.z, false, 16)
+--	if success == 0 or pos.x == 0 then
+		pos = vector3(coords.x + 40.0, coords.y, coords.z)
+--	end
+	TaskGoToCoordAnyMeans(ped, pos, 5.0, 0, 0, 786603, 0xbf800000)
+
+	Citizen.Wait(4000)
+	NetworkFadeOutEntity(ped, 1, 0)
+	Citizen.Wait(1000)
 	DeleteEntity(ped)
 	ped = 0
 end
@@ -267,9 +274,9 @@ function GivePetOrders()
 					balle = true
 					objCoords = GetEntityCoords(object)
 					TaskGoToCoordAnyMeans(ped, objCoords, 5.0, 0, 0, 786603, 0xbf800000)
-					local GroupHandle = GetPlayerGroup(PlayerId())
-					SetGroupSeparationRange(GroupHandle, 1.9)
-					SetPedNeverLeavesGroup(ped, false)
+--					local GroupHandle = GetPlayerGroup(PlayerId())
+--					SetGroupSeparationRange(GroupHandle, 1.9)
+--					SetPedNeverLeavesGroup(ped, false)
 					menu.close()
 				else
 					ESX.ShowNotification(_U('noball'))
@@ -350,25 +357,72 @@ Citizen.CreateThread(function()
 				SetEntityAsMissionEntity(object)
 				DeleteEntity(object)
 				GiveWeaponToPed(PlayerPedId(), GetHashKey("WEAPON_BALL"), 1, false, true)
-				local GroupHandle = GetPlayerGroup(PlayerId())
-				SetGroupSeparationRange(GroupHandle, 999999.9)
-				SetPedNeverLeavesGroup(ped, true)
-				SetPedAsGroupMember(ped, GroupHandle)
+--				local GroupHandle = GetPlayerGroup(PlayerId())
+--				SetGroupSeparationRange(GroupHandle, 999999.9)
+--				SetPedNeverLeavesGroup(ped, true)
+--				SetPedAsGroupMember(ped, GroupHandle)
 				getball = false
 			end
 		end
+
+		if ped > 0 and isInVehicle and not IsPedSittingInAnyVehicle(ped) then
+			isInVehicle = false
+		end
 	end
 end)
+
+Citizen.CreateThread(function()
+	local lastPos = vector3(0,0,0)
+	local moving = false
+
+	while true do
+		Citizen.Wait(100)
+
+		while ped == 0 do
+			Citizen.Wait(1000)
+		end
+
+		moving = false
+
+		if ped > 0 then
+			local pos = GetEntityCoords(ped)
+			moving = true
+
+			if #(pos-lastPos) < 0.0001 then
+				moving = false
+			end
+
+			lastPos = pos
+		end
+
+		local playerCoords = GetEntityCoords(PlayerPedId())
+		local petCoords = GetEntityCoords(ped)
+		local distance = GetDistanceBetweenCoords(playerCoords, petCoords, true)
+
+		if not isAttached and come ~= 0 and not balle and not moving and distance > 3.0 and not IsPedInMeleeCombat(ped) and not isInVehicle then
+			TaskFollowToOffsetOfEntity(ped, PlayerPedId(), 1, 1, 0, 5.0, -1, 3.0, 1)
+		end
+--[[
+		if distance > 100.0 and isAttached == false and not isInVehicle then
+			returnHome()
+			Citizen.Wait(10000)
+		end
+]]--
+		lastDistance = distance
+	end
+end)
+
 
 function attached()
 	if ped == 0 then
 		return
 	end
 
-	local GroupHandle = GetPlayerGroup(PlayerId())
-	SetGroupSeparationRange(GroupHandle, 1.9)
-	SetPedNeverLeavesGroup(ped, false)
-	FreezeEntityPosition(ped, true)
+--	local GroupHandle = GetPlayerGroup(PlayerId())
+--	SetGroupSeparationRange(GroupHandle, 1.9)
+--	SetPedNeverLeavesGroup(ped, false)
+--	FreezeEntityPosition(ped, true)
+	ClearPedTasks(ped)
 end
 
 function detached()
@@ -376,34 +430,49 @@ function detached()
 		return
 	end
 
-	local GroupHandle = GetPlayerGroup(PlayerId())
-	SetGroupSeparationRange(GroupHandle, 999999.9)
-	SetPedNeverLeavesGroup(ped, true)
-	SetPedAsGroupMember(ped, GroupHandle)
-	FreezeEntityPosition(ped, false)
+--	local GroupHandle = GetPlayerGroup(PlayerId())
+--	SetGroupSeparationRange(GroupHandle, 999999.9)
+--	SetPedNeverLeavesGroup(ped, true)
+--	SetPedAsGroupMember(ped, GroupHandle)
+--	FreezeEntityPosition(ped, false)
 end
 
 function opendog()
 	local playerPed = PlayerPedId()
 	local LastPosition = GetEntityCoords(playerPed)
-	local GroupHandle = GetPlayerGroup(PlayerId())
+--	local GroupHandle = GetPlayerGroup(PlayerId())
 
 	DoRequestAnimSet('rcmnigel1c')
 
 	TaskPlayAnim(playerPed, 'rcmnigel1c', 'hailing_whistle_waive_a' ,8.0, -8, -1, 120, 0, false, false, false)
 
 	Citizen.SetTimeout(5000, function()
-		ped = CreatePed(28, model, LastPosition.x +1, LastPosition.y +1, LastPosition.z -1, 1, 1)
-		Citizen.Wait(50)
+		local pos = nil
+		local success = 0
+--		success, pos = GetSafeCoordForPed(LastPosition.x+40, LastPosition.y, LastPosition.z, true, 16)
+--		if success == 0 or pos.x == 0 then
+--			pos = vector3(LastPosition.x+2,LastPosition.y+2,LastPosition.z)
+--		end
+
+		ped = CreatePed(28, model, LastPosition.x+2,LastPosition.y+2,LastPosition.z, 1, 1)
+
 		if ped == 0 then
+			come = 0
+			ESX.ShowNotification(_U("unable_to_spawn"))
 			return
 		end
+		NetworkFadeInEntity(ped, 0)
 
-		SetPedAsGroupLeader(playerPed, GroupHandle)
-		SetPedAsGroupMember(ped, GroupHandle)
-		SetPedNeverLeavesGroup(ped, true)
-		SetPedCanBeTargetted(ped, false)
-		SetEntityAsMissionEntity(ped, true,true)
+		SetRelationshipBetweenGroups(0, GetHashKey('MISSION2'), GetHashKey('PLAYER'))
+		SetPedRelationshipGroupHash(ped, GetHashKey('MISSION2'))
+
+		Citizen.Wait(50)
+
+--		SetPedAsGroupLeader(playerPed, GroupHandle)
+--		SetPedAsGroupMember(ped, GroupHandle)
+--		SetPedNeverLeavesGroup(ped, true)
+--		SetPedCanBeTargetted(ped, false)
+--		SetEntityAsMissionEntity(ped, true,true)
 
 		status = math.random(40, 90)
 		Citizen.Wait(50)

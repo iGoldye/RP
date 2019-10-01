@@ -2,6 +2,7 @@ Locales['en'] = {
   ['sex'] = 'Пол',
   ['face'] = 'Лицо 1',
   ['face_2'] = 'Лицо 2',
+  ['face_blend'] = 'Смешивание лиц',
   ['skin'] = 'Кожа',
   ['wrinkles'] = 'Морщины',
   ['wrinkle_thickness'] = 'Размер морщин',
@@ -94,4 +95,6 @@ Locales['en'] = {
   ['chimp_bone_width'] = 'Ширина подбородка',
   ['chimp_hole'] = 'Ямочка на подбородке',
   ['neck_thickness'] = 'Толщина шеи',
+  ['acne_1'] = 'Акне 1',
+  ['acne_2'] = 'Акне 2',
 }

@@ -28,6 +28,9 @@ function OpenShopMenu()
 		table.insert(elements, {label= v.name, value = v.value})
 	end
 
+	table.insert(elements, {label= "Свести все татуировки", value = "remove-all-tattoos"})
+
+
 	if DoesCamExist(cam) then
 		RenderScriptCams(false, false, 0, 1, 0)
 		DestroyCam(cam, false)
@@ -40,7 +43,31 @@ function OpenShopMenu()
 	}, function(data, menu)
 		local currentLabel, currentValue = data.current.label, data.current.value
 
-		if data.current.value then
+		if data.current.value == "remove-all-tattoos" then
+			local elements2 = {}
+			table.insert(elements2, {label=_U('go_back_to_menu'), value = "back"})
+			table.insert(elements2, {label="Свести татуировки $50", value = "remove"})
+
+			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'tattoo_shop_categories', {
+				title    = _U('tattoos') .. ' | Свести тату',
+				align    = 'bottom-right',
+				elements = elements2
+			}, function(data2, menu2)
+				if (data2.current.value == "remove") then
+					ESX.TriggerServerCallback('esx_tattooshop:removeTattoos', function(success)
+						if success then
+							currentTattoos = {}
+							cleanPlayer()
+							setPedSkin()
+						end
+					end)
+				end
+				menu2.close()
+			end, function(data2, menu2)
+				menu2.close()
+			end)
+
+		elseif data.current.value then
 			elements = {{label = _U('go_back_to_menu'), value = nil}}
 
 			for k,v in pairs(Config.TattooList[data.current.value]) do
@@ -76,6 +103,7 @@ function OpenShopMenu()
 				menu2.close()
 				RenderScriptCams(false, false, 0, 1, 0)
 				DestroyCam(cam, false)
+				cleanPlayer()
 				setPedSkin()
 			end, function(data2, menu2) -- when highlighted
 				if data2.current.value ~= nil then
@@ -85,6 +113,7 @@ function OpenShopMenu()
 		end
 	end, function(data, menu)
 		menu.close()
+		cleanPlayer()
 		setPedSkin()
 	end)
 end

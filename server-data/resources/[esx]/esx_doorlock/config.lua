@@ -362,6 +362,55 @@ Config.DoorList = {
 		authorizedJobs = { 'police' },
 		locked = false
 	},
+	{
+		objName = 'v_ilev_ph_cellgate',
+		objYaw = 120.0,
+		objCoords  = vector3(1848.07, 3681.55, 34.29),
+		textCoords = vector3(1848.35, 3681.08, 34.29),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_ph_cellgate',
+		objYaw = -60.0,
+		objCoords  = vector3(1846.44, 3684.47, 34.29),
+		textCoords = vector3(1846.1, 3685.02, 34.29),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 120.0,
+		objCoords  = vector3(1850.76, 3682.88, 34.29),
+		textCoords = vector3(1850.76, 3682.88, 34.29),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1856.66, 3689.87, 34.29),
+		textCoords = vector3(1856.66, 3689.87, 34.29),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1848.69, 3690.91, 34.29),
+		textCoords = vector3(1848.69, 3690.91, 34.29),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1845.67, 3688.84, 34.29),
+		textCoords = vector3(1845.67, 3688.84, 34.29),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
 
 	--
 	-- Paleto Bay
@@ -648,14 +697,12 @@ Config.DoorList = {
 	{
 		objName = 'prop_com_ls_door_01',
 		objYaw = -110.0,
+		ajar = 1206354175,
 
-		forceCoords = vector3(-356.09829711914,-134.76858520508,40.047782897949),
-		forceRot = vector3(0, 0, -110),
-
-		objCoords  = vector3(-355.02698, -135.1586, 41.99147),
+		objCoords  = vector3(-356.09, -134.77, 40.01),
 		textCoords = vector3(-355.02698, -135.1586, 39),
 		authorizedJobs = { 'mechanic' },
-		locked = false,
+		locked = true,
 		distance = 5,
 		size = 1,
 	},
@@ -663,14 +710,12 @@ Config.DoorList = {
 	{
 		objName = 'lr_prop_supermod_door_01',
 		objYaw = 0.0,
+		ajar = -288764223,
 
-		forceCoords = vector3(-205.68283081055,-1310.6826171875,30.297708511353),
-		forceRot = vector3(0, 0, 0),
-
-		objCoords  = vector3(-205.68283081055,-1310.6826171875,34.997708511353),
+		objCoords  = vector3(-205.7007, -1310.692, 30.2957),
 		textCoords = vector3(-205.68283081055,-1310.6826171875,32.297708511353),
 		authorizedJobs = { 'mechanic-bennys' },
-		locked = false,
+		locked = true,
 		distance = 5,
 		size = 1,
 	},

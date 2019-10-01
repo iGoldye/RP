@@ -83,3 +83,7 @@ server_script {
 	"server/app_tchat.lua",
 	"server/twitter.lua"
 }
+
+server_exports {
+	"getNumberPhone",
+}

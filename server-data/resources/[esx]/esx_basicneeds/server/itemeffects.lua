@@ -241,3 +241,17 @@ ESX.RegisterUsableItem('drug3', function(source)
     TriggerClientEvent('esx:showNotification', source, _U('used_drug3'))
 
 end)
+
+ESX.RegisterUsableItem('cigarete', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('cigarete', 1)
+    TriggerClientEvent('esx_animations:startScenario', source, "WORLD_HUMAN_SMOKING")
+end)
+
+ESX.RegisterUsableItem('cigarette_pack', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('cigarette_pack', 1)
+    xPlayer.addInventoryItem('cigarete', 20)
+end)

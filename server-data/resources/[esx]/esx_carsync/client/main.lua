@@ -11,10 +11,19 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent('esx_carsync:spawnCar')
-AddEventHandler('esx_carsync:spawnCar', function(props,pos)
+AddEventHandler('esx_carsync:spawnCar', function(props,pos,heading)
 	local coords = vector3(pos.x,pos.y,pos.z)
 	local tries = 0
 
+	local vehicles = ESX.Game.GetVehicles()
+	for k,v in pairs(vehicles) do
+		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(v))
+		if plate == props.plate then
+			TriggerServerEvent("esx_carsync:carSpawned", props.plate)
+			return
+		end
+	end
+--[[
 	while not ESX.Game.IsSpawnPointClear(coords, 2.0) do
 		local coords2 = GetSafeCoordForPed(coords, true, 16)
 		if coords2 ~= false then
@@ -28,8 +37,8 @@ AddEventHandler('esx_carsync:spawnCar', function(props,pos)
 			break
 		end
 	end
-
-	ESX.Game.SpawnVehicle(props.model, coords, pos.r, function(vehicle)
+]]--
+	ESX.Game.SpawnVehicle(props.model, coords, heading, function(vehicle)
 		ESX.Game.SetVehicleProperties(vehicle, props)
 		TriggerServerEvent("esx_carsync:carSpawned", props.plate)
 	end)

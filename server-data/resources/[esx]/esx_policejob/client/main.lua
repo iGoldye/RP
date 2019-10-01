@@ -634,6 +634,38 @@ function WaitForVehicleToLoad(modelHash)
 	end
 end
 
+function OpenPoliceActionsMenuLicenses(player)
+	local elements = {
+		{label = _U('license_check'), value = 'license' },
+		{label = _U('add_license_weapon'), value ='add_license_weapon'},
+		{label = _U('add_license_drive'), value ='add_license_drive'},
+		{label = _U('add_license_drive_bike'), value ='add_license_drive_bike'},
+		{label = _U('add_license_drive_truck'), value ='add_license_drive_truck'},
+	}
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'citizen_interaction_license', {
+		title    = _U('license_check'),
+		align    = 'top-left',
+		elements = elements
+	}, function(data, menu)
+		local action = data.current.value
+
+		if action == 'license' then
+			ShowPlayerLicense(player)
+		elseif action == 'add_license_weapon' then
+			TriggerServerEvent('esx_policejob:addLicense', GetPlayerServerId(player), 'weapon')
+		elseif action == 'add_license_drive' then
+			TriggerServerEvent('esx_policejob:addLicense', GetPlayerServerId(player), 'drive')
+		elseif action == 'add_license_drive_bike' then
+			TriggerServerEvent('esx_policejob:addLicense', GetPlayerServerId(player), 'drive_bike')
+		elseif action == 'add_license_drive_truck' then
+			TriggerServerEvent('esx_policejob:addLicense', GetPlayerServerId(player), 'drive_truck')
+		end
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
 function OpenPoliceActionsMenu()
 	ESX.UI.Menu.CloseAll()
 
@@ -666,14 +698,12 @@ function OpenPoliceActionsMenu()
 				{label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
 				{label = _U('fine'), value = 'fine'},
 				{label = _U('unpaid_bills'), value = 'unpaid_bills'},
-				{label = _U('add_weapon_license'), value ='add_weapon_license'},
-				{label = _U('remove_weapon_license'), value ='remove_weapon_license'},
 --				{label = _U('get_dna'), value = 'get_dna'},
 --				{label = _U('remove_dna'), value = 'remove_dna'}
 			}
 
 			if Config.EnableLicenses then
-				table.insert(elements, { label = _U('license_check'), value = 'license' })
+				table.insert(elements, { label = _U('license_list'), value = 'license' })
 			end
 
 			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'citizen_interaction', {
@@ -704,13 +734,9 @@ function OpenPoliceActionsMenu()
 					elseif action == 'fine' then
 						OpenFineMenu(closestPlayer)
 					elseif action == 'license' then
-						ShowPlayerLicense(closestPlayer)
+						OpenPoliceActionsMenuLicenses(closestPlayer)
 					elseif action == 'unpaid_bills' then
 						OpenUnpaidBillsMenu(closestPlayer)
-					elseif action == 'add_weapon_license' then
-						TriggerServerEvent('esx_policejob:addWeaponLicense', GetPlayerServerId(closestPlayer))
-					elseif action == 'remove_weapon_license' then
-						TriggerServerEvent('esx_policejob:removeWeaponLicense', GetPlayerServerId(closestPlayer))
 --[[
 					elseif action == 'get_dna' then
 						TriggerEvent('jsfour-dna:get', closestPlayer)

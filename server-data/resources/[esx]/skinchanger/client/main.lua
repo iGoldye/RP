@@ -2,6 +2,7 @@ local Components = {
 	{label = _U('sex'),						name = 'sex',				value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('face'),					name = 'face',				value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('face_2'),					name = 'face_2',			value = -1,		min = -1,	zoomOffset = 0.6,		camOffset = 0.65},
+	{label = _U('face_blend'),				name = 'face_blend',			value = 5,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('skin'),					name = 'skin',				value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('hair_1'),					name = 'hair_1',			value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
 	{label = _U('hair_2'),					name = 'hair_2',			value = 0,		min = 0,	zoomOffset = 0.6,		camOffset = 0.65},
@@ -55,6 +56,8 @@ local Components = {
 	{label = _U('chest_color'),				name = 'chest_3',			value = 0,		min = 0,	zoomOffset = 0.75,		camOffset = 0.15},
 	{label = _U('bodyb'),					name = 'bodyb_1',			value = 0,		min = 0,	zoomOffset = 0.75,		camOffset = 0.15},
 	{label = _U('bodyb_size'),				name = 'bodyb_2',			value = 0,		min = 0,	zoomOffset = 0.75,		camOffset = 0.15},
+	{label = _U('acne_1'),				name = 'acne_1',				value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
+	{label = _U('acne_2'),				name = 'acne_2',				value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
 	{label = _U('wrinkles'),				name = 'age_1',				value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
 	{label = _U('wrinkle_thickness'),		name = 'age_2',				value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
 	{label = _U('blemishes'),				name = 'blemishes_1',		value = 0,		min = 0,	zoomOffset = 0.4,		camOffset = 0.65},
@@ -150,9 +153,12 @@ function GetMaxVals()
 		sex				= 1,
 		face			= 45,
 		face_2			= 45,
+		face_blend		= 10,
 		skin			= 45,
 		age_1			= GetNumHeadOverlayValues(3)-1,
 		age_2			= 10,
+		acne_1			= GetNumHeadOverlayValues(0)-1,
+		acne_2			= 10,
 		beard_1			= GetNumHeadOverlayValues(1)-1,
 		beard_2			= 10,
 		beard_3			= GetNumHairColors()-1,
@@ -261,12 +267,15 @@ function ApplySkin(skin, clothes)
 	if clothes ~= nil then
 		for k,v in pairs(clothes) do
 			if
-				k ~= 'sex'				and
-				k ~= 'face'				and
+				k ~= 'sex'			and
+				k ~= 'face'			and
 				k ~= 'face_2'			and
-				k ~= 'skin'				and
+				k ~= 'face_blend'		and
+				k ~= 'skin'			and
 				k ~= 'age_1'			and
 				k ~= 'age_2'			and
+				k ~= 'acne_1'			and
+				k ~= 'acne_2'			and
 				k ~= 'eye_color'		and
 				k ~= 'beard_1'			and
 				k ~= 'beard_2'			and
@@ -313,11 +322,12 @@ function ApplySkin(skin, clothes)
 	if Character['face_2'] == -1 then
 		SetPedHeadBlendData			(playerPed, Character['face'], Character['face'], Character['face'], Character['skin'], Character['skin'], Character['skin'], 1.0, 1.0, 1.0, true)
 	else
-		SetPedHeadBlendData			(playerPed, Character['face'], Character['face_2'], Character['face'], Character['skin'], Character['skin'], Character['skin'], 0.5, 0.5, 0.0, true)
+		SetPedHeadBlendData			(playerPed, Character['face'], Character['face_2'], Character['face'], Character['skin'], Character['skin'], Character['skin'], 1-Character['face_blend']*0.1, Character['face_blend']*0.1, 0.0, true)
 	end
 
 	SetPedHairColor				(playerPed,			Character['hair_color_1'],		Character['hair_color_2'])					-- Hair Color
 	SetPedHeadOverlay			(playerPed, 3,		Character['age_1'],				(Character['age_2'] / 10) + 0.0)			-- Age + opacity
+	SetPedHeadOverlay			(playerPed, 0,		Character['acne_1'],				(Character['acne_2'] / 10) + 0.0)			-- Acne
 	SetPedHeadOverlay			(playerPed, 1,		Character['beard_1'],			(Character['beard_2'] / 10) + 0.0)			-- Beard + opacity
 	SetPedEyeColor				(playerPed,			Character['eye_color'], 0, 1)												-- Eyes color
 	SetPedHeadOverlay			(playerPed, 2,		Character['eyebrows_1'],		(Character['eyebrows_2'] / 10) + 0.0)		-- Eyebrows + opacity

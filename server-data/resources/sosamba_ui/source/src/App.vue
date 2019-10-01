@@ -2,8 +2,8 @@
   <v-app dark>
       <InputDialog ref="inputDialog" :title="inputBoxTitle" :hint="inputBoxHint" :active="input_dialog_active"></InputDialog>
 
-      <Notifications ref="notifications"></Notifications>
-      <StateIcons></StateIcons>
+      <Notifications ref="notifications" v-show="!hidden"></Notifications>
+      <StateIcons v-show="!hidden"></StateIcons>
 
       <InventoryMenu
           ref="inventory"
@@ -54,6 +54,7 @@ export default {
     data: function(){
         return {
             state: "main",
+            hidden: false,
             input_dialog_active: false,
             inventory_disabled: false,
 
@@ -107,10 +108,12 @@ export default {
                         });
                     break;
 
-                    case 'menuActive':
-                    if (data.value == false) {
-                        this.state = "main";
-                    }
+                    case 'status':
+                        if (data.menuActive == false) {
+                            this.state = "main";
+                        }
+
+                        this.hidden = data.hidden;
                     break;
             }
     },

@@ -73,16 +73,13 @@ end, {help = "Установить хэш игрока", params = {{name = "user
 
 TriggerEvent('es:addGroupCommand', 'spawncar', 'admin', function(source, args, user)
 	local plate = table.concat(args, " ")
-	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE `stored` = false and fourrieremecano = false', {
+	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE `plate` = @plate', {
+		["plate"] = plate
 	}, function(results)
 
-		for i=1,#results do
-			local res = results[i]
-			if res.plate == plate then
-				local props = json.decode(res.vehicle)
-				TriggerClientEvent('admin_commands:spawncar', source, props)
-				break
-			end
+		if #results > 0 then
+			local props = json.decode(results[1].vehicle)
+			TriggerClientEvent('admin_commands:spawncar', source, props)
 		end
 	end)
 end, function(source, args, user)

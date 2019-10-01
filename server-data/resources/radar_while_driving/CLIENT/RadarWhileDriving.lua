@@ -9,10 +9,16 @@ local BigMapInVehicles = true
 -- Change this to false to enable the radar for every passenger
 local OnlyDriver = false
 
+local interfaceHidden = false
+
 -- NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!!
 -- NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!!
 -- NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!!
 -- NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!! NO TOUCHY BELOW!!!
+
+AddEventHandler('sosamba_ui:setHidden', function(val)
+	interfaceHidden = val
+end)
 
 local Hide = false
 local phoneIsOpen = false
@@ -33,6 +39,12 @@ end)
 Citizen.CreateThread(function()
     while true do
 		Citizen.Wait(0)
+
+		while interfaceHidden do
+			DisplayRadar(false)
+			Citizen.Wait(0)
+		end
+
 		BigMapHandle(IsPedInAnyVehicle(PlayerPedId(), true), OnlyDriver and (GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId(), false), -1) == PlayerPedId()))
 		if phoneIsOpen == true then
 			DisplayRadar(true)

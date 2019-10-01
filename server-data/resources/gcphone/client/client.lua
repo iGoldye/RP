@@ -691,6 +691,8 @@ end)
 
 function TooglePhone()
   menuIsOpen = not menuIsOpen
+  SetNuiFocus(true, useMouse)
+  SetNuiFocus(false, useMouse)
   SendNUIMessage({show = menuIsOpen})
   if menuIsOpen == true then
     PhonePlayIn()

@@ -29,11 +29,17 @@ Config.PoliceStations = {
 			Sprite  = 60,
 			Display = 4,
 			Scale   = 1.2,
-			Colour  = 29
+			Colour  = 29,
 		},
 
 		Cloakrooms = {
-			vector3(452.6, -992.8, 29.8)
+			vector3(452.6, -992.8, 29.8),
+			vector3(1840.0, 3689.21, 33.30)
+
+		},
+
+		Computers = {
+			vector3(441.86, -978.77, 29.8)
 		},
 
 		Computers = {
@@ -41,7 +47,13 @@ Config.PoliceStations = {
 		},
 
 		Armories = {
-			vector3(451.7, -980.1, 29.8)
+			vector3(451.7, -980.1, 29.8),
+			vector3(1841.24, 3691.82, 33.3)
+		},
+
+		Stocks = {
+			vector3(477.84, -986.15, 23.95),
+			vector3(1853.81, 3690.03, 33.3)
 		},
 
 		Stocks = {
@@ -61,11 +73,11 @@ Config.PoliceStations = {
 			},
 
 			{
-				Spawner = vector3(473.3, -1018.8, 20.0),
-				InsideShop = vector3(228.5, -993.5, -99.0),
+				Spawner = vector3(1869.75, 3695.58, 32.5),
+				InsideShop = vector3(1849.51, 3712.75, 33.18),
 				SpawnPoints = {
-					{ coords = vector3(475.9, -1021.6, 28.0), heading = 276.1, radius = 6.0 },
-					{ coords = vector3(484.1, -1023.1, 27.5), heading = 302.5, radius = 6.0 }
+					{ coords = vector3(1866.22, 3681.21, 33.6), heading = 213.1, radius = 6.0 },
+					{ coords = vector3(1850.86, 3673.74, 33.6), heading = 213.5, radius = 6.0 }
 				}
 			}
 		},
@@ -81,7 +93,8 @@ Config.PoliceStations = {
 		},
 
 		BossActions = {
-			vector3(461.38, -1007.68, 35.0)
+			vector3(461.38, -1007.68, 35.0),
+			vector3(1854.41, 3698.2, 33.30)
 		}
 
 	}
@@ -176,6 +189,8 @@ Config.AuthorizedVehicles = {
 		{ model = 'police4', label = 'FIB Cruiser', price = 300 },
 		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
 		{ model = 'lp770cop', label = 'Speed Unit', price = 100000 },
+		{ model = 'sheriff', label = 'Sheriff Unit', price = 100 },
+		{ model = 'sheriff2', label = 'Sheriff Slam Unit', price = 100 },
 	},
 
 	recruit = {

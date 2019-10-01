@@ -6,6 +6,7 @@ Locales['en'] = {
   ['getpeddown'] = 'Высадить питомца',
   ['getpedinside'] = 'Посадить в питомца в транспорт',
   ['giveorders'] = 'Приказать',
+  ['unable_to_spawn'] = 'Здесь нельзя позвать питомца!',
   ['callpet'] = 'Позвать питомца',
   ['pet_management'] = 'Ваши питомцы',
   ['dontattachhiminacar'] = '~r~Вы не можете позвать питомца в машине~s~',

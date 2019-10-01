@@ -26,6 +26,21 @@ local menuActive = false
 local nuiFocus = false
 local inputBoxes = {}
 local isBeltOn = nil
+local isHidden = false
+
+Citizen.CreateThread(function()
+	while true do
+		if isHidden then
+			for i=1,20 do
+				HideHudComponentThisFrame(i)
+			end
+			HideHudNotificationsThisFrame()
+			DisplayAmmoThisFrame(false)
+		end
+
+		Citizen.Wait(0)
+	end
+end)
 
 Citizen.CreateThread(function()
 	while true do
@@ -46,16 +61,6 @@ end)
 
 Citizen.CreateThread(function()
 while true do
-	if menuActive == true and nuiFocus == false then
-		SetNuiFocus(true,true)
-		nuiFocus = true
-	end
-
-	if menuActive == false and nuiFocus == true then
-		SetNuiFocus(false, false)
-		nuiFocus = false
-	end
-
 	if menuActive == true and nuiFocus == false then
 		SetNuiFocus(true,true)
 		nuiFocus = true
@@ -98,8 +103,9 @@ while true do
 	})
 
 	SendNUIMessage({
-		action  = 'menuActive',
-		value = menuActive,
+		action  = 'status',
+		menuActive = menuActive,
+		hidden = isHidden,
 	})
 
 	Citizen.Wait(1000)
@@ -358,6 +364,17 @@ end)
 
 Citizen.CreateThread(function()
 while true do
+
+	if isHidden and IsControlJustPressed(0, Keys['~']) then
+		isHidden = false
+		TriggerEvent('sosamba_ui:setHidden', isHidden)
+	end
+
+	if IsControlJustPressed(0, 57) then -- F10
+		isHidden = not isHidden
+		TriggerEvent('sosamba_ui:setHidden', isHidden)
+	end
+
 	if menuActive then
 		local playerPed = PlayerPedId()
 
@@ -417,6 +434,44 @@ end
 end)
 
 Citizen.CreateThread(function()
+while true do
+	if menuActive then
+		local playerPed = PlayerPedId()
+
+		DisableAllControlActions(0)
+--[[
+		DisableControlAction(0, 1, true) -- LookLeftRight
+		DisableControlAction(0, 2, true) -- LookUpDown
+		DisablePlayerFiring(playerPed, true) -- Disable weapon firing
+		DisableControlAction(0, 142, true) -- MeleeAttackAlternate
+		DisableControlAction(0, 106, true) -- VehicleMouseControlOverride
+
+		DisableControlAction(0, 12, true) -- WeaponWheelUpDown
+		DisableControlAction(0, 14, true) -- WeaponWheelNext
+		DisableControlAction(0, 15, true) -- WeaponWheelPrev
+		DisableControlAction(0, 16, true) -- SelectNextWeapon
+		DisableControlAction(0, 17, true) -- SelectPrevWeapon
+]]--
+--	else
+--		if IsControlJustPressed(1, 10) then
+--			TriggerEvent('sosamba_ui:toggleweb')
+--			TriggerServerEvent('esx_inventory:getInventory', "pocket", false, 'sosamba_ui:showInventoryMenu')
+--		end
+	end
+
+	Citizen.Wait(0)
+end
+end)
+
+Citizen.CreateThread(function()
+
+	while GetIsLoadingScreenActive() do
+		Citizen.Wait(1000)
+	end
+
+	while GetIsLoadingScreenActive() do
+		Citizen.Wait(1000)
+	end
 
 	while GetIsLoadingScreenActive() do
 		Citizen.Wait(1000)
