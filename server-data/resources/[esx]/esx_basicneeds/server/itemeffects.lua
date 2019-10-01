@@ -242,10 +242,10 @@ ESX.RegisterUsableItem('drug3', function(source)
 
 end)
 
-ESX.RegisterUsableItem('cigarete', function(source)
+ESX.RegisterUsableItem('cigarette', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 
-    xPlayer.removeInventoryItem('cigarete', 1)
+    xPlayer.removeInventoryItem('cigarette', 1)
     TriggerClientEvent('esx_animations:startScenario', source, "WORLD_HUMAN_SMOKING")
 end)
 
