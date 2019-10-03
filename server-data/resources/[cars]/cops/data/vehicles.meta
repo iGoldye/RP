@@ -6,7 +6,7 @@
     <Item>
       <modelName>lapd</modelName>
       <txdName>lapd</txdName>
-      <handlingId>POLICE</handlingId>
+      <handlingId>LAPD</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -136,7 +136,7 @@
     <Item>
       <modelName>lapd4</modelName>
       <txdName>lapd4</txdName>
-      <handlingId>FBI2</handlingId>
+      <handlingId>LAPD4</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -266,7 +266,7 @@
     <Item>
       <modelName>lapd2</modelName>
       <txdName>lapd2</txdName>
-      <handlingId>POLICE2</handlingId>
+      <handlingId>LAPD2</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -396,7 +396,7 @@
     <Item>
       <modelName>lapd3</modelName>
       <txdName>lapd3</txdName>
-      <handlingId>GRESLEY</handlingId>
+      <handlingId>LAPD3</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -526,7 +526,7 @@
     <Item>
       <modelName>lapd5</modelName>
       <txdName>lapd5</txdName>
-      <handlingId>POLICE3</handlingId>
+      <handlingId>LAPD5</handlingId>
       <gameName>Police</gameName>
       <vehicleMakeName>LSPD</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
@@ -660,7 +660,7 @@
  		<Item>
       <modelName>lapd6</modelName>
       <txdName>lapd6</txdName>
-      <handlingId>GRESLEY</handlingId>
+      <handlingId>LAPD6</handlingId>
       <gameName>Police</gameName>
       <vehicleMakeName>LSPD</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
@@ -794,7 +794,7 @@
  <Item>
       <modelName>lapd7</modelName>
       <txdName>lapd7</txdName>
-      <handlingId>police3</handlingId>
+      <handlingId>LAPD7</handlingId>
       <gameName>police</gameName>
       <vehicleMakeName>LSPD</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
@@ -928,7 +928,7 @@
 		<Item>
       <modelName>lapd8</modelName>
       <txdName>lapd8</txdName>
-      <handlingId>POLICE2</handlingId>
+      <handlingId>LAPD8</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -1058,7 +1058,7 @@
 		<Item>
       <modelName>lapd9</modelName>
       <txdName>lapd9</txdName>
-      <handlingId>FBI</handlingId>
+      <handlingId>LAPD9</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -1188,7 +1188,7 @@
 		<Item>
       <modelName>lapd10</modelName>
       <txdName>lapd10</txdName>
-      <handlingId>RIOT</handlingId>
+      <handlingId>LAPD10</handlingId>
       <gameName>RIOT</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
@@ -1319,7 +1319,7 @@
 		<Item>
       <modelName>lapd11</modelName>
       <txdName>lapd11</txdName>
-      <handlingId>POLICET</handlingId>
+      <handlingId>LAPD11</handlingId>
       <gameName>POLICE</gameName>
       <vehicleMakeName />
       <expressionDictName>null</expressionDictName>
