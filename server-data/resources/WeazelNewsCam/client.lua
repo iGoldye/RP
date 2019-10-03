@@ -14,8 +14,11 @@ local usingMic = false
 local holdingBmic = false
 local usingBmic = false
 local camModel = "prop_v_cam_01"
-local camanimDict = "missfinale_c2mcs_1"
-local camanimName = "fin_c2_mcs_1_camman"
+--local camanimDict = "missfinale_c2mcs_1"
+--local camanimName = "fin_c2_mcs_1_camman"
+local camanimDict = "oddjobs@bailbond_mountain"
+local camanimName = "idle_camman"
+
 local micModel = "p_ing_microphonel_01"
 local micanimDict = "missheistdocksprep1hold_cellphone"
 local micanimName = "hold_cellphone"
@@ -62,7 +65,7 @@ AddEventHandler("Cam:ToggleCam", function()
         TaskPlayAnim(GetPlayerPed(PlayerId()), camanimDict, camanimName, 1.0, -1, -1, 50, 0, 0, 0, 0)
         cam_net = netid
         holdingCam = true
-		DisplayNotification("Режим новостей ~INPUT_PICKUP~ \nРежим кино ~INPUT_DETONATE~")
+	DisplayNotification("Режим новостей ~INPUT_PICKUP~\nКино ~INPUT_DETONATE~\nУбрать ~INPUT_VEH_DUCK~")
     else
         ClearPedSecondaryTask(GetPlayerPed(PlayerId()))
         DetachEntity(NetToObj(cam_net), 1, 1)
@@ -91,6 +94,14 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 44,  true) -- INPUT_COVER
 			DisableControlAction(0,37,true) -- INPUT_SELECT_WEAPON
 			SetCurrentPedWeapon(GetPlayerPed(-1), GetHashKey("WEAPON_UNARMED"), true)
+
+			if IsControlJustPressed(0, 73) then -- X
+				TriggerEvent("Cam:ToggleCam")
+			end
+		end
+
+		if holdingBmic and IsControlJustPressed(0, 73) then -- X
+			TriggerEvent("Mic:ToggleBMic")
 		end
 	end
 end)
@@ -241,7 +252,8 @@ Citizen.CreateThread(function()
 					newscamera = false
 				end
 
-				SetEntityRotation(lPed, 0, 0, new_z,2, true)
+--				SetEntityRotation(lPed, 0, 0, new_z,2, true)
+				SetEntityHeading(lPed, new_z)
 				local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
 				CheckInputRotation(cam2, zoomvalue)
 

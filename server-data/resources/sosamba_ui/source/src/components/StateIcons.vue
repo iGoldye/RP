@@ -3,8 +3,8 @@
       <div style="position: absolute; bottom:10px; left: 16%;">
         <v-icon ref="icon-seatbelt" size="50px"  v-show="needs['seatbelt']>0" v-bind:style="{ color: 'rgba(255,0,0,0.5)' }">{{icons["seatbelt"]}}</v-icon>
         <v-icon ref="icon-armor" size="50px"  v-show="needs['armor']>0" v-bind:style="{ color: armorColor }">{{icons["shield-half-full"]}}</v-icon>
-        <v-icon ref="icon-hunger" size="50px" v-show="needs['hunger']<0.9" v-bind:style="{ color: hungerColor }">{{icons["food"]}}</v-icon>
-        <v-icon ref="icon-thirst" size="50px" v-show="needs['thirst']<0.9" v-bind:style="{ color: thirstColor }">{{icons["water"]}}</v-icon>
+        <v-icon ref="icon-hunger" size="50px" v-show="needs['hunger']<0.3" v-bind:style="{ color: hungerColor }">{{icons["food"]}}</v-icon>
+        <v-icon ref="icon-thirst" size="50px" v-show="needs['thirst']<0.3" v-bind:style="{ color: thirstColor }">{{icons["water"]}}</v-icon>
         <v-icon ref="icon-health" size="50px" v-show="needs['health']<0.9" v-bind:style="{ color: healthColor }">{{icons["medical-bag"]}}</v-icon>
       </div>
 
@@ -46,7 +46,7 @@ export default {
         },
         hungerColor: function() {
             var alpha = this.needs["hunger"];
-            var thresh = 0.9;
+            var thresh = 0.3;
             if (alpha > thresh) alpha = thresh;
             alpha = (thresh-alpha)/thresh;
             if (alpha === undefined) alpha = 0;
@@ -57,7 +57,7 @@ export default {
         },
         thirstColor: function() {
             var alpha = this.needs["thirst"];
-            var thresh = 0.9;
+            var thresh = 0.3;
             if (alpha > thresh) alpha = thresh;
             alpha = (thresh-alpha)/thresh;
             if (alpha === undefined) alpha = 0;
