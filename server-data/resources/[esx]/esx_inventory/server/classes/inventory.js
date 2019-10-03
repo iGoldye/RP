@@ -379,8 +379,13 @@ function getInventory(name, owner, serialized) {
 
 		inv.items.sort(function(a,b) {
 			var s1 = b.priority - a.priority
+/*
 			if (s1 == 0 && b.weight && a.weight && b.amount && a.amount) {
 				s1 = b.weight*b.amount - a.weight*a.amount
+			}
+*/
+			if (s1 == 0) {
+				s1 = a.label > b.label ? 1 : -1
 			}
 
 			return s1;
