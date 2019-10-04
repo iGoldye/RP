@@ -127,7 +127,7 @@ function OpenPetMenu()
 			if distance < 5 then
 				if count >= 1 then
 					if status < 100 then
-						status = status + math.random(2, 15)
+						status = status + math.random(30, 40)
 						ESX.ShowNotification(_U('gavepetfood'))
 						TriggerServerEvent('eden_animal:consumePetFood')
 						if status > 100 then
