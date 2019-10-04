@@ -128,6 +128,10 @@ function OpenAdminMenu()
 end
 
 function OpenAdminMenuSociety(label, societyName)
+	TriggerEvent('esx_society:openBossMenu', societyName, function(data, menu)
+		menu.close()
+	end, {wash = true})
+--[[
 	ESX.TriggerServerCallback('esx_playermenu:adminGetSocietyAccount', function(account)
 		local elements = {}
 		table.insert(elements, {label = "Бюджет: $"..tostring(account.money), value = "money"})
@@ -145,6 +149,7 @@ function OpenAdminMenuSociety(label, societyName)
 		end)
 
 	end, 'society_'..societyName)
+]]--
 end
 
 function OpenAdminMenuSocietyList()

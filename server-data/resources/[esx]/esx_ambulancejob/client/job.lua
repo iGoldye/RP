@@ -238,6 +238,7 @@ Citizen.CreateThread(function()
 				end
 			end
 
+			if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief_doctor') then
 			for k,v in ipairs(hospital.BossActions) do
 				local distance = GetDistanceBetweenCoords(playerCoords, v, true)
 
@@ -249,6 +250,7 @@ Citizen.CreateThread(function()
 				if distance < Config.Marker.x then
 					isInMarker, currentHospital, currentPart, currentPartNum = true, hospitalNum, 'BossActions', k
 				end
+			end
 			end
 
 			-- Pharmacies

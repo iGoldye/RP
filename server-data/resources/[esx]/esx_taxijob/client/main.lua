@@ -244,7 +244,7 @@ function OpenTaxiActionsMenu()
 		{label = _U('take_stock'), value = 'get_stock'}
 	}
 
-	if Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' then
+	if Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'uber') then
 		table.insert(elements, {label = _U('boss_actions'), value = 'boss_actions'})
 	end
 

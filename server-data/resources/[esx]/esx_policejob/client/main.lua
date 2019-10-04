@@ -1945,7 +1945,7 @@ Citizen.CreateThread(function()
 					end
 				end
 
-				if Config.EnablePlayerManagement and PlayerData.job.grade_name == 'boss' then
+				if Config.EnablePlayerManagement and (PlayerData.job.grade_name == 'boss' or PlayerData.job.grade_name == 'lieutenant') then
 					for i=1, #v.BossActions, 1 do
 						local distance = GetDistanceBetweenCoords(coords, v.BossActions[i], true)
 
