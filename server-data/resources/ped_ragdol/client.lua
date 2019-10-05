@@ -19,16 +19,16 @@ Citizen.CreateThread(function()
 	local ped = PlayerPedId()
 
         if IsControlJustReleased(0, Keys['H']) and not IsPedInAnyVehicle(ped, true) then
-            ragdoled = true
+            ragdoled = not ragdoled
         end
 
         if ragdoled == true then
             SetPedToRagdoll(GetPlayerPed(-1), 1000, 1000, 0, 0, 0, 0)
             -- alert("Press ~INPUT_PICKUP~ to stand up")
 
-            if IsControlJustPressed(0, Keys['X']) then
-                ragdoled = false
-            end
+            -- if IsControlJustPressed(0, Keys['X']) then
+            --     ragdoled = false
+            -- end
         end
     end
 end)
