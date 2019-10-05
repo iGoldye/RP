@@ -22,7 +22,7 @@ Config.Animations = {
 		name  = 'festives',
 		label = 'Действия',
 		items = {
-			{label = "Пить кофе", type = "scenario", data = {anim = "WORLD_HUMAN_AA_COFFEE"}},
+			{label = "Пить кофе", type = "event", data = {anim = "esx_animations:anim_coffee"}},
 			{label = "Курить", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING", flag = 9}},
 			{label = "Курить на ходу", type = "anim", data = {lib = "amb@world_human_smoking@male@male_b@base", anim = "base", upper=true, control=true, flag = 9}},
 			{label = "Музицировать", type = "scenario", data = {anim = "WORLD_HUMAN_MUSICIAN", flag = 9}},

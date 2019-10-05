@@ -7,6 +7,7 @@ version '1.0.0'
 client_scripts {
 	'config.lua',
 	'client/main.lua',
+	'client/extra_anims.lua'
 }
 
 server_scripts {
