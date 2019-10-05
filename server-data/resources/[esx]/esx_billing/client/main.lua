@@ -28,7 +28,7 @@ function ShowBillsMenu()
 
 		for i=1, #bills, 1 do
 			table.insert(elements, {
-				label  = ('%s - <span style="color:red;">%s</span>'):format(bills[i].label, _U('invoices_item', ESX.Math.GroupDigits(bills[i].amount))),
+				label  = ('<span style="color:green;">%s</span> %s - <span style="color:red;">%s</span>'):format(bills[i].timestamp, bills[i].label, _U('invoices_item', ESX.Math.GroupDigits(bills[i].amount))),
 				billID = bills[i].id
 			})
 		end
