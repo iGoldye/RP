@@ -656,6 +656,7 @@
         <Item>STD_POLICE2_REAR_LEFT</Item>
         <Item>STD_POLICE2_REAR_RIGHT</Item>
       </firstPersonDrivebyData>
+    </Item>
     <Item>
       <modelName>fbi3</modelName>
       <txdName>fbi3</txdName>
