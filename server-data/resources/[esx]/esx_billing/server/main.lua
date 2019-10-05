@@ -64,6 +64,7 @@ ESX.RegisterServerCallback('esx_billing:getBills', function(source, cb)
 				sender     = result[i].sender,
 				targetType = result[i].target_type,
 				target     = result[i].target,
+				timestamp  = os.date("%y.%m.%d", math.floor(result[i].timestamp/1000)),
 				label      = result[i].label,
 				amount     = result[i].amount
 			})
@@ -87,6 +88,7 @@ ESX.RegisterServerCallback('esx_billing:getTargetBills', function(source, cb, ta
 				sender     = result[i].sender,
 				targetType = result[i].target_type,
 				target     = result[i].target,
+				timestamp  = os.date("%y.%m.%d", math.floor(result[i].timestamp/1000)),
 				label      = result[i].label,
 				amount     = result[i].amount
 			})
