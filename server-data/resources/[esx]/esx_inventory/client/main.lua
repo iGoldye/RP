@@ -34,27 +34,35 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		movementSpeed = 1.0
-		if not IsPedStill(PlayerPedId()) then
+		while ESX == nil do
+			Citizen.Wait(100)
 		end
 
-		if pocketWeight > Config.PocketWeightLimit then
-			local speed = 1.0 - (pocketWeight-Config.PocketWeightLimit)/10.0
+		local playerData = ESX.GetPlayerData()
+		local pocketWeightLimit = Config.PocketWeightLimit
+
+		if playerData and playerData.skills and playerData.skills.strength then
+			pocketWeightLimit = pocketWeightLimit + playerData.skills.strength / 100.0 * Config.StrengthExtraWeight
+		end
+
+		if pocketWeight > pocketWeightLimit then
+			local speed = 1.0 - (pocketWeight-pocketWeightLimit)/10.0
 			if speed < 0.1 then
 				speed = 0.1
 			end
 			movementSpeed = speed
 
-			while pocketWeight > Config.PocketWeightLimit*2 do
+			while pocketWeight > pocketWeightLimit*2 do
 				SetPedToRagdoll(PlayerPedId(), 5000, 5000, 0, 0, 0, 0)
 				Citizen.Wait(1000)
 			end
 --[[
 			local hurt = 0
-			if pocketWeight > Config.PocketWeightLimit+30 then
+			if pocketWeight > pocketWeightLimit+30 then
 				hurt = 5
-			elseif pocketWeight > Config.PocketWeightLimit+20 then
+			elseif pocketWeight > pocketWeightLimit+20 then
 				hurt = 3
-			elseif pocketWeight > Config.PocketWeightLimit+10 then
+			elseif pocketWeight > pocketWeightLimit+10 then
 				hurt = 2
 			end
 
