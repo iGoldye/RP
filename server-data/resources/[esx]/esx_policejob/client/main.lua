@@ -1176,7 +1176,7 @@ function OpenUnpaidBillsMenu(player)
 	ESX.TriggerServerCallback('esx_billing:getTargetBills', function(bills)
 		for k,bill in ipairs(bills) do
 			table.insert(elements, {
-				label = ('%s - <span style="color:red;">%s</span>'):format(bill.label, _U('armory_item', ESX.Math.GroupDigits(bill.amount))),
+				label = ('<span style="color:green;">%s</span> %s - <span style="color:red;">%s</span>'):format(bill.timestamp, bill.label, _U('armory_item', ESX.Math.GroupDigits(bill.amount))),
 				billId = bill.id
 			})
 		end
