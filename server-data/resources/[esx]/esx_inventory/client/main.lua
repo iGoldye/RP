@@ -11,7 +11,7 @@ Citizen.CreateThread(function()
 	end
 
 	TriggerEvent('esx_inventory:registerActions')
---	ESX.PlayerData = ESX.GetPlayerData()
+	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
 --inventory = {}
@@ -21,6 +21,13 @@ itemActions["@shared"] = {}
 pocketWeight = 0.0
 movementSpeed = 1.0
 initialized = false
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(60000)
+		ESX.PlayerData = ESX.GetPlayerData()
+	end
+end)
 
 Citizen.CreateThread(function()
 	while true do
@@ -38,11 +45,10 @@ Citizen.CreateThread(function()
 			Citizen.Wait(100)
 		end
 
-		local playerData = ESX.GetPlayerData()
 		local pocketWeightLimit = Config.PocketWeightLimit
 
-		if playerData and playerData.skills and playerData.skills.strength then
-			pocketWeightLimit = pocketWeightLimit + playerData.skills.strength / 100.0 * Config.StrengthExtraWeight
+		if ESX.PlayerData and ESX.PlayerData.skills and ESX.PlayerData.skills.strength then
+			pocketWeightLimit = pocketWeightLimit + ESX.PlayerData.skills.strength / 100.0 * Config.StrengthExtraWeight
 		end
 
 		if pocketWeight > pocketWeightLimit then
