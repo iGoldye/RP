@@ -9,19 +9,22 @@ Config.StoreOnServerStart = true -- Store all vehicles in garage on server start
 
 Config.Garages = {
 	Garage_Centre = {
-		Pos = {x=215.800, y=-810.057, z=30.727},
-		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
+		Pos = {x=216.800, y=-810.057, z=30.74},
+		Distance = 2.5,
+		Marker = {t=36, w= 1.0, h= 1.0,r = 255, g = 224, b = 0},
 		Name = 'Гараж',
 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
-			Pos = {x=229.700, y= -800.1149, z= 30.5722},
+			Pos = {x=229.700, y= -800.1149, z= 30.58},
+			Distance = 2.5,
 			Heading = 160.0,
-			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
+			Marker = {t=36, w= 1.0, h= 1.0,r=60,g=255,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
-			Pos = {x=215.124, y=-791.377, z=30.646},
-			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
+			Pos = {x=215.124, y=-791.377, z=30.78},
+			Distance = 2.5,
+			Marker = {t=36, w= 1.0, h= 1.0,r=255,g=60,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
@@ -30,18 +33,21 @@ Config.Garages = {
 
 	Garage_Centre2 = {
 		Pos = {x = -1229.431,y = -662.517,z = 25.896},
-		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
+		Distance = 2.5,
+		Marker = {t=36, w= 1.0, h= 1.0,r = 255, g = 224, b = 0},
 		Name = 'Гараж',
 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
 			Pos = {x = -1220.64,y = -654.36,z = 25.942},
+			Distance = 2.5,
 			Heading = 160.0,
-			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
+			Marker = {t=36, w= 1.0, h= 1.0,r=60,g=255,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x = -1233.722,y = -654.880,z = 25.942},
-			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
+			Distance = 2.5,
+			Marker = {t=36, w= 1.0, h= 1.0,r=255,g=60,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
@@ -49,36 +55,42 @@ Config.Garages = {
 
 	Garage_Paleto = {
 		Pos = {x=90.769, y=6363.176, z=31.2373},
-		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
+		Distance = 2.5,
+		Marker = {t=36, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
 		Name = 'Гараж',
 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
 			Pos = {x=109.12322, y= 6380.6765, z= 31.2328},
+			Distance = 2.5,
 			Heading = 160.0,
-			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
+			Marker = {t=36, w= 1.0, h= 1.0,r=60,g=255,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x=77.082, y=6384.5410, z=31.2365},
-			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
+			Distance = 2.5,
+			Marker = {t=36, w= 1.0, h= 1.0,r=255,g=60,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
 
 	Garage_SandyShore = {
-		Pos = {x=1643.419, y=3808.156, z=34.1173},
-		Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
+		Pos = {x=1643.419, y=3808.156, z=35.1173},
+		Distance = 2.5,
+		Marker = {t=36, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
 		Name = 'Гараж',
 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
 		SpawnPoint = {
 			Pos = {x=1638.53322, y= 3795.6265, z= 34.8128},
+			Distance = 2.5,
 			Heading = 160.0,
-			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
+			Marker = {t=36, w= 1.0, h= 1.0,r=60,g=255,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
 		},
 		DeletePoint = {
 			Pos = {x=1626.472, y=3786.1710, z=34.6965},
-			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
+			Distance = 2.5,
+			Marker = {t=36, w= 1.0, h= 1.0,r=255,g=60,b=0},
 			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
 		},
 	},
@@ -285,32 +297,36 @@ Config.Garages = {
 }
 
 Config.GaragesMecano = {
+--[[
 	Bennys = {
-		Name = 'Fourriere Externe',
+		Name = 'Штрафстоянка',
 		SpawnPoint = {
 			Pos = {x = 477.729,y = -1888.856,z = 26.094},
 			Heading = 303.0,
 			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-			HelpPrompt = "Appuyer sur ~INPUT_PICKUP~ pour sortir un véhicule de fourrière",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы вернуть транспорт",
 		},
 		DeletePoint = {
 			Pos = {x = 459.733,y = -1890.335,z = 25.776},
 			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-			HelpPrompt = "Appuyer sur ~INPUT_PICKUP~ pour rentrer le véhicule en fourrière",
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы конфисковать транспорт",
 		},
 	},
+]]--
 	police = {
-		Name = 'Fourriere Externe',
+		Name = 'Штрафстоянка',
 		SpawnPoint = {
-			Pos = {x = 449.253,y = -1024.322,z = 28.57},
+			Pos = {x = 449.253,y = -1024.322,z = 28.60},
+			Distance = 2.5,
 			Heading = 100.0,
-			Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-			HelpPrompt = "Appuyer sur ~INPUT_PICKUP~ pour sortir un véhicule de fourrière",
+			Marker = {t=36, w= 1.0, h= 1.0,r=255,g=60,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы вернуть транспорт",
 		},
 		DeletePoint = {
-			Pos = {x = 452.305,y = -996.752,z = 25.776},
-			Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-			HelpPrompt = "Appuyer sur ~INPUT_PICKUP~ pour rentrer le véhicule en fourrière",
-		}
+			Pos = {x = 459.733,y = -1890.335,z = 25.776},
+			Distance = 2.5,
+			Marker = {t=0, w= 1.5, h= 1.0,r=255,g=0,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы конфисковать транспорт",
+		},
 	}
 }
