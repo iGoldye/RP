@@ -238,38 +238,6 @@ AddEventHandler('esx_inventory:showInventoryMenu', function(inventory)
 	showInventoryMenu(inventory)
 end)
 
-RegisterNetEvent('esx_inventory:unequipWeapon')
-AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
-	local playerPed = PlayerPedId()
-	local weaponHash = GetHashKey(weaponName)
-	local current_ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
-
-	if HasPedGotWeapon(playerPed, weaponHash, false) and current_ammo >= amount then
-		if GetSelectedPedWeapon(playerPed) == weaponHash then
-			SetCurrentPedWeapon(playerPed, GetHashKey("WEAPON_UNARMED"), true)
-		end
-
-		SetPedAmmo(playerPed, weaponHash, current_ammo - amount)
-		RemoveWeaponFromPed(playerPed, weaponHash)
-
-		TriggerServerEvent('esx_inventory:unequipWeapon', weaponName, amount)
-	end
-end)
-
-RegisterNetEvent('esx_inventory:equipWeapon')
-AddEventHandler('esx_inventory:equipWeapon', function(item)
-	local weaponName = item.extra.weapon_name
-	local playerPed = PlayerPedId()
-	local weaponHash = GetHashKey(weaponName)
-
-	if HasPedGotWeapon(playerPed, weaponHash, false) then
-		ESX.ShowNotification(_U('already_equipped'))
-	else
-		GiveWeaponToPed(playerPed, weaponHash, item.extra.ammo, false, true)
-		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
-	end
-end)
-
 RegisterNetEvent('esx_inventory:showItemNotification')
 AddEventHandler('esx_inventory:showItemNotification', function(add, label, count)
 	if initialized == true then

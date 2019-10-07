@@ -48,5 +48,6 @@ server_export 'giveItemTo'
 server_export 'registerItem'
 server_export 'createItem'
 server_export 'findItem'
+server_export 'addItem'
 
 dependency 'es_extended'

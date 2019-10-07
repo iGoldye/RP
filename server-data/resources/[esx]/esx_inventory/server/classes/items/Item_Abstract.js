@@ -51,6 +51,7 @@ class Item_Abstract {
 		ser.name = this.name;
 		ser.label = this.label;
 		ser.extra = this.extra;
+		ser.description = this.description;
 		ser.amount = this.amount;
 		ser.weight = this.weight;
 		ser.droppable = this.droppable;
@@ -81,7 +82,14 @@ class Item_Abstract {
 	}
 
 	get label() {
+		if (ESXItemDB[this.name] !== undefined) {
+			return ESXItemDB[this.name].label;
+		}
 	        return _U(this.name);
+	}
+
+	get description() {
+		return "";
 	}
 
 	addItem(inventory) {
