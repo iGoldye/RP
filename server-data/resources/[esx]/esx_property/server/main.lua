@@ -19,6 +19,22 @@ AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 	end)
 end)
 
+function haveKeys(source, propertyName, owner)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    local housekey = exports["esx_inventory"]:createItem("housekey", { ["property"] = propertyName, ["owner"] = owner }, 1)
+    local k,v = exports["esx_inventory"]:findItem("pocket", xPlayer.identifier, housekey)
+    if k ~= nil then
+	return true
+    end
+
+    return false
+end
+
+ESX.RegisterServerCallback('esx_property:haveKeys', function(source, cb, propertyName, owner)
+	cb(haveKeys(source, propertyName, owner))
+end)
+
 function GetProperty(name)
 	for i=1, #Config.Properties, 1 do
 		if Config.Properties[i].name == name then
@@ -381,11 +397,11 @@ ESX.RegisterServerCallback('esx_property:getAnyoneOwnedProperties', function(sou
 		return
 	end
 
-	MySQL.Async.fetchAll('SELECT name FROM owned_properties', {}, function(ownedProperties)
+	MySQL.Async.fetchAll('SELECT name,owner FROM owned_properties', {}, function(ownedProperties)
 		local properties = {}
 
 		for i=1, #ownedProperties, 1 do
-			properties[ownedProperties[i].name] = true
+			properties[ownedProperties[i].name] = ownedProperties[i].owner
 		end
 
 		cb(properties)
