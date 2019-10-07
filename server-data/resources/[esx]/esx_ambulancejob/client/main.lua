@@ -108,61 +108,23 @@ AddEventHandler('esx_ambulancejob:useItem', function(itemName)
 	ESX.UI.Menu.CloseAll()
 
 	if itemName == 'medikit' then
---[[
-		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
-		local playerPed = PlayerPedId()
-
-		ESX.Streaming.RequestAnimDict(lib, function()
-			TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
-
-			Citizen.Wait(500)
-			while IsEntityPlayingAnim(playerPed, lib, anim, 3) do
-				Citizen.Wait(0)
-				DisableAllControlActions(0)
-			end
-]]--
-			TriggerEvent('esx_ambulancejob:heal', 'big', true)
-			ESX.ShowNotification(_U('used_medikit'))
---		end)
-
+		TriggerEvent('esx_ambulancejob:heal', 'big', true)
+		ESX.ShowNotification(_U('used_medikit'))
 	elseif itemName == 'bandage' then
---[[
-		local lib, anim = 'anim@amb@business@coc@coc_unpack_cut_left@2', 'cut_tired_coccutter' -- TODO better animations
-		local playerPed = PlayerPedId()
-
-		ESX.Streaming.RequestAnimDict(lib, function()
-			TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
-
-			Citizen.Wait(500)
-			while IsEntityPlayingAnim(playerPed, lib, anim, 3) do
-				Citizen.Wait(0)
-				DisableAllControlActions(0)
-			end
-]]--
-			TriggerEvent('esx_ambulancejob:heal', 'small', true)
-			ESX.ShowNotification(_U('used_bandage'))
-
-		elseif itemName == 'pill' then
-
-			TriggerEvent('esx_ambulancejob:heal', 'small', true)
-			ESX.ShowNotification(_U('used_pill'))
-
-		elseif itemName == 'drug1' then
-
-			TriggerEvent('esx_ambulancejob:heal', 'small', true)
-			ESX.ShowNotification(_U('used_drug1'))
-
-		elseif itemName == 'drug2' then
-
-			TriggerEvent('esx_ambulancejob:heal', 'small', true)
-			ESX.ShowNotification(_U('used_drug2'))
-
-		elseif itemName == 'drug3' then
-
-			TriggerEvent('esx_ambulancejob:heal', 'small', true)
-			ESX.ShowNotification(_U('drug3'))
---		end)
-
+		TriggerEvent('esx_ambulancejob:heal', 'small', true)
+		ESX.ShowNotification(_U('used_bandage'))
+	elseif itemName == 'pill' then
+		TriggerEvent('esx_ambulancejob:heal', 'small', true)
+		ESX.ShowNotification(_U('used_pill'))
+	elseif itemName == 'drug1' then
+		TriggerEvent('esx_ambulancejob:heal', 'small', true)
+		ESX.ShowNotification(_U('used_drug1'))
+	elseif itemName == 'drug2' then
+		TriggerEvent('esx_ambulancejob:heal', 'small', true)
+		ESX.ShowNotification(_U('used_drug2'))
+	elseif itemName == 'drug3' then
+		TriggerEvent('esx_ambulancejob:heal', 'small', true)
+		ESX.ShowNotification(_U('drug3'))
 	end
 end)
 

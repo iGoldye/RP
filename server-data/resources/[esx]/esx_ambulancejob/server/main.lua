@@ -3,6 +3,47 @@ local playersHealing = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+RegisterServerEvent('esx_ambulancejob:useMedikit')
+AddEventHandler('esx_ambulancejob:useMedikit', function(target)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local item = xPlayer.getInventoryItem('medikit')
+
+	if item and item.count >= 1 then
+		xPlayer.removeInventoryItem('medikit', 1)
+		TriggerClientEvent('esx_ambulancejob:heal', target, 'big')
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('heal_complete', xPlayer.name))
+	end
+end)
+
+RegisterServerEvent('esx_ambulancejob:useMedikitRevive')
+AddEventHandler('esx_ambulancejob:useMedikitRevive', function(target)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local item = xPlayer.getInventoryItem('medikit')
+
+	if item and item.count >= 1 then
+		xPlayer.removeInventoryItem('medikit', 1)
+		TriggerClientEvent('esx_ambulancejob:heal', target, 'big')
+
+		if Config.ReviveReward > 0 then
+			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('revive_complete_award', xPlayer.name, Config.ReviveReward))
+		else
+			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('revive_complete', xPlayer.name))
+		end
+	end
+end)
+
+RegisterServerEvent('esx_ambulancejob:useBandage')
+AddEventHandler('esx_ambulancejob:useBandage', function(target)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local item = xPlayer.getInventoryItem('bandage')
+
+	if item and item.count >= 1 then
+		xPlayer.removeInventoryItem('bandage', 1)
+		TriggerClientEvent('esx_ambulancejob:heal', target, 'small')
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('heal_complete', xPlayer.name))
+	end
+end)
+
 RegisterServerEvent('esx_ambulancejob:revive')
 AddEventHandler('esx_ambulancejob:revive', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)

@@ -44,7 +44,6 @@ end)
 
 AddEventHandler('esx_inventory:registerActions', function()
 
---[[
 TriggerEvent('esx_inventory:registerItemAction', "esx_item", "heal_target", "Вылечить другого", 1, function(item)
 
 	if item.extra == nil then
@@ -77,7 +76,6 @@ end, function(item)
 
 	return true
 end)
-]]--
 
 TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), 0, function(item)
 

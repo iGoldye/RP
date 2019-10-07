@@ -3,6 +3,102 @@ local HasAlreadyEnteredMarker, LastHospital, LastPart, LastPartNum
 local IsBusy = false
 local spawnedVehicles, isInShopMenu = {}, false
 
+function useBandage(player)
+	if IsBusy then return end
+	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
+		if quantity > 0 then
+			local target = GetPlayerPed(player)
+			local health = GetEntityHealth(target)
+
+			if health > 0 then
+				local playerPed = PlayerPedId()
+
+				IsBusy = true
+				ESX.ShowNotification(_U('heal_inprogress'))
+				TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
+				Citizen.Wait(10000)
+				ClearPedTasks(playerPed)
+				TriggerServerEvent('esx_ambulancejob:useBandage', GetPlayerServerId(player))
+				IsBusy = false
+			else
+				ESX.ShowNotification(_U('player_not_conscious'))
+			end
+		else
+			ESX.ShowNotification(_U('not_enough_bandage'))
+		end
+	end, 'bandage')
+end
+
+RegisterNetEvent('esx_ambulancejob:useBandage')
+AddEventHandler('esx_ambulancejob:useBandage', function(player)
+	useBandage(player)
+end)
+
+function useMedikitRevive(player)
+
+	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
+		if quantity > 0 then
+			local targetPed = GetPlayerPed(player)
+
+			if IsPedDeadOrDying(targetPed, 1) then
+				local playerPed = PlayerPedId()
+
+				local lib, anim = 'mini@cpr@char_a@cpr_str', 'cpr_pumpchest'
+
+				ESX.ShowNotification(_U('revive_inprogress'))
+				IsBusy = true
+				for i=1, 15, 1 do
+					Citizen.Wait(900)
+
+					ESX.Streaming.RequestAnimDict(lib, function()
+						TaskPlayAnim(PlayerPedId(), lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
+					end)
+				end
+
+				TriggerServerEvent('esx_ambulancejob:useMedikitRevive', GetPlayerServerId(player))
+				IsBusy = false
+			else
+				ESX.ShowNotification(_U('player_not_unconscious'))
+			end
+		else
+			ESX.ShowNotification(_U('not_enough_medikit'))
+		end
+	end, 'medikit')
+end
+
+function useMedikit(player)
+	if IsBusy then return end
+
+	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
+		if quantity > 0 then
+			local target = GetPlayerPed(player)
+			local health = GetEntityHealth(target)
+
+			if health > 0 then
+				local playerPed = PlayerPedId()
+
+				IsBusy = true
+				ESX.ShowNotification(_U('heal_inprogress'))
+				TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
+				Citizen.Wait(10000)
+				ClearPedTasks(playerPed)
+				TriggerServerEvent('esx_ambulancejob:useMedikit', GetPlayerServerId(player))
+				IsBusy = false
+			else
+				useMedikitRevive(player)
+--				ESX.ShowNotification(_U('player_not_conscious'))
+			end
+		else
+			ESX.ShowNotification(_U('not_enough_medikit'))
+		end
+	end, 'medikit')
+end
+
+RegisterNetEvent('esx_ambulancejob:useMedikit')
+AddEventHandler('esx_ambulancejob:useMedikit', function(player)
+	useMedikit(player)
+end)
+
 function OpenAmbulanceActionsMenu()
 	local elements = {
 		{label = _U('cloakroom'), value = 'cloakroom'}
@@ -86,105 +182,14 @@ function OpenMobileAmbulanceActionsMenu()
 						end)
 
 					elseif data.current.value == 'revive' then
-
 						TriggerEvent('esx_ambulancejob:reviveAction', closestPlayer, closestDistance)
 
-						-- IsBusy = true
-
-						-- ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
-						-- 	if quantity > 0 then
-						-- 		local closestPlayerPed = GetPlayerPed(closestPlayer)
-
-						-- 		if IsPedDeadOrDying(closestPlayerPed, 1) then
-						-- 			local playerPed = PlayerPedId()
-
-						-- 			ESX.ShowNotification(_U('revive_inprogress'))
-
-						-- 			local lib, anim = 'mini@cpr@char_a@cpr_str', 'cpr_pumpchest'
-
-						-- 			for i=1, 15, 1 do
-						-- 				Citizen.Wait(900)
-
-						-- 				ESX.Streaming.RequestAnimDict(lib, function()
-						-- 					TaskPlayAnim(PlayerPedId(), lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
-						-- 				end)
-						-- 			end
-
-						-- 			TriggerServerEvent('esx_ambulancejob:removeItem', 'medikit')
-						-- 			TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
-
-						-- 			-- Show revive award?
-						-- 			if Config.ReviveReward > 0 then
-						-- 				ESX.ShowNotification(_U('revive_complete_award', GetPlayerName(closestPlayer), Config.ReviveReward))
-						-- 			else
-						-- 				ESX.ShowNotification(_U('revive_complete', GetPlayerName(closestPlayer)))
-						-- 			end
-						-- 		else
-						-- 			ESX.ShowNotification(_U('player_not_unconscious'))
-						-- 		end
-						-- 	else
-						-- 		ESX.ShowNotification(_U('not_enough_medikit'))
-						-- 	end
-
-						-- 	IsBusy = false
-
-						-- end, 'medikit')
-
 					elseif data.current.value == 'small' then
-
-						ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
-							if quantity > 0 then
-								local closestPlayerPed = GetPlayerPed(closestPlayer)
-								local health = GetEntityHealth(closestPlayerPed)
-
-								if health > 0 then
-									local playerPed = PlayerPedId()
-
-									IsBusy = true
-									ESX.ShowNotification(_U('heal_inprogress'))
-									TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-									Citizen.Wait(10000)
-									ClearPedTasks(playerPed)
-
-									TriggerServerEvent('esx_ambulancejob:removeItem', 'bandage')
-									TriggerServerEvent('esx_ambulancejob:heal', GetPlayerServerId(closestPlayer), 'small')
-									ESX.ShowNotification(_U('heal_complete', GetPlayerName(closestPlayer)))
-									IsBusy = false
-								else
-									ESX.ShowNotification(_U('player_not_conscious'))
-								end
-							else
-								ESX.ShowNotification(_U('not_enough_bandage'))
-							end
-						end, 'bandage')
+						useBandage(closestPlayer)
 
 					elseif data.current.value == 'big' then
+						useMedikit(closestPlayer)
 
-						ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
-							if quantity > 0 then
-								local closestPlayerPed = GetPlayerPed(closestPlayer)
-								local health = GetEntityHealth(closestPlayerPed)
-
-								if health > 0 then
-									local playerPed = PlayerPedId()
-
-									IsBusy = true
-									ESX.ShowNotification(_U('heal_inprogress'))
-									TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-									Citizen.Wait(10000)
-									ClearPedTasks(playerPed)
-
-									TriggerServerEvent('esx_ambulancejob:removeItem', 'medikit')
-									TriggerServerEvent('esx_ambulancejob:heal', GetPlayerServerId(closestPlayer), 'big')
-									ESX.ShowNotification(_U('heal_complete', GetPlayerName(closestPlayer)))
-									IsBusy = false
-								else
-									ESX.ShowNotification(_U('player_not_conscious'))
-								end
-							else
-								ESX.ShowNotification(_U('not_enough_medikit'))
-							end
-						end, 'medikit')
 					elseif data.current.value == 'alcotest' then
 						TriggerServerEvent('esx_ambulancejob:alcotest', GetPlayerServerId(closestPlayer))
 					elseif data.current.value == 'put_in_vehicle' then
@@ -1107,44 +1112,5 @@ end
 
 RegisterNetEvent('esx_ambulancejob:reviveAction')
 AddEventHandler('esx_ambulancejob:reviveAction', function(closestPlayer, closestDistance)
- IsBusy = true
-
-						ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
-							if quantity > 0 then
-								local closestPlayerPed = GetPlayerPed(closestPlayer)
-
-								if IsPedDeadOrDying(closestPlayerPed, 1) then
-									local playerPed = PlayerPedId()
-
-									ESX.ShowNotification(_U('revive_inprogress'))
-
-									local lib, anim = 'mini@cpr@char_a@cpr_str', 'cpr_pumpchest'
-
-									for i=1, 15, 1 do
-										Citizen.Wait(900)
-
-										ESX.Streaming.RequestAnimDict(lib, function()
-											TaskPlayAnim(PlayerPedId(), lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
-										end)
-									end
-
-									TriggerServerEvent('esx_ambulancejob:removeItem', 'medikit')
-									TriggerServerEvent('esx_ambulancejob:revive', GetPlayerServerId(closestPlayer))
-
-									-- Show revive award?
-									if Config.ReviveReward > 0 then
-										ESX.ShowNotification(_U('revive_complete_award', GetPlayerName(closestPlayer), Config.ReviveReward))
-									else
-										ESX.ShowNotification(_U('revive_complete', GetPlayerName(closestPlayer)))
-									end
-								else
-									ESX.ShowNotification(_U('player_not_unconscious'))
-								end
-							else
-								ESX.ShowNotification(_U('not_enough_medikit'))
-							end
-
-							IsBusy = false
-
-						end, 'medikit')
+	useMedikitRevive(closestPlayer)
 end)
