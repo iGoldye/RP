@@ -36,14 +36,18 @@ end)
 function notifyAlertSMS (number, alert, listSrc)
   if PhoneNumbers[number] ~= nil then
 	local mess = '#' .. alert.numero  .. ' : ' .. alert.message
-	if alert.coords ~= nil then
-		mess = mess .. ' ' .. alert.coords.x .. ', ' .. alert.coords.y
-	end
+--	if alert.coords ~= nil then
+--		mess = mess .. ' ' .. alert.coords.x .. ', ' .. alert.coords.y
+--	end
+    local options = {
+        ["coords"] = alert.coords,
+        ["customer"] = alert.numero,
+    }
 
     for k, _ in pairs(listSrc) do
       getPhoneNumber(tonumber(k), function (n)
         if n ~= nil then
-          TriggerEvent('gcPhone:_internalAddMessage', number, n, mess, 0, function (smsMess)
+          TriggerEvent('gcPhone:_internalAddMessage', number, n, mess, 0, options, function (smsMess)
             TriggerClientEvent("gcPhone:receiveMessage", tonumber(k), smsMess)
           end)
         end

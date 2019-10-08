@@ -81,9 +81,12 @@ end
 
 
 function getPlayerID(source)
-    local identifiers = GetPlayerIdentifiers(source)
-    local player = getIdentifiant(identifiers)
-    return player
+--    local identifiers = GetPlayerIdentifiers(source)
+--    local player = getIdentifiant(identifiers)
+--    return player
+      local xPlayer = ESX.GetPlayerFromId(source)
+      return xPlayer.identifier
+
 end
 function getIdentifiant(id)
     for _, v in ipairs(id) do
@@ -182,6 +185,12 @@ AddEventHandler('gcPhone:deleteContact', function(id)
     deleteContact(sourcePlayer, identifier, id)
 end)
 
+RegisterServerEvent('gcPhone:acceptAction')
+AddEventHandler('gcPhone:acceptAction', function(id)
+    local sourcePlayer = tonumber(source)
+    TriggerClientEvent("gcPhone:acceptAction", -1, sourcePlayer, id)
+end)
+
 --====================================================================================
 --  Messages
 --====================================================================================
@@ -194,32 +203,37 @@ function getMessages(identifier)
 end
 
 RegisterServerEvent('gcPhone:_internalAddMessage')
-AddEventHandler('gcPhone:_internalAddMessage', function(transmitter, receiver, message, owner, cb)
-    cb(_internalAddMessage(transmitter, receiver, message, owner))
+AddEventHandler('gcPhone:_internalAddMessage', function(transmitter, receiver, message, owner, options, cb)
+    cb(_internalAddMessage(transmitter, receiver, message, owner, options))
 end)
 
-function _internalAddMessage(transmitter, receiver, message, owner)
-    local Query = "INSERT INTO phone_messages (`transmitter`, `receiver`,`message`, `isRead`,`owner`) VALUES(@transmitter, @receiver, @message, @isRead, @owner);"
-    local Query2 = 'SELECT * from phone_messages WHERE `id` = @id;'
-	local Parameters = {
+function _internalAddMessage(transmitter, receiver, message, owner, options)
+    local id = MySQL.Sync.insert("INSERT INTO phone_messages (`transmitter`, `receiver`,`message`, `isRead`,`owner`,`options`) VALUES(@transmitter, @receiver, @message, @isRead, @owner, @options);", {
         ['@transmitter'] = transmitter,
         ['@receiver'] = receiver,
         ['@message'] = message,
         ['@isRead'] = owner,
-        ['@owner'] = owner
-    }
-    local id = MySQL.Sync.insert(Query, Parameters)
-    return MySQL.Sync.fetchAll(Query2, {
+        ['@owner'] = owner,
+	['@options'] = json.encode(options),
+    })
+
+    local res = MySQL.Sync.fetchAll('SELECT * from phone_messages WHERE `id` = @id;', {
         ['@id'] = id
     })[1]
+
+    if res ~= nil and res.options ~= nil then
+	res.options = json.decode(res.options)
+    end
+
+    return res
 end
 
-function addMessage(source, identifier, phone_number, message)
+function addMessage(source, identifier, phone_number, message, options)
     local sourcePlayer = tonumber(source)
     local otherIdentifier = getIdentifierByPhoneNumber(phone_number)
     local myPhone = getNumberPhone(identifier)
     if otherIdentifier ~= nil then
-        local tomess = _internalAddMessage(myPhone, phone_number, message, 0)
+        local tomess = _internalAddMessage(myPhone, phone_number, message, 0, options)
         getSourceFromIdentifier(otherIdentifier, function (osou)
             if tonumber(osou) ~= nil then
                 -- TriggerClientEvent("gcPhone:allMessage", osou, getMessages(otherIdentifier))
@@ -227,7 +241,7 @@ function addMessage(source, identifier, phone_number, message)
             end
         end)
     end
-    local memess = _internalAddMessage(phone_number, myPhone, message, 1)
+    local memess = _internalAddMessage(phone_number, myPhone, message, 1, options)
     TriggerClientEvent("gcPhone:receiveMessage", sourcePlayer, memess)
 end
 
@@ -235,10 +249,10 @@ RegisterServerEvent('gcPhone:addFakeMessage')
 AddEventHandler('gcPhone:addFakeMessage', function(fake_number, to_number, message)
     addFakeMessage(fake_number, to_number, message)
 end)
-function addFakeMessage(fake_number, to_number, message)
+function addFakeMessage(fake_number, to_number, message, options)
     local otherIdentifier = getIdentifierByPhoneNumber(to_number)
     if otherIdentifier ~= nil then
-        local tomess = _internalAddMessage(fake_number, to_number, message, 0)
+        local tomess = _internalAddMessage(fake_number, to_number, message, 0, options)
         getSourceFromIdentifier(otherIdentifier, function (osou)
             if tonumber(osou) ~= nil then
                 TriggerClientEvent("gcPhone:receiveMessage", tonumber(osou), tomess)
@@ -281,9 +295,9 @@ AddEventHandler('gcPhone:sendMessage', function(phoneNumber, message)
     local identifier = getPlayerID(source)
 
     if #message > 0 and message:sub(1,1) == '#' then
-        addFakeMessage("#####", phoneNumber, message:sub(2))
+        addFakeMessage("#####", phoneNumber, message:sub(2), {})
     else
-        addMessage(sourcePlayer, identifier, phoneNumber, message)
+        addMessage(sourcePlayer, identifier, phoneNumber, message, {})
     end
 
 end)

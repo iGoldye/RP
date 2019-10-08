@@ -521,6 +521,27 @@ AddEventHandler('gcphone:autoAcceptCall', function(infoCall)
   SendNUIMessage({ event = "autoAcceptCall", infoCall = infoCall})
 end)
 
+RegisterNetEvent('gcPhone:acceptAction')
+AddEventHandler('gcPhone:acceptAction', function(player, message_id)
+--  SendNUIMessage({ event = "AcceptAction", message_id = message_id})
+  for k, v in ipairs(messages) do
+    if v.id == message_id then
+      if v.options == nil then
+          v.options = {}
+      end
+      if v.options.accepted ~= true then
+          if tostring(v.options.customer) == tostring(myPhoneNumber) then
+		TriggerEvent('gcphone:onAcceptAction', player, message_id, v)
+          end
+      end
+
+      v.options.accepted = true
+      SendNUIMessage({event = 'updateMessages', messages = messages})
+      return -- be careful
+    end
+  end
+
+end)
 
 
 
@@ -663,6 +684,26 @@ end)
 RegisterNUICallback('setGPS', function(data, cb)
   SetNewWaypoint(tonumber(data.x), tonumber(data.y))
   cb()
+end)
+RegisterNUICallback('acceptAction', function(data)
+	local action = data.action
+	if action == nil then
+		print("incorrect phone action!")
+		return
+	end
+
+	local message = action.message
+	if message == nil then
+		print("incorrect phone action message!")
+		return
+	end
+
+	local options = message.options
+	if options == nil then
+		options = {}
+	end
+
+	TriggerServerEvent('gcPhone:acceptAction', action.id)
 end)
 
 -- Add security for event (leuit#0100)
