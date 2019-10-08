@@ -10,7 +10,7 @@ function useBandage(player)
 			local target = GetPlayerPed(player)
 			local health = GetEntityHealth(target)
 
-			if health > 0 then
+			if not IsPedDeadOrDying(target, 1) then
 				local playerPed = PlayerPedId()
 
 				IsBusy = true
@@ -74,7 +74,7 @@ function useMedikit(player)
 			local target = GetPlayerPed(player)
 			local health = GetEntityHealth(target)
 
-			if health > 0 then
+			if not IsPedDeadOrDying(target, 1) then
 				local playerPed = PlayerPedId()
 
 				IsBusy = true

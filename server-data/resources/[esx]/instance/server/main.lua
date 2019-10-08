@@ -13,14 +13,12 @@ function GetInstancedPlayers()
 end
 
 function CreateInstance(type, player, data)
-	if instances[player] == nil then
-		instances[player] = {
-			type    = type,
-			host    = player,
-			players = {},
-			data    = data
-		}
-	end
+	instances[player] = {
+		type    = type,
+		host    = player,
+		players = {},
+		data    = data
+	}
 
 	TriggerEvent('instance:onCreate', instances[player])
 	TriggerClientEvent('instance:onCreate', player, instances[player])

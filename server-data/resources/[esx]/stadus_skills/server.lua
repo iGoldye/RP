@@ -44,9 +44,13 @@ AddEventHandler("stadus_skills:addStamina", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 --	TriggerClientEvent('esx:showNotification', source, 'Вы чувствуете себя на ~g~' .. round(amount, 2) .. '% ~s~быстрее!')
 	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
+		local newStamina = (skillInfo[1].stamina + amount)
+		if newStamina > 100 then
+			newStamina = 100
+		end
 		MySQL.Async.execute('UPDATE `stadus_skills` SET `stamina` = @stamina WHERE `identifier` = @identifier',
 			{
-			['@stamina'] = (skillInfo[1].stamina + amount),
+			['@stamina'] = newStamina,
 			['@identifier'] = xPlayer.identifier
 			}, function ()
 			updatePlayerInfo(source)
@@ -59,9 +63,13 @@ AddEventHandler("stadus_skills:addStrength", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 --	TriggerClientEvent('esx:showNotification', source, 'Вы чувствуете себя на ~g~' .. round(amount, 2) .. '% ~s~сильнее!')
 	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
+		local newStrength = (skillInfo[1].strength + amount)
+		if newStrength > 100 then
+			newStrength = 100
+		end
 		MySQL.Async.execute('UPDATE `stadus_skills` SET `strength` = @strength WHERE `identifier` = @identifier',
 			{
-			['@strength'] = (skillInfo[1].strength + amount),
+			['@strength'] = newStrength,
 			['@identifier'] = xPlayer.identifier
 			}, function ()
 			updatePlayerInfo(source)
@@ -74,9 +82,13 @@ AddEventHandler("stadus_skills:addDriving", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 --	TriggerClientEvent('esx:showNotification', source, 'Вы на ~g~' .. round(amount, 2) .. '% ~s~лучше чувствуете себя за рулем!')
 	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
+		local newDriving = (skillInfo[1].driving + amount)
+		if newDriving > 100 then
+			newDriving = 100
+		end
 		MySQL.Async.execute('UPDATE `stadus_skills` SET `driving` = @driving WHERE `identifier` = @identifier',
 			{
-			['@driving'] = (skillInfo[1].driving + amount),
+			['@driving'] = newDriving,
 			['@identifier'] = xPlayer.identifier
 			}, function ()
 			updatePlayerInfo(source)
@@ -89,9 +101,13 @@ AddEventHandler("stadus_skills:addFishing", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 --	TriggerClientEvent('esx:showNotification', source, 'Вы совершенствуете на ~g~' .. round(amount, 2) .. '% ~s~мастерство рыбалки!')
 	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
+		local newFishing = (skillInfo[1].fishing + amount)
+		if newFishing > 100 then
+			newFishing = 100
+		end
 		MySQL.Async.execute('UPDATE `stadus_skills` SET `fishing` = @fishing WHERE `identifier` = @identifier',
 			{
-			['@fishing'] = (skillInfo[1].fishing + amount),
+			['@fishing'] = newFishing,
 			['@identifier'] = xPlayer.identifier
 			}, function ()
 			updatePlayerInfo(source)
@@ -104,9 +120,13 @@ AddEventHandler("stadus_skills:addDrugs", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 --	TriggerClientEvent('esx:showNotification', source, 'Вы совершенстувете навык ~g~' .. round(amount, 2) .. '% ~s~производства ~y~наркотиков~s~!')
 	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
+		local newDrugs = (skillInfo[1].drugs + amount)
+		if newDrugs > 100 then
+			newDrugs = 100
+		end
 		MySQL.Async.execute('UPDATE `stadus_skills` SET `drugs` = @drugs WHERE `identifier` = @identifier',
 			{
-			['@drugs'] = (skillInfo[1].drugs + amount),
+			['@drugs'] = newDrugs,
 			['@identifier'] = xPlayer.identifier
 			}, function ()
 			updatePlayerInfo(source)

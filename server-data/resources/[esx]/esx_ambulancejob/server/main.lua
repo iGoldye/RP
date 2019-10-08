@@ -18,16 +18,17 @@ end)
 RegisterServerEvent('esx_ambulancejob:useMedikitRevive')
 AddEventHandler('esx_ambulancejob:useMedikitRevive', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
+	local xTarget = ESX.GetPlayerFromId(target)
 	local item = xPlayer.getInventoryItem('medikit')
 
 	if item and item.count >= 1 then
 		xPlayer.removeInventoryItem('medikit', 1)
-		TriggerClientEvent('esx_ambulancejob:heal', target, 'big')
+		TriggerClientEvent('esx_ambulancejob:revive', target)
 
-		if Config.ReviveReward > 0 then
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('revive_complete_award', xPlayer.name, Config.ReviveReward))
+		if Config.ReviveReward > 0 and xPlayer.job.name == 'ambulance' then
+			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('revive_complete_award', xTarget.name, Config.ReviveReward))
 		else
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('revive_complete', xPlayer.name))
+			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('revive_complete', xTarget.name))
 		end
 	end
 end)
