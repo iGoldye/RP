@@ -561,4 +561,4 @@ function PayRent(d, h, m)
 ]]--
 end
 
-TriggerEvent('cron:runAt', 22, 0, PayRent)
+TriggerEvent('cron:runAt', 3, 0, PayRent)
