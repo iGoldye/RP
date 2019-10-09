@@ -81,11 +81,11 @@ end
 
 
 function getPlayerID(source)
---    local identifiers = GetPlayerIdentifiers(source)
---    local player = getIdentifiant(identifiers)
---    return player
-      local xPlayer = ESX.GetPlayerFromId(source)
-      return xPlayer.identifier
+    local identifiers = GetPlayerIdentifiers(source)
+    local player = getIdentifiant(identifiers)
+    return player
+--      local xPlayer = ESX.GetPlayerFromId(source)
+--      return xPlayer.identifier
 
 end
 function getIdentifiant(id)
@@ -186,9 +186,9 @@ AddEventHandler('gcPhone:deleteContact', function(id)
 end)
 
 RegisterServerEvent('gcPhone:acceptAction')
-AddEventHandler('gcPhone:acceptAction', function(id)
+AddEventHandler('gcPhone:acceptAction', function(action)
     local sourcePlayer = tonumber(source)
-    TriggerClientEvent("gcPhone:acceptAction", -1, sourcePlayer, id)
+    TriggerClientEvent("gcPhone:acceptAction", -1, sourcePlayer, action)
 end)
 
 --====================================================================================

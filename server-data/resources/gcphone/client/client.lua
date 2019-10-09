@@ -522,17 +522,17 @@ AddEventHandler('gcphone:autoAcceptCall', function(infoCall)
 end)
 
 RegisterNetEvent('gcPhone:acceptAction')
-AddEventHandler('gcPhone:acceptAction', function(player, message_id)
+AddEventHandler('gcPhone:acceptAction', function(player, action)
+  if tostring(action.options.customer) == tostring(myPhoneNumber) then
+		TriggerEvent('gcphone:onAcceptAction', player, action.id, action)
+  end
+
 --  SendNUIMessage({ event = "AcceptAction", message_id = message_id})
+
   for k, v in ipairs(messages) do
     if v.id == message_id then
       if v.options == nil then
           v.options = {}
-      end
-      if v.options.accepted ~= true then
-          if tostring(v.options.customer) == tostring(myPhoneNumber) then
-		TriggerEvent('gcphone:onAcceptAction', player, message_id, v)
-          end
       end
 
       v.options.accepted = true
@@ -703,7 +703,7 @@ RegisterNUICallback('acceptAction', function(data)
 		options = {}
 	end
 
-	TriggerServerEvent('gcPhone:acceptAction', action.id)
+	TriggerServerEvent('gcPhone:acceptAction', action)
 end)
 
 -- Add security for event (leuit#0100)
