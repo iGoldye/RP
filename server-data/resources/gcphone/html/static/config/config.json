@@ -240,7 +240,7 @@
           "es_ES__name":"Банк",
           "icons":"/html/static/img/icons_app/bank.png",
           "routeName":"bank",
-          "inHomePage":false
+          "inHomePage":true
        },
        {
           "name":"Камера",
@@ -251,7 +251,8 @@
           "pl_PL__name":"Камера",
           "es_ES__name":"Камера",
           "icons":"/html/static/img/icons_app/photo.png",
-          "routeName":"photo"
+          "routeName":"photo",
+          "inHomePage":true
        },
        {
           "name":"Dark Chat",
@@ -261,12 +262,14 @@
           "pl_PL__name":"Dark Chat",
           "es_ES__name":"Dark Chat",
           "icons":"/html/static/img/icons_app/tchat.png",
-          "routeName":"tchat"
+          "routeName":"tchat",
+          "inHomePage":true
        },
        {
           "name":"9GAG",
           "icons":"/html/static/img/icons_app/9gag.png",
-          "routeName":"9gag"
+          "routeName":"9gag",
+          "inHomePage":true
        }
     ],
     "defaultLanguage":"ru_RU",
