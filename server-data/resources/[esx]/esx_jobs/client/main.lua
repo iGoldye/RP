@@ -505,3 +505,9 @@ Citizen.CreateThread(function()
 	RequestIpl("id2_14_during_door")
 	RequestIpl("id2_14_during1")
 end)
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "reporter" then
+		ESX.ShowNotification("Вызов принят")
+	end
+end)

@@ -1018,3 +1018,9 @@ AddEventHandler('esx_mechanicjob:OpenMobileMechanicActionsMenu', function()
 		OpenMobileMechanicActionsMenu()
 	end
 end)
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "mechanic" then
+		ESX.ShowNotification("Вызов принят")
+	end
+end)

@@ -2249,3 +2249,9 @@ RegisterNetEvent('esx_policejob:openIdentityCardMenu')
 AddEventHandler('esx_policejob:openIdentityCardMenu', function(player)
 	OpenIdentityCardMenu(GetPlayerFromServerId(player))
 end)
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "police" then
+		ESX.ShowNotification("Вызов принят")
+	end
+end)

@@ -403,3 +403,9 @@ if Config.LoadIpl then
 		RequestIpl('Coroner_Int_on') -- Morgue
 	end)
 end
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "ambulance" then
+		ESX.ShowNotification("Вызов принят")
+	end
+end)
