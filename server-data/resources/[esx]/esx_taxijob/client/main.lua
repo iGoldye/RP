@@ -770,7 +770,7 @@ AddEventHandler('esx_taxijob:TaxiTracker', function(player)
 	SetBlipColour(CurrentTaxiBlip, 5)
 	SetBlipRoute(CurrentTaxiBlip, true)
 	SetBlipScale  (CurrentTaxiBlip, 1.0)
-	SetBlipAsShortRange(CurrentTaxiBlip, true)
+--	SetBlipAsShortRange(CurrentTaxiBlip, true)
 
 	local dist = 10000
 
