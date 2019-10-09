@@ -22,6 +22,49 @@ Config.Locale = 'en'
 
 Config.PoliceStations = {
 
+	Sheriff = {
+		Blip = {
+			Coords  = vector3(1853.68, 3685.91, 34.29),
+			Sprite  = 60,
+			Display = 4,
+			Scale   = 1.2,
+			Colour  = 29,
+		},
+
+		Cloakrooms = {
+			vector3(1840.0, 3689.21, 33.30),
+		},
+
+		Computers = {
+		},
+
+		Armories = {
+			vector3(1841.24, 3691.82, 33.3),
+		},
+
+		Stocks = {
+			vector3(1853.81, 3690.03, 33.3),
+		},
+
+		Vehicles = {
+			{
+				Spawner = vector3(1869.75, 3695.58, 32.5),
+				InsideShop = vector3(1849.51, 3712.75, 33.18),
+				SpawnPoints = {
+					{ coords = vector3(1866.22, 3681.21, 33.6), heading = 213.1, radius = 6.0 },
+					{ coords = vector3(1850.86, 3673.74, 33.6), heading = 213.5, radius = 6.0 }
+				}
+			},
+		},
+
+		Helicopters = {
+		},
+
+		BossActions = {
+			vector3(1854.41, 3698.2, 33.30),
+		},
+	},
+
 	LSPD = {
 
 		Blip = {
@@ -34,30 +77,14 @@ Config.PoliceStations = {
 
 		Cloakrooms = {
 			vector3(452.6, -992.8, 29.8),
-			vector3(1840.0, 3689.21, 33.30)
-
-		},
-
-		Computers = {
-			vector3(441.86, -978.77, 29.8)
-		},
-
-		Computers = {
-			vector3(441.86, -978.77, 29.8)
 		},
 
 		Armories = {
 			vector3(451.7, -980.1, 29.8),
-			vector3(1841.24, 3691.82, 33.3)
 		},
 
 		Stocks = {
 			vector3(477.84, -986.15, 23.95),
-			vector3(1853.81, 3690.03, 33.3)
-		},
-
-		Stocks = {
-			vector3(477.84, -986.15, 23.95)
 		},
 
 		Vehicles = {
@@ -71,15 +98,6 @@ Config.PoliceStations = {
 					{ coords = vector3(450.9, -1016.5, 28.1), heading = 90.0, radius = 6.0 }
 				}
 			},
-
-			{
-				Spawner = vector3(1869.75, 3695.58, 32.5),
-				InsideShop = vector3(1849.51, 3712.75, 33.18),
-				SpawnPoints = {
-					{ coords = vector3(1866.22, 3681.21, 33.6), heading = 213.1, radius = 6.0 },
-					{ coords = vector3(1850.86, 3673.74, 33.6), heading = 213.5, radius = 6.0 }
-				}
-			}
 		},
 
 		Helicopters = {
@@ -94,8 +112,7 @@ Config.PoliceStations = {
 
 		BossActions = {
 			vector3(461.38, -1007.68, 35.0),
-			vector3(1854.41, 3698.2, 33.30)
-		}
+		},
 
 	}
 
