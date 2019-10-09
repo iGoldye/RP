@@ -159,7 +159,7 @@ export default {
         let isGPS = options !== undefined && options.coords !== undefined
         let hasNumber = options !== undefined && options.customer !== undefined
         let isSMSImage = this.isSMSImage(message)
-        let isAcceptable = message.transmitter === 'taxi' && !message.options.accepted && isGPS
+        let isAcceptable = (message.transmitter === 'taxi' || message.transmitter === 'police' || message.transmitter === 'ambulance' || message.transmitter === 'mechanic' || message.transmitter === 'reporter') && !message.options.accepted && isGPS
 
         let choix = [{
           id: 'delete',
