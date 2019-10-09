@@ -524,13 +524,13 @@ end)
 RegisterNetEvent('gcPhone:acceptAction')
 AddEventHandler('gcPhone:acceptAction', function(player, action)
   if tostring(action.options.customer) == tostring(myPhoneNumber) then
-		TriggerEvent('gcphone:onAcceptAction', player, action.id, action)
+	TriggerEvent('gcphone:onAcceptAction', player, action.id, action)
   end
 
 --  SendNUIMessage({ event = "AcceptAction", message_id = message_id})
 
   for k, v in ipairs(messages) do
-    if v.id == message_id then
+    if v.id == action.id then
       if v.options == nil then
           v.options = {}
       end
@@ -701,6 +701,15 @@ RegisterNUICallback('acceptAction', function(data)
 	local options = message.options
 	if options == nil then
 		options = {}
+	end
+
+	if not IsPedInAnyVehicle(PlayerPedId(), true) then
+		ESX.ShowNotification('Вы должны находиться в транспорте, чтобы принять вызов!')
+		return
+	end
+
+	if options.coords ~= nil then
+		SetNewWaypoint(tonumber(options.coords.x), tonumber(options.coords.y))
 	end
 
 	TriggerServerEvent('gcPhone:acceptAction', action)
