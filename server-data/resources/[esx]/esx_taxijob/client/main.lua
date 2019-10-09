@@ -770,13 +770,12 @@ AddEventHandler('esx_taxijob:TaxiTracker', function(player)
 	SetBlipColour(CurrentTaxiBlip, 5)
 	SetBlipRoute(CurrentTaxiBlip, true)
 	SetBlipScale  (CurrentTaxiBlip, 1.0)
---	SetBlipAsShortRange(CurrentTaxiBlip, true)
 
 	local dist = 10000
 
 	local secs = 0
 
-	while dist > 10.0 and secs < 60 do
+	while dist > 10.0 and secs < 5*60 and IsPedInAnyVehicle(taxiPed, true) do
 		Citizen.Wait(1000)
 		secs = secs + 1
 		local taxiPos = GetEntityCoords(taxiPed)
