@@ -500,6 +500,25 @@ Config.DoorList = {
 		distance = 12,
 		size = 2
 	},
+
+	{
+		objName = 'prop_gate_prison_01',
+		objCoords  = vector3(1799.8, 2617.7, 44.6),
+		textCoords = vector3(1796.99, 2617.51, 48.6),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 12,
+		size = 2
+	},
+
+	{
+		objName = 'prop_fnclink_03gate5',
+		objYaw = 180.0,
+		objCoords  = vector3(1797.5, 2591.72, 45.8),
+		textCoords = vector3(1797.17, 2591.55, 45.8),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
 	-- PRISON
 	{
 		textCoords = vector3(1705.99, 2498.73, -78.0),

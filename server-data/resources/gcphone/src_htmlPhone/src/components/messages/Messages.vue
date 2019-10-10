@@ -12,10 +12,10 @@
         >
             <span class='sms_message sms_me'
               @click.stop="onActionMessage(mess)"
-              v-bind:class="{ sms_other : mess.owner === 0}" :style="colorSmsOwner[mess.owner]">
+              v-bind:class="{ sms_other : mess.owner === 0}" :style="colorSmsOwner(mess)">
               <img v-if="isSMSImage(mess)" @click.stop="onActionMessage(mess)" class="sms-img" :src="mess.message">
               <span v-else @click.stop="onActionMessage(mess)" >{{mess.message}}</span>
-                <span @click.stop="onActionMessage(mess)" ><timeago class="sms_time" :since='mess.time' :auto-update="20" :style="colorSmsOwner[mess.owner]"></timeago></span>
+                <span @click.stop="onActionMessage(mess)" ><timeago class="sms_time" :since='mess.time' :auto-update="20" :style="colorSmsOwner(mess)"></timeago></span>
             </span>
         </div>
     </div>
@@ -130,15 +130,38 @@ export default {
     sendAnonymous (message) {
       this.$phoneAPI.addFakeMessage('#####', this.phoneNumber, message)
     },
+    colorSmsOwner (mess) {
+      if (mess.options && mess.options.accepted) {
+        return {
+          backgroundColor: '#AAA',
+          color: getBestFontColor('#AAA')
+        }
+      } else if (mess.owner === 0) {
+        return {
+          backgroundColor: this.color,
+          color: getBestFontColor(this.color)
+        }
+      }
+    },
+    isActionAccepted (mess) {
+      console.log(JSON.stringify(mess))
+      return mess.options && mess.options.accepted
+    },
     isSMSImage (mess) {
       return /^https?:\/\/.*\.(png|jpg|jpeg|gif)/.test(mess.message)
     },
     async onActionMessage (message) {
       try {
         // let message = this.messagesList[this.selectMessage]
-        let isGPS = /(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)/.test(message.message)
-        let hasNumber = /#([0-9]+)/.test(message.message)
+
+        let options = message.options
+
+        let isGPS = options !== undefined && options.coords !== undefined
+        let isGPStext = /(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)/.test(message.message)
+        let hasNumber = options !== undefined && options.customer !== undefined
         let isSMSImage = this.isSMSImage(message)
+        let isAcceptable = (message.transmitter === 'taxi' || message.transmitter === 'police' || message.transmitter === 'ambulance' || message.transmitter === 'mechanic' || message.transmitter === 'reporter') && !message.options.accepted && isGPS
+
         let choix = [{
           id: 'delete',
           title: this.IntlString('APP_MESSAGE_DELETE'),
@@ -148,6 +171,20 @@ export default {
           title: this.IntlString('CANCEL'),
           icons: 'fa-undo'
         }]
+        if (isGPStext === true) {
+          choix = [{
+            id: 'gps-text',
+            title: this.IntlString('APP_MESSAGE_SET_GPS'),
+            icons: 'fa-location-arrow'
+          }, ...choix]
+        }
+        if (isAcceptable) {
+          choix = [{
+            id: 'accept',
+            title: 'Принять вызов',
+            icons: 'fa-check'
+          }, ...choix]
+        }
         if (isGPS === true) {
           choix = [{
             id: 'gps',
@@ -156,7 +193,7 @@ export default {
           }, ...choix]
         }
         if (hasNumber === true) {
-          const num = message.message.match(/#([0-9-]*)/)[1]
+          const num = options.customer
           choix = [{
             id: 'num',
             title: `${this.IntlString('APP_MESSAGE_MESS_NUMBER')} ${num}`,
@@ -175,15 +212,19 @@ export default {
         const data = await Modal.CreateModal({choix})
         if (data.id === 'delete') {
           this.deleteMessage({ id: message.id })
-        } else if (data.id === 'gps') {
+        } else if (data.id === 'gps-text') {
           let val = message.message.match(/(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)/)
           this.$phoneAPI.setGPS(val[1], val[3])
+        } else if (data.id === 'gps') {
+          this.$phoneAPI.setGPS(options.coords.x, options.coords.y)
         } else if (data.id === 'num') {
           this.$nextTick(() => {
             this.onSelectPhoneNumber(data.number)
           })
         } else if (data.id === 'zoom') {
           this.imgZoom = message.message
+        } else if (data.id === 'accept') {
+          this.$phoneAPI.acceptAction(message)
         }
       } catch (e) {
       } finally {
@@ -315,14 +356,6 @@ export default {
     },
     color () {
       return generateColorForStr(this.phoneNumber)
-    },
-    colorSmsOwner () {
-      return [
-        {
-          backgroundColor: this.color,
-          color: getBestFontColor(this.color)
-        }, {}
-      ]
     }
   },
   watch: {

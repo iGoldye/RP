@@ -14,6 +14,48 @@ Citizen.CreateThread(function()
 	end
 end)
 
+--[[
+function MyClosestVehicle(x, y, z, radius)
+	for i = 1,72 do
+		local angle = (i * 5) * Math.PI / 180
+
+		local sx = (50.0 * math.cos(angle)) + x
+		local sy = (50.0 * math.sin(angle)) + y
+
+		local ex = x - (sx - x)
+		local ey = y - (sy - y)
+
+		local rayHandle = StartShapeTestCapsule(sx, sy, z, ex, ey, z, radius, 10, PlayerPedId(), 1000)
+		local ent = GetShapeTestResult(rayHandle, false)[4]
+
+		return ent
+	end
+end
+]]
+
+-- Садимся в ближайшую дверь, если она открыта, а не на место водителя
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+	        if IsControlJustPressed(1, 23) then
+			local coords = GetEntityCoords(PlayerPedId())
+			local veh, dist = ESX.Game.GetClosestVehicle(coords)
+--			local veh = MyClosestVehicle(coords.x, coords.y, coords.z, 3.0)
+
+			if DoesEntityExist(veh) and dist < 5.0 then
+				for i=1,GetNumberOfVehicleDoors(veh) do
+					local doorCoord = GetEntryPositionOfDoor(veh, i)
+
+					if #(doorCoord - coords) < 0.75 and not DoesEntityExist(GetPedInVehicleSeat(veh, i - 1)) and GetVehicleDoorLockStatus(veh) <= 2 then
+						TaskEnterVehicle(PlayerPedId(), veh, 10000, i - 1, 1.0, 1, 0)
+						break
+					end
+				end
+			end
+		end
+	end
+end)
+
 RegisterNetEvent('esx_locksystem:sendLockStatuses')
 AddEventHandler('esx_locksystem:sendLockStatuses', function(locks)
 	lockStatus = locks

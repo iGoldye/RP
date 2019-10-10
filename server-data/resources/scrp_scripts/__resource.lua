@@ -34,7 +34,7 @@ client_scripts {
 	'client/speed_limit-client.lua',
 	-- 'client/no_drive_by-client.lua',
 	-- 'client/afkkick-client.lua',
-	'client/handsup-client.lua',
+--	'client/handsup-client.lua',
 	-- 'client/gpstools-client.lua',
 	'client/commands-client.lua',
 --	'client/no_vehicle_rewards-client.lua',

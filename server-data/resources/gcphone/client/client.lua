@@ -1,10 +1,15 @@
 ESX = nil
+local inventoryHasPhone = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+
+	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
+		inventoryHasPhone = inventoryCheckPhone(inventory)
+	end, "pocket", false)
 end)
 
 --====================================================================================
@@ -39,6 +44,26 @@ local soundDistanceMax = 8.0
 
 local TokoVoipID = nil
 
+function inventoryCheckPhone(inventory)
+	for k,item in pairs(inventory.items) do
+		if item.name == "esx_item" and item.extra.name == "phone" then
+			return true
+		end
+	end
+
+	return false
+end
+
+RegisterNetEvent('esx_inventory:onInventoryUpdate')
+AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
+	if inventory.name == "pocket" then
+		inventoryHasPhone = inventoryCheckPhone(inventory)
+		if menuIsOpen and not inventoryHasPhone then
+			TooglePhone()
+		end
+	end
+end)
+
 RegisterNetEvent('gcPhone:isOpen')
 AddEventHandler('gcPhone:isOpen', function(cb)
 	cb(menuIsOpen)
@@ -49,7 +74,7 @@ end)
 --  Callback true or false
 --====================================================================================
 function hasPhone (cb)
-  cb(true)
+  cb(inventoryHasPhone)
 end
 --====================================================================================
 --  Que faire si le joueurs veut ouvrir sont téléphone n'est qu'il en a pas ?
@@ -101,6 +126,7 @@ Citizen.CreateThread(function()
         end)
       end
       if menuIsOpen == true then
+        DisableControlAction(0, 243)
         for _, value in ipairs(KeyToucheCloseEvent) do
           if IsControlJustPressed(1, value.code) then
             SendNUIMessage({keyUp = value.event})
@@ -382,7 +408,10 @@ local inCall = false
 
 RegisterNetEvent("gcPhone:waitingCall")
 AddEventHandler("gcPhone:waitingCall", function(infoCall, initiator)
-  SendNUIMessage({event = 'waitingCall', infoCall = infoCall, initiator = initiator})
+  if initiator or inventoryHasPhone then
+    SendNUIMessage({event = 'waitingCall', infoCall = infoCall, initiator = initiator})
+  end
+
   if initiator == true then
     PhonePlayCall()
     if menuIsOpen == false then
@@ -416,7 +445,8 @@ AddEventHandler("gcPhone:rejectCall", function(infoCall)
     exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
     TokoVoipID = nil
   end
-  PhonePlayText()
+
+  PhonePlayReject()
   SendNUIMessage({event = 'rejectCall', infoCall = infoCall})
 end)
 
@@ -521,6 +551,27 @@ AddEventHandler('gcphone:autoAcceptCall', function(infoCall)
   SendNUIMessage({ event = "autoAcceptCall", infoCall = infoCall})
 end)
 
+RegisterNetEvent('gcPhone:acceptAction')
+AddEventHandler('gcPhone:acceptAction', function(player, action)
+  if tostring(action.options.customer) == tostring(myPhoneNumber) then
+	TriggerEvent('gcphone:onAcceptAction', player, action.id, action)
+  end
+
+--  SendNUIMessage({ event = "AcceptAction", message_id = message_id})
+
+  for k, v in ipairs(messages) do
+    if v.id == action.id then
+      if v.options == nil then
+          v.options = {}
+      end
+
+      v.options.accepted = true
+      SendNUIMessage({event = 'updateMessages', messages = messages})
+      return -- be careful
+    end
+  end
+
+end)
 
 
 
@@ -663,6 +714,35 @@ end)
 RegisterNUICallback('setGPS', function(data, cb)
   SetNewWaypoint(tonumber(data.x), tonumber(data.y))
   cb()
+end)
+RegisterNUICallback('acceptAction', function(data)
+	local action = data.action
+	if action == nil then
+		print("incorrect phone action!")
+		return
+	end
+
+	local message = action.message
+	if message == nil then
+		print("incorrect phone action message!")
+		return
+	end
+
+	local options = message.options
+	if options == nil then
+		options = {}
+	end
+
+	if not IsPedInAnyVehicle(PlayerPedId(), true) then
+		ESX.ShowNotification('Вы должны находиться в транспорте, чтобы принять вызов!')
+		return
+	end
+
+	if options.coords ~= nil then
+		SetNewWaypoint(tonumber(options.coords.x), tonumber(options.coords.y))
+	end
+
+	TriggerServerEvent('gcPhone:acceptAction', action)
 end)
 
 -- Add security for event (leuit#0100)

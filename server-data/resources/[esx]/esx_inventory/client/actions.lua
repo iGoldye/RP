@@ -19,8 +19,63 @@ function unequip_weapon(weaponName, amount)
 	return false
 end
 
+function equip_weapon(item)
+	local weaponName = item.extra.weapon_name
+	local playerPed = PlayerPedId()
+	local weaponHash = GetHashKey(weaponName)
+
+	if HasPedGotWeapon(playerPed, weaponHash, false) then
+		ESX.ShowNotification(_U('already_equipped'))
+	else
+		GiveWeaponToPed(playerPed, weaponHash, item.extra.ammo, false, true)
+		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
+	end
+end
+
+RegisterNetEvent('esx_inventory:unequipWeapon')
+AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
+	unequip_weapon(weaponName, amount)
+end)
+
+RegisterNetEvent('esx_inventory:equipWeapon')
+AddEventHandler('esx_inventory:equipWeapon', function(item)
+	equip_weapon(item)
+end)
+
 AddEventHandler('esx_inventory:registerActions', function()
 
+TriggerEvent('esx_inventory:registerItemAction', "esx_item", "heal_target", "Вылечить другого", 1, function(item)
+
+	if item.extra == nil then
+		TriggerEvent('esx:showNotification', "Что-то пошло не так")
+		return
+	end
+
+	if item.extra.name ~= 'medikit' then
+		return
+	end
+
+	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+--	closestPlayer = PlayerId()
+--	closestDistance = 0.1
+
+	if closestPlayer ~= -1 and closestDistance < 1.0 then
+		TriggerEvent('esx_ambulancejob:useMedikit', closestPlayer)
+	else
+		ESX.ShowNotification("Некого лечить!")
+	end
+
+end, function(item)
+	if item.extra == nil then
+		return false
+	end
+
+	if item.extra.name ~= 'medikit' then
+		return false
+	end
+
+	return true
+end)
 
 TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _U("inventory_action_unequip"), 0, function(item)
 
@@ -39,7 +94,7 @@ TriggerEvent('esx_inventory:registerItemAction', "equipped_weapon", "unequip", _
 			end
 		end)
 	else
-		TriggerEvent('esx_inventory:unequipWeapon', item.extra.weapon_name, 0)
+		unequip_weapon(item.extra.weapon_name, 0)
 	end
 end)
 

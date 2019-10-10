@@ -132,7 +132,8 @@ Citizen.CreateThread(function()
             DrawMarker(21, Config.gym[k].pos, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 153, 255, 255, 0, 0, 0, 0)
             local dist = #(plyCoords-Config.gym[k].pos)
             if dist <= 0.5 then
-		doGym()
+								doGym()
+								isNearGym = true
             elseif dist < 100.0 then
                 isNearGym = true
             end

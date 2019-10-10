@@ -134,4 +134,42 @@ Config.Zones = {
 		showBlip = false,
 		showMarker = false,
 	},
+
+	Present = {
+		Items = {},
+		Pos = {
+			{x = -640.33,   y = -245.71, z = 37.50},
+			{x = 2750.99,   y = 3471.46, z = 54.8},
+			{x = 161.04,   y = 6635.49, z = 30.7},
+
+		},
+		showBlip = true,
+		blipColor = 48,
+		showMarker = true,
+	},
+
+	Jewerly = {
+		Items = {},
+		Pos = {
+			{x = -623.75,   y = -231.94, z = 37.10},
+
+		},
+		showBlip = true,
+		blipColor = 48,
+		showMarker = true,
+	},
+
+	Fruits = {
+		Items = {},
+		Pos = {
+			{x = -3022.87,   y = 367.62, z = 13.7},
+			{x = -1044.28,   y = 5328.14, z = 43.66},
+			{x = 1475.77,   y = 2725.29, z = 36.7},
+			{x = 148.46,   y = 1666.71, z = 227.95},
+
+		},
+		showBlip = true,
+		blipColor = 38,
+		showMarker = true,
+	},
 }

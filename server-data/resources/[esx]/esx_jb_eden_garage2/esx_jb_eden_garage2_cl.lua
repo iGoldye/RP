@@ -1,9 +1,7 @@
 local carInstance = {}
 
--- Fin Local
-
--- Init ESX
 ESX = nil
+local inMarker = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -11,9 +9,18 @@ Citizen.CreateThread(function()
 		ESX = obj
 		end)
 	end
+
+	while ESX.GetPlayerData().job == nil do
+		Citizen.Wait(100)
+	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
---Fonction Menu
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+    ESX.PlayerData.job = job
+end)
 
 function OpenMenuGarage(garage, KindOfVehicle)
 	ESX.UI.Menu.CloseAll()
@@ -42,6 +49,7 @@ function OpenMenuGarage(garage, KindOfVehicle)
 		end
 	)
 end
+
 -- Afficher les listes des vehicules
 function ListVehiclesMenu(garage, KindOfVehicle)
 	local elements, vehiclePropsList = {}, {}
@@ -129,6 +137,9 @@ function ListVehiclesFourriereMenu(garage)
 	local elements, vehiclePropsList = {}, {}
 
 	ESX.TriggerServerCallback('eden_garage:getVehiclesMecano', function(vehicles)
+		if vehicles == nil then
+			return
+		end
 
 		for k,v in ipairs(vehicles) do
 			local vehicleProps = json.decode(v.vehicle)
@@ -143,14 +154,14 @@ function ListVehiclesFourriereMenu(garage)
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'spawn_vehicle_mecano', {
-			title    = 'Гараж',
+			title    = 'Штрафстоянка',
 			align    = 'top-left',
 			elements = elements,
 		}, function(data, menu)
 			local vehicleProps = vehiclePropsList[data.current.plate]
 			menu.close()
-			SpawnVehicleMecano(vehicleProps, garage)
 			TriggerServerEvent('eden_garage:ChangeStoredFromFourriereMecano', vehicleProps, false)
+			SpawnVehicleMecano(vehicleProps, garage)
 		end, function(data, menu)
 			menu.close()
 		end)
@@ -158,7 +169,6 @@ function ListVehiclesFourriereMenu(garage)
 	end)
 end
 -- Fin Afficher les listes des vehicules de fourriere
-
 
 -- Fonction qui permet de rentrer un vehicule
 function StockVehicleMenu(KindOfVehicle)
@@ -249,8 +259,6 @@ end
 -- Fin fonction qui permet de rentrer un vehicule dans fourriere
 --Fin fonction Menu
 
-
---Fonction pour spawn vehicule
 function SpawnVehicle(vehicle, garage, KindOfVehicle)
 	ESX.Game.SpawnVehicle(vehicle.model, {
 		x = garage.SpawnPoint.Pos.x,
@@ -303,7 +311,7 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 				end
 
 				if v.fourrieremecano then
-					vehicleLabel = vehicleName..': Fourrière externe'
+					vehicleLabel = vehicleName..': Штрафстоянка'
 					table.insert(elements, {label = vehicleLabel, action = 'fourrieremecano'})
 				else
 					vehicleLabel = vehicleName..': Вернуть'
@@ -370,184 +378,133 @@ function ReturnVehicleMenu(garage, KindOfVehicle)
 
 end
 
-function exitmarker()
-	ESX.UI.Menu.CloseAll()
+function drawMarkerData(marker, pos)
+	DrawMarker(marker.t, pos.x, pos.y, pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, marker.w, marker.w, marker.h, marker.r, marker.g, marker.b, marker.a or 128, false, true, 2, false, false, false, false)
 end
 
-RegisterNetEvent("ft_libs:OnClientReady")
-AddEventHandler('ft_libs:OnClientReady', function()
-	for k,v in pairs (Config.Garages) do
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_garage", {
-			marker = {
-				type = v.Marker.t,
-				weight = v.Marker.w,
-				height = v.Marker.h,
-				red = v.Marker.r,
-				green = v.Marker.g,
-				blue = v.Marker.b,
-				alpha = v.Marker.a or 128,
-			},
-			trigger = {
-				weight = v.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and not IsPedInAnyVehicle(PlayerPedId()) then
-							OpenMenuGarage(v, "personal")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			blip = {
-				text = v.Name,
-				colorId = Config.Blip.color,
-				imageId = Config.Blip.sprite,
-			},
-			locations = {
-				v.Pos
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_spawnpoint", {
-			marker = {
-				type = v.SpawnPoint.Marker.t,
-				weight = v.SpawnPoint.Marker.w,
-				height = v.SpawnPoint.Marker.h,
-				red = v.SpawnPoint.Marker.r,
-				green = v.SpawnPoint.Marker.g,
-				blue = v.SpawnPoint.Marker.b,
-				alpha = v.SpawnPoint.Marker.a or 128,
-			},
-			trigger = {
-				weight = v.SpawnPoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.SpawnPoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and not IsPedInAnyVehicle(PlayerPedId()) then
-							ListVehiclesMenu(v, "personal")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.SpawnPoint.Pos.x,
-					y = v.SpawnPoint.Pos.y,
-					z = v.SpawnPoint.Pos.z,
-				},
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_deletepoint", {
-			marker = {
-				type = v.DeletePoint.Marker.t,
-				weight = v.DeletePoint.Marker.w,
-				height = v.DeletePoint.Marker.h,
-				red = v.DeletePoint.Marker.r,
-				green = v.DeletePoint.Marker.g,
-				blue = v.DeletePoint.Marker.b,
-				alpha = v.DeletePoint.Marker.a or 128,
-			},
-			trigger = {
-				weight = v.DeletePoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.DeletePoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) then
-							StockVehicleMenu("personal")
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.DeletePoint.Pos.x,
-					y = v.DeletePoint.Pos.y,
-					z = v.DeletePoint.Pos.z,
-				},
-			},
-		})
-	end
+Citizen.CreateThread(function()
+	local dist
+	local canSleep = false
 
+	for k,v in pairs (Config.Garages) do
+		local blip = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
+		SetBlipSprite(blip, Config.Blip.sprite)
+		SetBlipColour(blip, Config.Blip.color)
+		SetBlipScale(blip, 1.0)
+		SetBlipAsShortRange(blip, true)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(v.Name)
+		EndTextCommandSetBlipName(blip)
+	end
+--[[
 	for k,v in pairs (Config.GaragesMecano) do
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_mecanospawnpoint", {
-			enable = false,
-			marker = {
-				type = v.SpawnPoint.Marker.t,
-				weight = v.SpawnPoint.Marker.w,
-				height = v.SpawnPoint.Marker.h,
-				red = v.SpawnPoint.Marker.r,
-				green = v.SpawnPoint.Marker.g,
-				blue = v.SpawnPoint.Marker.b,
-				alpha = v.SpawnPoint.Marker.a or 128,
-			},
-			trigger = {
-				weight = v.SpawnPoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.SpawnPoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) and not IsPedInAnyVehicle(PlayerPedId()) then
-							ListVehiclesFourriereMenu(v)
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			blip = {
-				text = v.Name,
-				colorId = Config.MecanoBlip.color,
-				imageId = Config.MecanoBlip.sprite,
-			},
-			locations = {
-				{
-					x = v.SpawnPoint.Pos.x,
-					y = v.SpawnPoint.Pos.y,
-					z = v.SpawnPoint.Pos.z,
-				},
-			},
-		})
-		exports.ft_libs:AddArea("esx_eden_garage_area_"..k.."_mecanodeletepoint", {
-			enable = false,
-			marker = {
-				type = v.DeletePoint.Marker.t,
-				weight = v.DeletePoint.Marker.w,
-				height = v.DeletePoint.Marker.h,
-				red = v.DeletePoint.Marker.r,
-				green = v.DeletePoint.Marker.g,
-				blue = v.DeletePoint.Marker.b,
-				alpha = v.DeletePoint.Marker.a or 128,
-			},
-			trigger = {
-				weight = v.DeletePoint.Marker.w,
-				active = {
-					callback = function()
-						exports.ft_libs:HelpPromt(v.DeletePoint.HelpPrompt)
-						if IsControlJustReleased(0, 38) and IsInputDisabled(0) then
-							StockVehicleFourriereMenu()
-						end
-					end,
-				},
-				exit = {
-					callback = exitmarker
-				},
-			},
-			locations = {
-				{
-					x = v.DeletePoint.Pos.x,
-					y = v.DeletePoint.Pos.y,
-					z = v.DeletePoint.Pos.z,
-				},
-			},
-		})
+		local blip = AddBlipForCoord(v.SpawnPoint.Pos.x, v.SpawnPoint.Pos.y, v.SpawnPoint.Pos.z)
+		SetBlipSprite(blip, Config.MecanoBlip.sprite)
+		SetBlipColour(blip, Config.MecanoBlip.color)
+		SetBlipScale(blip, 1.0)
+		SetBlipAsShortRange(blip, true)
+		BeginTextCommandSetBlipName("STRING")
+		AddTextComponentString(v.Name)
+		EndTextCommandSetBlipName(blip)
+	end
+]]--
+	while true do
+		Citizen.Wait(0)
+		local coords = GetEntityCoords(PlayerPedId())
+
+		if canSleep then
+			Citizen.Wait(1000)
+		end
+		canSleep = true
+
+		local prevInMarker = inMarker
+
+		inMarker = false
+
+		for k,v in pairs (Config.Garages) do
+			dist = #(coords - vector3(v.Pos.x,v.Pos.y,v.Pos.z))
+			if dist < 100 then
+				drawMarkerData(v.Marker, v.Pos)
+				canSleep = false
+			end
+			if dist < v.Distance then
+				inMarker = true
+		                ESX.ShowHelpNotification(v.HelpPrompt)
+				if IsControlJustReleased(0, 38) and IsInputDisabled(0) and not IsPedInAnyVehicle(PlayerPedId()) then
+					OpenMenuGarage(v, "personal")
+				end
+			end
+
+			dist = #(coords - vector3(v.SpawnPoint.Pos.x,v.SpawnPoint.Pos.y,v.SpawnPoint.Pos.z))
+			if dist < 100 then
+				drawMarkerData(v.SpawnPoint.Marker, v.SpawnPoint.Pos)
+				canSleep = false
+			end
+			if dist < v.SpawnPoint.Distance then
+				inMarker = true
+		                ESX.ShowHelpNotification(v.SpawnPoint.HelpPrompt)
+				if IsControlJustReleased(0, 38) and IsInputDisabled(0) and not IsPedInAnyVehicle(PlayerPedId()) then
+					ListVehiclesMenu(v, "personal")
+				end
+			end
+
+			dist = #(coords - vector3(v.DeletePoint.Pos.x,v.DeletePoint.Pos.y,v.DeletePoint.Pos.z))
+			if dist < 100 then
+				drawMarkerData(v.DeletePoint.Marker, v.DeletePoint.Pos)
+				canSleep = false
+			end
+			if dist < v.DeletePoint.Distance then
+				inMarker = true
+		                ESX.ShowHelpNotification(v.DeletePoint.HelpPrompt)
+				if IsControlJustReleased(0, 38) and IsInputDisabled(0) and IsPedInAnyVehicle(PlayerPedId()) then
+					StockVehicleMenu("personal")
+				end
+			end
+		end
+
+		if ESX.PlayerData ~= nil and ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
+		    for k,v in pairs (Config.GaragesMecano) do
+			dist = #(coords - vector3(v.SpawnPoint.Pos.x,v.SpawnPoint.Pos.y,v.SpawnPoint.Pos.z))
+			if dist < 100 then
+				drawMarkerData(v.SpawnPoint.Marker, v.SpawnPoint.Pos)
+				canSleep = false
+			end
+			if dist < v.SpawnPoint.Distance then
+				inMarker = true
+				local inVeh = IsPedInAnyVehicle(PlayerPedId())
+
+				if inVeh then
+			                ESX.ShowHelpNotification(v.DeletePoint.HelpPrompt)
+					if IsControlJustReleased(0, 38) and IsInputDisabled(0) then
+						StockVehicleFourriereMenu()
+					end
+				else
+			                ESX.ShowHelpNotification(v.SpawnPoint.HelpPrompt)
+					if IsControlJustReleased(0, 38) and IsInputDisabled(0) then
+						ListVehiclesFourriereMenu(v)
+					end
+				end
+			end
+--[[
+			dist = #(coords - vector3(v.DeletePoint.Pos.x,v.DeletePoint.Pos.y,v.DeletePoint.Pos.z))
+			if dist < 100 then
+				drawMarkerData(v.DeletePoint.Marker, v.DeletePoint.Pos)
+				canSleep = false
+			end
+			if dist < v.DeletePoint.Distance then
+				inMarker = true
+		                ESX.ShowHelpNotification(v.DeletePoint.HelpPrompt)
+				if IsControlJustReleased(0, 38) and IsInputDisabled(0) and IsPedInAnyVehicle(PlayerPedId()) then
+					StockVehicleFourriereMenu()
+				end
+			end
+]]--
+		    end
+		end
+
+		if prevInMarker and not inMarker then
+			ESX.UI.Menu.CloseAll()
+		end
 	end
 end)
 
@@ -559,6 +516,7 @@ function table.empty(parsedTable)
 	return true
 end
 
+--[[
 function dump(o, nb)
   if nb == nil then
     nb = 0
@@ -584,7 +542,7 @@ function dump(o, nb)
       return tostring(o)
    end
 end
-
+]]--
 
 --- garage societe
 

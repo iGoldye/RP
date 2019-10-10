@@ -20,8 +20,6 @@ class Item_Weapon extends Item_Abstract {
 			return 'prop_money_bag_01'
 		}
 	}
-
-
 }
 
 function GetWeaponConfig(name) {

@@ -38,7 +38,7 @@
                         src: station.data.url,
                         html5: true, // A live stream can only be played through HTML5 Audio.
 //                        format: ['opus', 'ogg'],
-                        volume: (station.data.volume || 1.0) * self.volume || 0.1
+                        volume: 0.05, //(station.data.volume || 1.0) * self.volume || 0.1
                     });
                 }
 

@@ -2,7 +2,7 @@ Config = {}
 
 Config.Locale = 'en'
 
-Config.Price = 100
+Config.Price = 10
 
 Config.EnableControls = false
 

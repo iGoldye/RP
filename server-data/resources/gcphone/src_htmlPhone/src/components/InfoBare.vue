@@ -1,6 +1,6 @@
 <template>
   <div class='phone_infoBare barre-header'>
-    <span class='reseau'>{{config.reseau}}</span>
+    <span class='reseau'>{{config.reseau}} {{this.myPhoneNumber}}</span>
     <span class="time">
       <current-time></current-time>
     </span>
@@ -16,7 +16,7 @@
 import { mapGetters } from 'vuex'
 import CurrentTime from './CurrentTime'
 export default {
-  computed: mapGetters(['config']),
+  computed: mapGetters(['config', 'myPhoneNumber']),
   components: {
     CurrentTime
   }
