@@ -11,7 +11,7 @@ class Item_Abstract {
 		this.priority = 0;
 
 		if (ESXItemDB[name] !== undefined) {
-			this.weight = ESXItemDB[name].weight || 0;
+			this.weight = ESXItemDB[name].weight / 1000.0 || 0;
 		}
 
 //		this.actions.push(new Action_Drop(this));
@@ -44,6 +44,10 @@ class Item_Abstract {
 		}
 
 		return item2;
+	}
+
+	static mutate(esx_item, count) {
+		return null;
 	}
 
 	serialize(inventory) {
@@ -92,7 +96,7 @@ class Item_Abstract {
 		return "";
 	}
 
-	addItem(inventory) {
+	addItem(inventory, silent) {
 	        var xPlayer = inventory.getXPlayer();
 
 		if (this.amount <= 0) {
@@ -107,7 +111,7 @@ class Item_Abstract {
 			inventory.items.push(this);
 		}
 
-	        if (xPlayer != null) {
+	        if (xPlayer != null && !silent) {
 	            TriggerClientEvent('esx_inventory:showItemNotification', xPlayer.source, true, this.label, this.amount);
 	        }
 
