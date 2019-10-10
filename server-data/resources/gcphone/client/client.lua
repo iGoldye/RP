@@ -1,10 +1,15 @@
 ESX = nil
+local inventoryHasPhone = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+
+	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
+		inventoryHasPhone = inventoryCheckPhone(inventory)
+	end, "pocket", false)
 end)
 
 --====================================================================================
@@ -39,6 +44,26 @@ local soundDistanceMax = 8.0
 
 local TokoVoipID = nil
 
+function inventoryCheckPhone(inventory)
+	for k,item in pairs(inventory.items) do
+		if item.name == "esx_item" and item.extra.name == "phone" then
+			return true
+		end
+	end
+
+	return false
+end
+
+RegisterNetEvent('esx_inventory:onInventoryUpdate')
+AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
+	if inventory.name == "pocket" then
+		inventoryHasPhone = inventoryCheckPhone(inventory)
+		if menuIsOpen and not inventoryHasPhone then
+			TooglePhone()
+		end
+	end
+end)
+
 RegisterNetEvent('gcPhone:isOpen')
 AddEventHandler('gcPhone:isOpen', function(cb)
 	cb(menuIsOpen)
@@ -49,7 +74,7 @@ end)
 --  Callback true or false
 --====================================================================================
 function hasPhone (cb)
-  cb(true)
+  cb(inventoryHasPhone)
 end
 --====================================================================================
 --  Que faire si le joueurs veut ouvrir sont téléphone n'est qu'il en a pas ?
@@ -101,6 +126,7 @@ Citizen.CreateThread(function()
         end)
       end
       if menuIsOpen == true then
+        DisableControlAction(0, 243)
         for _, value in ipairs(KeyToucheCloseEvent) do
           if IsControlJustPressed(1, value.code) then
             SendNUIMessage({keyUp = value.event})

@@ -2,7 +2,7 @@ let ESX = null;
 emit('esx:getSharedObject', (obj) => { ESX = obj });
 
 var ClientInventories = [];
-global.ItemClasses = {};
+var ItemClasses = {};
 var ESXItemDB = [];
 
 
