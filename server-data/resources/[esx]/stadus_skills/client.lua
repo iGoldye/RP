@@ -1,13 +1,7 @@
 local pedindex = {}
 
 ESX                             = nil
-strengthValue = nil
-staminaValue = nil
-shootingValue = nil
-drivingValue = nil
-fishingValue = nil
-drugsValue = nil
-
+skills = nil
 ---------------------------------
 ------------- CONFIG ------------
 ---------------------------------
@@ -30,61 +24,47 @@ function round(num, numDecimalPlaces)
 end
 
 RegisterNetEvent('stadus_skills:sendPlayerSkills')
-AddEventHandler('stadus_skills:sendPlayerSkills', function(stamina, strength, driving, shooting, fishing, drugs)
-	strengthValue = strength
-	staminaValue = stamina
-	shootingValue = shooting
-	drivingValue = driving
-	fishingValue = fishing
-	drugsValue = drugs
+AddEventHandler('stadus_skills:sendPlayerSkills', function(newSkills)
+	skills = newSkills
+	ESX.SetPlayerData('skills', skills)
 
-	StatSetInt("MP0_STRENGTH", round(strength), true)
-	StatSetInt("MP0_STAMINA", round(stamina), true)
-	StatSetInt('MP0_LUNG_CAPACITY', round(stamina), true)
-	StatSetInt('MP0_SHOOTING_ABILITY', round(shooting), true)
-	StatSetInt('MP0_WHEELIE_ABILITY', round(driving), true)
-	StatSetInt('MP0_DRIVING_ABILITY', round(driving), true)
+	if skills ~= nil then
+		StatSetInt("MP0_STRENGTH", round(skills.strength), true)
+		StatSetInt("MP0_STAMINA", round(skills.stamina), true)
+		StatSetInt('MP0_LUNG_CAPACITY', round(skills.stamina), true)
+		StatSetInt('MP0_SHOOTING_ABILITY', round(skills.shooting), true)
+		StatSetInt('MP0_WHEELIE_ABILITY', round(skills.driving), true)
+		StatSetInt('MP0_DRIVING_ABILITY', round(skills.driving), true)
+	end
 end)
 
 --===============================================
 --==                 VARIABLES                 ==
 --===============================================
 function EnableGui(enable)
-	if staminaValue == nil or strengthValue == nil or shootingValue == nil or drivingValue == nil or fishingValue == nil or drugsValue == nil then
-		ESX.TriggerServerCallback('stadus_skills:getSkills', function(stamina, strength, driving, shooting, fishing, drugs)
-			strengthValue = strength
-			staminaValue = stamina
-			shootingValue = shooting
-			drivingValue = driving
-			fishingValue = fishing
-			drugsValue = drugs
-
-			SendNUIMessage({
-				type = "enableui",
-				enable = enable,
-				stamina = staminaValue,
-				strength = strengthValue,
-				driving = drivingValue,
-				shooting = shootingValue,
-				fishing = fishingValue,
-				drugs = drugsValue
-			})
+	if skills == nil then
+		ESX.TriggerServerCallback('stadus_skills:getSkills', function(newSkills)
+			skills = newSkills
+			if skills ~= nil then
+				EnableGui(enable)
+			end
 		end)
-	else
-		SetNuiFocus(enable)
-		guiEnabled = enable
-
-		SendNUIMessage({
-			type = "enableui",
-			enable = enable,
-			stamina = staminaValue,
-			strength = strengthValue,
-			driving = drivingValue,
-			shooting = shootingValue,
-			fishing = fishingValue,
-			drugs = drugsValue
-		})
+		return
 	end
+
+	SetNuiFocus(enable)
+	guiEnabled = enable
+
+	SendNUIMessage({
+		type = "enableui",
+		enable = enable,
+		stamina = skills.stamina,
+		strength = skills.strength,
+		driving = skills.driving,
+		shooting = skills.shooting,
+		fishing = skills.fishing,
+		drugs = skills.drugs
+	})
 end
 
 --===============================================
@@ -109,14 +89,19 @@ Citizen.CreateThread(function()
             })
 
             end
-		else
-			if IsDisabledControlJustReleased(17, 11) then
-				EnableGui(true)
-			end
+	else
+--		if IsDisabledControlJustReleased(17, 11) then
+		if IsDisabledControlJustReleased(0, openKey) then
+			EnableGui(true)
+		end
         end
-        if IsPedInAnyVehicle(GetPlayerPed(-1), true) then
+        if IsPedInAnyVehicle(PlayerPedId(), true) then
+          local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
           if Faketimer >= 10 then
-            TriggerServerEvent('stadus_skills:addDriving', GetPlayerServerId(PlayerId()), (math.random() + 0))
+            local speedVal = math.floor(GetEntitySpeed(PlayerPedId()) / 8.0)
+            if speedVal > 1 and GetPedInVehicleSeat(vehicle, -1) == PlayerPedId() then
+	            TriggerServerEvent('stadus_skills:addDriving', GetPlayerServerId(PlayerId()), speedVal* 0.03)
+            end
             Faketimer = 0
           end
         end

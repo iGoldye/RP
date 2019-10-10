@@ -287,10 +287,10 @@ TriggerEvent('es:addGroupCommand', 'charlist', 'user', function(source, args, us
 	getCharacters(source, function(data)
 		if data.firstname1 ~= '' then
 			TriggerClientEvent('chat:addMessage', source, { args = { '^1[IDENTITY] Character 1:', data.firstname1 .. ' ' .. data.lastname1 } })
-			
+
 			if data.firstname2 ~= '' then
 				TriggerClientEvent('chat:addMessage', source, { args = { '^1[IDENTITY] Character 2:', data.firstname2 .. ' ' .. data.lastname2 } })
-				
+
 				if data.firstname3 ~= '' then
 					TriggerClientEvent('chat:addMessage', source, { args = { '^1[IDENTITY] Character 3:', data.firstname3 .. ' ' .. data.lastname3 } })
 				end

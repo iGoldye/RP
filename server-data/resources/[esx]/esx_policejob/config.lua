@@ -80,7 +80,7 @@ Config.PoliceStations = {
 		},
 
 		Computers = {
---			vector3(441.86, -978.77, 29.8),
+			vector3(441.86, -978.77, 29.8)
 		},
 
 		Armories = {

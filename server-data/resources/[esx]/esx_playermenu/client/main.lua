@@ -128,6 +128,10 @@ function OpenAdminMenu()
 end
 
 function OpenAdminMenuSociety(label, societyName)
+	TriggerEvent('esx_society:openBossMenu', societyName, function(data, menu)
+		menu.close()
+	end, {wash = true})
+--[[
 	ESX.TriggerServerCallback('esx_playermenu:adminGetSocietyAccount', function(account)
 		local elements = {}
 		table.insert(elements, {label = "Бюджет: $"..tostring(account.money), value = "money"})
@@ -145,6 +149,7 @@ function OpenAdminMenuSociety(label, societyName)
 		end)
 
 	end, 'society_'..societyName)
+]]--
 end
 
 function OpenAdminMenuSocietyList()
@@ -408,6 +413,7 @@ function OpenReporterMenu()
 	table.insert(elements, {label = 'Достать/спрятать камеру', value = 'cam'})
 	table.insert(elements, {label = 'Достать/спрятать микрофон', value = 'mic'})
 	table.insert(elements, {label = 'Достать/спрятать микрофон-удочку', value = 'bmic'})
+	table.insert(elements, {label = 'Новостная рассылка', value = 'alert'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'reporter_menu', {
 		title    = "Журналист",
@@ -423,6 +429,8 @@ function OpenReporterMenu()
 			TriggerEvent("Mic:ToggleBMic")
 		elseif cmd == 'mic' then
 			TriggerEvent("Mic:ToggleMic")
+		elseif cmd == 'alert' then
+			TriggerEvent("TrafficAlert")
 		end
 
 		menu.close()
@@ -494,10 +502,10 @@ function OpenClothesMenu()
 	table.insert(elements, {label = ('Верхняя одежда'), value = 'overdress'})
 	table.insert(elements, {label = ('Штаны'), value = 'pants'})
 	table.insert(elements, {label = ('Обувь'), value = 'shoes'})
-	table.insert(elements, {label = ('Головной убор'), value = 'Helmet'})
-	table.insert(elements, {label = ('Украшения для ушей'), value = 'Ears'})
-	table.insert(elements, {label = ('Маска'), value = 'Mask'})
-	table.insert(elements, {label = ('Очки'), value = 'Glasses'})
+	table.insert(elements, {label = ('Головной убор'), value = 'helmet'})
+	table.insert(elements, {label = ('Украшения для ушей'), value = 'ears'})
+	table.insert(elements, {label = ('Маска'), value = 'mask'})
+	table.insert(elements, {label = ('Очки'), value = 'glasses'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'clothes_menu', {
 		title    = "Одежда",
@@ -515,8 +523,14 @@ function OpenClothesMenu()
 			TriggerEvent('clothesoff:pants')
 		elseif cmd == 'shoes' then
 			TriggerEvent('clothesoff:shoes')
-		else -- be careful
-			TriggerEvent('esx_accessories:SetUnsetAccessory', cmd)
+		elseif cmd == 'helmet' then
+			TriggerEvent('clothesoff:helmet')
+		elseif cmd == 'mask' then
+			TriggerEvent('clothesoff:mask')
+		elseif cmd == 'glasses' then
+			TriggerEvent('clothesoff:glasses')
+		elseif cmd == 'ears' then
+			TriggerEvent('clothesoff:ears')
 	        end
 
 		menu.close()

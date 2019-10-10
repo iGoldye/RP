@@ -11,7 +11,7 @@ Citizen.CreateThread(function()
 	end
 
 	TriggerEvent('esx_inventory:registerActions')
---	ESX.PlayerData = ESX.GetPlayerData()
+	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
 --inventory = {}
@@ -21,6 +21,13 @@ itemActions["@shared"] = {}
 pocketWeight = 0.0
 movementSpeed = 1.0
 initialized = false
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(60000)
+		ESX.PlayerData = ESX.GetPlayerData()
+	end
+end)
 
 Citizen.CreateThread(function()
 	while true do
@@ -34,27 +41,34 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		movementSpeed = 1.0
-		if not IsPedStill(PlayerPedId()) then
+		while ESX == nil do
+			Citizen.Wait(100)
 		end
 
-		if pocketWeight > Config.PocketWeightLimit then
-			local speed = 1.0 - (pocketWeight-Config.PocketWeightLimit)/10.0
+		local pocketWeightLimit = Config.PocketWeightLimit
+
+		if ESX.PlayerData and ESX.PlayerData.skills and ESX.PlayerData.skills.strength then
+			pocketWeightLimit = pocketWeightLimit + ESX.PlayerData.skills.strength / 100.0 * Config.StrengthExtraWeight
+		end
+
+		if pocketWeight > pocketWeightLimit then
+			local speed = 1.0 - (pocketWeight-pocketWeightLimit)/10.0
 			if speed < 0.1 then
 				speed = 0.1
 			end
 			movementSpeed = speed
 
-			while pocketWeight > Config.PocketWeightLimit*2 do
+			while pocketWeight > pocketWeightLimit*2 do
 				SetPedToRagdoll(PlayerPedId(), 5000, 5000, 0, 0, 0, 0)
 				Citizen.Wait(1000)
 			end
 --[[
 			local hurt = 0
-			if pocketWeight > Config.PocketWeightLimit+30 then
+			if pocketWeight > pocketWeightLimit+30 then
 				hurt = 5
-			elseif pocketWeight > Config.PocketWeightLimit+20 then
+			elseif pocketWeight > pocketWeightLimit+20 then
 				hurt = 3
-			elseif pocketWeight > Config.PocketWeightLimit+10 then
+			elseif pocketWeight > pocketWeightLimit+10 then
 				hurt = 2
 			end
 
@@ -222,38 +236,6 @@ AddEventHandler('esx_inventory:showInventoryMenu', function(inventory)
 --	TriggerEvent('chat:addMessage', { args = { '^1SYSTEM', json.encode(inventory) } })
 --	inventory = _inventory
 	showInventoryMenu(inventory)
-end)
-
-RegisterNetEvent('esx_inventory:unequipWeapon')
-AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
-	local playerPed = PlayerPedId()
-	local weaponHash = GetHashKey(weaponName)
-	local current_ammo = GetAmmoInPedWeapon(playerPed, weaponHash)
-
-	if HasPedGotWeapon(playerPed, weaponHash, false) and current_ammo >= amount then
-		if GetSelectedPedWeapon(playerPed) == weaponHash then
-			SetCurrentPedWeapon(playerPed, GetHashKey("WEAPON_UNARMED"), true)
-		end
-
-		SetPedAmmo(playerPed, weaponHash, current_ammo - amount)
-		RemoveWeaponFromPed(playerPed, weaponHash)
-
-		TriggerServerEvent('esx_inventory:unequipWeapon', weaponName, amount)
-	end
-end)
-
-RegisterNetEvent('esx_inventory:equipWeapon')
-AddEventHandler('esx_inventory:equipWeapon', function(item)
-	local weaponName = item.extra.weapon_name
-	local playerPed = PlayerPedId()
-	local weaponHash = GetHashKey(weaponName)
-
-	if HasPedGotWeapon(playerPed, weaponHash, false) then
-		ESX.ShowNotification(_U('already_equipped'))
-	else
-		GiveWeaponToPed(playerPed, weaponHash, item.extra.ammo, false, true)
-		TriggerEvent('esx_inventory:updateInventory', "pocket", false)
-	end
 end)
 
 RegisterNetEvent('esx_inventory:showItemNotification')

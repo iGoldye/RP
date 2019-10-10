@@ -27,4 +27,5 @@ Config.Weapons = {
 	"WEAPON_FLAREGUN",
 	"WEAPON_STUNGUN",
 	"WEAPON_REVOLVER",
+	"weapon_doubleaction",
 }

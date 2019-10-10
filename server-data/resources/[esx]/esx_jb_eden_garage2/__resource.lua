@@ -4,7 +4,6 @@ description 'ESX JB Eden Garage'
 
 dependencies {
 	'es_extended',
-	'ft_libs'
 }
 
 server_scripts {

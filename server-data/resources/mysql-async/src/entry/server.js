@@ -74,6 +74,7 @@ global.on('onServerResourceStart', (resourcename) => {
 
     logger = new Logger(global.GetConvar('mysql_debug_output', 'console'));
     profiler = new Profiler(logger, { trace, slowQueryWarningTime });
+    logger.log("================================= MYSQL-ASYNC START ====================================\n")
 
     // needs to move to a new file
     const connectionString = global.GetConvar('mysql_connection_string', 'Empty');

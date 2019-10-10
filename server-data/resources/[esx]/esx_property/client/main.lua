@@ -251,8 +251,18 @@ end
 
 function OpenPropertyMenu(property)
     ESX.TriggerServerCallback('esx_property:getAnyoneOwnedProperties', function(AnyoneOwnedProperties)
-        if not PropertyIsOwned(property) and property.isSingle and AnyoneOwnedProperties[property.name] then
-		ESX.ShowNotification("Недвижимость не продаётся!")
+
+        if not PropertyIsOwned(property) and property.isSingle and AnyoneOwnedProperties[property.name] ~= nil then
+
+		ESX.TriggerServerCallback('esx_property:haveKeys', function(res)
+			if res == true then
+				ESX.ShowNotification("В открываете дверь ключом")
+				TriggerEvent('instance:create', 'property', { property = property.name, owner = AnyoneOwnedProperties[property.name] })
+			else
+				ESX.ShowNotification("Недвижимость не продаётся!")
+			end
+		end, property.name, AnyoneOwnedProperties[property.name])
+
 		return
         end
 
@@ -811,9 +821,9 @@ end)
 
 RegisterNetEvent('instance:onPlayerLeft')
 AddEventHandler('instance:onPlayerLeft', function(instance, player)
-	if player == instance.host then
-		TriggerEvent('instance:leave')
-	end
+--	if player == instance.host then
+--		TriggerEvent('instance:leave')
+--	end
 end)
 
 AddEventHandler('esx_property:hasEnteredMarker', function(name, part)

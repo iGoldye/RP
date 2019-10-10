@@ -122,6 +122,8 @@ function StartAnimData(tp, data)
 			startAnim(lib, anim, flag)
 		elseif type == 'facial' then
 			startFacial(anim)
+		elseif type == 'event' then
+			TriggerEvent(anim, data)
 		end
 end
 

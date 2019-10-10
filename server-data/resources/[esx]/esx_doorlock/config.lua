@@ -721,6 +721,245 @@ Config.DoorList = {
 	},
 --
 
+	{
+		objName = 'prop_gate_prison_01',
+		objCoords  = vector3(1799.8, 2617.7, 44.6),
+		textCoords = vector3(1796.99, 2617.51, 48.6),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 12,
+		size = 2
+	},
+
+	{
+		objName = 'prop_fnclink_03gate5',
+		objYaw = 180.0,
+		objCoords  = vector3(1797.5, 2591.72, 45.8),
+		textCoords = vector3(1797.17, 2591.55, 45.8),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	-- PRISON
+	{
+		textCoords = vector3(1705.99, 2498.73, -78.0),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_gtdoor02',
+				objYaw = 90.0,
+				objCoords = vector3(1705.5, 2498.01, -78.6)
+			},
+
+			{
+				objName = 'v_ilev_gtdoor02',
+				objYaw = 270.0,
+				objCoords = vector3(1705.59, -2499.49, -78.6)
+			}
+		}
+	},
+	{
+		objName = 'v_ilev_cd_entrydoor',
+		objYaw = 0.0,
+		objCoords  = vector3(1722.39, 2500.33, -78.0),
+		textCoords = vector3(1722.68, 2501.8, -77.5),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+	-- PILLBOX HILL
+	{
+		objName = 'v_ilev_cor_firedoorwide',
+		objYaw = 250.0,
+		objCoords  = vector3(337.83, -583.62, 28.8),
+		textCoords = vector3(337.83, -583.62, 29.5),
+		authorizedJobs = { 'ambulance' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_cor_firedoorwide',
+		objYaw = -20.0,
+		objCoords  = vector3(333.53, -576.12, 28.8),
+		textCoords = vector3(333.41, -577.17, 29.5),
+		authorizedJobs = { 'ambulance' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_cor_firedoorwide',
+		objYaw = 160.0,
+		objCoords  = vector3(330.94, -576.16, 28.8),
+		textCoords = vector3(330.94, -576.16, 29.5),
+		authorizedJobs = { 'ambulance' },
+		locked = true
+	},
+	{
+		textCoords = vector3(334.21, -592.43, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 250.0,
+				objCoords = vector3(334.32, -593.24, 28.79)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 70.0,
+				objCoords = vector3(334.97, -591.56, 28.79)
+			}
+		}
+	},
+	{
+		textCoords = vector3(341.88, -571.4, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 250.0,
+				objCoords = vector3(341.72, -572.6, 28.79)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 70.0,
+				objCoords = vector3(342.22, -570.52, 28.79)
+			}
+		}
+	},
+	{
+		textCoords = vector3(319.89, -560.58, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'hei_prop_heist_cutscene_doorc_r',
+				objYaw = 207.0,
+				objCoords = vector3(319.17, -561.2, 28.78)
+			},
+
+			{
+				objName = 'hei_prop_heist_cutscene_doorc_r',
+				objYaw = 25.0,
+				objCoords = vector3(320.9, -560.13, 28.78)
+			}
+		}
+	},
+
+	-- UNICORN
+	{
+		objName = 'prop_strip_door_01',
+		objYaw = 30.0,
+		objCoords  = vector3(128.93, -1298.93, 29.23),
+		textCoords = vector3(128.54, -1298.19, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+	{
+		objName = 'prop_magenta_door',
+		objYaw = 210.0,
+		objCoords  = vector3(95.48, -1285.14, 29.50),
+		textCoords = vector3(95.48, -1285.14, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_roc_door2',
+		objYaw = 30.0,
+		objCoords  = vector3(99.64, -1293.47, 29.50),
+		textCoords = vector3(99.64, -1293.47, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_door_orangesolid',
+		objYaw = -60.0,
+		objCoords  = vector3(133.49, -1293.50, 29.50),
+		textCoords = vector3(133.49, -1293.50, 29.50),
+		authorizedJobs = { 'unicorn' },
+		locked = true
+  },
+		-- Tequila
+	{
+		objName = 'v_ilev_roc_door4',
+		objYaw = -5.0,
+		objCoords  = vector3(-564.49, 276.61, 83.11),
+		textCoords = vector3(-564.49, 276.61, 83.11),
+		authorizedJobs = { 'tequila' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_roc_door4',
+		objYaw = 175.0,
+		objCoords  = vector3(-561.94, 293.73, 87.6),
+		textCoords = vector3(-561.94, 293.73, 87.6),
+		authorizedJobs = { 'tequila' },
+		locked = true
+	},
+	{
+		objName = 'v_ilev_roc_door2',
+		objYaw = -95.0,
+		objCoords  = vector3(-560.19, 292.33, 82.18),
+		textCoords = vector3(-560.19, 292.33, 82.18),
+		authorizedJobs = { 'tequila' },
+		locked = true
+	},
+
+	-- BAGAMA
+	{
+		textCoords = vector3(-1388.01, -587.23, 30.22),
+		authorizedJobs = { 'bagama' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 32.0,
+				objCoords = vector3(-1387.14, -586.67, 30.22)
+			},
+
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 214.0,
+				objCoords = vector3(-1389.05, -587.76, 30.22)
+			}
+		}
+	},
+
+
+-- LS CUSTOMS
+	{
+		objName = 'prop_com_ls_door_01',
+		objYaw = -110.0,
+		ajar = 1206354175,
+
+		objCoords  = vector3(-356.09, -134.77, 40.01),
+		textCoords = vector3(-355.02698, -135.1586, 39),
+		authorizedJobs = { 'mechanic' },
+		locked = true,
+		distance = 5,
+		size = 1,
+	},
+-- Benny's
+	{
+		objName = 'lr_prop_supermod_door_01',
+		objYaw = 0.0,
+		ajar = -288764223,
+
+		objCoords  = vector3(-205.7007, -1310.692, 30.2957),
+		textCoords = vector3(-205.68283081055,-1310.6826171875,32.297708511353),
+		authorizedJobs = { 'mechanic-bennys' },
+		locked = true,
+		distance = 5,
+		size = 1,
+	},
+--
+
 	--
 	-- Addons
 	--

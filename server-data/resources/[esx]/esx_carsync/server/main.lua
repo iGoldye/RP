@@ -2,14 +2,13 @@
 ESX = nil
 car_db = {}
 
-TriggerEvent('esx:getSharedObject', function(obj) 
-	ESX = obj 
+TriggerEvent('esx:getSharedObject', function(obj)
+	ESX = obj
 end)
 
 function loadCars()
 	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE `stored` = false and fourrieremecano = false', {
 	}, function(results)
-	                
 		for i=1,#results do
 
 			local res = results[i]
@@ -38,7 +37,6 @@ function spawnCars(playerId, xPlayer)
 	end
 
 	local haveNotSpawned = false
-	
 	for plate,car in pairs(car_db) do
 
 		if car.coords ~= nil then
@@ -113,7 +111,6 @@ AddEventHandler('esx:playerDropped', function(source)
 		for plate,car in pairs(car_db) do
 			car_db[plate].spawned = false
 		end
-		
 	end
 
 end)

@@ -98,6 +98,9 @@ class PhoneAPI {
   async setGPS (x, y) {
     return this.post('setGPS', {x, y})
   }
+  async acceptAction (action) {
+    return this.post('acceptAction', {action})
+  }
   async takePhoto () {
     store.commit('SET_TEMPO_HIDE', true)
     const data = await this.post('takePhoto', { url: this.config.fileUploadService_Url, field: this.config.fileUploadService_Field })
@@ -166,6 +169,10 @@ class PhoneAPI {
   // ==========================================================================
   //  Gestion des events
   // ==========================================================================
+  onAcceptAction (data) {
+//      data.message_id
+//    console.log(JSON.stringify(data))
+  }
   onupdateMyPhoneNumber (data) {
     store.commit('SET_MY_PHONE_NUMBER', data.myPhoneNumber)
   }

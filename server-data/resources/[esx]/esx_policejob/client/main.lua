@@ -1945,7 +1945,7 @@ Citizen.CreateThread(function()
 					end
 				end
 
-				if Config.EnablePlayerManagement and PlayerData.job.grade_name == 'boss' then
+				if Config.EnablePlayerManagement and (PlayerData.job.grade_name == 'boss' or PlayerData.job.grade_name == 'lieutenant') then
 					for i=1, #v.BossActions, 1 do
 						local distance = GetDistanceBetweenCoords(coords, v.BossActions[i], true)
 
@@ -2248,4 +2248,10 @@ end)
 RegisterNetEvent('esx_policejob:openIdentityCardMenu')
 AddEventHandler('esx_policejob:openIdentityCardMenu', function(player)
 	OpenIdentityCardMenu(GetPlayerFromServerId(player))
+end)
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "police" then
+		ESX.ShowNotification("Вызов принят")
+	end
 end)

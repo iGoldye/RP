@@ -58,7 +58,7 @@ end)
 function updateVehicleHealth(vehicle)
 	if DoesEntityExist(vehicle) then
 		local health = GetEntityHealth(vehicle)
-		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))			
+		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 		local props = ESX.Game.GetVehicleProperties(vehicle)
 		TriggerServerEvent("esx_carsync:updateCarHealth", plate, health, props)
 	end
@@ -66,7 +66,7 @@ end
 
 function updateVehiclePos(vehicle)
 	if DoesEntityExist(vehicle) then
-		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))			
+		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 		local coords = GetEntityCoords(vehicle)
 		local heading = GetEntityHeading(vehicle)
 		TriggerServerEvent("esx_carsync:updateCarPos", plate, coords, heading)
@@ -79,7 +79,7 @@ Citizen.CreateThread(function()
 		local vehicle = GetVehiclePedIsIn(playerPed, false)
 
 		if vehicle > 0 and DoesEntityExist(vehicle) then
-			local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))			
+			local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 			local coords = GetEntityCoords(vehicle)
 			local health = GetEntityHealth(vehicle)
 
@@ -97,4 +97,3 @@ Citizen.CreateThread(function()
 		Citizen.Wait(1000)
 	end
 end)
-

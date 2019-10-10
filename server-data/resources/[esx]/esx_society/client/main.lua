@@ -42,7 +42,7 @@ end
 
 RegisterNetEvent('esx_addonaccount:setMoney')
 AddEventHandler('esx_addonaccount:setMoney', function(society, money)
-	if ESX.PlayerData.job and ESX.PlayerData.job.grade_name == 'boss' and 'society_' .. ESX.PlayerData.job.name == society then
+	if ESX.PlayerData.job and ESX.PlayerData.job and ESX.PlayerData.job.grade_name == 'boss' and 'society_' .. ESX.PlayerData.job.name == society then
 		UpdateSocietyMoneyHUDElement(money)
 	end
 end)
@@ -77,11 +77,11 @@ function UpdateSocietyMoneyHUDElement(money)
 	TriggerEvent('esx_society:setSocietyMoney', money)
 end
 
-function OpenBossMenu(society, close, options)
-	local isBoss = nil
+function OpenBossMenu(society, close, options, money)
+--	local isBoss = nil
 	local options  = options or {}
 	local elements = {}
-
+--[[
 	ESX.TriggerServerCallback('esx_society:isBoss', function(result)
 		isBoss = result
 	end, society)
@@ -93,7 +93,7 @@ function OpenBossMenu(society, close, options)
 	if not isBoss then
 		return
 	end
-
+]]--
 	local defaultOptions = {
 		withdraw  = true,
 		deposit   = true,
@@ -108,7 +108,7 @@ function OpenBossMenu(society, close, options)
 		end
 	end
 
-	table.insert(elements, {label = "Бюджет: <span style='color: green'>$".. ESX.Math.GroupDigits(lastSocietyMoney).."</span>"})
+	table.insert(elements, {label = "Бюджет: <span style='color: green'>$".. ESX.Math.GroupDigits(money).."</span>"})
 
 	if options.withdraw then
 		table.insert(elements, {label = _U('withdraw_society_money'), value = 'withdraw_society_money'})
@@ -134,7 +134,7 @@ function OpenBossMenu(society, close, options)
 		title    = _U('boss_menu'),
 		align    = 'top-left',
 		elements = elements
-	}, function(data, menu)
+	}, function(data, menu2)
 
 		if data.current.value == 'withdraw_society_money' then
 
@@ -148,6 +148,7 @@ function OpenBossMenu(society, close, options)
 					ESX.ShowNotification(_U('invalid_amount'))
 				else
 					menu.close()
+					menu2.close()
 					TriggerServerEvent('esx_society:withdrawMoney', society, amount)
 				end
 
@@ -167,6 +168,7 @@ function OpenBossMenu(society, close, options)
 					ESX.ShowNotification(_U('invalid_amount'))
 				else
 					menu.close()
+					menu2.close()
 					TriggerServerEvent('esx_society:depositMoney', society, amount)
 				end
 
@@ -415,5 +417,7 @@ function OpenManageGradesMenu(society)
 end
 
 AddEventHandler('esx_society:openBossMenu', function(society, close, options)
-	OpenBossMenu(society, close, options)
+	ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(money)
+		OpenBossMenu(society, close, options, money)
+	end, society)
 end)

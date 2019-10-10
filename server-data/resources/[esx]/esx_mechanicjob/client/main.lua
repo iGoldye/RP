@@ -77,7 +77,7 @@ function OpenMechanicActionsMenu()
 		{label = _U('withdraw_stock'), value = 'get_stock'}
 	}
 
-	if Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.grade_name == 'boss' then
+	if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief') then
 		table.insert(elements, {label = _U('boss_actions'), value = 'boss_actions'})
 	end
 
@@ -1016,5 +1016,11 @@ end)
 AddEventHandler('esx_mechanicjob:OpenMobileMechanicActionsMenu', function()
 	if not isDead and ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
 		OpenMobileMechanicActionsMenu()
+	end
+end)
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "mechanic" then
+		ESX.ShowNotification("Вызов принят")
 	end
 end)

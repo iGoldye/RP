@@ -23,6 +23,8 @@ Citizen.CreateThread(function()
 	local MenuType = 'default'
 
 	local openMenu = function(namespace, name, data)
+		SetNuiFocus(true, false)
+		SetNuiFocus(false)
 		SendNUIMessage({
 			action    = 'openMenu',
 			namespace = namespace,

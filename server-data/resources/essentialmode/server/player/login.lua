@@ -151,7 +151,14 @@ local function savePlayerMoney()
 		Citizen.CreateThread(function()
 			for k,v in pairs(Users)do
 				if Users[k] ~= nil then
-					db.updateUser(v.get('identifier'), {money = v.getMoney(), bank = v.getBank()}, function()end)
+					local money = v.getMoney()
+					local bank = v.getBank()
+					if Users[k].lastSyncedMoney == nil or Users[k].lastSyncedMoney ~= money or Users[k].lastSyncedBank == nil or Users[k].lastSyncedBank ~= bank then
+						Users[k].lastSyncedMoney = money
+						Users[k].lastSyncedBank = bank
+						db.updateUser(v.get('identifier'), {["money"] = money, ["bank"] = bank}, function()end)
+						Citizen.Wait(100)
+					end
 				end
 			end
 

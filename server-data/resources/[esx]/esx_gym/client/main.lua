@@ -11,27 +11,68 @@ local Keys = {
 }
 
 ESX = nil
-local PlayerData              = {}
+local isNearGym = false
 local training = false
 local resting = false
 local membership = false
+local needRest = 0.0
 
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
-		PlayerData = ESX.GetPlayerData()
 	end
 end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
-    PlayerData = xPlayer
-end)
+function StartTraining(onStart)
+	if training then
+		return
+	end
 
-RegisterNetEvent('esx:setJob')
-AddEventHandler('esx:setJob', function(job)
-  PlayerData.job = job
+	if needRest > 0 then
+		ESX.ShowNotification(string.format("Вам нужно отдохнуть ещё ~r~%.0f сек~s~.", needRest))
+		return
+	end
+
+	if not membership then
+		TriggerServerEvent('esx_gym:checkChip')
+		Citizen.Wait(1000)
+
+		if not membership then
+			ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
+			return
+		end
+	end
+
+	ESX.ShowNotification("Вы начали ~g~упражнение~w~...")
+
+	training = true
+	onStart()
+	training = false
+
+	if needRest > 0 then
+		ESX.ShowNotification(string.format("Вам нужно отдохнуть ~r~%.0f сек~w~ прежде чем начать следующее упражнение.", needRest))
+		resting = true
+	end
+end
+
+-- Rest timer
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+
+		if not training and needRest > 0 then
+			needRest = needRest - 1.0
+			if needRest < 0 then
+				needRest = 0
+			end
+
+			if resting and needRest == 0 then
+				ESX.ShowNotification("Можете приступать к тренировкам...")
+				resting = false
+			end
+		end
+	end
 end)
 
 function hintToDisplay(text)
@@ -72,396 +113,182 @@ AddEventHandler('esx_gym:useBandage', function()
 	ESX.ShowNotification("Вы наложили ~g~повязки")
 end)
 
-RegisterNetEvent('esx_gym:trueMembership')
-AddEventHandler('esx_gym:trueMembership', function()
-	membership = true
+RegisterNetEvent('esx_gym:membership')
+AddEventHandler('esx_gym:membership', function(val)
+	membership = val
 end)
 
-RegisterNetEvent('esx_gym:falseMembership')
-AddEventHandler('esx_gym:falseMembership', function()
-	membership = false
-end)
-
--- LOCATION (START)
-
-local arms = {
-    {x = -1202.9837,y = -1565.1718,z = 4.6115}
-}
-
-local pushup = {
-    {x = -1203.3242,y = -1570.6184,z = 4.6115}
-}
-
-local yoga = {
-    {x = -1204.7958,y = -1560.1906,z = 4.6115}
-}
-
-local situps = {
-    {x = -1206.1055,y = -1565.1589,z = 4.6115}
-}
-
-local gym = {
-    {x = -1195.6551,y = -1577.7689,z = 4.6115}
-}
-
-local chins = {
-    {x = -1200.1284,y = -1570.9903,z = 4.6115}
-}
-
-local rentbike = {
-    {x = -1199.1164,y = -1584.5972,z = 4.3249}
-}
-
--- LOCATION (END)
+function drawExerciseMarker(pos)
+	DrawMarker(21, pos.x, pos.y, pos.z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 255, 50, 200, 0, 0, 0, 0)
+end
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        for k in pairs(rentbike) do
-            DrawMarker(38, rentbike[k].x, rentbike[k].y, rentbike[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 153, 255, 255, 0, 0, 0, 0)
-        end
-    end
-end)
+        local plyCoords = GetEntityCoords(PlayerPedId())
+        isNearGym = false
 
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        for k in pairs(arms) do
-            DrawMarker(21, arms[k].x, arms[k].y, arms[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 255, 50, 200, 0, 0, 0, 0)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        for k in pairs(pushup) do
-            DrawMarker(21, pushup[k].x, pushup[k].y, pushup[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 255, 50, 200, 0, 0, 0, 0)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        for k in pairs(yoga) do
-            DrawMarker(21, yoga[k].x, yoga[k].y, yoga[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 255, 50, 200, 0, 0, 0, 0)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        for k in pairs(situps) do
-            DrawMarker(21, situps[k].x, situps[k].y, situps[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 255, 50, 200, 0, 0, 0, 0)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        for k in pairs(gym) do
-            DrawMarker(21, gym[k].x, gym[k].y, gym[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 153, 255, 255, 0, 0, 0, 0)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        for k in pairs(chins) do
-            DrawMarker(21, chins[k].x, chins[k].y, chins[k].z, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 255, 50, 200, 0, 0, 0, 0)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(rentbike) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, rentbike[k].x, rentbike[k].y, rentbike[k].z)
-
+        for k in pairs(Config.gym) do
+            DrawMarker(21, Config.gym[k].pos, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 153, 255, 255, 0, 0, 0, 0)
+            local dist = #(plyCoords-Config.gym[k].pos)
             if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы арендовать ~b~Велосипед')
-
-				if IsControlJustPressed(0, Keys['E']) then -- "E"
-					if IsPedInAnyVehicle(GetPlayerPed(-1)) then
-						ESX.ShowNotification("У вас уже есть ~r~транспорт")
-					else
-						OpenBikeMenu()
-					end
-				end
+								doGym()
+								isNearGym = true
+            elseif dist < 100.0 then
+                isNearGym = true
             end
         end
-    end
-end)
 
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(gym) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, gym[k].x, gym[k].y, gym[k].z)
-
-            if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы ознакомиться с ~b~Услугами~w~')
-
-				if IsControlJustPressed(0, Keys['E']) then
-					OpenGymMenu()
-				end
-            end
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(arms) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, arms[k].x, arms[k].y, arms[k].z)
-
-            if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы поднять ~g~штангу')
-
-				if IsControlJustPressed(0, Keys['E']) then
-					if training == false then
-
-						TriggerServerEvent('esx_gym:checkChip')
-						ESX.ShowNotification("Вы начали ~g~упражнение~w~...")
-						Citizen.Wait(1000)
-						TriggerServerEvent('stadus_skills:addStrength', GetPlayerServerId(PlayerId()), (math.random() + 0))
-
-						if membership == true then
-							local playerPed = GetPlayerPed(-1)
-							TaskStartScenarioInPlace(playerPed, "world_human_muscle_free_weights", 0, true)
-							Citizen.Wait(30000)
-							ClearPedTasksImmediately(playerPed)
-							ESX.ShowNotification("Вам нужно отдохнуть ~r~1 минуту~w~ прежде чем начать следующее упражнение.")
-
-							--TriggerServerEvent('esx_gym:trainArms') ## COMING SOON...
-
-							training = true
-						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
-						end
-					elseif training == true then
-						ESX.ShowNotification("Вам нужено передохнуть...")
-
-						resting = true
-
-						CheckTraining()
-					end
-				end
-            end
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(chins) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, chins[k].x, chins[k].y, chins[k].z)
-
-            if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~подтягиваться')
-
-				if IsControlJustPressed(0, Keys['E']) then
-					if training == false then
-
-						TriggerServerEvent('esx_gym:checkChip')
-						ESX.ShowNotification("Вы начали ~g~упражнение~w~...")
-						Citizen.Wait(1000)
-						TriggerServerEvent('stadus_skills:addStrength', GetPlayerServerId(PlayerId()), (math.random() + 0))
-
-						if membership == true then
-							local playerPed = GetPlayerPed(-1)
-							TaskStartScenarioInPlace(playerPed, "prop_human_muscle_chin_ups", 0, true)
-							Citizen.Wait(30000)
-							ClearPedTasksImmediately(playerPed)
-							ESX.ShowNotification("Вам нужно отдохнуть ~r~1 минуту~w~ прежде чем начать следующее упражнение.")
-
-							--TriggerServerEvent('esx_gym:trainChins') ## COMING SOON...
-
-							training = true
-						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
-						end
-					elseif training == true then
-						ESX.ShowNotification("Вам нужено передохнуть...")
-
-						resting = true
-
-						CheckTraining()
-					end
-				end
-            end
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(pushup) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, pushup[k].x, pushup[k].y, pushup[k].z)
-
-            if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~отжиматься')
-
-				if IsControlJustPressed(0, Keys['E']) then
-					if training == false then
-
-						TriggerServerEvent('esx_gym:checkChip')
-						ESX.ShowNotification("Вы начали ~g~упражнение~w~...")
-						Citizen.Wait(1000)
-						TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), (math.random() + 0))
-
-						if membership == true then
-							local playerPed = GetPlayerPed(-1)
-							TaskStartScenarioInPlace(playerPed, "world_human_push_ups", 0, true)
-							Citizen.Wait(30000)
-							ClearPedTasksImmediately(playerPed)
-							ESX.ShowNotification("Вам нужно отдохнуть ~r~1 минуту~w~ прежде чем начать следующее упражнение.")
-
-							--TriggerServerEvent('esx_gym:trainPushups') ## COMING SOON...
-
-							training = true
-						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
-						end
-					elseif training == true then
-						ESX.ShowNotification("Вам нужено передохнуть...")
-
-						resting = true
-
-						CheckTraining()
-					end
-				end
-            end
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(yoga) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, yoga[k].x, yoga[k].y, yoga[k].z)
-
-            if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы заняться ~g~йогой')
-
-				if IsControlJustPressed(0, Keys['E']) then
-					if training == false then
-
-						TriggerServerEvent('esx_gym:checkChip')
-						ESX.ShowNotification("Вы начали ~g~упражнение~w~...")
-						Citizen.Wait(1000)
-						TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), (math.random() + 0))
-
-						if membership == true then
-							local playerPed = GetPlayerPed(-1)
-							TaskStartScenarioInPlace(playerPed, "world_human_yoga", 0, true)
-							Citizen.Wait(30000)
-							ClearPedTasksImmediately(playerPed)
-							ESX.ShowNotification("Вам нужно отдохнуть ~r~1 минуту~w~ прежде чем начать следующее упражнение.")
-
-							--TriggerServerEvent('esx_gym:trainYoga') ## COMING SOON...
-
-							training = true
-						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
-						end
-					elseif training == true then
-						ESX.ShowNotification("Вам нужено передохнуть...")
-
-						resting = true
-
-						CheckTraining()
-					end
-				end
-            end
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        for k in pairs(situps) do
-
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
-            local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, situps[k].x, situps[k].y, situps[k].z)
-
-            if dist <= 0.5 then
-				hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~качать пресс')
-
-				if IsControlJustPressed(0, Keys['E']) then
-					if training == false then
-
-						TriggerServerEvent('esx_gym:checkChip')
-						ESX.ShowNotification("Вы начали ~g~упражнение~w~..")
-						Citizen.Wait(1000)
-						TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), (math.random() + 0))
-
-						if membership == true then
-							local playerPed = GetPlayerPed(-1)
-							TaskStartScenarioInPlace(playerPed, "world_human_sit_ups", 0, true)
-							Citizen.Wait(30000)
-							ClearPedTasksImmediately(playerPed)
-							ESX.ShowNotification("Вам нужно отдохнуть ~r~1 минуту~w~ прежде чем начать следующее упражнение.")
-
-							--TriggerServerEvent('esx_gym:trainSitups') ## COMING SOON...
-
-							training = true
-						elseif membership == false then
-							ESX.ShowNotification("Вам нужно купить Абонемент чтобы начать ~r~упражнение")
-						end
-					elseif training == true then
-						ESX.ShowNotification("Вам нужено передохнуть...")
-
-						resting = true
-
-						CheckTraining()
-					end
-				end
-            end
-        end
-    end
-end)
-
-function CheckTraining()
-	if resting == true then
-		ESX.ShowNotification("Вы отдыхаете...")
-
-		resting = false
-		Citizen.Wait(60000)
-		training = false
+	if not isNearGym then
+		Citizen.Wait(1000)
 	end
 
-	if resting == false then
-		ESX.ShowNotification("Можете преступать к тренировкам...")
+        for k in pairs(Config.rentbike) do
+            DrawMarker(38, Config.rentbike[k].pos, 0, 0, 0, 0, 0, 0, 0.301, 0.301, 0.3001, 0, 153, 255, 255, 0, 0, 0, 0)
+            if #(plyCoords-Config.rentbike[k].pos) <= 0.5 then
+		doRentBike()
+            end
+        end
+        for k in pairs(Config.arms) do
+            drawExerciseMarker(Config.arms[k].pos)
+            if #(plyCoords-Config.arms[k].pos) <= 0.5 then
+		doArms()
+            end
+        end
+        for k in pairs(Config.pushup) do
+            drawExerciseMarker(Config.pushup[k].pos)
+            if #(plyCoords-Config.pushup[k].pos) <= 0.5 then
+		doPushups()
+            end
+        end
+        for k in pairs(Config.yoga) do
+            drawExerciseMarker(Config.yoga[k].pos)
+            if #(plyCoords-Config.yoga[k].pos) <= 0.5 then
+		doYoga()
+            end
+        end
+        for k in pairs(Config.situps) do
+            drawExerciseMarker(Config.situps[k].pos)
+            if #(plyCoords-Config.situps[k].pos) <= 0.5 then
+		doSitups()
+            end
+        end
+        for k in pairs(Config.chins) do
+            drawExerciseMarker(Config.chins[k].pos)
+            if #(plyCoords-Config.chins[k].pos) <= 0.5 then
+		doChinups()
+            end
+        end
+    end
+end)
+
+function doRentBike()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы арендовать ~b~Велосипед')
+
+	if IsControlJustPressed(0, Keys['E']) then -- "E"
+		if IsPedInAnyVehicle(GetPlayerPed(-1)) then
+			ESX.ShowNotification("У вас уже есть ~r~транспорт")
+		else
+			OpenBikeMenu()
+		end
+	end
+end
+
+function doGym()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы ознакомиться с ~b~Услугами~w~')
+
+	if IsControlJustPressed(0, Keys['E']) then
+		OpenGymMenu()
+	end
+end
+
+function doArms()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы поднять ~g~штангу')
+
+	if IsControlJustPressed(0, Keys['E']) then
+		StartTraining(function() -- onStart
+			TaskStartScenarioInPlace(PlayerPedId(), "world_human_muscle_free_weights", 0, true)
+			Citizen.Wait(1000)
+			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
+				TriggerServerEvent('stadus_skills:addStrength', GetPlayerServerId(PlayerId()), Config.armsStrength)
+				needRest = needRest + 1.5
+				Citizen.Wait(1000)
+			end
+			ClearPedTasksImmediately(PlayerPedId())
+		end)
+	end
+end
+
+function doChinups()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~подтягиваться')
+
+	if IsControlJustPressed(0, Keys['E']) then
+
+		StartTraining(function()
+			TaskStartScenarioInPlace(PlayerPedId(), "prop_human_muscle_chin_ups", 0, true)
+			Citizen.Wait(1000)
+			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
+				needRest = needRest + 1
+				TriggerServerEvent('stadus_skills:addStrength', GetPlayerServerId(PlayerId()), Config.chinStrength)
+				local playerData = ESX.GetPlayerData()
+				Citizen.Wait(1000)
+			end
+			ClearPedTasksImmediately(PlayerPedId())
+		end)
+	end
+end
+
+function doPushups()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~отжиматься')
+
+	if IsControlJustPressed(0, Keys['E']) then
+
+		StartTraining(function() -- onStart
+			TaskStartScenarioInPlace(PlayerPedId(), "world_human_push_ups", 0, true)
+			Citizen.Wait(1000)
+			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
+				TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), Config.pushStamina)
+				needRest = needRest + 1
+				Citizen.Wait(1000)
+			end
+			ClearPedTasksImmediately(PlayerPedId())
+		end)
+	end
+end
+
+function doYoga()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы ~g~заниматься йогой')
+
+	if IsControlJustPressed(0, Keys['E']) then
+
+		StartTraining(function() -- onStart
+			TaskStartScenarioInPlace(PlayerPedId(), "world_human_yoga", 0, true)
+			Citizen.Wait(1000)
+			while needRest < 30 and IsPedUsingAnyScenario(PlayerPedId()) do
+				TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), Config.yogaStamina)
+				needRest = needRest + 0.1
+				Citizen.Wait(1000)
+			end
+			ClearPedTasksImmediately(PlayerPedId())
+		end)
+	end
+end
+
+function doSitups()
+	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~качать пресс')
+
+	if IsControlJustPressed(0, Keys['E']) then
+
+		StartTraining(function() -- onStart
+			TaskStartScenarioInPlace(PlayerPedId(), "world_human_sit_ups", 0, true)
+			Citizen.Wait(1000)
+			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
+				TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), Config.situpsStamina)
+				needRest = needRest + 1
+				Citizen.Wait(1000)
+			end
+			ClearPedTasksImmediately(PlayerPedId())
+		end)
 	end
 end
 
@@ -474,17 +301,19 @@ function OpenGymMenu()
             title    = 'Тренажерка',
             elements = {
 				{label = 'Магазин', value = 'shop'},
-				{label = 'Часы работы', value = 'hours'},
+--				{label = 'Часы работы', value = 'hours'},
 				{label = 'Абонемент', value = 'ship'},
             }
         },
         function(data, menu)
             if data.current.value == 'shop' then
 				OpenGymShopMenu()
+--[[
             elseif data.current.value == 'hours' then
 				ESX.UI.Menu.CloseAll()
 
 				ESX.ShowNotification("Мы открыты ~g~24~w~ часа в сутки. Приходите еще!")
+]]--
             elseif data.current.value == 'ship' then
 				OpenGymShipMenu()
             end
@@ -537,7 +366,7 @@ function OpenGymShipMenu()
         {
             title    = 'Абонемент',
             elements = {
-				{label = 'Абонемент ($800)', value = 'membership'},
+				{label = 'Абонемент ($'..tostring(Config.MembershipPrice)..')', value = 'membership'},
             }
         },
         function(data, menu)

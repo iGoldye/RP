@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
 			else
 				drawTxt(0.734, 1.45, 0.45, crossing .. ', ' .. currentZone, 185, 185, 185, 255)
 			end
-			
+
 			drawTxt(0.734, 1.42, 0.55, streetName, 240, 200, 80, 255)
 		else
 			Citizen.Wait(500)

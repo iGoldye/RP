@@ -68,10 +68,17 @@ RegisterServerEvent('esx_society:withdrawMoney')
 AddEventHandler('esx_society:withdrawMoney', function(society, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local society = GetSociety(society)
+	local isBoss = isPlayerBoss(xPlayer.source, society.name)
+	local isVice = isPlayerVice(xPlayer.source, society.name)
+
 	amount = ESX.Math.Round(tonumber(amount))
 
-	if xPlayer.job.name ~= society.name then
-		print(('esx_society: %s attempted to call withdrawMoney!'):format(xPlayer.identifier))
+	if not isBoss then
+		if isVice then
+			TriggerClientEvent('esx:showNotification', xPlayer.source, "Вы не можете выводить средства из бюджета!")
+		else
+			print(('esx_society: %s attempted to call withdrawMoney!'):format(xPlayer.identifier))
+		end
 		return
 	end
 
@@ -91,9 +98,11 @@ RegisterServerEvent('esx_society:depositMoney')
 AddEventHandler('esx_society:depositMoney', function(society, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local society = GetSociety(society)
+	local isBoss = isPlayerBoss(xPlayer.source, society.name)
+	local isVice = isPlayerVice(xPlayer.source, society.name)
 	amount = ESX.Math.Round(tonumber(amount))
 
-	if xPlayer.job.name ~= society.name then
+	if not isBoss and not isVice then
 		print(('esx_society: %s attempted to call depositMoney!'):format(xPlayer.identifier))
 		return
 	end
@@ -111,12 +120,14 @@ AddEventHandler('esx_society:depositMoney', function(society, amount)
 end)
 
 RegisterServerEvent('esx_society:washMoney')
-AddEventHandler('esx_society:washMoney', function(society, amount)
+AddEventHandler('esx_society:washMoney', function(societyName, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local account = xPlayer.getAccount('black_money')
+	local isBoss = isPlayerBoss(xPlayer.source, societyName)
+	local isVice = isPlayerVice(xPlayer.source, societyName)
 	amount = ESX.Math.Round(tonumber(amount))
 
-	if xPlayer.job.name ~= society then
+	if not isBoss and not isVice then
 		print(('esx_society: %s attempted to call washMoney!'):format(xPlayer.identifier))
 		return
 	end
@@ -126,7 +137,7 @@ AddEventHandler('esx_society:washMoney', function(society, amount)
 
 		MySQL.Async.execute('INSERT INTO society_moneywash (identifier, society, amount) VALUES (@identifier, @society, @amount)', {
 			['@identifier'] = xPlayer.identifier,
-			['@society']    = society,
+			['@society']    = societyName,
 			['@amount']     = amount
 		}, function(rowsChanged)
 			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('you_have', ESX.Math.GroupDigits(amount)))
@@ -248,10 +259,15 @@ end)
 
 ESX.RegisterServerCallback('esx_society:setJob', function(source, cb, identifier, job, grade, type)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local isBoss = xPlayer.job.grade_name == 'boss'
+	local isBoss = isPlayerBoss(xPlayer.source, job)
+	local isVice = isPlayerVice(xPlayer.source, job)
 
-	if isBoss then
+	if isBoss or isVice then
 		local xTarget = ESX.GetPlayerFromIdentifier(identifier)
+		if isVice and type ~= 'hire' then
+			TriggerClientEvent('esx:showNotification', xPlayer.source, "Вы не имеете права повышать или увольнять персонал!")
+			return
+		end
 
 		if xTarget then
 			xTarget.setJob(job, grade)
@@ -274,15 +290,18 @@ ESX.RegisterServerCallback('esx_society:setJob', function(source, cb, identifier
 				cb()
 			end)
 		end
-	else
-		print(('esx_society: %s attempted to setJob'):format(xPlayer.identifier))
-		cb()
 	end
 end)
 
 ESX.RegisterServerCallback('esx_society:setJobSalary', function(source, cb, job, grade, salary)
 	local isBoss = isPlayerBoss(source, job)
+	local isVice = isPlayerVice(source, job)
 	local identifier = GetPlayerIdentifier(source, 0)
+
+	if isVice then
+		TriggerClientEvent('esx:showNotification', source, "Вы не имеете права изменять зарплату!")
+		return
+	end
 
 	if isBoss then
 		if salary <= Config.MaxSalary then
@@ -347,12 +366,38 @@ end)
 function isPlayerBoss(playerId, job)
 	local xPlayer = ESX.GetPlayerFromId(playerId)
 
+	if xPlayer.getGroup() == 'admin' or xPlayer.getGroup() == 'superadmin' then
+		return true
+	end
+
 	if xPlayer.job.name == job and xPlayer.job.grade_name == 'boss' then
 		return true
 	else
-		print(('esx_society: %s attempted open a society boss menu!'):format(xPlayer.identifier))
+--		print(('esx_society: %s attempted open a society boss menu!'):format(xPlayer.identifier))
 		return false
 	end
+end
+
+function isPlayerVice(playerId, job)
+	if isPlayerBoss(playerId, job) then
+		return false
+	end
+
+	local xPlayer = ESX.GetPlayerFromId(playerId)
+
+	if xPlayer.job.name == 'police' and xPlayer.job.grade_name == 'lieutenant' then
+		return true
+	elseif xPlayer.job.name == 'mechanic' and xPlayer.job.grade_name == 'chief' then
+		return true
+	elseif xPlayer.job.name == 'mechanic-bennys' and xPlayer.job.grade_name == 'chief' then
+		return true
+	elseif xPlayer.job.name == 'taxi' and xPlayer.job.grade_name == 'uber' then
+		return true
+	elseif xPlayer.job.name == 'ambulance' and xPlayer.job.grade_name == 'chief_doctor' then
+		return true
+	end
+
+	return false
 end
 
 function WashMoneyCRON(d, h, m)

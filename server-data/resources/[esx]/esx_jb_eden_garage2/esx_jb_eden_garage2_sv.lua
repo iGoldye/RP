@@ -23,6 +23,13 @@ end)
 
 --Recupere les véhicules
 ESX.RegisterServerCallback('eden_garage:getVehiclesMecano', function(source, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	if not xPlayer.job or xPlayer.job.name ~= 'police' then
+		cb(nil)
+		return
+	end
+
 	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles INNER JOIN characters ON owned_vehicles.owner = characters.identifier WHERE fourrieremecano = TRUE", {}, function(result)
 		cb(result)
 	end)
@@ -67,7 +74,13 @@ ESX.RegisterServerCallback('eden_garage:stockvmecano',function(source,cb, vehicl
 	local _source = source
 	local plate = ESX.Math.Trim(vehicleProps.plate)
 	local vehiclemodel = vehicleProps.model
-	local identifier = GetPlayerIdentifiers(_source)[1]
+	local xPlayer = ESX.GetPlayerFromId(_source)
+
+	if not xPlayer.job or xPlayer.job.name ~= 'police' then
+		cb(false)
+		return
+	end
+
 	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles where plate=@plate",{['@plate'] = plate}, function(result)
 		if result[1] ~= nil then
 			local vehprop = json.encode(vehicleProps)
@@ -81,7 +94,7 @@ ESX.RegisterServerCallback('eden_garage:stockvmecano',function(source,cb, vehicl
 				end)
 			else
 				DropPlayer(_source, "Tu es kick du serveur, voilà ce qu'il se passe quand on essaye de cheater.")
-				print("[esx_eden_garage] player "..identifier..' tried to spawn a vehicle with hash:'..vehiclemodel..". his original vehicle: "..originalvehprops.model)
+				print("[esx_eden_garage] player "..xPlayer.identifier..' tried to spawn a vehicle with hash:'..vehiclemodel..". his original vehicle: "..originalvehprops.model)
 				cb(false)
 			end
 		else
@@ -101,13 +114,16 @@ AddEventHandler('eden_garage:modifystored', function(plate, stored)
 end)
 
 RegisterServerEvent('eden_garage:ChangeStoredFromFourriereMecano')
-AddEventHandler('eden_garage:ChangeStoredFromFourriereMecano', function(vehicleProps, fourrieremecano)
-	local _source = source
+AddEventHandler('eden_garage:ChangeStoredFromFourriereMecano', function(vehicleProps, vehicleStored)
+	local xPlayer = ESX.GetPlayerFromId(source)
 	local vehicleplate = ESX.Math.Trim(vehicleProps.plate)
-	local fourrieremecano = fourrieremecano
+
+	if not xPlayer.job or xPlayer.job.name ~= 'police' then
+		return
+	end
 
 	MySQL.Async.execute("UPDATE owned_vehicles SET fourrieremecano =@fourrieremecano WHERE plate=@plate",{
-		['@fourrieremecano'] = fourrieremecano,
+		['@fourrieremecano'] = vehicleStored,
 		['@plate'] = vehicleplate
 	})
 end)
@@ -120,12 +136,13 @@ AddEventHandler('eden_garage:renamevehicle', function(vehicleplate, name)
 end)
 
 ESX.RegisterServerCallback('eden_garage:getOutVehicles',function(source, cb, KindOfVehicle)
+	local xPlayer = ESX.GetPlayerFromId(source)
 	local identifier
 
 	if KindOfVehicle ~= "personal" then
 		identifier = KindOfVehicle
 	else
-		identifier = GetPlayerIdentifiers(source)[1]
+		identifier = xPlayer.identifier
 	end
 
 	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND (`stored` = FALSE OR fourrieremecano = TRUE)",{

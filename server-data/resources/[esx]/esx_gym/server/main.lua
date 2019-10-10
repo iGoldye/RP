@@ -9,7 +9,7 @@ AddEventHandler('esx_gym:hireBmx', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
-	if(xPlayer.getMoney() >= 50) then
+	if xPlayer.getMoney() >= 50 then
 		xPlayer.removeMoney(50)
 
 		notification("Вы арендовали ~g~BMX")
@@ -23,7 +23,7 @@ AddEventHandler('esx_gym:hireCruiser', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
-	if(xPlayer.getMoney() >= 50) then
+	if xPlayer.getMoney() >= 50 then
 		xPlayer.removeMoney(50)
 
 		notification("Вы арендовали ~g~CRUISER")
@@ -37,7 +37,7 @@ AddEventHandler('esx_gym:hireFixter', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
-	if(xPlayer.getMoney() >= 50) then
+	if xPlayer.getMoney() >= 50 then
 		xPlayer.removeMoney(50)
 
 		notification("Вы арендовали ~g~FIXTER")
@@ -66,11 +66,7 @@ AddEventHandler('esx_gym:checkChip', function()
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local oneQuantity = xPlayer.getInventoryItem('gym_membership').count
 
-	if oneQuantity > 0 then
-		TriggerClientEvent('esx_gym:trueMembership', source) -- true
-	else
-		TriggerClientEvent('esx_gym:falseMembership', source) -- false
-	end
+	TriggerClientEvent('esx_gym:membership', source, oneQuantity > 0)
 end)
 
 ESX.RegisterUsableItem('gym_bandage', function(source)
@@ -102,13 +98,13 @@ AddEventHandler('esx_gym:buyMembership', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
-	if(xPlayer.getMoney() >= 800) then
-		xPlayer.removeMoney(800)
+	if xPlayer.getMoney() >= Config.MembershipPrice then
+		xPlayer.removeMoney(Config.MembershipPrice)
 
 		xPlayer.addInventoryItem('gym_membership', 1)
 		notification("Вы купили ~g~Абонемент")
 
-		TriggerClientEvent('esx_gym:trueMembership', source) -- true
+		TriggerClientEvent('esx_gym:membership', source, true)
 	else
 		notification("У вас не хватает ~r~денег")
 	end
@@ -120,9 +116,8 @@ AddEventHandler('esx_gym:buyProteinshake', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
-	if(xPlayer.getMoney() >= 6) then
+	if xPlayer.getMoney() >= 6 then
 		xPlayer.removeMoney(6)
-
 		xPlayer.addInventoryItem('protein_shake', 1)
 
 		notification("Вы купили ~g~Протеиновый коктейль")

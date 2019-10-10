@@ -22,7 +22,7 @@ Config.Animations = {
 		name  = 'festives',
 		label = 'Действия',
 		items = {
-			{label = "Пить кофе", type = "scenario", data = {anim = "WORLD_HUMAN_AA_COFFEE"}},
+			{label = "Пить кофе", type = "event", data = {anim = "esx_animations:anim_coffee"}},
 			{label = "Курить", type = "scenario", data = {anim = "WORLD_HUMAN_SMOKING", flag = 9}},
 			{label = "Курить на ходу", type = "anim", data = {lib = "amb@world_human_smoking@male@male_b@base", anim = "base", upper=true, control=true, flag = 9}},
 			{label = "Музицировать", type = "scenario", data = {anim = "WORLD_HUMAN_MUSICIAN", flag = 9}},
@@ -98,6 +98,7 @@ Config.Animations = {
 		items = {
 			{label = "Хлопать", type = "scenario", data = {anim = "WORLD_HUMAN_CHEERING"}},
 			{label = "Лайк", type = "anim", data = {lib = "mp_action", anim = "thanks_male_06", upper=true, control=true}},
+			{label = "Пальцы вверх", type = "anim", data = {lib = "anim@mp_player_intincarthumbs_upbodhi@ps@", anim = "idle_a", upper=true, control=true, flag = 9}},
 			{label = "Эй ты", type = "anim", data = {lib = "gestures@m@standing@casual", anim = "gesture_point", upper=true, control=true}},
 			{label = "Подойди", type = "anim", data = {lib = "gestures@m@standing@casual", anim = "gesture_come_here_soft", upper=true, control=true}},
 			{label = "Ну давай", type = "anim", data = {lib = "gestures@m@standing@casual", anim = "gesture_bring_it_on", upper=true, control=true}},
@@ -151,6 +152,7 @@ Config.Animations = {
 			{label = "На кортах", type = "anim", data = {lib = "missheistdockssetup1ig_10@idle_a", anim = "talk_pipe_a_worker1", flag = 9}},
 		}
 	},
+
 
 	{
 		name  = 'stand',

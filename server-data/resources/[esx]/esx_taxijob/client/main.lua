@@ -1,5 +1,6 @@
 local HasAlreadyEnteredMarker, OnJob, IsNearCustomer, CustomerIsEnteringVehicle, CustomerEnteredVehicle, IsDead, CurrentActionData = false, false, false, false, false, false, {}
 local CurrentCustomer, CurrentCustomerBlip, DestinationBlip, targetCoords, LastZone, CurrentAction, CurrentActionMsg
+local CurrentTaxiBlip
 local JobDistance = 1000
 
 ESX = nil
@@ -244,7 +245,7 @@ function OpenTaxiActionsMenu()
 		{label = _U('take_stock'), value = 'get_stock'}
 	}
 
-	if Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade_name == 'boss' then
+	if Config.EnablePlayerManagement and ESX.PlayerData.job ~= nil and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'uber') then
 		table.insert(elements, {label = _U('boss_actions'), value = 'boss_actions'})
 	end
 
@@ -753,6 +754,40 @@ Citizen.CreateThread(function()
 	end
 end)
 
+AddEventHandler('esx_taxijob:TaxiTracker', function(player)
+	local taxiPed = GetPlayerPed(GetPlayerFromServerId(player))
+
+	if taxiPed < 1 then
+		return
+	end
+
+	if CurrentTaxiBlip ~= nil then
+		RemoveBlip(CurrentTaxiBlip)
+	end
+
+	CurrentTaxiBlip = AddBlipForEntity(taxiPed)
+	SetBlipSprite(CurrentTaxiBlip, 56)
+	SetBlipColour(CurrentTaxiBlip, 5)
+	SetBlipRoute(CurrentTaxiBlip, true)
+	SetBlipScale  (CurrentTaxiBlip, 1.0)
+
+	local dist = 10000
+
+	local secs = 0
+
+	while dist > 10.0 and secs < 5*60 and IsPedInAnyVehicle(taxiPed, true) do
+		Citizen.Wait(1000)
+		secs = secs + 1
+		local taxiPos = GetEntityCoords(taxiPed)
+		local myPos = GetEntityCoords(PlayerPedId())
+		dist = #(taxiPos-myPos)
+	end
+
+	RemoveBlip(CurrentTaxiBlip)
+	CurrentTaxiBlip = nil
+end)
+
+
 AddEventHandler('esx:onPlayerDeath', function()
 	IsDead = true
 end)
@@ -765,4 +800,11 @@ AddEventHandler('esx_taxijob:OpenMobileTaxiActionsMenu', function()
 		if IsInputDisabled(0) and not IsDead and Config.EnablePlayerManagement and ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' then
 			OpenMobileTaxiActionsMenu()
 		end
+end)
+
+AddEventHandler('gcphone:onAcceptAction', function(player, msg_id, msg)
+	if msg.transmitter == "taxi" then
+		ESX.ShowNotification("Такси выехало")
+		TriggerEvent('esx_taxijob:TaxiTracker', player)
+	end
 end)

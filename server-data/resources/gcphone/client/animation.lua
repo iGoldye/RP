@@ -126,6 +126,12 @@ function PhonePlayText ()
 	PhonePlayAnim('text')
 end
 
+function PhonePlayReject()
+	if currentStatus ~= 'out' then
+		PhonePlayText ()
+	end
+end
+
 function PhonePlayCall (freeze)
 	PhonePlayAnim('call', freeze)
 end

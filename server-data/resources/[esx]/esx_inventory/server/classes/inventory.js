@@ -13,9 +13,33 @@ class Inventory {
 
 		this.dirty = false;
 		this.weight = this.updateWeight()
-	};
+	}
+/*
+	mutateItems() {
+		var xPlayer = this.getXPlayer();
+		if (!xPlayer) {
+			return false;
+		}
 
+		var changed = false;
+
+		this.items.filter(item => item.name === 'esx_item' && item.amount > 0).forEach((item) => {
+			if (ItemClasses.hasOwnProperty(item.extra.name)) {
+				var mutated = ItemClasses[item.extra.name].mutate(item.extra.name, item.amount);
+				if (mutated != null) {
+					xPlayer.removeInventoryItem(item.extra.name, item.amount)
+					this.addItem(mutated, true);
+					changed = true;
+				}
+			}
+		});
+
+		return changed;
+	}
+*/
 	onChange() {
+//		this.mutateItems();
+
 		this.updateWeight();
 		this.dirty = true;
 
@@ -132,7 +156,7 @@ class Inventory {
 			return false
 		}
 
-		var res = item.addItem(this)
+		var res = item.addItem(this, silent)
 		if (res == true) {
 			this.onChange()
 		}
@@ -379,8 +403,13 @@ function getInventory(name, owner, serialized) {
 
 		inv.items.sort(function(a,b) {
 			var s1 = b.priority - a.priority
+/*
 			if (s1 == 0 && b.weight && a.weight && b.amount && a.amount) {
 				s1 = b.weight*b.amount - a.weight*a.amount
+			}
+*/
+			if (s1 == 0) {
+				s1 = a.label > b.label ? 1 : -1
 			}
 
 			return s1;

@@ -253,10 +253,10 @@ ESX.RegisterUsableItem('beer', function(source)
 
 end)
 
-ESX.RegisterUsableItem('cigarete', function(source)
+ESX.RegisterUsableItem('cigarette', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 
-    xPlayer.removeInventoryItem('cigarete', 1)
+    xPlayer.removeInventoryItem('cigarette', 1)
     TriggerClientEvent('esx_animations:startScenario', source, "WORLD_HUMAN_SMOKING")
 end)
 
@@ -265,4 +265,52 @@ ESX.RegisterUsableItem('cigarette_pack', function(source)
 
     xPlayer.removeInventoryItem('cigarette_pack', 1)
     xPlayer.addInventoryItem('cigarete', 20)
+end)
+
+ESX.RegisterUsableItem('perfume', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('perfume', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 500000)
+    TriggerClientEvent('esx_status:remove', source, 'hunger', 1000)
+    TriggerClientEvent('esx_status:remove', source, 'thirst', 7000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_perfume'))
+
+end)
+
+ESX.RegisterUsableItem('adicalone', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('adicalone', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 700000)
+    TriggerClientEvent('esx_status:remove', source, 'hunger', 1000)
+    TriggerClientEvent('esx_status:remove', source, 'thirst', 7000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_adicalone'))
+
+end)
+
+ESX.RegisterUsableItem('shampain', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('shampain', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_shampain'))
+
+end)
+
+ESX.RegisterUsableItem('goodvine', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('goodvine', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_goodvine'))
+
 end)

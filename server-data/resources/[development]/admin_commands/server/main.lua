@@ -30,6 +30,12 @@ TriggerEvent('es:addGroupCommand', 'addpassport', 'admin', function(source, args
 		end)
 	end)
 
+--	TriggerEvent("esx_inventory:createItem", "housekey", { ["property"] = "WhispymoundDrive", ["owner"] = xPlayer.identifier }, 1, 0, function(item)
+--		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
+--		end)
+--	end)
+
+
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Получить паспорт игрока"})
