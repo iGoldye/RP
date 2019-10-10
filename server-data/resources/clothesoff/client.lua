@@ -54,6 +54,79 @@ AddEventHandler('clothesoff:pants', function()
 	end)
 end)
 
+RegisterNetEvent('clothesoff:helmet')
+AddEventHandler('clothesoff:helmet', function()
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		local clothesSkin = {['helmet_1'] = -1}
+
+		if skin["helmet_1"] == clothesSkin["helmet_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['helmet_1'] = orig_skin['helmet_1'],
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
+	end)
+end)
+
+
+RegisterNetEvent('clothesoff:ears')
+AddEventHandler('clothesoff:ears', function()
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		local clothesSkin = {['ears_1'] = -1}
+
+		if skin["ears_1"] == clothesSkin["ears_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['ears_1'] = orig_skin['ears_1'],
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
+	end)
+end)
+
+RegisterNetEvent('clothesoff:mask')
+AddEventHandler('clothesoff:mask', function()
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		local clothesSkin = {['mask_1'] = -1}
+
+		if skin["mask_1"] == clothesSkin["mask_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['mask_1'] = orig_skin['mask_1'],
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
+	end)
+end)
+
+RegisterNetEvent('clothesoff:glasses')
+AddEventHandler('clothesoff:glasses', function()
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		local clothesSkin = {['glasses_1'] = -1}
+
+		if skin["glasses_1"] == clothesSkin["glasses_1"] then
+			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(orig_skin)
+				clothesSkin = {
+					['glasses_1'] = orig_skin['glasses_1'],
+				}
+				TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+			end)
+		else
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end
+	end)
+end)
+
 RegisterNetEvent('clothesoff:shoes')
 AddEventHandler('clothesoff:shoes', function()
 	TriggerEvent('skinchanger:getSkin', function(skin)
