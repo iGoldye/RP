@@ -408,7 +408,10 @@ local inCall = false
 
 RegisterNetEvent("gcPhone:waitingCall")
 AddEventHandler("gcPhone:waitingCall", function(infoCall, initiator)
-  SendNUIMessage({event = 'waitingCall', infoCall = infoCall, initiator = initiator})
+  if initiator or inventoryHasPhone then
+    SendNUIMessage({event = 'waitingCall', infoCall = infoCall, initiator = initiator})
+  end
+
   if initiator == true then
     PhonePlayCall()
     if menuIsOpen == false then
@@ -442,7 +445,8 @@ AddEventHandler("gcPhone:rejectCall", function(infoCall)
     exports.tokovoip_script:removePlayerFromRadio(TokoVoipID)
     TokoVoipID = nil
   end
-  PhonePlayText()
+
+  PhonePlayReject()
   SendNUIMessage({event = 'rejectCall', infoCall = infoCall})
 end)
 
