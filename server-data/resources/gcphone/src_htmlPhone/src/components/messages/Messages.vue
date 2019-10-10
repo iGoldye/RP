@@ -157,6 +157,7 @@ export default {
         let options = message.options
 
         let isGPS = options !== undefined && options.coords !== undefined
+        let isGPStext = /(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)/.test(message.message)
         let hasNumber = options !== undefined && options.customer !== undefined
         let isSMSImage = this.isSMSImage(message)
         let isAcceptable = (message.transmitter === 'taxi' || message.transmitter === 'police' || message.transmitter === 'ambulance' || message.transmitter === 'mechanic' || message.transmitter === 'reporter') && !message.options.accepted && isGPS
@@ -170,6 +171,13 @@ export default {
           title: this.IntlString('CANCEL'),
           icons: 'fa-undo'
         }]
+        if (isGPStext === true) {
+          choix = [{
+            id: 'gps-text',
+            title: this.IntlString('APP_MESSAGE_SET_GPS'),
+            icons: 'fa-location-arrow'
+          }, ...choix]
+        }
         if (isAcceptable) {
           choix = [{
             id: 'accept',
@@ -204,6 +212,9 @@ export default {
         const data = await Modal.CreateModal({choix})
         if (data.id === 'delete') {
           this.deleteMessage({ id: message.id })
+        } else if (data.id === 'gps-text') {
+          let val = message.message.match(/(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)/)
+          this.$phoneAPI.setGPS(val[1], val[3])
         } else if (data.id === 'gps') {
           this.$phoneAPI.setGPS(options.coords.x, options.coords.y)
         } else if (data.id === 'num') {
