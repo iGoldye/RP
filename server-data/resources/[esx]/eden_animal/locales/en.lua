@@ -1,5 +1,5 @@
 Locales['en'] = {
-  ['hunger'] = 'Голод: %s',
+  ['hunger'] = 'Сытость: %s',
   ['givefood'] = 'Дать еду',
   ['attachpet'] = 'Ожидать',
   ['detachpet'] = 'Позвать',
