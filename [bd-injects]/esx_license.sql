@@ -14,3 +14,5 @@ CREATE TABLE `user_licenses` (
 
 	PRIMARY KEY (`id`)
 );
+
+ALTER TABLE `user_licenses` ADD INDEX(`owner`);
