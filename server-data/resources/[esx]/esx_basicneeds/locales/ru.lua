@@ -28,7 +28,7 @@ Locales['ru'] = {
   ['used_tequila'] = 'Выпита Текила',
   ['used_beer'] = 'Выпито Пиво',
   ['used_perfume'] = 'Вы приятно пахните...изнутри',
-  ['used_adicalone'] = 'Вы выпили Адикалон',
+  ['used_adicalone'] = 'Вы выпили Одеколон',
   ['used_shampain'] = 'Вы выпили Шампанское',
   ['used_goodvine'] = 'Вы выпили Дорогое Вино',
 }
