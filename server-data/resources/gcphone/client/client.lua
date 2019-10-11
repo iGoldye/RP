@@ -6,6 +6,11 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(playerData)
+	Citizen.Wait(1000)
 
 	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
 		inventoryHasPhone = inventoryCheckPhone(inventory)
