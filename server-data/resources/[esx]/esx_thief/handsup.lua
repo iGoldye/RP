@@ -35,10 +35,12 @@ Citizen.CreateThread(function()
 					handsup = false
 					ClearPedSecondaryTask(playerPed)
 					TriggerServerEvent('esx_thief:update', handsup)
+					Citizen.Wait(500)
 				else
 					handsup = true
 					TaskPlayAnim(playerPed, 'random@mugging3', 'handsup_standing_base', 6.0, -6.0, -1, 49, 0, 0, 0, 0)
 					TriggerServerEvent('esx_thief:update', handsup)
+					Citizen.Wait(500)
 				end
 			end
 		end

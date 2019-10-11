@@ -413,6 +413,7 @@ function OpenReporterMenu()
 	table.insert(elements, {label = 'Достать/спрятать камеру', value = 'cam'})
 	table.insert(elements, {label = 'Достать/спрятать микрофон', value = 'mic'})
 	table.insert(elements, {label = 'Достать/спрятать микрофон-удочку', value = 'bmic'})
+	table.insert(elements, {label = 'Новостная рассылка', value = 'alert'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'reporter_menu', {
 		title    = "Журналист",
@@ -428,6 +429,8 @@ function OpenReporterMenu()
 			TriggerEvent("Mic:ToggleBMic")
 		elseif cmd == 'mic' then
 			TriggerEvent("Mic:ToggleMic")
+		elseif cmd == 'alert' then
+			TriggerEvent("TrafficAlert")
 		end
 
 		menu.close()
