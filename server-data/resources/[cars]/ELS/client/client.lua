@@ -64,6 +64,7 @@ Citizen.CreateThread(function()
                 DisableControlAction(0, keyboard.siren.tone_three, true)
 
                 if IsDisabledControlPressed(0, keyboard.modifyKey) then
+                    DisableControlAction(0, keyboard.guiKey, true)
 
                     if IsDisabledControlJustReleased(0, keyboard.guiKey) then
                         if playButtonPressSounds then
