@@ -558,18 +558,14 @@ end)
 
 RegisterNetEvent('gcPhone:acceptAction')
 AddEventHandler('gcPhone:acceptAction', function(player, action)
+
   if tostring(action.options.customer) == tostring(myPhoneNumber) then
-	TriggerEvent('gcphone:onAcceptAction', player, action.id, action)
+    TriggerEvent('gcphone:onAcceptAction', player, action.id, action)
   end
 
 --  SendNUIMessage({ event = "AcceptAction", message_id = message_id})
-
   for k, v in ipairs(messages) do
-    if v.id == action.id then
-      if v.options == nil then
-          v.options = {}
-      end
-
+    if v.options ~= nil and action.options ~=nil and v.options.coords ~= nil and action.options.coords ~= nil and v.options.coords.x == action.options.coords.x and v.options.coords.y == action.options.coords.y then
       v.options.accepted = true
       SendNUIMessage({event = 'updateMessages', messages = messages})
       return -- be careful
