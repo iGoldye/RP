@@ -2,92 +2,6 @@
 <CVehicleModelInfoVariation>
 	<variationData>
 		<Item>
-			<modelName>gtr</modelName>
-			<colors>
-				<Item>
-					<indices content="char_array">
-            0
-            0
-            6
-            0
-          </indices>
-					<liveries>
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-					</liveries>
-				</Item>
-				<Item>
-					<indices content="char_array">
-            36
-            0
-            6
-            0
-          </indices>
-					<liveries>
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-					</liveries>
-				</Item>
-				<Item>
-					<indices content="char_array">
-            64
-            0
-            6
-            0
-          </indices>
-					<liveries>
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-					</liveries>
-				</Item>
-				<Item>
-					<indices content="char_array">
-            27
-            0
-            6
-            0
-          </indices>
-					<liveries>
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-						<Item value="false" />
-					</liveries>
-				</Item>
-			</colors>
-			<kits>
-				<Item>1000_gtr_modkit</Item>
-			</kits>
-			<windowsWithExposedEdges />
-			<plateProbabilities>
-				<Probabilities />
-			</plateProbabilities>
-			<lightSettings value="1000" />
-			<sirenSettings value="0" />
-		</Item>
-		<Item>
 			<modelName>w210</modelName>
 			<colors>
 				<Item>
@@ -1252,6 +1166,127 @@
 			</plateProbabilities>
 			<lightSettings value="1006" />
 			<sirenSettings value="1" />
+		</Item>
+		<Item>
+			<modelName>flatbed3</modelName>
+			<colors>
+				<Item>
+					<indices content="char_array">
+            112
+            112
+            159
+            156
+          </indices>
+					<liveries>
+						<Item value="true" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+					</liveries>
+				</Item>
+				<Item>
+					<indices content="char_array">
+            62
+            62
+            4
+            156
+          </indices>
+					<liveries>
+						<Item value="false" />
+						<Item value="true" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+					</liveries>
+				</Item>
+				<Item>
+					<indices content="char_array">
+            18
+            18
+            160
+            156
+          </indices>
+					<liveries>
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="true" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+					</liveries>
+				</Item>
+				<Item>
+					<indices content="char_array">
+            19
+            19
+            136
+            156
+          </indices>
+					<liveries>
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="true" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+					</liveries>
+				</Item>
+				<Item>
+					<indices content="char_array">
+            108
+            108
+            123
+            156
+          </indices>
+					<liveries>
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="false" />
+						<Item value="true" />
+						<Item value="false" />
+						<Item value="false" />
+					</liveries>
+				</Item>
+			</colors>
+			<kits>
+				<item>1450_default_modkit</item>
+			</kits>
+			<windowsWithExposedEdges />
+			<plateProbabilities>
+				<Probabilities>
+					<Item>
+						<Name>Standard White</Name>
+						<Value value="25" />
+					</Item>
+					<Item>
+						<Name>White Plate 2</Name>
+						<Value value="50" />
+					</Item>
+					<Item>
+						<Name>Blue Plate</Name>
+						<Value value="10" />
+					</Item>
+					<Item>
+						<Name>Yellow Plate</Name>
+						<Value value="15" />
+					</Item>
+				</Probabilities>
+			</plateProbabilities>
+			<lightSettings value="1007" />
+			<sirenSettings value="9" />
 		</Item>
 		<Item>
 			<modelName>fair500</modelName>
