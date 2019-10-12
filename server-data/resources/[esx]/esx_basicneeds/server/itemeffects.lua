@@ -260,11 +260,18 @@ ESX.RegisterUsableItem('cigarette', function(source)
     TriggerClientEvent('esx_animations:startScenario', source, "WORLD_HUMAN_SMOKING")
 end)
 
+ESX.RegisterUsableItem('cigarete', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('cigarete', 1)
+    TriggerClientEvent('esx_animations:startScenario', source, "WORLD_HUMAN_SMOKING")
+end)
+
 ESX.RegisterUsableItem('cigarette_pack', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 
     xPlayer.removeInventoryItem('cigarette_pack', 1)
-    xPlayer.addInventoryItem('cigarete', 20)
+    xPlayer.addInventoryItem('cigarette', 20)
 end)
 
 ESX.RegisterUsableItem('perfume', function(source)
