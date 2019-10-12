@@ -104,7 +104,7 @@ end)
 -- Create Blips
 Citizen.CreateThread(function()
 	for k,v in pairs(Config.Zones) do
-		if v.showBlip == true then
+		if v.blipName ~= nil then
 			for i = 1, #v.Pos, 1 do
 				local blip = AddBlipForCoord(v.Pos[i].x, v.Pos[i].y, v.Pos[i].z)
 				SetBlipSprite (blip, 52)
@@ -113,7 +113,7 @@ Citizen.CreateThread(function()
 				SetBlipColour (blip, v.blipColor or 2)
 				SetBlipAsShortRange(blip, true)
 				BeginTextCommandSetBlipName("STRING")
-				AddTextComponentString(_U('shops'))
+				AddTextComponentString(v.blipName)
 				EndTextCommandSetBlipName(blip)
 			end
 		end

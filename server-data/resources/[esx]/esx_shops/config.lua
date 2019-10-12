@@ -19,7 +19,7 @@ Config.Zones = {
 	-- 		{x = 2678.916,  y = 3280.671, z = 54.241},
 	-- 		{x = 1729.216,  y = 6414.131, z = 34.037}
 	-- 	},
-	-- 	showBlip = true,
+	-- 	blipName = "Магазин 24/7",
 	-- },
 
 	RobsLiquor = {
@@ -49,7 +49,7 @@ Config.Zones = {
 			-- {x = -1393.409, y = -606.624,  z = 29.319}, --Tequila la
 			-- {x = -559.906,  y = 287.093,   z = 81.176}  --Bahamamas
 		},
-		showBlip = true,
+		blipName = "Магазин Rob's Liquor",
 	},
 
 	-- LTDgasoline = {
@@ -92,7 +92,7 @@ Config.Zones = {
 			{x = 1705.27,   y = 3778.74, z = 33.91},
 			{x = -12.02,   y = 6500.294, z = 30.511},
 		},
-		showBlip = true,
+		blipName = "Барахолка",
 		blipColor = 9,
 	},
 
@@ -103,7 +103,6 @@ Config.Zones = {
 
 
 		},
-		showBlip = false,
 	},
 
 	Coffee = {
@@ -119,7 +118,6 @@ Config.Zones = {
 			{x = 650.67,   y = 527.3, z = 130.85},
 			{x = 311.84,   y = -585.15, z = 27.8},
 		},
-		showBlip = false,
 		showMarker = false,
 	},
 
@@ -131,7 +129,6 @@ Config.Zones = {
 			{x = 565.141,   y = -1750.49, z = 28.5},
 			{x = 315.38,   y = -583.05, z = 27.8},
 		},
-		showBlip = false,
 		showMarker = false,
 	},
 
@@ -143,7 +140,7 @@ Config.Zones = {
 			{x = 161.04,   y = 6635.49, z = 30.7},
 
 		},
-		showBlip = true,
+		blipName = "Магазин подарков",
 		blipColor = 48,
 		showMarker = true,
 	},
@@ -154,7 +151,7 @@ Config.Zones = {
 			{x = -623.75,   y = -231.94, z = 37.10},
 
 		},
-		showBlip = true,
+		blipName = "Ювелирный магазин",
 		blipColor = 48,
 		showMarker = true,
 	},
@@ -168,7 +165,7 @@ Config.Zones = {
 			{x = 148.46,   y = 1666.71, z = 227.95},
 
 		},
-		showBlip = true,
+		blipName = "Овощная лавка",
 		blipColor = 38,
 		showMarker = true,
 	},
