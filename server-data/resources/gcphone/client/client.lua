@@ -339,14 +339,17 @@ AddEventHandler("gcPhone:receiveMessage", function(message)
         end
       end
     end
-    SetNotificationTextEntry("STRING")
-    AddTextComponentString(text)
-    DrawNotification(false, false)
-    PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
-    Citizen.Wait(300)
-    PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
-    Citizen.Wait(300)
-    PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
+
+    if inventoryHasPhone then
+        SetNotificationTextEntry("STRING")
+        AddTextComponentString(text)
+        DrawNotification(false, false)
+        PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
+        Citizen.Wait(300)
+        PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
+        Citizen.Wait(300)
+        PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
+    end
   end
 end)
 
