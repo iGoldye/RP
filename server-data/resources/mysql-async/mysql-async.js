@@ -14774,7 +14774,7 @@ function wider(val) {
 
 function timestamp() {
   const now = new Date();
-  return `${now.getFullYear()}-${wider(now.getMonth())}-${wider(now.getDay())} ${wider(now.getHours())}:${wider(now.getMinutes())}:${wider(now.getSeconds())}`;
+  return `${now.getFullYear()}-${wider(now.getMonth())}-${wider(now.getDate())} ${wider(now.getHours())}:${wider(now.getMinutes())}:${wider(now.getSeconds())}`;
 }
 
 class Logger {
