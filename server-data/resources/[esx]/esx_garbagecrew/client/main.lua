@@ -383,6 +383,7 @@ AddEventHandler('esx_garbagejob:hasEnteredMarker', function(zone)
 
 				if plaquevehicule == plaquevehiculeactuel then
                     CurrentAction     = 'retourcamion'
+                    CurrentActionMsg  = _U('cancel_mission')
 				else
                     CurrentAction     = 'retourcamionannulermission'
                     CurrentActionMsg  = _U('not_your_truck')
@@ -614,7 +615,7 @@ end
 
 function SelectBinandCrew()
 	work_truck = GetVehiclePedIsIn(GetPlayerPed(-1), true)
-	bagsoftrash = math.random(4, 10)
+	bagsoftrash = math.random(3, 8)
 	local NewBin, NewBinDistance = ESX.Game.GetClosestObject(Config.DumpstersAvaialbe)
 	trashcollectionpos = GetEntityCoords(NewBin)
 	platenumb = GetVehicleNumberPlateText(GetVehiclePedIsIn(GetPlayerPed(-1), true))
@@ -952,6 +953,7 @@ function MissionLivraisonLetsGo()
 	EndTextCommandSetBlipName(Blips['delivery'])
 
 	Blips['annulermission'] = AddBlipForCoord(Config.Livraison.AnnulerMission.Pos.x,  Config.Livraison.AnnulerMission.Pos.y,  Config.Livraison.AnnulerMission.Pos.z)
+	SetBlipColour(Blips['annulermission'], 6)
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString(_U('blip_goal'))
 	EndTextCommandSetBlipName(Blips['annulermission'])
