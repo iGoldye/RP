@@ -1,6 +1,16 @@
 ESX = nil
+local license_types = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
+MySQL.ready(function()
+	MySQL.Async.fetchAll('SELECT * FROM licenses', {}, function(result)
+		for i=1,#result do
+			local row = result[i]
+			license_types[row.type] = row.label
+		end
+	end)
+end)
 
 function AddLicense(target, type, cb)
 	local identifier = GetPlayerIdentifier(target, 0)
@@ -29,16 +39,9 @@ function RemoveLicense(target, type, cb)
 end
 
 function GetLicense(type, cb)
-	MySQL.Async.fetchAll('SELECT * FROM licenses WHERE type = @type', {
-		['@type'] = type
-	}, function(result)
-		local data = {
-			type  = type,
-			label = result[1].label
-		}
-
-		cb(data)
-	end)
+	if license_types[type] ~= nil then
+		cb({ type  = type, label = license_types[type] })
+	end
 end
 
 function GetLicenses(target, cb)
@@ -48,33 +51,16 @@ function GetLicenses(target, cb)
 		['@owner'] = identifier
 	}, function(result)
 		local licenses   = {}
-		local asyncTasks = {}
 
 		for i=1, #result, 1 do
-
-			local scope = function(type)
-				table.insert(asyncTasks, function(cb)
-					MySQL.Async.fetchAll('SELECT * FROM licenses WHERE type = @type', {
-						['@type'] = type
-					}, function(result2)
-						table.insert(licenses, {
-							type  = type,
-							label = result2[1].label
-						})
-
-						cb()
-					end)
-				end)
+			if license_types[result[i].type] ~= nil then
+				table.insert(licenses, {
+					type = result[i].type,
+					label = license_types[result[i].type]
+				})
 			end
-
-			scope(result[i].type)
-
 		end
-
-		Async.parallel(asyncTasks, function(results)
-			cb(licenses)
-		end)
-
+		cb(licenses)
 	end)
 end
 
@@ -95,20 +81,14 @@ function CheckLicense(target, type, cb)
 end
 
 function GetLicensesList(cb)
-	MySQL.Async.fetchAll('SELECT * FROM licenses', {
-		['@type'] = type
-	}, function(result)
-		local licenses = {}
-
-		for i=1, #result, 1 do
-			table.insert(licenses, {
-				type  = result[i].type,
-				label = result[i].label
-			})
-		end
-
-		cb(licenses)
-	end)
+	local licenses = {}
+	for k,v in pairs(license_types) do
+		table.insert(licenses, {
+			type  = k,
+			label = v
+		})
+	end
+	cb(licenses)
 end
 
 RegisterNetEvent('esx_license:addLicense')
