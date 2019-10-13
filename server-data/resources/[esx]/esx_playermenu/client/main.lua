@@ -526,7 +526,8 @@ function OpenClothesMenu()
 		elseif cmd == 'helmet' then
 			TriggerEvent('clothesoff:helmet')
 		elseif cmd == 'mask' then
-			TriggerEvent('clothesoff:mask')
+--			TriggerEvent('clothesoff:mask')
+			TriggerEvent('esx_accessories:SetUnsetAccessory', "Mask")
 		elseif cmd == 'glasses' then
 			TriggerEvent('clothesoff:glasses')
 		elseif cmd == 'ears' then
