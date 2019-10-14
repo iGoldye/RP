@@ -37,7 +37,7 @@ Config.Zones = {
 			Type  = -1
 		},
 }
-Config.DumpstersAvaialbe = {
+Config.DumpstersAvailable = {
     "prop_dumpster_01a",
     "prop_dumpster_02a",
 	"prop_dumpster_02b",
@@ -53,7 +53,7 @@ Config.DumpstersAvaialbe = {
 }
 
 
-Config.Livraison = {
+Config.Delivery = {
 -------------------------------------------Los Santos
 	-- fleeca
 	Delivery1LS = {
@@ -240,7 +240,7 @@ Config.Livraison = {
 			Paye = 20
 		},
 
-	RetourCamion = {
+	ReturnTruck = {
 			Pos   = {x = -315.61, y = -1522.75, z = 26.56},
 			Color = {r = 204, g = 204, b = 0},
 			Size  = {x = 5.0, y = 5.0, z = 3.0},
@@ -249,7 +249,7 @@ Config.Livraison = {
 			Paye = 0
 		},
 
-	AnnulerMission = {
+	CancelMission = {
 			Pos   = {x = -316.726020508, y = -1516.7862841797, z = 26.677434921265},
 			Color = {r = 204, g = 60, b = 0},
 			Size  = {x = 5.0, y = 5.0, z = 3.0},
