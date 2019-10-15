@@ -31,6 +31,7 @@ Config.Food = { -- ccal * g
 	banana = 600 * 80,
 	grapefruit = 600 * 80,
 	cherry = 600 * 80,
+	cakebig = 800 * 100,
 
 
 	-- UNICRON --

@@ -181,4 +181,6 @@ Locales['en'] = {
   ['player_has_license_drive_truck'] = 'Гражданин уже имеет лицензию на вождение грузовика',
   ['license_added_drive_truck'] = 'Выдана лицензия на вождение грузовика',
 
+  ['billing_sent'] = 'Вы выписали штраф',
+  ['amount_invalid'] = 'Неправильная сумма штрафа',
 }

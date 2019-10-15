@@ -321,3 +321,16 @@ ESX.RegisterUsableItem('goodvine', function(source)
     TriggerClientEvent('esx:showNotification', source, _U('used_goodvine'))
 
 end)
+
+ESX.RegisterUsableItem('odekalonhigh', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('odekalonhigh', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 700000)
+    TriggerClientEvent('esx_status:remove', source, 'hunger', 1000)
+    TriggerClientEvent('esx_status:remove', source, 'thirst', 7000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_odekalonhigh'))
+
+end)
