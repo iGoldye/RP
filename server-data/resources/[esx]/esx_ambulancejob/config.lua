@@ -28,7 +28,7 @@ Config.EnableMoneyWash            = true -- allow medics to wash black money
 Config.EarlyRespawnFine           = true
 Config.EarlyRespawnFineAmount     = 1
 
-Config.RespawnPoint = { coords = vector3(356.69, -567.15, 28.79), heading = 67.5 }
+Config.RespawnPoint = { coords = vector3(350.02, -574.55, 28.8), heading = 68.41 }
 
 Config.Hospitals = {
 

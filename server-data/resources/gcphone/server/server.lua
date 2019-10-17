@@ -1,6 +1,25 @@
 ESX                = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+-- DB CACHE
+
+local dbcache_numbers = {}
+local dbcache_idents = {}
+local dbcache_contacts = {}
+local dbcache_messages = {}
+local dbcache_calls = {}
+
+TriggerEvent('es:addGroupCommand', 'gcphone_clearcache', 'admin', function(source, args, user)
+    dbcache_numbers = {}
+    dbcache_idents = {}
+    dbcache_contacts = {}
+    dbcache_messages = {}
+    dbcache_calls = {}
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Очищаем кэш базы данных gcphone"})
+
+
 --====================================================================================
 -- #Author: Jonathan D @Gannon
 -- #Version 2.0
@@ -61,22 +80,29 @@ function getSourceFromIdentifier(identifier, cb)
     cb(nil)
 end
 function getNumberPhone(identifier)
-    local result = MySQL.Sync.fetchAll("SELECT users.phone_number FROM users WHERE users.identifier = @identifier", {
-        ['@identifier'] = identifier
-    })
-    if result[1] ~= nil then
-        return result[1].phone_number
+    if dbcache_numbers[identifier] == nil then
+	    local result = MySQL.Sync.fetchAll("SELECT users.phone_number FROM users WHERE users.identifier = @identifier", {
+	        ['@identifier'] = identifier
+	    })
+	    if result[1] ~= nil then
+	        dbcache_numbers[identifier] = result[1].phone_number
+	    end
     end
-    return nil
+
+    return dbcache_numbers[identifier]
 end
+
 function getIdentifierByPhoneNumber(phone_number)
-    local result = MySQL.Sync.fetchAll("SELECT users.identifier FROM users WHERE users.phone_number = @phone_number", {
-        ['@phone_number'] = phone_number
-    })
-    if result[1] ~= nil then
-        return result[1].identifier
+    if dbcache_idents[phone_number] == nil then
+	    local result = MySQL.Sync.fetchAll("SELECT users.identifier FROM users WHERE users.phone_number = @phone_number", {
+	        ['@phone_number'] = phone_number
+	    })
+	    if result[1] ~= nil then
+	        dbcache_idents[phone_number] = result[1].identifier
+	    end
     end
-    return nil
+
+    return dbcache_idents[phone_number]
 end
 
 
@@ -118,10 +144,12 @@ end
 --  Contacts
 --====================================================================================
 function getContacts(identifier)
-    local result = MySQL.Sync.fetchAll("SELECT * FROM phone_users_contacts WHERE phone_users_contacts.identifier = @identifier", {
-        ['@identifier'] = identifier
-    })
-    return result
+    if dbcache_contacts[identifier] == nil then
+	    dbcache_contacts[identifier] = MySQL.Sync.fetchAll("SELECT * FROM phone_users_contacts WHERE phone_users_contacts.identifier = @identifier", {
+	        ['@identifier'] = identifier
+	    })
+    end
+    return dbcache_contacts[identifier]
 end
 function addContact(source, identifier, number, display)
     local sourcePlayer = tonumber(source)
@@ -130,6 +158,7 @@ function addContact(source, identifier, number, display)
         ['@number'] = number,
         ['@display'] = display,
     },function()
+        dbcache_contacts[identifier] = nil
         notifyContactChange(sourcePlayer, identifier)
     end)
 end
@@ -140,6 +169,7 @@ function updateContact(source, identifier, id, number, display)
         ['@display'] = display,
         ['@id'] = id,
     },function()
+        dbcache_contacts[identifier] = nil
         notifyContactChange(sourcePlayer, identifier)
     end)
 end
@@ -149,12 +179,14 @@ function deleteContact(source, identifier, id)
         ['@identifier'] = identifier,
         ['@id'] = id,
     })
+    dbcache_contacts[identifier] = nil
     notifyContactChange(sourcePlayer, identifier)
 end
 function deleteAllContact(identifier)
     MySQL.Sync.execute("DELETE FROM phone_users_contacts WHERE `identifier` = @identifier", {
         ['@identifier'] = identifier
     })
+    dbcache_contacts[identifier] = nil
 end
 function notifyContactChange(source, identifier)
     local sourcePlayer = tonumber(source)
@@ -195,15 +227,19 @@ end)
 --  Messages
 --====================================================================================
 function getMessages(identifier)
-    local result = MySQL.Sync.fetchAll("SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.identifier = @identifier WHERE phone_messages.receiver = users.phone_number", {
-         ['@identifier'] = identifier
-    })
-    return result
+    if dbcache_messages[identifier] == nil then
+	    dbcache_messages[identifier] = MySQL.Sync.fetchAll("SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.identifier = @identifier WHERE phone_messages.receiver = users.phone_number", {
+	         ['@identifier'] = identifier
+	    })
+    end
+    return dbcache_messages[identifier]
     --return MySQLQueryTimeStamp("SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.identifier = @identifier WHERE phone_messages.receiver = users.phone_number", {['@identifier'] = identifier})
 end
 
 RegisterServerEvent('gcPhone:_internalAddMessage')
 AddEventHandler('gcPhone:_internalAddMessage', function(transmitter, receiver, message, owner, options, cb)
+    local r_identifier = getIdentifierByPhoneNumber(receiver)
+    dbcache_messages[r_identifier] = nil
     cb(_internalAddMessage(transmitter, receiver, message, owner, options))
 end)
 
@@ -217,13 +253,19 @@ function _internalAddMessage(transmitter, receiver, message, owner, options)
 	['@options'] = json.encode(options),
     })
 
-    local res = MySQL.Sync.fetchAll('SELECT * from phone_messages WHERE `id` = @id;', {
-        ['@id'] = id
-    })[1]
-
-    if res ~= nil and res.options ~= nil then
-	res.options = json.decode(res.options)
+    if id == nil then
+        return nil
     end
+
+    local res = {
+        ['transmitter'] = transmitter,
+        ['receiver'] = receiver,
+        ['message'] = message,
+        ['isRead'] = owner,
+        ['owner'] = owner,
+	['options'] = options,
+        ['time'] = os.time(os.date("*t"))*1000.0,
+    }
 
     return res
 end
@@ -232,7 +274,9 @@ function addMessage(source, identifier, phone_number, message, options)
     local sourcePlayer = tonumber(source)
     local otherIdentifier = getIdentifierByPhoneNumber(phone_number)
     local myPhone = getNumberPhone(identifier)
+    dbcache_messages[identifier] = nil
     if otherIdentifier ~= nil then
+        dbcache_messages[otherIdentifier] = nil
         local tomess = _internalAddMessage(myPhone, phone_number, message, 0, options)
         getSourceFromIdentifier(otherIdentifier, function (osou)
             if tonumber(osou) ~= nil then
@@ -252,6 +296,7 @@ end)
 function addFakeMessage(fake_number, to_number, message, options)
     local otherIdentifier = getIdentifierByPhoneNumber(to_number)
     if otherIdentifier ~= nil then
+        dbcache_messages[otherIdentifier] = nil
         local tomess = _internalAddMessage(fake_number, to_number, message, 0, options)
         getSourceFromIdentifier(otherIdentifier, function (osou)
             if tonumber(osou) ~= nil then
@@ -267,6 +312,8 @@ function setReadMessageNumber(identifier, num)
         ['@receiver'] = mePhoneNumber,
         ['@transmitter'] = num
     })
+
+    dbcache_messages[identifier] = nil
 end
 
 function deleteMessage(msgId)
@@ -348,10 +395,12 @@ local PhoneFixeInfo = {}
 local lastIndexCall = 10
 
 function getHistoriqueCall (num)
-    local result = MySQL.Sync.fetchAll("SELECT * FROM phone_calls WHERE phone_calls.owner = @num ORDER BY time DESC LIMIT 120", {
-        ['@num'] = num
-    })
-    return result
+    if dbcache_calls[num] == nil then
+	    dbcache_calls[num] = MySQL.Sync.fetchAll("SELECT * FROM phone_calls WHERE phone_calls.owner = @num ORDER BY time DESC LIMIT 120", {
+	        ['@num'] = num
+	    })
+    end
+    return dbcache_calls[num]
 end
 
 function sendHistoriqueCall (src, num)
@@ -368,6 +417,7 @@ function saveAppels (appelInfo)
             ['@accepts'] = appelInfo.is_accepts
         }, function()
             notifyNewAppelsHisto(appelInfo.transmitter_src, appelInfo.transmitter_num)
+            dbcache_calls[appelInfo.receiver_num] = nil
         end)
     end
     if appelInfo.is_valid == true then
@@ -383,6 +433,7 @@ function saveAppels (appelInfo)
         }, function()
             if appelInfo.receiver_src ~= nil then
                 notifyNewAppelsHisto(appelInfo.receiver_src, appelInfo.receiver_num)
+                dbcache_calls[num] = nil
             end
         end)
     end
@@ -542,6 +593,7 @@ AddEventHandler('gcPhone:appelsDeleteHistorique', function (numero)
         ['@owner'] = srcPhone,
         ['@num'] = numero
     })
+    dbcache_calls[numero] = nil
 end)
 
 function appelsDeleteAllHistorique(srcIdentifier)
@@ -646,6 +698,7 @@ AddEventHandler('gcPhone:allUpdate', function()
     local sourcePlayer = tonumber(source)
     local identifier = getPlayerID(source)
     local num = getNumberPhone(identifier)
+
     TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, num)
     TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
     TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
