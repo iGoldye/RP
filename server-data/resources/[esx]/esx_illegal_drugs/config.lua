@@ -28,12 +28,12 @@ Config.TimeToSellMeth     = 1  * 1000 -- Ammount of time to sell meth
 Config.Locale = 'en'
 
 Config.Zones = {
-	CokeField =			{x=1093.139,  y=-3194.473,  z=-39.9},
-	CokeProcessing =	{x=1100.537,  y=-3198.232,  z=-39.993},
+	CokeField =			{x=901.11,  y=-959.37,  z=38.28},
+	CokeProcessing =	{x=-332.14,  y=-2444.37,  z=6.36},
 	CokeDealer =		{x=3373.087,   y= 5183.625,   z=0.463},
-	MethField =			{x=1389.231,  y=3605.531,  z=38.149},
-	MethProcessing =	{x=1394.538,  y=3601.771,  z=38.143},
-	MethDealer =		{x=7.981,     y=6469.067,   z=30.528},
+	MethField =			{x=1950.61,  y=5178.73,  z=46.98},
+	MethProcessing =	{x=-1368.72,  y=-317.69,  z=38.52},
+	MethDealer =		{x=1339.66,     y=4225.28,   z=32.92},
 	WeedField =			{x=1057.448,  y=-3196.996,  z=-39.938},
 	WeedProcessing =	{x=1037.297,  y=-3204.968,  z=-38.87},
 	WeedDealer =		{x = -283.68,   y= 6628.26,  z= 6.13},

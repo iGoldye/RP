@@ -1,8 +1,8 @@
 Config = {}
 Config.Locale = 'en'
 
-Config.RequiredCopsRob = 0
-Config.RequiredCopsSell = 0
+Config.RequiredCopsRob = 3
+Config.RequiredCopsSell = 3
 Config.MinJewels = 1
 Config.MaxJewels = 3
 Config.MaxWindows = 20

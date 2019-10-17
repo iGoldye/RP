@@ -630,6 +630,26 @@ Config.DoorList = {
 		}
 	},
 
+	{
+		textCoords = vector3(346.1, -568.33, 28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 160.0,
+				objCoords = vector3(344.91, -568.34, 28.78)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = -19.0,
+				objCoords = vector3(347.02, -569.14, 28.78)
+			}
+		}
+	},
+
 	-- UNICORN
 	{
 		objName = 'prop_strip_door_01',
