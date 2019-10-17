@@ -89,6 +89,7 @@ function OpenShopMenu(accessory)
 						TriggerServerEvent('esx_accessories:pay')
 						TriggerEvent('skinchanger:getSkin', function(skin)
 							TriggerServerEvent('esx_accessories:save', skin, accessory)
+--							TriggerServerEvent('esx_skin:save', skin)
 						end)
 					else
 						TriggerEvent('esx_skin:getLastSkin', function(skin)
