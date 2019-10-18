@@ -61,18 +61,14 @@ function getWitness(sight_distance, hear_distance, outside_only)
 
 			local c1 = GetEntityCoords(player_ped)
 			local c2 = GetEntityCoords(another_ped)
-			local dist = GetDistanceBetweenCoords(c1.x,c1.y,c1.z,c2.x,c2.y,c2.z, 0)
+			local dist = #(c1-c2)
 
 			if dist < hear_distance then
 				pedHear = another_ped
 			end
 
-			local dir = GetEntityRotation(another_ped,0).z - Atan2(c2.y-c1.y,c2.x-c1.x)
-			if (dir<-180) then dir = dir + 360 end
-			if (dir>180) then dir = dir - 360 end
-
-			-- ped viewing angle is 180 degrees
-			if dir > 0 and dist <= sight_distance then
+			-- ped viewing angle is 160 degrees
+			if IsPedFacingPed(another_ped, player_ped, 160.0) and dist <= sight_distance then
 
 				local hit = RaycastPeds(player_ped, another_ped, 0.1, 1)
 				if hit == nil then
