@@ -1,6 +1,16 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+ESX.RegisterServerCallback('admin_commands:isAdmin', function(source, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer ~= nil then
+		TriggerEvent('es:canGroupTarget', xPlayer.getGroup(), "admin", function(canTarget)
+			cb(canTarget)
+		end)
+	else
+		cb(false)
+	end
+end)
 
 TriggerEvent('es:addGroupCommand', 'emote', 'admin', function(source, args, user)
 	TriggerClientEvent('admin_commands:emote', source, args)

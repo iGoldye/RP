@@ -1,5 +1,8 @@
 ESX = nil
 
+local lastWitness = nil
+local show_markers = false
+
 local timing, isPlayerWhitelisted = math.ceil(Config.Timer * 60000), false
 local streetName, playerGender
 
@@ -55,6 +58,10 @@ Citizen.CreateThread(function()
 	end)
 
 	isPlayerWhitelisted = refreshPlayerWhitelisted()
+
+	ESX.TriggerServerCallback('admin_commands:isAdmin', function(isAdmin)
+		show_markers = isAdmin
+	end)
 end)
 
 RegisterNetEvent('esx:setJob')
@@ -228,6 +235,25 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		if show_markers and lastWitness ~= nil then
+ 			if DoesEntityExist(lastWitness) then
+				for i=1,120 do
+					if DoesEntityExist(lastWitness) then
+						local pos = GetEntityCoords(lastWitness)
+						DrawMarker(0, pos.x, pos.y, pos.z + 2.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 2.0, 2.0, 2.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
+						Citizen.Wait(0)
+					end
+				end
+			end
+			lastWitness = nil
+		end
+	end
+end)
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -259,6 +285,7 @@ Citizen.CreateThread(function()
 
 						local witness, isHear = getWitness(60,10, true)
 						if witness then
+							lastWitness = witness
 							DecorSetInt(playerPed, 'isOutlaw', 2)
 
 							if exports.esx_skin["getSkinDescription"] ~= nil then
@@ -290,6 +317,7 @@ Citizen.CreateThread(function()
 			local witness, isHear = getWitness(5,3, true)
 
 			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+				lastWitness = witness
 				DecorSetInt(playerPed, 'isOutlaw', 2)
 
 				if exports.esx_skin["getSkinDescription"] ~= nil then
@@ -319,6 +347,7 @@ Citizen.CreateThread(function()
 			local witness, isHear = getWitness(60, hearDistance, true)
 
 			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+				lastWitness = witness
 				DecorSetInt(playerPed, 'isOutlaw', 2)
 
 				if exports.esx_skin["getSkinDescription"] ~= nil then
@@ -360,6 +389,7 @@ Citizen.CreateThread(function()
 			local witness = getWitness(40,0, true)
 
 			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+				lastWitness = witness
 
 				if exports.esx_skin["getSkinDescription"] ~= nil then
 					TriggerEvent('skinchanger:getSkin', function(skin)
