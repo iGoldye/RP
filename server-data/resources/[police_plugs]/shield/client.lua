@@ -19,6 +19,11 @@ AddEventHandler("shield:enable", function()
 
     local ped = GetPlayerPed(-1)
 
+    if IsPedInAnyVehicle(ped, true) then
+        TriggerEvent('esx:showNotification', "Нельзя использовать щит ~r~в транспорте~s~!")
+        return
+    end
+
     if HasPedGotWeapon(ped, pistol, 0) or GetSelectedPedWeapon(ped) == pistol then
         SetCurrentPedWeapon(ped, pistol, 1)
     else
