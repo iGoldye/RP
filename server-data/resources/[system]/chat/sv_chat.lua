@@ -1,7 +1,3 @@
-ESX = nil
-
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-
 RegisterServerEvent('chat:init')
 RegisterServerEvent('chat:addTemplate')
 RegisterServerEvent('chat:addMessage')
@@ -10,24 +6,6 @@ RegisterServerEvent('chat:removeSuggestion')
 RegisterServerEvent('_chat:messageEntered')
 RegisterServerEvent('chat:clear')
 RegisterServerEvent('__cfx_internal:commandFallback')
-
-AddEventHandler('chat:adminMessage', function(author, color, message)
-	adminMessage(author, color, message)
-end)
-
-function adminMessage(author, color, message)
-	local xPlayers = ESX.GetPlayers()
-	for i=1, #xPlayers, 1 do
-		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		if xPlayer ~= nil then
-			TriggerEvent('es:canGroupTarget', xPlayer.getGroup(), "admin", function(available)
-				if available then
-					TriggerClientEvent('chatMessage', xPlayer.source, author, color, message)
-				end
-			end)
-		end
-	end
-end
 
 AddEventHandler('_chat:messageEntered', function(author, color, message)
     if not message or not author then
@@ -57,13 +35,11 @@ end)
 
 -- player join messages
 AddEventHandler('chat:init', function()
---    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) .. ' joined.')
-    adminMessage('', {255,255,255}, '^2* ' .. GetPlayerName(source) .. ' joined.')
+    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) .. ' joined.')
 end)
 
 AddEventHandler('playerDropped', function(reason)
---    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
-    adminMessage('', {255,255,255}, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
+    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
 end)
 
 RegisterCommand('say', function(source, args, rawCommand)

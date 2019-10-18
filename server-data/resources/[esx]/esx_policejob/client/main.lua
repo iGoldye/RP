@@ -17,13 +17,6 @@ Citizen.CreateThread(function()
 	PlayerData = ESX.GetPlayerData()
 end)
 
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(5000)
-		TriggerEvent('esx_policejob:updateBlip')
-	end
-end)
-
 function cleanPlayer(playerPed)
 	SetPedArmour(playerPed, 0)
 	ClearPedBloodDamage(playerPed)
