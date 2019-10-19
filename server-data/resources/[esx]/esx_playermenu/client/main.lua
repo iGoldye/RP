@@ -51,6 +51,9 @@ end
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
+			if IsControlJustPressed(0, 188) and IsControlPressed(0, Keys['LEFTSHIFT']) then
+				TriggerEvent('esx_accessories:SetUnsetAccessory', "Mask")
+			end
 			if IsControlJustPressed(0, Keys['~']) then
 				OpenMenu()
 			elseif isAdmin == true and IsControlJustPressed(0, Keys['F11']) then
