@@ -6,6 +6,11 @@ local show_markers = false
 local timing, isPlayerWhitelisted = math.ceil(Config.Timer * 60000), false
 local streetName, playerGender
 
+RegisterCommand("outlawalert_markers", function()
+    show_markers = not show_markers
+end, false)
+
+
 function hasLethalWeapon(ped)
 
 	local weap = GetSelectedPedWeapon(ped)
@@ -68,9 +73,9 @@ Citizen.CreateThread(function()
 
 	isPlayerWhitelisted = refreshPlayerWhitelisted()
 
-	ESX.TriggerServerCallback('admin_commands:isAdmin', function(isAdmin)
-		show_markers = isAdmin
-	end)
+--	ESX.TriggerServerCallback('admin_commands:isAdmin', function(isAdmin)
+--		show_markers = isAdmin
+--	end)
 end)
 
 RegisterNetEvent('esx:setJob')
@@ -357,7 +362,7 @@ Citizen.CreateThread(function()
 			local witness, isHear = getWitness(60, hearDistance, true)
 			Citizen.Wait(5000)
 
-			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+			if witness and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
 				playWitnessAnim(witness)
 				lastWitness = witness
 				DecorSetInt(playerPed, 'isOutlaw', 2)
@@ -400,7 +405,7 @@ Citizen.CreateThread(function()
 		if playerVehicle == 0 and hasLethalWeapon(playerPed) then
 			local witness = getWitness(40,0, true)
 
-			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+			if witness and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
 				playWitnessAnim(witness)
 				lastWitness = witness
 
