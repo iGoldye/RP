@@ -13,7 +13,7 @@ AddEventHandler('esx_locksystem:setLock', function(plate, status)
 	end
 
 	TriggerClientEvent("esx_locksystem:sendLockStatus", -1, plate, lockStatus[plate])
---	print(json.encode(lockStatus))
+	print("Plate "..plate.." lock changed "..tostring(lockStatus[plate]))
 end)
 
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
