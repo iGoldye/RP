@@ -1,7 +1,15 @@
 ESX = nil
 
+local lastWitness = nil
+local show_markers = false
+
 local timing, isPlayerWhitelisted = math.ceil(Config.Timer * 60000), false
 local streetName, playerGender
+
+RegisterCommand("outlawalert_markers", function()
+    show_markers = not show_markers
+end, false)
+
 
 function hasLethalWeapon(ped)
 
@@ -38,6 +46,15 @@ function hasLethalWeapon(ped)
 	return true
 end
 
+function playWitnessAnim(ped)
+	Citizen.CreateThread(function()
+		Citizen.Wait(3000)
+		if not IsPedGoingIntoCover(ped) and not IsPedInCombat(ped) and not IsPedSittingInAnyVehicle(ped) then
+			TaskStartScenarioInPlace(ped, "WORLD_HUMAN_STAND_MOBILE", 2000, true)
+		end
+	end)
+end
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -55,6 +72,10 @@ Citizen.CreateThread(function()
 	end)
 
 	isPlayerWhitelisted = refreshPlayerWhitelisted()
+
+--	ESX.TriggerServerCallback('admin_commands:isAdmin', function(isAdmin)
+--		show_markers = isAdmin
+--	end)
 end)
 
 RegisterNetEvent('esx:setJob')
@@ -228,6 +249,25 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		if show_markers and lastWitness ~= nil then
+ 			if DoesEntityExist(lastWitness) then
+				for i=1,120 do
+					if DoesEntityExist(lastWitness) then
+						local pos = GetEntityCoords(lastWitness)
+						DrawMarker(0, pos.x, pos.y, pos.z + 2.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 2.0, 2.0, 2.0, 255, 0, 0, 100, false, true, 2, false, false, false, false)
+						Citizen.Wait(0)
+					end
+				end
+			end
+			lastWitness = nil
+		end
+	end
+end)
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -257,8 +297,10 @@ Citizen.CreateThread(function()
 							vehicleLabel = "автомобиль"
 						end
 
-						local witness, isHear = getWitness(60,10, true)
+						local witness, isHear = getWitness(60, 5, true)
 						if witness then
+							playWitnessAnim(witness)
+							lastWitness = witness
 							DecorSetInt(playerPed, 'isOutlaw', 2)
 
 							if exports.esx_skin["getSkinDescription"] ~= nil then
@@ -286,10 +328,12 @@ Citizen.CreateThread(function()
 
 		elseif IsPedInMeleeCombat(playerPed) and IsShockingEventInSphere(112, playerCoords.x, playerCoords.y, playerCoords.z, 5.0) and Config.MeleeAlert then
 
-			Citizen.Wait(10000)
 			local witness, isHear = getWitness(5,3, true)
+			Citizen.Wait(5000)
 
-			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+			if math.random() < 0.5 and (witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
+				playWitnessAnim(witness)
+				lastWitness = witness
 				DecorSetInt(playerPed, 'isOutlaw', 2)
 
 				if exports.esx_skin["getSkinDescription"] ~= nil then
@@ -313,12 +357,14 @@ Citizen.CreateThread(function()
 			end
 
 		elseif Config.GunshotAlert and IsPedShooting(playerPed) and hasLethalWeapon(playerPed) then
-			Citizen.Wait(10000)
 			local hearDistance = 60
 			if IsPedCurrentWeaponSilenced(playerPed) then hearDistance = 10 end -- does not actually work, because IsPedShooting already skips silencers at least for pistols
 			local witness, isHear = getWitness(60, hearDistance, true)
+			Citizen.Wait(5000)
 
-			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+			if witness and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
+				playWitnessAnim(witness)
+				lastWitness = witness
 				DecorSetInt(playerPed, 'isOutlaw', 2)
 
 				if exports.esx_skin["getSkinDescription"] ~= nil then
@@ -359,7 +405,9 @@ Citizen.CreateThread(function()
 		if playerVehicle == 0 and hasLethalWeapon(playerPed) then
 			local witness = getWitness(40,0, true)
 
-			if witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
+			if witness and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
+				playWitnessAnim(witness)
+				lastWitness = witness
 
 				if exports.esx_skin["getSkinDescription"] ~= nil then
 					TriggerEvent('skinchanger:getSkin', function(skin)
