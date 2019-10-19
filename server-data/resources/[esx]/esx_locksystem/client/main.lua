@@ -133,30 +133,45 @@ Citizen.CreateThread(function()
     end
 end)
 
----- Prevents the player from breaking the window if the vehicle is locked
 Citizen.CreateThread(function()
+	local last_id = -1
+	local last_plate = ""
+
 	while true do
-		Wait(0)
+		Citizen.Wait(0)
 		local ped = GetPlayerPed(-1)
-        if DoesEntityExist(GetVehiclePedIsTryingToEnter(PlayerPedId(ped))) then
-                local veh = GetVehiclePedIsTryingToEnter(PlayerPedId(ped))
-                local lock = GetVehicleDoorLockStatus(veh)
-                local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+		local vehicle = GetVehiclePedIsTryingToEnter(PlayerPedId())
 
-		if lockStatus[plate] ~= nil then
-			if lock == 4 and lockStatus[plate] == false then
-				SetVehicleDoorsLocked(vehicle, 1)
-				SetVehicleDoorsLockedForAllPlayers(vehicle, false)
-			elseif lock ~= 4 and lockStatus[plate] == true then
-				SetVehicleDoorsLocked(vehicle, 4)
-				SetVehicleDoorsLockedForAllPlayers(vehicle, 1)
+	        if DoesEntityExist(vehicle) then
+	                local lock = GetVehicleDoorLockStatus(vehicle)
+	                local plate = ""
+
+			if last_id == vehicle then
+				plate = last_plate
+			else
+				plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
 			end
-		end
 
-	        if lock == 4 then
-                    ClearPedTasks(ped)
+			-- Prevents the player from breaking the window if the vehicle is locked
+		        if lock == 4 then
+	                    ClearPedTasks(PlayerPedId())
+		        end
+
+--			print(plate.." "..tostring(lockStatus[plate]).." "..tostring(lock))
+
+			if lockStatus[plate] ~= nil then
+				if (lock == 4 or lock == 2) and lockStatus[plate] == false then
+					SetVehicleDoorsLocked(vehicle, 1)
+					SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+				elseif lock ~= 4 and lockStatus[plate] == true then
+					SetVehicleDoorsLocked(vehicle, 4)
+					SetVehicleDoorsLockedForAllPlayers(vehicle, 1)
+				end
+			end
+
+			last_id = vehicle
+			last_plate = plate
 	        end
-        end
 	end
 end)
 

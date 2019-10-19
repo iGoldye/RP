@@ -239,36 +239,6 @@ AddEventHandler('esx_mechanicjob-bennys:onNPCJobMissionCompleted', function()
 	-- TriggerClientEvent("esx:showNotification", _source, _U('your_comp_earned').. total)
 end)
 
-ESX.RegisterUsableItem('blowpipe', function(source)
-	local _source = source
-	local xPlayer  = ESX.GetPlayerFromId(source)
-
-	xPlayer.removeInventoryItem('blowpipe', 1)
-
-	TriggerClientEvent('esx_mechanicjob-bennys:onHijack', _source)
-	TriggerClientEvent('esx:showNotification', _source, _U('you_used_blowtorch'))
-end)
-
-ESX.RegisterUsableItem('fixkit', function(source)
-	local _source = source
-	local xPlayer  = ESX.GetPlayerFromId(source)
-
-	xPlayer.removeInventoryItem('fixkit', 1)
-
-	TriggerClientEvent('esx_mechanicjob-bennys:onFixkit', _source)
-	TriggerClientEvent('esx:showNotification', _source, _U('you_used_repair_kit'))
-end)
-
-ESX.RegisterUsableItem('carokit', function(source)
-	local _source = source
-	local xPlayer  = ESX.GetPlayerFromId(source)
-
-	xPlayer.removeInventoryItem('carokit', 1)
-
-	TriggerClientEvent('esx_mechanicjob-bennys:onCarokit', _source)
-	TriggerClientEvent('esx:showNotification', _source, _U('you_used_body_kit'))
-end)
-
 RegisterServerEvent('esx_mechanicjob-bennys:getStockItem')
 AddEventHandler('esx_mechanicjob-bennys:getStockItem', function(itemName, count)
 	local xPlayer = ESX.GetPlayerFromId(source)
