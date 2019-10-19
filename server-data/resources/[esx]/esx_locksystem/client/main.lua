@@ -134,6 +134,21 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(100)
+		local vehicle = GetClosestVehicle(GetEntityCoords(PlayerPedId()), 5.0, 0, 71)
+		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+		if DoesEntityExist(vehicle) then
+	                local lock = GetVehicleDoorLockStatus(vehicle)
+			if GetVehicleDoorAngleRatio(vehicle, 0) > 0.01 and (lock == 4 or lock == 2) then
+				SetVehicleDoorsLocked(vehicle, 1)
+				SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+			end
+		end
+	end
+end)
+
+Citizen.CreateThread(function()
 	local last_id = -1
 	local last_plate = ""
 
