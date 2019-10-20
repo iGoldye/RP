@@ -14,6 +14,12 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('esx_locksystem:setLock')
+AddEventHandler('esx_locksystem:setLock', function(plate, status)
+	lockStatus[plate] = status
+	TriggerServerEvent('esx_locksystem:setLock', plate, status)
+end)
+
 --[[
 function MyClosestVehicle(x, y, z, radius)
 	for i = 1,72 do
@@ -73,13 +79,13 @@ function carLock(vehicle, plate)
             SetVehicleDoorsLocked(vehicle, 4)
             SetVehicleDoorsLockedForAllPlayers(vehicle, 1)
             TriggerEvent('esx:showNotification', "Транспорт закрыт")
-            TriggerServerEvent('esx_locksystem:setLock', plate, true)
+            TriggerEvent('esx_locksystem:setLock', plate, true)
             TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 10, "lock", 0.2)
         else
             SetVehicleDoorsLocked(vehicle, 1)
             SetVehicleDoorsLockedForAllPlayers(vehicle, false)
             TriggerEvent('esx:showNotification', "Транспорт открыт")
-            TriggerServerEvent('esx_locksystem:setLock', plate, false)
+            TriggerEvent('esx_locksystem:setLock', plate, false)
             TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 10, "unlock", 0.2)
         end
 end
