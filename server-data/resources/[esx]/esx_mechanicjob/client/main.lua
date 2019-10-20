@@ -638,7 +638,7 @@ AddEventHandler('esx_mechanicjob:onHijack', function()
 				if chance <= 99 then
 					SetVehicleDoorsLocked(vehicle, 1)
 					SetVehicleDoorsLockedForAllPlayers(vehicle, false)
-					TriggerServerEvent('esx_locksystem:setLock', plate, false)
+					TriggerEvent('esx_locksystem:setLock', plate, false)
 					ClearPedTasksImmediately(playerPed)
 					ESX.ShowNotification(_U('veh_unlocked'))
 				else
