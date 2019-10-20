@@ -42,7 +42,7 @@ local tireBurstLuckyNumber
 
 math.randomseed(GetGameTimer());
 
-local tireBurstMaxNumber = cfg.randomTireBurstInterval * 3600; 												-- the tire burst lottery runs roughly 1200 times per minute
+local tireBurstMaxNumber = cfg.randomTireBurstInterval * 1200; 												-- the tire burst lottery runs roughly 1200 times per minute
 if cfg.randomTireBurstInterval ~= 0 then tireBurstLuckyNumber = math.random(tireBurstMaxNumber) end			-- If we hit this number again randomly, a tire will burst.
 
 local fixMessagePos = math.random(repairCfg.fixMessageCount)
@@ -59,6 +59,12 @@ Citizen.CreateThread(function()
 			AddTextComponentString(item.name)
 			EndTextCommandSetBlipName(item.blip)
 		end
+	end
+end)
+
+Citizen.CreateThread(function()
+	if not DecorIsRegisteredAsType("BURST", 3) then -- INT
+		DecorRegister("BURST", 3)
 	end
 end)
 
@@ -146,6 +152,10 @@ end
 local function tireBurstLottery()
 	local tireBurstNumber = math.random(tireBurstMaxNumber)
 	if tireBurstNumber == tireBurstLuckyNumber then
+		local burstCount = DecorGetInt(vehicle, "BURST") + 1
+		DecorSetInt(vehicle, "BURST", burstCount)
+		if burstCount < 3 then return end
+		DecorSetInt(vehicle, "BURST", 0)
 		-- We won the lottery, lets burst a tire.
 		if GetVehicleTyresCanBurst(vehicle) == false then return end
 		local numWheels = GetVehicleNumberOfWheels(vehicle)
