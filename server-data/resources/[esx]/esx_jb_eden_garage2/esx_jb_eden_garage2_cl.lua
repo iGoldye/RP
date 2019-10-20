@@ -99,7 +99,7 @@ function ListVehiclesMenu(garage, KindOfVehicle)
 				title    =  data.current.vehicleName,
 				align    = 'top-left',
 				elements = {
-					{label ="Выгнать тарнспорт" , value = 'get_vehicle_out'},
+					{label ="Выгнать транспорт" , value = 'get_vehicle_out'},
 					{label ="Переименовать транспорт" , value = 'rename_vehicle'}
 			}}, function(data2, menu2)
 				if data2.current.value == "get_vehicle_out" then
