@@ -624,7 +624,9 @@ AddEventHandler('esx_mechanicjob:onHijack', function()
 		local alarm  = math.random(100)
 
 		if DoesEntityExist(vehicle) then
-			if alarm <= 33 then
+			local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+
+			if alarm <= 20 then
 				SetVehicleAlarm(vehicle, true)
 				StartVehicleAlarm(vehicle)
 			end
@@ -633,9 +635,10 @@ AddEventHandler('esx_mechanicjob:onHijack', function()
 
 			Citizen.CreateThread(function()
 				Citizen.Wait(10000)
-				if chance <= 66 then
+				if chance <= 99 then
 					SetVehicleDoorsLocked(vehicle, 1)
 					SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+					TriggerEvent('esx_locksystem:setLock', plate, false)
 					ClearPedTasksImmediately(playerPed)
 					ESX.ShowNotification(_U('veh_unlocked'))
 				else

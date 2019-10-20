@@ -37,10 +37,11 @@ RegisterNetEvent('esx:setJob')
 		loadAnimDict("reaction@intimidation@cop@unarmed")
 		loadAnimDict("reaction@intimidation@1h")
 		local ped = PlayerPedId()
+		local isOnParachute = GetPedParachuteState(ped) > 0
 
 		if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
-			if not IsPedInAnyVehicle(ped, false) then
-				if GetVehiclePedIsTryingToEnter (ped) == 0 and not IsPedInParachuteFreeFall (ped) then
+			if not IsPedInAnyVehicle(ped, false) and not isOnParachute then
+				if GetVehiclePedIsTryingToEnter (ped) == 0 then
 					if CheckWeapon(ped) then
 						--if IsPedArmed(ped, 4) then
 						if holstered then
@@ -78,8 +79,8 @@ RegisterNetEvent('esx:setJob')
 				holstered = true
 			end
 		else
-			if not IsPedInAnyVehicle(ped, false) then
-				if GetVehiclePedIsTryingToEnter (ped) == 0 and not IsPedInParachuteFreeFall (ped) then
+			if not IsPedInAnyVehicle(ped, false) and not isOnParachute then
+				if GetVehiclePedIsTryingToEnter (ped) == 0 then
 					if CheckWeapon(ped) then
 						--if IsPedArmed(ped, 4) then
 						if holstered then

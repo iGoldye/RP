@@ -14,6 +14,12 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('esx_locksystem:setLock')
+AddEventHandler('esx_locksystem:setLock', function(plate, status)
+	lockStatus[plate] = status
+	TriggerServerEvent('esx_locksystem:setLock', plate, status)
+end)
+
 --[[
 function MyClosestVehicle(x, y, z, radius)
 	for i = 1,72 do
@@ -73,13 +79,13 @@ function carLock(vehicle, plate)
             SetVehicleDoorsLocked(vehicle, 4)
             SetVehicleDoorsLockedForAllPlayers(vehicle, 1)
             TriggerEvent('esx:showNotification', "Транспорт закрыт")
-            TriggerServerEvent('esx_locksystem:setLock', plate, true)
+            TriggerEvent('esx_locksystem:setLock', plate, true)
             TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 10, "lock", 0.2)
         else
             SetVehicleDoorsLocked(vehicle, 1)
             SetVehicleDoorsLockedForAllPlayers(vehicle, false)
             TriggerEvent('esx:showNotification', "Транспорт открыт")
-            TriggerServerEvent('esx_locksystem:setLock', plate, false)
+            TriggerEvent('esx_locksystem:setLock', plate, false)
             TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 10, "unlock", 0.2)
         end
 end
@@ -133,30 +139,60 @@ Citizen.CreateThread(function()
     end
 end)
 
----- Prevents the player from breaking the window if the vehicle is locked
 Citizen.CreateThread(function()
 	while true do
-		Wait(0)
-		local ped = GetPlayerPed(-1)
-        if DoesEntityExist(GetVehiclePedIsTryingToEnter(PlayerPedId(ped))) then
-                local veh = GetVehiclePedIsTryingToEnter(PlayerPedId(ped))
-                local lock = GetVehicleDoorLockStatus(veh)
-                local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
-
-		if lockStatus[plate] ~= nil then
-			if lock == 4 and lockStatus[plate] == false then
+		Citizen.Wait(100)
+		local vehicle = GetClosestVehicle(GetEntityCoords(PlayerPedId()), 5.0, 0, 71)
+		local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+		if DoesEntityExist(vehicle) then
+	                local lock = GetVehicleDoorLockStatus(vehicle)
+			if GetVehicleDoorAngleRatio(vehicle, 0) > 0.01 and (lock == 4 or lock == 2) then
 				SetVehicleDoorsLocked(vehicle, 1)
 				SetVehicleDoorsLockedForAllPlayers(vehicle, false)
-			elseif lock ~= 4 and lockStatus[plate] == true then
-				SetVehicleDoorsLocked(vehicle, 4)
-				SetVehicleDoorsLockedForAllPlayers(vehicle, 1)
 			end
 		end
+	end
+end)
 
-	        if lock == 4 then
-                    ClearPedTasks(ped)
+Citizen.CreateThread(function()
+	local last_id = -1
+	local last_plate = ""
+
+	while true do
+		Citizen.Wait(0)
+		local ped = GetPlayerPed(-1)
+		local vehicle = GetVehiclePedIsTryingToEnter(PlayerPedId())
+
+	        if DoesEntityExist(vehicle) then
+	                local lock = GetVehicleDoorLockStatus(vehicle)
+	                local plate = ""
+
+			if last_id == vehicle then
+				plate = last_plate
+			else
+				plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+			end
+
+			-- Prevents the player from breaking the window if the vehicle is locked
+		        if lock == 4 then
+	                    ClearPedTasks(PlayerPedId())
+		        end
+
+--			print(plate.." "..tostring(lockStatus[plate]).." "..tostring(lock))
+
+			if lockStatus[plate] ~= nil then
+				if (lock == 4 or lock == 2) and lockStatus[plate] == false then
+					SetVehicleDoorsLocked(vehicle, 1)
+					SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+				elseif lock ~= 4 and lockStatus[plate] == true then
+					SetVehicleDoorsLocked(vehicle, 4)
+					SetVehicleDoorsLockedForAllPlayers(vehicle, 1)
+				end
+			end
+
+			last_id = vehicle
+			last_plate = plate
 	        end
-        end
 	end
 end)
 

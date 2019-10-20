@@ -784,12 +784,14 @@ function OpenPoliceActionsMenu()
 					elseif action == 'hijack_vehicle' then
 						if IsAnyVehicleNearPoint(coords.x, coords.y, coords.z, 3.0) then
 							TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_WELDING', 0, true)
-							Citizen.Wait(20000)
+							Citizen.Wait(10000)
 							ClearPedTasksImmediately(playerPed)
 
 							SetVehicleDoorsLocked(vehicle, 1)
 							SetVehicleDoorsLockedForAllPlayers(vehicle, false)
 							ESX.ShowNotification(_U('vehicle_unlocked'))
+							local plate = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle))
+							TriggerEvent('esx_locksystem:setLock', plate, false)
 						end
 					elseif action == 'impound' then
 						-- is the script busy?

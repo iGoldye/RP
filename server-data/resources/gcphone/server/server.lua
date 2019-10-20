@@ -257,15 +257,13 @@ function _internalAddMessage(transmitter, receiver, message, owner, options)
         return nil
     end
 
-    local res = {
-        ['transmitter'] = transmitter,
-        ['receiver'] = receiver,
-        ['message'] = message,
-        ['isRead'] = owner,
-        ['owner'] = owner,
-	['options'] = options,
-        ['time'] = os.time(os.date("*t"))*1000.0,
-    }
+    local res = MySQL.Sync.fetchAll('SELECT * from phone_messages WHERE `id` = @id;', {
+        ['@id'] = id
+    })[1]
+
+    if res ~= nil and res.options ~= nil then
+       res.options = json.decode(res.options)
+    end
 
     return res
 end
