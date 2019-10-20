@@ -7,3 +7,4 @@ server-data/resources/3dme/log.txt
 server/*
 server-data/mysql-async.log
 server-data/resources/vMenu/vmenu.log
+*.bin

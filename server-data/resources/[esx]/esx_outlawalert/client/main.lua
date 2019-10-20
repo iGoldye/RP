@@ -331,7 +331,7 @@ Citizen.CreateThread(function()
 			local witness, isHear = getWitness(5,3, true)
 			Citizen.Wait(5000)
 
-			if math.random() < 0.5 and (witness and (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
+			if math.random() < 0.5 and witness and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
 				playWitnessAnim(witness)
 				lastWitness = witness
 				DecorSetInt(playerPed, 'isOutlaw', 2)
