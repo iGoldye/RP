@@ -1113,7 +1113,7 @@ Config.Garages = {
 		}
 
 	},
-
+--[[
 	LowEndApartment = {
 
 		IsClosed = true,
@@ -1149,7 +1149,7 @@ Config.Garages = {
 		}
 
 	},
-
+]]--
 	-- SteeleWay1150 = {
 
 	-- 	IsClosed = true,
