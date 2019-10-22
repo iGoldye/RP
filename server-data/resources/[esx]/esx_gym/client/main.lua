@@ -242,16 +242,23 @@ function doPushups()
 	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~отжиматься')
 
 	if IsControlJustPressed(0, Keys['E']) then
+		local animDict = 'amb@world_human_push_ups@male@base'
+		local animName = 'base'
+
+		RequestAnimDict(animDict)
+		while not HasAnimDictLoaded(animDict) do
+			Citizen.Wait(100)
+		end
 
 		StartTraining(function() -- onStart
-			TaskStartScenarioInPlace(PlayerPedId(), "world_human_push_ups", 0, true)
+		        TaskPlayAnim(PlayerPedId(), animDict, animName, 8.0, 8.0, -1, 1, 0.0, false, false, false);
 			Citizen.Wait(1000)
-			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
+			while needRest < 60 and IsEntityPlayingAnim(PlayerPedId(), animDict, animName, 3)  do
 				TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), Config.pushStamina)
 				needRest = needRest + 1
 				Citizen.Wait(1000)
 			end
-			ClearPedTasksImmediately(PlayerPedId())
+			ClearPedTasks(PlayerPedId())
 		end)
 	end
 end
@@ -278,16 +285,23 @@ function doSitups()
 	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~качать пресс')
 
 	if IsControlJustPressed(0, Keys['E']) then
+		local animDict = 'amb@world_human_sit_ups@male@base'
+		local animName = 'base'
+
+		RequestAnimDict(animDict)
+		while not HasAnimDictLoaded(animDict) do
+			Citizen.Wait(100)
+		end
 
 		StartTraining(function() -- onStart
-			TaskStartScenarioInPlace(PlayerPedId(), "world_human_sit_ups", 0, true)
+		        TaskPlayAnim(PlayerPedId(), animDict, animName, 8.0, 8.0, -1, 1, 0.0, false, false, false);
 			Citizen.Wait(1000)
-			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
+			while needRest < 60 and IsEntityPlayingAnim(PlayerPedId(), animDict, animName, 3) do
 				TriggerServerEvent('stadus_skills:addStamina', GetPlayerServerId(PlayerId()), Config.situpsStamina)
 				needRest = needRest + 1
 				Citizen.Wait(1000)
 			end
-			ClearPedTasksImmediately(PlayerPedId())
+			ClearPedTasks(PlayerPedId())
 		end)
 	end
 end
