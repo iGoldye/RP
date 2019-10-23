@@ -63,7 +63,8 @@ function EnableGui(enable)
 		driving = skills.driving,
 		shooting = skills.shooting,
 		fishing = skills.fishing,
-		drugs = skills.drugs
+		drugs = skills.drugs,
+		lockpicking = skills.lockpicking,
 	})
 end
 

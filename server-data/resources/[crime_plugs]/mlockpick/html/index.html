@@ -1,0 +1,338 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold" rel="stylesheet" title="roboto">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+<script>
+var durabilityDegradation = 0.05 // per 1 sec of shake
+</script>
+<!--	filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='svgMask'><feGaussianBlur stdDeviation='1' /></filter></svg>#svgMask"); -->
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(0,0,0,0);
+	display: none;
+	font-family: 'Roboto';
+}
+
+#back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+}
+
+#container {
+	position: relative;
+	background-image: url('img/back.png');
+	background-size: contain;
+	width: 100vh;
+	height: 100vh;
+	margin: auto auto;
+}
+
+#lock {
+	position: absolute;
+	background-image: url('img/lock.png');
+	background-size: contain;
+	width: 100vh;
+	height: 100vh;
+	margin: auto auto;
+}
+
+#pick {
+	position: absolute;
+	background-image: url('img/pick.png');
+	background-size: contain;
+	width: 100vh;
+	height: 100vh;
+	margin: auto auto;
+}
+
+#lockCount {
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+	font-size: 32px;
+	color: white;
+}
+
+#difficultyDiv {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	font-size: 32px;
+	color: white;
+}
+
+#txt {
+	color:white;
+	font-size: 32px;
+}
+
+</style>
+</head>
+<body>
+<div id="back"></div>
+<div id="txt"></div>
+<div id="container">
+	<div id="lock"></div>
+	<div id="pick"></div>
+</div>
+<div id="lockCount"></div>
+<div id="difficultyDiv"></div>
+
+<script>
+var txt =  document.getElementById('txt');
+
+var lock = document.getElementById('lock');
+var pick = document.getElementById('pick');
+var lockCountDiv = document.getElementById('lockCount');
+var difficultyDiv =document.getElementById('difficultyDiv');
+
+var spacePressed = false;
+var directionPressed = 0.0;
+
+var lockDeg = 0.0
+var pickDeg = 0.0
+var answer = 0.0
+var difficulty = 10.0
+var durability = 1.0
+var lockpickCount = 0;
+var started = false;
+
+var fails = 0;
+var successes = 0;
+
+var lx = 0;
+var ly = 0;
+
+var dx = 0.0;
+var dy = 0.0;
+
+var unlockSound = new Audio('audio/unlock.mp3');
+var breakSound = new Audio('audio/break.mp3');
+var shakingSound = new Audio('audio/shake.mp3');
+var moveSound = new Audio('audio/move.mp3');
+unlockSound.load();
+breakSound.load();
+shakingSound.load();
+moveSound.load();
+
+unlockSound.volume = 0.4;
+breakSound.volume = 0.3;
+shakingSound.volume = 0.1;
+moveSound.volume = 0.05;
+
+window.addEventListener('message', function(event) {
+	var name  = event.data.name;
+	if (name == "start") {
+		roundStart(event.data.difficulty);
+	}
+
+	if (name == "stop") {
+		roundStop();
+	}
+
+	if (name == "lockCount") {
+		lockpickCount = event.data.count;
+		lockCountDiv.innerHTML = "Отмычки: "+lockpickCount;
+	}
+})
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function roundStart(diff) {
+	lockDeg = 0.0;
+	durability = 1.0;
+	pickDeg = 0.0;
+	difficulty = diff || 50.0;
+	answer = getRandomArbitrary(-89, 89);
+	started = true;
+	spacePressed = false;
+	directionPressed = 0.0;
+//	document.body.style.display = "block";
+//	difficultyDiv.innerHTML = "Сложность: "+Math.round(difficulty)
+	$('body').fadeIn(500);
+}
+
+function roundStop() {
+//	document.body.style.display = "none";
+	started = false;
+	setTimeout(() => {
+		$('body').fadeOut(500);
+	}, 500);
+}
+
+document.addEventListener('mousemove', e => {
+    if (lx > 0) {
+	dx = e.clientX-lx;
+    }
+
+    if (ly > 0) {
+	dy = e.clientY-ly;
+    }
+
+    lx = e.clientX;
+    ly = e.clientY;
+});
+
+
+document.addEventListener('mousedown', function(event) {
+	if (!started) {
+		return;
+	}
+	spacePressed = true;
+});
+
+document.addEventListener('mouseup', function(event) {
+	if (!started) {
+		return;
+	}
+	spacePressed = false;
+});
+
+
+document.addEventListener('keydown', function(event) {
+	if (!started) {
+		return;
+	}
+
+    if (event.code == "ArrowRight") {
+	directionPressed = 1.0;
+    }
+
+    if (event.code == "ArrowLeft") {
+	directionPressed = -1.0;
+    }
+
+    if (event.code == "Space") {
+	spacePressed = true;
+    }
+});
+
+document.addEventListener('keyup', function(event) {
+	if (!started) {
+		return;
+	}
+
+    if (event.code == "ArrowRight") {
+	directionPressed = 0.0;
+    }
+
+    if (event.code == "ArrowLeft") {
+	directionPressed = 0.0;
+    }
+
+
+    if (event.code == "Space") {
+	spacePressed = false;
+    }
+});
+
+
+let timerId = setInterval(() => {
+	if (!started) {
+		return;
+	}
+
+	var diff = Math.abs(answer-pickDeg);
+	var pickDegOld = pickDeg;
+
+//	txt.innerHTML = "Success: "+successes+", Fail: "+fails;
+
+//	diff = (1.2-0.97777777777777777777777777777778)*(100-difficulty)
+
+	lockMax = (90.0 * (1.0 - diff / 1.8 / (100.1-difficulty))) + (100.1-difficulty)*0.1;
+//	var diffPercent = (diff / 180) * (100-difficulty)*0.1
+
+//	lockMax = 90.0 * (1-diffPercent); //+ (100-difficulty)*0.2;
+//	var l1 = 80-diff-difficulty*0.3+27 //easy
+//	var l2 = 80.0 * (1.0 - diff / (100-difficulty)) //hard
+
+//	lockMax = (difficulty/100.0)*l1 + (1-(difficulty/100.0))*l2
+
+//	if (diff < (27.96667 - 0.4306061*diff + 0.00166667*diff*diff)) {
+//		lockMax = 91.0
+//	}
+
+//	txt.innerHTML = Math.round(lockMax)+" "+Math.round(diff);
+	if (difficulty > 100 || isNaN(lockMax)) {
+		lockMax = 0.0;
+	}
+
+	if (lockMax > 88.0) {
+		lockMax = 91.0;
+	} else if (lockMax < 0) {
+		lockMax = 0.0;
+	}
+
+	if (spacePressed) {
+		if (lockDeg < lockMax) {
+			lockDeg += 2.0;
+		} else {
+//			shakingSound.currentTime = 0;
+			shakingSound.play();
+			durability -= durabilityDegradation;
+			lockDeg -= 8.0;
+			if (durability < 0) {
+				breakSound.currentTime = 0;
+				breakSound.play();
+			        $.post('http://mlockpick/fail');
+				durability = 1.0;
+				pickDeg = 0.0;
+				spacePressed = false;
+			}
+		}
+
+	} else if (!spacePressed && lockDeg > 0.01) {
+		lockDeg -= 2.0;
+	} else
+
+	if (lockDeg > lockMax) {
+		lockDeg = lockMax;
+	}
+
+	if (lockDeg >= 89.0) {
+		successes += 1;
+		unlockSound.play();
+	        $.post('http://mlockpick/success');
+		roundStop();
+	}
+
+	if (!spacePressed) {
+		pickDeg += directionPressed*2.0 + dx*0.5;
+	}
+
+	if (pickDeg > 90.0) {
+		pickDeg = 90.0;
+	}
+
+	if (pickDeg < -90.0) {
+		pickDeg = -90.0;
+	}
+
+	if (pickDeg != pickDegOld && moveSound.currentTime > 1) {
+		moveSound.play();
+	}
+	
+	lock.style.transform = 'rotate('+lockDeg+'deg)'; 
+	pick.style.transform = 'rotate('+pickDeg+'deg)'; 
+
+	dx = dx*0.99;
+	dy = dy*0.99;
+
+//	spacePressed = false;
+}, 16);
+
+started = false;
+</script>
+
+</body>
+</html>

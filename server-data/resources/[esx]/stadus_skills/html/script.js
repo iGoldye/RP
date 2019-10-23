@@ -46,11 +46,12 @@ $(function() {
             document.body.style.display = event.data.enable ? "block" : "none";
 
             updateSkillBar("driving", event.data.driving)
-            updateSkillBar("shooting", event.data.shooting)
+//            updateSkillBar("shooting", event.data.shooting)
             updateSkillBar("stamina", event.data.stamina)
             updateSkillBar("strength", event.data.strength)
-            updateSkillBar("fishing", event.data.fishing)
-            updateSkillBar("drugs", event.data.drugs)
+//            updateSkillBar("fishing", event.data.fishing)
+//            updateSkillBar("drugs", event.data.drugs)
+            updateSkillBar("lockpicking", event.data.lockpicking)
 
         } else if (event.data.type == "click") {
             // Avoid clicking the cursor itself, click 1px to the top/left;
