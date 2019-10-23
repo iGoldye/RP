@@ -1,4 +1,5 @@
 ESX = nil
+closestDoor = -1
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -93,6 +94,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		local playerCoords = GetEntityCoords(PlayerPedId())
+		closestDoor = -1
 
 		for k,doorID in ipairs(Config.DoorList) do
 			local distance
@@ -137,6 +139,7 @@ Citizen.CreateThread(function()
 				end
 
 				ESX.Game.Utils.DrawText3D(doorID.textCoords, displayText, size)
+				closestDoor = k
 
 				if IsControlJustReleased(0, 38) then
 					if isAuthorized then
@@ -168,4 +171,21 @@ end
 RegisterNetEvent('esx_doorlock:setState')
 AddEventHandler('esx_doorlock:setState', function(doorID, state)
 	Config.DoorList[doorID].locked = state
+end)
+
+
+RegisterNetEvent('esx_doorlock:getClosestDoor')
+AddEventHandler('esx_doorlock:getClosestDoor', function(cb)
+	local doorInfo = nil
+	if closestDoor ~= -1 then
+		doorInfo = Config.DoorList[closestDoor]
+	end
+	cb(closestDoor, doorInfo)
+end)
+
+RegisterNetEvent('esx_doorlock:setClosestDoorState')
+AddEventHandler('esx_doorlock:setClosestDoorState', function(state)
+	if closestDoor ~= -1 then
+		TriggerServerEvent('esx_doorlock:updateState', closestDoor, state)
+	end
 end)

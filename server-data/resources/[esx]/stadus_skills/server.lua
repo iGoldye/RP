@@ -22,7 +22,8 @@ AddEventHandler('esx:playerLoaded', function(source)
 				['@driving'] = 0,
 				['@shooting'] = 0,
 				['@fishing'] = 0,
-				['@drugs'] = 0
+				['@drugs'] = 0,
+				['@lockpicking'] = 0,
 				}, function ()
 				end)
 		end
@@ -39,98 +40,79 @@ function updatePlayerInfo(source)
 	end)
 end
 
+function addSkill(identifier, skill, amount, cb)
+	if(skill:match("%W")) then
+		print("stadus_skills: addSkill possible db injection attempt! "..identifier)
+		return
+	end
+
+	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = identifier}, function(skillInfo)
+		if skillInfo[1][skill] ~= nil then
+			local newSkill = (skillInfo[1][skill] + amount)
+			if newSkill > 100 then
+				newSkill = 100
+			end
+			MySQL.Async.execute('UPDATE `stadus_skills` SET `'..skill..'` = @skill WHERE `identifier` = @identifier',
+			{
+				['@skill'] = newSkill,
+				['@identifier'] = identifier
+			}, function ()
+				cb(newSkill)
+			end)
+		end
+	end)
+end
+
+RegisterServerEvent("stadus_skills:addSkill")
+AddEventHandler("stadus_skills:addSkill", function(name, amount)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	addSkill(xPlayer.identifier, name, amount, function(val)
+		updatePlayerInfo(xPlayer.source)
+	end)
+end)
+
 RegisterServerEvent("stadus_skills:addStamina")
 AddEventHandler("stadus_skills:addStamina", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
---	TriggerClientEvent('esx:showNotification', source, 'Вы чувствуете себя на ~g~' .. round(amount, 2) .. '% ~s~быстрее!')
-	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
-		local newStamina = (skillInfo[1].stamina + amount)
-		if newStamina > 100 then
-			newStamina = 100
-		end
-		MySQL.Async.execute('UPDATE `stadus_skills` SET `stamina` = @stamina WHERE `identifier` = @identifier',
-			{
-			['@stamina'] = newStamina,
-			['@identifier'] = xPlayer.identifier
-			}, function ()
-			updatePlayerInfo(source)
-		end)
+	addSkill(xPlayer.identifier, "stamina", amount, function(val)
+--		TriggerClientEvent('esx:showNotification', source, 'Вы чувствуете себя на ~g~' .. round(amount, 2) .. '% ~s~быстрее!')
+		updatePlayerInfo(xPlayer.source)
 	end)
 end)
 
 RegisterServerEvent("stadus_skills:addStrength")
 AddEventHandler("stadus_skills:addStrength", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
---	TriggerClientEvent('esx:showNotification', source, 'Вы чувствуете себя на ~g~' .. round(amount, 2) .. '% ~s~сильнее!')
-	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
-		local newStrength = (skillInfo[1].strength + amount)
-		if newStrength > 100 then
-			newStrength = 100
-		end
-		MySQL.Async.execute('UPDATE `stadus_skills` SET `strength` = @strength WHERE `identifier` = @identifier',
-			{
-			['@strength'] = newStrength,
-			['@identifier'] = xPlayer.identifier
-			}, function ()
-			updatePlayerInfo(source)
-		end)
+	addSkill(xPlayer.identifier, "strength", amount, function(val)
+--		TriggerClientEvent('esx:showNotification', source, 'Вы чувствуете себя на ~g~' .. round(amount, 2) .. '% ~s~сильнее!')
+		updatePlayerInfo(xPlayer.source)
 	end)
 end)
 
 RegisterServerEvent("stadus_skills:addDriving")
 AddEventHandler("stadus_skills:addDriving", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
---	TriggerClientEvent('esx:showNotification', source, 'Вы на ~g~' .. round(amount, 2) .. '% ~s~лучше чувствуете себя за рулем!')
-	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
-		local newDriving = (skillInfo[1].driving + amount)
-		if newDriving > 100 then
-			newDriving = 100
-		end
-		MySQL.Async.execute('UPDATE `stadus_skills` SET `driving` = @driving WHERE `identifier` = @identifier',
-			{
-			['@driving'] = newDriving,
-			['@identifier'] = xPlayer.identifier
-			}, function ()
-			updatePlayerInfo(source)
-		end)
+	addSkill(xPlayer.identifier, "strength", amount, function(val)
+--		TriggerClientEvent('esx:showNotification', source, 'Вы на ~g~' .. round(amount, 2) .. '% ~s~лучше чувствуете себя за рулем!')
+		updatePlayerInfo(xPlayer.source)
 	end)
 end)
 
 RegisterServerEvent("stadus_skills:addFishing")
 AddEventHandler("stadus_skills:addFishing", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
---	TriggerClientEvent('esx:showNotification', source, 'Вы совершенствуете на ~g~' .. round(amount, 2) .. '% ~s~мастерство рыбалки!')
-	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
-		local newFishing = (skillInfo[1].fishing + amount)
-		if newFishing > 100 then
-			newFishing = 100
-		end
-		MySQL.Async.execute('UPDATE `stadus_skills` SET `fishing` = @fishing WHERE `identifier` = @identifier',
-			{
-			['@fishing'] = newFishing,
-			['@identifier'] = xPlayer.identifier
-			}, function ()
-			updatePlayerInfo(source)
-		end)
+	addSkill(xPlayer.identifier, "strength", amount, function(val)
+--		TriggerClientEvent('esx:showNotification', source, 'Вы совершенствуете на ~g~' .. round(amount, 2) .. '% ~s~мастерство рыбалки!')
+		updatePlayerInfo(xPlayer.source)
 	end)
 end)
 
 RegisterServerEvent("stadus_skills:addDrugs")
 AddEventHandler("stadus_skills:addDrugs", function(source, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
---	TriggerClientEvent('esx:showNotification', source, 'Вы совершенстувете навык ~g~' .. round(amount, 2) .. '% ~s~производства ~y~наркотиков~s~!')
-	MySQL.Async.fetchAll('SELECT * FROM `stadus_skills` WHERE `identifier` = @identifier', {['@identifier'] = xPlayer.identifier}, function(skillInfo)
-		local newDrugs = (skillInfo[1].drugs + amount)
-		if newDrugs > 100 then
-			newDrugs = 100
-		end
-		MySQL.Async.execute('UPDATE `stadus_skills` SET `drugs` = @drugs WHERE `identifier` = @identifier',
-			{
-			['@drugs'] = newDrugs,
-			['@identifier'] = xPlayer.identifier
-			}, function ()
-			updatePlayerInfo(source)
-		end)
+	addSkill(xPlayer.identifier, "strength", amount, function(val)
+--		TriggerClientEvent('esx:showNotification', source, 'Вы совершенстувете навык ~g~' .. round(amount, 2) .. '% ~s~производства ~y~наркотиков~s~!')
+		updatePlayerInfo(xPlayer.source)
 	end)
 end)
 
