@@ -22,7 +22,6 @@ end)
 local hunger = 0
 local thirst = 0
 local paused = true
-local menuActive = false
 local nuiFocus = false
 local inputBoxes = {}
 local isBeltOn = nil
@@ -61,16 +60,6 @@ end)
 
 Citizen.CreateThread(function()
 while true do
-	if menuActive == true and nuiFocus == false then
-		SetNuiFocus(true,true)
-		nuiFocus = true
-	end
-
-	if menuActive == false and nuiFocus == true then
-		SetNuiFocus(false, false)
-		nuiFocus = false
-	end
-
 	TriggerEvent('esx_status:getStatus', 'hunger', function(status)
 		if status ~= nil then
 			hunger = status.val / 1000000
@@ -104,7 +93,6 @@ while true do
 
 	SendNUIMessage({
 		action  = 'status',
-		menuActive = menuActive,
 		hidden = isHidden,
 	})
 
@@ -337,7 +325,8 @@ function showInventoryMenu(inventory)
 		value = true,
 	})
 
-	menuActive = true
+	nuiFocus = true
+	SetNuiFocus(true, true);
 	local elements = generateInventoryElements(inventory)
 
 	SendNUIMessage({
@@ -348,13 +337,32 @@ function showInventoryMenu(inventory)
 
 end
 
+--[[
+function showPaper(text)
+	SendNUIMessage({
+		action  = 'showPaper',
+		value = text,
+	})
+	nuiFocus = true
+	SetNuiFocus(true, true)
+end
+]]--
+
 function hideInventoryMenu()
 
 	SendNUIMessage({
 		action  = 'showInventory',
 		value = false,
 	})
+	nuiFocus = false
+	SetNuiFocus(false, false)
 end
+
+
+RegisterNetEvent('sosamba_ui:hideInventoryMenu')
+AddEventHandler('sosamba_ui:hideInventoryMenu', function()
+	hideInventoryMenu()
+end)
 
 RegisterNetEvent('sosamba_ui:showInventoryMenu')
 AddEventHandler('sosamba_ui:showInventoryMenu', function(inventory)
@@ -364,7 +372,11 @@ end)
 
 Citizen.CreateThread(function()
 while true do
-
+--[[
+	if IsControlJustPressed(0,84) then
+		showPaper("My cool text")
+	end
+]]--
 	if isHidden and IsControlJustPressed(0, Keys['~']) then
 		isHidden = false
 		TriggerEvent('sosamba_ui:setHidden', isHidden)
@@ -375,7 +387,7 @@ while true do
 		TriggerEvent('sosamba_ui:setHidden', isHidden)
 	end
 
-	if menuActive then
+	if nuiFocus then
 		local playerPed = PlayerPedId()
 
 		DisableAllControlActions(0)
@@ -571,7 +583,7 @@ AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
 end)
 
 RegisterNUICallback('close', function(data)
-	menuActive = false
+	hideInventoryMenu()
 end)
 
 RegisterNUICallback('inputbox', function(data)
