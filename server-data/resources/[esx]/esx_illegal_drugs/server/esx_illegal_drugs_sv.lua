@@ -36,7 +36,7 @@ CountCops()
 -------------------------------------------------------
 -----------------------WEED----------------------------
 -------------------------------------------------------
-local function HarvestWeed(source)
+local function HarvestWeed(source, id)
 
 	if CopsConnected < Config.RequiredCopsWeed then
 		TriggerClientEvent('esx:showNotification', source, _U('act_imp_police', CopsConnected, Config.RequiredCopsWeed))
@@ -45,7 +45,7 @@ local function HarvestWeed(source)
 
 	SetTimeout(Config.TimeToFarmWeed, function()
 
-		if PlayersHarvestingWeed[source] == true then
+		if PlayersHarvestingWeed[source] == id then
 
 			local _source = source
 			local xPlayer = ESX.GetPlayerFromId(_source)
@@ -56,7 +56,7 @@ local function HarvestWeed(source)
 				TriggerClientEvent('esx:showNotification', source, _U('inv_full_weed'))
 			else
 				xPlayer.addInventoryItem('weed', 1)
-				HarvestWeed(source)
+				HarvestWeed(source, id)
 			end
 
 		end
@@ -68,11 +68,12 @@ AddEventHandler('esx_illegal_drugs:startHarvestWeed', function()
 
 	local _source = source
 
-	PlayersHarvestingWeed[_source] = true
+	local id = math.random(1,1000)
+	PlayersHarvestingWeed[_source] = id
 
 	TriggerClientEvent('esx:showNotification', _source, _U('pickup_in_prog'))
 
-	HarvestWeed(_source)
+	HarvestWeed(_source, id)
 
 end)
 
@@ -234,7 +235,7 @@ end)
 -------------------------------------------------------
 -----------------------OPIUM---------------------------
 -------------------------------------------------------
-local function HarvestOpium(source)
+local function HarvestOpium(source, id)
 
 	if CopsConnected < Config.RequiredCopsOpium then
 		TriggerClientEvent('esx:showNotification', source, _U('act_imp_police', CopsConnected, Config.RequiredCopsOpium))
@@ -243,7 +244,7 @@ local function HarvestOpium(source)
 
 	SetTimeout(Config.TimeToFarmOpium, function()
 
-		if PlayersHarvestingOpium[source] == true then
+		if PlayersHarvestingOpium[source] == id then
 
 			local _source = source
 			local xPlayer = ESX.GetPlayerFromId(_source)
@@ -254,7 +255,7 @@ local function HarvestOpium(source)
 				TriggerClientEvent('esx:showNotification', source, _U('inv_full_opium'))
 			else
 				xPlayer.addInventoryItem('opium', 1)
-				HarvestOpium(source)
+				HarvestOpium(source, id)
 			end
 
 		end
@@ -266,11 +267,12 @@ AddEventHandler('esx_illegal_drugs:startHarvestOpium', function()
 
 	local _source = source
 
-	PlayersHarvestingOpium[_source] = true
+	local id = math.random(1,1000)
+	PlayersHarvestingOpium[_source] = id
 
 	TriggerClientEvent('esx:showNotification', _source, _U('pickup_in_prog'))
 
-	HarvestOpium(_source)
+	HarvestOpium(_source, id)
 
 end)
 
@@ -436,16 +438,15 @@ end)
 -------------------------------------------------------
 -----------------------COKE----------------------------
 -------------------------------------------------------
-local function HarvestCoke(source)
+local function HarvestCoke(source, id)
 
 	if CopsConnected < Config.RequiredCopsCoke then
 		TriggerClientEvent('esx:showNotification', source, _U('act_imp_police', CopsConnected, Config.RequiredCopsCoke))
 		return
 	end
-
 	SetTimeout(Config.TimeToFarmCoke, function()
 
-		if PlayersHarvestingCoke[source] == true then
+		if PlayersHarvestingCoke[source] == id then
 
 			local xPlayer  = ESX.GetPlayerFromId(source)
 
@@ -455,9 +456,8 @@ local function HarvestCoke(source)
 				TriggerClientEvent('esx:showNotification', source, _U('inv_full_coke'))
 			else
 				xPlayer.addInventoryItem('coke', 1)
-				HarvestCoke(source)
+				HarvestCoke(source, id)
 			end
-
 		end
 	end)
 end
@@ -467,11 +467,12 @@ AddEventHandler('esx_illegal_drugs:startHarvestCoke', function()
 
 	local _source = source
 
-	PlayersHarvestingCoke[_source] = true
+	local id = math.random(1,1000)
+	PlayersHarvestingCoke[_source] = id
 
 	TriggerClientEvent('esx:showNotification', _source, _U('pickup_in_prog'))
 
-	HarvestCoke(_source)
+	HarvestCoke(_source, id)
 
 end)
 
@@ -634,7 +635,7 @@ end)
 -------------------------------------------------------
 ----------------------METH-----------------------------
 -------------------------------------------------------
-local function HarvestMeth(source)
+local function HarvestMeth(source, id)
 
 	if CopsConnected < Config.RequiredCopsMeth then
 		TriggerClientEvent('esx:showNotification', source, _U('act_imp_police', CopsConnected, Config.RequiredCopsMeth))
@@ -643,7 +644,7 @@ local function HarvestMeth(source)
 	
 	SetTimeout(Config.TimeToFarmMeth, function()
 
-		if PlayersHarvestingMeth[source] == true then
+		if PlayersHarvestingMeth[source] == id then
 
 			local _source = source
 			local xPlayer = ESX.GetPlayerFromId(_source)
@@ -654,7 +655,7 @@ local function HarvestMeth(source)
 				TriggerClientEvent('esx:showNotification', source, _U('inv_full_meth'))
 			else
 				xPlayer.addInventoryItem('meth', 1)
-				HarvestMeth(source)
+				HarvestMeth(source, id)
 			end
 
 		end
@@ -666,11 +667,12 @@ AddEventHandler('esx_illegal_drugs:startHarvestMeth', function()
 
 	local _source = source
 
-	PlayersHarvestingMeth[_source] = true
+	local id = math.random(1,1000)
+	PlayersHarvestingMeth[_source] = id
 
 	TriggerClientEvent('esx:showNotification', _source, _U('pickup_in_prog'))
 
-	HarvestMeth(_source)
+	HarvestMeth(_source, id)
 
 end)
 
