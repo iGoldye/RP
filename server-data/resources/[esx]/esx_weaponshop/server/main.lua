@@ -121,15 +121,15 @@ AddEventHandler('esx_weashop:buyLicense', function ()
   local _source = source
   local xPlayer = ESX.GetPlayerFromId(source)
 
-  if xPlayer.get('money') >= Config.LicensePrice then
-    xPlayer.removeMoney(Config.LicensePrice)
-
-    TriggerEvent('esx_license:addLicense', _source, 'weapon', function ()
-      LoadLicenses(_source)
-    end)
-  else
-    TriggerClientEvent('esx:showNotification', _source, _U('not_enough'))
-  end
+  TriggerEvent('esx_atm:pay', _source, "weaponshop", Config.LicensePrice, function(res)
+    if res then
+      TriggerEvent('esx_license:addLicense', _source, 'weapon', function ()
+          LoadLicenses(_source)
+      end)
+    else
+      TriggerClientEvent('esx:showNotification', _source, _U('not_enough'))
+    end
+  end)
 end)
 
 
@@ -198,19 +198,20 @@ AddEventHandler('esx_weashop:buyItem', function(itemName, price, zone)
 		TriggerClientEvent('esx:showNotification', _source, _U('not_enough_black'))
 	end
 
-  else if xPlayer.get('money') >= price then
-		if itemName == "clip" then
-			xPlayer.addInventoryItem(itemName, 1)
-			TriggerClientEvent('esx:showNotification', _source, _U('buy') .. "chargeur")
-		else
-
-			xPlayer.addWeapon(itemName, 42)
-			TriggerClientEvent('esx:showNotification', _source, _U('buy') .. ESX.GetWeaponLabel(itemName))
-		end
-		xPlayer.removeMoney(price)
   else
-    TriggerClientEvent('esx:showNotification', _source, _U('not_enough'))
-  end
+	TriggerEvent('esx_atm:pay', _source, "weaponshop", price, function(res)
+		if res then
+			if itemName == "clip" then
+				xPlayer.addInventoryItem(itemName, 1)
+				TriggerClientEvent('esx:showNotification', _source, _U('buy') .. "chargeur")
+			else
+				xPlayer.addWeapon(itemName, 42)
+				TriggerClientEvent('esx:showNotification', _source, _U('buy') .. ESX.GetWeaponLabel(itemName))
+			end
+		else
+			TriggerClientEvent('esx:showNotification', _source, _U('not_enough'))
+		end
+	end)
   end
 
 end)

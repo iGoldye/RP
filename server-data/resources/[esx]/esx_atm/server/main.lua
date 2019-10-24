@@ -37,3 +37,26 @@ AddEventHandler('esx_atm:withdraw', function(amount)
 		TriggerClientEvent('esx:showNotification', _source, _U('withdraw_money', amount))
 	end
 end)
+
+-- not suitable for net
+AddEventHandler('esx_atm:pay', function(source, description, amount, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if amount < 0 then
+		print("esx_atm: pay cheating "..xPlayer.identifier)
+		cb(false)
+		return
+	end
+
+	if amount <= xPlayer.getMoney() then
+		xPlayer.removeMoney(amount)
+		cb(true)
+		return
+	elseif amount <= xPlayer.getBank() then
+		xPlayer.removeAccountMoney('bank', amount)
+		cb(true)
+		return
+	else
+		cb(false)
+		return
+	end
+end)

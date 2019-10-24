@@ -194,7 +194,7 @@ local Keys = {
 --       if IsControlJustReleased(0, Keys['E']) then
 
 --         if CurrentAction == 'shop_menu' then
---           if Config.EnableLicense == true then
+--           if Config.LicenseEnable == true then
 --             if Licenses['weapon'] ~= nil or Config.Zones[CurrentActionData.zone].legal == 1 then
 --               OpenShopMenu(CurrentActionData.zone)
 --             else
@@ -417,7 +417,7 @@ Citizen.CreateThread(function()
       if IsControlJustReleased(0, Keys['E']) then
 
         if CurrentAction == 'shop_menu' then
-          if Config.EnableLicense == true then
+          if Config.LicenseEnable == true then
             if Licenses['weapon'] ~= nil or Config.Zones[CurrentActionData.zone].legal == 1 then
               OpenShopMenu(CurrentActionData.zone)
             else

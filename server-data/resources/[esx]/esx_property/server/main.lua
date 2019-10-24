@@ -216,12 +216,13 @@ AddEventHandler('esx_property:buyProperty', function(propertyName)
 	local xPlayer  = ESX.GetPlayerFromId(source)
 	local property = GetProperty(propertyName)
 
-	if property.price <= xPlayer.getMoney() then
-		xPlayer.removeMoney(property.price)
-		SetPropertyOwned(propertyName, property.price, false, xPlayer.identifier)
-	else
-		TriggerClientEvent('esx:showNotification', source, _U('not_enough'))
-	end
+	TriggerEvent('esx_atm:pay', xPlayer.source, "property", property.price, function(res)
+		if res then
+			SetPropertyOwned(propertyName, property.price, false, xPlayer.identifier)
+		else
+			TriggerClientEvent('esx:showNotification', source, _U('not_enough'))
+		end
+	end)
 end)
 
 RegisterServerEvent('esx_property:removeOwnedProperty')
