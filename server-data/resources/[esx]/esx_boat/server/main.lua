@@ -7,7 +7,7 @@ MySQL.ready(function()
 end)
 
 function ParkBoats()
-	MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true WHERE `stored` = false AND type = @type', {
+	MySQL.Async.execute('UPDATE owned_vehicles SET `stored` = true WHERE `stored` = false AND `type` = @type', {
 		['@type'] = 'boat'
 	}, function (rowsChanged)
 		if rowsChanged > 0 then
@@ -31,7 +31,7 @@ ESX.RegisterServerCallback('esx_boat:buyBoat', function(source, cb, vehicleProps
 	else
 		TriggerEvent('esx_atm:pay', xPlayer.source, "boat", price, function(res)
 			if res then
-				MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle, type, stored) VALUES (@owner, @plate, @vehicle, @type, @stored)', {
+				MySQL.Async.execute('INSERT INTO owned_vehicles (`owner`, `plate`, `vehicle`, `type`, `stored`) VALUES (@owner, @plate, @vehicle, @type, @stored)', {
 					['@owner']   = xPlayer.identifier,
 					['@plate']   = vehicleProps.plate,
 					['@vehicle'] = json.encode(vehicleProps),
@@ -78,7 +78,7 @@ end)
 
 ESX.RegisterServerCallback('esx_boat:getGarage', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner = @owner AND type = @type AND `stored` = @stored', {
+	MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE `owner` = @owner AND `type` = @type AND `stored` = @stored', {
 		['@owner']  = xPlayer.identifier,
 		['@type']   = 'boat',
 		['@stored'] = true
