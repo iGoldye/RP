@@ -3,7 +3,7 @@ Config               = {}
 Config.Locale        = 'en'
 
 Config.LicenseEnable = true -- enable boat license? Requires esx_license
-Config.LicensePrice  = 50000
+Config.LicensePrice  = 5000
 
 Config.MarkerType    = 1
 Config.DrawDistance  = 100.0

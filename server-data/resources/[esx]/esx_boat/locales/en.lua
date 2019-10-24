@@ -11,7 +11,7 @@ Locales['en'] = {
   -- garage
   ['garage'] = 'boat garage',
   ['garage_open'] = 'Нажмите ~INPUT_CONTEXT~ для доступа к ~y~причалу~s~.',
-  ['garage_store'] = 'Нажмите ~INPUT_CONTEXT~ чтобы ~y~пришвартовать~s~ ваш транспорт.',
+  ['garage_store'] = 'Нажмите ~INPUT_CONTEXT~ чтобы ~y~пришвартовать~s~ транспорт',
   ['garage_taken'] = 'Вы взяли транспорт!',
   ['garage_stored'] = 'Транспорт пришвартован!',
   ['garage_noboats'] = 'У вас нет водного транспорта! Посетите ~y~магазин лодок~s~.',
