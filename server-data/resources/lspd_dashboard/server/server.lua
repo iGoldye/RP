@@ -1,0 +1,23 @@
+ESX = nil
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
+function RandomString(length)
+  local res = ""
+  for i = 1, length do
+      res = res .. string.char(math.random(97, 122))
+  end
+  return res
+end
+
+RegisterServerEvent('lspd_dashboard:sessionid')
+AddEventHandler('lspd_dashboard:sessionid', function()
+  local xPlayer = ESX.GetPlayerFromId(source)
+  local sessionid = RandomString(32)
+  MySQL.Async.execute('REPLACE INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
+  {
+      identifier = xPlayer.identifier,
+      sessionid = sessionid,
+  }, function(rowsChanged)
+      TriggerClientEvent('lspd_dashboard:sessionid', xPlayer.source, sessionid)
+  end)
+end)

@@ -10,23 +10,47 @@ local Keys = {
   ["NENTER"] = 201, ["N4"] = 108, ["N5"] = 60, ["N6"] = 107, ["N+"] = 96, ["N-"] = 97, ["N7"] = 117, ["N8"] = 61, ["N9"] = 118
 }
 
-function RandomString(length)
-  local res = ""
-  for i = 1, length do
-      res = res .. string.char(math.random(97, 122))
-  end
-  return res
+ESX = nil
+menuActive = false
+sessionid = nil
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+
+	TriggerServerEvent('lspd_dashboard:sessionid')
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+
+		if menuActive then
+			DisableAllControlActions(0)
+		        if IsDisabledControlJustReleased(0, Keys["BACKSPACE"]) then
+				hide()
+			end
+		end
+	end
+end)
+
+function show(sid)
+	sessionid = sid
+	SetNuiFocus(true, true)
+	menuActive = true
+	SendNUIMessage({['show']=1, ['sessionid']=sid})
 end
 
-RegisterServerEvent('lspd_dashboard:sessionid')
-AddEventHandler('lspd_dashboard:sessionid', function(text)
-  local identifier = GetPlayerIdentifiers(source)[1]
-  local sessionid = RandomString(32)
-  MySQL.Async.execute('REPLACE INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
-  {
-      identifier = identifier,
-      sessionid = sessionid,
-  }, function(rowsChanged)
-      TriggerClientEvent('lspd_dashboard:sessionid', source, sessionid)
-  end)
+function hide()
+	SetNuiFocus(false, false)
+	menuActive = false
+	SendNUIMessage({hide=1})
+	sessionid = nil
+end
+
+RegisterNetEvent('lspd_dashboard:sessionid')
+AddEventHandler('lspd_dashboard:sessionid', function(sid)
+    show(sid)
 end)

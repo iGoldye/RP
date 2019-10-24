@@ -9,6 +9,7 @@
   <body>
     <style>
       body {
+	display: none;
         background: transparent;
         overflow: hidden;
         margin: 0;
@@ -33,10 +34,9 @@
         display: block;
         min-width: 85vw;
         min-height: 44vw;
-        background: grey;
+	background: grey;
         border: none;
         z-index: 1;
-        top: -17px;
       }
       .dashboard::-webkit-scrollbar {
         display: none;
@@ -53,8 +53,21 @@
     <div class="outer">
       <div class="wrapper">
         <img src="./img/monitor.png" alt="" />
-        <iframe class="dashboard" src="http://194.87.144.130:80/"></iframe>
+        <iframe class="dashboard" id="dashboard" src=""></iframe>
       </div>
     </div>
+  <script>
+	window.addEventListener('message', function (event) {
+		let data = event.data;
+
+		if (data.show) {
+			document.getElementById('dashboard').src = "http://194.87.144.130:80/?sessionid="+data.sessionid;
+			document.body.style.display = "block";
+		} else if (data.hide) {
+			document.body.style.display = "none";
+		}
+	});
+
+  </script>
   </body>
 </html>
