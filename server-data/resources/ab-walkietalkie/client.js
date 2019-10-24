@@ -7,6 +7,13 @@ let playerServerId = GetPlayerServerId(PlayerId());
 
 Delay = (ms) => new Promise(res => setTimeout(res, ms));
 
+onNet('esx:removeInventoryItem', (item, amount) => {
+	if (item.name == "walkietalkie" && item.count === 0 && lastRadio !== 0) {
+		emitNet('TokoVoip:removePlayerFromRadio', lastRadio, playerServerId);
+		lastRadio = 0;
+	}
+})
+
 on('radioGui', () => {
     openGui();
 });
