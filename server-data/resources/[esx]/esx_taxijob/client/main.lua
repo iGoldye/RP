@@ -771,6 +771,10 @@ AddEventHandler('esx_taxijob:TaxiTracker', function(player)
 	SetBlipRoute(CurrentTaxiBlip, true)
 	SetBlipScale  (CurrentTaxiBlip, 1.0)
 
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString("Такси")
+	EndTextCommandSetBlipName(CurrentTaxiBlip)
+
 	local dist = 10000
 
 	local secs = 0
