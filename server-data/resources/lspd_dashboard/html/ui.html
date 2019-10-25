@@ -9,7 +9,7 @@
   <body>
     <style>
       body {
-	display: none;
+        display: none;
         background: transparent;
         overflow: hidden;
         margin: 0;
@@ -26,15 +26,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        width: 88%;
         height: 100%;
+        padding: 3% 1%;
+        box-sizing: border-box;
       }
       .dashboard {
         position: relative;
         display: block;
         min-width: 85vw;
         min-height: 44vw;
-	background: grey;
+        background: grey;
         border: none;
         z-index: 1;
       }
@@ -56,18 +58,18 @@
         <iframe class="dashboard" id="dashboard" src=""></iframe>
       </div>
     </div>
-  <script>
-	window.addEventListener('message', function (event) {
-		let data = event.data;
+    <script>
+      window.addEventListener('message', function(event) {
+        let data = event.data
 
-		if (data.show) {
-			document.getElementById('dashboard').src = "http://194.87.144.130:80/?sessionid="+data.sessionid;
-			document.body.style.display = "block";
-		} else if (data.hide) {
-			document.body.style.display = "none";
-		}
-	});
-
-  </script>
+        if (data.show) {
+          document.getElementById('dashboard').src =
+            'http://194.87.144.130:80/?sessionid=' + data.sessionid
+          document.body.style.display = 'block'
+        } else if (data.hide) {
+          document.body.style.display = 'none'
+        }
+      })
+    </script>
   </body>
 </html>
