@@ -19,6 +19,15 @@ Citizen.CreateThread(function()
 			end
 
 			DisableAllControlActions(0)
+
+			local lib = "low_int-0"
+			local anim = "ig_benny_dual-0"
+
+			if not IsEntityPlayingAnim(PlayerPedId(), lib, anim, 3) then
+				ESX.Streaming.RequestAnimDict(lib, function()
+					TaskPlayAnim(PlayerPedId(), lib, anim, 8.0, -8.0, -1, 1, 0, false, false, false)
+				end)
+			end
 		else
 			Citizen.Wait(100)
 		end
@@ -115,9 +124,13 @@ end)
 
 RegisterNetEvent('mlockpick:hide')
 AddEventHandler('mlockpick:hide', function()
-	SendNUIMessage({ ["name"] = "stop" })
-	SetNuiFocus(false, false)
-	started = false
+	if started then
+		SendNUIMessage({ ["name"] = "stop" })
+		SetNuiFocus(false, false)
+		started = false
+		Citizen.Wait(500)
+		ClearPedTasks(PlayerPedId())
+	end
 end)
 
 RegisterNUICallback('fail', function(data, cb)
