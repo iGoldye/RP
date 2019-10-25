@@ -24,12 +24,12 @@ AddEventHandler('esx_taxijob:success', function(JobDistance)
 		JobDistance = 3000
 	end
 
-	local total = math.random(Config.NPCJobEarnings.min, Config.NPCJobEarnings.max) * JobDistance / 1500.0
+	local total = Config.NPCJobEarningsBase + math.random(Config.NPCJobEarnings.min, Config.NPCJobEarnings.max) * JobDistance / 1500.0
 	local societyAccount
 
-	if xPlayer.job.grade >= 3 then
-		total = total * 2
-	end
+--	if xPlayer.job.grade >= 3 then
+--		total = total * 2
+--	end
 
 	TriggerEvent('esx_addonaccount:getSharedAccount', 'society_taxi', function(account)
 		societyAccount = account
