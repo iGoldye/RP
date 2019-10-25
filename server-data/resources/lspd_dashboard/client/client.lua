@@ -52,5 +52,9 @@ end
 
 RegisterNetEvent('lspd_dashboard:sessionid')
 AddEventHandler('lspd_dashboard:sessionid', function(sid)
-    show(sid)
+	sessionid = sid
+end)
+
+AddEventHandler('lspd_dashboard:show', function()
+	show(sessionid)
 end)
