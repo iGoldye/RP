@@ -2,6 +2,7 @@ Locales['en'] = {
   ['have_withdrawn'] = 'вы забрали ~y~x%s~s~ ~b~%s~s~',
   ['have_deposited'] = 'вы положили~y~x%s~s~ ~b~%s~s~',
   ['free_prop'] = 'Недвижимость на продажу',
+  ['free_prop_rent'] = 'Аренда недвижимости',
   ['property'] = 'Недвижимость',
   ['enter'] = 'Войти',
   ['leave'] = 'Продать',
