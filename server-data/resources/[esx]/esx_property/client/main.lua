@@ -66,17 +66,21 @@ function CreateBlips()
 			if property.isRentOnly == true then
 				SetBlipSprite (Blips[property.name], 40)
 				SetBlipColour (Blips[property.name], 50)
+
+				BeginTextCommandSetBlipName("STRING")
+				AddTextComponentSubstringPlayerName(_U('free_prop_rent'))
+				EndTextCommandSetBlipName(Blips[property.name])
 			else
 				SetBlipSprite (Blips[property.name], 369)
+
+				BeginTextCommandSetBlipName("STRING")
+				AddTextComponentSubstringPlayerName(_U('free_prop'))
+				EndTextCommandSetBlipName(Blips[property.name])
 			end
 
 			SetBlipDisplay(Blips[property.name], 4)
 			SetBlipScale  (Blips[property.name], 1.0)
 			SetBlipAsShortRange(Blips[property.name], true)
-
-			BeginTextCommandSetBlipName("STRING")
-			AddTextComponentSubstringPlayerName(_U('free_prop'))
-			EndTextCommandSetBlipName(Blips[property.name])
 		end
 	end
 end
