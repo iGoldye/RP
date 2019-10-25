@@ -112,6 +112,28 @@ function openSkinMenu(data)
 -- TriggerEvent('vueskincreator:show', data)
 	TriggerEvent('esx_skin:openSaveableMenu', function()
 -- successfully registered
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'skin-confirm',
+		{
+			title    = 'Закончить создание персонажа?',
+			align    = 'top-left',
+			elements = {
+					{label="Нет, вернуться к редактированию персонажа", value="cancel"},
+					{label="Нет, вернуться к редактированию персонажа", value="cancel"},
+					{label="Нет, вернуться к редактированию персонажа", value="cancel"},
+					{label="<font color='green'>Да, сохранить настройки и приступить к игре</font>", value="apply"},
+					{label="Нет, вернуться к редактированию персонажа", value="cancel"},
+					{label="Нет, вернуться к редактированию персонажа", value="cancel"},
+					{label="Нет, вернуться к редактированию персонажа", value="cancel"},
+				   }
+		}, function(data, menu)
+			if data.current.value ~= "apply" then
+				openSkinMenu(data)
+			end
+			menu.close()
+		end, function(data, menu)
+			menu.close()
+		end)
+
 	end, function()
 		openSkinMenu(data)
 	end)
