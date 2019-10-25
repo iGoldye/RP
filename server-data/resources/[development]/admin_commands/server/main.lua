@@ -1,6 +1,39 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+--[[
+function clearAll(source, args, user)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer == nil then
+		return
+	end
+
+-- clear inventory
+	for i=1, #xPlayer.inventory, 1 do
+		if xPlayer.inventory[i].count > 0 then
+			xPlayer.setInventoryItem(xPlayer.inventory[i].name, 0)
+		end
+	end
+
+-- clear loadout
+	for i=#xPlayer.loadout, 1, -1 do
+		xPlayer.removeWeapon(xPlayer.loadout[i].name)
+	end
+
+-- clear all datastores
+	TriggerEvent('esx_datastore:clearDataStores', source)
+
+-- clear characters
+	MySQL.Sync.execute('DELETE FROM `characters` WHERE identifier = @identifier', {
+		['@identifier'] = xPlayer.identifier,
+	})
+
+-- register new identity
+	xPlayer.setSessionVar("identity", nil)
+	TriggerClientEvent('esx_identity:identityCheck', source, nil)
+	TriggerClientEvent('esx_identity:showRegisterIdentity', source)
+end
+]]--
 ESX.RegisterServerCallback('admin_commands:isAdmin', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if xPlayer ~= nil then
@@ -16,8 +49,13 @@ TriggerEvent('es:addGroupCommand', 'emote', 'admin', function(source, args, user
 	TriggerClientEvent('admin_commands:emote', source, args)
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
-end, {help = "Get current player coordinates"})
+end, {help = "Play emote"})
 
+TriggerEvent('es:addGroupCommand', 'scenario', 'admin', function(source, args, user)
+	TriggerClientEvent('admin_commands:scenario', source, args)
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Start scenario"})
 
 TriggerEvent('es:addGroupCommand', 'repair', 'admin', function(source, args, user)
 	TriggerClientEvent('admin_commands:repair', source)
@@ -175,3 +213,9 @@ TriggerEvent('es:addGroupCommand', 'guitar', 'admin', function(source, args, use
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Играть на гитаре"})
+
+TriggerEvent('es:addGroupCommand', 'unlock', 'admin', function(source, args, user)
+	TriggerEvent('esx_locksystem:setLock', table.concat(args," "))
+end, function(source, args, user)
+	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
+end, {help = "Разблокировать транспорт"})

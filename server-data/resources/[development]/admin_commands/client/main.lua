@@ -88,6 +88,16 @@ AddEventHandler('admin_commands:emote', function(args)
 	TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, -1, -1, flag, 0, false, false, false)
 end)
 
+RegisterNetEvent('admin_commands:scenario')
+AddEventHandler('admin_commands:scenario', function(args)
+	if #args < 1 then
+		return
+	end
+
+	local anim = args[1]
+	TaskStartScenarioInPlace(PlayerPedId(), anim, 5000, true)
+end)
+
 RegisterNetEvent('admin_commands:repair')
 AddEventHandler('admin_commands:repair', function(args)
 
