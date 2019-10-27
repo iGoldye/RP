@@ -602,6 +602,10 @@ function OpenMenu()
 			table.insert(elements, {label = "Действия такси", value = 'taxi-actions'})
 		elseif PlayerData.job.name == 'unicorn' then
 			table.insert(elements, {label = "Действия клуба Единорог", value = 'unicorn-actions'})
+		elseif PlayerData.job.name == 'tequila' then
+			table.insert(elements, {label = "Действия клуба Текила-ла", value = 'tequila-actions'})
+		elseif PlayerData.job.name == 'bagama' then
+			table.insert(elements, {label = "Действия клуба Багама-мама", value = 'bagama-actions'})
 		elseif PlayerData.job.name == 'reporter' then
 			table.insert(elements, {label = "Действия журналиста", value = 'reporter-actions'})
 		end
@@ -660,6 +664,10 @@ function OpenMenu()
 			TriggerEvent('esx_taxijob:OpenMobileTaxiActionsMenu')
 		elseif cmd == 'unicorn-actions'then
 			TriggerEvent('esx_unicornjob:OpenSocietyActionsMenu')
+		elseif cmd == 'tequila-actions'then
+			TriggerEvent('esx_tequilajob:OpenSocietyActionsMenu')
+		elseif cmd == 'bagama-actions'then
+			TriggerEvent('esx_bagamajob:OpenSocietyActionsMenu')
 		elseif cmd == 'reporter-actions'then
 			OpenReporterMenu()
 		elseif cmd == 'admin-actions'then

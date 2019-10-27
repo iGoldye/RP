@@ -75,6 +75,7 @@ Config.DoorList = {
 		objCoords  = vector3(447.2, -980.6, 30.6),
 		textCoords = vector3(447.2, -980.0, 31.7),
 		authorizedJobs = { 'police' },
+		difficulty = 10,
 		locked = true
 	},
 
@@ -84,6 +85,7 @@ Config.DoorList = {
 		objCoords  = vector3(462.77, -1000.99, 35.93),
 		textCoords = vector3(462.77, -1000.99, 35.93),
 		authorizedJobs = { 'police' },
+		difficulty = 10,
 		locked = true
 	},
 	-- To downstairs (double doors)
@@ -92,6 +94,7 @@ Config.DoorList = {
 		authorizedJobs = { 'police' },
 		locked = true,
 		distance = 4,
+		difficulty = 10,
 		doors = {
 			{
 				objName = 'v_ilev_ph_gendoor005',
@@ -646,6 +649,26 @@ Config.DoorList = {
 				objName = 'v_ilev_cor_firedoor',
 				objYaw = -19.0,
 				objCoords = vector3(347.02, -569.14, 28.78)
+			}
+		}
+	},
+
+	{
+		textCoords = vector3(251.91, -1366.43, -28.79),
+		authorizedJobs = { 'ambulance' },
+		locked = true,
+		distance = 4,
+		doors = {
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = -40.0,
+				objCoords = vector3(252.98, -1366.69, 24.54)
+			},
+
+			{
+				objName = 'v_ilev_cor_firedoor',
+				objYaw = 140.0,
+				objCoords = vector3(251.31, -1365.49, 24.54)
 			}
 		}
 	},

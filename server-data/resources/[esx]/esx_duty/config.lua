@@ -28,4 +28,12 @@ Config.Zones = {
     Type = 27,
     Job  = "ambulance",
   },
+
+  AmbulanceSandyDuty = {
+    Pos = { x = 269.28, y = -1361.29, z = 23.54 },
+    Size = { x = 1.2, y = 1.2, z = 1.5 },
+    Color = { r = 0, g = 255, b = 0 },
+    Type = 27,
+    Job  = "ambulance",
+  },
 }

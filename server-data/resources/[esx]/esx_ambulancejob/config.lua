@@ -32,6 +32,50 @@ Config.RespawnPoint = { coords = vector3(350.02, -574.55, 28.8), heading = 68.41
 
 Config.Hospitals = {
 
+	SandyShores = {
+		Blip = {
+				coords = vector3(1827, 3672, 34.22),
+				sprite = 61,
+				scale  = 1.2,
+				color  = 2
+		},
+
+		AmbulanceActions = {
+			vector3(268.71, -1364.69, 23.54)
+		},
+
+		BossActions = {
+		},
+
+		Pharmacies = {
+			vector3(251.53, -1347.04, 23.54)
+		},
+
+		Vehicles = {
+			{
+				Spawner = vector3(1836.81, 3668.3, 33.68),
+				InsideShop = vector3(1843.74, 3665.95, 33.8),
+				Marker = { type = 36, x = 1.0, y = 1.0, z = 1.0, r = 255, g = 0, b = 0, a = 100, rotate = true },
+				SpawnPoints = {
+					{ coords = vector3(1835.37, 3663.59, 33.77), heading = 265.64, radius = 4.0 },
+					{ coords = vector3(1835.37, 3663.59, 33.77), heading = 265.6, radius = 4.0 },
+					{ coords = vector3(1835.37, 3663.59, 33.77), heading = 265.6, radius = 6.0 }
+				}
+			}
+		},
+
+		Helicopters = {
+		},
+
+		FastTravels = {
+		},
+
+		FastTravelsPrompt = {
+		}
+},
+
+
+
 	CentralLosSantos = {
 
 		Blip = {
@@ -42,7 +86,7 @@ Config.Hospitals = {
 		},
 
 		AmbulanceActions = {
-			vector3(336.05, -580.0, 27.9)
+			vector3(336.05, -580.0, 27.9),
 		},
 
 		BossActions = {
@@ -50,7 +94,7 @@ Config.Hospitals = {
 		},
 
 		Pharmacies = {
-			vector3(331.09, -580.48, 27.9)
+			vector3(331.09, -580.48, 27.9),
 		},
 
 		Vehicles = {
@@ -144,14 +188,14 @@ Config.Hospitals = {
 -- 			},
 -- Разное
 			{
-				From = vector3(254.2, -1372.4, 23.5),
-				To = { coords = vector3(393.2, -1434.6, 28.8), heading = 0.0 },
+				From = vector3(275.21, -1361.07, 23.5),
+				To = { coords = vector3(1840.98, 3669.93, 33.68), heading = 214.0 },
 				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			},
 
 			{
-				From = vector3(391.3, -1433.1, 28.5),
-				To = { coords = vector3(252.2, -1370.8, 23.5), heading = 0.0 },
+				From = vector3(1839.31, 3672.69, 33.3),
+				To = { coords = vector3(273.57, -1359.56, 24.5), heading = 49.0 },
 				Marker = { type = 1, x = 1.5, y = 1.5, z = 1.0, r = 102, g = 0, b = 102, a = 100, rotate = false }
 			}
 		},
