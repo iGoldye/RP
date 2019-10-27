@@ -28,10 +28,10 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 
 		if menuActive then
-			DisableAllControlActions(0)
-		        if IsDisabledControlJustReleased(0, Keys["BACKSPACE"]) then
-				hide()
-			end
+			DisableControlAction(0, 1, menuActive) -- LookLeftRight
+			DisableControlAction(0, 2, menuActive) -- LookUpDown
+			DisableControlAction(0, 142, menuActive) -- MeleeAttackAlternate
+			DisableControlAction(0, 106, menuActive) -- VehicleMouseControlOverride
 		end
 	end
 end)
@@ -41,6 +41,7 @@ function show(sid)
 	SetNuiFocus(true, true)
 	menuActive = true
 	SendNUIMessage({['show']=1, ['sessionid']=sid})
+	getPlayerData()
 end
 
 function hide()
@@ -50,6 +51,18 @@ function hide()
 	sessionid = nil
 end
 
+function getPlayerData()
+	local identifier = ESX.GetPlayerFromId(ID).identifier
+	local _source 	 = ESX.GetPlayerFromId(targetID).source
+	MySQL.Async.fetchAll('SELECT firstname, lastname, job FROM users WHERE identifier = @identifier', {['@identifier'] = identifier},
+	function (user)
+		if (user[1] ~= nil) then
+			MySQL.Async.fetchAll('SELECT type FROM user_licenses WHERE owner = @identifier', {['@identifier'] = identifier},
+			print(user)
+		end)
+	end)
+end
+
 RegisterNetEvent('lspd_dashboard:sessionid')
 AddEventHandler('lspd_dashboard:sessionid', function(sid)
 	sessionid = sid
@@ -57,4 +70,8 @@ end)
 
 AddEventHandler('lspd_dashboard:show', function()
 	show(sessionid)
+end)
+
+RegisterNUICallback('NUIClose', function()
+  hide()
 end)
