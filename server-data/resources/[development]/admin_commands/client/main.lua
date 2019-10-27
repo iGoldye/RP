@@ -37,7 +37,10 @@ AddEventHandler('admin_commands:guitar', function(args)
 	local xR = 300.0
 	local yR = 70.0
 	local zR = -20.0
+	local flag = 49
 
+	local animDict = 'amb@world_human_musician@guitar@male@idle_a'
+	local animName = 'idle_b' -- idle_a, idle_c
 
 	if #args > 0 then
 		local num = tostring(args[1])
@@ -47,10 +50,17 @@ AddEventHandler('admin_commands:guitar', function(args)
 			x = -0.12
 			xR = 304.0
 		end
+
+		if num == "5" then
+--			animName = 'idle_c'
+			flag = 1
+--			xR = 300.0
+--			zR = -25.0
+--			x = -0.07
+--			z = 0.08
+		end
 	end
 
-	local animDict = 'amb@world_human_musician@guitar@male@idle_a'
-	local animName = 'idle_b' -- idle_a, idle_c
 
 	loadAnimDict(animDict)
 	RequestModel(gtrModel)
@@ -58,7 +68,6 @@ AddEventHandler('admin_commands:guitar', function(args)
 		Citizen.Wait(1)
 	end
 
-	local flag = 49
         TaskPlayAnim(PlayerPedId(), animDict, animName, 8.0, 8.0, -1, flag, 1.0, false, false, false);
 	Citizen.Wait(50)
 
