@@ -181,7 +181,7 @@ Citizen.CreateThread(function()
 --			print(plate.." "..tostring(lockStatus[plate]).." "..tostring(lock))
 
 			if lockStatus[plate] ~= nil then
-				if (lock == 4 or lock == 2) and lockStatus[plate] == false then
+				if lock ~= 1 and lockStatus[plate] == false then
 					SetVehicleDoorsLocked(vehicle, 1)
 					SetVehicleDoorsLockedForAllPlayers(vehicle, false)
 				elseif lock ~= 4 and lockStatus[plate] == true then
