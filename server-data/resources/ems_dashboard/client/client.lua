@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 
-	TriggerServerEvent('lspd_dashboard:sessionid')
+	TriggerServerEvent('ems_dashboard:sessionid')
 end)
 
 Citizen.CreateThread(function()
@@ -51,23 +51,13 @@ function hide()
 	sessionid = nil
 end
 
-function getPlayerData(source)
-	local identifier = ESX.GetPlayerData()
-	print(identifier)
-	-- MySQL.Async.fetchAll('SELECT firstname, lastname, job FROM users WHERE identifier = @identifier', {['@identifier'] = identifier},
-	-- function (user)
-	-- 	if (user[1] ~= nil) then
-	-- 		print(user)
-	-- 	end
-	-- end)
-end
 
-RegisterNetEvent('lspd_dashboard:sessionid')
-AddEventHandler('lspd_dashboard:sessionid', function(sid)
+RegisterNetEvent('ems_dashboard:sessionid')
+AddEventHandler('ems_dashboard:sessionid', function(sid)
 	sessionid = sid
 end)
 
-AddEventHandler('lspd_dashboard:show', function()
+AddEventHandler('ems_dashboard:show', function()
 	show(sessionid)
 end)
 
