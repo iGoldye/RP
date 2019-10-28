@@ -120,6 +120,11 @@ class Inventory {
 		return null
 	}
 
+	clearItems() {
+		this.items = new Array()
+		this.onChange()
+	}
+
 	removeItem(item, silent) {
 		var xPlayer = this.getXPlayer()
 		item = DeserializeItem(item)

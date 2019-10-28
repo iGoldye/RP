@@ -108,6 +108,11 @@ AddEventHandler('esx_inventory:createItem', function(name, extra, amount, weight
 	cb(CreateItem(name, extra, amount, weight))
 })
 
+AddEventHandler('esx_inventory:clearItems', function(name, owner) {
+	var inv = getInventory(name, owner)
+	inv.clearItems()
+})
+
 AddEventHandler('esx_inventory:addItem', function(name, owner, item, cb) {
 	var inv = getInventory(name, owner)
 	cb(inv.addItem(item))
