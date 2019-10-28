@@ -9,8 +9,8 @@ function RandomString(length)
   return res
 end
 
-RegisterServerEvent('lspd_dashboard:sessionid')
-AddEventHandler('lspd_dashboard:sessionid', function()
+RegisterServerEvent('ems_dashboard:sessionid')
+AddEventHandler('ems_dashboard:sessionid', function()
   local xPlayer = ESX.GetPlayerFromId(source)
   local sessionid = RandomString(32)
   MySQL.Async.execute('REPLACE INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
@@ -18,6 +18,6 @@ AddEventHandler('lspd_dashboard:sessionid', function()
       identifier = xPlayer.identifier,
       sessionid = sessionid,
   }, function(rowsChanged)
-      TriggerClientEvent('lspd_dashboard:sessionid', xPlayer.source, sessionid)
+      TriggerClientEvent('ems_dashboard:sessionid', xPlayer.source, sessionid)
   end)
 end)
