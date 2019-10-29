@@ -1,6 +1,7 @@
 local OwnedProperties, Blips, CurrentActionData = {}, {}, {}
 local CurrentProperty, CurrentPropertyOwner, LastProperty, LastPart, CurrentAction, CurrentActionMsg
 local firstSpawn, hasChest, hasAlreadyEnteredMarker = true, false, false
+local CurrentInstance = nil
 ESX = nil
 
 Citizen.CreateThread(function()
@@ -148,9 +149,19 @@ function EnterProperty(name, owner)
 			end
 		end
 
-		SetEntityCoords(playerPed, property.inside.x, property.inside.y, property.inside.z)
-		DoScreenFadeIn(800)
-		DrawSub(property.label, 5000)
+		local interior = GetInteriorAtCoords(property.inside.x,property.inside.y,property.inside.z)
+		LoadInterior(interior)
+
+		while not IsInteriorReady(interior) do
+			Citizen.Wait(100)
+		end
+
+		ESX.Game.Teleport(playerPed, property.inside, function()
+			DoScreenFadeIn(800)
+			DrawSub(property.label, 5000)
+		end)
+
+--		SetEntityCoords(playerPed, property.inside.x, property.inside.y, property.inside.z)
 	end)
 
 end
@@ -160,6 +171,7 @@ function ExitProperty(name)
 	local playerPed = PlayerPedId()
 	local outside   = nil
 	CurrentProperty = nil
+	CurrentInstance = nil
 
 	if property.isSingle then
 		outside = property.outside
@@ -194,6 +206,8 @@ function SetPropertyOwned(name, owned)
 	local property     = GetProperty(name)
 	local entering     = nil
 	local enteringName = nil
+
+	print(name)
 
 	if property.isSingle then
 		entering     = property.entering
@@ -261,7 +275,7 @@ function OpenPropertyMenu(property)
 		ESX.TriggerServerCallback('esx_property:haveKeys', function(res)
 			if res == true then
 				ESX.ShowNotification("В открываете дверь ключом")
-				TriggerEvent('instance:create', 'property', { property = property.name, owner = AnyoneOwnedProperties[property.name] })
+				TriggerEvent('instance:create', property.name.."/"..AnyoneOwnedProperties[property.name], 'property', { property = property.name, owner = AnyoneOwnedProperties[property.name] })
 			else
 				ESX.ShowNotification("Недвижимость не продаётся!")
 			end
@@ -301,7 +315,7 @@ function OpenPropertyMenu(property)
 		menu.close()
 
 		if data.current.value == 'enter' then
-			TriggerEvent('instance:create', 'property', {property = property.name, owner = ESX.GetPlayerData().identifier})
+			TriggerEvent('instance:create', property.name.."/"..ESX.GetPlayerData().identifier, 'property', {property = property.name, owner = ESX.GetPlayerData().identifier})
 		elseif data.current.value == 'leave' then
 			TriggerServerEvent('esx_property:removeOwnedProperty', property.name)
 		elseif data.current.value == 'buy' then
@@ -309,7 +323,7 @@ function OpenPropertyMenu(property)
 		elseif data.current.value == 'rent' then
 			TriggerServerEvent('esx_property:rentProperty', property.name)
 		elseif data.current.value == 'visit' then
-			TriggerEvent('instance:create', 'property', {property = property.name, owner = ESX.GetPlayerData().identifier})
+			TriggerEvent('instance:create', property.name.."/"..ESX.GetPlayerData().identifier, 'property', {property = property.name, owner = ESX.GetPlayerData().identifier})
 		end
 	end, function(data, menu)
 		menu.close()
@@ -384,7 +398,7 @@ function OpenGatewayOwnedPropertiesMenu(property)
 			menu2.close()
 
 			if data2.current.value == 'enter' then
-				TriggerEvent('instance:create', 'property', {property = data.current.value, owner = ESX.GetPlayerData().identifier})
+				TriggerEvent('instance:create', data.current.value.."/"..ESX.GetPlayerData().identifier, 'property', {property = data.current.value, owner = ESX.GetPlayerData().identifier})
 				ESX.UI.Menu.CloseAll()
 			elseif data2.current.value == 'leave' then
 				TriggerServerEvent('esx_property:removeOwnedProperty', data.current.value)
@@ -450,7 +464,7 @@ function OpenGatewayAvailablePropertiesMenu(property)
 			elseif data2.current.value == 'rent' then
 				TriggerServerEvent('esx_property:rentProperty', data.current.value)
 			elseif data2.current.value == 'visit' then
-				TriggerEvent('instance:create', 'property', {property = data.current.value, owner = ESX.GetPlayerData().identifier})
+				TriggerEvent('instance:create', data.current.value.."/"..ESX.GetPlayerData().identifier, 'property', {property = data.current.value, owner = ESX.GetPlayerData().identifier})
 			end
 		end, function(data2, menu2)
 			menu2.close()
@@ -540,7 +554,7 @@ function OpenRoomMenu(property, owner)
 				align    = 'top-left',
 				elements = elements,
 			}, function(data2, menu2)
-				TriggerEvent('instance:invite', 'property', GetPlayerServerId(data2.current.value), {property = property.name, owner = owner})
+				TriggerEvent('instance:invite', property.name.."/"..owner, 'property', GetPlayerServerId(data2.current.value), {property = property.name, owner = owner})
 				ESX.ShowNotification(_U('you_invited', GetPlayerName(data2.current.value)))
 			end, function(data2, menu2)
 				menu2.close()
@@ -807,6 +821,7 @@ end)
 RegisterNetEvent('instance:onEnter')
 AddEventHandler('instance:onEnter', function(instance)
 	if instance.type == 'property' then
+		CurrentInstance = instance
 		local property = GetProperty(instance.data.property)
 		local isHost   = GetPlayerFromServerId(instance.host) == PlayerId()
 		local isOwned  = false
@@ -966,7 +981,7 @@ Citizen.CreateThread(function()
 				elseif CurrentAction == 'room_menu' then
 					OpenRoomMenu(CurrentActionData.property, CurrentActionData.owner)
 				elseif CurrentAction == 'room_exit' then
-					TriggerEvent('instance:leave')
+					TriggerEvent('instance:leave', CurrentInstance.id)
 				end
 
 				CurrentAction = nil

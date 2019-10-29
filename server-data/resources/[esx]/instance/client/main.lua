@@ -13,8 +13,8 @@ function GetInstance()
 	return instance
 end
 
-function CreateInstance(type, data)
-	TriggerServerEvent('instance:create', type, data)
+function CreateInstance(id, type, data)
+	TriggerServerEvent('instance:create', id, type, data)
 end
 
 function CloseInstance()
@@ -25,7 +25,7 @@ end
 
 function EnterInstance(instance)
 	insideInstance = true
-	TriggerServerEvent('instance:enter', instance.host)
+	TriggerServerEvent('instance:enter', instance)
 
 	if registeredInstanceTypes[instance.type] == nil then
 		print("Unregistered instance type "..instance.type.."!")
@@ -37,7 +37,7 @@ function EnterInstance(instance)
 	end
 end
 
-function LeaveInstance()
+function LeaveInstance(id)
 	if instance.host then
 		if #instance.players > 1 then
 			ESX.ShowNotification(_U('left_instance'))
@@ -47,7 +47,7 @@ function LeaveInstance()
 			registeredInstanceTypes[instance.type].exit(instance)
 		end
 
-		TriggerServerEvent('instance:leave', instance.host)
+		TriggerServerEvent('instance:leave', id)
 	end
 
 	insideInstance = false
@@ -68,24 +68,24 @@ AddEventHandler('instance:get', function(cb)
 	cb(GetInstance())
 end)
 
-AddEventHandler('instance:create', function(type, data)
-	CreateInstance(type, data)
+AddEventHandler('instance:create', function(id, type, data)
+	CreateInstance(id, type, data)
 end)
 
-AddEventHandler('instance:close', function()
-	CloseInstance()
+AddEventHandler('instance:close', function(id)
+	CloseInstance(id)
 end)
 
-AddEventHandler('instance:enter', function(_instance)
-	EnterInstance(_instance)
+AddEventHandler('instance:enter', function(instance)
+	EnterInstance(instance)
 end)
 
-AddEventHandler('instance:leave', function()
-	LeaveInstance()
+AddEventHandler('instance:leave', function(id)
+	LeaveInstance(id)
 end)
 
-AddEventHandler('instance:invite', function(type, player, data)
-	InviteToInstance(type, player, data)
+AddEventHandler('instance:invite', function(id, type, player, data)
+	InviteToInstance(id, type, player, data)
 end)
 
 AddEventHandler('instance:registerType', function(name, enter, exit)
@@ -132,6 +132,16 @@ AddEventHandler('instance:onPlayerLeft', function(_instance, player)
 
 	ESX.ShowNotification(_('left_out', playerName))
 end)
+
+--[[
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1000)
+		print(json.encode(insideInstance))
+		print(json.encode(instance))
+	end
+end)
+]]--
 
 RegisterNetEvent('instance:onInvite')
 AddEventHandler('instance:onInvite', function(_instance, type, data)
