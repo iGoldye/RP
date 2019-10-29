@@ -107,19 +107,9 @@ end
 
 
 function getPlayerID(source)
-    local identifiers = GetPlayerIdentifiers(source)
-    local player = getIdentifiant(identifiers)
-    return player
---      local xPlayer = ESX.GetPlayerFromId(source)
---      return xPlayer.identifier
-
+      local xPlayer = ESX.GetPlayerFromId(source)
+      return xPlayer.identifier
 end
-function getIdentifiant(id)
-    for _, v in ipairs(id) do
-        return v
-    end
-end
-
 
 function getOrGeneratePhoneNumber (sourcePlayer, identifier, cb)
     local sourcePlayer = sourcePlayer
