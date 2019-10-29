@@ -41,9 +41,6 @@ AddEventHandler('playerDropped', function(reason)
 
 		local playerName = GetPlayerName(_source)
 		local steamID = GetPlayerIdentifiers(_source)[1]
-		if steamID == nil or not startsWith(steamID, "steam:") then
-			steamID = exports["essentialmode"]:getPlayerUid(_source, playerName)
-		end
 
 		local isInPriorityList = false
 
@@ -91,9 +88,14 @@ end)
 
 AddEventHandler("playerConnecting", function(playerName, reason, deferrals)
 	local _source = source
-	local steamID = GetPlayerIdentifiers(_source)[1]
-	if steamID == nil or not startsWith(steamID, "steam:") then
-		steamID = exports["essentialmode"]:getPlayerUid(_source, playerName)
+	local identifiers = GetPlayerIdentifiers(_source)
+	local steamID = identifiers[1] or false
+	if steamID ~= nil and not startsWith(steamID, "steam:") then
+		for i=1, #identifiers do
+			if startsWith(identifiers[i], "discord:") then
+				steamID = identifiers[i] -- FIXME: dirty hack
+			end
+		end
 	end
 
 	local found = false
@@ -101,7 +103,7 @@ AddEventHandler("playerConnecting", function(playerName, reason, deferrals)
 	ESX.Trace("WHITELIST: " .. _U("log_trying_to_connect", playerName, steamID))
 
 	-- TEST IF STEAM IS STARTED
-	if steamID == nil then
+	if not steamID then
 		reason(_U("missing_steam_id"))
 		deferrals.done(_U("missing_steam_id"))
 		CancelEvent()
