@@ -198,7 +198,6 @@ Config.AuthorizedVehicles = {
 		{ model = 'police3', label = 'Police Interceptor', price = 100 },
 		{ model = 'lapd5', label = 'Police Chevrolet Impala', price = 100 },
 		{ model = 'lapd3', label = 'Police Ford SUV Slam', price = 100 },
-		{ model = 'lapd10', label = 'Police Riot', price = 500 },
 		{ model = 'riot', label = 'Police Riot x6', price = 500 },
 		{ model = 'policet', label = 'Police Transporter', price = 500 },
 		{ model = 'policeb', label = 'Police Bike', price = 50 },
