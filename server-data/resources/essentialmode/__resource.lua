@@ -29,6 +29,7 @@ exports {
 }
 
 server_exports {
+	'getPlayerUid',
 	'getPlayerFromId',
 	'addAdminCommand',
 	'addCommand',

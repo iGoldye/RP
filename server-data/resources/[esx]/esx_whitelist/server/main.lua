@@ -10,6 +10,10 @@ local onlinePlayers = 0
 local inConnection = {}
 local allowConnecting = false
 
+function startsWith(str, substr)
+	return string.sub(str, 1, string.len(substr)) == substr
+end
+
 MySQL.ready(function()
 	loadWhiteList()
 end)
@@ -35,8 +39,12 @@ AddEventHandler('playerDropped', function(reason)
 
 	if(reason ~= "Disconnected.") then
 
-		local steamID = GetPlayerIdentifiers(_source)[1]
 		local playerName = GetPlayerName(_source)
+		local steamID = GetPlayerIdentifiers(_source)[1]
+		if steamID == nil or not startsWith(steamID, "steam:") then
+			steamID = exports["essentialmode"]:getPlayerUid(_source, playerName)
+		end
+
 		local isInPriorityList = false
 
 		for i = 1, #PriorityList, 1 do
@@ -84,6 +92,10 @@ end)
 AddEventHandler("playerConnecting", function(playerName, reason, deferrals)
 	local _source = source
 	local steamID = GetPlayerIdentifiers(_source)[1] or false
+	if steamID == false or not startsWith(steamID, "steam:") then
+		steamID = exports["essentialmode"]:getPlayerUid(_source, playerName) or false
+	end
+
 	local found = false
 
 	ESX.Trace("WHITELIST: " .. _U("log_trying_to_connect", playerName, steamID))
