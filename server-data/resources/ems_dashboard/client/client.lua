@@ -41,7 +41,6 @@ function show(sid)
 	SetNuiFocus(true, true)
 	menuActive = true
 	SendNUIMessage({['show']=1, ['sessionid']=sid})
-	getPlayerData()
 end
 
 function hide()
