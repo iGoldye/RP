@@ -1,13 +1,13 @@
 Config = {}
 
--- Базовые патроны
+-- Колличество патронов при крафте
 Config.WeaponAmmo = 42
 
 Config.Recipes = {
 	-- Рецепты
 	["lockpick"] = {
-		{item = "bobbypin", quantity = 4 },
-		{item = "rubberband", quantity = 1 },
+		{item = "juice", quantity = 4 },
+		{item = "battery", quantity = 1 },
 	},
 
 	-- Крафт пушек
