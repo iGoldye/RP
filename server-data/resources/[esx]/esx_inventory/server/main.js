@@ -176,4 +176,5 @@ registerItem("black_money", Item_BlackMoney);
 registerItem("esx_item", Item_ESX);
 registerItem("weapon", Item_Weapon);
 registerItem("carkey", Item_CarKey);
+registerItem("housekey", Item_HouseKey);
 registerItem("equipped_weapon", Item_EquippedWeapon);

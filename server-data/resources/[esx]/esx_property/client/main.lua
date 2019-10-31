@@ -9,8 +9,14 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
 end)
 
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+  ESX.PlayerData.job = job
+end)
 
 RegisterNetEvent('esx_property:teleportOutside')
 AddEventHandler('esx_property:teleportOutside', function(outside)
@@ -269,41 +275,41 @@ end
 
 function OpenPropertyMenu(property)
     ESX.TriggerServerCallback('esx_property:getAnyoneOwnedProperties', function(AnyoneOwnedProperties)
-
-        if not PropertyIsOwned(property) and property.isSingle and AnyoneOwnedProperties[property.name] ~= nil then
-
-		ESX.TriggerServerCallback('esx_property:haveKeys', function(res)
-			if res == true then
-				ESX.ShowNotification("В открываете дверь ключом")
-				TriggerEvent('instance:create', property.name.."/"..AnyoneOwnedProperties[property.name], 'property', { property = property.name, owner = AnyoneOwnedProperties[property.name] })
-			else
-				ESX.ShowNotification("Недвижимость не продаётся!")
-			end
-		end, property.name, AnyoneOwnedProperties[property.name])
-
-		return
-        end
-
 	local elements = {}
 
-	if PropertyIsOwned(property) then
+	if PropertyIsOwned(property) then -- недвижимость принадлежит нам
 		table.insert(elements, {label = _U('enter'), value = 'enter'})
 
 		if not Config.EnablePlayerManagement then
 			table.insert(elements, {label = _U('leave'), value = 'leave'})
 		end
-	else
-		if not Config.EnablePlayerManagement then
+	else -- недвижимость не принадлежит нам
+		if AnyoneOwnedProperties[property.name] ~= nil then -- недвижимость кому-то принадлежит
+			if ESX.PlayerData and ESX.PlayerData.job and ESX.PlayerData.job.name == "police" then
+				table.insert(elements, {label = "Вломиться", value = 'breakin'})
+			else
+				ESX.TriggerServerCallback('esx_property:haveKeys', function(res)
+					if res == true then
+						ESX.ShowNotification("В открываете дверь ключом")
+						TriggerEvent('instance:create', property.name.."/"..AnyoneOwnedProperties[property.name], 'property', { property = property.name, owner = AnyoneOwnedProperties[property.name] })
+					else
+						ESX.ShowNotification("Недвижимость не продаётся!")
+					end
+				end, property.name, AnyoneOwnedProperties[property.name])
+				return
+			end
+		else -- недвижимость никому не принадлежит
+			if not Config.EnablePlayerManagement then
+				if property.isRentOnly ~= true then
+					table.insert(elements, {label = _U('buy_for', property.price), value = 'buy'})
+				end
 
-			if property.isRentOnly ~= true then
-				table.insert(elements, {label = _U('buy_for', property.price), value = 'buy'})
+				table.insert(elements, {label = _U('rent_for', ESX.Math.Round(property.price / 200)), value = 'rent'})
 			end
 
-			table.insert(elements, {label = _U('rent_for', ESX.Math.Round(property.price / 200)), value = 'rent'})
-		end
-
-		if property.isRentOnly ~= true then
-			table.insert(elements, {label = _U('visit'), value = 'visit'})
+			if property.isRentOnly ~= true then
+				table.insert(elements, {label = _U('visit'), value = 'visit'})
+			end
 		end
 	end
 
@@ -324,6 +330,10 @@ function OpenPropertyMenu(property)
 			TriggerServerEvent('esx_property:rentProperty', property.name)
 		elseif data.current.value == 'visit' then
 			TriggerEvent('instance:create', property.name.."/"..ESX.GetPlayerData().identifier, 'property', {property = property.name, owner = ESX.GetPlayerData().identifier})
+		elseif data.current.value == 'breakin' then
+			if AnyoneOwnedProperties[property.name] ~= nil then
+				TriggerEvent('instance:create', property.name.."/"..AnyoneOwnedProperties[property.name], 'property', {property = property.name, owner = AnyoneOwnedProperties[property.name]})
+			end
 		end
 	end, function(data, menu)
 		menu.close()

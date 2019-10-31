@@ -232,7 +232,7 @@ function inventoryAddNativeItems(elements, inventory)
 			itemlabel = v.label
 		end
 
-		local itemdesc = ''
+		local itemdesc = v.description or ''
 
 		local melee = false
 		local ammo = 0
@@ -247,12 +247,6 @@ function inventoryAddNativeItems(elements, inventory)
 					skip_item = true
 				end
 			end
-
-
-		elseif v.name == "carkey" and v.extra ~= nil then
---			print(json.encode(v))
-			itemlabel = "Ключ от машины"
-			itemdesc = "Номер: "..v.extra.plate
 		end
 
 		if not skip_item then

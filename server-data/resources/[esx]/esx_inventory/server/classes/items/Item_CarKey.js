@@ -7,6 +7,10 @@ class Item_CarKey extends Item_Abstract {
 	}
 
 	get label() {
-		return "Ключ от машины " + this.extra.plate;
+		return "Ключ от машины";
  	}
+
+	get description() {
+		return "Номер: " + this.extra.plate;
+	}
 }
