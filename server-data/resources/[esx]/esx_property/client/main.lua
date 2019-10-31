@@ -525,6 +525,7 @@ function OpenRoomMenu(property, owner)
 	if CurrentPropertyOwner == owner then
 		table.insert(elements, {label = _U('player_clothes'), value = 'player_dressing'})
 		table.insert(elements, {label = _U('remove_cloth'), value = 'remove_cloth'})
+		table.insert(elements, {label = 'Изготовить ключ (<font color="green">$10</font>)', value = 'make_key'})
 	end
 
 	table.insert(elements, {label = _U('remove_object'),  value = 'room_inventory'})
@@ -537,8 +538,14 @@ function OpenRoomMenu(property, owner)
 		align    = 'top-left',
 		elements = elements
 	}, function(data, menu)
+		if data.current.value == 'make_key' then
+			ESX.TriggerServerCallback('esx_property:getAnyoneOwnedProperties', function(AnyoneOwnedProperties)
+				if AnyoneOwnedProperties[property.name] ~= nil then
+					TriggerServerEvent('esx_property:makeHouseKey', property.name, AnyoneOwnedProperties[property.name])
+				end
+			end)
 
-		if data.current.value == 'invite_player' then
+		elseif data.current.value == 'invite_player' then
 
 			local playersInArea = ESX.Game.GetPlayersInArea(entering, 10.0)
 			local elements      = {}
