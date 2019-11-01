@@ -489,9 +489,16 @@ AddEventHandler('esx_property:makeHouseKey', function(propertyName, owner)
 		return
 	end
 
+	local label = property.label
+
+	if property.gateway ~= nil then
+		local gw = GetProperty(property.gateway)
+		label = gw.label .. ": " .. label
+	end
+
 	TriggerEvent('esx_atm:pay', xPlayer.source, "property", 10, function(res)
 		if res == true then
-			local item = exports['esx_inventory']:createItem("housekey", { ["property"] = propertyName, ["owner"] = owner, ["label"] = property.label}, 1, 0)
+			local item = exports['esx_inventory']:createItem("housekey", { ["property"] = propertyName, ["owner"] = owner, ["label"] = label}, 1, 0)
 			TriggerEvent('esx_inventory:addItem', "pocket", xPlayer.identifier, item, function()
 				TriggerClientEvent('esx:showNotification', xPlayer.source, "Ключ изготовлен")
 			end)
