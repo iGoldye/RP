@@ -56,7 +56,7 @@ AddEventHandler('ems_dashboard:sessionid', function(sid)
 	sessionid = sid
 end)
 
-AddEventHandler('ems_dashboard:show', function()
+AddEventHandler('ems_dashboard:getPlayerData', function()
 	show(sessionid)
 end)
 
