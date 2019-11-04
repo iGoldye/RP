@@ -46,6 +46,8 @@ Config.Animations = {
 			{label = "Отряхиваться", type = "anim", data = {lib = "move_m@_idles@shake_off", anim = "shakeoff_1", flag = 9}},
 			{label = "Перебирать бумаги", type = "anim", data = {lib = "iaa_int-14", anim = "cs_lestercrest_2_dual-14", flag = 9}},
 			{label = "Отряхиваться", type = "anim", data = {lib = "move_m@_idles@shake_off", anim = "shakeoff_1", flag = 9}},
+			{label = "Барбекю", type = "scenario", data = {anim = "PROP_HUMAN_BBQ"}},
+		  {label = "Уборщик", type = "scenario", data = {anim = "WORLD_HUMAN_JANITOR"}},
 		}
 	},
 
@@ -97,6 +99,7 @@ Config.Animations = {
 			{label = "Мыть руки", type = "anim", data = {lib = "missheist_agency3aig_23", anim = "urinal_sink_loop", flag = 9}},
 			{label = "Микрофон", type = "anim", data = {lib = "amb@world_human_aa_coffee@base", anim = "base", upper=true, control=true, flag = 9}},
 			{label = "Печатать на компьютере", type = "anim", data = {lib = "maude_mcs_4-6", anim = "csb_maude_dual-6", upper=true, flag = 9}},
+			{label = "Осмотр Доктора", type = "anim", data = {lib = "misscarsteal2fixer", anim = "confused_a", flag = 9}},
 		}
 	},
 
@@ -128,6 +131,9 @@ Config.Animations = {
 			{label = "Плакать", type = "anim", data = {lib = "random@robbery", anim = "f_cower_01", flag = 9}},
 			{label = "Восхищение", type = "anim", data = {lib = "random@bus_tour_guide@idle_a", anim = "idle_b", flag = 9}},
 			{label = "Досада", type = "anim", data = {lib = "random@bicycle_thief@idle_a", anim = "idle_b", flag = 9}},
+			{label = "Воздушный поцелуй Ж", type = "anim", data = {lib = "mini@hookers_sp", anim = "idle_a"}},
+		  {label = "Неа!", type = "anim", data = {lib = "mini@prostitutestalk", anim = "street_argue_f_a", flag = 9}},
+		  {label = "Отчаянеие", type = "anim", data = {lib = "misscarsteal2car_stolen", anim = "chad_car_stolen_reaction", flag = 9}},
 		}
 	},
 
@@ -145,7 +151,9 @@ Config.Animations = {
 			{label = "Бег на месте", type = "scenario", data = {anim = "WORLD_HUMAN_JOG_STANDING"}},
 			{label = "Турник", type = "scenario", data = {anim = "PROP_HUMAN_MUSCLE_CHIN_UPS"}},
 			{label = "Жим лежа", type = "scenario", data = {anim = "PROP_HUMAN_SEAT_MUSCLE_BENCH_PRESS"}},
-			{label = "Медитация лотос", type = "anim", data = {lib = "rcmcollect_paperleadinout@", anim = "meditiate_idle", flag = 9}}
+			{label = "Медитация лотос", type = "anim", data = {lib = "rcmcollect_paperleadinout@", anim = "meditiate_idle", flag = 9}},
+			{label = "Разминка 1", type = "anim", data = {lib = "mini@triathlon", anim = "idle_a", flag = 9}},
+			{label = "Разминка 2", type = "anim", data = {lib = "mini@triathlon", anim = "idle_e", flag = 9}},
 
 		}
 	},
@@ -156,9 +164,11 @@ Config.Animations = {
 			{label = "Свернуться", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@lo_sofa@", anim = "lowsofa_dlg_fuckedup_laz", flag = 9}},
 			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
 			{label = "Лежать на животе", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE"}},
+			{label = "Лежать на животе 2", type = "anim", data = {lib = "missarmenian2", anim = "drunk_loop", flag = 9}},
 			{label = "Лежать на боку П", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_right_side@base", anim = "base", flag = 9}},
 			{label = "Лежать на боку Л", type = "anim", data = {lib = "amb@world_human_bum_slumped@male@laying_on_left_side@base", anim = "base", flag = 9}},
 			{label = "Лежать на боку Л2", type = "anim", data = {lib = "mini@cpr@char_b@cpr_def", anim = "cpr_intro", flag = 9}},
+			{label = "Лежать раскинувшись", type = "anim", data = {lib = "missarmenian2", anim = "corpse_search_exit_ped", flag = 9}},
 			{label = "Пьяный на земле", type = "anim", data = {lib = "timetable@amanda@drunk@idle_a", anim = "idle_pinot", flag = 9}},
 			{label = "Сидеть отрешенно", type = "anim", data = {lib = "anim@amb@business@bgen@bgen_no_work@", anim = "sit_phone_idle_03_nowork", flag = 9}},
 			{label = "Скучать", type = "anim", data = {lib = "anim@amb@business@cfm@cfm_machine_no_work@", anim = "sleep_cycle_v2_operator", flag = 9}},
@@ -201,6 +211,11 @@ Config.Animations = {
 			{label = "Расставить руки", type = "anim", data = {lib = "martin_1_int-1", anim = "cs_martinmadrazo_dual-1", flag = 9}},
 			{label = "Зажатая Ж", type = "anim", data = {lib = "low_fun_mcs1-0", anim = "mp_m_g_vagfun_01^12_dual-0", flag = 9}},
 			{label = "Спиной к стене скрестить руки", type = "anim", data = {lib = "impexp_int_l1-10", anim = "mp_m_waremech_01_dual-10", flag = 9}},
+			{label = "Думать", type = "anim", data = {lib = "misscarsteal4@aliens", anim = "rehearsal_base_idle_director"}},
+			{label = "Висеть на крюке", type = "anim", data = {lib = "mic_2_mcs_1-0", anim = "player_zero_dual-0", flag = 9}},
+			{label = "Опереться боком", type = "anim", data = {lib = "misscarsteal1car_1_ext_leadin", anim = "base_driver1", flag = 9}},
+			{label = "Опереться рукой", type = "anim", data = {lib = "misscarstealfinale", anim = "packer_idle_1_trevor", flag = 9}},
+			{label = "Опереться локтем", type = "anim", data = {lib = "misscarstealfinalecar_5_ig_1", anim = "waitloop_lamar", flag = 9}},
 
 		}
 
@@ -293,6 +308,7 @@ Config.Animations = {
 				{label = "Соблазнительная", type = "anim", data = {lib = "anim@amb@nightclub@peds@", anim = "mini_strip_club_private_dance_idle_priv_dance_idle", flag = 9}},
 				{label = "Мечтательная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@", anim = "med_center", flag = 9}},
 				{label = "Няшная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_b@", anim = "med_center", flag = 9}},
+				{label = "Заманивающая", type = "anim", data = {lib = "/emote anim@amb@nightclub@mini@dance@dance_solo@female@var_a@", anim = "low_center_down", flag = 9}},
 
 		}
 	},
@@ -434,6 +450,30 @@ Config.Animations = {
 			-- {label = "A99", type = "scenario", data = {anim = "WORLD_SHARK_SWIM"}},
 		}
  },
+--  {
+-- 	name  = 'test',
+-- 	label = 'Тест',
+-- 	items = {
+-- 		-- ------------------------ЖИВОТНЫЕ
 
+
+
+-- 	  {label = "Разминка 1", type = "anim", data = {lib = "mini@triathlon", anim = "idle_a", flag = 9}},
+-- 		{label = "Разминка 2", type = "anim", data = {lib = "mini@triathlon", anim = "idle_e", flag = 9}},
+
+-- 		{label = "Лежать раскинувшись", type = "anim", data = {lib = "missarmenian2", anim = "corpse_search_exit_ped", flag = 9}},
+-- 		{label = "Лежать на животе 2", type = "anim", data = {lib = "missarmenian2", anim = "drunk_loop", flag = 9}},
+
+-- 		{label = "Отчаянеие", type = "anim", data = {lib = "misscarsteal2car_stolen", anim = "chad_car_stolen_reaction", flag = 9}},
+
+
+-- 		{label = "Думать", type = "anim", data = {lib = "misscarsteal4@aliens", anim = "rehearsal_base_idle_director"}},
+-- 		{label = "Висеть на крюке", type = "anim", data = {lib = "mic_2_mcs_1-0", anim = "player_zero_dual-0", flag = 9}},
+-- 		{label = "Опереться боком", type = "anim", data = {lib = "misscarsteal1car_1_ext_leadin", anim = "base_driver1", flag = 9}},
+-- 		{label = "Опереться рукой", type = "anim", data = {lib = "misscarstealfinale", anim = "packer_idle_1_trevor", flag = 9}},
+-- 	  {label = "Опереться локтем", type = "anim", data = {lib = "misscarstealfinalecar_5_ig_1", anim = "waitloop_lamar", flag = 9}},
+
+-- 	}
+-- },
 
 }

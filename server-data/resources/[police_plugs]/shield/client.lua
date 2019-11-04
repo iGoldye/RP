@@ -8,7 +8,7 @@ local animName = "0"
 --local animName = "aim_variation_a"
 
 local prop = GetHashKey("prop_ballistic_shield")
-local pistol = GetHashKey("WEAPON_PISTOL")
+local pistol = GetHashKey("WEAPON_PISTOL" or "weapon_combatpistol")
 
 RegisterNetEvent("shield:enable")
 AddEventHandler("shield:enable", function()
