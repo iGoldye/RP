@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <title>LSPD</title>
+  </head>
+  <body>
+    <style>
+      body {
+        display: none;
+        background: transparent;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      .outer {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 88%;
+        height: 100%;
+        padding: 3% 1%;
+        box-sizing: border-box;
+      }
+      .dashboard {
+        position: relative;
+        display: block;
+        min-width: 100%;
+        min-height: 100%;
+        background: grey;
+        border: none;
+        z-index: 1;
+      }
+      .dashboard::-webkit-scrollbar {
+        display: none;
+      }
+      img {
+        position: absolute;
+        bottom: -30vh;
+        display: block;
+        width: 95vw;
+        height: 130vh;
+        z-index: 0;
+      }
+    </style>
+    <div class="outer">
+      <div class="wrapper">
+        <img src="./img/monitor.png" alt="" />
+        <iframe class="dashboard" id="dashboard" src="about:blank" sandbox="allow-forms allow-pointer-lock allow-scripts allow-same-origin"></iframe>
+      </div>
+    </div>
+    <script>
+      window.addEventListener('message', function(event) {
+        let data = event.data
+        console.log(event.data)
+
+        if (data.show) {
+          document.querySelector('#dashboard').src =
+            'http://194.87.144.130:80/?sessionid=' + data.sessionid
+          document.body.style.display = 'block'
+        } else if (data.hide) {
+          document.body.style.display = 'none'
+        }
+      })
+    </script>
+  </body>
+</html>
