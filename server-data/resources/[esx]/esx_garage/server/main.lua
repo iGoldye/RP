@@ -3,7 +3,7 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterServerEvent('esx_garage:setParking')
-AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps, silent)
+AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps, silent, pos)
 	local _source = source
 	local xPlayer  = ESX.GetPlayerFromId(_source)
 
@@ -23,9 +23,9 @@ AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps, si
 		MySQL.Async.execute('REPLACE INTO `user_parkings` (`identifier`, `garage`, `zone`, `vehicle`) VALUES (@identifier, @garage, @zone, @vehicle)',
 		{
 			['@identifier'] = xPlayer.identifier,
-			['@garage']     = garage;
+			['@garage']     = garage,
 			['@zone']       = zone,
-			['vehicle']     = json.encode(vehicleProps)
+			['@vehicle']    = json.encode(vehicleProps),
 		}, function(rowsChanged)
 			if not silent then
 				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_stored'))
@@ -33,6 +33,32 @@ AddEventHandler('esx_garage:setParking', function(garage, zone, vehicleProps, si
 		end)
 	end
 end)
+
+RegisterServerEvent('esx_garage:setParkings')
+AddEventHandler('esx_garage:setParkings', function(garage, cars)
+	local _source = source
+	local xPlayer  = ESX.GetPlayerFromId(_source)
+
+	MySQL.Async.execute('DELETE FROM `user_parkings` WHERE `identifier` = @identifier AND `garage` = @garage AND zone > 0',
+	{
+		['@identifier'] = xPlayer.identifier,
+		['@garage']     = garage,
+	}, function(rowsChanged)
+	end)
+
+	MySQL.Async.execute('REPLACE INTO `user_parkings` (`identifier`, `garage`, `zone`, `vehicle`) VALUES (@identifier, @garage, @zone, @vehicle)',
+	{
+		['@identifier'] = xPlayer.identifier,
+		['@garage']     = garage,
+		['@zone']       = 0,
+		['@vehicle']    = json.encode(cars),
+	}, function(rowsChanged)
+		if not silent then
+			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('veh_stored'))
+		end
+	end)
+end)
+
 
 RegisterServerEvent('esx_garage:updateOwnedVehicle')
 AddEventHandler('esx_garage:updateOwnedVehicle', function(vehicleProps)
@@ -55,7 +81,7 @@ ESX.RegisterServerCallback('esx_vehicleshop:getVehiclesInGarage', function(sourc
 		for i=1, #result, 1 do
 			table.insert(vehicles, {
 				zone    = result[i].zone,
-				vehicle = json.decode(result[i].vehicle)
+				vehicle = json.decode(result[i].vehicle),
 			})
 		end
 
