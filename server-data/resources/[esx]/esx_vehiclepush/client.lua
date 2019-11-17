@@ -5,6 +5,7 @@ Citizen.CreateThread(function()
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
     Citizen.Wait(0)
   end
+  ESX.PlayerData = ESX.GetPlayerData()
 end)
 
 Config = {}
@@ -27,6 +28,11 @@ local Keys = {
 
 local First = vector3(0.0, 0.0, 0.0)
 local Second = vector3(5.0, 5.0, 5.0)
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+end)
 
 local Vehicle = {Coords = nil, Vehicle = nil, Dimension = nil, IsInFront = false, Distance = nil}
 Citizen.CreateThread(function()
@@ -54,18 +60,8 @@ Citizen.CreateThread(function()
 end)
 
 
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(5)
-        local ped = PlayerPedId()
-        if Vehicle.Vehicle ~= nil then
-
-                if IsVehicleSeatFree(Vehicle.Vehicle, -1) and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
-                    ESX.Game.Utils.DrawText3D({x = Vehicle.Coords.x, y = Vehicle.Coords.y, z = Vehicle.Coords.z}, ' ', 0.4)
-                end
-
-
-            if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded and not IsEntityUpsidedown(Vehicle.Vehicle) then
+function pushVehicle()
+		local ped = PlayerPedId()
                 NetworkRequestControlOfEntity(Vehicle.Vehicle)
                 local coords = GetEntityCoords(ped)
                 if Vehicle.IsInFront then
@@ -75,7 +71,7 @@ Citizen.CreateThread(function()
                 end
 
                 ESX.Streaming.RequestAnimDict('missfinale_c2ig_11')
-                TaskPlayAnim(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0, -8.0, -1, 35, 0, 0, 0, 0)
+	                TaskPlayAnim(ped, 'missfinale_c2ig_11', 'pushcar_offcliff_m', 2.0, -8.0, -1, 35, 0, 0, 0, 0)
                 Citizen.Wait(200)
 
                 local currentVehicle = Vehicle.Vehicle
@@ -106,6 +102,24 @@ Citizen.CreateThread(function()
                         break
                     end
                 end
+end
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(5)
+        local ped = PlayerPedId()
+        if Vehicle.Vehicle ~= nil and IsVehicleSeatFree(Vehicle.Vehicle, -1) and GetVehicleEngineHealth(Vehicle.Vehicle) <= Config.DamageNeeded then
+
+--            ESX.Game.Utils.DrawText3D({x = Vehicle.Coords.x, y = Vehicle.Coords.y, z = Vehicle.Coords.z}, ' ', 0.4)
+
+            if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsControlJustPressed(0, Keys["E"]) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) then
+	       if not IsEntityUpsidedown(Vehicle.Vehicle) then
+		    pushVehicle(Vehicle.Vehicle)
+               elseif ESX.PlayerData.job and (ESX.PlayerData.job.name == 'mechanic' or ESX.PlayerData.job.name == 'mechanic-bennys') then
+		    pushVehicle(Vehicle.Vehicle)
+               else
+			ESX.ShowNotification("~r~Транспорт перевёрнут!~s~")
+               end
             end
         end
     end
