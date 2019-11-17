@@ -45,7 +45,6 @@ end)
 RegisterNetEvent('esx_duty:dutyOn')
 AddEventHandler('esx_duty:dutyOn', function(target, jobname)
 	if PlayerData and PlayerData.job.name == jobname then
-		print(GetPlayerName(target))
 		TriggerEvent('esx:showNotification', _U('ondutynotify', target))
 	end
 end)
@@ -53,7 +52,6 @@ end)
 RegisterNetEvent('esx_duty:dutyOff')
 AddEventHandler('esx_duty:dutyOff', function(target, jobname)
 	if PlayerData and PlayerData.job.name == jobname then
-		print(GetPlayerName(target))
 		TriggerEvent('esx:showNotification', _U('offdutynotify', target))
 	end
 end)
@@ -80,8 +78,14 @@ Citizen.CreateThread(function ()
         local jobs = {
             'offambulance',
             'offpolice',
+            'offtaxi',
+            'offmechanic',
+            'offmechanic-bennys',
             'police',
-            'ambulance'
+            'ambulance',
+            'taxi',
+            'mechanic',
+            'mechanic-bennys',
         }
 
         if CurrentAction ~= nil then
@@ -94,6 +98,7 @@ Citizen.CreateThread(function ()
                     if IsControlJustPressed(0, Keys['E']) then
                         TriggerServerEvent('duty:onoff')
                     end
+                    break
                 end
             end
 
