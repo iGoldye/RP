@@ -71,6 +71,21 @@ AddEventHandler('esx_playermenu:setAdmin', function(val)
 	isAdmin = val
 end)
 
+RegisterNetEvent('esx_playermenu:bringPlayer')
+AddEventHandler('esx_playermenu:bringPlayer', function(pos)
+	local interior = GetInteriorAtCoords(pos.x, pos.y, pos.z)
+	if interior > 0 then
+		LoadInterior(interior)
+
+		while not IsInteriorReady(interior) do
+			Citizen.Wait(100)
+		end
+	end
+
+	ESX.Game.Teleport(PlayerPedId(), pos, function()
+	end)
+end)
+
 function OpenTextInput(title, defaultText, maxInputLength)
 
 	if title == nil then
@@ -234,6 +249,8 @@ function OpenAdminMenuPlayer(player)
 			table.insert(elements, {label = "Телефон: "..tostring(player.phone_number), value = "phone"})
 		end
 
+		table.insert(elements, {label = "Призвать", value = "bring"})
+
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
 			title    = "Администрирование: "..player.name,
 			align    = 'top-right',
@@ -247,6 +264,8 @@ function OpenAdminMenuPlayer(player)
 				OpenAdminMenuPlayerMoney(player, "bank")
 			elseif cmd == "black_money" then
 				OpenAdminMenuPlayerMoney(player, "black")
+			elseif cmd == "bring" then
+				TriggerServerEvent("esx_playermenu:bringPlayer", player.id, GetEntityCoords(PlayerPedId()))
 			end
 
 		end, function(data, menu)
