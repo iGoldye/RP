@@ -2,23 +2,23 @@ local DynamicWeather = Config.DynamicWeather
 
 -------------------- DON'T CHANGE THIS --------------------
 AvailableWeatherTypes = {
-	'EXTRASUNNY',
-	'CLEAR',
-	'NEUTRAL',
-	'SMOG',
-	'FOGGY',
-	'OVERCAST',
-	'CLOUDS',
-	'CLEARING',
-	'RAIN',
-	'THUNDER',
-	'SNOW',
+	-- 'EXTRASUNNY',
+	-- 'CLEAR',
+	-- 'NEUTRAL',
+	-- 'SMOG',
+	-- 'FOGGY',
+	-- 'OVERCAST',
+	-- 'CLOUDS',
+	-- 'CLEARING',
+	-- 'RAIN',
+	-- 'THUNDER',
+	-- 'SNOW',
 	'BLIZZARD',
 	'SNOWLIGHT',
 	'XMAS',
-	'HALLOWEEN',
+	-- 'HALLOWEEN',
 }
-CurrentWeather = "EXTRASUNNY"
+CurrentWeather = "XMAS"
 local baseTime = 0
 local timeOffset = 0
 local freezeTime = false
@@ -337,4 +337,3 @@ function NextWeatherStage()
 	end
 	TriggerEvent("es_wsync:requestSync")
 end
-

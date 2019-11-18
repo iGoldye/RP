@@ -6,8 +6,27 @@ Config.WeaponAmmo = 42
 Config.Recipes = {
 	-- Рецепты
 	["lockpick"] = {
-		{item = "juice", quantity = 4 },
-		{item = "battery", quantity = 1 },
+		{item = "scarb", quantity = 2 },
+	},
+
+	["slivstraw"] = {
+		{item = "strawberry", quantity = 4 },
+		{item = "slivki", quantity = 1 },
+	},
+
+	["fruitpot"] = {
+		{item = "strawberry", quantity = 1 },
+		{item = "banana", quantity = 1 },
+		{item = "apple", quantity = 1 },
+	},
+
+	["hotdog"] = {
+		{item = "bread", quantity = 1 },
+		{item = "saucisson", quantity = 1 },
+	},
+
+	["3adic"] = {
+		{item = "adicalone", quantity = 3 },
 	},
 
 	-- Крафт пушек

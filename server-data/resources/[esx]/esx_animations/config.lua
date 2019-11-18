@@ -89,6 +89,7 @@ Config.Animations = {
 			{label = "Светить фонарем", type = "scenario", data = {anim = "WORLD_HUMAN_SECURITY_SHINE_TORCH"}},
 			{label = "Управление движением", type = "scenario", data = {anim = "WORLD_HUMAN_CAR_PARK_ATTENDANT", flag = 9}},
 			{label = "Молоток", type = "scenario", data = {anim = "WORLD_HUMAN_HAMMERING"}},
+			{label = "Бурить", type = "scenario", data = {anim = "WORLD_HUMAN_CONST_DRILL"}},
 			{label = "Просить деньги", type = "scenario", data = {anim = "WORLD_HUMAN_BUM_FREEWAY"}},
 			{label = "Мим", type = "scenario", data = {anim = "WORLD_HUMAN_HUMAN_STATUE"}},
 			{label = "Обрывать", type = "anim", data = {lib = "anim@amb@business@weed@weed_inspecting_lo_med_hi@", anim = "weed_crouch_checkingleaves_idle_01_inspectorfemale", flag = 9}},

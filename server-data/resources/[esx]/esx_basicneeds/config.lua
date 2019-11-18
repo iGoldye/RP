@@ -32,6 +32,9 @@ Config.Food = { -- ccal * g
 	grapefruit = 600 * 80,
 	cherry = 600 * 80,
 	cakebig = 800 * 100,
+	slivki  = 500 * 100,
+	slivstraw = 900 * 100,
+	icecream = 600 * 80,
 
 
 	-- UNICRON --

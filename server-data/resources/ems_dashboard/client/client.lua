@@ -63,3 +63,27 @@ end)
 RegisterNUICallback('NUIClose', function()
   hide()
 end)
+
+function vehicleType(using)
+  local cars = Config.Cars
+  for i=1, #cars, 1 do
+    if IsVehicleModel(using, GetHashKey(cars[i])) then
+      return true
+    end
+  end
+end
+
+-- Key events
+Citizen.CreateThread(function()
+  SetNuiFocus(false, false)
+  while true do
+		if IsControlJustReleased(0, Keys['G']) and GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1))) < 1 then
+			if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
+				if vehicleType(GetVehiclePedIsUsing(GetPlayerPed(-1))) then
+					pring('sika')
+					show(sessionid)
+				end
+			end
+		end
+  end
+end)

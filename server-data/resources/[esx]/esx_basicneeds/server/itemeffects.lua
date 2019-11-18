@@ -334,3 +334,16 @@ ESX.RegisterUsableItem('odekalonhigh', function(source)
     TriggerClientEvent('esx:showNotification', source, _U('used_odekalonhigh'))
 
 end)
+
+ESX.RegisterUsableItem('3adic', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('3adic', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 1000000)
+    TriggerClientEvent('esx_status:remove', source, 'hunger', 1000)
+    TriggerClientEvent('esx_status:remove', source, 'thirst', 7000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_3adic'))
+
+end)

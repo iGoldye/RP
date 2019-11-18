@@ -422,7 +422,7 @@ function OpenSocietyActionsMenu()
 
   table.insert(elements, {label = _U('billing'),    value = 'billing'})
   if (isBarman or IsGradeBoss()) then
-    table.insert(elements, {label = _U('crafting'),    value = 'menu_crafting'})
+    -- table.insert(elements, {label = _U('crafting'),    value = 'menu_crafting'})
   end
 
   ESX.UI.Menu.CloseAll()
@@ -442,36 +442,36 @@ function OpenSocietyActionsMenu()
 
       if data.current.value == 'menu_crafting' then
 
-          ESX.UI.Menu.Open(
-              'default', GetCurrentResourceName(), 'menu_crafting',
-              {
-                  title = _U('crafting'),
-                  align = 'top-left',
-                  elements = {
-                      {label = _U('jagerbomb'),     value = 'jagerbomb'},
-                      {label = _U('golem'),         value = 'golem'},
-                      {label = _U('whiskycoca'),    value = 'whiskycoca'},
-                      {label = _U('vodkaenergy'),   value = 'vodkaenergy'},
-                      {label = _U('vodkafruit'),    value = 'vodkafruit'},
-                      {label = _U('rhumfruit'),     value = 'rhumfruit'},
-                      {label = _U('teqpaf'),        value = 'teqpaf'},
-                      {label = _U('rhumcoca'),      value = 'rhumcoca'},
-                      {label = _U('mojito'),        value = 'mojito'},
-                      {label = _U('mixapero'),      value = 'mixapero'},
-                      {label = _U('metreshooter'),  value = 'metreshooter'},
-                      {label = _U('jagercerbere'),  value = 'jagercerbere'},
-                  }
-              },
-              function(data2, menu2)
+  --         ESX.UI.Menu.Open(
+  --             'default', GetCurrentResourceName(), 'menu_crafting',
+  --             {
+  --                 title = _U('crafting'),
+  --                 align = 'top-left',
+  --                 elements = {
+  --                     {label = _U('jagerbomb'),     value = 'jagerbomb'},
+  --                     {label = _U('golem'),         value = 'golem'},
+  --                     {label = _U('whiskycoca'),    value = 'whiskycoca'},
+  --                     {label = _U('vodkaenergy'),   value = 'vodkaenergy'},
+  --                     {label = _U('vodkafruit'),    value = 'vodkafruit'},
+  --                     {label = _U('rhumfruit'),     value = 'rhumfruit'},
+  --                     {label = _U('teqpaf'),        value = 'teqpaf'},
+  --                     {label = _U('rhumcoca'),      value = 'rhumcoca'},
+  --                     {label = _U('mojito'),        value = 'mojito'},
+  --                     {label = _U('mixapero'),      value = 'mixapero'},
+  --                     {label = _U('metreshooter'),  value = 'metreshooter'},
+  --                     {label = _U('jagercerbere'),  value = 'jagercerbere'},
+  --                 }
+  --             },
+  --             function(data2, menu2)
 
-                TriggerServerEvent('esx_tequilajob:craftingCoktails', data2.current.value)
-                animsAction({ lib = "mini@drinking", anim = "shots_barman_b" })
+  --               TriggerServerEvent('esx_tequilajob:craftingCoktails', data2.current.value)
+  --               animsAction({ lib = "mini@drinking", anim = "shots_barman_b" })
 
-              end,
-              function(data2, menu2)
-                  menu2.close()
-              end
-          )
+  --             end,
+  --             function(data2, menu2)
+  --                 menu2.close()
+  --             end
+  --         )
       end
 
     end,

@@ -10,6 +10,7 @@ server_scripts {
 
 client_scripts {
 	'client/client.lua',
+	'config.lua',
 }
 
 files {

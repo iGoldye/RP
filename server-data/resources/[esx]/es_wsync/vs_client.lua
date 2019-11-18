@@ -1,4 +1,4 @@
-CurrentWeather = 'EXTRASUNNY'
+CurrentWeather = 'XMAS'
 local lastWeather = ''
 local serverTime = 0
 local clientTime = 0
