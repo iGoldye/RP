@@ -3,7 +3,7 @@
     <PhoneTitle :title="channelName" backgroundColor="#090f20" @back="onQuit"/>
     <div class="phone_content">
       <div class="elements" ref="elementsDiv">
-          <div class="element" v-for='(elem) in tchatMessages' 
+          <div class="element" v-for='(elem) in chatMessages'
             v-bind:key="elem.id"
             >
             <div class="time">{{formatTime(elem.time)}}</div>
@@ -38,6 +38,9 @@ export default {
     ...mapGetters(['tchatMessages', 'tchatCurrentChannel', 'useMouse']),
     channelName () {
       return '# ' + this.channel
+    },
+    chatMessages () {
+      return this.tchatMessages.sort((a, b) => a.time - b.time)
     }
   },
   watch: {
@@ -148,7 +151,6 @@ export default {
   line-height: 18px;
   font-size: 18px;
   padding-bottom: 6px;
-  
   flex-direction: row;
   height: 60px; */
 }
