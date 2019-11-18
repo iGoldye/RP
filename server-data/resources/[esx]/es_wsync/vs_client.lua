@@ -47,9 +47,11 @@ function changeWeather(weather)
 	if CurrentWeather == 'XMAS' then
 		SetForceVehicleTrails(true)
 		SetForcePedFootstepsTracks(true)
+		N_0xc54a08c85ae4d410(0.7)
 	else
 		SetForceVehicleTrails(false)
 		SetForcePedFootstepsTracks(false)
+		N_0xc54a08c85ae4d410(0.0)
 	end
 
 	lastWeather = weather
