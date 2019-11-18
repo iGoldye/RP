@@ -6,12 +6,13 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 RegisterServerEvent('esx_ambulancejob:useMedikit')
 AddEventHandler('esx_ambulancejob:useMedikit', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
+	local xTarget = ESX.GetPlayerFromId(target)
 	local item = xPlayer.getInventoryItem('medikit')
 
 	if item and item.count >= 1 then
 		xPlayer.removeInventoryItem('medikit', 1)
 		TriggerClientEvent('esx_ambulancejob:heal', target, 'big')
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('heal_complete', xPlayer.name))
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('heal_complete', xTarget.name))
 	end
 end)
 
