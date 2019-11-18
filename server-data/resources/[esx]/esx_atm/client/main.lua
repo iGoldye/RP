@@ -51,15 +51,17 @@ AddEventHandler('esx_atm:closeATM', function()
 	local boneIndex = GetPedBoneIndex(playerPed, 57005) -- 18905 = left hand, 57005 = right hand
 
 
-	Citizen.CreateThread(function()
-		ESX.Streaming.RequestAnimDict("amb@prop_human_atm@male@exit", function()
-			TaskPlayAnim(PlayerPedId(), "amb@prop_human_atm@male@exit", "exit", 8.0, -8.0, -1, 0, 0, false, false, false)
-			Citizen.Wait(3000)
-			AttachEntityToEntity(prop, playerPed, boneIndex, 0.162, 0.038, -0.021, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
-			Citizen.Wait(2000)
-			DeleteObject(prop)
+	if currentMarker["static"] == nil then
+		Citizen.CreateThread(function()
+			ESX.Streaming.RequestAnimDict("amb@prop_human_atm@male@exit", function()
+				TaskPlayAnim(PlayerPedId(), "amb@prop_human_atm@male@exit", "exit", 8.0, -8.0, -1, 0, 0, false, false, false)
+				Citizen.Wait(3000)
+				AttachEntityToEntity(prop, playerPed, boneIndex, 0.162, 0.038, -0.021, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+				Citizen.Wait(2000)
+				DeleteObject(prop)
+			end)
 		end)
-	end)
+	end
 
 
 	SetNuiFocus(false)
@@ -86,6 +88,15 @@ end)
 
 -- Create blips
 Citizen.CreateThread(function()
+	local markerType = 1
+	local markerSize = 2.0
+	while true do
+		Citizen.Wait(0)
+		for k,v in pairs(Config.ATMLocations) do
+			DrawMarker(markerType, v.x, v.y, v.z-1, 0.0, 0.0, 0.0, 0, 0.0, 0.0, markerSize, markerSize, markerSize, 100, 255, 0, 100, false, true, 2, false, false, false, false)
+		end
+	end
+--[[
 	if not Config.EnableBlips then return end
 
 	for i=1, #Config.ATMLocations, 1 do
@@ -99,6 +110,7 @@ Citizen.CreateThread(function()
 		AddTextComponentString(_U('atm_blip'))
 		EndTextCommandSetBlipName(blip)
 	end
+]]--
 end)
 
 -- Activate menu when player is inside marker
@@ -108,15 +120,16 @@ Citizen.CreateThread(function()
 		local coords = GetEntityCoords(PlayerPedId())
 		local canSleep = true
 		isInATMMarker = false
---[[
+
 		for k,v in pairs(Config.ATMLocations) do
 			if GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < 1.0 then
 				isInATMMarker, canSleep = true, false
 				currentMarker = v
+				currentMarker["static"] = true
 				break
 			end
 		end
-]]--
+
 		local atm_entity = GetClosestObjectOfType(coords, 1.0, GetHashKey("prop_fleeca_atm"), false, false)
 		if atm_entity == 0 then
 			atm_entity = GetClosestObjectOfType(coords, 1.0, GetHashKey("prop_atm_02"), false, false)
@@ -130,7 +143,11 @@ Citizen.CreateThread(function()
 
 		if atm_entity > 0 then
 			isInATMMarker = true
-			currentMarker = GetEntityCoords(atm_entity)
+			local coords = GetEntityCoords(atm_entity)
+			currentMarker = {}
+			currentMarker.x = coords.x
+			currentMarker.y = coords.y
+			currentMarker.z = coords.z
 		end
 
 		if isInATMMarker and not hasAlreadyEnteredMarker then
@@ -166,26 +183,27 @@ Citizen.CreateThread(function()
 
 			if IsControlJustReleased(0, Keys['E']) and IsPedOnFoot(PlayerPedId()) then
 
+				if currentMarker["static"] == nil then
+					Citizen.CreateThread(function()
+						local prop_name = "prop_cs_credit_card"
+						local playerPed = PlayerPedId()
+						local coords = GetEntityCoords(playerPed)
+						local prop = CreateObject(GetHashKey(prop_name), coords.x, coords.y, coords.z + 10.2, true, true, true)
+						local boneIndex = GetPedBoneIndex(playerPed, 57005) -- 18905 = left hand, 57005 = right hand
+						AttachEntityToEntity(prop, playerPed, boneIndex, 0.162, 0.038, -0.021, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
 
-				Citizen.CreateThread(function()
-					local prop_name = "prop_cs_credit_card"
-					local playerPed = PlayerPedId()
-					local coords = GetEntityCoords(playerPed)
-					local prop = CreateObject(GetHashKey(prop_name), coords.x, coords.y, coords.z + 10.2, true, true, true)
-					local boneIndex = GetPedBoneIndex(playerPed, 57005) -- 18905 = left hand, 57005 = right hand
-					AttachEntityToEntity(prop, playerPed, boneIndex, 0.162, 0.038, -0.021, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
-
-					ESX.Streaming.RequestAnimDict("anim@mp_atm@enter", function()
-						TaskPlayAnim(playerPed, "anim@mp_atm@enter", "enter", 8.0, -8.0, -1, 2, 0, false, false, false)
-						Citizen.Wait(1300)
-						DeleteObject(prop)
-						Citizen.Wait(2700)
-						ESX.Streaming.RequestAnimDict("anim@mp_atm@base", function()
-							TaskPlayAnim(playerPed, "anim@mp_atm@base", "base", 8.0, -8.0, -1, 1, 0, false, false, false)
+						ESX.Streaming.RequestAnimDict("anim@mp_atm@enter", function()
+							TaskPlayAnim(playerPed, "anim@mp_atm@enter", "enter", 8.0, -8.0, -1, 2, 0, false, false, false)
+							Citizen.Wait(1300)
+							DeleteObject(prop)
+							Citizen.Wait(2700)
+							ESX.Streaming.RequestAnimDict("anim@mp_atm@base", function()
+								TaskPlayAnim(playerPed, "anim@mp_atm@base", "base", 8.0, -8.0, -1, 1, 0, false, false, false)
+							end)
 						end)
 					end)
-				end)
-				Citizen.Wait(4000)
+					Citizen.Wait(4000)
+				end
 
 				menuIsShowed = true
 				ESX.TriggerServerCallback('esx:getPlayerData', function(data)

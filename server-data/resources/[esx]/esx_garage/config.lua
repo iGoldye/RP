@@ -38,6 +38,11 @@ Config.Garages = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 224.500, y = -998.695, z = -100.000},
@@ -104,6 +109,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
 		},
 
 		Parkings = {
@@ -174,6 +184,11 @@ Config.Garages = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 224.500, y = -998.695, z = -100.000},
@@ -240,6 +255,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
 		},
 
 		Parkings = {
@@ -310,6 +330,11 @@ Config.Garages = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 224.500, y = -998.695, z = -100.000},
@@ -376,6 +401,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
 		},
 
 		Parkings = {
@@ -446,6 +476,11 @@ Config.Garages = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 224.500, y = -998.695, z = -100.000},
@@ -512,6 +547,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
 		},
 
 		Parkings = {
@@ -581,6 +621,11 @@ Config.Garages = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 193.06, y = -995.95, z = -100.000},
@@ -629,6 +674,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
 		},
 
 		Parkings = {
@@ -681,6 +731,11 @@ Config.Garages = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 193.06, y = -995.95, z = -100.000},
@@ -729,6 +784,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
 		},
 
 		Parkings = {
@@ -781,6 +841,11 @@ Config.Garages = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 193.06, y = -995.95, z = -100.000},
@@ -829,6 +894,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
 		},
 
 		Parkings = {
@@ -881,6 +951,11 @@ Config.Garages = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 193.06, y = -995.95, z = -100.000},
@@ -929,6 +1004,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
 		},
 
 		Parkings = {
@@ -981,6 +1061,11 @@ Config.Garages = {
 			Pos = {x = 196.69, y = -1006.26, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 198.5, y = -1000.0, z = -100.000},
+			Radius = 12.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 193.06, y = -995.95, z = -100.000},
@@ -1031,6 +1116,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
 		},
 
 		Parkings = {
@@ -1101,6 +1191,11 @@ Config.Garages = {
 			Pos = {x = 171.71, y = -1007.4, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 173.64, y = -1003.59, z = -100.000},
+			Radius = 10.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 175.03, y = -1002.39, z = -100.000},
@@ -1137,6 +1232,11 @@ Config.Garages = {
 			Pos = {x = 171.71, y = -1007.4, z = -100.000},
 		},
 
+		InteriorCenter = {
+			Pos = {x = 173.64, y = -1003.59, z = -100.000},
+			Radius = 10.0,
+		},
+
 		Parkings = {
 			{
 				Pos     = {x = 175.03, y = -1002.39, z = -100.000},
@@ -1171,6 +1271,11 @@ Config.Garages = {
 	-- 	InteriorExitPoint = {
 	-- 		Pos = {x = 196.69, y = -1006.26, z = -100.000},
 	-- 	},
+
+	--	InteriorCenter = {
+	--		Pos = {x = 198.5, y = -1000.0, z = -100.000},
+	--		Radius = 12.0,
+	--	},
 
 	-- 	Parkings = {
 	-- 		{
@@ -1222,6 +1327,11 @@ Config.Garages = {
 
 		InteriorExitPoint = {
 			Pos = {x = 224.613, y = -1004.769, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 228.42, y = -989.83, z = -100.000},
+			Radius = 20.0,
 		},
 
 		Parkings = {

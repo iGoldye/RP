@@ -80,7 +80,7 @@ Citizen.CreateThread(function()
 		if IsControlJustReleased(0, Keys['G']) and GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1))) < 1 then
 			if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
 				if vehicleType(GetVehiclePedIsUsing(GetPlayerPed(-1))) then
-					pring('sika')
+--					print('sika')
 					show(sessionid)
 				end
 			end
