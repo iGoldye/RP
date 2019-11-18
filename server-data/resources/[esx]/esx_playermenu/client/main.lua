@@ -572,6 +572,7 @@ function OpenInteractionMenu()
 
 	table.insert(elements, {label = ('Взять на руки'), value = 'liftup'})
 	table.insert(elements, {label = ('Закинуть на плечо'), value = 'carry'})
+	table.insert(elements, {label = ('Взять в заложники'), value = 'hostage'})
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'clothes_menu', {
 		title    = "Взаимодействие",
@@ -583,6 +584,8 @@ function OpenInteractionMenu()
 			TriggerEvent('esx_barbie_lyftupp:liftUp')
 		elseif cmd == 'carry' then
 			TriggerEvent('CarryPeople:carry')
+		elseif cmd == 'hostage' then
+			TriggerEvent('hostage:takeHostage')
 	        end
 
 		menu.close()

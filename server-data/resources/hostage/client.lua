@@ -6,11 +6,8 @@ local hostageAllowedWeapons = {
 
 local holdingHostageInProgress = false
 
-RegisterCommand("takehostage",function()
-	takeHostage()
-end)
-
-RegisterCommand("th",function()
+RegisterNetEvent('hostage:takeHostage')
+AddEventHandler('hostage:takeHostage', function(outside)
 	takeHostage()
 end)
 
