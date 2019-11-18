@@ -581,9 +581,9 @@ function OpenInteractionMenu()
 	}, function(data, menu)
 		local cmd = data.current.value
 		if cmd == 'liftup' then
-			TriggerEvent('esx_barbie_lyftupp:liftUp')
+			TriggerEvent('CarryPeople:carry', 'forward')
 		elseif cmd == 'carry' then
-			TriggerEvent('CarryPeople:carry')
+			TriggerEvent('CarryPeople:carry', 'shoulder')
 		elseif cmd == 'hostage' then
 			TriggerEvent('hostage:takeHostage')
 	        end
