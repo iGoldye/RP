@@ -138,14 +138,14 @@ AddEventHandler('instance:onCreate', function(instance)
 end)
 
 AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
-	
+
 	if part == 'ExteriorEntryPoint' then
 
 		local playerPed = PlayerPedId()
 		local coords    = GetEntityCoords(playerPed)
 		local garage    = Config.Garages[name]
 		thisGarage 		= garage
-		
+
 		for i=1, #Config.Garages, 1 do
 			if Config.Garages[i].name ~= name then
 				Config.Garages[i].disabled = true
@@ -183,7 +183,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 						z = garage.InteriorSpawnPoint.Pos.z + Config.ZDiff
 					}
 
-					TriggerEvent('instance:create', 'garage')
+					TriggerEvent('instance:create', "garage/"..ESX.GetPlayerData().identifier, 'garage', {owner = ESX.GetPlayerData().identifier})
 					NetworkSetEntityInvisibleToNetwork(vehicle, true)
 					SetEntityCoords(vehicle, spawnCoords.x, spawnCoords.y, spawnCoords.z, 0, 0, 0, true)
 					SetEntityHeading(vehicle, garage.ExteriorSpawnPoint.Heading)
@@ -196,7 +196,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 						y = garage.InteriorSpawnPoint.Pos.y,
 						z = garage.InteriorSpawnPoint.Pos.z + Config.ZDiff
 					}, function()
-						TriggerEvent('instance:create', 'garage')
+						TriggerEvent('instance:create', "garage/"..ESX.GetPlayerData().identifier, 'garage', {owner = ESX.GetPlayerData().identifier})
 						SpawnGarageCars(name)
 					end)
 
@@ -211,8 +211,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 				y = garage.InteriorSpawnPoint.Pos.y,
 				z = garage.InteriorSpawnPoint.Pos.z + Config.ZDiff
 			}, function()
-
-				TriggerEvent('instance:create', 'garage')
+				TriggerEvent('instance:create', "garage/"..ESX.GetPlayerData().identifier, 'garage', {owner = ESX.GetPlayerData().identifier})
 				SpawnGarageCars(name)
 			end)
 
@@ -230,7 +229,7 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 
 			local vehicle      = GetVehiclePedIsIn(playerPed,  false)
 			local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
-			
+
 			local spawnCoords  = {
 				x = garage.ExteriorSpawnPoint.Pos.x,
 				y = garage.ExteriorSpawnPoint.Pos.y,
@@ -269,13 +268,13 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 		end
 
 		SaveGarageCars(name)
-		
+
 		for i=1, #Config.Garages, 1 do
 			if Config.Garages[i].name ~= name then
 				Config.Garages[i].disabled = false
 			end
 		end
-		
+
 		thisGarage = nil
 
 	end
@@ -332,10 +331,10 @@ Citizen.CreateThread(function()
 		end
 
 		sleep = true
-		
+
 		local playerPed = PlayerPedId()
 		local coords    = GetEntityCoords(playerPed)
-		
+
 		for k,v in pairs(Config.Garages) do
 
 			if v.IsClosed then
@@ -343,7 +342,7 @@ Citizen.CreateThread(function()
 				if v.allowedProp and v.allowedJob and (not v.disabled and GetDistanceBetweenCoords(coords, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, true) < Config.DrawDistance) then
 					DrawMarker(Config.MarkerType, v.ExteriorEntryPoint.Pos.x, v.ExteriorEntryPoint.Pos.y, v.ExteriorEntryPoint.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
 					sleep = false
-				end	
+				end
 
 				if(not v.disabled and GetDistanceBetweenCoords(coords, v.InteriorExitPoint.Pos.x, v.InteriorExitPoint.Pos.y, v.InteriorExitPoint.Pos.z, true) < Config.DrawDistance) then
 					DrawMarker(Config.MarkerType, v.InteriorExitPoint.Pos.x, v.InteriorExitPoint.Pos.y, v.InteriorExitPoint.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.MarkerSize.x, Config.MarkerSize.y, Config.MarkerSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
@@ -379,7 +378,7 @@ Citizen.CreateThread(function()
 		local currentGarage  = nil
 		local currentPart    = nil
 		local currentParking = nil
-		
+
 		for k,v in pairs(Config.Garages) do
 			if v.IsClosed then
 
@@ -395,7 +394,7 @@ Citizen.CreateThread(function()
 									currentGarage = k
 									currentPart   = 'InteriorExitPoint'
 								end
-						
+
 								for i=1, #v.Parkings, 1 do
 
 									local parking = v.Parkings[i]
@@ -414,7 +413,7 @@ Citizen.CreateThread(function()
 		end
 
 		if isInMarker and not HasAlreadyEnteredMarker or (isInMarker and (LastGarage ~= currentGarage or LastPart ~= currentPart or LastParking ~= currentParking) ) then
-			
+
 			if LastGarage ~= currentGarage or LastPart ~= currentPart or LastParking ~= currentParking then
 				TriggerEvent('esx_property:hasExitedMarker', LastGarage, LastPart, LastParking)
 			end
@@ -449,9 +448,9 @@ Citizen.CreateThread(function()
 		end
 
 		if not isInMarker and HasAlreadyEnteredMarker then
-			
+
 			HasAlreadyEnteredMarker = false
-			
+
 			TriggerEvent('esx_property:hasExitedMarker', LastGarage, LastPart, LastParking)
 		end
 
