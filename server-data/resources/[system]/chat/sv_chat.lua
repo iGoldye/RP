@@ -16,17 +16,7 @@ AddEventHandler('chat:adminMessage', function(author, color, message)
 end)
 
 function adminMessage(author, color, message)
-	local xPlayers = ESX.GetPlayers()
-	for i=1, #xPlayers, 1 do
-		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		if xPlayer ~= nil then
-			TriggerEvent('es:canGroupTarget', xPlayer.getGroup(), "admin", function(available)
-				if available then
-					TriggerClientEvent('chatMessage', xPlayer.source, author, color, message)
-				end
-			end)
-		end
-	end
+	TriggerClientEvent('adminMessage', -1, author, color, message)
 end
 
 AddEventHandler('_chat:messageEntered', function(author, color, message)
@@ -49,7 +39,7 @@ AddEventHandler('__cfx_internal:commandFallback', function(command)
     TriggerEvent('chatMessage', source, name, '/' .. command)
 
     if not WasEventCanceled() then
-        TriggerClientEvent('chatMessage', -1, name, { 255, 255, 255 }, '/' .. command) 
+        TriggerClientEvent('chatMessage', -1, name, { 255, 255, 255 }, '/' .. command)
     end
 
     CancelEvent()
