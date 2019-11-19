@@ -2,7 +2,7 @@ Config = {
 -- Change the language of the menu here!.
 -- Note fr and de are google translated, if you would like to help out with translation / just fix it for your server check below and change translations yourself
 -- try en, fr, de or sv.
-	MenuLanguage = 'en',	
+	MenuLanguage = 'en',
 -- Set this to true to enable some extra prints
 	DebugDisplay = false,
 -- Set this to false if you have something else on X, and then just use /e c to cancel emotes.
@@ -28,7 +28,7 @@ Config = {
 -- You can disable the Facial Expressions menu here.
 	ExpressionsEnabled = true,
 -- You can disable the Walking Styles menu here.
-	WalkingStylesEnabled = true,	
+	WalkingStylesEnabled = true,
 -- You can disable the Shared Emotes here.
     SharedEmotesEnabled = true,
     CheckForUpdates = true,
@@ -68,7 +68,7 @@ Config.Languages = {
         ['notvalidsharedemote'] = "is not a valid shared emote.",
         ['sentrequestto'] = "Sent request to ~y~",
         ['nobodyclose'] = "Nobody ~r~close~w~ enough.",
-        ['doyouwanna'] = "~y~Y~w~ to accept, ~r~L~w~ to refuse (~g~",
+        ['doyouwanna'] = "~y~Y~w~ принять, ~r~L~w~ отказать (~g~",
         ['refuseemote'] = "Emote refused.",
         ['makenearby'] = "makes the nearby player play",
   },

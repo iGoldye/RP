@@ -120,12 +120,30 @@ DP.Shared = {
        EmoteMoving = true,
        EmoteDuration = 3000
    }},
-   ["hug"] = {"mp_ped_interaction", "kisses_guy_a", "Hug", "hug2", AnimationOptions =
+--    ["hug"] = {"mp_ped_interaction", "kisses_guy_a", "Hug", "hug2", AnimationOptions =
+--    {
+--        EmoteMoving = false,
+--        EmoteDuration = 5000,
+--        SyncOffsetFront = 1.05,
+--    }},
+
+   ["kiss"] = {"misscarsteal2chad_goodbye", "chad_armsaround_chad", "Поцелуй М", "kiss2", AnimationOptions =
+   {
+       EmoteMoving = false,
+       EmoteDuration = 5000,
+       SyncOffsetFront = 0.7,
+
+   }},
+   ["kiss2"] = {"misscarsteal2chad_goodbye", "chad_armsaround_girl", "Kiss 2", "kiss", AnimationOptions =
    {
        EmoteMoving = false,
        EmoteDuration = 5000,
        SyncOffsetFront = 1.05,
+
+
    }},
+
+
    ["hug2"] = {"mp_ped_interaction", "kisses_guy_b", "Hug 2", "hug", AnimationOptions =
    {
        EmoteMoving = false,

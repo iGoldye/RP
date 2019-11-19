@@ -9,15 +9,14 @@ function RandomString(length)
   return res
 end
 
-RegisterServerEvent('ems_dashboard:sessionid')
-AddEventHandler('ems_dashboard:sessionid', function()
+ESX.RegisterServerCallback('ems_dashboard:sessionid', function(source, cb)
   local xPlayer = ESX.GetPlayerFromId(source)
   local sessionid = RandomString(32)
-  MySQL.Async.execute('REPLACE INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
+  MySQL.Async.execute('INSERT INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
   {
       identifier = xPlayer.identifier,
       sessionid = sessionid,
   }, function(rowsChanged)
-      TriggerClientEvent('ems_dashboard:sessionid', xPlayer.source, sessionid)
+    cb(sessionid)
   end)
 end)

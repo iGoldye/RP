@@ -2062,7 +2062,7 @@ Citizen.CreateThread(function()
 				if CurrentAction == 'menu_cloakroom' then
 					OpenCloakroomMenu()
 				elseif CurrentAction == 'menu_computer' then
-					TriggerEvent('ems_dashboard:getPlayerData')
+					TriggerEvent('ems_dashboard:show')
 				elseif CurrentAction == 'menu_stock' then
 					if Config.MaxInService == -1 then
 						OpenStockMenu(CurrentActionData.station)
