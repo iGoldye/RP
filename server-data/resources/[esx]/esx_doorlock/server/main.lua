@@ -7,18 +7,14 @@ RegisterServerEvent('esx_doorlock:updateState')
 AddEventHandler('esx_doorlock:updateState', function(doorID, state)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	if type(doorID) ~= 'number' then
-		print(('esx_doorlock: %s didn\'t send a number!'):format(xPlayer.identifier))
+	if not Config.DoorList[doorID] then
+		print(('esx_doorlock: %s attempted to update invalid door!'):format(xPlayer.identifier))
+		print(('esx_doorlock: invalid door name: %s!'):format(doorID))
 		return
 	end
 
 	if type(state) ~= 'boolean' then
 		print(('esx_doorlock: %s attempted to update invalid state!'):format(xPlayer.identifier))
-		return
-	end
-
-	if not Config.DoorList[doorID] then
-		print(('esx_doorlock: %s attempted to update invalid door!'):format(xPlayer.identifier))
 		return
 	end
 
@@ -34,16 +30,6 @@ end)
 
 ESX.RegisterServerCallback('esx_doorlock:getDoorInfo', function(source, cb)
 	cb(doorInfo)
-end)
-
-AddEventHandler('esx_doorlock:setState', function(id, state)
-	for k,doorID in ipairs(Config.DoorList) do
-		if doorID.id == id then
-			doorInfo[k] = state
-			TriggerClientEvent('esx_doorlock:setState', -1, k, state)
-			break
-		end
-	end
 end)
 
 function IsAuthorized(jobName, doorID)

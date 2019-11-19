@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
 		end
 	end)
 
-	for _,door in ipairs(Config.DoorList) do
+	for _,door in pairs(Config.DoorList) do
 		if door.ajar ~= nil then
 			Citizen.InvokeNative(0x6F8838D03D1DC226, door.ajar, GetHashKey(door.objName), door.objCoords.x, door.objCoords.y, door.objCoords.z, 0,0,0)
 		end
@@ -40,7 +40,7 @@ Citizen.CreateThread(function()
 		local playerCoords = GetEntityCoords(PlayerPedId())
 		local distance
 
-		for _,doorID in ipairs(Config.DoorList) do
+		for _,doorID in pairs(Config.DoorList) do
 			if doorID.doors then
 				distance = #(playerCoords - doorID.doors[1].objCoords)
 				if distance < 100 then
@@ -96,7 +96,7 @@ Citizen.CreateThread(function()
 		local playerCoords = GetEntityCoords(PlayerPedId())
 		closestDoor = -1
 
-		for k,doorID in ipairs(Config.DoorList) do
+		for k,doorID in pairs(Config.DoorList) do
 			local distance
 
 			if doorID.doors then

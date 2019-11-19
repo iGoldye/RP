@@ -265,7 +265,7 @@ RegisterServerEvent('esx_holdupbank:opendoor')
 AddEventHandler('esx_holdupbank:opendoor', function(x,y,z, doortype, doorid)
 
 	if doorid ~= nil then
-		TriggerEvent('esx_doorlock:setState', doorid, false)
+		TriggerEvent('esx_doorlock:updateState', doorid, false)
 	end
 
 	TriggerClientEvent('esx_holdupbank:opendoors', -1, x,y,z, doortype)
@@ -290,7 +290,7 @@ AddEventHandler('esx_holdupbank:closedoor', function(doorid)
 
     if doorid ~= nil then
         SetTimeout(Config.TimeBetweenRobs*500, function()
-		TriggerEvent('esx_doorlock:setState', doorid, true)
+		TriggerEvent('esx_doorlock:updateState', doorid, true)
         end)
     end
 end)
