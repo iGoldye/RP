@@ -24,7 +24,7 @@ local HeadBone = 0x796e;
 local animPlay = false;
 local animPlaySync = false;
 local instancedPlayers = {}
-local isPlayerLoaded = false
+local isPlayerLoaded = true -- FIXME: test False on master!
 
 AddEventHandler('sosamba_ui:setHidden', function(val)
 	voip:updatePlugin("setHidden", val);

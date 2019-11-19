@@ -53,8 +53,8 @@ function LeaveInstance(id)
 	insideInstance = false
 end
 
-function InviteToInstance(type, player, data)
-	TriggerServerEvent('instance:invite', instance.host, type, player, data)
+function InviteToInstance(id, type, player, data)
+	TriggerServerEvent('instance:invite', id, type, player, data)
 end
 
 function RegisterInstanceType(type, enter, exit)
@@ -132,7 +132,6 @@ AddEventHandler('instance:onPlayerLeft', function(_instance, player)
 
 	ESX.ShowNotification(_('left_out', playerName))
 end)
-
 --[[
 Citizen.CreateThread(function()
 	while true do
@@ -142,12 +141,11 @@ Citizen.CreateThread(function()
 	end
 end)
 ]]--
-
 RegisterNetEvent('instance:onInvite')
 AddEventHandler('instance:onInvite', function(_instance, type, data)
 	instanceInvite = {
 		type = type,
-		host = _instance,
+		id = _instance,
 		data = data
 	}
 
