@@ -67,6 +67,16 @@ AddEventHandler('onResourceStop', function(resource)
   end
 end)
 
+AddEventHandler('dpemotes:emote', function(name)
+    if DP.Emotes[name] ~= nil then
+      if OnEmotePlay(DP.Emotes[name]) then end return
+    elseif DP.Dances[name] ~= nil then
+      if OnEmotePlay(DP.Dances[name]) then end return
+    elseif DP.PropEmotes[name] ~= nil then
+      if OnEmotePlay(DP.PropEmotes[name]) then end return
+    end
+end)
+
 -----------------------------------------------------------------------------------------------------
 ------ Functions and stuff --------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------

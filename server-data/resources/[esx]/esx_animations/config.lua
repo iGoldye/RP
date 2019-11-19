@@ -47,7 +47,8 @@ Config.Animations = {
 			{label = "Перебирать бумаги", type = "anim", data = {lib = "iaa_int-14", anim = "cs_lestercrest_2_dual-14", flag = 9}},
 			{label = "Отряхиваться", type = "anim", data = {lib = "move_m@_idles@shake_off", anim = "shakeoff_1", flag = 9}},
 			{label = "Барбекю", type = "scenario", data = {anim = "PROP_HUMAN_BBQ"}},
-		  {label = "Уборщик", type = "scenario", data = {anim = "WORLD_HUMAN_JANITOR"}},
+			{label = "Уборщик", type = "scenario", data = {anim = "WORLD_HUMAN_JANITOR"}},
+			{label = "Шампанское", type = "dpemotes", data = {anim = "champagne"}},
 		}
 	},
 
