@@ -32,7 +32,7 @@ function GetInstancedPlayers()
 
 	for k,v in pairs(instances) do
 		for k2,v2 in ipairs(v.players) do
-			players[v2] = true
+			players[v2] = k
 		end
 	end
 
