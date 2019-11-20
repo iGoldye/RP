@@ -1615,7 +1615,7 @@ DP.PropEmotes = {
    }},
 
 
-   ["test"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "dancecrowd_li_13_smackthat_laz", "test", AnimationOptions =
+   ["unicorn1"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "dancecrowd_li_13_smackthat_laz", "Unicorn 1", AnimationOptions =
    {
        Prop = "ba_prop_battle_hobby_horse",
        PropBone = 57005,
@@ -1625,7 +1625,7 @@ DP.PropEmotes = {
        EmoteMoving = false,
    }},
 
-   ["test2"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_06_base_laz", "test3", AnimationOptions =
+   ["unicorn2"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_06_base_laz", "Unicorn 2", AnimationOptions =
    {
        Prop = "ba_prop_battle_hobby_horse",
        PropBone = 57005,
@@ -1635,7 +1635,7 @@ DP.PropEmotes = {
        EmoteMoving = false,
    }},
 
-   ["test3"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_06_base_v2_laz", "test3", AnimationOptions =
+   ["unicorn3"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_06_base_v2_laz", "Unicorn 3", AnimationOptions =
    {
        Prop = "ba_prop_battle_hobby_horse",
        PropBone = 57005,
@@ -1645,7 +1645,7 @@ DP.PropEmotes = {
        EmoteMoving = false,
    }},
 
-   ["test4"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_13_shimmyhump_laz", "test4", AnimationOptions =
+   ["unicorn4"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_13_shimmyhump_laz", "Unicorn 4", AnimationOptions =
    {
        Prop = "ba_prop_battle_hobby_horse",
        PropBone = 57005,
@@ -1655,7 +1655,7 @@ DP.PropEmotes = {
        EmoteMoving = false,
    }},
 
-   ["test5"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_15_shimmyya_laz", "test5", AnimationOptions =
+   ["unicorn5"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_15_shimmyya_laz", "Unicorn 5", AnimationOptions =
    {
        Prop = "ba_prop_battle_hobby_horse",
        PropBone = 57005,
@@ -1665,7 +1665,7 @@ DP.PropEmotes = {
        EmoteMoving = false,
    }},
 
-   ["test6"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "dancecrowd_li_17_poledance_laz", "test6", AnimationOptions =
+   ["unicorn6"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "dancecrowd_li_17_poledance_laz", "Unicorn 6", AnimationOptions =
    {
        Prop = "ba_prop_battle_hobby_horse",
        PropBone = 57005,
