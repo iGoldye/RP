@@ -61,7 +61,7 @@ AddEventHandler('crafting:craftItem', function(ingredients)
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local item = findRecipe(ingredients)
 	if not item then
-		TriggerClientEvent('esx:showNotification', _source, 'No recipe found with these ingredients')
+		TriggerClientEvent('esx:showNotification', _source, 'Из этого ничего не выйдет')
 	else
 		if xPlayer ~= nil then
 			if hasAllIngredients(xPlayer.inventory, Config.Recipes[item]) then

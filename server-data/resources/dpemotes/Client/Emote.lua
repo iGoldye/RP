@@ -39,9 +39,9 @@ RegisterCommand('e', function(source, args, raw)
   EmoteCommandStart(source, args, raw)
 end)
 
-RegisterCommand('emote', function(source, args, raw)
-  EmoteCommandStart(source, args, raw)
-end)
+-- RegisterCommand('emote', function(source, args, raw)
+--   EmoteCommandStart(source, args, raw)
+-- end)
 
 RegisterCommand('emotes', function(source, args, raw)
   EmotesOnCommand()
@@ -66,7 +66,7 @@ AddEventHandler('onResourceStop', function(resource)
     ResetPedMovementClipset(PlayerPedId())
   end
 end)
-
+RegisterNetEvent('dpemotes:emote')
 AddEventHandler('dpemotes:emote', function(name)
     if DP.Emotes[name] ~= nil then
       if OnEmotePlay(DP.Emotes[name]) then end return
@@ -115,14 +115,14 @@ function DebugPrint(args)
 end
 
 
-function EmotesOnCommand(source, args, raw)
-  local EmotesCommand = ""
-  for a in pairsByKeys(DP.Emotes) do
-    EmotesCommand = EmotesCommand .. ""..a..", "
-  end
-  EmoteChatMessage(EmotesCommand)
-  EmoteChatMessage(Config.Languages[lang]['emotemenucmd'])
-end
+-- function EmotesOnCommand(source, args, raw)
+--   local EmotesCommand = ""
+--   for a in pairsByKeys(DP.Emotes) do
+--     EmotesCommand = EmotesCommand .. ""..a..", "
+--   end
+--   EmoteChatMessage(EmotesCommand)
+--   EmoteChatMessage(Config.Languages[lang]['emotemenucmd'])
+-- end
 
 function pairsByKeys (t, f)
     local a = {}
@@ -304,7 +304,7 @@ function OnEmotePlay(EmoteName)
       TaskStartScenarioInPlace(GetPlayerPed(-1), ChosenAnimation, 0, true)
       DebugPrint("Playing scenario = ("..ChosenAnimation..")")
       IsInAnimation = true
-    return end 
+    return end
   end
 
   LoadAnim(ChosenDict)
@@ -327,10 +327,14 @@ function OnEmotePlay(EmoteName)
   end
 
   if EmoteName.AnimationOptions then
-    if EmoteName.AnimationOptions.EmoteDuration == nil then 
+    if EmoteName.AnimationOptions.EmoteDuration == nil then
       EmoteName.AnimationOptions.EmoteDuration = -1
     else
       AnimationDuration = EmoteName.AnimationOptions.EmoteDuration
+    end
+
+    if EmoteName.AnimationOptions.EmoteStopLastFrame then
+      MovementType = MovementType + 2
     end
 
     if EmoteName.AnimationOptions.Prop then
@@ -354,7 +358,7 @@ function OnEmotePlay(EmoteName)
   else
       DebugPrint("AnimationOptions = False")
   end
-  
+
   DebugPrint ("--- Main Animations")
   DebugPrint ("ChosenDict = " ..ChosenDict.. "")
   DebugPrint ("ChosenAnimation = " ..ChosenAnimation.. "")
@@ -366,6 +370,7 @@ function OnEmotePlay(EmoteName)
     DebugPrint ("AnimationOption.EmoteLoop = " ..tostring(EmoteName.AnimationOptions.EmoteLoop).. "")
     DebugPrint ("AnimationOption.EmoteMoving = " ..tostring(EmoteName.AnimationOptions.EmoteMoving).. "")
     DebugPrint ("AnimationOption.EmoteDuration = " ..tostring(EmoteName.AnimationOptions.EmoteDuration).. "")
+    DebugPrint ("AnimationOption.EmoteStopLastFrame = " ..tostring(EmoteName.AnimationOptions.EmoteStopLastFrame).. "")
   end
 
   TaskPlayAnim(GetPlayerPed(-1), ChosenDict, ChosenAnimation, 2.0, 2.0, AnimationDuration, MovementType, 0, false, false, false)

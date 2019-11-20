@@ -66,6 +66,17 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('dpemotes:emote')
+AddEventHandler('dpemotes:emote', function(name)
+	if DP.Emotes[name] ~= nil then
+		if OnEmotePlay(DP.Emotes[name]) then end return
+	elseif DP.Dances[name] ~= nil then
+		if OnEmotePlay(DP.Dances[name]) then end return
+	elseif DP.PropEmotes[name] ~= nil then
+		if OnEmotePlay(DP.PropEmotes[name]) then end return
+	end
+end)
+
 RegisterNetEvent('esx_playermenu:setAdmin')
 AddEventHandler('esx_playermenu:setAdmin', function(val)
 	isAdmin = val
@@ -573,6 +584,10 @@ function OpenInteractionMenu()
 	table.insert(elements, {label = ('Взять на руки'), value = 'liftup'})
 	table.insert(elements, {label = ('Закинуть на плечо'), value = 'carry'})
 	table.insert(elements, {label = ('Взять в заложники'), value = 'hostage'})
+	table.insert(elements, {label = ('Поздороваться с бротишкой'), value = 'bro'})
+	table.insert(elements, {label = ('Обнять'), value = 'hug2'})
+	table.insert(elements, {label = ('Геттовское приветствие'), value = 'handshake2'})
+
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'clothes_menu', {
 		title    = "Взаимодействие",

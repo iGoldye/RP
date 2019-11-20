@@ -120,28 +120,28 @@ DP.Shared = {
        EmoteMoving = true,
        EmoteDuration = 3000
    }},
---    ["hug"] = {"mp_ped_interaction", "kisses_guy_a", "Hug", "hug2", AnimationOptions =
---    {
---        EmoteMoving = false,
---        EmoteDuration = 5000,
---        SyncOffsetFront = 1.05,
---    }},
-
-   ["kiss"] = {"misscarsteal2chad_goodbye", "chad_armsaround_chad", "Поцелуй М", "kiss2", AnimationOptions =
-   {
-       EmoteMoving = false,
-       EmoteDuration = 5000,
-       SyncOffsetFront = 0.7,
-
-   }},
-   ["kiss2"] = {"misscarsteal2chad_goodbye", "chad_armsaround_girl", "Kiss 2", "kiss", AnimationOptions =
+   ["hug"] = {"mp_ped_interaction", "kisses_guy_a", "Hug", "hug2", AnimationOptions =
    {
        EmoteMoving = false,
        EmoteDuration = 5000,
        SyncOffsetFront = 1.05,
-
-
    }},
+
+--    ["kiss"] = {"misscarsteal2chad_goodbye", "chad_armsaround_chad", "Поцелуй М", "kiss2", AnimationOptions =
+--    {
+--        EmoteMoving = false,
+--        EmoteDuration = 5000,
+--        SyncOffsetFront = 0.7,
+--        EmoteStopLastFrame = true
+
+--    }},
+--    ["kiss2"] = {"misscarsteal2chad_goodbye", "chad_armsaround_girl", "Kiss 2", "kiss", AnimationOptions =
+--    {
+--        EmoteMoving = false,
+--        EmoteDuration = 5000,
+--        SyncOffsetFront = 1.05,
+--        EmoteStopLastFrame = true
+--    }},
 
 
    ["hug2"] = {"mp_ped_interaction", "kisses_guy_b", "Hug 2", "hug", AnimationOptions =
@@ -187,13 +187,13 @@ DP.Shared = {
    ["slap2"] = {"melee@unarmed@streamed_variations", "plyr_takedown_front_backslap", "Slap 2", "slapped2", AnimationOptions =
    {
        EmoteLoop = true,
-       EmoteMoving = true,
+       EmoteMoving = false,
        EmoteDuration = 2000,
    }},
    ["slap"] = {"melee@unarmed@streamed_variations", "plyr_takedown_front_slap", "Slap", "slapped", AnimationOptions =
    {
        EmoteLoop = true,
-       EmoteMoving = true,
+       EmoteMoving = false,
        EmoteDuration = 2000,
    }},
    ["slapped"] = {"melee@unarmed@streamed_variations", "victim_takedown_front_slap", "Slapped", "slap"},
@@ -1614,6 +1614,66 @@ DP.PropEmotes = {
        EmoteMoving = true,
    }},
 
+
+   ["test"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "dancecrowd_li_13_smackthat_laz", "test", AnimationOptions =
+   {
+       Prop = "ba_prop_battle_hobby_horse",
+       PropBone = 57005,
+       PropPlacement = {0.11, -0.2, 0.0, 87.0, -120.0, 180.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
+
+   ["test2"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_06_base_laz", "test3", AnimationOptions =
+   {
+       Prop = "ba_prop_battle_hobby_horse",
+       PropBone = 57005,
+       PropPlacement = {0.11, -0.2, 0.0, 87.0, -120.0, 180.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
+
+   ["test3"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_06_base_v2_laz", "test3", AnimationOptions =
+   {
+       Prop = "ba_prop_battle_hobby_horse",
+       PropBone = 57005,
+       PropPlacement = {0.11, -0.2, 0.0, 87.0, -120.0, 180.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
+
+   ["test4"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_13_shimmyhump_laz", "test4", AnimationOptions =
+   {
+       Prop = "ba_prop_battle_hobby_horse",
+       PropBone = 57005,
+       PropPlacement = {0.11, -0.2, 0.0, 87.0, -120.0, 180.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
+
+   ["test5"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "crowddance_hi_15_shimmyya_laz", "test5", AnimationOptions =
+   {
+       Prop = "ba_prop_battle_hobby_horse",
+       PropBone = 57005,
+       PropPlacement = {0.11, -0.2, 0.0, 87.0, -120.0, 180.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
+
+   ["test6"] = {"anim@amb@nightclub@lazlow@hi_dancefloor@", "dancecrowd_li_17_poledance_laz", "test6", AnimationOptions =
+   {
+       Prop = "ba_prop_battle_hobby_horse",
+       PropBone = 57005,
+       PropPlacement = {0.11, -0.2, 0.0, 87.0, -120.0, 180.0},
+       --
+       EmoteLoop = true,
+       EmoteMoving = false,
+   }},
 -----------------------------------------------------------------------------------------------------
 ------ This is an example of an emote with 2 props, pretty simple! ----------------------------------
 -----------------------------------------------------------------------------------------------------
