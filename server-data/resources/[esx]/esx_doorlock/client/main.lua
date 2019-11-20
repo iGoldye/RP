@@ -1,5 +1,6 @@
 ESX = nil
 closestDoor = -1
+doorKeys = {}
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -32,6 +33,20 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
+end)
+
+RegisterNetEvent('esx_inventory:onInventoryUpdate')
+AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'doorkey', {}, function(items)
+		doorKeys = {}
+		if items ~= nil then
+			for k,v in pairs(items) do
+				if v.extra.doorid ~= nil then
+					doorKeys[v.extra.doorid] = v
+				end
+			end
+		end
+	end)
 end)
 
 -- Get objects every second, instead of every frame
@@ -122,7 +137,7 @@ Citizen.CreateThread(function()
 			end
 
 			if distance < maxDistance then
-				local isAuthorized = IsAuthorized(doorID)
+				local isAuthorized = IsAuthorized(k)
 				local displayText = _U('unlocked')
 				local size = 0.5
 
@@ -153,12 +168,23 @@ Citizen.CreateThread(function()
 	end
 end)
 
-function IsAuthorized(doorID)
+function IsAuthorized(k)
+	local door = Config.DoorList[k]
+	if door == nil then
+		return false
+	end
+
+	if doorKeys[k] ~= nil then
+		return true
+	elseif door.group ~= nil and doorKeys[door.group] ~= nil then
+		return true
+	end
+
 	if ESX.PlayerData.job == nil then
 		return false
 	end
 
-	for _,job in pairs(doorID.authorizedJobs) do
+	for _,job in pairs(door.authorizedJobs) do
 		if job == ESX.PlayerData.job.name then
 			return true
 		end

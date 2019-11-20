@@ -30,6 +30,7 @@ Config.DoorList = {
 
 	-- To locker room & roof
 	["lspd_locker"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_gendoor004',
 		objYaw = 90.0,
 		objCoords  = vector3(449.6, -986.4, 30.6),
@@ -40,6 +41,7 @@ Config.DoorList = {
 
 	-- Rooftop
 	["lspd_roof"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor02',
 		objYaw = 90.0,
 		objCoords  = vector3(464.3, -984.6, 43.8),
@@ -50,6 +52,7 @@ Config.DoorList = {
 
 	-- Hallway to roof
 	["lspd_roofhall"] = {
+		group = "lspd",
 		objName = 'v_ilev_arm_secdoor',
 		objYaw = 90.0,
 		objCoords  = vector3(461.2, -985.3, 30.8),
@@ -70,6 +73,7 @@ Config.DoorList = {
 
 	-- Captain Office
 	["lspd_captain"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_gendoor002',
 		objYaw = -180.0,
 		objCoords  = vector3(447.2, -980.6, 30.6),
@@ -80,6 +84,7 @@ Config.DoorList = {
 	},
 
 	["lspd_chief"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_gendoor002',
 		objYaw = 0.0,
 		objCoords  = vector3(462.77, -1000.99, 35.93),
@@ -90,6 +95,7 @@ Config.DoorList = {
 	},
 	-- To downstairs (double doors)
 	["lspd_down"] = {
+		group = "lspd",
 		textCoords = vector3(444.6, -989.4, 31.7),
 		authorizedJobs = { 'police' },
 		locked = true,
@@ -111,6 +117,7 @@ Config.DoorList = {
 	},
 -- Допросные
 	["lspd_stuff"] = {
+		group = "lspd",
 		textCoords = vector3(460.9, -990.88, 30.7),
 		authorizedJobs = { 'police' },
 		locked = true,
@@ -132,6 +139,7 @@ Config.DoorList = {
 
 	-- STORAGE
 	["lspd_storage1"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_gendoor006',
 		objYaw = -90.0,
 		objCoords  = vector3(471.41, -985.37, 24.91),
@@ -140,6 +148,7 @@ Config.DoorList = {
 		locked = true
 	},
 	["lspd_storage2"] = {
+		group = "lspd",
 		objName = 'prop_fnclink_02gate7',
 		objYaw = 90.0,
 		objCoords  = vector3(475.44, -986.87, 24.91),
@@ -149,6 +158,7 @@ Config.DoorList = {
 	},
 -- SERVER
 	["lspd_server"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_gendoor006',
 		objYaw = 180.0,
 		objCoords  = vector3(468.25, -977.83, 24.91),
@@ -158,6 +168,7 @@ Config.DoorList = {
 	},
 -- laba
 	["lspd_lab"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_gendoor006',
 		objYaw = 90.0,
 		objCoords  = vector3(463.67, -981.24, 24.91),
@@ -166,6 +177,7 @@ Config.DoorList = {
 		locked = true
 	},
 	["lspd_inter1"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 180.0,
 		objCoords  = vector3(467.91, -1003.38, 24.91),
@@ -174,6 +186,7 @@ Config.DoorList = {
 		locked = true
 	},
 	["lspd_inter2"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 180.0,
 		objCoords  = vector3(476.4, -1003.43, 24.91),
@@ -188,6 +201,7 @@ Config.DoorList = {
 
 	-- Main Cells
 	["lspd_cells"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_cellgate',
 		objYaw = 0.0,
 		objCoords  = vector3(463.8, -992.6, 24.9),
@@ -198,6 +212,7 @@ Config.DoorList = {
 
 	-- Cell 1
 	["lspd_cell1"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_cellgate',
 		objYaw = -90.0,
 		objCoords  = vector3(462.3, -993.6, 24.9),
@@ -208,6 +223,7 @@ Config.DoorList = {
 
 	-- Cell 2
 	["lspd_cell2"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_cellgate',
 		objYaw = 90.0,
 		objCoords  = vector3(462.3, -998.1, 24.9),
@@ -218,6 +234,7 @@ Config.DoorList = {
 
 	-- Cell 3
 	["lspd_cell3"] = {
+		group = "lspd",
 		objName = 'v_ilev_ph_cellgate',
 		objYaw = 90.0,
 		objCoords  = vector3(462.7, -1001.9, 24.9),
@@ -227,6 +244,7 @@ Config.DoorList = {
 	},
 	-- Cell 4
 	["lspd_cell4"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
 		objCoords  = vector3(472.2, -996.35, 24.91),
@@ -236,6 +254,7 @@ Config.DoorList = {
 	},
 	-- Cell 5
 	["lspd_cell5"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
 		objCoords  = vector3(467.83, -996.64, 24.91),
@@ -245,6 +264,7 @@ Config.DoorList = {
 	},
 	-- Cell 6
 	["lspd_cell6"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
 		objCoords  = vector3(476.4, -996.5, 24.91),
@@ -254,6 +274,7 @@ Config.DoorList = {
 	},
 	-- Cell 7
 	["lspd_cell7"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
 		objCoords  = vector3(480.75, -996.42, 24.91),
@@ -263,6 +284,7 @@ Config.DoorList = {
 	},
 	-- To Back
 	["lspd_back1"] = {
+		group = "lspd",
 		objName = 'v_ilev_gtdoor',
 		objYaw = 0.0,
 		objCoords  = vector3(464.18, -1003.58, 25.0),
@@ -297,6 +319,7 @@ Config.DoorList = {
 
 	-- Back (double doors)
 	["lspd_back2"] = {
+		group = "lspd",
 		textCoords = vector3(468.6, -1014.4, 27.1),
 		authorizedJobs = { 'police' },
 		locked = true,
@@ -316,6 +339,7 @@ Config.DoorList = {
 		}
 	},
 	["lspd_back3"] = {
+		group = "lspd",
 		textCoords = vector3(445.9, -999.1, 30.7),
 		authorizedJobs = { 'police' },
 		locked = true,

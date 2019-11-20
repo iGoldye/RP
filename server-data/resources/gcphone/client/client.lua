@@ -1,20 +1,10 @@
 ESX = nil
-local inventoryHasPhone = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
-end)
-
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(playerData)
-	Citizen.Wait(1000)
-
-	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
-		inventoryHasPhone = inventoryCheckPhone(inventory)
-	end, "pocket", false)
 end)
 
 --====================================================================================
@@ -61,12 +51,11 @@ end
 
 RegisterNetEvent('esx_inventory:onInventoryUpdate')
 AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
-	if inventory.name == "pocket" then
-		inventoryHasPhone = inventoryCheckPhone(inventory)
-		if menuIsOpen and not inventoryHasPhone then
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
+		if menuIsOpen and #items == 0 then
 			TooglePhone()
 		end
-	end
+	end)
 end)
 
 RegisterNetEvent('gcPhone:isOpen')
@@ -79,7 +68,9 @@ end)
 --  Callback true or false
 --====================================================================================
 function hasPhone (cb)
-  cb(inventoryHasPhone)
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
+		cb(#items > 0)
+	end)
 end
 --====================================================================================
 --  Que faire si le joueurs veut ouvrir sont téléphone n'est qu'il en a pas ?
