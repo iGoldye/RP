@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
           SimpleNotify(PtfxInfo)
           PtfxNotif = true
       end
-      if IsControlPressed(0, 47) then
+      if IsControlPressed(0, 38) then
         PtfxStart()
         Wait(PtfxWait)
         PtfxStop()

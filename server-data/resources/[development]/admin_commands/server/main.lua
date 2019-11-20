@@ -73,7 +73,12 @@ TriggerEvent('es:addGroupCommand', 'addpassport', 'admin', function(source, args
 		end
 	end
 
-	TriggerEvent("esx_inventory:createItem", "passport", {}, 1, 0, function(item)
+--	TriggerEvent("esx_inventory:createItem", "passport", {}, 1, 0, function(item)
+--		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
+--		end)
+--	end)
+
+	TriggerEvent("esx_inventory:createItem", "doorkey", { ["doorid"] = "lspd", ["desc"] = "Полицейский департамент" }, 1, 0, function(item)
 		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
 		end)
 	end)
