@@ -3,12 +3,12 @@ Config.Locale = 'en'
 
 Config.RequiredCopsRob = 3
 Config.RequiredCopsSell = 3
-Config.MinJewels = 1
-Config.MaxJewels = 3
+Config.MinJewels = 2
+Config.MaxJewels = 4
 Config.MaxWindows = 20
 Config.SecBetwNextRob = 3600 --1 hour
 Config.MaxJewelsSell = 10
-Config.PriceForOneJewel = 300
+Config.PriceForOneJewel = 500
 Config.EnableMarker = true
 Config.NeedBag = false
 

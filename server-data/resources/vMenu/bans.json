@@ -7,8 +7,21 @@
       "discord:310762911612010496",
       "ip:46.242.54.47"
     ],
-    "bannedUntil": "2019-10-11T20:01:28.9409112+03:00",
+    "bannedUntil": "2019-10-11T10:01:28",
     "banReason": "Стримснайпинг( присутствие в чате на стриме и в рп)",
     "bannedBy": "Tixas"
+  },
+  {
+    "playerName": "Good Company",
+    "identifiers": [
+      "steam:110000103671dbb",
+      "license:94f864aecc0f5a8b8cbf16d698bcea9a785f813f",
+      "discord:282885869885456395",
+      "fivem:194142",
+      "ip:83.246.167.103"
+    ],
+    "bannedUntil": "2019-11-20T23:45:42.6525196-08:00",
+    "banReason": "PowerGaming",
+    "bannedBy": "bigdruklya2"
   }
 ]

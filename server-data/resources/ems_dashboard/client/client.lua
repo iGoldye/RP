@@ -42,6 +42,17 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 142, menuActive) -- MeleeAttackAlternate
 			DisableControlAction(0, 106, menuActive) -- VehicleMouseControlOverride
 		end
+
+		if IsControlJustReleased(0, Keys['G']) and GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1))) < 1 then
+			if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
+				if vehicleType(GetVehiclePedIsUsing(GetPlayerPed(-1))) then
+          sessionid = sid
+					SetNuiFocus(true, true)
+					menuActive = true
+					SendNUIMessage({['show']=1, ['sessionid']=sid})
+				end
+			end
+		end
 	end
 end)
 
@@ -81,20 +92,3 @@ function vehicleType(using)
     end
   end
 end
-
-Citizen.CreateThread(function()
-  SetNuiFocus(false, false)
-  while true do
-    Citizen.Wait(10)
-		if IsControlJustReleased(0, Keys['G']) and GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1))) < 1 then
-			if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
-				if vehicleType(GetVehiclePedIsUsing(GetPlayerPed(-1))) then
-          sessionid = sid
-					SetNuiFocus(true, true)
-					menuActive = true
-					SendNUIMessage({['show']=1, ['sessionid']=sid})
-				end
-			end
-		end
-  end
-end)

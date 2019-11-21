@@ -148,12 +148,21 @@ function EnterProperty(name, owner)
 			end
 		end
 
-		SetEntityCoords(playerPed, property.inside.x, property.inside.y, property.inside.z)
-		DoScreenFadeIn(800)
-		DrawSub(property.label, 5000)
+		local interior = GetInteriorAtCoords(property.inside.x,property.inside.y,property.inside.z)
+		LoadInterior(interior)
+
+		while not IsInteriorReady(interior) do
+			Citizen.Wait(100)
+		end
+
+		ESX.Game.Teleport(playerPed, property.inside, function()
+			DoScreenFadeIn(800)
+			DrawSub(property.label, 5000)
+		end)
 	end)
 
 end
+
 
 function ExitProperty(name)
 	local property  = GetProperty(name)

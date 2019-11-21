@@ -13,7 +13,7 @@ RegisterServerEvent('ems_dashboard:sessionid')
 AddEventHandler('ems_dashboard:sessionid', function()
   local xPlayer = ESX.GetPlayerFromId(source)
   local sessionid = RandomString(32)
-  MySQL.Async.execute('REPLACE INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
+  MySQL.Async.execute('INSERT INTO user_sessionid (`identifier`, `sessionid`) VALUES (@identifier, @sessionid);',
   {
       identifier = xPlayer.identifier,
       sessionid = sessionid,
