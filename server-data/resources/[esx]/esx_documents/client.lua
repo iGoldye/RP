@@ -26,8 +26,9 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
-    while ESX.IsPlayerLoaded == false do
-        Citizen.Wait(10)
+
+    while not ESX.IsPlayerLoaded() do
+        Citizen.Wait(0)
     end
 
     PlayerData = ESX.GetPlayerData()
@@ -42,7 +43,6 @@ Citizen.CreateThread(function()
     else
         MENU_OPTIONS.font = 4
     end
-
 
     GetAllUserForms()
     SetNuiFocus(false, false)

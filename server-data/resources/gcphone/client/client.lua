@@ -5,6 +5,13 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+
+	while not ESX.IsPlayerLoaded() do
+		Citizen.Wait(0)
+	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
+	TriggerServerEvent('gcPhone:allUpdate')
 end)
 
 --====================================================================================
@@ -804,17 +811,9 @@ RegisterNUICallback('appelsDeleteAllHistorique', function (data, cb)
   cb()
 end)
 
-
 ----------------------------------
 ---------- GESTION VIA WEBRTC ----
 ----------------------------------
-AddEventHandler('onClientResourceStart', function(res)
-  DoScreenFadeIn(300)
-  if res == "gcphone" then
-      TriggerServerEvent('gcPhone:allUpdate')
-  end
-end)
-
 
 RegisterNUICallback('setIgnoreFocus', function (data, cb)
   ignoreFocus = data.ignoreFocus
