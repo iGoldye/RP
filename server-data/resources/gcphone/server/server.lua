@@ -105,9 +105,11 @@ function getIdentifierByPhoneNumber(phone_number)
     return dbcache_idents[phone_number]
 end
 
-
 function getPlayerID(source)
       local xPlayer = ESX.GetPlayerFromId(source)
+      if xPlayer == nil then
+	print(debug.traceback())
+      end
       return xPlayer.identifier
 end
 
@@ -670,13 +672,14 @@ end)
 --====================================================================================
 --  OnLoad
 --====================================================================================
-AddEventHandler('es:playerLoaded',function(source)
-    local sourcePlayer = tonumber(source)
-    local identifier = getPlayerID(source)
+AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
+    local sourcePlayer = xPlayer.source
+    local identifier = xPlayer.identifier
     getOrGeneratePhoneNumber(sourcePlayer, identifier, function (myPhoneNumber)
         TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, myPhoneNumber)
         TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
         TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
+	TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
     end)
 end)
 
@@ -691,6 +694,7 @@ AddEventHandler('gcPhone:allUpdate', function()
     TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
     TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
     TriggerClientEvent('gcPhone:getBourse', sourcePlayer, getBourse())
+    TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
     sendHistoriqueCall(sourcePlayer, num)
 end)
 

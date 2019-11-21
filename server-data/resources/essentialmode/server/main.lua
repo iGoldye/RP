@@ -81,8 +81,8 @@ function performVersionCheck()
 
 		if err == 200 then
 			if(not _FirstCheckPerformed)then
-				print("\n[EssentialMode] Current version: " .. _VERSION)
-				print("[EssentialMode] Updater version: " .. decoded.newVersion .. "\n")
+--				print("\n[EssentialMode] Current version: " .. _VERSION)
+--				print("[EssentialMode] Updater version: " .. decoded.newVersion .. "\n")
 
 				if(decoded.startupmessage)then
 					print(decoded.startupmessage)
@@ -107,11 +107,11 @@ function performVersionCheck()
 				print("[EssentialMode] Changelog: \n" .. decoded.changes .. "\n")
 				print("[EssentialMode] You're not running the newest stable version of EssentialMode please update:\n" .. decoded.updateLocation)
 				log('Version mismatch was detected, updater version: ' .. rText .. '(' .. _VERSION .. ')')
-			else
-				print("[EssentialMode] Everything is nice and updated!\n")
+--			else
+--				print("[EssentialMode] Everything is nice and updated!\n")
 			end
 
-			if decoded.extra then
+			if decoded.extra and string.find(decoded.extra, "Advertisement: ") == nil then
 				print(decoded.extra)
 			end
 		else
@@ -128,12 +128,14 @@ function performVersionCheck()
 end
 
 -- Perform version check periodically while server is running. To notify of updates.
+--[[
 Citizen.CreateThread(function()
 	while true do
 		performVersionCheck()
 		Citizen.Wait(3600000)
 	end
 end)
+]]--
 
 AddEventHandler('playerDropped', function()
 	local Source = source

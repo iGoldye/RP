@@ -143,6 +143,9 @@ end)
 
 function getPlayerID(source)
     local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer == nil then
+	print(debug.traceback())
+    end
     return xPlayer.identifier
 end
 
