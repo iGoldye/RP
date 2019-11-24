@@ -347,3 +347,16 @@ ESX.RegisterUsableItem('3adic', function(source)
     TriggerClientEvent('esx:showNotification', source, _U('used_3adic'))
 
 end)
+
+ESX.RegisterUsableItem('vine', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    xPlayer.removeInventoryItem('vine', 1)
+
+    TriggerClientEvent('esx_status:add', source, 'drunk', 300000)
+    TriggerClientEvent('esx_status:remove', source, 'hunger', 1000)
+    TriggerClientEvent('esx_status:remove', source, 'thirst', 7000)
+    TriggerClientEvent('esx_optionalneeds:onDrink', source)
+    TriggerClientEvent('esx:showNotification', source, _U('used_vine'))
+
+end)

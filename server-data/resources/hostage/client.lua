@@ -1,6 +1,14 @@
 local hostageAllowedWeapons = {
 	"WEAPON_PISTOL",
 	"WEAPON_COMBATPISTOL",
+	"weapon_appistol",
+	"weapon_pistol50",
+	"weapon_microsmg",
+	"weapon_sawnoffshotgun",
+	"weapon_snspistol",
+	"weapon_machinepistol",
+	"weapon_revolver",
+	"weapon_minismg",
 	--etc add guns you want
 }
 

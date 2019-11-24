@@ -213,6 +213,23 @@ Config.Teleporters = {
 		['Information'] = '[E] Выйти'
 	}
 },
+
+['homebitch'] = {
+	['Job'] = 'none',
+	['Enter'] = {
+		['x'] = -1159.73,
+		['y'] = -1525.63,
+		['z'] = 9.63,
+		['Information'] = '[E] Войти'
+	},
+
+	['Exit'] = {
+		['x'] = -1158.43,
+		['y'] = -1524.65,
+		['z'] = 9.63,
+		['Information'] = '[E] Выйти'
+	}
+},
 -- Тюрьма
 ['prison'] = {
 	['Job'] = 'none',

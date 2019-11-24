@@ -73,15 +73,12 @@ TriggerEvent('es:addGroupCommand', 'addpassport', 'admin', function(source, args
 		end
 	end
 
---	TriggerEvent("esx_inventory:createItem", "passport", {}, 1, 0, function(item)
---		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
---		end)
---	end)
-
-	TriggerEvent("esx_inventory:createItem", "doorkey", { ["doorid"] = "lspd", ["desc"] = "Полицейский департамент" }, 1, 0, function(item)
+	TriggerEvent("esx_inventory:createItem", "passport", {}, 1, 0, function(item)
 		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
 		end)
 	end)
+
+
 
 --	TriggerEvent("esx_inventory:createItem", "housekey", { ["property"] = "WhispymoundDrive", ["owner"] = xPlayer.identifier }, 1, 0, function(item)
 --		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
@@ -92,6 +89,19 @@ TriggerEvent('es:addGroupCommand', 'addpassport', 'admin', function(source, args
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Получить паспорт игрока"})
+
+TriggerEvent('es:addGroupCommand', 'addkey', 'admin', function(source, args, user)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	if #args < 2 then
+		return
+	end
+
+	TriggerEvent("esx_inventory:createItem", "doorkey", { ["doorid"] = args[1], ["desc"] = table.concat(args, " ", 2) }, 1, 0, function(item)
+		TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
+		end)
+	end)
+end, {help = "Выдать ключ от двери"})
 
 TriggerEvent('es:addGroupCommand', 'sethunger', 'admin', function(source, args, user)
 	TriggerClientEvent('esx_status:set', source, 'hunger', tonumber(args[1]) or 0)
