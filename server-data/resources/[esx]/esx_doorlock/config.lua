@@ -879,6 +879,16 @@ Config.DoorList = {
 	authorizedJobs = { 'none' },
 	locked = true
 },
+
+["lester"] = {
+	group = "lester",
+	objName = 'v_ilev_lester_doorfront',
+	objYaw = 25.0,
+	objCoords  = vector3(1274.33, -1720.43, 54.77),
+	textCoords = vector3(1274.33, -1720.43, 54.77),
+	authorizedJobs = { 'none' },
+	locked = true
+},
 --ДОМ МАЙКЛА
 ["mikle1"] = {
 	group = "mikle",
@@ -949,6 +959,27 @@ Config.DoorList = {
 			objName = 'prop_bh1_48_backdoor_l',
 			objYaw = 110.0,
 			objCoords = vector3(-793.53, 180.7, 72.83)
+		}
+	}
+},
+
+["weazel"] = {
+	group = "weazel",
+	textCoords = vector3(-247.58, -2005.15, -24.69),
+	authorizedJobs = { 'none' },
+	locked = true,
+	distance = 4,
+	doors = {
+		{
+			objName = 'v_ilev_serv_door01',
+			objYaw = 78.0,
+			objCoords = vector3(-243.16, -2007.66, 24.69)
+		},
+
+		{
+			objName = 'v_ilev_serv_door01',
+			objYaw = -105.0,
+			objCoords = vector3(-242.69, -2005.75, 24.69)
 		}
 	}
 },

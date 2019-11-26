@@ -46,6 +46,7 @@ Config.Food = { -- ccal * g
 	coocie = 600 * 90,
 	meats = 900 * 1000,
 	patao = 1000 * 90,
+	mandarin = 600 * 80,
 
 	-- UNICRON --
 	bolpistache = 561 * 100,
