@@ -621,6 +621,7 @@ function OpenMenu()
 		{label = "Питомцы", value = 'pets'},
 		{label = "Сумка", value = 'bag'},
 		{label = "Документация", value = 'documents'},
+		{label = "Создание предметов", value = 'crafting'},
 	}
 
 	local PlayerData = ESX.GetPlayerData()
@@ -714,6 +715,8 @@ function OpenMenu()
 			OpenPersonalMenu()
 		elseif cmd == 'documents' then
 			TriggerEvent('esx_documents:openMainMenu')
+		elseif cmd == 'crafting' then
+			TriggerServerEvent('crafting:getPlayerInventory')
 		end
 
 	end, function(data, menu)
