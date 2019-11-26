@@ -3,10 +3,10 @@
     <PhoneTitle :title="IntlString('APP_CONFIG_TITLE')" @back="onBackspace"/>
     <div class='phone_content elements'>
       <div class='element'
-          v-for='(elem, key) in paramList' 
+          v-for='(elem, key) in paramList'
           v-bind:class="{ select: key === currentSelect}"
           v-bind:key="key"
-          @click.stop="onPressItem(key)"  
+          @click.stop="onPressItem(key)"
         >
         <i class="fa" v-bind:class="elem.icons" v-bind:style="{color: elem.color}" @click.stop="onPressItem(key)"></i>
         <div class="element-content" @click.stop="onPressItem(key)">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -132,7 +132,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getIntlString', 'setZoon', 'setBackground', 'setCoque', 'setVolume', 'setLanguage', 'setMouseSupport']),
+    ...mapActions(['getIntlString', 'setZoon', 'setBackground', 'setCoque', 'setVolume', 'setLanguage']), // 'setMouseSupport' - выключена поддержка мыши, засунуть обратно в массив если нужно
     scrollIntoViewIfNeeded: function () {
       this.$nextTick(() => {
         document.querySelector('.select').scrollIntoViewIfNeeded()
