@@ -111,3 +111,15 @@ Citizen.CreateThread(function()
         Citizen.Wait(500)
     end
 end)
+
+-- RegisterServerEvent('loffe_robbery:alarm')
+-- AddEventHandler('loffe_robbery:alarm', function(store)
+--     local src = source
+--     local xPlayers = ESX.GetPlayers()
+--     for i = 1, #xPlayers do
+--         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+--         if xPlayer.job.name == 'police' then
+--             TriggerClientEvent('loffe_robbery:msgPolice', xPlayer.source, store, src)
+--         end
+--     end
+-- end)

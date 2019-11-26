@@ -27,12 +27,36 @@ Config.Reminder = true
 -- "ace" to use Ace permissions, "json" to use whitelist.json file, or false to disable.
 Config.WhitelistEnabled = false
 -- Default message displayed with panic activation
-Config.Message = "Внимание всем юнитам, Офицер в опасности!"
+Config.Message = "Внимание всем юнитам, Сотрудник в опасности!"
 
 --
 --		Nothing past this point needs to be edited, all the settings for the resource are found ABOVE this line.
 --		Do not make changes below this line unless you know what you are doing!
 --
+ESX = nil
+closestDoor = -1
+doorKeys = {}
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+
+	while ESX.GetPlayerData().job == nil do
+		Citizen.Wait(10)
+	end
+
+	ESX.PlayerData = ESX.GetPlayerData()
+
+
+--	local doorExists = Citizen.InvokeNative(0xC153C43EA202C8C1, 1206354175)
+end)
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+end)
 
 -- Local Panic Variables
 local Panic = {}
@@ -120,7 +144,7 @@ end)
 
 -- /panic command
 RegisterCommand("panic", function()
-	if Whitelist.Command.panic then
+	if ESX.PlayerData.job.name == "police" or ESX.PlayerData.job.name == "ambulance" then
 		if Panic.Cooling == 0 then
 			local Officer = {}
 			Officer.Player = PlayerId()
@@ -141,10 +165,10 @@ RegisterCommand("panic", function()
 
 			Panic.Cooling = Config.Cooldown
 		else
-			NewNoti("~r~Panic Button still cooling down.", true)
+			NewNoti("~r~Оповещение пока недоступно.", true)
 		end
 	else
-		NewNoti("~r~You are not whitelisted for this command.", true)
+		NewNoti("~r~У вас нет кнопки оповещения.", true)
 	end
 end)
 
@@ -162,7 +186,7 @@ AddEventHandler("Pass-Alarm:Return:NewPanic", function(source, Officer)
 			templateId = "Panic",
 			color = {255, 0, 0},
 			multiline = true,
-			args = {"Диспетчер", Config.Message .. " - " .. Officer.Name .. " (" .. source .. ") - " .. Officer.Location}
+			args = {"Диспетчер", Config.Message .. " - " .. Officer.Location}
 		})
 
 		Citizen.CreateThread(function()

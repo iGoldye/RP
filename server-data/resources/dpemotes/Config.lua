@@ -10,7 +10,7 @@ Config = {
 -- Set this to true if you want to disarm the player when they play an emote.
 	DisarmPlayer= false,
 -- You can disable the (F3) menu here / change the keybind
-	MenuKeybindEnabled = true,
+	MenuKeybindEnabled = false,
 	MenuKeybind = 170, -- Get the button number here https://docs.fivem.net/game-references/controls/
 -- You can disable the Favorite emote keybinding here.
 	FavKeybindEnabled = true,

@@ -76,6 +76,10 @@ Config.Zones = {
 		x=-96.18, y=-2768.18,   z=5.08,
 		MarkerColor  = {r = 0, g = 255, b = 0},
 	},
+	-- ScrapField = {
+	-- 	x=-585.55, y=-1659.78,   z=18.36,
+	-- 	MarkerColor  = {r = 0, g = 255, b = 0},
+	-- },
 }
 
 Config.DisableBlip = true -- Set to true to disable blips. False to enable them.

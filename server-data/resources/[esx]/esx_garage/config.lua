@@ -1250,6 +1250,47 @@ Config.Garages = {
 
 	},
 
+	Ineseno = {
+
+		IsClosed = true,
+		NeedProperty = 'InesenoRoad',
+
+		ExteriorEntryPoint = {
+			Pos = {x= -3084.74, y = 219.02, z = 12.99},
+		},
+
+		ExteriorSpawnPoint = {
+			Pos     = {x = -3081.59, y =223.37, z =14.02},
+			Heading = 323.72
+		},
+
+		InteriorSpawnPoint = {
+			Pos     = {x = 174.11, y = -1007.15, z = -100.000},
+			Heading = 0.0
+		},
+
+		InteriorExitPoint = {
+			Pos = {x = 171.71, y = -1007.4, z = -100.000},
+		},
+
+		InteriorCenter = {
+			Pos = {x = 173.64, y = -1003.59, z = -100.000},
+			Radius = 10.0,
+		},
+
+		Parkings = {
+			{
+				Pos     = {x = 175.03, y = -1002.39, z = -100.000},
+				Heading = 173.03
+			},
+			{
+				Pos     = {x = 170.73, y = -1002.39, z = -100.000},
+				Heading = 173.03
+			},
+		}
+
+	},
+
 	-- SteeleWay1150 = {
 
 	-- 	IsClosed = true,

@@ -27,7 +27,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 					if (event.data.PayloadType == "Panic") {
 						if (!Panics[event.data.Payload]) {
 							Panics[event.data.Payload] = new Audio("./sounds/panic.mp3");
-							Panics[event.data.Payload].volume = 0.35;
+							Panics[event.data.Payload].volume = 0.10;
 							Panics[event.data.Payload].play();
 							Panics[event.data.Payload].addEventListener("ended",function(){
 								Panics[event.data.Payload] = null;
