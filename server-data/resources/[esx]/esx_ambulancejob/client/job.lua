@@ -1073,10 +1073,12 @@ function OpenGetStocksMenu()
 		local elements = {}
 
 		for i=1, #items, 1 do
-			table.insert(elements, {
-				label = 'x' .. items[i].count .. ' ' .. items[i].label,
-				value = items[i].name
-			})
+			if items[i].count > 0 then
+				table.insert(elements, {
+					label = 'x' .. items[i].count .. ' ' .. items[i].label,
+					value = items[i].name
+				})
+			end
 		end
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'stocks_menu', {

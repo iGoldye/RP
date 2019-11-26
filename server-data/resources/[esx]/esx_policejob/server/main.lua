@@ -68,7 +68,12 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 	elseif itemType == 'item_weapon' then
 		if amount == nil then amount = 0 end
 		targetXPlayer.removeWeapon(itemName, amount)
-		sourceXPlayer.addWeapon   (itemName, amount)
+--		sourceXPlayer.addWeapon   (itemName, amount)
+
+		TriggerEvent("esx_inventory:createItem", "weapon", {["weapon_name"] = itemName, ["ammo"] = amount}, 1, 0, function(item)
+			TriggerEvent("esx_inventory:addItem", "pocket", sourceXPlayer.identifier, item, function(ret)
+			end)
+		end)
 
 		TriggerClientEvent('esx:showNotification', _source, _U('you_confiscated_weapon', ESX.GetWeaponLabel(itemName), targetXPlayer.name, amount))
 		TriggerClientEvent('esx:showNotification', target,  _U('got_confiscated_weapon', ESX.GetWeaponLabel(itemName), amount, sourceXPlayer.name))
