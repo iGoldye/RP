@@ -30,7 +30,7 @@ Config.gym = {
 }
 
 Config.chins = {
-    {pos = vector3(-1200.1284,-1570.9903,4.6115)}
+    {pos = vector3(-1200.1284,-1570.9903,4.6115), start_pos=vector3(-1200.04,-1571.18,4.58), start_heading = 220.0}
 }
 
 Config.rentbike = {

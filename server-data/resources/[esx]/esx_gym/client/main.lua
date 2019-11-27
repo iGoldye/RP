@@ -176,7 +176,7 @@ Citizen.CreateThread(function()
         for k in pairs(Config.chins) do
             drawExerciseMarker(Config.chins[k].pos)
             if #(plyCoords-Config.chins[k].pos) <= 0.5 then
-		doChinups()
+		doChinups(Config.chins[k])
             end
         end
     end
@@ -219,13 +219,17 @@ function doArms()
 	end
 end
 
-function doChinups()
+function doChinups(info)
 	hintToDisplay('Нажмите ~INPUT_CONTEXT~ чтобы начать ~g~подтягиваться')
 
 	if IsControlJustPressed(0, Keys['E']) then
 
 		StartTraining(function()
-			TaskStartScenarioInPlace(PlayerPedId(), "prop_human_muscle_chin_ups", 0, true)
+			if info.start_pos ~= nil then
+				TaskStartScenarioAtPosition(PlayerPedId(), "prop_human_muscle_chin_ups", info.start_pos.x, info.start_pos.y, info.start_pos.z, info.start_heading, 0, 0, 0)
+			else
+				TaskStartScenarioInPlace(PlayerPedId(), "prop_human_muscle_chin_ups", 0, true)
+			end
 			Citizen.Wait(1000)
 			while needRest < 60 and IsPedUsingAnyScenario(PlayerPedId()) do
 				needRest = needRest + 1
