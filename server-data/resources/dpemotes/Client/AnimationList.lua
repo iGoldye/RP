@@ -111,13 +111,13 @@ DP.Shared = {
    -- targetemote is used for animations that have a corresponding animation to the other player.
    ["handshake"] = {"mp_ped_interaction", "handshake_guy_a", "Handshake", "handshake2", AnimationOptions =
    {
-       EmoteMoving = true,
+       EmoteMoving = false,
        EmoteDuration = 3000,
        SyncOffsetFront = 0.9
    }},
    ["handshake2"] = {"mp_ped_interaction", "handshake_guy_b", "Handshake 2", "handshake", AnimationOptions =
    {
-       EmoteMoving = true,
+       EmoteMoving = false,
        EmoteDuration = 3000
    }},
    ["hug"] = {"mp_ped_interaction", "kisses_guy_a", "Hug", "hug2", AnimationOptions =

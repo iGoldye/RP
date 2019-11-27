@@ -1,125 +1,45 @@
-ESX = nil
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+local pickups = {}
 
-local deadPeds = {}
-
-RegisterServerEvent('loffe_robbery:pedDead')
-AddEventHandler('loffe_robbery:pedDead', function(store)
-    if not deadPeds[store] then
-        deadPeds[store] = 'deadlol'
-        TriggerClientEvent('loffe_robbery:onPedDeath', -1, store)
-        local second = 1000
-        local minute = 60 * second
-        local hour = 60 * minute
-        local cooldown = Config.Shops[store].cooldown
-        local wait = cooldown.hour * hour + cooldown.minute * minute + cooldown.second * second
-        Wait(wait)
-        if not Config.Shops[store].robbed then
-            for k, v in pairs(deadPeds) do if k == store then table.remove(deadPeds, k) end end
-            TriggerClientEvent('loffe_robbery:resetStore', -1, store)
-        end
-    end
+RegisterServerEvent('loffe_robbery:setStoreNetworkId')
+AddEventHandler('loffe_robbery:setStoreNetworkId', function(store, id)
+	local src = source
+	if not Config.Shops[store].id then
+			Config.Shops[store].id = id
+			TriggerClientEvent('loffe_robbery:setPedNetworkId', -1, store, id)
+	else
+			TriggerClientEvent('loffe_robbery:deleteSpawnedPed', src, store, Config.Shops[store].id)
+	end
 end)
 
-RegisterServerEvent('loffe_robbery:handsUp')
-AddEventHandler('loffe_robbery:handsUp', function(store)
-    TriggerClientEvent('loffe_robbery:handsUp', -1, store)
+RegisterServerEvent('loffe_robbery:loadAllStores')
+AddEventHandler('loffe_robbery:loadAllStores', function()
+	local src = source
+	for i = 1, #Config.Shops do
+			TriggerClientEvent('loffe_robbery:loadStore', src, i, Config.Shops[i].id)
+	end
 end)
 
-RegisterServerEvent('loffe_robbery:createPickUp')
-AddEventHandler('loffe_robbery:createPickUp', function(store)
-	Config.Shops[store].pickup_available = true
+RegisterServerEvent('loffe_robbery:getCops')
+AddEventHandler('loffe_robbery:getCops', function()
+	local src = source
+	TriggerClientEvent('loffe_robbery:setCops', src, getCops())
 end)
 
-RegisterServerEvent('loffe_robbery:pickUp')
-AddEventHandler('loffe_robbery:pickUp', function(store)
-    if Config.Shops[store].pickup_available == false then
-	return
-    end
-
-    local xPlayer = ESX.GetPlayerFromId(source)
-    local randomAmount = math.random(Config.Shops[store].money[1], Config.Shops[store].money[2])
-    xPlayer.addMoney(randomAmount)
-    TriggerClientEvent('esx:showNotification', source, Translation[Config.Locale]['cashrecieved'] .. ' ~g~' .. randomAmount .. ' ' .. Translation[Config.Locale]['currency'])
-    TriggerClientEvent('loffe_robbery:removePickup', -1, store)
-    Config.Shops[store].pickup_available = false
+RegisterServerEvent('loffe_robbery:createPickup')
+AddEventHandler('loffe_robbery:createPickup', function(store, coords)
+	table.insert(pickups, {store = store, id = #pickups+1})
+	TriggerClientEvent('loffe_robbery:createPickup', -1, coords, #pickups)
 end)
 
-ESX.RegisterServerCallback('loffe_robbery:canRob', function(source, cb, store)
-    local xPlayer = ESX.GetPlayerFromId(source)
-    if xPlayer.job and xPlayer.job.name == 'police' then
-	cb('you_are_cop')
-	return
-    end
-
-    local cops = 0
-    local xPlayers = ESX.GetPlayers()
-    for i = 1, #xPlayers do
-        local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-        if xPlayer.job.name == 'police' then
-            cops = cops + 1
-        end
-    end
-    if cops >= Config.Shops[store].cops then
-        if not Config.Shops[store].robbed and not deadPeds[store] then
-            cb(true)
-        else
-            cb(false)
-        end
-    else
-        cb('no_cops')
-    end
+RegisterServerEvent('loffe_robbery:pickUpPickup')
+AddEventHandler('loffe_robbery:pickUpPickup', function(pickupid)
+	local src = source
+	if pickups[pickupid] then
+			local store = pickups[pickupid].store
+			local randomMoney = math.random(Config.Shops[store].money[1], Config.Shops[store].money[2])
+			TriggerClientEvent('loffe_robbery:notify', src, Translation[Config.Locale]['cashrecieved'] .. ' ~g~' .. randomMoney .. ' ' .. Translation[Config.Locale]['currency'], 5)
+			table.remove(pickups, pickupid)
+			addMoney(src, randomMoney)
+			TriggerClientEvent('loffe_robbery:removePickup', -1, pickupid)
+	end
 end)
-
-RegisterServerEvent('loffe_robbery:rob_start')
-AddEventHandler('loffe_robbery:rob_start', function(store)
-    Config.Shops[store].pickup_available = false
-    local xPlayers = ESX.GetPlayers()
-    for i = 1, #xPlayers do
-        local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-        if xPlayer.job.name == 'police' then
-            TriggerClientEvent('loffe_robbery:msgPolice', xPlayer.source, store, source)
-        end
-    end
-end)
-
-RegisterServerEvent('loffe_robbery:rob')
-AddEventHandler('loffe_robbery:rob', function(store)
-    local src = source
-    Config.Shops[store].robbed = true
-
-    TriggerClientEvent('loffe_robbery:rob', -1, store)
-    Wait(30000)
-    TriggerClientEvent('loffe_robbery:robberyOver', src)
-
-    local second = 1000
-    local minute = 60 * second
-    local hour = 60 * minute
-    local cooldown = Config.Shops[store].cooldown
-    local wait = cooldown.hour * hour + cooldown.minute * minute + cooldown.second * second
-    Wait(wait)
-    Config.Shops[store].robbed = false
-    for k, v in pairs(deadPeds) do if k == store then table.remove(deadPeds, k) end end
-    TriggerClientEvent('loffe_robbery:removePickup', -1, store)
-    TriggerClientEvent('loffe_robbery:resetStore', -1, store)
-    Config.Shops[store].pickup_available = false
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        for i = 1, #deadPeds do TriggerClientEvent('loffe_robbery:pedDead', -1, i) end -- update dead peds
-        Citizen.Wait(500)
-    end
-end)
-
--- RegisterServerEvent('loffe_robbery:alarm')
--- AddEventHandler('loffe_robbery:alarm', function(store)
---     local src = source
---     local xPlayers = ESX.GetPlayers()
---     for i = 1, #xPlayers do
---         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
---         if xPlayer.job.name == 'police' then
---             TriggerClientEvent('loffe_robbery:msgPolice', xPlayer.source, store, src)
---         end
---     end
--- end)

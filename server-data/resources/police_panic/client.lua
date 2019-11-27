@@ -175,7 +175,7 @@ end)
 -- Plays panic on client
 RegisterNetEvent("Pass-Alarm:Return:NewPanic")
 AddEventHandler("Pass-Alarm:Return:NewPanic", function(source, Officer)
-	if Panic.Tuned then
+	if Panic.Tuned and ESX.PlayerData.job.name == "police" or ESX.PlayerData.job.name == "ambulance" then
 		SendNUIMessage({
 			PayloadType	= "Panic",
 			Payload		= source

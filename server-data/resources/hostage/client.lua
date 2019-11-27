@@ -9,6 +9,7 @@ local hostageAllowedWeapons = {
 	"weapon_machinepistol",
 	"weapon_revolver",
 	"weapon_minismg",
+	"weapon_heavypistol",
 	--etc add guns you want
 }
 
@@ -33,7 +34,7 @@ function takeHostage()
 	end
 
 	if not canTakeHostage then
-		drawNativeNotification("Вам нужено оружие чтобы взять человека в заложники!")
+		drawNativeNotification("Вам нужно оружие чтобы взять человека в заложники!")
 	end
 
 	if not holdingHostageInProgress and canTakeHostage then
