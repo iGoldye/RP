@@ -94,6 +94,22 @@ AddEventHandler('dpemotes:emote', function(name)
     end
 end)
 
+RegisterNetEvent('dpemotes:shared_emote')
+AddEventHandler('dpemotes:shared_emote', function(name)
+    if Config.SharedEmotesEnabled then
+        if name ~= 'none' then
+          target, distance = GetClosestPlayer()
+          if (distance ~= -1 and distance < 3) then
+            TriggerServerEvent("ServerEmoteRequest", GetPlayerServerId(target), name)
+            SimpleNotify(Config.Languages[Config.MenuLanguage]['sentrequestto']..GetPlayerName(target))
+          else
+            SimpleNotify(Config.Languages[Config.MenuLanguage]['nobodyclose'])
+          end
+        end
+      end
+end)
+
+
 -----------------------------------------------------------------------------------------------------
 ------ Functions and stuff --------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
