@@ -31,6 +31,7 @@ Config.Animations = {
 			{label = "Сиграрета в зубах", type = "dpemotes", data = {anim = "cigar2"}},
 			{label = "Cигара в зубах", type = "dpemotes", data = {anim = "cigar"}},
 			{label = "Музицировать", type = "scenario", data = {anim = "WORLD_HUMAN_MUSICIAN", flag = 9}},
+			{label = "Играть на саксофоне", type = "dpemotes", data = {anim = "sax"}},
 			{label = "Диджей", type = "anim", data = {lib = "anim@mp_player_intcelebrationmale@dj", anim = "dj", flag = 9}},
 			{label = "Воображаемая гитара", type = "anim", data = {lib = "anim@mp_player_intcelebrationmale@air_guitar", anim = "air_guitar"}},
 			{label = "Сотрясать воздух", type = "anim", data = {lib = "anim@mp_player_intcelebrationfemale@air_shagging", anim = "air_shagging"}},
@@ -338,6 +339,27 @@ Config.Animations = {
 	},
 
 	{
+		name  = 'unic',
+		label = 'Танцы',
+		items = {
+
+			{label = "Шафл", type = "dpemotes", data = {anim = "dancesilly7"}},
+			{label = "Чечетка", type = "anim", data = {lib = "special_ped@mountain_dancer@monologue_3@monologue_3a", anim = "mnt_dnc_buttwag", flag = 9}},
+			{label = "Водоворот", type = "anim", data = {lib = "misschinese2_crystalmazemcs1_ig", anim = "dance_loop_tao", flag = 9}},
+			{label = "Единорог медленный 1", type = "dpemotes", data = {anim = "unicorn1"}},
+			{label = "Единорог медленный 2", type = "dpemotes", data = {anim = "unicorn6"}},
+			{label = "Единорог активный 1", type = "dpemotes", data = {anim = "unicorn2"}},
+			{label = "Единорог активный 2", type = "dpemotes", data = {anim = "unicorn3"}},
+			{label = "Единорог активный 3", type = "dpemotes", data = {anim = "unicorn4"}},
+			{label = "Единорог активный 4", type = "dpemotes", data = {anim = "unicorn5"}},
+			{label = "Светящиеся палки 1", type = "dpemotes", data = {anim = "danceglowstick"}},
+			{label = "Светящиеся палки 2", type = "dpemotes", data = {anim = "danceglowstick2"}},
+			{label = "Светящиеся палки 3", type = "dpemotes", data = {anim = "danceglowstick3"}},
+
+		}
+	},
+
+	{
 		name  = 'dance',
 		label = 'Танцы Ж',
 		items = {
@@ -387,11 +409,9 @@ Config.Animations = {
         {label = "В теме", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@hi_intensity", anim = "hi_dance_crowd_13_v2_male^6", flag = 9}},
         {label = "Качает", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@male@var_a@", anim = "med_center_up", flag = 9}},
         {label = "Заводила", type = "anim", data = {lib = "mini@strip_club@idles@dj@idle_04", anim = "idle_04", flag = 9}},
-        {label = "Чечетка", type = "anim", data = {lib = "special_ped@mountain_dancer@monologue_3@monologue_3a", anim = "mnt_dnc_buttwag", flag = 9}},
         {label = "Расслабленная", type = "anim", data = {lib = "anim@amb@nightclub@dancers@black_madonna_entourage@", anim = "hi_dance_facedj_09_v2_male^5", flag = 9}},
         {label = "Волна", type = "anim", data = {lib = "anim@amb@nightclub@dancers@dixon_entourage@", anim = "mi_dance_facedj_15_v1_male^4", flag = 9}},
         {label = "На стиле", type = "anim", data = {lib = "anim@amb@nightclub@dancers@podium_dancers@", anim = "hi_dance_facedj_17_v2_male^5", flag = 9}},
-        {label = "Водоворот", type = "anim", data = {lib = "misschinese2_crystalmazemcs1_ig", anim = "dance_loop_tao", flag = 9}},
         {label = "Легкий расколбас", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_a@", anim = "high_center", flag = 9}},
         {label = "Топ-топ", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@male@var_b@", anim = "high_center", flag = 9}},
 				{label = "Низкий хлоп ", type = "anim", data = {lib = "anim@amb@nightclub@dancers@crowddance_groups@hi_intensity", anim = "hi_dance_crowd_13_v2_male^2", flag = 9}},
@@ -410,7 +430,7 @@ Config.Animations = {
 	      {label = "Принудительная", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@female@var_b@", anim = "low_center", flag = 9}},
 				{label = "Уставшая", type = "anim", data = {lib = "anim@amb@nightclub@mini@dance@dance_solo@male@var_a@", anim = "low_center", flag = 9}},
 				{label = "Гэнгста", type = "dpemotes", data = {anim = "dance8"}},
-				{label = "Флекс", type = "dpemotes", data = {anim = "dancesilly7"}},
+
 
 		}
 	},
@@ -519,6 +539,7 @@ Config.Animations = {
 			-- {label = "A99", type = "scenario", data = {anim = "WORLD_SHARK_SWIM"}},
 		}
  },
+
 --  {
 -- 	name  = 'test',
 -- 	label = 'Тест',

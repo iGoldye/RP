@@ -384,6 +384,14 @@ DP.Dances = {
        PropPlacement = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
        EmoteLoop = true,
    }},
+   ["sax"] = {"amb@world_human_aa_coffee@base", "base", "Dance Horse 3", AnimationOptions =
+   {
+       Prop = "p_ld_sax",
+       PropBone = 28422,
+       PropPlacement = {0.1, 0.05, -0.1, 3.0, 0.0, 220.0},
+       EmoteLoop = true,
+       EmoteMoving = true,
+   }},
 }
 
 DP.Emotes = {
