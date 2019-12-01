@@ -187,7 +187,7 @@ Config.AuthorizedWeapons = {
 Config.AuthorizedVehicles = {
 	Shared = {
 		-- { model = 'police', label = 'Police Cruiser', price = 100 },
-		-- { model = 'police2', label = 'Police Buffalo', price = 200 },
+
 		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
 		-- { model = 'policet', label = 'Police Transporter', price = 400 },
 
@@ -196,6 +196,7 @@ Config.AuthorizedVehicles = {
 		{ model = 'police', label = 'Police Crown Victoria', price = 100 },
 		{ model = 'police2', label = 'Police Ford Responder', price = 100 },
 		{ model = 'police3', label = 'Police Interceptor', price = 100 },
+		{ model = 'sp106', label = 'Police SUV Ford', price = 200 },
 		-- { model = 'lapd5', label = 'Police Chevrolet Impala', price = 100 },
 		{ model = 'riot', label = 'Police Riot x6', price = 500 },
 		{ model = 'policet', label = 'Police Transporter', price = 500 },
@@ -203,7 +204,7 @@ Config.AuthorizedVehicles = {
 		{ model = 'fbi2', label = 'unmarked SUV', price = 300 },
 		{ model = 'fbi', label = 'unmarked Buffalo', price = 300 },
 		{ model = 'police4', label = 'unmarked Cruiser', price = 300 },
-		{ model = '17gt500', label = 'unmarked Shelby', price = 100 },
+		{ model = 'fibjacal', label = 'unmarked Jackal', price = 100 },
 		{ model = 'pbus', label = 'Police Prison Bus', price = 500 },
 		{ model = 'lp770cop', label = 'Speed Unit', price = 100000 },
 		{ model = 'sheriff', label = 'Sheriff Unit', price = 100 },
