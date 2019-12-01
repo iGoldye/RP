@@ -22,6 +22,8 @@ class PhoneAPI {
     this.config = null
     this.voiceRTC = null
     this.soundList = {}
+    this.photoURL = ''
+    this.photoField = ''
   }
 
   async post (method, data) {
@@ -103,7 +105,12 @@ class PhoneAPI {
   }
   async takePhoto () {
     store.commit('SET_TEMPO_HIDE', true)
-    const data = await this.post('takePhoto', { url: this.config.fileUploadService_Url, field: this.config.fileUploadService_Field })
+    let data = ''
+    if (this.photoURL !== '') {
+      data = await this.post('takePhoto', { url: this.photoURL, field: this.photoField })
+    } else {
+      data = await this.post('takePhoto', { url: this.config.fileUploadService_Url, field: this.config.fileUploadService_Field })
+    }
     store.commit('SET_TEMPO_HIDE', false)
     return data
   }
@@ -172,6 +179,11 @@ class PhoneAPI {
   onAcceptAction (data) {
 //      data.message_id
 //    console.log(JSON.stringify(data))
+  }
+
+  onupdatePhotoInfo (data) {
+    this.photoURL = data.url
+    this.photoField = data.field
   }
   onupdateMyPhoneNumber (data) {
     store.commit('SET_MY_PHONE_NUMBER', data.myPhoneNumber)

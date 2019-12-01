@@ -1,4 +1,5 @@
 ESX = nil
+inventories = {}
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -227,7 +228,7 @@ end)
 RegisterNetEvent('esx_inventory:updateInventory')
 AddEventHandler('esx_inventory:updateInventory', function(name, shared)
 	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
-		TriggerEvent('esx_inventory:onInventoryUpdate', inventory)
+		TriggerEvent('esx_inventory:_onInventoryUpdate', inventory)
 	end, name, shared)
 end)
 
@@ -264,10 +265,48 @@ AddEventHandler('esx_inventory:initialized', function(cb)
 end)
 ]]--
 
-RegisterNetEvent('esx_inventory:onInventoryUpdate')
-AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
+RegisterNetEvent('esx_inventory:_onInventoryUpdate')
+AddEventHandler('esx_inventory:_onInventoryUpdate', function(inventory)
 	if inventory.name == "pocket" then
 		pocketWeight = inventory.weight or 0
 		initialized = true
 	end
+
+	inventories[inventory.name] = inventory
+	TriggerEvent('esx_inventory:onInventoryUpdate', inventory)
+end)
+
+-- client cached inventory data, nil if no cache
+AddEventHandler('esx_inventory:getInventory', function(name, cb)
+	cb(inventories[name])
+end)
+
+AddEventHandler('esx_inventory:getInventoryItem', function(invname, name, extra, cb)
+	local inventory = inventories[invname]
+	if inventory == nil then
+		cb({})
+		return
+	end
+
+	local items = {}
+
+	for k,v in pairs(inventory.items) do
+		if v.name == name then
+			local found = true
+			if extra ~= nil then
+				for k2,v2 in pairs(extra) do
+					if extra[k2] ~= v.extra[k2] then
+						found = false
+						break
+					end
+				end
+			end
+
+			if found == true then
+	                        table.insert(items, v)
+			end
+		end
+	end
+
+	cb(items)
 end)

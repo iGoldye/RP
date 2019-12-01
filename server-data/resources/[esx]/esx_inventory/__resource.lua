@@ -20,6 +20,8 @@ server_scripts {
 	'server/classes/items/Item_Weapon.js',
 	'server/classes/items/Item_EquippedWeapon.js',
 	'server/classes/items/Item_CarKey.js',
+	'server/classes/items/Item_HouseKey.js',
+	'server/classes/items/Item_DoorKey.js',
 	'server/classes/inventory.js',
 	'server/main.js',
 	'server/pickups.js',

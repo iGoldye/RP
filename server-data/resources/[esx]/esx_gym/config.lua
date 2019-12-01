@@ -2,7 +2,7 @@ Config = {}
 
 Config.MembershipPrice = 100
 
--- Как быстро прокачивается скилл от разных упражнений
+-- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Config.chinStrength = 0.1
 Config.pushStamina = 0.15
 Config.armsStrength = 0.3
@@ -30,7 +30,7 @@ Config.gym = {
 }
 
 Config.chins = {
-    {pos = vector3(-1200.1284,-1570.9903,4.6115)}
+    {pos = vector3(-1200.1284,-1570.9903,4.6115), start_pos=vector3(-1200.04,-1571.18,4.58), start_heading = 220.0}
 }
 
 Config.rentbike = {

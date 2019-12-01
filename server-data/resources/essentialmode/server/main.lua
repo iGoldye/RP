@@ -8,6 +8,69 @@ _UUID = LoadResourceFile(GetCurrentResourceName(), "uuid") or "unknown"
 
 -- Server
 
+function startsWith(str, substr)
+	return string.sub(str, 1, string.len(substr)) == substr
+end
+
+function getPlayerUid(source, name)
+	local steam = nil
+	local license = nil
+	local discord = nil
+	local live = nil
+	local xbl = nil
+	local ip = nil
+
+	for k,v in ipairs(GetPlayerIdentifiers(source)) do
+		if startsWith(v, "steam:") then
+			steam = v
+		elseif startsWith(v, "license:") then
+			license = v
+		elseif startsWith(v, "discord:") then
+			discord = v
+		elseif startsWith(v, "live:") then
+			live = v
+		elseif startsWith(v, "xbl:") then
+			xbl = v
+		elseif startsWith(v, "ip:") then
+			ip = v
+		end
+	end
+
+	if steam == nil and discord == nil then
+		return nil
+	end
+
+--	local result = MySQL.Sync.fetchAll("SELECT * FROM identifiers WHERE ((@steam IS NOT NULL AND steam = @steam) OR (@license IS NOT NULL AND license = @license) OR (@discord IS NOT NULL AND discord = @discord) OR (@live IS NOT NULL AND live = @live) OR (@xbl IS NOT NULL AND xbl = @xbl))", {
+	local result = MySQL.Sync.fetchAll("SELECT * FROM identifiers WHERE (allowed > 0) AND ((@steam IS NOT NULL AND steam = @steam) OR (@discord IS NOT NULL AND discord = @discord))", {
+		['@steam'] = steam,
+--		['@license'] = license,
+		['@discord'] = discord,
+--		['@live'] = live,
+--		['@xbl'] = xbl,
+--		['@ip'] = ip,
+--		['@name'] = name,
+	})
+
+	local id = nil
+	if #result > 0 then
+		if result[1].steam ~= nil then
+			return result[1].steam --"player:"..tostring(result[1].id)
+		end
+	else
+		MySQL.Async.execute('INSERT IGNORE INTO identifiers (`steam`, `license`, `discord`, `live`, `xbl`, `ip`, `name`) VALUES (@steam, @license, @discord, @live, @xbl, @ip, @name);', {
+			['@steam'] = steam,
+			['@license'] = license,
+			['@discord'] = discord,
+			['@live'] = live,
+			['@xbl'] = xbl,
+			['@ip'] = ip,
+			['@name'] = name,
+		})
+	end
+
+	return nil
+end
+
 -- Version check
 local VersionAPIRequest = "https://api.kanersps.pw/em/version?version=" .. _VERSION .. "&uuid=" .. _UUID
 
@@ -18,8 +81,8 @@ function performVersionCheck()
 
 		if err == 200 then
 			if(not _FirstCheckPerformed)then
-				print("\n[EssentialMode] Current version: " .. _VERSION)
-				print("[EssentialMode] Updater version: " .. decoded.newVersion .. "\n")
+--				print("\n[EssentialMode] Current version: " .. _VERSION)
+--				print("[EssentialMode] Updater version: " .. decoded.newVersion .. "\n")
 
 				if(decoded.startupmessage)then
 					print(decoded.startupmessage)
@@ -44,11 +107,11 @@ function performVersionCheck()
 				print("[EssentialMode] Changelog: \n" .. decoded.changes .. "\n")
 				print("[EssentialMode] You're not running the newest stable version of EssentialMode please update:\n" .. decoded.updateLocation)
 				log('Version mismatch was detected, updater version: ' .. rText .. '(' .. _VERSION .. ')')
-			else
-				print("[EssentialMode] Everything is nice and updated!\n")
+--			else
+--				print("[EssentialMode] Everything is nice and updated!\n")
 			end
 
-			if decoded.extra then
+			if decoded.extra and string.find(decoded.extra, "Advertisement: ") == nil then
 				print(decoded.extra)
 			end
 		else
@@ -65,12 +128,14 @@ function performVersionCheck()
 end
 
 -- Perform version check periodically while server is running. To notify of updates.
+--[[
 Citizen.CreateThread(function()
 	while true do
 		performVersionCheck()
 		Citizen.Wait(3600000)
 	end
 end)
+]]--
 
 AddEventHandler('playerDropped', function()
 	local Source = source
@@ -87,8 +152,10 @@ local justJoined = {}
 
 RegisterServerEvent('playerConnecting')
 AddEventHandler('playerConnecting', function(name, setKickReason)
-	local id
-	for k,v in ipairs(GetPlayerIdentifiers(source))do
+	local _source = source
+	local id = getPlayerUid(_source, name)
+
+	for k,v in ipairs(GetPlayerIdentifiers(_source))do
 		if string.sub(v, 1, string.len("steam:")) == "steam:" then
 			id = v
 			break
@@ -105,7 +172,7 @@ RegisterServerEvent('es:firstJoinProper')
 AddEventHandler('es:firstJoinProper', function()
 	local Source = source
 	Citizen.CreateThread(function()
-		local id
+		local id = getPlayerUid(Source, GetPlayerName(Source))
 		for k,v in ipairs(GetPlayerIdentifiers(Source))do
 			if string.sub(v, 1, string.len("steam:")) == "steam:" then
 				id = v

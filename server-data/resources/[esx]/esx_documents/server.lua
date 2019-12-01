@@ -142,16 +142,12 @@ end)
 
 
 function getPlayerID(source)
-    local identifiers = GetPlayerIdentifiers(source)
-    local player = getIdentifiant(identifiers)
-    return player
-end
-function getIdentifiant(id)
-    for _, v in ipairs(id) do
-        return v
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if xPlayer == nil then
+	print(debug.traceback())
     end
+    return xPlayer.identifier
 end
-
 
 function dump(o)
    if type(o) == 'table' then

@@ -28,18 +28,58 @@ Config.TimeToSellMeth     = 1  * 1000 -- Ammount of time to sell meth
 Config.Locale = 'en'
 
 Config.Zones = {
-	CokeField =			{x=1093.139,  y=-3194.473,  z=-39.9},
-	CokeProcessing =	{x=1100.537,  y=-3198.232,  z=-39.993},
-	CokeDealer =		{x=3373.087,   y= 5183.625,   z=0.463},
-	-- MethField =			{x=1389.231,  y=3605.531,  z=38.149},
-	-- MethProcessing =	{x=1394.538,  y=3601.771,  z=38.143},
-	MethDealer =		{x=7.981,     y=6469.067,   z=30.528},
-	WeedField =			{x=1057.448,  y=-3196.996,  z=-39.938},
-	WeedProcessing =	{x=1037.297,  y=-3204.968,  z=-38.87},
-	WeedDealer =		{x = -283.68,   y= 6628.26,  z= 6.13},
-	OpiumField =		{x=2433.804,  y=4969.196,   z=41.358},
-	OpiumProcessing =	{x=2434.43,   y=4964.18,    z=41.348},
-	OpiumDealer =		{x=-96.18, y=-2768.18,   z=5.08}
+	CokeField = {
+		x=901.11, y=-959.37, z=38.28,
+		MarkerColor  = {r = 230, g = 187, b = 0},
+	},
+	CokeProcessing = {
+		x=-332.14, y=-2444.37, z=6.36,
+		MarkerColor  = {r = 117, g = 230, b = 0},
+	},
+	CokeDealer = {
+		x=3373.087, y= 5183.625, z=0.463,
+		MarkerColor  = {r = 0, g = 255, b = 0},
+	},
+	MethField = {
+		x=1950.61,  y=5178.73,  z=46.98,
+		MarkerColor  = {r = 230, g = 187, b = 0},
+	},
+	MethProcessing = {
+		x=-1368.72,  y=-317.69,  z=38.52,
+		MarkerColor  = {r = 117, g = 230, b = 0},
+	},
+	MethDealer = {
+		x=1339.66,     y=4225.28,   z=32.92,
+		MarkerColor  = {r = 0, g = 255, b = 0},
+	},
+	WeedField = {
+		x=1057.448,  y=-3196.996,  z=-39.938,
+		MarkerColor  = {r = 230, g = 187, b = 0},
+	},
+	WeedProcessing = {
+		x=1037.297,  y=-3204.968,  z=-38.87,
+		MarkerColor  = {r = 117, g = 230, b = 0},
+	},
+	WeedDealer = {
+		x = -283.68,   y= 6628.26,  z= 6.13,
+		MarkerColor  = {r = 0, g = 255, b = 0},
+	},
+	OpiumField = {
+		x=2433.804,  y=4969.196,   z=41.358,
+		MarkerColor  = {r = 230, g = 187, b = 0},
+	},
+	OpiumProcessing = {
+		x=2434.43,   y=4964.18,    z=41.348,
+		MarkerColor  = {r = 117, g = 230, b = 0},
+	},
+	OpiumDealer = {
+		x=-96.18, y=-2768.18,   z=5.08,
+		MarkerColor  = {r = 0, g = 255, b = 0},
+	},
+	-- ScrapField = {
+	-- 	x=-585.55, y=-1659.78,   z=18.36,
+	-- 	MarkerColor  = {r = 0, g = 255, b = 0},
+	-- },
 }
 
 Config.DisableBlip = true -- Set to true to disable blips. False to enable them.

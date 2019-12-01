@@ -2,14 +2,6 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterServerEvent('esx_accessories:pay')
-AddEventHandler('esx_accessories:pay', function()
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	xPlayer.removeMoney(Config.Price)
-	TriggerClientEvent('esx:showNotification', source, _U('you_paid', ESX.Math.GroupDigits(Config.Price)))
-end)
-
 RegisterServerEvent('esx_accessories:save')
 AddEventHandler('esx_accessories:save', function(skin, accessory)
 	local _source = source
@@ -40,8 +32,6 @@ ESX.RegisterServerCallback('esx_accessories:get', function(source, cb, accessory
 
 end)
 
-ESX.RegisterServerCallback('esx_accessories:checkMoney', function(source, cb)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	cb(xPlayer.get('money') >= Config.Price)
+ESX.RegisterServerCallback('esx_accessories:pay', function(source, cb)
+	TriggerEvent('esx_atm:pay', source, "accessories", Config.Price, cb)
 end)

@@ -23,15 +23,14 @@ AddEventHandler('esx_clotheshop:saveOutfit', function(label, skin)
 end)
 
 ESX.RegisterServerCallback('esx_clotheshop:buyClothes', function(source, cb)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	if xPlayer.getMoney() >= Config.Price then
-		xPlayer.removeMoney(Config.Price)
-		TriggerClientEvent('esx:showNotification', source, _U('you_paid', Config.Price))
-		cb(true)
-	else
-		cb(false)
-	end
+	TriggerEvent('esx_atm:pay', source, "clotheshop", Config.Price, function(res)
+		if res == true then
+			TriggerClientEvent('esx:showNotification', source, _U('you_paid', Config.Price))
+			cb(true)
+		else
+			cb(false)
+		end
+	end)
 end)
 
 ESX.RegisterServerCallback('esx_clotheshop:checkPropertyDataStore', function(source, cb)

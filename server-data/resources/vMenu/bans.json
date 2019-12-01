@@ -1,27 +1,16 @@
-[
-  {
-    "playerName": "Ksa1Lent",
-    "identifiers": [
-      "steam:1100001075c7d89",
-      "license:bd41a12a968c4df7f99b2c70cbe6766dec231797",
-      "discord:310762911612010496",
-      "ip:46.242.54.47"
-    ],
-    "bannedUntil": "2019-10-11T10:01:28",
-    "banReason": "Стримснайпинг( присутствие в чате на стриме и в рп)",
-    "bannedBy": "Tixas"
-  },
-  {
-    "playerName": "Good Company",
-    "identifiers": [
-      "steam:110000103671dbb",
-      "license:94f864aecc0f5a8b8cbf16d698bcea9a785f813f",
-      "discord:282885869885456395",
-      "fivem:194142",
-      "ip:83.246.167.103"
-    ],
-    "bannedUntil": "2019-11-20T23:45:42.6525196-08:00",
-    "banReason": "PowerGaming",
-    "bannedBy": "bigdruklya2"
-  }
-]
+// [
+//   {
+//     "playerName": "PuFan",
+//     "identifiers": [
+//       "steam:110000112688a52",
+//       "license:79f5b38a146506113e978b71516cd9ff911ced36",
+//       "xbl:2535455712552190",
+//       "live:985153929547844",
+//       "discord:284706867878297600",
+//       "ip:46.166.79.209"
+//     ],
+//     "bannedUntil": "2019-09-07T00:00:0.0206317+03:00",
+//     "banReason": "PG, NoFear",
+//     "bannedBy": "skeev_"
+//   }
+// ]

@@ -58,13 +58,12 @@
     <div class="outer">
       <div class="wrapper">
         <img src="./img/monitor.png" alt="" />
-        <iframe class="dashboard" id="dashboard" src="about:blank" sandbox="allow-forms allow-modals allow-pointer-lock allow-scripts allow-same-origin"></iframe>
+        <iframe class="dashboard" id="dashboard" src="about:blank" sandbox="allow-forms allow-modals allow-popups allow-pointer-lock allow-scripts allow-same-origin allow-modals"></iframe>
       </div>
     </div>
     <script>
       window.addEventListener('message', function(event) {
         let data = event.data
-        console.log(data)
         if (data.show) {
           document.querySelector('#dashboard').src =
             'http://194.87.144.130:80/?sessionid=' + data.sessionid

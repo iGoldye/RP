@@ -95,145 +95,166 @@ Config.Garages = {
 		},
 	},
 
--- Шоссе 2
+-- Форум драйв
 
-	-- Garage_Ocean1 = {
-	-- 	Pos = {x = -3140.323,y = 1124.463,z = 20.706},
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = -3132.638,y = 1126.662,z = 20.667},
-	-- 		Heading = 160.0,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = -3136.902,y = 1102.685,z = 20.654},
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+	Garage_FotumDrive = {
+		Pos = {x=-25.42, y=-1427.94, z=29.70},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+		-- Name = 'Гараж',
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+		SpawnPoint = {
+			Pos = {x=-24.3, y=-1439.04, z=29.70},
+			Distance = 2.5,
+			Heading = 160.0,
+			Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+		},
+		DeletePoint = {
+			Pos = {x=-24.24, y=-1434.79, z=29.70},
+			Distance = 2.5,
+			Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+		},
+	},
 
--- Шоссе
+-- Пляж
 
-	-- Garage_Ocean2 = {
-	-- 	Pos = {x = -2982.561,y = 327.506,z = 14.935},
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = -2977.238,y = 337.777,z = 14.768},
-	-- 		Heading = 160.0,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = -2971.814,y = 355.331,z = 14.771},
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+Garage_Beatch = {
+	Pos = {x=-1151.44, y=-1519.75, z=3.40},
+	Distance = 2.5,
+	Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+	-- Name = 'Гараж',
+	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+	SpawnPoint = {
+		Pos = {x=-1153.7, y=-1526.23, z=3.30},
+		Distance = 2.5,
+		Heading = 160.0,
+		Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+	},
+	DeletePoint = {
+		Pos = {x=-1158.1, y=-1529.36, z=3.30},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+	},
+},
 
--- Гараж Гетто
+-- Гараж Вайнвуд Франклин
 
-	-- Garage_Sud = {
-	-- 	Pos = {x = 443.6696,y = -1969.4372,z = 24.401},
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = 437.8140,y = -1958.572,z = 22.957},
-	-- 		Heading = 182.0,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = 457.91,y = -1971.343,z = 22.553},
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+Garage_VinewoodFrank = {
+	Pos = {x=22.6, y=544.38, z=175.10},
+	Distance = 2.5,
+	Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+	-- Name = 'Гараж',
+	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+	SpawnPoint = {
+		Pos = {x=12.09, y=546.54, z=174.98},
+		Distance = 2.5,
+		Heading = 160.0,
+		Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+	},
+	DeletePoint = {
+		Pos = {x=15.99, y=551.11, z=175.60},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+	},
+},
 
--- Гараж вайнвуд хилз
+-- Гараж ЛАс Лагунас
 
-	-- Garage_Lake = {
-	-- 	Pos = {x = -73.165504455566,y = 908.08734130859,z = 235.62712097168 },
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = -72.099822998047,y = 902.85479736328,z = 235.63186645508 },
-	-- 		Heading = 134.409,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = -66.987632751465,y = 891.65881347656,z = 235.55270385742 },
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+Garage_Lagoonas = {
+	Pos = {x=-85.95, y=-28.57, z=65.38},
+	Distance = 2.5,
+	Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+	-- Name = 'Гараж',
+	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+	SpawnPoint = {
+		Pos = {x=-77.18, y=-24.85, z=65.20},
+		Distance = 2.5,
+		Heading = 160.0,
+		Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+	},
+	DeletePoint = {
+		Pos = {x=-77.51, y=-31.39, z=64.40},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+	},
+},
 
--- Гараж возле ПД
+-- Гараж Тревор
 
-	-- Garage_Occaz = {
-	-- 	Pos = {x = 472.00717163086,y = -1113.5531005859,z = 29.198709487915 },
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = 465.24938964844,y = -1122.1062011719,z = 29.306407928467 },
-	-- 		Heading = 179.84,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = 480.43997192383,y = -1123.5560302734,z = 29.329828262329 },
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+Garage_Trevor = {
+		Pos = {x=1985.53, y=3823.16, z=31.40},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+		-- Name = 'Гараж',
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+		SpawnPoint = {
+			Pos = {x=1985.4, y=3831.25, z=31.50},
+			Distance = 2.5,
+			Heading = 160.0,
+			Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+		},
+		DeletePoint = {
+			Pos = {x=1977.72, y=3827.42, z=31.42},
+			Distance = 2.5,
+			Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+		},
+	},
 
--- Грув стрит
+-- Гараж Майкла
 
-	-- Garage_Groove = {
-	-- 	Pos = {x = -69.514305114746,y = -1822.9477539063,z = 26.941974639893 },
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = -67.72095489502,y = -1835.7784423828,z = 26.883722305298 },
-	-- 		Heading = 225.887,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = -60.4020652771,y = -1829.5288085938,z = 26.836933135986 },
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+	Garage_Trevor = {
+		Pos = {x=-811.72, y=187.61, z=71.52},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+		-- Name = 'Гараж',
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+		SpawnPoint = {
+			Pos = {x=-827.62, y=176.91, z=70.15},
+			Distance = 2.5,
+			Heading = 160.0,
+			Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+		},
+		DeletePoint = {
+			Pos = {x=-820.9, y=184.1, z=71.12},
+			Distance = 2.5,
+			Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+			HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+		},
+	},
 
--- Гараж Веспучи
+-- Гараж LESTER
 
-	-- Garage_venise = {
-	-- 	Pos = {x = -1081.974609375,y = -1254.1881103516,z = 5.4244246482849 },
-	-- 	Marker = {t=1, w= 1.5, h= 1.0,r = 204, g = 204, b = 0},
-	-- 	Name = 'Гараж',
-	-- 	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
-	-- 	SpawnPoint = {
-	-- 		Pos = {x = -1077.2590332031,y = -1239.3200683594,z = 5.161093711853 },
-	-- 		Heading = 144.887,
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=0,g=255,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
-	-- 	},
-	-- 	DeletePoint = {
-	-- 		Pos = {x = -1097.2971191406,y = -1253.8725585938,z = 5.2441983222961 },
-	-- 		Marker = {t=1, w= 1.5, h= 1.0,r=255,g=0,b=0},
-	-- 		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
-	-- 	},
-	-- },
+Garage_Trevor = {
+	Pos = {x=1283.58, y=-1721.01, z=53.70},
+	Distance = 2.5,
+	Marker = {t=23, w= 1.0, h= 1.0,r = 254, g = 224, b = 0},
+	-- Name = 'Гараж',
+	HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы открыть гараж",
+	SpawnPoint = {
+		Pos = {x=1274.49, y=-1736.09, z=50.86},
+		Distance = 2.5,
+		Heading = 51.83,
+		Marker = {t=23, w= 1.0, h= 1.0,r=60,g=255,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы выгнать транспорт",
+	},
+	DeletePoint = {
+		Pos = {x=1272.95, y=-1733.15, z=50.86},
+		Distance = 2.5,
+		Marker = {t=23, w= 1.0, h= 1.0,r=255,g=60,b=0},
+		HelpPrompt = "Нажмите ~INPUT_PICKUP~ чтобы припарковать транспорт",
+	},
+},
 
 -- Гараж Текилла
 

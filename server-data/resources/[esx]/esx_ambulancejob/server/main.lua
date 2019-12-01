@@ -6,12 +6,13 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 RegisterServerEvent('esx_ambulancejob:useMedikit')
 AddEventHandler('esx_ambulancejob:useMedikit', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
+	local xTarget = ESX.GetPlayerFromId(target)
 	local item = xPlayer.getInventoryItem('medikit')
 
 	if item and item.count >= 1 then
 		xPlayer.removeInventoryItem('medikit', 1)
 		TriggerClientEvent('esx_ambulancejob:heal', target, 'big')
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('heal_complete', xPlayer.name))
+		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('heal_complete', xTarget.name))
 	end
 end)
 
@@ -337,9 +338,10 @@ AddEventHandler('esx_ambulancejob:giveItem', function(itemName)
 end)
 
 TriggerEvent('es:addGroupCommand', 'revive', 'admin', function(source, args, user)
+	local xPlayer = ESX.GetPlayerFromId(source)
 	if args[1] ~= nil then
 		if GetPlayerName(tonumber(args[1])) ~= nil then
-			print(('esx_ambulancejob: %s used admin revive'):format(GetPlayerIdentifiers(source)[1]))
+			print(('esx_ambulancejob: %s used admin revive'):format(xPlayer.identifier))
 			TriggerClientEvent('esx_ambulancejob:revive', tonumber(args[1]))
 		end
 	else
@@ -428,13 +430,13 @@ ESX.RegisterUsableItem('drug3', function(source)
 end)
 
 ESX.RegisterServerCallback('esx_ambulancejob:getDeathStatus', function(source, cb)
-	local identifier = GetPlayerIdentifiers(source)[1]
+	local xPlayer = ESX.GetPlayerFromId(source)
 
 	MySQL.Async.fetchScalar('SELECT is_dead FROM users WHERE identifier = @identifier', {
-		['@identifier'] = identifier
+		['@identifier'] = xPlayer.identifier
 	}, function(isDead)
 		if isDead then
-			print(('esx_ambulancejob: %s attempted combat logging!'):format(identifier))
+			print(('esx_ambulancejob: %s attempted combat logging!'):format(xPlayer.identifier))
 		end
 
 		cb(isDead)
@@ -443,15 +445,15 @@ end)
 
 RegisterServerEvent('esx_ambulancejob:setDeathStatus')
 AddEventHandler('esx_ambulancejob:setDeathStatus', function(isDead)
-	local identifier = GetPlayerIdentifiers(source)[1]
+	local xPlayer = ESX.GetPlayerFromId(source)
 
 	if type(isDead) ~= 'boolean' then
-		print(('esx_ambulancejob: %s attempted to parse something else than a boolean to setDeathStatus!'):format(identifier))
+		print(('esx_ambulancejob: %s attempted to parse something else than a boolean to setDeathStatus!'):format(xPlayer.identifier))
 		return
 	end
 
 	MySQL.Sync.execute('UPDATE users SET is_dead = @isDead WHERE identifier = @identifier', {
-		['@identifier'] = identifier,
+		['@identifier'] = xPlayer.identifier,
 		['@isDead'] = isDead
 	})
 end)

@@ -10,24 +10,8 @@ local onlinePlayers = 0
 local inConnection = {}
 local allowConnecting = false
 
-MySQL.ready(function()
-	loadWhiteList()
-end)
-
-function loadWhiteList()
-	MySQL.Async.fetchAll('SELECT * FROM whitelist', {}, function(result)
-		WhiteList = {}
-
-		for i=1, #result, 1 do
-			table.insert(WhiteList, {
-				identifier = result[i].identifier,
-				last_connection = result[i].last_connection,
-				ban_reason = result[i].ban_reason,
-				ban_until = result[i].ban_until,
-				vip = result[i].vip == 1
-			})
-		end
-	end)
+function startsWith(str, substr)
+	return string.sub(str, 1, string.len(substr)) == substr
 end
 
 AddEventHandler('playerDropped', function(reason)
@@ -75,6 +59,88 @@ AddEventHandler('playerDropped', function(reason)
 
 	end
 
+function loadWhiteList()
+	MySQL.Async.fetchAll('SELECT * FROM whitelist', {}, function(result)
+		WhiteList = {}
+
+		for i=1, #result, 1 do
+			table.insert(WhiteList, {
+				identifier = result[i].identifier,
+				last_connection = result[i].last_connection,
+				ban_reason = result[i].ban_reason,
+				ban_until = result[i].ban_until,
+				vip = result[i].vip == 1
+			})
+		end
+	end)
+end
+
+AddEventHandler('playerDropped', function(reason)
+	local _source = source
+
+	if(reason ~= "Disconnected.") then
+
+		local playerName = GetPlayerName(_source)
+		local steamID = GetPlayerIdentifiers(_source)[1]
+
+		local isInPriorityList = false
+
+		for i = 1, #PriorityList, 1 do
+			if PriorityList[i] == steamID then
+				isInPriorityList = true
+				ESX.Trace("WHITELIST: " .. _U("log_already_in_priority_queue", playerName, steamID))
+				break
+			end
+			ESX.Trace("WHITELIST: " .. _U("log_stopped_anti_spam", playerName))
+
+		end
+		deferrals.done() -- connect
+	end
+end)
+
+RegisterServerEvent("esx_whitelistExtended:removePlayerToInConnect")
+AddEventHandler("esx_whitelistExtended:removePlayerToInConnect", function()
+--	local _source = source
+	if source ~= nil then
+		inConnection[source] = nil
+--		table.remove(inConnection, source)
+	end
+end)
+
+function checkOnlinePlayers()
+	SetTimeout(10000, function()
+		local xPlayers = ESX.GetPlayers()
+
+		onlinePlayers = #xPlayers + #inConnection
+
+		if not isInPriorityList then
+			table.insert(PriorityList, steamID)
+			ESX.Trace("WHITELIST: " .. _U("log_added_to_priority_queue", playerName, steamID))
+		end
+
+		local timeToWait = 30
+		currentPriorityTime = currentPriorityTime + timeToWait
+
+		for i=0,timeToWait, 1 do
+			Wait(1000)
+			currentPriorityTime = currentPriorityTime -1
+
+			ESX.Trace(currentPriorityTime)
+
+			ESX.Trace(#PriorityList)
+
+			if(i >= timeToWait) then
+				for i = 1, #PriorityList, 1 do
+					if PriorityList[i] == steamID then
+						table.remove(PriorityList, i)
+						ESX.Trace("WHITELIST: " .. _U("log_removed_from_priority_queue", playerName, steamID))
+					end
+				end
+			end
+		end
+
+	end
+
 	if(inConnection[_source] ~= nil) then
 		table.remove(inConnection, _source)
 	end
@@ -83,7 +149,16 @@ end)
 
 AddEventHandler("playerConnecting", function(playerName, reason, deferrals)
 	local _source = source
-	local steamID = GetPlayerIdentifiers(_source)[1] or false
+	local identifiers = GetPlayerIdentifiers(_source)
+	local steamID = identifiers[1] or false
+	if steamID ~= nil and not startsWith(steamID, "steam:") then
+		for i=1, #identifiers do
+			if startsWith(identifiers[i], "discord:") then
+				steamID = identifiers[i] -- FIXME: dirty hack
+			end
+		end
+	end
+
 	local found = false
 
 	ESX.Trace("WHITELIST: " .. _U("log_trying_to_connect", playerName, steamID))

@@ -223,12 +223,7 @@ ESX.RegisterServerCallback('esx_vehicleshop:buyVehicle', function (source, cb, v
 		end
 	end
 
-	if xPlayer.getMoney() >= vehicleData.price then
-		xPlayer.removeMoney(vehicleData.price)
-		cb(true)
-	else
-		cb(false)
-	end
+	TriggerEvent('esx_atm:pay', source, "vehicleshop", vehicleData.price, cb)
 end)
 
 ESX.RegisterServerCallback('esx_vehicleshop:buyVehicleSociety', function (source, cb, society, vehicleModel)

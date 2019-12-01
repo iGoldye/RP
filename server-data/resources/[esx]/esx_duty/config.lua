@@ -36,4 +36,28 @@ Config.Zones = {
     Type = 27,
     Job  = "ambulance",
   },
+
+  TaxiDuty = {
+    Pos = { x = 896.46, y = -187.4, z = 72.79 },
+    Size = { x = 1.2, y = 1.2, z = 1.5 },
+    Color = { r = 0, g = 255, b = 0 },
+    Type = 27,
+    Job  = "taxi",
+  },
+
+  MechanicDuty = {
+    Pos = { x = -352.07, y = -110.13, z = 37.7 },
+    Size = { x = 1.2, y = 1.2, z = 1.5 },
+    Color = { r = 0, g = 255, b = 0 },
+    Type = 27,
+    Job  = "mechanic",
+  },
+
+  MechanicBennysDuty = {
+    Pos = { x = -211.33, y = -1308.79, z = 30.31 },
+    Size = { x = 1.2, y = 1.2, z = 1.5 },
+    Color = { r = 0, g = 255, b = 0 },
+    Type = 27,
+    Job  = "mechanic-bennys",
+  },
 }

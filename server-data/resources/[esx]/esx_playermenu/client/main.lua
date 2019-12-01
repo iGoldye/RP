@@ -18,6 +18,10 @@ Citizen.CreateThread(function()
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
+
+	ESX.TriggerServerCallback('admin_commands:isAdmin', function(res)
+		isAdmin = res
+	end)
 end)
 
 function Teleport(x, y)
@@ -62,9 +66,35 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('dpemotes:emote')
+AddEventHandler('dpemotes:emote', function(name)
+	if DP.Emotes[name] ~= nil then
+		if OnEmotePlay(DP.Emotes[name]) then end return
+	elseif DP.Dances[name] ~= nil then
+		if OnEmotePlay(DP.Dances[name]) then end return
+	elseif DP.PropEmotes[name] ~= nil then
+		if OnEmotePlay(DP.PropEmotes[name]) then end return
+	end
+end)
+
 RegisterNetEvent('esx_playermenu:setAdmin')
 AddEventHandler('esx_playermenu:setAdmin', function(val)
 	isAdmin = val
+end)
+
+RegisterNetEvent('esx_playermenu:bringPlayer')
+AddEventHandler('esx_playermenu:bringPlayer', function(pos)
+	local interior = GetInteriorAtCoords(pos.x, pos.y, pos.z)
+	if interior > 0 then
+		LoadInterior(interior)
+
+		while not IsInteriorReady(interior) do
+			Citizen.Wait(100)
+		end
+	end
+
+	ESX.Game.Teleport(PlayerPedId(), pos, function()
+	end)
 end)
 
 function OpenTextInput(title, defaultText, maxInputLength)
@@ -230,6 +260,8 @@ function OpenAdminMenuPlayer(player)
 			table.insert(elements, {label = "Телефон: "..tostring(player.phone_number), value = "phone"})
 		end
 
+		table.insert(elements, {label = "Призвать", value = "bring"})
+
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
 			title    = "Администрирование: "..player.name,
 			align    = 'top-right',
@@ -243,6 +275,8 @@ function OpenAdminMenuPlayer(player)
 				OpenAdminMenuPlayerMoney(player, "bank")
 			elseif cmd == "black_money" then
 				OpenAdminMenuPlayerMoney(player, "black")
+			elseif cmd == "bring" then
+				TriggerServerEvent("esx_playermenu:bringPlayer", player.id, GetEntityCoords(PlayerPedId()))
 			end
 
 		end, function(data, menu)
@@ -549,6 +583,11 @@ function OpenInteractionMenu()
 
 	table.insert(elements, {label = ('Взять на руки'), value = 'liftup'})
 	table.insert(elements, {label = ('Закинуть на плечо'), value = 'carry'})
+	table.insert(elements, {label = ('Взять в заложники'), value = 'hostage'})
+	table.insert(elements, {label = ('Поздороваться с бротишкой'), value = 'bro'})
+	table.insert(elements, {label = ('Обнять'), value = 'hug'})
+	table.insert(elements, {label = ('Геттовское приветствие'), value = 'handshake'})
+
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'clothes_menu', {
 		title    = "Взаимодействие",
@@ -557,9 +596,17 @@ function OpenInteractionMenu()
 	}, function(data, menu)
 		local cmd = data.current.value
 		if cmd == 'liftup' then
-			TriggerEvent('esx_barbie_lyftupp:liftUp')
+			TriggerEvent('CarryPeople:carry', 'forward')
 		elseif cmd == 'carry' then
-			TriggerEvent('CarryPeople:carry')
+			TriggerEvent('CarryPeople:carry', 'shoulder')
+		elseif cmd == 'hostage' then
+			TriggerEvent('hostage:takeHostage')
+		elseif cmd == 'bro' then
+			TriggerEvent('dpemotes:shared_emote', 'bro')
+		elseif cmd == 'hug' then
+			TriggerEvent('dpemotes:shared_emote', 'hug2')
+		elseif cmd == 'handshake' then
+			TriggerEvent('dpemotes:shared_emote', 'handshake2')
 	        end
 
 		menu.close()
@@ -580,6 +627,7 @@ function OpenMenu()
 		{label = "Питомцы", value = 'pets'},
 		{label = "Сумка", value = 'bag'},
 		{label = "Документация", value = 'documents'},
+		{label = "Создание предметов", value = 'crafting'},
 	}
 
 	local PlayerData = ESX.GetPlayerData()
@@ -673,6 +721,8 @@ function OpenMenu()
 			OpenPersonalMenu()
 		elseif cmd == 'documents' then
 			TriggerEvent('esx_documents:openMainMenu')
+		elseif cmd == 'crafting' then
+			TriggerServerEvent('crafting:getPlayerInventory')
 		end
 
 	end, function(data, menu)

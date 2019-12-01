@@ -7,6 +7,7 @@ resource_manifest_version '44febabe-d386-4d18-afbe-5e627f4af937'
 description 'EssentialMode by Kanersps.'
 
 server_scripts {
+	'@mysql-async/lib/MySQL.lua',
 	'server/sqlite/SQLite.net.dll',
 	'server/sqlite/sqlite.js',
 	'config.lua',
@@ -28,6 +29,7 @@ exports {
 }
 
 server_exports {
+	'getPlayerUid',
 	'getPlayerFromId',
 	'addAdminCommand',
 	'addCommand',

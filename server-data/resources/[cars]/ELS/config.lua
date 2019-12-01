@@ -1,13 +1,12 @@
 outputLoading = false
 playButtonPressSounds = true
-printDebugInformation = false
+printDebugInformation = true
 
 vehicleSyncDistance = 150
 envirementLightBrightness = 0.006
-lightDelay = 10 -- Time in MS
-flashDelay = 15
+lightDelay = 20 -- Time in MS
 
-panelEnabled = true
+
 panelType = "original"
 panelOffsetX = 0.0
 panelOffsetY = 0.0
@@ -35,7 +34,7 @@ keyboard = {
 	},
 	warning = 246, -- Y
 	secondary = 303, -- U
-	primary = 7, -- ?? 
+	primary = 7, -- ??
 }
 
 controller = {

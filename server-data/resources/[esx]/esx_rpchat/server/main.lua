@@ -1,3 +1,6 @@
+ESX = nil
+
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 function getDisplayName(source)
 	local name = GetPlayerName(source)
@@ -79,17 +82,15 @@ RegisterCommand('do', function(source, args, rawCommand)
 end, false)
 
 function GetCharacterName(source)
-	local result = MySQL.Sync.fetchAll('SELECT firstname, lastname FROM users WHERE identifier = @identifier', {
-		['@identifier'] = GetPlayerIdentifiers(source)[1]
-	})
-
-	if result[1] and result[1].firstname and result[1].lastname then
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local identity = xPlayer.getSessionVar("identity")
+        if identity ~= nil then
 		if Config.OnlyFirstname then
 			return result[1].firstname
 		else
-			return ('%s %s'):format(result[1].firstname, result[1].lastname)
+			return ('%s %s'):format(identity.firstname, identity.lastname)
 		end
 	else
 		return GetPlayerName(source)
-	end
+        end
 end

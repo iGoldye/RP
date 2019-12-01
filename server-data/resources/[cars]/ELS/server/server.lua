@@ -9,9 +9,10 @@ Citizen.CreateThread( function()
 	PerformHttpRequest("https://raw.githubusercontent.com/MrDaGree/"..updatePath.."/master/version.json", function(err, response, headers)
 		local data = json.decode(response)
 
+
 		if curVersion ~= data.version and tonumber(curVersion) < tonumber(data.version) then
-			print("--------------------------------------------------------------------------")
-			print(resourceName.." is outdated.\nCurrent Version: "..data.version.."\nYour Version: "..curVersion.."\nPlease update it from https://github.com/MrDaGree"..updatePath.."")
+			print("\n--------------------------------------------------------------------------")
+			print("\n"..resourceName.." is outdated.\nCurrent Version: "..data.version.."\nYour Version: "..curVersion.."\nPlease update it from https://github.com/MrDaGree"..updatePath.."")
 			print("\nUpdate Changelog:\n"..data.changelog)
 			print("\n--------------------------------------------------------------------------")
 		elseif tonumber(curVersion) > tonumber(data.version) then
@@ -27,26 +28,11 @@ RegisterCommand('_curver', function(source)
 		local data = json.decode(response)
 
 		if curVersion ~= data.version and tonumber(curVersion) < tonumber(data.version) then
-			local message = "You are currently running an outdated version of [ " .. GetCurrentResourceName() .. " ]. Your version [ " .. curVersion .. " ]. Newest version: [ " .. data.version .. " ]."
-			if source > 0 then
-				TriggerClientEvent('chat:addMessage', source, { args = { "ELS-FiveM", message }, color = {13, 161, 200}})
-			else
-				print("ELS-FiveM: You are currently running an outdated version of [ " .. GetCurrentResourceName() .. " ]. Your version [ " .. curVersion .. " ]. Newest version: [ " .. data.version .. " ].")
-			end
-		elseif tonumber(curVersion.version) > tonumber(data.version) then
-			local message = "Um, what? Your version of ELS-FiveM is higher than the current version. What?"
-			if source > 0 then
-				TriggerClientEvent('chat:addMessage', source, { args = { "ELS-FiveM", message }, color = {13, 161, 200}})
-			else
-				print("ELS-FiveM: " .. message)
-			end
+			TriggerClientEvent('chat:addMessage', source, { args = { "ELS-FiveM", "You are currently an outdated version of [ " .. GetCurrentResourceName() .. " ]. Your version: [ " .. curVersion .. " ]. Newest version: [ " .. data.version .. " ]."}, color = {13, 161, 200}})
+		elseif tonumber(curVersion) > tonumber(data.version) then
+			TriggerClientEvent('chat:addMessage', source, { args = { "ELS-FiveM", "Um, what? Your version of ELS-FiveM is higher than the current version. What?"}, color = {13, 161, 200}})
 		else
-			local message = "Your version of [ " .. GetCurrentResourceName() .. " ] is up to date! Current version: [ " .. curVersion .. " ]."
-			if source > 0 then
-				TriggerClientEvent('chat:addMessage', source, { args = { "ELS-FiveM", message }, color = {13, 161, 200}})
-			else
-				print("ELS-FiveM: " .. message)
-			end
+			TriggerClientEvent('chat:addMessage', source, { args = { "ELS-FiveM", "Your version of [ " .. GetCurrentResourceName() .. " ] is up to date! Current version: [ " .. curVersion .. " ]."}, color = {13, 161, 200}})
 		end
 	end, "GET", "", {version = 'this'})
 end)
@@ -102,11 +88,6 @@ function parseVehData(xml, fileName)
 				if(xml.root.el[i].kids[ex].name== "InfoPanelHeaderColor") then
 					local elem = xml.root.el[i].kids[ex]
 					a.interface.headerColor = {}
-
-					a.interface.headerColor['r'] = 40
-					a.interface.headerColor['g'] = 40
-					a.interface.headerColor['b'] = 40
-
 					if elem.kids[1].value == string.lower("grey") then
 						a.interface.headerColor['r'] = 40
 						a.interface.headerColor['g'] = 40
@@ -126,11 +107,6 @@ function parseVehData(xml, fileName)
 				if(xml.root.el[i].kids[ex].name== "InfoPanelButtonLightColor") then
 					local elem = xml.root.el[i].kids[ex]
 					a.interface.buttonColor = {}
-
-					a.interface.buttonColor['r'] = 255
-					a.interface.buttonColor['g'] = 0
-					a.interface.buttonColor['b'] = 0
-
 					if elem.kids[1].value == string.lower("green") then
 						a.interface.buttonColor['r'] = 0
 						a.interface.buttonColor['g'] = 255
@@ -176,7 +152,7 @@ function parseVehData(xml, fileName)
 	    			else
 	    				a.extras[extra].enabled = false
 					end
-					
+
 					a.extras[extra].env_light = false
 					a.extras[extra].env_pos = {}
 					a.extras[extra].env_pos['x'] = 0
@@ -403,7 +379,7 @@ function parseVehData(xml, fileName)
 				end
 			end
     	end
-    	
+
     end
 
     vehicleInfoTable[fileName] = a

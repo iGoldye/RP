@@ -124,6 +124,8 @@ function StartAnimData(tp, data)
 			startFacial(anim)
 		elseif type == 'event' then
 			TriggerEvent(anim, data)
+		elseif type == 'dpemotes' then
+			TriggerEvent("dpemotes:emote", anim)
 		end
 end
 

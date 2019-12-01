@@ -43,20 +43,20 @@ ESX.RegisterServerCallback('eden_animal:buyPet', function(source, cb, pet)
 		cb(false)
 	end
 
-	if xPlayer.getMoney() >= price then
-		xPlayer.removeMoney(price)
-
-		MySQL.Async.execute('UPDATE users SET pet = @pet WHERE identifier = @identifier', {
-			['@identifier'] = xPlayer.identifier,
-			['@pet'] = pet
-		}, function(rowsChanged)
-			TriggerClientEvent('esx:showNotification', xPlayer.source, _U('you_bought', _U(pet), ESX.Math.GroupDigits(price)))
-			cb(true)
-		end)
-	else
-		TriggerClientEvent('esx:showNotification', source, _U('your_poor'))
-		cb(false)
-	end
+	TriggerEvent('esx_atm:pay', source, "eden_animal", price, function(res)
+		if res == true then
+			MySQL.Async.execute('UPDATE users SET pet = @pet WHERE identifier = @identifier', {
+				['@identifier'] = xPlayer.identifier,
+				['@pet'] = pet
+			}, function(rowsChanged)
+				TriggerClientEvent('esx:showNotification', xPlayer.source, _U('you_bought', _U(pet), ESX.Math.GroupDigits(price)))
+				cb(true)
+			end)
+		else
+			TriggerClientEvent('esx:showNotification', source, _U('your_poor'))
+			cb(false)
+		end
+	end)
 end)
 
 function GetPriceFromPet(pet)

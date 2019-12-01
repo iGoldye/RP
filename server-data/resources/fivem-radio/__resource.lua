@@ -3,7 +3,7 @@ resource_manifest_version "44febabe-d386-4d18-afbe-5e627f4af937"
 ui_page "index.html"
 
 -- Example custom radios
-supersede_radio "RADIO_05_TALK_01" { url = "http://uk1.internet-radio.com:8294/live", volume = 0.2, name = 'Bloods' }
+supersede_radio "RADIO_01_CLASS_ROCK1" { url = "http://uk1.internet-radio.com:8294/live", volume = 0.2, name = 'Bloods' }
 supersede_radio "RADIO_09_HIPHOP_OLD" { url = "http://edge3.peta.live365.net/b77280_128mp3", volume = 0.2, name = 'Aardvark Blues FM' }
 supersede_radio "RADIO_13_JAZZ" { url = "http://airspectrum.cdnstream1.com:8078/1614_192", volume = 0.2, name = 'Smooth Jazz New York City' }
 supersede_radio "RADIO_02_POP" { url = "http://gr01.cdnstream.com:8290/", volume = 0.2, name = 'Pop 100Hitz' }

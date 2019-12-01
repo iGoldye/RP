@@ -9,7 +9,7 @@
       <txdName>teslax</txdName>
       <handlingId>teslax</handlingId>
       <gameName>teslax</gameName>
-      <vehicleMakeName>KARIN</vehicleMakeName>
+      <vehicleMakeName>null</vehicleMakeName>
       <expressionDictName>null</expressionDictName>
       <expressionName>null</expressionName>
       <animConvRoofDictName>null</animConvRoofDictName>
@@ -47,7 +47,7 @@
 			<Offset x="0.136000" y="0.186000" z="0.455000" />
 			<SeatIndex value="3" />
 		</Item>
-	  </FirstPersonMobilePhoneSeatIKOffset> 
+	  </FirstPersonMobilePhoneSeatIKOffset>
       <PovCameraOffset x="0.000000" y="-0.100000" z="0.670000" />
       <PovCameraVerticalAdjustmentForRollCage value="0.000000" />
       <PovPassengerCameraOffset x="0.000000" y="0.000000" z="0.000000" />
@@ -75,10 +75,10 @@
       <HDTextureDist value="5.000000" />
       <lodDistances content="float_array">
         15.000000
-        30.000000	
-        70.000000	
-        140.000000	
-        500.000000	
+        30.000000
+        70.000000
+        140.000000
+        500.000000
         500.000000
       </lodDistances>
       <minSeatHeight value="0.871" />

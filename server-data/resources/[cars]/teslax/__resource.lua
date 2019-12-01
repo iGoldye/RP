@@ -20,5 +20,5 @@ data_file 'VEHICLE_LAYOUTS_FILE''data/vehiclelayouts.meta'
 --data_file 'CONTENT_UNLOCKING_META_FILE' 'data/contentunlocks.meta'
 
 client_script {
---    'data/vehicle_names.lua' 
+    'data/vehicle_names.lua'
 }

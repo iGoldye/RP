@@ -49,15 +49,13 @@ function OpenShopMenu()
 				menu.close()
 
 				if data.current.value == 'yes' then
-
-					ESX.TriggerServerCallback('esx_barbershop:checkMoney', function(hasEnoughMoney)
+					ESX.TriggerServerCallback('esx_barbershop:pay', function(hasEnoughMoney)
 						if hasEnoughMoney then
 							TriggerEvent('skinchanger:getSkin', function(skin)
 								TriggerServerEvent('esx_skin:save', skin)
 							end)
 
-							TriggerServerEvent('esx_barbershop:pay')
-
+							ESX.ShowNotification(_U('you_paid', ESX.Math.GroupDigits(Config.Price)))
 							HasPaid = true
 						else
 							ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)

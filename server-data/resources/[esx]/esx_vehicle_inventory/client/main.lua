@@ -25,6 +25,17 @@ Citizen.CreateThread(function()
   end
 end)
 
+function CloseLastTrunk()
+	if lastOpen then
+		lastOpen = false
+		ESX.UI.Menu.CloseAll()
+		if lastVehicle and DoesEntityExist(lastVehicle) then
+			SetVehicleDoorShut(lastVehicle, 5, false)
+			lastVehicle = 0
+		end
+	end
+end
+
 function getItemWeight(item)
     local weight = 0
 
@@ -100,6 +111,7 @@ Citizen.CreateThread(function()
     Wait(0)
 
     if IsControlJustPressed(0, Keys["L"]) then
+        CloseLastTrunk()
         local closecar, vehPos = VehicleInFront()
 	    local playerPos = GetEntityCoords(GetPlayerPed(-1),true)
             local dist = 1000.0
@@ -107,7 +119,7 @@ Citizen.CreateThread(function()
 		dist = #(playerPos-vehPos)
 	    end
 
-      if closecar > 0 and dist < 1.5 and GetPedInVehicleSeat(closecar, -1) ~= GetPlayerPed(-1) then
+      if closecar > 0 and dist < 2.0 and GetPedInVehicleSeat(closecar, -1) ~= GetPlayerPed(-1) then
             lastVehicle = closecar
             local model = GetDisplayNameFromVehicleModel(GetEntityModel(closecar))
             local locked = GetVehicleDoorLockStatus(closecar)
@@ -129,12 +141,13 @@ Citizen.CreateThread(function()
         	ESX.ShowNotification('Нет ~r~автомобиля~w~ поблизости')
       end
       lastOpen = true
-    elseif lastOpen and IsControlJustPressed(0, Keys["BACKSPACE"]) then
-      lastOpen = false
-      ESX.UI.Menu.CloseAll()
-      if lastVehicle and lastVehicle > 0 then
-      	SetVehicleDoorShut(lastVehicle, 5, false)
-      	lastVehicle = 0
+    elseif lastOpen then
+      if IsControlJustPressed(0, Keys["BACKSPACE"]) then
+          CloseLastTrunk()
+      elseif DoesEntityExist(lastVehicle) then
+	if #(GetEntityCoords(lastVehicle, true)-GetEntityCoords(GetPlayerPed(-1), true)) > 3.0 then
+		CloseLastTrunk()
+	end
       end
     end
   end

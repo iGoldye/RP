@@ -84,13 +84,13 @@ function OpenShopMenu(accessory)
 		}, function(data, menu)
 			menu.close()
 			if data.current.value == 'yes' then
-				ESX.TriggerServerCallback('esx_accessories:checkMoney', function(hasEnoughMoney)
+				ESX.TriggerServerCallback('esx_accessories:pay', function(hasEnoughMoney)
 					if hasEnoughMoney then
-						TriggerServerEvent('esx_accessories:pay')
 						TriggerEvent('skinchanger:getSkin', function(skin)
 							TriggerServerEvent('esx_accessories:save', skin, accessory)
 --							TriggerServerEvent('esx_skin:save', skin)
 						end)
+						ESX.ShowNotification(_U('you_paid', ESX.Math.GroupDigits(Config.Price)))
 					else
 						TriggerEvent('esx_skin:getLastSkin', function(skin)
 							TriggerEvent('skinchanger:loadSkin', skin)

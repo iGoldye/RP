@@ -117,6 +117,12 @@ AddEventHandler('esx_illegal_drugs:hasEnteredMarker', function(zone)
 		CurrentActionData = {}
 	end
 
+	-- if zone == 'ScrapField' then
+	-- 	CurrentAction     = zone
+	-- 	CurrentActionMsg  = _U('press_scrap')
+	-- 	CurrentActionData = {}
+	-- end
+
 	if zone == 'OpiumProcessing' then
 		if opiumQTE >= 5 then
 			CurrentAction     = zone
@@ -151,6 +157,7 @@ AddEventHandler('esx_illegal_drugs:hasExitedMarker', function(zone)
 	TriggerServerEvent('esx_illegal_drugs:stopHarvestOpium')
 	TriggerServerEvent('esx_illegal_drugs:stopTransformOpium')
 	TriggerServerEvent('esx_illegal_drugs:stopSellOpium')
+	-- TriggerServerEvent('esx_illegal_drugs:stopHarvestScrap')
 end)
 
 
@@ -275,8 +282,13 @@ Citizen.CreateThread(function()
         local coords = GetEntityCoords(GetPlayerPed(-1))
 
         for k,v in pairs(Config.Zones) do
-            if(GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < Config.DrawDistance) then
-                DrawMarker(Config.MarkerType, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ZoneSize.x, Config.ZoneSize.y, Config.ZoneSize.z, Config.MarkerColor.r, Config.MarkerColor.g, Config.MarkerColor.b, 100, false, true, 2, false, false, false, false)
+            if GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < Config.DrawDistance then
+		local color = Config.MarkerColor
+		if v.MarkerColor ~= nil then
+			color = v.MarkerColor
+		end
+
+                DrawMarker(Config.MarkerType, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.ZoneSize.x, Config.ZoneSize.y, Config.ZoneSize.z, color.r, color.g, color.b, 70, false, true, 2, false, false, false, false)
             end
         end
 
@@ -311,7 +323,7 @@ AddEventHandler('esx_illegal_drugs:ReturnInventory', function(cokeNbr, cokepNbr,
 	weedQTE 	  = weedNbr
 	weed_poochQTE = weedpNbr
 	opiumQTE	   = opiumNbr
-	opium_poochQTE = opiumpNbr
+	opium_poochQTE = opiumNbr
 	myJob		 = jobName
 	TriggerEvent('esx_illegal_drugs:hasEnteredMarker', currentZone)
 end)
@@ -398,6 +410,9 @@ Citizen.CreateThread(function()
 				elseif CurrentAction == 'OpiumField' then
 					TriggerServerEvent('esx_illegal_drugs:startHarvestOpium')
 					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
+				-- elseif CurrentAction == 'ScrapField' then
+				-- 	TriggerServerEvent('esx_illegal_drugs:startHarvestScrap')
+				-- 	TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
 				elseif CurrentAction == 'OpiumProcessing' then
 					TriggerServerEvent('esx_illegal_drugs:startTransformOpium')
 					TriggerServerEvent('stadus_skills:addDrugs', GetPlayerServerId(PlayerId()), (math.random() + 0))
@@ -434,7 +449,9 @@ Citizen.CreateThread(function()
 	            TriggerServerEvent('esx_illegal_drugs:stopSellMeth')
 	            TriggerServerEvent('esx_illegal_drugs:stopHarvestOpium')
 	            TriggerServerEvent('esx_illegal_drugs:stopTransformOpium')
-	            TriggerServerEvent('esx_illegal_drugs:stopSellOpium')
+							TriggerServerEvent('esx_illegal_drugs:stopSellOpium')
+							-- TriggerServerEvent('esx_illegal_drugs:stopHarvestScrap')
+
 		end
 	end
 end)

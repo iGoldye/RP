@@ -41,6 +41,8 @@ function LoadInventories() {
 	for (var i in xPlayers) {
 		var xPlayer = ESX.GetPlayerFromId(xPlayers[i]);
 		LoadInventory("pocket", xPlayer.identifier);
+		var inv = getInventory("pocket", xPlayer.identifier);
+		inv.onChange();
 	}
 }
 
@@ -48,6 +50,8 @@ AddEventHandler('esx:playerLoaded', function(playerId, xPlayer) {
 	var owner = xPlayer.identifier;
 	var name = "pocket";
 	LoadInventory("pocket", xPlayer.identifier)
+	var inv = getInventory("pocket", xPlayer.identifier);
+	inv.onChange();
 });
 
 AddEventHandler('playerDropped', function() {
@@ -176,4 +180,6 @@ registerItem("black_money", Item_BlackMoney);
 registerItem("esx_item", Item_ESX);
 registerItem("weapon", Item_Weapon);
 registerItem("carkey", Item_CarKey);
+registerItem("housekey", Item_HouseKey);
+registerItem("doorkey", Item_DoorKey);
 registerItem("equipped_weapon", Item_EquippedWeapon);

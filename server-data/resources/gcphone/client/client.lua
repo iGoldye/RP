@@ -1,20 +1,17 @@
 ESX = nil
-local inventoryHasPhone = false
 
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
 	end
-end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(playerData)
-	Citizen.Wait(1000)
+	while not ESX.IsPlayerLoaded() do
+		Citizen.Wait(0)
+	end
 
-	ESX.TriggerServerCallback('esx_inventory:getInventory', function(inventory)
-		inventoryHasPhone = inventoryCheckPhone(inventory)
-	end, "pocket", false)
+	ESX.PlayerData = ESX.GetPlayerData()
+	TriggerServerEvent('gcPhone:allUpdate')
 end)
 
 --====================================================================================
@@ -61,12 +58,11 @@ end
 
 RegisterNetEvent('esx_inventory:onInventoryUpdate')
 AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
-	if inventory.name == "pocket" then
-		inventoryHasPhone = inventoryCheckPhone(inventory)
-		if menuIsOpen and not inventoryHasPhone then
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
+		if menuIsOpen and #items == 0 then
 			TooglePhone()
 		end
-	end
+	end)
 end)
 
 RegisterNetEvent('gcPhone:isOpen')
@@ -79,7 +75,9 @@ end)
 --  Callback true or false
 --====================================================================================
 function hasPhone (cb)
-  cb(inventoryHasPhone)
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
+		cb(#items > 0)
+	end)
 end
 --====================================================================================
 --  Que faire si le joueurs veut ouvrir sont téléphone n'est qu'il en a pas ?
@@ -300,6 +298,12 @@ end)
 --====================================================================================
 --  Events
 --====================================================================================
+
+RegisterNetEvent("gcPhone:updatePhotoInfo")
+AddEventHandler("gcPhone:updatePhotoInfo", function(url, field)
+  SendNUIMessage({event = 'updatePhotoInfo', url = url, field = field})
+end)
+
 RegisterNetEvent("gcPhone:myPhoneNumber")
 AddEventHandler("gcPhone:myPhoneNumber", function(_myPhoneNumber)
   myPhoneNumber = _myPhoneNumber
@@ -813,17 +817,9 @@ RegisterNUICallback('appelsDeleteAllHistorique', function (data, cb)
   cb()
 end)
 
-
 ----------------------------------
 ---------- GESTION VIA WEBRTC ----
 ----------------------------------
-AddEventHandler('onClientResourceStart', function(res)
-  DoScreenFadeIn(300)
-  if res == "gcphone" then
-      TriggerServerEvent('gcPhone:allUpdate')
-  end
-end)
-
 
 RegisterNUICallback('setIgnoreFocus', function (data, cb)
   ignoreFocus = data.ignoreFocus
@@ -831,20 +827,23 @@ RegisterNUICallback('setIgnoreFocus', function (data, cb)
 end)
 
 RegisterNUICallback('takePhoto', function(data, cb)
-	CreateMobilePhone(1)
+  CreateMobilePhone(1)
   CellCamActivate(true, true)
   takePhoto = true
+
   Citizen.Wait(0)
+
   if hasFocus == true then
     SetNuiFocus(false, false)
     hasFocus = false
   end
-	while takePhoto do
+
+  while takePhoto do
     Citizen.Wait(0)
 
-		if IsControlJustPressed(1, 27) then -- Toogle Mode
-			frontCam = not frontCam
-			CellFrontCamActivate(frontCam)
+    if IsControlJustPressed(1, 27) then -- Toogle Mode
+      frontCam = not frontCam
+      CellFrontCamActivate(frontCam)
     elseif IsControlJustPressed(1, 177) then -- CANCEL
       DestroyMobilePhone()
       CellCamActivate(false, false)
@@ -852,19 +851,19 @@ RegisterNUICallback('takePhoto', function(data, cb)
       takePhoto = false
       break
     elseif IsControlJustPressed(1, 176) then -- TAKE.. PIC
-			exports['screenshot-basic']:requestScreenshotUpload(data.url, data.field, function(data)
+      exports['screenshot-basic']:requestScreenshotUpload(data.url, data.field, function(data)
         local resp = json.decode(data)
         DestroyMobilePhone()
         CellCamActivate(false, false)
         cb(json.encode({ url = resp.files[1].url }))
       end)
       takePhoto = false
-		end
-		HideHudComponentThisFrame(7)
-		HideHudComponentThisFrame(8)
-		HideHudComponentThisFrame(9)
-		HideHudComponentThisFrame(6)
-		HideHudComponentThisFrame(19)
+    end
+    HideHudComponentThisFrame(7)
+    HideHudComponentThisFrame(8)
+    HideHudComponentThisFrame(9)
+    HideHudComponentThisFrame(6)
+    HideHudComponentThisFrame(19)
     HideHudAndRadarThisFrame()
   end
   Citizen.Wait(1000)

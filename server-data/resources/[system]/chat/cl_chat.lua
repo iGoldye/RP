@@ -1,3 +1,17 @@
+ESX = nil
+isAdmin = false
+
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+
+	ESX.TriggerServerCallback('admin_commands:isAdmin', function(res)
+		isAdmin = res
+  end)
+end)
+
 local chatInputActive = false
 local chatInputActivating = false
 local chatHidden = true
@@ -30,6 +44,13 @@ AddEventHandler('chatMessage', function(author, color, text)
       args = args
     }
   })
+end)
+
+RegisterNetEvent('adminMessage')
+AddEventHandler('adminMessage', function(author, color, text)
+  if isAdmin then
+    TriggerEvent('chatMessage', author, color, text)
+  end
 end)
 
 AddEventHandler('__cfx_internal:serverPrint', function(msg)

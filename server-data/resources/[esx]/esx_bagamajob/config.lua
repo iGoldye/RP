@@ -101,6 +101,7 @@ Config.Zones = {
         Color = { r = 238, g = 0, b = 0 },
         Type  = 23,
         Items = {
+            { name = 'glint',      label = _U('glint'),   price = 5 },
             { name = 'jager',      label = _U('jager'),   price = 5 },
             { name = 'vodka',      label = _U('vodka'),   price = 4 },
             { name = 'rhum',       label = _U('rhum'),    price = 6 },

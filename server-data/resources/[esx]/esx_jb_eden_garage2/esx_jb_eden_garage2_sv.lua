@@ -5,13 +5,12 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 --get vehicle list
 ESX.RegisterServerCallback('eden_garage:getVehicles', function(source, cb, KindOfVehicle)
+	local xPlayer = ESX.GetPlayerFromId(source)
 	local vehicules = {}
-	local identifier = ""
+	local identifier = xPlayer.identifier
 
 	if KindOfVehicle ~= "personal" then
 		identifier = KindOfVehicle
-	else
-		identifier = GetPlayerIdentifiers(source)[1]
 	end
 
 	MySQL.Async.fetchAll("SELECT * FROM owned_vehicles WHERE owner = @identifier AND type = 'car' AND job IS NULL", {
@@ -38,12 +37,11 @@ end)
 
 --Stock les véhicules
 ESX.RegisterServerCallback('eden_garage:stockv',function(source,cb, vehicleProps, KindOfVehicle)
-	local identifier = ""
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local identifier = xPlayer.identifier
 	local _source = source
 	if KindOfVehicle ~= "personal" then
 		identifier = KindOfVehicle
-	else
-		identifier = GetPlayerIdentifiers(_source)[1]
 	end
 	local vehplate = vehicleProps.plate
 	local vehiclemodel = vehicleProps.model
@@ -154,14 +152,7 @@ end)
 
 --Foonction qui check l'argent
 ESX.RegisterServerCallback('eden_garage:checkMoney', function(source, cb)
-	local xPlayer = ESX.GetPlayerFromId(source)
-
-	if xPlayer.get('money') >= Config.Price then
-		xPlayer.removeMoney(Config.Price)
-		cb(true)
-	else
-		cb(false)
-	end
+	TriggerEvent('esx_atm:pay', source, "jb_eden_garage2", Config.Price, cb)
 end)
 --Fin Foonction qui check l'argent
 

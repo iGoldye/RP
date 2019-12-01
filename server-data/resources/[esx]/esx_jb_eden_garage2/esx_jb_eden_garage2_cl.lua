@@ -386,15 +386,17 @@ Citizen.CreateThread(function()
 	local canSleep = false
 
 	for k,v in pairs (Config.Garages) do
-		local blip = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
-		SetBlipSprite(blip, Config.Blip.sprite)
-		SetBlipColour(blip, Config.Blip.color)
-		SetBlipScale(blip, 1.0)
-		SetBlipAsShortRange(blip, true)
-		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(v.Name)
-		EndTextCommandSetBlipName(blip)
-	end
+		if v.Name ~= nil then
+				local blip = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
+				SetBlipSprite(blip, Config.Blip.sprite)
+				SetBlipColour(blip, Config.Blip.color)
+				SetBlipScale(blip, 1.0)
+				SetBlipAsShortRange(blip, true)
+				BeginTextCommandSetBlipName("STRING")
+				AddTextComponentString(v.Name)
+				EndTextCommandSetBlipName(blip)
+		end
+end
 --[[
 	for k,v in pairs (Config.GaragesMecano) do
 		local blip = AddBlipForCoord(v.SpawnPoint.Pos.x, v.SpawnPoint.Pos.y, v.SpawnPoint.Pos.z)

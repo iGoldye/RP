@@ -12,7 +12,6 @@ local Keys = {
 
 ESX = nil
 menuActive = false
-sessionid = nil
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -42,42 +41,25 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 142, menuActive) -- MeleeAttackAlternate
 			DisableControlAction(0, 106, menuActive) -- VehicleMouseControlOverride
 		end
-
-		if IsControlJustReleased(0, Keys['G']) and GetEntitySpeed(GetVehiclePedIsIn(GetPlayerPed(-1))) < 1 then
-			if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
-				if vehicleType(GetVehiclePedIsUsing(GetPlayerPed(-1))) then
-          sessionid = sid
-					SetNuiFocus(true, true)
-					menuActive = true
-					SendNUIMessage({['show']=1, ['sessionid']=sid})
-				end
-			end
-		end
 	end
 end)
 
-function show(sid)
-	sessionid = sid
-	SetNuiFocus(true, true)
-	menuActive = true
-	SendNUIMessage({['show']=1, ['sessionid']=sid})
+function show()
+	ESX.TriggerServerCallback('ems_dashboard:sessionid', function(sid)
+		SetNuiFocus(true, true)
+		menuActive = true
+		SendNUIMessage({['show']=1, ['sessionid']=sid})
+	end)
 end
 
 function hide()
 	SetNuiFocus(false, false)
 	menuActive = false
 	SendNUIMessage({hide=1})
-	sessionid = nil
 end
 
-
-RegisterNetEvent('ems_dashboard:sessionid')
-AddEventHandler('ems_dashboard:sessionid', function(sid)
-	sessionid = sid
-end)
-
-AddEventHandler('ems_dashboard:getPlayerData', function()
-	show(sessionid)
+AddEventHandler('ems_dashboard:show', function()
+	show()
 end)
 
 RegisterNUICallback('NUIClose', function()
@@ -92,3 +74,16 @@ function vehicleType(using)
     end
   end
 end
+
+Citizen.CreateThread(function()
+  SetNuiFocus(false, false)
+  while true do
+    Citizen.Wait(0)
+		if IsControlJustReleased(0, Keys['G']) then
+			local vehicle = GetVehiclePedIsUsing(GetPlayerPed(-1))
+			if vehicle > 0 and GetEntitySpeed(vehicle) < 1.0 and vehicleType(vehicle) then
+				show()
+			end
+		end
+  end
+end)

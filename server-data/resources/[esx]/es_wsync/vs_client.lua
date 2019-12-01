@@ -1,4 +1,4 @@
-CurrentWeather = 'EXTRASUNNY'
+CurrentWeather = 'XMAS'
 local lastWeather = ''
 local serverTime = 0
 local clientTime = 0
@@ -43,13 +43,16 @@ function changeWeather(weather)
 	end
 
 	SetOverrideWeather(weather)
+	N_0xc54a08c85ae4d410(3.0)
 
 	if CurrentWeather == 'XMAS' then
 		SetForceVehicleTrails(true)
 		SetForcePedFootstepsTracks(true)
+--		N_0xc54a08c85ae4d410(3.0)
 	else
 		SetForceVehicleTrails(false)
 		SetForcePedFootstepsTracks(false)
+--		N_0xc54a08c85ae4d410(0.0)
 	end
 
 	lastWeather = weather

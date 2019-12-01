@@ -105,21 +105,13 @@ function getIdentifierByPhoneNumber(phone_number)
     return dbcache_idents[phone_number]
 end
 
-
 function getPlayerID(source)
-    local identifiers = GetPlayerIdentifiers(source)
-    local player = getIdentifiant(identifiers)
-    return player
---      local xPlayer = ESX.GetPlayerFromId(source)
---      return xPlayer.identifier
-
+      local xPlayer = ESX.GetPlayerFromId(source)
+      if xPlayer == nil then
+	print(debug.traceback())
+      end
+      return xPlayer.identifier
 end
-function getIdentifiant(id)
-    for _, v in ipairs(id) do
-        return v
-    end
-end
-
 
 function getOrGeneratePhoneNumber (sourcePlayer, identifier, cb)
     local sourcePlayer = sourcePlayer
@@ -680,13 +672,14 @@ end)
 --====================================================================================
 --  OnLoad
 --====================================================================================
-AddEventHandler('es:playerLoaded',function(source)
-    local sourcePlayer = tonumber(source)
-    local identifier = getPlayerID(source)
+AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
+    local sourcePlayer = xPlayer.source
+    local identifier = xPlayer.identifier
     getOrGeneratePhoneNumber(sourcePlayer, identifier, function (myPhoneNumber)
         TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, myPhoneNumber)
         TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
         TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
+	TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
     end)
 end)
 
@@ -701,6 +694,7 @@ AddEventHandler('gcPhone:allUpdate', function()
     TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
     TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
     TriggerClientEvent('gcPhone:getBourse', sourcePlayer, getBourse())
+    TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
     sendHistoriqueCall(sourcePlayer, num)
 end)
 

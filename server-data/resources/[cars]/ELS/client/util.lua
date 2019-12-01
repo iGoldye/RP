@@ -101,14 +101,6 @@ AddEventHandler("els:changeAdvisorPattern_c", function(sender, pat)
 
             local vehNetID = GetVehiclePedIsUsing(ped_s)
 
-            if elsVehs[vehNetID] == nil then
-                elsVehs[vehNetID] = {}
-                elsVehs[vehNetID].stage = 0
-                elsVehs[vehNetID].primPattern = 1
-                elsVehs[vehNetID].secPattern = 1
-                elsVehs[vehNetID].advisorPattern = 1
-            end
-
             if elsVehs[vehNetID] ~= nil then
                 elsVehs[vehNetID].advisorPattern = pat
             else
@@ -128,14 +120,6 @@ AddEventHandler("els:changeSecondaryPattern_c", function(sender, pat)
 
             local vehNetID = GetVehiclePedIsUsing(ped_s)
 
-            if elsVehs[vehNetID] == nil then
-                elsVehs[vehNetID] = {}
-                elsVehs[vehNetID].stage = 0
-                elsVehs[vehNetID].primPattern = 1
-                elsVehs[vehNetID].secPattern = 1
-                elsVehs[vehNetID].advisorPattern = 1
-            end
-
             if elsVehs[vehNetID] ~= nil then
                 elsVehs[vehNetID].secPattern = pat
             else
@@ -154,14 +138,6 @@ AddEventHandler("els:changePrimaryPattern_c", function(sender, pat)
         if IsPedInAnyVehicle(ped_s, false) then
 
             local vehNetID = GetVehiclePedIsUsing(ped_s)
-
-            if elsVehs[vehNetID] == nil then
-                elsVehs[vehNetID] = {}
-                elsVehs[vehNetID].stage = 0
-                elsVehs[vehNetID].primPattern = 1
-                elsVehs[vehNetID].secPattern = 1
-                elsVehs[vehNetID].advisorPattern = 1
-            end
 
             if elsVehs[vehNetID] ~= nil then
                 elsVehs[vehNetID].primPattern = pat
@@ -265,18 +241,18 @@ end
 function setHornState(veh, newstate)
     if DoesEntityExist(veh) and not IsEntityDead(veh) then
         if newstate ~= h_horn_state[veh] then
-                
+
             if h_soundID_veh[veh] ~= nil then
                 StopSound(h_soundID_veh[veh])
                 ReleaseSoundId(h_soundID_veh[veh])
                 h_soundID_veh[veh] = nil
             end
-                        
+
             if newstate == 1 then
                 h_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(h_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.mainHorn.audioString, veh, 0, 0, 0)
-            end             
-                
+            end
+
             h_horn_state[veh] = newstate
         end
     end
@@ -285,35 +261,35 @@ end
 function setSirenState(veh, newstate)
     if DoesEntityExist(veh) and not IsEntityDead(veh) then
         if newstate ~= m_siren_state[veh] then
-                
+
             if m_soundID_veh[veh] ~= nil then
                 StopSound(m_soundID_veh[veh])
                 ReleaseSoundId(m_soundID_veh[veh])
                 m_soundID_veh[veh] = nil
             end
-                        
+
             if newstate == 1 then
 
                 m_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(m_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.srnTone1.audioString, veh, 0, 0, 0)
                 toggleSirenMute(veh, true)
-                
+
             elseif newstate == 2 then
 
-                m_soundID_veh[veh] = GetSoundId() 
+                m_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(m_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.srnTone2.audioString, veh, 0, 0, 0)
                 toggleSirenMute(veh, true)
-                
+
             elseif newstate == 3 then
 
                 m_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(m_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.srnTone3.audioString, veh, 0, 0, 0)
                 toggleSirenMute(veh, true)
-                
+
             else
                 toggleSirenMute(veh, true)
-            end             
-                
+            end
+
             m_siren_state[veh] = newstate
         end
     end
@@ -529,7 +505,7 @@ function changeAdvisorPatternMath(way)
     if playButtonPressSounds then
         PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
     end
-    
+
     local primMax = getNumberOfAdvisorPatterns(GetVehiclePedIsUsing(GetPlayerPed(-1)))
 
     local primMin = 1
@@ -648,37 +624,9 @@ function formatPatternNumber(num)
         return "0" .. tostring(num)
     else
         return tostring(num)
-    end 
+    end
 end
 
 function getVehicleVCFInfo(veh)
     return els_Vehicles[checkCarHash(veh)]
 end
-
-isVehicleELS = false
-canControlELS = false
-Citizen.CreateThread(function()
-    Wait(500)
-    while true do
-        ped = PlayerPedId()
-        if IsPedInAnyVehicle(ped, false) then
-            vehicle = GetVehiclePedIsIn(ped, false)
-            if (els_Vehicles ~= nil) then
-                isVehicleELS = vehInTable(els_Vehicles, checkCarHash(vehicle))
-            end
-            if isVehicleELS  then
-                canControlELS = true
-                if printDebugInformation then print(([[
-                    isVehicleELS = %s 
-                    canControlELS = %s ]]):format(tostring(isVehicleELS), tostring(canControlELS)))
-                end
-            else
-                canControlELS = false
-            end
-        else
-            isVehicleELS = false
-            canControlELS = false
-        end
-        Citizen.Wait(500)
-    end
-end)

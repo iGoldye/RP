@@ -23,22 +23,43 @@ end)
 ESX.RegisterServerCallback('esx_tattooshop:purchaseTattoo', function(source, cb, tattooList, price, tattoo)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	if xPlayer.getMoney() >= price then
-		xPlayer.removeMoney(price)
-		table.insert(tattooList, tattoo)
+	TriggerEvent('esx_atm:pay', source, "tattoo", price, function(res)
+		if res then
+			table.insert(tattooList, tattoo)
 
-		MySQL.Async.execute('UPDATE users SET tattoos = @tattoos WHERE identifier = @identifier', {
-			['@tattoos'] = json.encode(tattooList),
-			['@identifier'] = xPlayer.identifier
-		})
+			MySQL.Async.execute('UPDATE users SET tattoos = @tattoos WHERE identifier = @identifier', {
+				['@tattoos'] = json.encode(tattooList),
+				['@identifier'] = xPlayer.identifier
+			})
 
-		TriggerClientEvent('esx:showNotification', source, _U('bought_tattoo', ESX.Math.GroupDigits(price)))
-		cb(true)
-	else
-		local missingMoney = price - xPlayer.getMoney()
-		TriggerClientEvent('esx:showNotification', source, _U('not_enough_money', ESX.Math.GroupDigits(missingMoney)))
-		cb(false)
-	end
+			TriggerClientEvent('esx:showNotification', source, _U('bought_tattoo', ESX.Math.GroupDigits(price)))
+			cb(true)
+		else
+			local missingMoney = price - xPlayer.getMoney()
+			TriggerClientEvent('esx:showNotification', source, _U('not_enough_money', ESX.Math.GroupDigits(missingMoney)))
+			cb(false)
+		end
+	end)
+end)
+
+ESX.RegisterServerCallback('esx_tattooshop:removeTattoos', function(source, cb)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	TriggerEvent('esx_atm:pay', source, "tattoo", 50, function(res)
+		if res then
+			MySQL.Async.execute('UPDATE users SET tattoos = @tattoos WHERE identifier = @identifier', {
+				['@tattoos'] = json.encode({}),
+				['@identifier'] = xPlayer.identifier
+			})
+
+			TriggerClientEvent('esx:showNotification', source, "Татуировки удалены!")
+			cb(true)
+		else
+			local missingMoney = price - xPlayer.getMoney()
+			TriggerClientEvent('esx:showNotification', source, _U('not_enough_money', ESX.Math.GroupDigits(missingMoney)))
+			cb(false)
+		end
+	end)
 end)
 
 ESX.RegisterServerCallback('esx_tattooshop:removeTattoos', function(source, cb)

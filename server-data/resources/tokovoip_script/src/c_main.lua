@@ -23,9 +23,21 @@ local displayingPluginScreen = false;
 local HeadBone = 0x796e;
 local animPlay = false;
 local animPlaySync = false;
+local instancedPlayers = {}
+local isPlayerLoaded = true -- FIXME: test False on master!
 
 AddEventHandler('sosamba_ui:setHidden', function(val)
 	voip:updatePlugin("setHidden", val);
+end)
+
+RegisterNetEvent('instance:onInstancedPlayersData')
+AddEventHandler('instance:onInstancedPlayersData', function(_instancedPlayers)
+	instancedPlayers = _instancedPlayers
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+	isPlayerLoaded = true
 end)
 
 --------------------------------------------------------------------------------
@@ -130,16 +142,20 @@ local function clientProcessing()
 				posY = voip.plugin_data.enableStereoAudio and math.sin(angleToTarget) * dist or 0,
 				posZ = voip.plugin_data.enableStereoAudio and playerPos.z or 0
 			};
-			--
 
 			-- Process proximity
 			if (dist >= voip.distance[mode]) then
-				tbl.muted = 1;
+				tbl.muted = 1
 			else
 				tbl.volume = volume;
 				tbl.muted = 0;
 			end
-			--
+
+			-- Process instances
+			if instancedPlayers[voip.serverId] ~= instancedPlayers[playerServerId] then
+				tbl.muted = 1
+			end
+
 			-- Process channels
 			local remotePlayerUsingRadio = getPlayerData(playerServerId, "radio:talking");
 			local remotePlayerChannel = getPlayerData(playerServerId, "radio:channel");
@@ -156,6 +172,11 @@ local function clientProcessing()
 					tbl.posZ = voip.plugin_data.enableStereoAudio and localPos.z or 0;
 				end
 			end
+
+			if not isPlayerLoaded then
+				tbl.muted = 1
+			end
+
 			--
 			usersdata[#usersdata + 1] = tbl
 			setPlayerTalkingState(player, playerServerId);
@@ -216,11 +237,11 @@ AddEventHandler("initializeVoip", function()
 		while true do
 			Wait(5)
 
-			-- if (IsControlPressed(0, Keys["LEFTSHIFT"])) then
-			-- 	if (IsControlJustPressed(1, Keys["9"]) or IsDisabledControlJustPressed(1, Keys["9"])) then     ---    дебаг режим со всеми волнами
-			-- 		debugData = not debugData;
-			-- 	end
-			-- end
+			if (IsControlPressed(0, Keys["LEFTSHIFT"])) then
+				if (IsControlJustPressed(1, Keys["9"]) or IsDisabledControlJustPressed(1, Keys["9"])) then
+					debugData = not debugData;
+				end
+			end
 
 			if (debugData) then
 				local pos_y;

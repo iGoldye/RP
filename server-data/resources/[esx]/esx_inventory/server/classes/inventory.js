@@ -45,7 +45,7 @@ class Inventory {
 
 		var xPlayer = this.getXPlayer();
 		if (xPlayer) {
-			TriggerClientEvent('esx_inventory:onInventoryUpdate', xPlayer.source, this.serialize());
+			TriggerClientEvent('esx_inventory:_onInventoryUpdate', xPlayer.source, this.serialize());
 		}
 //		console.log("onChange: " + JSON.stringify(this.serialize()));
 	}
@@ -147,7 +147,7 @@ class Inventory {
 		return res
 	}
 
-	addItem(item, silent) {
+	addItem(item, silent, nochange) {
 		var xPlayer = this.getXPlayer();
 		var item = DeserializeItem(item);
 
@@ -162,7 +162,7 @@ class Inventory {
 		}
 
 		var res = item.addItem(this, silent)
-		if (res == true) {
+		if (res == true && !nochange) {
 			this.onChange()
 		}
 
@@ -283,7 +283,7 @@ class Inventory {
 		if (item != null) {
 			this.items.push(item);
 		}
-		
+
 	        var account = xPlayer.getAccount("bank")
 		item = {}
 		item.name = 'account_money'
@@ -315,9 +315,10 @@ function DeserializeInventory(name, owner, items) {
 	var inv = new Inventory(name, owner, [])
 
 	for (var k in items) {
-		inv.addItem(DeserializeItem(items[k]), true);
+		inv.addItem(DeserializeItem(items[k]), true, true);
 	}
 
+	inv.onChange();
 	return inv;
 }
 
@@ -382,6 +383,7 @@ function getInventoryLoadout(name, owner) {
 		var weapon = xPlayer.loadout[i];
 		var item = {};
 		item.name = "equipped_weapon";
+		item.amount = 1;
 		item.extra = {
 			"weapon_name": weapon.name,
 			"ammo": weapon.ammo,

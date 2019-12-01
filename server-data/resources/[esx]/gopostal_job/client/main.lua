@@ -28,7 +28,7 @@ local lastZone                = nil
 local CurrentAction           = nil
 local CurrentActionMsg        = ''
 local CurrentActionData       = {}
-local vehicleMaxHealth 	      = nil
+local vehicleMaxHealth 	      = 1000.0
 local MainBlip = nil
 --------------------------------------------------------------------------------
 RegisterNetEvent('esx:playerLoaded')
@@ -58,9 +58,9 @@ function Draw3DText(x, y, z, text)
     local onScreen,_x,_y=World3dToScreen2d(x,y,z)
     local px,py,pz=table.unpack(GetGameplayCamCoords())
     local dist = GetDistanceBetweenCoords(px,py,pz, x,y,z, 1)
- 
+
     local scale = 0.5
-   
+
     if onScreen then
         SetTextScale(scale, scale)
         SetTextFont(0)
@@ -80,7 +80,7 @@ end
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- 									CLOAKROOM	
+-- 									CLOAKROOM
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 function setUniform(playerPed)
@@ -137,7 +137,7 @@ end
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- 									VEHICLE	
+-- 									VEHICLE
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -170,8 +170,8 @@ function VehiculeSpawner()
 
 				ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, Config.Zones.VehicleSpawnPoint.Heading, function(vehicle)
 					vehicleMaxHealth = GetVehicleEngineHealth(vehicle)
-					SetVehicleNumberPlateText(vehicle, plate)             	
-					TaskWarpPedIntoVehicle(GetPlayerPed(-1), vehicle, -1)   
+					SetVehicleNumberPlateText(vehicle, plate)
+					TaskWarpPedIntoVehicle(GetPlayerPed(-1), vehicle, -1)
 				end)
 
 				menu.close()
@@ -185,15 +185,15 @@ function VehiculeSpawner()
 
 		ESX.Game.SpawnVehicle(Config.Vehicle[1], Config.Zones.VehicleSpawnPoint.Pos, Config.Zones.VehicleSpawnPoint.Heading, function(vehicle)
 			vehicleMaxHealth = GetVehicleEngineHealth(vehicle)
-			SetVehicleNumberPlateText(vehicle, plate)             			
-			TaskWarpPedIntoVehicle(GetPlayerPed(-1), vehicle, -1)   
+			SetVehicleNumberPlateText(vehicle, plate)
+			TaskWarpPedIntoVehicle(GetPlayerPed(-1), vehicle, -1)
 		end)
 	end
 end
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
--- 									Distribution	
+-- 									Distribution
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 function MenuDistribution()
@@ -245,7 +245,6 @@ function MenuDistribution()
 			menu2.close()
 		end)
 
-		
 	end, function(data, menu)
 		menu.close()
 
@@ -279,7 +278,6 @@ AddEventHandler('gopostal_job:hasEnteredMarker', function(zone)
 	if zone == 'VehicleDeleter' and isInService then
 		local playerPed = GetPlayerPed(-1)
 		local coords    = GetEntityCoords(playerPed)
-			
 		if IsPedInAnyVehicle(playerPed,  false) then
 
 			local vehicle, distance = ESX.Game.GetClosestVehicle({
@@ -287,13 +285,11 @@ AddEventHandler('gopostal_job:hasEnteredMarker', function(zone)
 				y = coords.y,
 				z = coords.z
 			})
-			
 			local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
 
 			CurrentAction     = 'vehicledeleter'
 			CurrentActionMsg  = _U('return_vehicle')
 			CurrentActionData = {vehicle = vehicle}
-					
 		end
 
 	end
@@ -307,7 +303,7 @@ AddEventHandler('gopostal_job:hasEnteredMarker', function(zone)
 end)
 
 AddEventHandler('gopostal_job:hasExitedMarker', function(zone)
-	ESX.UI.Menu.CloseAll()    
+	ESX.UI.Menu.CloseAll()
     CurrentAction = nil
     CurrentActionMsg = ''
 end)
@@ -329,7 +325,6 @@ Citizen.CreateThread(function()
        		DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 
             if IsControlJustReleased(0, 38) and IsJobTrucker() then -- Touche E
-            	
             	if CurrentAction == 'cloakroom' then
             		cloakroom()
                 end
@@ -379,9 +374,9 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Wait(0)
-		
+
 		local coords = GetEntityCoords(GetPlayerPed(-1))
-		
+
 		for k,v in pairs(Config.Zones) do
 			if k == 'CloakRoom' and (IsJobTrucker() and v.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) then
 				DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Color.r, v.Color.g, v.Color.b, 100, false, true, 2, false, false, false, false)
@@ -391,16 +386,15 @@ Citizen.CreateThread(function()
 
 		end
 
-		
 	end
 end)
 
 -- Activate menu when player is inside marker
 Citizen.CreateThread(function()
 	while true do
-		
+
 		Wait(0)
-		
+
 		if IsJobTrucker() then
 
 			local coords      = GetEntityCoords(GetPlayerPed(-1))
@@ -413,7 +407,6 @@ Citizen.CreateThread(function()
 					currentZone = k
 				end
 			end
-			
 
 			if isInMarker and not hasAlreadyEnteredMarker then
 				hasAlreadyEnteredMarker = true
@@ -439,7 +432,6 @@ function updateMainBlip()
 
 	if IsJobTrucker() == true then
 		MainBlip = AddBlipForCoord(Config.Zones.CloakRoom.Pos.x, Config.Zones.CloakRoom.Pos.y, Config.Zones.CloakRoom.Pos.z)
-  
 		SetBlipSprite (MainBlip, 357)
 		SetBlipDisplay(MainBlip, 4)
 		SetBlipScale  (MainBlip, 1.2)
@@ -464,7 +456,6 @@ function Livraison()
 	if CurrentDelivery then
 		LivraisonStop(district, true)
 		CurrentDelivery = false
-		
 	else
 		CurrentDelivery = true
 		ESX.ShowAdvancedNotification(_U('notif_title_delivery'), '', _U('notif_district', district.label), 'CHAR_BRYONY', 1 )
@@ -477,8 +468,8 @@ function SelectDistrict() -- Selection du quartier pour la ronde
 
 	for k,v in pairs (Config.Livraisons) do
 		local DistrictLong = 0
-		for i=1, #Config.Livraisons[k].Pos, 1 do 
-			DistrictLong = DistrictLong + 1 
+		for i=1, #Config.Livraisons[k].Pos, 1 do
+			DistrictLong = DistrictLong + 1
 		end
 
 		table.insert(district, {label = _U(k), value = k, long = DistrictLong} )
@@ -489,7 +480,7 @@ end
 
 function LivraisonStart(district)
 	if CurrentDelivery then
-		DeliveryPoint = district.value 
+		DeliveryPoint = district.value
 		local zone = Config.Livraisons[district.value]
 
 		Blips['DeliveryPoint'] = AddBlipForCoord(zone.Pos[progress].x, zone.Pos[progress].y, zone.Pos[progress].z)
@@ -536,7 +527,6 @@ function LetterAndColis()
 	else
 		colis = 0
 	end
-	
 end
 
 
@@ -564,7 +554,6 @@ Citizen.CreateThread(function()
 
 			          			end, lettre, colis)
 
-			          			
 			          		else
 			          			ESX.ShowNotification(_U('must_be_walking'))
 			          		end
@@ -592,5 +581,5 @@ RegisterNetEvent("SaveCommand")
 AddEventHandler("SaveCommand", function(message)
 		x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), true))
 	    local PlayerName = GetPlayerName()
-	    TriggerServerEvent("SaveCoords", PlayerName , x , y , z, message)			
+	    TriggerServerEvent("SaveCoords", PlayerName , x , y , z, message)
 end)

@@ -53,7 +53,7 @@ Banks = {
 		reward = math.random(15000,25000),
 		nameofbank = "Blaine County Savings",
 		doortype = 'v_ilev_cbankvaulgate01',
-		doorid = 'blane',
+		doorid = 'bank_blane_vault',
 	},
 	["Pacific Standard"] = {
 		position = { ['x'] = 264.99899291992, ['y'] = 213.50576782227, ['z'] = 101.68346405029 },
@@ -63,7 +63,7 @@ Banks = {
 		nameofbank = "Pacific Standard",
 	        bombdoortype = 'v_ilev_bk_vaultdoor', -- If this var is set you will need set the var "bombposition" to work properly , you can find the name or id here: https://objects.gt-mp.net/  if you dont find it, contact with your devs
 	        doortype = 'hei_v_ilev_bk_gate2_pris',
-		doorid = 'pacific_vault',
+		doorid = 'bank_pacific_vault',
     },
 
 }

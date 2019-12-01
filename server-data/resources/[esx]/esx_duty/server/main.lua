@@ -15,7 +15,7 @@ AddEventHandler('duty:onoff', function(job)
         plname = identity.firstname .. " " .. identity.lastname
     end
 
-    if job == 'police' or job == 'ambulance' then
+    if job == 'police' or job == 'ambulance' or job == 'taxi' or job == 'mechanic' or job == 'mechanic-bennys' then
         xPlayer.setJob('off' ..job, grade)
         TriggerClientEvent('esx:showNotification', _source, _U('offduty'))
         TriggerClientEvent('esx_duty:dutyOff', -1, plname, job)
@@ -27,6 +27,18 @@ AddEventHandler('duty:onoff', function(job)
         xPlayer.setJob('ambulance', grade)
         TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
         TriggerClientEvent('esx_duty:dutyOn', -1, plname, 'ambulance')
+    elseif job == 'offtaxi' then
+        xPlayer.setJob('taxi', grade)
+        TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
+        TriggerClientEvent('esx_duty:dutyOn', -1, plname, 'taxi')
+    elseif job == 'offmechanic' then
+        xPlayer.setJob('mechanic', grade)
+        TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
+        TriggerClientEvent('esx_duty:dutyOn', -1, plname, 'mechanic')
+    elseif job == 'offmechanic-bennys' then
+        xPlayer.setJob('mechanic-bennys', grade)
+        TriggerClientEvent('esx:showNotification', _source, _U('onduty'))
+        TriggerClientEvent('esx_duty:dutyOn', -1, plname, 'mechanic-bennys')
     end
 
 end)

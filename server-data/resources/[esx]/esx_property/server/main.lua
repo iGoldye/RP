@@ -216,12 +216,13 @@ AddEventHandler('esx_property:buyProperty', function(propertyName)
 	local xPlayer  = ESX.GetPlayerFromId(source)
 	local property = GetProperty(propertyName)
 
-	if property.price <= xPlayer.getMoney() then
-		xPlayer.removeMoney(property.price)
-		SetPropertyOwned(propertyName, property.price, false, xPlayer.identifier)
-	else
-		TriggerClientEvent('esx:showNotification', source, _U('not_enough'))
-	end
+	TriggerEvent('esx_atm:pay', xPlayer.source, "property", property.price, function(res)
+		if res then
+			SetPropertyOwned(propertyName, property.price, false, xPlayer.identifier)
+		else
+			TriggerClientEvent('esx:showNotification', source, _U('not_enough'))
+		end
+	end)
 end)
 
 RegisterServerEvent('esx_property:removeOwnedProperty')
@@ -268,7 +269,7 @@ AddEventHandler('esx_property:getItem', function(owner, type, item, count)
 
 			-- is there enough in the property?
 			if count > 0 and inventoryItem.count >= count then
-			
+
 				-- can the player carry the said amount of x item?
 				if sourceItem.limit ~= -1 and (sourceItem.count + count) > sourceItem.limit then
 					TriggerClientEvent('esx:showNotification', _source, _U('player_cannot_hold'))
@@ -477,6 +478,31 @@ ESX.RegisterServerCallback('esx_property:getPlayerOutfit', function(source, cb, 
 	TriggerEvent('esx_datastore:getDataStore', 'property', xPlayer.identifier, function(store)
 		local outfit = store.get('dressing', num)
 		cb(outfit.skin)
+	end)
+end)
+
+RegisterServerEvent('esx_property:makeHouseKey')
+AddEventHandler('esx_property:makeHouseKey', function(propertyName, owner)
+	local xPlayer  = ESX.GetPlayerFromId(source)
+	local property = GetProperty(propertyName)
+	if property == nil then
+		return
+	end
+
+	local label = property.label
+
+	if property.gateway ~= nil then
+		local gw = GetProperty(property.gateway)
+		label = gw.label .. ": " .. label
+	end
+
+	TriggerEvent('esx_atm:pay', xPlayer.source, "property", 10, function(res)
+		if res == true then
+			local item = exports['esx_inventory']:createItem("housekey", { ["property"] = propertyName, ["owner"] = owner, ["label"] = label}, 1, 0)
+			TriggerEvent('esx_inventory:addItem', "pocket", xPlayer.identifier, item, function()
+				TriggerClientEvent('esx:showNotification', xPlayer.source, "Ключ изготовлен")
+			end)
+		end
 	end)
 end)
 

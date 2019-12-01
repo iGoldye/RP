@@ -27,6 +27,20 @@ AddEventHandler('onResourceStart', function(resource)
 	end
 end)
 
+RegisterServerEvent('esx_playermenu:bringPlayer')
+AddEventHandler('esx_playermenu:bringPlayer', function(target, pos)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
+        return
+    end
+
+    local xTarget = ESX.GetPlayerFromId(target)
+
+    if xTarget ~= nil then
+        TriggerClientEvent('esx_playermenu:bringPlayer', xTarget.source, pos)
+    end
+end)
+
 
 ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb)
     xPlayer = ESX.GetPlayerFromId(source)
