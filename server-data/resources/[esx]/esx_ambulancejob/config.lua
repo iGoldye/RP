@@ -217,7 +217,6 @@ Config.Hospitals = {
 		}
 
 	}
-
 }
 
 Config.AuthorizedVehicles = {

@@ -32,11 +32,6 @@ function EnterInstance(instance)
 		return
 	end
 
-	if registeredInstanceTypes[instance.type] == nil then
-		print("Unregistered instance type "..instance.type.."!")
-		return
-	end
-
 	if registeredInstanceTypes[instance.type].enter then
 		registeredInstanceTypes[instance.type].enter(instance)
 	end

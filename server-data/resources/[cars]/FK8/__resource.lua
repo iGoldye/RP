@@ -20,5 +20,5 @@ data_file 'VEHICLE_SHOP_DLC_FILE' 'data/'
 data_file 'CONTENT_UNLOCKING_META_FILE' 'data/contentunlocks.meta'
 
 client_script {
-    'data/vehicle_names.lua'
+    'data/vehicle_names.lua' 
 }

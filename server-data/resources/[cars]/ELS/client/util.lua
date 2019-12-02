@@ -241,18 +241,18 @@ end
 function setHornState(veh, newstate)
     if DoesEntityExist(veh) and not IsEntityDead(veh) then
         if newstate ~= h_horn_state[veh] then
-
+                
             if h_soundID_veh[veh] ~= nil then
                 StopSound(h_soundID_veh[veh])
                 ReleaseSoundId(h_soundID_veh[veh])
                 h_soundID_veh[veh] = nil
             end
-
+                        
             if newstate == 1 then
                 h_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(h_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.mainHorn.audioString, veh, 0, 0, 0)
-            end
-
+            end             
+                
             h_horn_state[veh] = newstate
         end
     end
@@ -261,35 +261,35 @@ end
 function setSirenState(veh, newstate)
     if DoesEntityExist(veh) and not IsEntityDead(veh) then
         if newstate ~= m_siren_state[veh] then
-
+                
             if m_soundID_veh[veh] ~= nil then
                 StopSound(m_soundID_veh[veh])
                 ReleaseSoundId(m_soundID_veh[veh])
                 m_soundID_veh[veh] = nil
             end
-
+                        
             if newstate == 1 then
 
                 m_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(m_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.srnTone1.audioString, veh, 0, 0, 0)
                 toggleSirenMute(veh, true)
-
+                
             elseif newstate == 2 then
 
-                m_soundID_veh[veh] = GetSoundId()
+                m_soundID_veh[veh] = GetSoundId() 
                 PlaySoundFromEntity(m_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.srnTone2.audioString, veh, 0, 0, 0)
                 toggleSirenMute(veh, true)
-
+                
             elseif newstate == 3 then
 
                 m_soundID_veh[veh] = GetSoundId()
                 PlaySoundFromEntity(m_soundID_veh[veh], getVehicleVCFInfo(veh).sounds.srnTone3.audioString, veh, 0, 0, 0)
                 toggleSirenMute(veh, true)
-
+                
             else
                 toggleSirenMute(veh, true)
-            end
-
+            end             
+                
             m_siren_state[veh] = newstate
         end
     end
@@ -505,7 +505,7 @@ function changeAdvisorPatternMath(way)
     if playButtonPressSounds then
         PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
     end
-
+    
     local primMax = getNumberOfAdvisorPatterns(GetVehiclePedIsUsing(GetPlayerPed(-1)))
 
     local primMin = 1
@@ -624,7 +624,7 @@ function formatPatternNumber(num)
         return "0" .. tostring(num)
     else
         return tostring(num)
-    end
+    end 
 end
 
 function getVehicleVCFInfo(veh)

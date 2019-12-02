@@ -25,14 +25,6 @@ AddEventHandler('esx_property:teleportOutside', function(outside)
 	end)
 end)
 
-
-RegisterNetEvent('esx_property:teleportOutside')
-AddEventHandler('esx_property:teleportOutside', function(outside)
-	ESX.Game.Teleport(PlayerPedId(), outside, function()
-		TriggerServerEvent('esx_property:deleteLastProperty')
-	end)
-end)
-
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.TriggerServerCallback('esx_property:getProperties', function(properties)
@@ -179,7 +171,6 @@ function EnterProperty(name, owner)
 	end)
 
 end
-
 
 function ExitProperty(name)
 	local property  = GetProperty(name)

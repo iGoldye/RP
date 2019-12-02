@@ -49,6 +49,7 @@ local CurrentAction           = nil
 local CurrentActionMsg        = ''
 local CurrentActionData       = {}
 --------------------------------------------------------------------------------
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -903,7 +904,7 @@ function MissionDeliverySelect()
 		MissionNum = math.random(1, 10)
 	end
 
-	namezone = "Delivery"..tostring(MissionNum)..regionSuffix
+	namezone = "Delivery"..tostring(MissionNum)..regionSuffix 
 	destination = Config.Delivery[namezone]
 	namezonenum = MissionNum
 	namezoneregion = MissionRegion

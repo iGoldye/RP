@@ -14,50 +14,9 @@ function startsWith(str, substr)
 	return string.sub(str, 1, string.len(substr)) == substr
 end
 
-AddEventHandler('playerDropped', function(reason)
-	local _source = source
-
-	if(reason ~= "Disconnected.") then
-
-		local steamID = GetPlayerIdentifiers(_source)[1]
-		local playerName = GetPlayerName(_source)
-		local isInPriorityList = false
-
-		for i = 1, #PriorityList, 1 do
-			if PriorityList[i] == steamID then
-				isInPriorityList = true
-				ESX.Trace("WHITELIST: " .. _U("log_already_in_priority_queue", playerName, steamID))
-				break
-			end
-		end
-
-		if not isInPriorityList then
-			table.insert(PriorityList, steamID)
-			ESX.Trace("WHITELIST: " .. _U("log_added_to_priority_queue", playerName, steamID))
-		end
-
-		local timeToWait = 30
-		currentPriorityTime = currentPriorityTime + timeToWait
-
-		for i=0,timeToWait, 1 do
-			Wait(1000)
-			currentPriorityTime = currentPriorityTime -1
-
-			ESX.Trace(currentPriorityTime)
-
-			ESX.Trace(#PriorityList)
-
-			if(i >= timeToWait) then
-				for i = 1, #PriorityList, 1 do
-					if PriorityList[i] == steamID then
-						table.remove(PriorityList, i)
-						ESX.Trace("WHITELIST: " .. _U("log_removed_from_priority_queue", playerName, steamID))
-					end
-				end
-			end
-		end
-
-	end
+MySQL.ready(function()
+	loadWhiteList()
+end)
 
 function loadWhiteList()
 	MySQL.Async.fetchAll('SELECT * FROM whitelist', {}, function(result)
@@ -91,27 +50,7 @@ AddEventHandler('playerDropped', function(reason)
 				ESX.Trace("WHITELIST: " .. _U("log_already_in_priority_queue", playerName, steamID))
 				break
 			end
-			ESX.Trace("WHITELIST: " .. _U("log_stopped_anti_spam", playerName))
-
 		end
-		deferrals.done() -- connect
-	end
-end)
-
-RegisterServerEvent("esx_whitelistExtended:removePlayerToInConnect")
-AddEventHandler("esx_whitelistExtended:removePlayerToInConnect", function()
---	local _source = source
-	if source ~= nil then
-		inConnection[source] = nil
---		table.remove(inConnection, source)
-	end
-end)
-
-function checkOnlinePlayers()
-	SetTimeout(10000, function()
-		local xPlayers = ESX.GetPlayers()
-
-		onlinePlayers = #xPlayers + #inConnection
 
 		if not isInPriorityList then
 			table.insert(PriorityList, steamID)

@@ -107,6 +107,7 @@ function OpenStealMenu(target, target_id)
 								local quantity = tonumber(data3.value)
 								TriggerServerEvent('esx_thief:stealPlayerItem', GetPlayerServerId(target), itemType, itemName, quantity)
 								OpenStealMenu(target)
+
 								menu3.close()
 								menu2.close()
 							end, function(data3, menu3)
@@ -144,6 +145,7 @@ Citizen.CreateThread(function()
 
 			if target ~= -1 and distance ~= -1 and distance <= 2.0 then
 				local target_id = GetPlayerServerId(target)
+
 				IsAbleToSteal(target_id, function(err)
 					if(not err)then
 						OpenStealMenu(target, target_id)

@@ -65,9 +65,9 @@
       <lodDistances content="float_array">
         15.000000
         30.000000
-        65.000000
-        130.000000
-        500.000000
+        65.000000	
+        130.000000	
+        500.000000	
         500.000000
       </lodDistances>
       <minSeatHeight value="0.881" />
@@ -119,4 +119,4 @@
       <child>FK8</child>
     </Item>
  </txdRelationships>
-</CVehicleModelInfo__InitDataList>
+</CVehicleModelInfo__InitDataList> 

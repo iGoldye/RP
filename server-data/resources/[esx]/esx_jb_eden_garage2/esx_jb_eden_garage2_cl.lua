@@ -49,6 +49,7 @@ function OpenMenuGarage(garage, KindOfVehicle)
 		end
 	)
 end
+
 -- Afficher les listes des vehicules
 function ListVehiclesMenu(garage, KindOfVehicle)
 	local elements, vehiclePropsList = {}, {}
@@ -167,6 +168,7 @@ function ListVehiclesFourriereMenu(garage)
 
 	end)
 end
+
 -- Fin Afficher les listes des vehicules de fourriere
 
 -- Fonction qui permet de rentrer un vehicule

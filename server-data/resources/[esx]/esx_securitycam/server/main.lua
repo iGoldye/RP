@@ -27,7 +27,7 @@ AddEventHandler('esx_securitycam:setCameraBroken', function(location, cam_index)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 --	print(('esx_securitycam: %s has set the location "%s" cameras to %s!'):format(xPlayer.identifier, location, state))
-	if location == "police" or location == "bank" then
+	if location == "police" or location == "bank" then	
 		TriggerClientEvent('esx_securitycam:setCameraBrokenTimer', -1, location, cam_index, Config.CameraBreakTimer)
 	end
 end)

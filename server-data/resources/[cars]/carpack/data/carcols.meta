@@ -9844,7 +9844,7 @@
 			<name>w210</name>
 		</Item>
     <Item>
-      <id value="1000" />
+      <id value="1000" />	
       <indicator>
         <intensity value="0.375000" />
         <falloffMax value="2.500000" />

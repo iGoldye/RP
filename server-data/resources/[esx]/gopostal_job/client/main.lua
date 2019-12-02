@@ -245,6 +245,7 @@ function MenuDistribution()
 			menu2.close()
 		end)
 
+
 	end, function(data, menu)
 		menu.close()
 
@@ -278,6 +279,7 @@ AddEventHandler('gopostal_job:hasEnteredMarker', function(zone)
 	if zone == 'VehicleDeleter' and isInService then
 		local playerPed = GetPlayerPed(-1)
 		local coords    = GetEntityCoords(playerPed)
+
 		if IsPedInAnyVehicle(playerPed,  false) then
 
 			local vehicle, distance = ESX.Game.GetClosestVehicle({
@@ -285,11 +287,13 @@ AddEventHandler('gopostal_job:hasEnteredMarker', function(zone)
 				y = coords.y,
 				z = coords.z
 			})
+
 			local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
 
 			CurrentAction     = 'vehicledeleter'
 			CurrentActionMsg  = _U('return_vehicle')
 			CurrentActionData = {vehicle = vehicle}
+
 		end
 
 	end
@@ -325,6 +329,7 @@ Citizen.CreateThread(function()
        		DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 
             if IsControlJustReleased(0, 38) and IsJobTrucker() then -- Touche E
+
             	if CurrentAction == 'cloakroom' then
             		cloakroom()
                 end
@@ -386,6 +391,7 @@ Citizen.CreateThread(function()
 
 		end
 
+
 	end
 end)
 
@@ -407,6 +413,7 @@ Citizen.CreateThread(function()
 					currentZone = k
 				end
 			end
+
 
 			if isInMarker and not hasAlreadyEnteredMarker then
 				hasAlreadyEnteredMarker = true
@@ -432,6 +439,7 @@ function updateMainBlip()
 
 	if IsJobTrucker() == true then
 		MainBlip = AddBlipForCoord(Config.Zones.CloakRoom.Pos.x, Config.Zones.CloakRoom.Pos.y, Config.Zones.CloakRoom.Pos.z)
+
 		SetBlipSprite (MainBlip, 357)
 		SetBlipDisplay(MainBlip, 4)
 		SetBlipScale  (MainBlip, 1.2)
@@ -456,6 +464,7 @@ function Livraison()
 	if CurrentDelivery then
 		LivraisonStop(district, true)
 		CurrentDelivery = false
+
 	else
 		CurrentDelivery = true
 		ESX.ShowAdvancedNotification(_U('notif_title_delivery'), '', _U('notif_district', district.label), 'CHAR_BRYONY', 1 )
@@ -527,6 +536,7 @@ function LetterAndColis()
 	else
 		colis = 0
 	end
+
 end
 
 
@@ -553,6 +563,7 @@ Citizen.CreateThread(function()
 			          				end
 
 			          			end, lettre, colis)
+
 
 			          		else
 			          			ESX.ShowNotification(_U('must_be_walking'))

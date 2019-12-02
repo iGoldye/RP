@@ -329,16 +329,6 @@ function getPropertyByName(properties, name)
 	return nil
 end
 
-function getPropertyByName(properties, name)
-	for _,v in pairs(properties) do
-		if v.name == name then
-			return v
-		end
-	end
-
-	return nil
-end
-
 -- Enter / Exit marker events
 Citizen.CreateThread(function()
 

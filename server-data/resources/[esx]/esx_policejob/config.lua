@@ -187,6 +187,7 @@ Config.AuthorizedWeapons = {
 Config.AuthorizedVehicles = {
 	Shared = {
 		-- { model = 'police', label = 'Police Cruiser', price = 100 },
+
 		-- { model = 'police3', label = 'Police Interceptor', price = 200 },
 		-- { model = 'policet', label = 'Police Transporter', price = 400 },
 

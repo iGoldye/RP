@@ -1208,6 +1208,7 @@ Config.Garages = {
 		}
 
 	},
+
 	LowEndApartment = {
 
 		IsClosed = true,

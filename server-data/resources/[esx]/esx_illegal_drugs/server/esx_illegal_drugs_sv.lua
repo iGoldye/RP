@@ -110,6 +110,7 @@ local function TransformWeed(source)
 			else
 				xPlayer.removeInventoryItem('weed', 50)
 				xPlayer.addInventoryItem('weed_pooch', 1)
+
 				TransformWeed(source)
 			end
 
@@ -310,6 +311,7 @@ local function TransformOpium(source)
 			else
 				xPlayer.removeInventoryItem('opium', 50)
 				xPlayer.addInventoryItem('opium_pooch', 1)
+
 				TransformOpium(source)
 			end
 
@@ -509,6 +511,7 @@ local function TransformCoke(source)
 			else
 				xPlayer.removeInventoryItem('coke', 50)
 				xPlayer.addInventoryItem('coke_pooch', 1)
+
 				TransformCoke(source)
 			end
 
@@ -708,6 +711,7 @@ local function TransformMeth(source)
 			else
 				xPlayer.removeInventoryItem('meth', 50)
 				xPlayer.addInventoryItem('meth_pooch', 1)
+
 				TransformMeth(source)
 			end
 

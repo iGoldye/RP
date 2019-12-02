@@ -487,22 +487,6 @@ Citizen.CreateThread(function()
 		Citizen.Wait(1000)
 	end
 
-	while GetIsLoadingScreenActive() do
-		Citizen.Wait(1000)
-	end
-
-	while GetIsLoadingScreenActive() do
-		Citizen.Wait(1000)
-	end
-
-	while GetIsLoadingScreenActive() do
-		Citizen.Wait(1000)
-	end
-
-	while GetIsLoadingScreenActive() do
-		Citizen.Wait(1000)
-	end
-
 	while true do
 		local pauseMenuActive = IsPauseMenuActive()
 

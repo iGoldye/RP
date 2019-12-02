@@ -584,7 +584,7 @@ function OpenInteractionMenu()
 	table.insert(elements, {label = ('Взять на руки'), value = 'liftup'})
 	table.insert(elements, {label = ('Закинуть на плечо'), value = 'carry'})
 	table.insert(elements, {label = ('Взять в заложники'), value = 'hostage'})
-	table.insert(elements, {label = ('Поздороваться с бротишкой'), value = 'bro'})
+	table.insert(elements, {label = ('Поздороваться с братишкой'), value = 'bro'})
 	table.insert(elements, {label = ('Обнять'), value = 'hug'})
 	table.insert(elements, {label = ('Геттовское приветствие'), value = 'handshake'})
 

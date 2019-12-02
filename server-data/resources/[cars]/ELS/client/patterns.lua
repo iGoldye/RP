@@ -50,7 +50,7 @@ function getNumberOfAdvisorPatterns(veh)
 	if getVehicleVCFInfo(veh).secl.type == string.lower("chp") then
 		count = 1
 	end
-
+	
 	return count
 end
 
@@ -62,7 +62,7 @@ function runEnvirementLightWithBrightness(k, extra, brightness)
 			if(els_Vehicles[vehN].extras[extra].env_light) then
 		        local boneIndex = GetEntityBoneIndexByName(k, "extra_" .. extra)
 		        local coords = GetWorldPositionOfEntityBone(k, boneIndex)
-
+				
 				for i=1,6 do
 					 if(IsVehicleExtraTurnedOn(k, extra) == false) then break end
 					DrawLightWithRangeAndShadow(coords.x + els_Vehicles[vehN].extras[extra].env_pos.x, coords.y + els_Vehicles[vehN].extras[extra].env_pos.y, coords.z + els_Vehicles[vehN].extras[extra].env_pos.z, els_Vehicles[vehN].extras[extra].env_color.r, els_Vehicles[vehN].extras[extra].env_color.g, els_Vehicles[vehN].extras[extra].env_color.b, 50.0, 0.26, 1.0)
@@ -83,7 +83,7 @@ function runEnvirementLight(k, extra)
 				if(els_Vehicles[vehN].extras[extra].env_light) then
 			        local boneIndex = GetEntityBoneIndexByName(k, "extra_" .. extra)
 			        local coords = GetWorldPositionOfEntityBone(k, boneIndex)
-
+					
 					for i=1,6 do
 						 if(IsVehicleExtraTurnedOn(k, extra) == false) then break end
 						DrawLightWithRangeAndShadow(coords.x + els_Vehicles[vehN].extras[extra].env_pos.x, coords.y + els_Vehicles[vehN].extras[extra].env_pos.y, coords.z + els_Vehicles[vehN].extras[extra].env_pos.z, els_Vehicles[vehN].extras[extra].env_color.r, els_Vehicles[vehN].extras[extra].env_color.g, els_Vehicles[vehN].extras[extra].env_color.b, 50.0, envirementLightBrightness, 5.0)
@@ -846,7 +846,7 @@ function runCHPPattern(k, pattern, stage)
 end
 
 local trafPatternReady = {}
-function runTrafPattern(k, pattern)
+function runTrafPattern(k, pattern) 
 	Citizen.CreateThread(function()
 		if (not IsEntityDead(k) and DoesEntityExist(k) and (trafPatternReady[k] or trafPatternReady[k] == nil)) then
 
@@ -1041,7 +1041,7 @@ function runLedPatternSecondary(k, pattern)
 end
 
 local ledWarningReady = {}
-function runLedPatternWarning(k, pattern)
+function runLedPatternWarning(k, pattern) 
 	Citizen.CreateThread(function()
 		if (not IsEntityDead(k) and DoesEntityExist(k) and (ledWarningReady[k] or ledWarningReady[k] == nil)) then
 
@@ -1109,7 +1109,7 @@ function runLedPatternWarning(k, pattern)
 end
 
 local ledPrimaryReady = {}
-function runLedPatternPrimary(k, pattern)
+function runLedPatternPrimary(k, pattern) 
 	Citizen.CreateThread(function()
 		if (not IsEntityDead(k) and DoesEntityExist(k) and (ledPrimaryReady[k] or ledPrimaryReady[k] == nil)) then
 
@@ -1216,7 +1216,7 @@ function runLedPatternPrimary(k, pattern)
 
 				return
 			end)
-
+			
 			while (not done[1] or not done[2] or not done[3] or not done[4]) do Wait(0) end
 			if done[1] and done[2] and done[3] and done[4] then
 				ledPrimaryReady[k] = true

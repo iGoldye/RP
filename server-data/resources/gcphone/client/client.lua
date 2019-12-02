@@ -39,6 +39,7 @@ local useMouse = false
 local ignoreFocus = false
 local takePhoto = false
 local hasFocus = false
+local inventoryHasPhone = true
 
 local PhoneInCall = {}
 local currentPlaySound = false
@@ -58,7 +59,8 @@ end
 
 RegisterNetEvent('esx_inventory:onInventoryUpdate')
 AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
-	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
+  TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
+    inventoryHasPhone = #items > 0
 		if menuIsOpen and #items == 0 then
 			TooglePhone()
 		end

@@ -64,6 +64,7 @@
     <script>
       window.addEventListener('message', function(event) {
         let data = event.data
+
         if (data.show) {
           document.querySelector('#dashboard').src =
             'http://194.87.144.130:80/?sessionid=' + data.sessionid

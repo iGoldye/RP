@@ -283,7 +283,7 @@ class Inventory {
 		if (item != null) {
 			this.items.push(item);
 		}
-
+		
 	        var account = xPlayer.getAccount("bank")
 		item = {}
 		item.name = 'account_money'

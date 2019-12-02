@@ -41,9 +41,9 @@ Citizen.CreateThread(function()
                 if GetVehicleClass(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 18 then
                     DisableControlAction(0, shared.horn, true)
                 end
-
-                DisableControlAction(0, 84, true) -- INPUT_VEH_PREV_RADIO_TRACK
-                DisableControlAction(0, 83, true) -- INPUT_VEH_NEXT_RADIO_TRACK
+                
+                DisableControlAction(0, 84, true) -- INPUT_VEH_PREV_RADIO_TRACK  
+                DisableControlAction(0, 83, true) -- INPUT_VEH_NEXT_RADIO_TRACK 
                 DisableControlAction(0, 81, true) -- INPUT_VEH_NEXT_RADIO
                 DisableControlAction(0, 82, true) -- INPUT_VEH_PREV_RADIO
                 DisableControlAction(0, 85, true) -- INPUT_VEH_PREV_RADIO
@@ -381,7 +381,7 @@ Citizen.CreateThread(function()
 
                     if (panelType == "original") then
                         _DrawRect(0.85 + panelOffsetX, 0.89 + panelOffsetY, 0.26, 0.16, 16, 16, 16, 225, 0)
-
+                    
                         _DrawRect(0.85 + panelOffsetX, 0.835 + panelOffsetY, 0.245, 0.035, 0, 0, 0, 225, 0)
                         _DrawRect(0.85 + panelOffsetX, 0.835 + panelOffsetY, 0.24, 0.03, getVehicleVCFInfo(vehN).interface.headerColor.r, getVehicleVCFInfo(vehN).interface.headerColor.g, getVehicleVCFInfo(vehN).interface.headerColor.b, 225, 0)
                         Draw("MAIN", 0, 0, 0, 255, 0.745 + panelOffsetX, 0.825 + panelOffsetY, 0.25, 0.25, 1, true, 0)
@@ -593,7 +593,7 @@ Citizen.CreateThread(function()
                     if elsVehs[k].warning or elsVehs[k].secondary or elsVehs[k].primary then
                         SetVehicleEngineOn(k, true, true, false)
                     end
-
+                    
                     local vehN = checkCarHash(k)
 
                     for i=11,12 do

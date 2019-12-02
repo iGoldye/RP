@@ -1412,6 +1412,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 
+
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2440,6 +2441,7 @@ function _uint8ArrayToBuffer(chunk) {
 function _isUint8Array(obj) {
   return Buffer.isBuffer(obj) || obj instanceof OurUint8Array;
 }
+
 /*</replacement>*/
 
 /*<replacement>*/
@@ -3570,6 +3572,7 @@ var Stream = __webpack_require__(22);
 /*</replacement>*/
 
 /*<replacement>*/
+
 var Buffer = __webpack_require__(1).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
@@ -3578,6 +3581,7 @@ function _uint8ArrayToBuffer(chunk) {
 function _isUint8Array(obj) {
   return Buffer.isBuffer(obj) || obj instanceof OurUint8Array;
 }
+
 /*</replacement>*/
 
 var destroyImpl = __webpack_require__(23);

@@ -152,7 +152,7 @@
 			<Offset x="0.136000" y="0.156000" z="0.425000" />
 			<SeatIndex value="3" />
 		</Item>
-	  </FirstPersonMobilePhoneSeatIKOffset>
+	  </FirstPersonMobilePhoneSeatIKOffset> 
       <PovCameraOffset x="0.000000" y="-0.145000" z="0.645000" />
       <PovCameraVerticalAdjustmentForRollCage value="0.000000" />
       <PovPassengerCameraOffset x="0.000000" y="0.000000" z="0.000000" />
@@ -282,7 +282,7 @@
 			<Offset x="0.136000" y="0.156000" z="0.445000" />
 			<SeatIndex value="3" />
 		</Item>
-	  </FirstPersonMobilePhoneSeatIKOffset>
+	  </FirstPersonMobilePhoneSeatIKOffset> 
       <PovCameraOffset x="0.000000" y="-0.175000" z="0.675000" />
       <PovCameraVerticalAdjustmentForRollCage value="0.000000" />
       <PovPassengerCameraOffset x="0.000000" y="0.000000" z="0.000000" />

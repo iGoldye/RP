@@ -152,7 +152,7 @@ function parseVehData(xml, fileName)
 	    			else
 	    				a.extras[extra].enabled = false
 					end
-
+					
 					a.extras[extra].env_light = false
 					a.extras[extra].env_pos = {}
 					a.extras[extra].env_pos['x'] = 0
@@ -379,7 +379,7 @@ function parseVehData(xml, fileName)
 				end
 			end
     	end
-
+    	
     end
 
     vehicleInfoTable[fileName] = a
