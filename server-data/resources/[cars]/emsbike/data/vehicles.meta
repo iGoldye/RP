@@ -8,9 +8,9 @@
       <txdName>policek</txdName>
       <handlingId>POLICEB</handlingId>
       <gameName>policek</gameName>
-      <vehicleMakeName>DINKA</vehicleMakeName>
-      <expressionDictName>null</expressionDictName>
-      <expressionName>null</expressionName>
+      <vehicleMakeName>emsbike</vehicleMakeName>
+			<expressionDictName>null</expressionDictName>
+			<expressionName>null</expressionName>
       <animConvRoofDictName>null</animConvRoofDictName>
       <animConvRoofName>null</animConvRoofName>
       <animConvRoofWindowsAffected />

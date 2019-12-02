@@ -215,8 +215,8 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICE3" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICE4" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICEB" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICET" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICEK" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "policet" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "policek" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "FIRETRUK" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "AMBULANCE" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi2" then -- BLACKLISTED VEHICLE
