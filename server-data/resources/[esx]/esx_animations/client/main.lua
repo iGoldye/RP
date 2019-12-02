@@ -130,7 +130,7 @@ function StartAnimData(tp, data)
 end
 
 function FindFavorite(label)
-	for i=1,#Favorites do
+	for i=1,9 do
 		if Favorites[i] == label then
 			return i
 		end
@@ -180,7 +180,7 @@ function OpenAnimationsSubMenu(menu)
 		if IsControlPressed(0, Keys['LEFTSHIFT']) then
 			local fav = FindFavorite(data.current.value.label)
 			if fav > 0 then
-				table.remove(Favorites, fav)
+				Favorites[fav] = nil
 				ESX.TriggerServerCallback('esx_animations:setFavorites', function()
 				end, Favorites)
 			else
@@ -198,7 +198,7 @@ function OpenAnimationsSubMenu(menu)
 end
 
 function RunFavoriteAnim(num)
-	if #Favorites < num or Favorites[num] == nil then
+	if Favorites[num] == nil then
 		ESX.ShowNotification("Избранная анимация не назначена!")
 		return
 	end
@@ -214,16 +214,31 @@ function RunFavoriteAnim(num)
 			end
 		end
 	end
+
+	-- favorite not found
+	Favorites[num] = nil
+	ESX.TriggerServerCallback('esx_animations:setFavorites', function()
+	end, Favorites)
+	ESX.ShowNotification("Избранная анимация не назначена!")
 end
 
 function AddFavoriteAnim(current)
-	if #Favorites < 9 then
-		table.insert(Favorites, current.value.label)
-		ESX.TriggerServerCallback('esx_animations:setFavorites', function()
-		end, Favorites)
-	else
-		ESX.ShowNotification("Слишком много избранных анимаций!")
+	local favNum = -1
+	for i=1,9 do
+		if Favorites[i] == nil then
+			favNum = i
+			break
+		end
 	end
+
+	if favNum == -1 then
+		ESX.ShowNotification("Слишком много избранных анимаций!")
+		return
+	end
+
+	Favorites[favNum] = current.value.label
+	ESX.TriggerServerCallback('esx_animations:setFavorites', function()
+	end, Favorites)
 end
 
 Citizen.CreateThread(function()
