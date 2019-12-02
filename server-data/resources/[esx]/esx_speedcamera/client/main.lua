@@ -309,12 +309,14 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICE3" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICE4" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICEB" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "POLICET" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "policet" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "policek" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "FIRETRUK" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "AMBULAN" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "AMBULANCE" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi2" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "lp770cop" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "CENTENARIO" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "aventador" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sheriff" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sheriff2" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "riot" then -- BLACKLISTED VEHICLE
@@ -322,6 +324,8 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "lapd3" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "FBI3" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "riot" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sp106" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "FBI" then -- BLACKLISTED VEHICLE
 								-- VEHICLES ABOVE ARE BLACKLISTED
 								else
 									-- ALERT POLICE (START)
