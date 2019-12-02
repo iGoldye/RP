@@ -132,6 +132,7 @@ Citizen.CreateThread(function()
       end
       if menuIsOpen == true then
         DisableControlAction(0, 243)
+        DisableControlAction(0, 47)
         for _, value in ipairs(KeyToucheCloseEvent) do
           if IsControlJustPressed(1, value.code) then
             SendNUIMessage({keyUp = value.event})
