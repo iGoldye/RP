@@ -6,6 +6,7 @@ local thisGarage 	  = nil
 local PlayerData          = nil
 local blips               = {}
 local myProperties        = {}
+local CurrentInstance = nil
 
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
@@ -24,6 +25,20 @@ Citizen.CreateThread(function()
 	updateBlipsAndMarkers()
 end)
 
+
+RegisterNetEvent('instance:onLeave')
+AddEventHandler('instance:onLeave', function(instance)
+	if instance.type == 'garage' then
+		CurrentInstance = nil
+	end
+end)
+
+RegisterNetEvent('instance:onEnter')
+AddEventHandler('instance:onEnter', function(instance)
+	if instance.type == 'garage' then
+		CurrentInstance = instance
+	end
+end)
 
 AddEventHandler('esx_property:initialized', function()
 	updateOwnedProperties()
@@ -245,7 +260,9 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 
 			ESX.Game.Teleport(playerPed, spawnCoords, function()
 
-				TriggerEvent('instance:close')
+				if CurrentInstance then
+					TriggerEvent('instance:close', CurrentInstance.id)
+				end
 
 				ESX.Game.SpawnVehicle(vehicleProps.model, spawnCoords, garage.ExteriorSpawnPoint.Heading, function(vehicle)
 					TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
@@ -262,7 +279,9 @@ AddEventHandler('esx_garage:hasEnteredMarker', function(name, part, parking)
 						y = garage.ExteriorSpawnPoint.Pos.y,
 						z = garage.ExteriorSpawnPoint.Pos.z
 					}, function()
-				TriggerEvent('instance:close')
+				if CurrentInstance then
+					TriggerEvent('instance:close', CurrentInstance.id)
+				end
 			end)
 
 		end
