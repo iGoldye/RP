@@ -1,3 +1,3 @@
 Citizen.CreateThread(function()
-	AddTextEntry('0xEB4FF0CD', 'Emergency Rapid Response Unit')
+	AddTextEntry('0x76D5A08D', 'Emergency Rapid Response Unit')
 end)

@@ -127,9 +127,9 @@ function SpawnGarageCars(name)
 			local zone = vehInfo.zone
 
 			if zone > 0 and zone <= #garage.Parkings then
-				local pos = garage.Parkings[zone].Pos
-				local hea = garage.Parkings[zone].Heading
-				SpawnGarageCar(vehInfo.vehicle, pos, hea)
+--				local pos = garage.Parkings[zone].Pos
+--				local hea = garage.Parkings[zone].Heading
+--				SpawnGarageCar(vehInfo.vehicle, pos, hea)
 			elseif zone == 0 then
 				local vehicles2 = vehInfo.vehicle
 				for k=1, #vehicles2 do

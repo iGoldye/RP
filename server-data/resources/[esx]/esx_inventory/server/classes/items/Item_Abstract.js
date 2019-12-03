@@ -34,6 +34,23 @@ class Item_Abstract {
 		return true;
 	}
 
+
+	query(item2) {
+		if (item2 == null) {
+			return false;
+		}
+
+		if (this.name != item2.name) {
+			return false;
+		}
+
+		if (!tableSubtable(this.extra, item2.extra)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	duplicate(modifiers) {
 		var item2 = DeserializeItem(this.serialize());
 
@@ -82,7 +99,7 @@ class Item_Abstract {
 	}
 
 	getProp() {
-		return 'prop_money_bag_01'; 
+		return 'prop_money_bag_01';
 	}
 
 	get label() {
@@ -142,4 +159,3 @@ class Item_Abstract {
 		return true;
 	}
 }
-

@@ -1208,7 +1208,7 @@ Config.Garages = {
 		}
 
 	},
-
+--[[
 	LowEndApartment = {
 
 		IsClosed = true,
@@ -1249,7 +1249,7 @@ Config.Garages = {
 		}
 
 	},
-
+]]--
 	Ineseno = {
 
 		IsClosed = true,

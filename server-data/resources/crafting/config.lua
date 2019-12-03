@@ -130,7 +130,7 @@ Config.Recipes = {
 
 -- Доступ к меню как к верстаку
 Config.Shop = {
-	useShop = true,
+	useShop = false,
 	shopCoordinates = { x=962.5, y=-1585.5, z=29.6 },
 	shopName = "Верстак",
 	shopBlipID = 446,

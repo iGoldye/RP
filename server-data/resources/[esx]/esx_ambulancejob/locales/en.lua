@@ -5,6 +5,7 @@ Locales['en'] = {
   ['ems_clothes_ems'] = 'Рабочая одежда',
   -- Vehicles
   ['ambulance'] = 'Скорая помощь',
+  ['policek'] = 'Юнит быстрого реагирования',
   ['helicopter_prompt'] = 'Нажмите ~INPUT_CONTEXT~ для доступа к ~y~Вертолетной площадке~s~.',
   ['helicopter_buy'] = 'Купить вертолет',
   ['helicopter_garage'] = 'Получить вертолет из гаража',
