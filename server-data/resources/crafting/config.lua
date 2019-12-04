@@ -10,7 +10,7 @@ Config.Recipes = {
 	},
 
 	["slivstraw"] = {
-		{item = "strawberry", quantity = 4 },
+		{item = "strawberry", quantity = 1 },
 		{item = "slivki", quantity = 1 },
 	},
 
@@ -71,6 +71,7 @@ Config.Recipes = {
 		{item = "milk", quantity = 1 },
 		{item = "flour", quantity = 1 },
 		{item = "sugar", quantity = 1 },
+		{item = "eggs", quantity = 1 },
 	},
 
 	["coocie"] = {
@@ -88,6 +89,7 @@ Config.Recipes = {
 		{item = "strawberry", quantity = 1 },
 		{item = "banana", quantity = 1 },
 		{item = "slivki", quantity = 1 },
+		{item = "eggs", quantity = 2 },
 	},
 
 	["puree"] = {
@@ -121,6 +123,11 @@ Config.Recipes = {
 		{item = "vine", quantity = 1 },
 	},
 
+	["spagettchee"] = {
+		{item = "spagetti", quantity = 1 },
+		{item = "сheese", quantity = 1 },
+	},
+
 	-- Крафт пушек
 	['WEAPON_ASSAULTRIFLE'] = {
 		{item = "steel", quantity = 4 },
@@ -130,11 +137,11 @@ Config.Recipes = {
 
 -- Доступ к меню как к верстаку
 Config.Shop = {
-	useShop = false,
-	shopCoordinates = { x=962.5, y=-1585.5, z=29.6 },
-	shopName = "Верстак",
-	shopBlipID = 446,
-	zoneSize = { x = 2.5, y = 2.5, z = 1.5 },
+	useShop = true,
+	shopCoordinates = { x=343.42, y=-1002.72, z=-100.2 },
+	shopName = "Создание",
+	-- shopBlipID = 446,
+	zoneSize = { x = 1.5, y = 1.5, z = 1.5 },
 	zoneColor = { r = 255, g = 0, b = 0, a = 100 }
 }
 

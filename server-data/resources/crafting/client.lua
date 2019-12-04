@@ -97,7 +97,7 @@ if Config.Shop.useShop then
 				DrawMarker(1, Config.Shop.shopCoordinates.x, Config.Shop.shopCoordinates.y, Config.Shop.shopCoordinates.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, Config.Shop.zoneSize.x, Config.Shop.zoneSize.y, Config.Shop.zoneSize.z, Config.Shop.zoneColor.r, Config.Shop.zoneColor.g, Config.Shop.zoneColor.b, Config.Shop.zoneColor.a, false, true, 2, false, false, false, false)
 				if not display and isPlayerInRange(GetEntityCoords(PlayerPedId()), Config.Shop.shopCoordinates, Config.Shop.zoneSize.x) then
 					SetTextComponentFormat('STRING')
-					AddTextComponentString("Нажмите ~INPUT_CONTEXT~ для доступа к верстаку")
+					AddTextComponentString("Нажмите ~INPUT_CONTEXT~ для доступа к созданию")
 					DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 					if IsControlJustReleased(1, 38) then
 						TriggerServerEvent('crafting:getPlayerInventory')

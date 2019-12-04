@@ -232,6 +232,7 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "riot" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sp106" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "FBI" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fibjacal" then -- BLACKLISTED VEHICLE
 								-- VEHICLES ABOVE ARE BLACKLISTED
 								else
 									-- ALERT POLICE (START)
