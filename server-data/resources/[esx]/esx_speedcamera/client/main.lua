@@ -2,7 +2,7 @@
 
 local useBilling = true -- OPTIONS: (true/false)
 local useCameraSound = true -- OPTIONS: (true/false)
-local useFlashingScreen = true -- OPTIONS: (true/false)
+local useFlashingScreen = false -- OPTIONS: (true/false)
 local useBlips = true -- OPTIONS: (true/false)
 local alertPolice = true -- OPTIONS: (true/false)
 local alertSpeed = 120 -- OPTIONS: (1-5000 KMH)
