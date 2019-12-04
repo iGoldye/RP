@@ -5,7 +5,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 function getIdentity(source, callback)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
-	MySQL.Async.fetchAll('SELECT identifier, firstname, lastname, dateofbirth, sex, height, lastdigits FROM `users` WHERE `identifier` = @identifier', {
+	MySQL.Async.fetchAll('SELECT identifier, firstname, lastname, dateofbirth, sex, height, FROM `users` WHERE `identifier` = @identifier', {
 		['@identifier'] = xPlayer.identifier
 	}, function(result)
 		if #result > 0 and result[1].firstname ~= nil then
@@ -15,8 +15,7 @@ function getIdentity(source, callback)
 				lastname	= result[1].lastname,
 				dateofbirth	= result[1].dateofbirth,
 				sex			= result[1].sex,
-				height		= result[1].height,
-				lastdigits = result[1].lastdigits
+				height		= result[1].height
 			}
 
 			callback(data)
@@ -138,29 +137,26 @@ function getCharacters(source, callback)
 end
 
 function setIdentity(identifier, data, callback)
-	local lastdigits = math.random(9) .. math.random(9) .. math.random(9) .. math.random(9)
-	MySQL.Async.execute('UPDATE `users` SET `firstname` = @firstname, `lastname` = @lastname, `dateofbirth` = @dateofbirth, `sex` = @sex, `height` = @height, `lastdigits` = @lastdigits WHERE identifier = @identifier', {
+	MySQL.Async.execute('UPDATE `users` SET `firstname` = @firstname, `lastname` = @lastname, `dateofbirth` = @dateofbirth, `sex` = @sex, `height` = @height WHERE identifier = @identifier', {
 		['@identifier']		= identifier,
 		['@firstname']		= data.firstname,
 		['@lastname']		= data.lastname,
 		['@dateofbirth']	= data.dateofbirth,
 		['@sex']			= data.sex,
-		['@height']			= data.height,
-		['@lastdigits']			= lastdigits
+		['@height']			= data.height
 	}, function(rowsChanged)
 		if callback then
 			callback(true)
 		end
 	end)
 
-	MySQL.Async.execute('INSERT INTO characters (identifier, firstname, lastname, dateofbirth, sex, height, lastdigits) VALUES (@identifier, @firstname, @lastname, @dateofbirth, @sex, @height, @lastdigits)', {
+	MySQL.Async.execute('INSERT INTO characters (identifier, firstname, lastname, dateofbirth, sex, height) VALUES (@identifier, @firstname, @lastname, @dateofbirth, @sex, @height)', {
 		['@identifier']		= identifier,
 		['@firstname']		= data.firstname,
 		['@lastname']		= data.lastname,
 		['@dateofbirth']	= data.dateofbirth,
 		['@sex']			= data.sex,
-		['@height']			= data.height,
-		['@lastdigits']			= lastdigits
+		['@height']			= data.height
 	})
 end
 
