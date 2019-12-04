@@ -39,7 +39,7 @@ Config.Food = { -- ccal * g
 	icecream = 600 * 80,
 	cheese = 400 * 40,
 	sendwich1 = 900 * 100,
-	spagettchee - 900 * 100
+	spagettchee - 900 * 100,
 	cake = 800 * 90,
 	puree = 800 * 90,
 	pureemeat = 1000 * 100,

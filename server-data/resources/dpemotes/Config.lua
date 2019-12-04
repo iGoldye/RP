@@ -31,7 +31,7 @@ Config = {
 	WalkingStylesEnabled = true,
 -- You can disable the Shared Emotes here.
     SharedEmotesEnabled = true,
-    CheckForUpdates = true,
+    CheckForUpdates = false,
 }
 
 Config.Languages = {
