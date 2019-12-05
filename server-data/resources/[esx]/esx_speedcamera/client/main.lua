@@ -221,7 +221,6 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "AMBULANCE" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi2" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "CENTENARIO" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "aventador" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sheriff" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sheriff2" then -- BLACKLISTED VEHICLE
@@ -316,7 +315,6 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "AMBULANCE" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi2" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fbi" then -- BLACKLISTED VEHICLE
-								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "CENTENARIO" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "aventador" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sheriff" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sheriff2" then -- BLACKLISTED VEHICLE
@@ -327,6 +325,7 @@ Citizen.CreateThread(function()
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "riot" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "sp106" then -- BLACKLISTED VEHICLE
 								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "FBI" then -- BLACKLISTED VEHICLE
+								elseif GetDisplayNameFromVehicleModel(GetEntityModel(veh)) == "fibjacal" then -- BLACKLISTED VEHICLE
 								-- VEHICLES ABOVE ARE BLACKLISTED
 								else
 									-- ALERT POLICE (START)
