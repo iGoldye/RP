@@ -51,6 +51,32 @@ function tablesEqual(table1, table2) {
 	return true;
 }
 
+function tableSubtable(table1, table2) {
+	if (table1 == null) {
+		return table2 == null
+    }
+
+	if (table2 == null) {
+		return false;
+    }
+/*
+	for (var k in table1) {
+		if (table2[k] != table1[k]) {
+			return false;
+        }
+		}
+		*/
+
+	for (var k in table2) {
+		if (table1[k] != table2[k]) {
+			return false;
+        }
+    }
+
+	return true;
+}
+
+
 function _U(key) {
 	return global.Locales['en'][key];
 }

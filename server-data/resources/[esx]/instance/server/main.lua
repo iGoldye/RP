@@ -100,7 +100,7 @@ end
 function RemovePlayerFromInstance(id, player)
 	if instances[id] then
 		TriggerClientEvent('instance:onLeave', player, instances[id])
---[[
+		--[[
 		if instances[id].host == player then
 			for i=1, #instances[id].players do
 				if instances[id].players[i] ~= player then
@@ -144,6 +144,7 @@ end)
 
 RegisterServerEvent('instance:close')
 AddEventHandler('instance:close', function(id)
+	RemovePlayerFromInstance(id, source)
 	CloseInstance(id, source)
 end)
 

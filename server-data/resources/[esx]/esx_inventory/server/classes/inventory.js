@@ -96,7 +96,7 @@ class Inventory {
 		}
 
 		for (var k in this.items) {
-			if (this.items[k].equals(item)) {
+			if (this.items[k].query(item)) {
 				return this.items[k];
 			}
 		}
@@ -283,7 +283,7 @@ class Inventory {
 		if (item != null) {
 			this.items.push(item);
 		}
-		
+
 	        var account = xPlayer.getAccount("bank")
 		item = {}
 		item.name = 'account_money'

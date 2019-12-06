@@ -17,9 +17,9 @@ function CreateInstance(id, type, data)
 	TriggerServerEvent('instance:create', id, type, data)
 end
 
-function CloseInstance()
+function CloseInstance(id)
 	instance = {}
-	TriggerServerEvent('instance:close')
+	TriggerServerEvent('instance:close', id)
 	insideInstance = false
 end
 

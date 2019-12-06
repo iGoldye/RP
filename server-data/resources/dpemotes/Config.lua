@@ -31,7 +31,7 @@ Config = {
 	WalkingStylesEnabled = true,
 -- You can disable the Shared Emotes here.
     SharedEmotesEnabled = true,
-    CheckForUpdates = true,
+    CheckForUpdates = false,
 }
 
 Config.Languages = {
@@ -68,7 +68,7 @@ Config.Languages = {
         ['notvalidsharedemote'] = "",
         ['sentrequestto'] = "Запрос ~y~",
         ['nobodyclose'] = "Нет ~r~никого~w~ рядом.",
-        ['doyouwanna'] = "~y~Y~w~ принять, ~r~L~w~ отказать (~g~",
+        ['doyouwanna'] = "~y~K~w~ принять, ~r~L~w~ отказать (~g~",
         ['refuseemote'] = "Взаимодействие отменено.",
         ['makenearby'] = "",
         ['camera'] = "Нажмите ~y~E~w~ чтобы сфотографировать.",

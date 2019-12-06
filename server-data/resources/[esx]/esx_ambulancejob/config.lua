@@ -13,8 +13,8 @@ Config.Locale = 'en'
 local second = 1000
 local minute = 60 * second
 
-Config.EarlyRespawnTimer          = 15 * minute  -- Time til respawn is available
-Config.BleedoutTimer              = 20 * minute -- Time til the player bleeds out
+Config.EarlyRespawnTimer          = 30 * minute  -- Time til respawn is available
+Config.BleedoutTimer              = 40 * minute -- Time til the player bleeds out
 
 Config.EnablePlayerManagement     = true
 
@@ -222,19 +222,23 @@ Config.Hospitals = {
 Config.AuthorizedVehicles = {
 
 	ambulance = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200},
+		{ model = 'policek', label = 'Rapid Response Unit', price = 100}
 	},
 
 	doctor = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200},
+		{ model = 'policek', label = 'Rapid Response Unit', price = 100}
 	},
 
 	chief_doctor = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200},
+		{ model = 'policek', label = 'Rapid Response Unit', price = 100}
 	},
 
 	boss = {
-		{ model = 'ambulance', label = 'Ambulance Van', price = 200}
+		{ model = 'ambulance', label = 'Ambulance Van', price = 200},
+		{ model = 'policek', label = 'Rapid Response Unit', price = 100}
 	}
 
 }

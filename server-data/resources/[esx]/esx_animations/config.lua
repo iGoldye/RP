@@ -167,7 +167,7 @@ Config.Animations = {
 			{label = "Восхищение", type = "anim", data = {lib = "random@bus_tour_guide@idle_a", anim = "idle_b", flag = 9}},
 			{label = "Досада", type = "anim", data = {lib = "random@bicycle_thief@idle_a", anim = "idle_b", flag = 9}},
 		  {label = "Неа!", type = "anim", data = {lib = "mini@prostitutestalk", anim = "street_argue_f_a", flag = 9}},
-			{label = "Отчаянеие", type = "anim", data = {lib = "misscarsteal2car_stolen", anim = "chad_car_stolen_reaction", flag = 9}},
+			{label = "Отчаяние", type = "anim", data = {lib = "misscarsteal2car_stolen", anim = "chad_car_stolen_reaction", flag = 9}},
 			{label = "Клоун1", type = "dpemotes", data = {anim = "clown"}},
 			{label = "Клоун2", type = "dpemotes", data = {anim = "clown2"}},
 			{label = "Угроза", type = "dpemotes", data = {anim = "cutthroat"}},
@@ -206,7 +206,7 @@ Config.Animations = {
 		label = 'Сидеть/Лежать',
 		items = {
 			{label = "Отдыхать", type = "dpemotes", data = {anim = "chill"}},
-			{label = "Наблюдать за облоками", type = "dpemotes", data = {anim = "cloudgaze"}},
+			{label = "Наблюдать за облаками", type = "dpemotes", data = {anim = "cloudgaze"}},
 			{label = "Подстрелили", type = "dpemotes", data = {anim = "shot"}},
 			{label = "Свернуться", type = "anim", data = {lib = "anim@amb@nightclub@lazlow@lo_sofa@", anim = "lowsofa_dlg_fuckedup_laz", flag = 9}},
 			{label = "Лежать на спине", type = "scenario", data = {anim = "WORLD_HUMAN_SUNBATHE_BACK"}},
