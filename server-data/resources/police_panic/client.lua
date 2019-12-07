@@ -34,8 +34,6 @@ Config.Message = "Внимание всем юнитам, Сотрудник в 
 --		Do not make changes below this line unless you know what you are doing!
 --
 ESX = nil
-closestDoor = -1
-doorKeys = {}
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -48,9 +46,6 @@ Citizen.CreateThread(function()
 	end
 
 	ESX.PlayerData = ESX.GetPlayerData()
-
-
---	local doorExists = Citizen.InvokeNative(0xC153C43EA202C8C1, 1206354175)
 end)
 
 RegisterNetEvent('esx:setJob')

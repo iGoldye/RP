@@ -34,6 +34,11 @@ AddEventHandler('esx_ambulancejob:useMedikitRevive', function(target)
 	end
 end)
 
+RegisterServerEvent('esx_ambulancejob:removedeadnpcs')
+AddEventHandler('esx_ambulancejob:removedeadnpcs', function(pos)
+	TriggerClientEvent('esx_ambulancejob:removedeadnpcs', -1, pos)
+end)
+
 RegisterServerEvent('esx_ambulancejob:useBandage')
 AddEventHandler('esx_ambulancejob:useBandage', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)

@@ -866,7 +866,7 @@ function OpenPoliceActionsMenu()
 				menu2.close()
 			end)
 		elseif data.current.value == 'remove_npcs' then
-			TriggerEvent('esx_ambulancejob:removedeadnpcs')
+			TriggerServerEvent('esx_ambulancejob:removedeadnpcs', GetEntityCoords(PlayerPedId()))
 		elseif data.current.value == 'revive' then
 			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 			if closestPlayer > 0 and closestDistance < 1.5 then
