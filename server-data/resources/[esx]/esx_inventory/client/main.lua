@@ -52,6 +52,15 @@ Citizen.CreateThread(function()
 			pocketWeightLimit = pocketWeightLimit + ESX.PlayerData.skills.strength / 100.0 * Config.StrengthExtraWeight
 		end
 
+		if inventories["pocket"] ~= nil then
+			for k,v in pairs(inventories["pocket"].items) do
+				if v.name == "esx_item" and v.extra.name == "bag" then
+					pocketWeightLimit = pocketWeightLimit + 10.0
+					break
+				end
+			end
+		end
+
 		if pocketWeight > pocketWeightLimit then
 			local speed = 1.0 - (pocketWeight-pocketWeightLimit)/10.0
 			if speed < 0.1 then

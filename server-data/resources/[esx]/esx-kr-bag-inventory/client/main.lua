@@ -98,7 +98,7 @@ end)
 
 RegisterNetEvent('esx-kr-bag:SetOntoPlayer')
 AddEventHandler('esx-kr-bag:SetOntoPlayer', function(id)
-    ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+--    ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
         if HasBag and skin.bags_1 ~= 45 then
             TriggerEvent('skinchanger:change', "bags_1", 45)
             TriggerEvent('skinchanger:change', "bags_2", 0)
@@ -106,7 +106,7 @@ AddEventHandler('esx-kr-bag:SetOntoPlayer', function(id)
 --            TriggerServerEvent('esx_skin:save', skin)
 --            end)
         end
-    end)
+--    end)
 end)
 
 function LoadAnimation(dict)
