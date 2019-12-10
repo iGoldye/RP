@@ -83,16 +83,23 @@ function SaveGarageCars(name)
 	local garage    = Config.Garages[name]
 	local vehicle = 0
 	local cars = {}
+	local plates = {}
 
 	-- save first 20 vehicles into garage
 	for i=1, 20 do
 		vehicle = GetClosestVehicle(garage.InteriorCenter.Pos.x,  garage.InteriorCenter.Pos.y,  garage.InteriorCenter.Pos.z,  garage.InteriorCenter.Radius,  0,  71)
 		if vehicle > 0 and DoesEntityExist(vehicle) then
 			local vehicleProps  = ESX.Game.GetVehicleProperties(vehicle)
-			table.insert(cars, {
-				["props"] = vehicleProps,
-				["pos"] = getPosRot(vehicle),
-			})
+			if plates[vehicleProps.plate] == nil then
+				table.insert(cars, {
+					["props"] = vehicleProps,
+					["pos"] = getPosRot(vehicle),
+				})
+				plates[vehicleProps.plate] = true
+			else
+				Citizen.Wait(100)
+			end
+
 			ESX.Game.DeleteVehicle(vehicle)
 		else
 			break
@@ -120,6 +127,7 @@ end
 
 function SpawnGarageCars(name)
 	local garage    = Config.Garages[name]
+	local plates = {}
 	ESX.TriggerServerCallback('esx_vehicleshop:getVehiclesInGarage', function(vehicles)
 
 		for j=1, #vehicles, 1 do
@@ -136,7 +144,11 @@ function SpawnGarageCars(name)
 					local veh = vehicles2[k]
 					local pos = veh.pos
 					local hea = veh.pos.r
-					SpawnGarageCar(veh.props, pos, hea)
+
+					if plates[veh.props.plate] == nil then
+						SpawnGarageCar(veh.props, pos, hea)
+						plates[veh.props.plate] = true
+					end
 				end
 			end
 		end
