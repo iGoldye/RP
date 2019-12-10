@@ -1,3 +1,5 @@
+local DrawNightclubScreens = false
+
 local simplePedPos = {
 	-- { pos = vector3(-1599.286, -3014.479, -79.00606), heading = 74.99979 },
 	-- { pos = vector3(-1599.256, -3012.859, -79.00606), heading = 89.9997 },
@@ -592,57 +594,59 @@ end
 
 -- Танцпол
 
--- local grooving = false
--- local function HandleNightclubDance()
--- 	local ped = GetPlayerPed(-1)
--- 	local plyPos = GetEntityCoords(ped)
+local grooving = false
+local function HandleNightclubDance()
+--[[
+	local ped = GetPlayerPed(-1)
+	local plyPos = GetEntityCoords(ped)
 
--- 	if GetDistanceBetweenCoords(plyPos, -1595.837, -3012.552, -79.006) <= 8 then
--- 		if not grooving then
--- 			SetMovementClipset(ped, "anim@move_m@grooving@")
--- 			grooving = true
--- 		end
+	if GetDistanceBetweenCoords(plyPos, -1595.837, -3012.552, -79.006) <= 8 then
+		if not grooving then
+			SetMovementClipset(ped, "anim@move_m@grooving@")
+			grooving = true
+		end
 
--- 		-- DrawTopNotification("~INPUT_CONTEXT~ чтобы начать/закончить тусоваться.")
+		DrawTopNotification("~INPUT_CONTEXT~ чтобы начать/закончить тусоваться.")
 
--- 		if IsControlJustPressed(0, 51) and InNightClub then
--- 			Citizen.Wait(0)
+		if IsControlJustPressed(0, 51) and InNightClub then
+			Citizen.Wait(0)
 
--- 			local index = 1
--- 			local flag = false
--- 			TaskPlayAnim2(ped, danceAnim[index].LowIntensityAnimDict, danceAnim[index].LowIntensityAnimFile, 9, -1)
+			local index = 1
+			local flag = false
+			TaskPlayAnim2(ped, danceAnim[index].LowIntensityAnimDict, danceAnim[index].LowIntensityAnimFile, 9, -1)
 
--- 			while not IsControlJustPressed(0, 51) do
--- 				Citizen.Wait(0)
+			while not IsControlJustPressed(0, 51) do
+				Citizen.Wait(0)
 
--- 				if IsControlJustPressed(0, 22) then
--- 					flag = not flag
--- 					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
--- 				end
+				if IsControlJustPressed(0, 22) then
+					flag = not flag
+					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
+				end
 
--- 				if IsControlJustPressed(0, 24) then
--- 					index = index + 1
--- 					if index > #danceAnim then index = 1 end
--- 					flag = false
--- 					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
--- 				end
+				if IsControlJustPressed(0, 24) then
+					index = index + 1
+					if index > #danceAnim then index = 1 end
+					flag = false
+					TaskPlayAnim2(ped, flag and danceAnim[index].HighIntensityAnimDict or danceAnim[index].LowIntensityAnimDict, flag and danceAnim[index].HighIntensityAnimFile or danceAnim[index].LowIntensityAnimFile, 9, -1)
+				end
 
--- 				if IsControlPressed(0, 44) then
--- 					SetEntityHeading(ped, GetEntityHeading(ped) + 2.0)
--- 				end
+				if IsControlPressed(0, 44) then
+					SetEntityHeading(ped, GetEntityHeading(ped) + 2.0)
+				end
 
--- 				if IsControlPressed(0, 51) then
--- 					SetEntityHeading(ped, GetEntityHeading(ped) - 2.0)
--- 				end
--- 				DrawTopNotification("~INPUT_ATTACK~ Стиль: " .. danceAnim[index].Name .. "~n~~INPUT_JUMP~ Темп ~n~~INPUT_COVER~ Поворот ~INPUT_CONTEXT~ ~n~~INPUT_CONTENT~ Прекратить танцевать")
--- 			end
--- 			ClearPedTasks(ped)
--- 		end
--- 	elseif grooving then
--- 		grooving = false
--- 		ResetPedMovementClipset(ped, 0.0)
--- 	end
--- end
+				if IsControlPressed(0, 51) then
+					SetEntityHeading(ped, GetEntityHeading(ped) - 2.0)
+				end
+				DrawTopNotification("~INPUT_ATTACK~ Стиль: " .. danceAnim[index].Name .. "~n~~INPUT_JUMP~ Темп ~n~~INPUT_COVER~ Поворот ~INPUT_CONTEXT~ ~n~~INPUT_CONTENT~ Прекратить танцевать")
+			end
+			ClearPedTasks(ped)
+		end
+	elseif grooving then
+		grooving = false
+		ResetPedMovementClipset(ped, 0.0)
+	end
+]]--
+end
 
 local pedCreated = false
 Citizen.CreateThread(function()
@@ -666,13 +670,15 @@ Citizen.CreateThread(function()
 				CreateSlavePeds()
 				CreateSlaveObjects()
 
-				screen2 = CreateNamedRenderTargetForModel("Club_Projector", GetHashKey('ba_prop_battle_club_screen'))
-				screen = CreateNamedRenderTargetForModel("Club_Projector", propName)
+				if DrawNightclubScreens then
+					screen2 = CreateNamedRenderTargetForModel("Club_Projector", GetHashKey('ba_prop_battle_club_screen'))
+					screen = CreateNamedRenderTargetForModel("Club_Projector", propName)
 
-				SetTvAudioFrontend(1)
-				SetTvVolume(-5.0)
-				SetTvChannel(0)
-				LoadTvChannelSequence(0, "PL_TOU_LED_PALACE", 1)
+					SetTvAudioFrontend(1)
+					SetTvVolume(-5.0)
+					SetTvChannel(0)
+					LoadTvChannelSequence(0, "PL_TOU_LED_PALACE", 1)
+				end
 
 				pedCreated = true
 			end
@@ -688,15 +694,17 @@ Citizen.CreateThread(function()
 
 			HandleNightclubDance()
 
-			Set_2dLayer(4)
-			SetScriptGfxDrawBehindPausemenu(1)
-			SetTextRenderId(screen)
-			DrawTvChannel(.5, .5, 1.0, 1.0, .0, 255, 255, 255, 255)
+			if DrawNightclubScreens then
+				Set_2dLayer(4)
+				SetScriptGfxDrawBehindPausemenu(1)
+				SetTextRenderId(screen)
+				DrawTvChannel(.5, .5, 1.0, 1.0, .0, 255, 255, 255, 255)
 
-			SetTextRenderId(screen2)
-			DrawTvChannel(.5, .5, 1.0, 1.0, .0, 255, 255, 255, 255)
+				SetTextRenderId(screen2)
+				DrawTvChannel(.5, .5, 1.0, 1.0, .0, 255, 255, 255, 255)
 
-			SetTextRenderId(GetDefaultScriptRendertargetRenderId())
+				SetTextRenderId(GetDefaultScriptRendertargetRenderId())
+			end
 		elseif screen or screen2 then
 			Citizen.InvokeNative(0xE9F6FFE837354DD4, "Club_Projector")
 			ResetPedMovementClipset(GetPlayerPed(-1), 0.0)
