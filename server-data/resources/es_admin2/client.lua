@@ -6,8 +6,8 @@ states.frozenPos = nil
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		
-		if (IsControlJustPressed(1, 212) and IsControlJustPressed(1, 213)) then
+
+		if (group == "admin" or group == "superadmin") and (IsControlJustPressed(1, 212) and IsControlJustPressed(1, 213)) then
 			if true then
 				SetNuiFocus(true, true)
 				SendNUIMessage({type = 'open', players = getPlayers()})
@@ -42,15 +42,15 @@ RegisterNetEvent('es_admin:quick')
 AddEventHandler('es_admin:quick', function(t, target)
 	if t == "slay" then SetEntityHealth(PlayerPedId(), 0) end
 	if t == "goto" then SetEntityCoords(PlayerPedId(), GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(target)))) end
-	if t == "bring" then 
+	if t == "bring" then
 		states.frozenPos = GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(target)))
-		SetEntityCoords(PlayerPedId(), GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(target)))) 
+		SetEntityCoords(PlayerPedId(), GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(target))))
 	end
-	if t == "crash" then 
+	if t == "crash" then
 		Citizen.Trace("You're being crashed, so you know. This server sucks.\n")
 		Citizen.CreateThread(function()
 			while true do end
-		end) 
+		end)
 	end
 	if t == "slap" then ApplyForceToEntity(PlayerPedId(), 1, 9500.0, 3.0, 7100.0, 1.0, 0.0, 0.0, 1, false, true, false, false) end
 	if t == "noclip" then
