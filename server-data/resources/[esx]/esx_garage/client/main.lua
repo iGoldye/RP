@@ -85,24 +85,30 @@ function SaveGarageCars(name)
 	local cars = {}
 	local plates = {}
 
-	-- save first 20 vehicles into garage
-	for i=1, 20 do
-		vehicle = GetClosestVehicle(garage.InteriorCenter.Pos.x,  garage.InteriorCenter.Pos.y,  garage.InteriorCenter.Pos.z,  garage.InteriorCenter.Radius,  0,  71)
-		if vehicle > 0 and DoesEntityExist(vehicle) then
-			local vehicleProps  = ESX.Game.GetVehicleProperties(vehicle)
-			if plates[vehicleProps.plate] == nil then
-				table.insert(cars, {
-					["props"] = vehicleProps,
-					["pos"] = getPosRot(vehicle),
-				})
-				plates[vehicleProps.plate] = true
-			else
-				Citizen.Wait(100)
+	local vehicles = ESX.Game.GetVehiclesInArea(vector3(garage.InteriorCenter.Pos.x,garage.InteriorCenter.Pos.y,garage.InteriorCenter.Pos.z), garage.InteriorCenter.Radius)
+
+	for k,vehicle in ipairs(vehicles) do
+		-- save first 20 vehicles into garage
+		if #cars >= 20 then
+			break
+		end
+
+		if vehicle > 0 and DoesEntityExist(vehicle) and NetworkGetEntityIsLocal(vehicle) then
+			local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
+			if vehicleProps ~= nil and vehicleProps.plate ~= nil then
+				if plates[vehicleProps.plate] == nil then
+					table.insert(cars, {
+						["props"] = vehicleProps,
+						["pos"] = getPosRot(vehicle),
+					})
+					plates[vehicleProps.plate] = true
+				else
+					Citizen.Wait(100)
+				end
+
 			end
 
 			ESX.Game.DeleteVehicle(vehicle)
-		else
-			break
 		end
 	end
 
