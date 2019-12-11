@@ -66,17 +66,6 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('dpemotes:emote')
-AddEventHandler('dpemotes:emote', function(name)
-	if DP.Emotes[name] ~= nil then
-		if OnEmotePlay(DP.Emotes[name]) then end return
-	elseif DP.Dances[name] ~= nil then
-		if OnEmotePlay(DP.Dances[name]) then end return
-	elseif DP.PropEmotes[name] ~= nil then
-		if OnEmotePlay(DP.PropEmotes[name]) then end return
-	end
-end)
-
 RegisterNetEvent('esx_playermenu:setAdmin')
 AddEventHandler('esx_playermenu:setAdmin', function(val)
 	isAdmin = val
