@@ -11,30 +11,61 @@ local Keys = {
 }
 
 -- internal variables
---ESX = nil
-local currentZone = nil
+ESX = nil
+local _currentMarker = nil
+local _currentZone = nil
+
+local _enteredZone = nil
+local _enteredMarker = nil
+
+function createBlip(vBlip, vMarker)
+	local blip = AddBlipForCoord(vMarker.Pos.x, vMarker.Pos.y, vMarker.Pos.z)
+	SetBlipSprite  (blip, vBlip.Sprite)
+	SetBlipDisplay (blip, vBlip.Display)
+	SetBlipScale   (blip, vBlip.Scale)
+	SetBlipCategory(blip, vBlip.Category)
+	SetBlipColour  (blip, vBlip.Color)
+	SetBlipAsShortRange(blip, vBlip.ShortRange)
+
+	BeginTextCommandSetBlipName("STRING")
+	AddTextComponentString(vBlip.Name)
+	EndTextCommandSetBlipName(blip)
+	return blip
+end
 
 Citizen.CreateThread(function()
---	while ESX == nil do
---		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
---		Citizen.Wait(0)
---	end
+	while true do
+		Citizen.Wait(0)
+		if _currentMarker ~= nil and _enteredMarker == nil then
+			_enteredZone = _currentZone
+			_enteredMarker = _currentMarker
+			TriggerEvent(_enteredZone.Events.Enter, _enteredZone, _enteredMarker)
 
---	Citizen.Wait(5000)
+		elseif _currentMarker == nil and _enteredMarker ~= nil then
+			TriggerEvent(_enteredZone.Events.Exit, _enteredZone, _enteredMarker)
+			_enteredZone = nil
+			_enteredMarker = nil
 
-	for k,v in pairs(Config.Zones) do
-		if v.Blip ~= nil then
-			local blip = AddBlipForCoord(v.Marker.Pos.x, v.Marker.Pos.y, v.Marker.Pos.z)
-			SetBlipSprite  (blip, v.Blip.Sprite)
-			SetBlipDisplay (blip, v.Blip.Display)
-			SetBlipScale   (blip, v.Blip.Scale)
-			SetBlipCategory(blip, v.Blip.Category)
-			SetBlipColour  (blip, v.Blip.Color)
-			SetBlipAsShortRange(blip, v.Blip.ShortRange)
+		elseif _enteredMarker ~= nil and (_enteredMarker.id ~= _currentMarker.id) then
+			TriggerEvent(_enteredZone.Events.Exit, _enteredZone, _enteredMarker)
+			_enteredZone = _currentZone
+			_enteredMarker = _currentMarker
+			TriggerEvent(_enteredZone.Events.Enter, _enteredZone, _enteredMarker)
+		end
+	end
+end)
 
-			BeginTextCommandSetBlipName("STRING")
-			AddTextComponentString(v.Blip.Name)
-			EndTextCommandSetBlipName(blip)
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0)
+	end
+
+	for _,zone in pairs(Config.Zones) do
+		if zone.Blip ~= nil then
+			for _,marker in pairs(zone.Markers) do
+				createBlip(zone.Blip, marker)
+			end
 		end
 	end
 
@@ -55,34 +86,30 @@ Citizen.CreateThread(function()
 		local foundMarker = false
 
 		for k,v in pairs(Config.Zones) do
-			local marker_coords = vector3(v.Marker.Pos.x,v.Marker.Pos.y,v.Marker.Pos.z)
+		for mid,marker in pairs(v.Markers) do
+			local marker_coords = vector3(marker.Pos.x,marker.Pos.y,marker.Pos.z+1)
 			local dist = #(coords-marker_coords)
 
 			if dist < 100 then
 				can_sleep = false
-				if v.Marker.Type ~= nil then
-					DrawMarker(v.Marker.Type, v.Marker.Pos.x, v.Marker.Pos.y, v.Marker.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Marker.Size.x, v.Marker.Size.y, v.Marker.Size.z, v.Marker.Color.r, v.Marker.Color.g, v.Marker.Color.b, v.Marker.Color.a, false, true, 2, false, false, false, false)
+				if marker.Type ~= nil then
+					DrawMarker(marker.Type, marker.Pos.x, marker.Pos.y, marker.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, marker.Size.x, marker.Size.y, marker.Size.z, marker.Color.r, marker.Color.g, marker.Color.b, marker.Color.a, false, true, 2, false, false, false, false)
 				end
 
-				if dist < v.Marker.Size.x then
+				if dist < marker.Size.x then
+					_currentMarker = marker
+					_currentZone = v
+					_currentZone.name = k
+					_currentMarker.id = mid
 					foundMarker = true
-					if currentZone == nil then
-						currentZone = v
-						if currentZone ~= nil then
-							currentZone.name = k
-							TriggerEvent(currentZone.Events.Enter, currentZone)
-							break
-						end
-					end
 				end
 			end
 		end
+		end
 
 		if not foundMarker then
-			if currentZone ~= nil then
-				TriggerEvent(currentZone.Events.Exit, currentZone)
-				currentZone = nil
-			end
+			_currentZone = nil
+			_currentMarker = nil
 		end
 	end
 end)
