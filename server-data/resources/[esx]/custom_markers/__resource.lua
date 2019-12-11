@@ -17,7 +17,8 @@ client_scripts {
 	'locales/en.lua',
 	'config.lua',
 	'client/main.lua',
-	'client/scrap.lua'
+	'client/scrap.lua',
+	'client/portals.lua',
 }
 
 dependencies {
