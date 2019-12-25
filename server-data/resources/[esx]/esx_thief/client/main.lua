@@ -66,6 +66,22 @@ function OpenStealMenu(target, target_id)
 		if Config.EnableInventory then
 			table.insert(elements, {label = '--- ' .. _U('inventory') .. ' ---', value = nil})
 
+			for i=1, #data.new_inventory.items, 1 do
+				local item = data.new_inventory.items[i]
+				local count = item.count
+				local label = item.label
+				if label == nil or label == "" then
+					label = item.name
+				end
+
+				table.insert(elements, {
+					label    = label .. " x"..tostring(item.amount),
+					value    = item,
+					type     = 'item_new',
+					amount   = item.amount,
+				})
+			end
+
 			for i=1, #data.inventory, 1 do
 				if data.inventory[i].count > 0 then
 					table.insert(elements, {
@@ -142,6 +158,8 @@ Citizen.CreateThread(function()
 
 		if IsControlJustPressed(0, Keys['G']) and IsPedArmed(ped, 7) and not IsEntityDead(ped) and IsPedOnFoot(ped) then
 			local target, distance = ESX.Game.GetClosestPlayer()
+--			local target = PlayerId()
+--			local distance = 0.1
 
 			if target ~= -1 and distance ~= -1 and distance <= 2.0 then
 				local target_id = GetPlayerServerId(target)

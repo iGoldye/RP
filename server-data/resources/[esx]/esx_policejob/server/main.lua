@@ -180,7 +180,7 @@ ESX.RegisterServerCallback('esx_policejob:getOtherPlayerData', function(source, 
 			['@identifier'] = xPlayer.identifier
 		})
 
-		local new_inventory = exports["esx_inventory"]:getInventory("pocket", xPlayer.identifier)
+		local new_inventory = exports["esx_inventory"]:getInventory("pocket", xPlayer.identifier, true)
 
 		local firstname = result[1].firstname
 		local lastname  = result[1].lastname

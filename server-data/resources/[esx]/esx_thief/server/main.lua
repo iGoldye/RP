@@ -13,10 +13,21 @@ end)
 
 ESX.RegisterServerCallback('esx_thief:getOtherPlayerData', function(source, cb, target)
 	local xPlayer = ESX.GetPlayerFromId(target)
+	local new_inventory = exports["esx_inventory"]:getInventory("pocket", xPlayer.identifier, true)
+
+	local a = {}
+	for k,v in pairs(new_inventory.items) do
+		if v.name ~= "esx_item" and v.name ~= "money" and v.name ~= "black_money" and v.name ~= "account_money" then
+			table.insert(a, v)
+		end
+	end
+
+	new_inventory.items = a
 
 	local data = {
 		name = GetPlayerName(target),
 		inventory = xPlayer.inventory,
+		new_inventory = new_inventory,
 		accounts = xPlayer.accounts,
 		money = xPlayer.getMoney()
 	}
@@ -75,7 +86,10 @@ AddEventHandler('esx_thief:stealPlayerItem', function(target, itemType, itemName
 		else
 			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
 		end
-
+	elseif itemType == 'item_new' then
+		exports["esx_inventory"]:giveItemTo(targetXPlayer.source, sourceXPlayer.source, itemName)
+		TriggerClientEvent('esx:showNotification', sourceXPlayer.source, _U('you_stole') .. ' ~g~x' .. itemName .. ' ~w~' .. _U('from_your_target') )
+		TriggerClientEvent('esx:showNotification', targetXPlayer.source, _U('someone_stole') .. ' ~r~x'  .. itemName )
 	end
 end)
 
