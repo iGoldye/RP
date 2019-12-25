@@ -79,7 +79,7 @@ function getSourceFromIdentifier(identifier, cb)
     end)
     cb(nil)
 end
-function getNumberPhone(identifier)
+function getPhoneNumber(identifier)
     if dbcache_numbers[identifier] == nil then
 	    local result = MySQL.Sync.fetchAll("SELECT users.phone_number FROM users WHERE users.identifier = @identifier", {
 	        ['@identifier'] = identifier
@@ -116,7 +116,7 @@ end
 function getOrGeneratePhoneNumber (sourcePlayer, identifier, cb)
     local sourcePlayer = sourcePlayer
     local identifier = identifier
-    local myPhoneNumber = getNumberPhone(identifier)
+    local myPhoneNumber = getPhoneNumber(identifier)
     if myPhoneNumber == '0' or myPhoneNumber == nil then
         repeat
             myPhoneNumber = getPhoneRandomNumber()
@@ -132,6 +132,33 @@ function getOrGeneratePhoneNumber (sourcePlayer, identifier, cb)
         cb(myPhoneNumber)
     end
 end
+
+function setPhoneNumber (source, numb, cb)
+      local xPlayer = ESX.GetPlayerFromId(source)
+	if numb ~= nil then
+	        local id = getIdentifierByPhoneNumber(numb)
+		if id ~= nil then
+			local xTarget = ESX.GetPlayerFromId(source)
+			setPhoneNumber(xTarget.source, nil, nil)
+		end
+	end
+
+        MySQL.Async.insert("UPDATE users SET phone_number = @myPhoneNumber WHERE identifier = @identifier", {
+            ['@myPhoneNumber'] = numb,
+            ['@identifier'] = xPlayer.identifier
+        }, function ()
+            allUpdate(source, numb)
+            if cb ~= nil then
+	            cb(numb)
+            end
+        end)
+end
+
+AddEventHandler('gcPhone:setPhoneNumber', function(source, numb, cb)
+	setPhoneNumber(source, numb, cb)
+end)
+
+
 --====================================================================================
 --  Contacts
 --====================================================================================
@@ -218,20 +245,19 @@ end)
 --====================================================================================
 --  Messages
 --====================================================================================
-function getMessages(identifier)
-    if dbcache_messages[identifier] == nil then
-	    dbcache_messages[identifier] = MySQL.Sync.fetchAll("SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.identifier = @identifier WHERE phone_messages.receiver = users.phone_number", {
-	         ['@identifier'] = identifier
+function getMessages(numb)
+    if dbcache_messages[numb] == nil then
+	    dbcache_messages[numb] = MySQL.Sync.fetchAll("SELECT phone_messages.* FROM phone_messages WHERE phone_messages.receiver = @phone_number", {
+	         ['@phone_number'] = numb
 	    })
     end
-    return dbcache_messages[identifier]
+    return dbcache_messages[numb]
     --return MySQLQueryTimeStamp("SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.identifier = @identifier WHERE phone_messages.receiver = users.phone_number", {['@identifier'] = identifier})
 end
 
 RegisterServerEvent('gcPhone:_internalAddMessage')
 AddEventHandler('gcPhone:_internalAddMessage', function(transmitter, receiver, message, owner, options, cb)
-    local r_identifier = getIdentifierByPhoneNumber(receiver)
-    dbcache_messages[r_identifier] = nil
+    dbcache_messages[receiver] = nil
     cb(_internalAddMessage(transmitter, receiver, message, owner, options))
 end)
 
@@ -263,10 +289,10 @@ end
 function addMessage(source, identifier, phone_number, message, options)
     local sourcePlayer = tonumber(source)
     local otherIdentifier = getIdentifierByPhoneNumber(phone_number)
-    local myPhone = getNumberPhone(identifier)
-    dbcache_messages[identifier] = nil
+    local myPhone = getPhoneNumber(identifier)
+    dbcache_messages[myPhone] = nil
     if otherIdentifier ~= nil then
-        dbcache_messages[otherIdentifier] = nil
+        dbcache_messages[phone_number] = nil
         local tomess = _internalAddMessage(myPhone, phone_number, message, 0, options)
         getSourceFromIdentifier(otherIdentifier, function (osou)
             if tonumber(osou) ~= nil then
@@ -286,7 +312,7 @@ end)
 function addFakeMessage(fake_number, to_number, message, options)
     local otherIdentifier = getIdentifierByPhoneNumber(to_number)
     if otherIdentifier ~= nil then
-        dbcache_messages[otherIdentifier] = nil
+        dbcache_messages[to_number] = nil
         local tomess = _internalAddMessage(fake_number, to_number, message, 0, options)
         getSourceFromIdentifier(otherIdentifier, function (osou)
             if tonumber(osou) ~= nil then
@@ -297,13 +323,13 @@ function addFakeMessage(fake_number, to_number, message, options)
 end
 
 function setReadMessageNumber(identifier, num)
-    local mePhoneNumber = getNumberPhone(identifier)
+    local mePhoneNumber = getPhoneNumber(identifier)
     MySQL.Sync.execute("UPDATE phone_messages SET phone_messages.isRead = 1 WHERE phone_messages.receiver = @receiver AND phone_messages.transmitter = @transmitter", {
         ['@receiver'] = mePhoneNumber,
         ['@transmitter'] = num
     })
 
-    dbcache_messages[identifier] = nil
+    dbcache_messages[mePhoneNumber] = nil
 end
 
 function deleteMessage(msgId)
@@ -315,12 +341,12 @@ end
 function deleteAllMessageFromPhoneNumber(source, identifier, phone_number)
     local source = source
     local identifier = identifier
-    local mePhoneNumber = getNumberPhone(identifier)
+    local mePhoneNumber = getPhoneNumber(identifier)
     MySQL.Sync.execute("DELETE FROM phone_messages WHERE `receiver` = @mePhoneNumber and `transmitter` = @phone_number", {['@mePhoneNumber'] = mePhoneNumber,['@phone_number'] = phone_number})
 end
 
 function deleteAllMessage(identifier)
-    local mePhoneNumber = getNumberPhone(identifier)
+    local mePhoneNumber = getPhoneNumber(identifier)
     MySQL.Sync.execute("DELETE FROM phone_messages WHERE `receiver` = @mePhoneNumber", {
         ['@mePhoneNumber'] = mePhoneNumber
     })
@@ -437,7 +463,7 @@ RegisterServerEvent('gcPhone:getHistoriqueCall')
 AddEventHandler('gcPhone:getHistoriqueCall', function()
     local sourcePlayer = tonumber(source)
     local srcIdentifier = getPlayerID(source)
-    local srcPhone = getNumberPhone(srcIdentifier)
+    local srcPhone = getPhoneNumber(srcIdentifier)
     sendHistoriqueCall(sourcePlayer, num)
 end)
 
@@ -470,7 +496,7 @@ AddEventHandler('gcPhone:internal_startCall', function(source, phone_number, rtc
     if extraData ~= nil and extraData.useNumber ~= nil then
         srcPhone = extraData.useNumber
     else
-        srcPhone = getNumberPhone(srcIdentifier)
+        srcPhone = getPhoneNumber(srcIdentifier)
     end
     local destPlayer = getIdentifierByPhoneNumber(phone_number)
     local is_valid = destPlayer ~= nil and destPlayer ~= srcIdentifier
@@ -578,7 +604,7 @@ RegisterServerEvent('gcPhone:appelsDeleteHistorique')
 AddEventHandler('gcPhone:appelsDeleteHistorique', function (numero)
     local sourcePlayer = tonumber(source)
     local srcIdentifier = getPlayerID(source)
-    local srcPhone = getNumberPhone(srcIdentifier)
+    local srcPhone = getPhoneNumber(srcIdentifier)
     MySQL.Sync.execute("DELETE FROM phone_calls WHERE `owner` = @owner AND `num` = @num", {
         ['@owner'] = srcPhone,
         ['@num'] = numero
@@ -587,7 +613,7 @@ AddEventHandler('gcPhone:appelsDeleteHistorique', function (numero)
 end)
 
 function appelsDeleteAllHistorique(srcIdentifier)
-    local srcPhone = getNumberPhone(srcIdentifier)
+    local srcPhone = getPhoneNumber(srcIdentifier)
     MySQL.Sync.execute("DELETE FROM phone_calls WHERE `owner` = @owner", {
         ['@owner'] = srcPhone
     })
@@ -605,7 +631,7 @@ AddEventHandler('gcPhone:bankTransferMoney', function(target_phone_number, amoun
     local xPlayer = ESX.GetPlayerFromId(source)
     local otherIdentifier = getIdentifierByPhoneNumber(target_phone_number)
 
-    local source_phone_number = getNumberPhone(xPlayer.identifier)
+    local source_phone_number = getPhoneNumber(xPlayer.identifier)
 
     if otherIdentifier == nil or xPlayer == nil then
 	TriggerClientEvent('esx:showNotification', xPlayer.source, "Абонент недоступен")
@@ -672,30 +698,30 @@ end)
 --====================================================================================
 --  OnLoad
 --====================================================================================
-AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
-    local sourcePlayer = xPlayer.source
+function allUpdate(source, num)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local sourcePlayer = tonumber(source)
     local identifier = xPlayer.identifier
-    getOrGeneratePhoneNumber(sourcePlayer, identifier, function (myPhoneNumber)
-        TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, myPhoneNumber)
-        TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
-        TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
-	TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
-    end)
+
+    TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, num)
+    TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
+    TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(num))
+    TriggerClientEvent('gcPhone:getBourse', sourcePlayer, getBourse())
+    TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
+    sendHistoriqueCall(sourcePlayer, num)
+end
+
+AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
+    local phoneNumber = getPhoneNumber(xPlayer.identifier)
+    allUpdate(xPlayer.source, phoneNumber)
 end)
 
 -- Just For reload
 RegisterServerEvent('gcPhone:allUpdate')
 AddEventHandler('gcPhone:allUpdate', function()
-    local sourcePlayer = tonumber(source)
-    local identifier = getPlayerID(source)
-    local num = getNumberPhone(identifier)
-
-    TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, num)
-    TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
-    TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(identifier))
-    TriggerClientEvent('gcPhone:getBourse', sourcePlayer, getBourse())
-    TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
-    sendHistoriqueCall(sourcePlayer, num)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local myPhoneNumber = getPhoneNumber(xPlayer.identifier)
+    allUpdate(xPlayer.source, myPhoneNumber)
 end)
 
 
@@ -771,7 +797,7 @@ function onCallFixePhone (source, phone_number, rtcOffer, extraData)
     if extraData ~= nil and extraData.useNumber ~= nil then
         srcPhone = extraData.useNumber
     else
-        srcPhone = getNumberPhone(srcIdentifier)
+        srcPhone = getPhoneNumber(srcIdentifier)
     end
 
     AppelsEnCours[indexCall] = {
