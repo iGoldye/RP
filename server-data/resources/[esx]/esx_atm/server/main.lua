@@ -13,8 +13,8 @@ AddEventHandler('esx_atm:deposit', function(amount)
 	if amount == nil or amount <= 0 or amount > xPlayer.getMoney() then
 		TriggerClientEvent('esx:showNotification', _source, _U('invalid_amount'))
 	else
-		xPlayer.removeMoney(amount)
-		xPlayer.addAccountMoney('bank', amount)
+		xPlayer.removeMoney(amount, "ATM deposit")
+		xPlayer.addAccountMoney('bank', amount, "ATM deposit")
 		TriggerClientEvent('esx:showNotification', _source, _U('deposit_money', amount))
 	end
 end)
@@ -32,8 +32,8 @@ AddEventHandler('esx_atm:withdraw', function(amount)
 	if amount == nil or amount <= 0 or amount > accountMoney then
 		TriggerClientEvent('esx:showNotification', _source, _U('invalid_amount'))
 	else
-		xPlayer.removeAccountMoney('bank', amount)
-		xPlayer.addMoney(amount)
+		xPlayer.removeAccountMoney('bank', amount, "ATM withdraw")
+		xPlayer.addMoney(amount, "ATM withdraw")
 		TriggerClientEvent('esx:showNotification', _source, _U('withdraw_money', amount))
 	end
 end)
@@ -48,11 +48,11 @@ AddEventHandler('esx_atm:pay', function(source, description, amount, cb)
 	end
 
 	if amount <= xPlayer.getMoney() then
-		xPlayer.removeMoney(amount)
+		xPlayer.removeMoney(amount, description)
 		cb(true)
 		return
 	elseif amount <= xPlayer.getBank() then
-		xPlayer.removeAccountMoney('bank', amount)
+		xPlayer.removeAccountMoney('bank', amount, description)
 		cb(true)
 		return
 	else
