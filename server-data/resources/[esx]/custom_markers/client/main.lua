@@ -36,21 +36,33 @@ end
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
+		if _enteredMarker ~= nil and IsControlJustReleased(0, 38) and _enteredZone.Events.Press then
+			TriggerEvent(_enteredZone.Events.Press, _enteredZone, _enteredMarker)
+		end
+
 		if _currentMarker ~= nil and _enteredMarker == nil then
 			_enteredZone = _currentZone
 			_enteredMarker = _currentMarker
-			TriggerEvent(_enteredZone.Events.Enter, _enteredZone, _enteredMarker)
+			if _enteredZone.Events.Enter then
+				TriggerEvent(_enteredZone.Events.Enter, _enteredZone, _enteredMarker)
+			end
 
 		elseif _currentMarker == nil and _enteredMarker ~= nil then
-			TriggerEvent(_enteredZone.Events.Exit, _enteredZone, _enteredMarker)
+			if _enteredZone.Events.Exit then
+				TriggerEvent(_enteredZone.Events.Exit, _enteredZone, _enteredMarker)
+			end
 			_enteredZone = nil
 			_enteredMarker = nil
 
 		elseif _enteredMarker ~= nil and (_enteredMarker.id ~= _currentMarker.id) then
-			TriggerEvent(_enteredZone.Events.Exit, _enteredZone, _enteredMarker)
+			if _enteredZone.Events.Exit then
+				TriggerEvent(_enteredZone.Events.Exit, _enteredZone, _enteredMarker)
+			end
 			_enteredZone = _currentZone
 			_enteredMarker = _currentMarker
-			TriggerEvent(_enteredZone.Events.Enter, _enteredZone, _enteredMarker)
+			if _enteredZone.Events.Enter then
+				TriggerEvent(_enteredZone.Events.Enter, _enteredZone, _enteredMarker)
+			end
 		end
 	end
 end)
