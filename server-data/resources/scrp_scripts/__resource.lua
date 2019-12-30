@@ -45,5 +45,6 @@ client_scripts {
 	'client/everyframe-client.lua',
 	'client/no_police-client.lua',
 	-- 'client/friendly_npc-client.lua',
-	'client/discord_rich_presence-client.lua'
+	'client/discord_rich_presence-client.lua',
+	'client/knockdown-client.lua',
 }
