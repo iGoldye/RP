@@ -7,21 +7,49 @@
 		<div id="container">
 			<div id="header">
 				<img id="logo" src="img/fleeca.png"/>
+				<div class="button" id="overview">Счета</div>
+<!--
+				<div class="button" id="overview">Транзакции</div>
+-->
 			</div>
-			<div id="welcome-text">
-				Здравствуйте! <br/>
-				Спасибо что пользуйтесь услугами Fleece Bank
-			</div>
-			<div id="menu">
-				<div>
-					<input type="number" id="deposit_amount" tabindex="1" onClick="this.select();"/>
-					<button id="deposit_btn">Deposit</button>
+			<div id="container-body">
+				<div class="account-header">
+					&#128179; Банковский счёт
 				</div>
-				<br><br>
-				<div>
-					<input type="number" id="withdraw_amount" tabindex="2" onClick="this.select();"/>
-					<button id="withdraw_btn">Withdraw</button>
+				<div class="account-body">
+					<div class="account-balance">Баланс: <span class="account-value" id="account-value-bank">0</span></div>
+					<div>
+						<input type="number" id="withdraw_amount" tabindex="2" onClick="this.select();"/>
+						<button id="withdraw_btn">Вывести</button>
+					</div>
 				</div>
+
+				<div class="account-header">
+					&#128176; Наличные
+				</div>
+				<div class="account-body">
+					<div class="account-balance">Баланс: <span class="account-value" id="account-value-cash">0</span></div>
+					<div>
+						<input type="number" id="deposit_amount" tabindex="1" onClick="this.select();"/>
+						<button id="deposit_btn">Внести</button>
+					</div>
+				</div>
+<!--
+				<div class="account-header">
+					&#128184; Вклад
+				</div>
+				<div class="account-body">
+					<div class="account-balance">Баланс: $<span id="account-value-savings">0</span></div>
+					<div>
+						<input type="number" id="deposit_savings_amount" tabindex="1" onClick="this.select();"/>
+						<button id="deposit_savings_btn">Вложить</button>
+					</div>
+					<div>
+						<input type="number" id="withdraw_savings_amount" tabindex="2" onClick="this.select();"/>
+						<button id="withdraw_savings_btn">Вывести</button>
+					</div>
+				</div>
+-->
 			</div>
 		</div>
 

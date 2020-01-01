@@ -16,6 +16,7 @@ AddEventHandler('esx_atm:deposit', function(amount)
 		xPlayer.removeMoney(amount, "ATM deposit")
 		xPlayer.addAccountMoney('bank', amount, "ATM deposit")
 		TriggerClientEvent('esx:showNotification', _source, _U('deposit_money', amount))
+		TriggerClientEvent('esx_atm:moneyChange', _source)
 	end
 end)
 
@@ -35,6 +36,7 @@ AddEventHandler('esx_atm:withdraw', function(amount)
 		xPlayer.removeAccountMoney('bank', amount, "ATM withdraw")
 		xPlayer.addMoney(amount, "ATM withdraw")
 		TriggerClientEvent('esx:showNotification', _source, _U('withdraw_money', amount))
+		TriggerClientEvent('esx_atm:moneyChange', _source)
 	end
 end)
 

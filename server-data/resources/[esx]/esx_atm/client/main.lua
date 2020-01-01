@@ -18,6 +18,26 @@ local currentMarker = nil
 local cardProp = nil
 ESX = nil
 
+function showMenu()
+	ESX.TriggerServerCallback('esx:getPlayerData', function(data)
+		SendNUIMessage({
+			showMenu = true,
+			player = {
+				money = data.money,
+				accounts = data.accounts
+			}
+		})
+	end)
+end
+
+RegisterNetEvent('esx_atm:moneyChange')
+AddEventHandler('esx_atm:moneyChange', function()
+	if menuIsShowed then
+		showMenu()
+	end
+end)
+
+
 Citizen.CreateThread(function()
 	while true do
 		if menuIsShowed then
@@ -206,15 +226,7 @@ Citizen.CreateThread(function()
 				end
 
 				menuIsShowed = true
-				ESX.TriggerServerCallback('esx:getPlayerData', function(data)
-					SendNUIMessage({
-						showMenu = true,
-						player = {
-							money = data.money,
-							accounts = data.accounts
-						}
-					})
-				end)
+				showMenu()
 
 				SetNuiFocus(true, true)
 			end

@@ -1,3 +1,7 @@
+function numberWithSymbols(x, sym) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sym);
+}
+
 $(window).ready(function () {
 	window.addEventListener('message', function (event) {
 		let data = event.data;
@@ -6,6 +10,7 @@ $(window).ready(function () {
 			$('#container').fadeIn();
 			$('#menu').fadeIn();
 			$('#deposit_amount').val(data.player.money);
+			$('#account-value-cash').text("$"+numberWithSymbols(data.player.money," "));
 
 			let bankAmount = 0;
 			for (let i = 0; i < data.player.accounts.length; i++) {
@@ -15,6 +20,7 @@ $(window).ready(function () {
 			}
 
 			$('#withdraw_amount').val(bankAmount);
+			$('#account-value-bank').text("$"+numberWithSymbols(bankAmount," "));
 		} else if (data.hideAll) {
 			$('#container').fadeOut();
 		}
