@@ -7,20 +7,34 @@
 		<div id="container">
 			<div id="header">
 				<img id="logo" src="img/fleeca.png"/>
-				<div class="button" id="overview">Счета</div>
-<!--
-				<div class="button" id="overview">Транзакции</div>
--->
+				<div class="button" id="button-balance">Счета</div>
+
+				<div class="button" id="button-transactions">Транзакции</div>
 			</div>
-			<div id="container-body">
+			<div class="container-body" id="container-body-transactions" style="display: none;">
+				<div style="overflow-y: auto; height:500px; width: 100%;">
+				<table id="transaction-table">
+					<thead>
+						<tr>
+							<th>Дата</th>
+							<th>Описание</th>
+							<th>Сумма</th>
+						</tr>
+					</thead>
+					<tbody id="transaction-table-body">
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="container-body" id="container-body-balance">
 				<div class="account-header">
 					&#128179; Банковский счёт
 				</div>
 				<div class="account-body">
 					<div class="account-balance">Баланс: <span class="account-value" id="account-value-bank">0</span></div>
 					<div>
-						<input type="number" id="withdraw_amount" tabindex="2" onClick="this.select();"/>
-						<button id="withdraw_btn">Вывести</button>
+						<input type="number" id="withdraw_amount" class="amount-input" tabindex="2" onClick="this.select();"/>
+						<button id="withdraw_btn" class="bank-btn">Вывести</button>
 					</div>
 				</div>
 
@@ -30,26 +44,26 @@
 				<div class="account-body">
 					<div class="account-balance">Баланс: <span class="account-value" id="account-value-cash">0</span></div>
 					<div>
-						<input type="number" id="deposit_amount" tabindex="1" onClick="this.select();"/>
-						<button id="deposit_btn">Внести</button>
+						<input type="number" id="deposit_amount" class="amount-input" tabindex="1" onClick="this.select();"/>
+						<button id="deposit_btn" class="bank-btn">Внести</button>
 					</div>
 				</div>
-<!--
+
 				<div class="account-header">
 					&#128184; Вклад
 				</div>
 				<div class="account-body">
-					<div class="account-balance">Баланс: $<span id="account-value-savings">0</span></div>
+					<div class="account-balance">Баланс: <span class="account-value" id="account-value-savings">$0</span></div>
 					<div>
-						<input type="number" id="deposit_savings_amount" tabindex="1" onClick="this.select();"/>
-						<button id="deposit_savings_btn">Вложить</button>
+						<input type="number" id="deposit_savings_amount" class="amount-input" tabindex="1" onClick="this.select();"/>
+						<button id="deposit_savings_btn" class="bank-btn">Вложить</button>
 					</div>
 					<div>
-						<input type="number" id="withdraw_savings_amount" tabindex="2" onClick="this.select();"/>
-						<button id="withdraw_savings_btn">Вывести</button>
+						<input type="number" id="withdraw_savings_amount" class="amount-input" tabindex="2" onClick="this.select();"/>
+						<button id="withdraw_savings_btn" class="bank-btn">Вывести</button>
 					</div>
 				</div>
--->
+
 			</div>
 		</div>
 

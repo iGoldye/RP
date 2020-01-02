@@ -24,9 +24,16 @@ function showMenu()
 			showMenu = true,
 			player = {
 				money = data.money,
-				accounts = data.accounts
+				accounts = data.accounts,
 			}
 		})
+
+		ESX.TriggerServerCallback("esx_atm:get_transactions", function(transactions)
+			SendNUIMessage({
+				setTransactions = true,
+				transactions = transactions,
+			})
+		end)
 	end)
 end
 
@@ -41,6 +48,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		if menuIsShowed then
+			BlockWeaponWheelThisFrame()
 			DisableControlAction(0, 1, true) -- LookLeftRight
 			DisableControlAction(0, 2, true) -- LookUpDown
 			DisableControlAction(0, 24, true) -- Attack
@@ -97,12 +105,12 @@ RegisterNUICallback('escape', function(data, cb)
 end)
 
 RegisterNUICallback('deposit', function(data, cb)
-	TriggerServerEvent('esx_atm:deposit', data.amount)
+	TriggerServerEvent('esx_atm:deposit', data.amount, data.account)
 	cb('ok')
 end)
 
 RegisterNUICallback('withdraw', function(data, cb)
-	TriggerServerEvent('esx_atm:withdraw', data.amount)
+	TriggerServerEvent('esx_atm:withdraw', data.amount, data.account)
 	cb('ok')
 end)
 

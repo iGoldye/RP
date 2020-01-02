@@ -5,6 +5,9 @@ Config.BlipSprite   = 431
 
 Config.Locale = 'en'
 
+Config.InterestInterval = 60 * 60000
+Config.InterestRate = 0.001
+
 Config.EnableBlips = false -- for some reason ATM blips are extremly buggy and will bug out the map
 Config.ATMLocations = {
 	{ ['x'] = 148.78,  ['y'] = -1039.67,  ['z'] = 29.38},

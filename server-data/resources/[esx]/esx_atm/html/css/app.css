@@ -10,20 +10,14 @@ body {
 	font-family: roboto;
 }
 
-#cursor {
-	position: absolute;
-	z-index: 999999;
-	display: none;
-}
-
 #container {
 	position: absolute;
 	background: linear-gradient(#000000d4, #212121d4);
-	height: 450px;
+	height: 600px;
 	width: 860px;
 	top: 50%;
 	left: 50%;
-	margin: -225px 0 0 -430px;
+	margin: -300px 0 0 -430px;
 	cursor: default;
 	color: white;
 }
@@ -35,7 +29,7 @@ body {
 	border-bottom: 1px solid #3c3c3c;
 }
 
-#container-body {
+.container-body {
     padding-left: 17px;
     padding-top: 17px;
     font-size: 20px;
@@ -74,26 +68,11 @@ body {
 }
 
 .account-body {
-	padding-left: 300px;
+	padding-left: 250px;
 }
 
 .account-value {
 	color: #ccffdd;
-}
-
-#menu {
-	position: relative;
-	top: 90%;
-	display: flex;
-	flex-direction: column;
-	height: 150px;
-	margin: -150px auto 0;
-	width: 500px;
-}
-
-#menu div {
-	display: flex;
-	flex-direction: row;
 }
 
 input {
@@ -128,18 +107,25 @@ button:hover {
 	cursor: pointer;
 }
 
-#deposit_btn {
+.bank-btn {
 	width: 200px;
 }
 
-#deposit_amount {
+.amount-input {
 	width: 300px;
 }
 
-#withdraw_btn {
-	width: 200px;
+#transaction-table {
+	width: 98%;
+	color: white;
+	border-collapse: collapse;
 }
 
-#withdraw_amount {
-	width: 300px;
+#transaction-table th {
+	background-color: #006633a0;
+}
+
+#transaction-table td {
+	border: 1px solid #006633a0;
+	padding: 5px;
 }
