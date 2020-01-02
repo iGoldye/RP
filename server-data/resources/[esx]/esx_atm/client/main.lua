@@ -116,12 +116,12 @@ end)
 
 -- Create blips
 Citizen.CreateThread(function()
-	local markerType = 1
-	local markerSize = 2.0
+	local markerType = 29
+	local markerSize = 1.0
 	while true do
 		Citizen.Wait(0)
 		for k,v in pairs(Config.ATMLocations) do
-			DrawMarker(markerType, v.x, v.y, v.z-1, 0.0, 0.0, 0.0, 0, 0.0, 0.0, markerSize, markerSize, markerSize, 100, 255, 0, 100, false, true, 2, false, false, false, false)
+			DrawMarker(markerType, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, markerSize, markerSize, markerSize, 40, 255, 60, 80, false, true, 2, false, false, false, false)
 		end
 	end
 --[[
