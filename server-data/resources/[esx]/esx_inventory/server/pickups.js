@@ -26,6 +26,11 @@ function createPickup(source, item, label) {
 		coords.y = players[source].coords.y + players[source].forward.y * 0.2
 		coords.z = players[source].coords.z + players[source].forward.z * 0.2
 
+		var DisintegrationZoneDist = Math.sqrt(Math.pow(-516.93 - coords.x,2) + Math.pow(-1714.29 - coords.y,2) + Math.pow(18.32 - coords.z,2))
+		if (DisintegrationZoneDist < 2.5) {
+			return true; // destroy item, do not create pickup
+		}
+
 		pickup.id = global_pickup_id
 		pickup.prop = item.getProp()
 		pickup.item = duplicateItem(item)

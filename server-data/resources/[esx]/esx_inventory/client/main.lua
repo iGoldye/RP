@@ -31,10 +31,17 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
+	local DisintegrationZone = vector3(-516.93, -1714.29, 18.32)
 	while true do
 		if movementSpeed < 0.9 then
 			DisableControlAction(0, 22, true) -- Jump
 		end
+
+		local coords = GetEntityCoords(PlayerPedId())
+		if #(coords - DisintegrationZone) < 100.0 then
+			DrawMarker(1, DisintegrationZone, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 5.0,5.0,1.0, 180, 60, 30, 120, false, true, 2, false, false, false, false)
+		end
+
 		Citizen.Wait(0)
 	end
 end)
