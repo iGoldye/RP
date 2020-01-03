@@ -106,7 +106,11 @@ class Item_Abstract {
 		if (ESXItemDB[this.name] !== undefined) {
 			return ESXItemDB[this.name].label;
 		}
-	        return _U(this.name);
+		if (_U(this.name) != null) {
+		        return _U(this.name);
+		}
+
+		return this.name;
 	}
 
 	get description() {

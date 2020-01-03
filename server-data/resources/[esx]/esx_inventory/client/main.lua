@@ -31,10 +31,17 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
+	local DisintegrationZone = vector3(-516.93, -1714.29, 18.32)
 	while true do
 		if movementSpeed < 0.9 then
 			DisableControlAction(0, 22, true) -- Jump
 		end
+
+		local coords = GetEntityCoords(PlayerPedId())
+		if #(coords - DisintegrationZone) < 100.0 then
+			DrawMarker(1, DisintegrationZone, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 5.0,5.0,1.0, 180, 60, 30, 120, false, true, 2, false, false, false, false)
+		end
+
 		Citizen.Wait(0)
 	end
 end)
@@ -50,6 +57,15 @@ Citizen.CreateThread(function()
 
 		if ESX.PlayerData and ESX.PlayerData.skills and ESX.PlayerData.skills.strength then
 			pocketWeightLimit = pocketWeightLimit + ESX.PlayerData.skills.strength / 100.0 * Config.StrengthExtraWeight
+		end
+
+		if inventories["pocket"] ~= nil then
+			for k,v in pairs(inventories["pocket"].items) do
+				if v.name == "esx_item" and v.extra.name == "bag" then
+					pocketWeightLimit = pocketWeightLimit + 10.0
+					break
+				end
+			end
 		end
 
 		if pocketWeight > pocketWeightLimit then

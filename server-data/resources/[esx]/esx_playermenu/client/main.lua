@@ -243,12 +243,14 @@ function OpenAdminMenuPlayer(player)
 		table.insert(elements, {label = "Наличка: $"..tostring(player.money), value = "cash"})
 		table.insert(elements, {label = "Банк: $"..tostring(player.bank), value = "bank"})
 		table.insert(elements, {label = "Грязные деньги: $"..tostring(player.black_money), value = "black_money"})
-		table.insert(elements, {label = "Профессия: "..tostring(player.job), value = "job"})
+		table.insert(elements, {label = "Профессия: "..tostring(player.job).." ["..tostring(player.jobgrade).."]", value = "job"})
 
 		if player.phone_number ~= nil then
 			table.insert(elements, {label = "Телефон: "..tostring(player.phone_number), value = "phone"})
 		end
 
+		table.insert(elements, {label = "Оживить", value = "revive"})
+		table.insert(elements, {label = "Вылечить", value = "heal"})
 		table.insert(elements, {label = "Призвать", value = "bring"})
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
@@ -264,6 +266,12 @@ function OpenAdminMenuPlayer(player)
 				OpenAdminMenuPlayerMoney(player, "bank")
 			elseif cmd == "black_money" then
 				OpenAdminMenuPlayerMoney(player, "black")
+			elseif cmd == "job" then
+				OpenAdminMenuPlayerJob(player)
+			elseif cmd == "revive" then
+				TriggerEvent('esx_ambulancejob:revive', player.id)
+			elseif cmd == "heal" then
+				TriggerEvent('esx_basicneeds:healPlayer', player.id)
 			elseif cmd == "bring" then
 				TriggerServerEvent("esx_playermenu:bringPlayer", player.id, GetEntityCoords(PlayerPedId()))
 			end
@@ -272,6 +280,54 @@ function OpenAdminMenuPlayer(player)
 			menu.close()
 		end)
 end
+
+function OpenAdminMenuPlayerJob(player)
+
+		ESX.TriggerServerCallback('esx_playermenu:getJobs', function(jobs)
+			local elements = {}
+			for k,v in pairs(jobs) do
+				if v.label ~= "Off-Duty" then
+					table.insert(elements, {label = v.name.." ["..v.label.."]", value = v.name})
+				end
+			end
+
+			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
+				title    = "Администрирование: Профессия игрока",
+				align    = 'top-right',
+				elements = elements
+			}, function(data, menu)
+				local cmd = data.current.value
+				menu.close()
+
+				OpenAdminMenuPlayerJobGrades(player, cmd)
+			end, function(data, menu)
+				menu.close()
+			end)
+
+		end)
+end
+
+function OpenAdminMenuPlayerJobGrades(player, job)
+	local elements = {}
+
+	for i=0, 10 do
+		table.insert(elements, {label = tostring(i), value = i})
+	end
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_player', {
+		title    = "Администрирование: Уровень профессии игрока",
+		align    = 'top-right',
+		elements = elements
+	}, function(data, menu)
+		local cmd = data.current.value
+		menu.close()
+
+		TriggerServerEvent('esx_playermenu:setJob', player.id, job, cmd)
+	end, function(data, menu)
+		menu.close()
+	end)
+end
+
 
 function OpenAdminMenuPlayerMoney(player, moneytype)
 		local elements = {}

@@ -125,6 +125,7 @@ Config.Zones = {
 		},
 
 		Events = {
+			Press = 'custom_markers:portalPress',
 			Enter = 'custom_markers:portalEnter',
 			Exit  = 'custom_markers:portalExit',
 		},

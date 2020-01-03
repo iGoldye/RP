@@ -32,6 +32,13 @@ function equip_weapon(item)
 	end
 end
 
+RegisterNetEvent('esx_inventory:outfitWear')
+AddEventHandler('esx_inventory:outfitWear', function(outfit)
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		TriggerEvent('skinchanger:loadClothes', skin, outfit)
+	end)
+end)
+
 RegisterNetEvent('esx_inventory:unequipWeapon')
 AddEventHandler('esx_inventory:unequipWeapon', function(weaponName, amount)
 	unequip_weapon(weaponName, amount)
@@ -147,6 +154,21 @@ TriggerEvent('esx_inventory:registerItemAction', "passport", "show", "Просм
 	TriggerServerEvent('sosamba_ui:actionShowPassport', item)
 end)
 
+TriggerEvent('esx_inventory:registerItemAction', "sim", "insert", "Вставить в телефон", 1, function(item)
+	TriggerServerEvent('esx_inventory:actionInsertSim', item)
+end)
+
+TriggerEvent('esx_inventory:registerItemAction', "outfit", "wear", "Надеть", 1, function(item)
+	TriggerServerEvent('esx_inventory:outfitWear', item)
+end)
+
+TriggerEvent('esx_inventory:registerItemAction', "phone", "activate", "Включить", 1, function(item)
+	TriggerServerEvent('esx_inventory:actionActivatePhone', item)
+end)
+
+TriggerEvent('esx_inventory:registerItemAction', "phone", "removesim", "Забрать SIM-карту", 1, function(item)
+	TriggerServerEvent('esx_inventory:actionPhoneRemoveSIM', item)
+end)
 
 TriggerEvent('esx_inventory:registerItemAction', "@shared", "drop", "Выбросить", -1, function(item) -- action
 	local amount = 0

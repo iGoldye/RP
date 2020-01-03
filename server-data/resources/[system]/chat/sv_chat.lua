@@ -31,6 +31,7 @@ AddEventHandler('_chat:messageEntered', function(author, color, message)
     end
 
     print(author .. '^7: ' .. message .. '^7')
+    TriggerEvent('serverlog:log', 'chat message : '..message, source)
 end)
 
 AddEventHandler('__cfx_internal:commandFallback', function(command)
@@ -49,11 +50,13 @@ end)
 AddEventHandler('chat:init', function()
 --    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) .. ' joined.')
     adminMessage('', {255,255,255}, '^2* ' .. GetPlayerName(source) .. ' joined.')
+    TriggerEvent('serverlog:log', 'joined', source)
 end)
 
 AddEventHandler('playerDropped', function(reason)
 --    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
     adminMessage('', {255,255,255}, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
+    TriggerEvent('serverlog:log', 'left ('..reason..')', source)
 end)
 
 RegisterCommand('say', function(source, args, rawCommand)

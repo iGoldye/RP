@@ -1,19 +1,3 @@
-local currentMarker = nil
-
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-
-		while currentMarker == nil do
-			Citizen.Wait(0)
-		end
-
-		if IsControlJustReleased(0, 38) and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'portal_list') then
-			OpenPortalList(currentMarker.id)
-		end
-	end
-end)
-
 function teleport(target)
 	local ped = PlayerPedId()
 	NetworkFadeOutEntity(ped, 1, 0)
@@ -29,8 +13,8 @@ function teleport(target)
 	end)
 end
 
-function OpenPortalList(listName)
-		local plist = currentMarker.Points
+function OpenPortalList(marker)
+		local plist = marker.Points
 		if plist == nil then
 			return
 		end
@@ -61,12 +45,8 @@ function OpenPortalList(listName)
 end
 
 
-AddEventHandler('custom_markers:portalEnter', function(zone, marker)
---	print("enter "..marker.id)
-	currentMarker = marker
-end)
-
-AddEventHandler('custom_markers:portalExit', function(zone, marker)
---	print("exit "..marker.id)
-	currentMarker = nil
+AddEventHandler('custom_markers:portalPress', function(zone, marker)
+	if not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'portal_list') then
+		OpenPortalList(marker)
+	end
 end)

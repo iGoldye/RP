@@ -866,7 +866,7 @@ function OpenPoliceActionsMenu()
 				menu2.close()
 			end)
 		elseif data.current.value == 'remove_npcs' then
-			TriggerEvent('esx_ambulancejob:removedeadnpcs')
+			TriggerServerEvent('esx_ambulancejob:removedeadnpcs', GetEntityCoords(PlayerPedId()))
 		elseif data.current.value == 'revive' then
 			local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 			if closestPlayer > 0 and closestDistance < 1.5 then
@@ -1000,6 +1000,24 @@ function OpenBodySearchMenu(player)
 		end
 
 		table.insert(elements, {label = _U('inventory_label')})
+
+		for i=1, #data.new_inventory.items, 1 do
+			local item = data.new_inventory.items[i]
+			local label = item.label
+			if item.description and item.description ~= "" then
+				label = label .. " (" .. item.description .. ")"
+			end
+			label = label .. " x".. tostring(item.amount)
+
+			if item.name ~= "weapon" and item.name ~= "esx_item" and item.name ~= "money" and item.name ~= "account_money" and item.name ~= "black_money" then
+				table.insert(elements, {
+					label    = label,
+					value    = item,
+					itemType = 'item_new',
+					amount   = item.amount
+				})
+			end
+		end
 
 		for i=1, #data.inventory, 1 do
 			if data.inventory[i].count > 0 then

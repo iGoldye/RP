@@ -12,11 +12,19 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 	self.source     = self.player.get('source')
 	self.identifier = self.player.get('identifier')
 
-	self.setMoney = function(money)
+	self.setMoney = function(money, desc)
 		money = ESX.Math.Round(money)
 
 		if money >= 0 then
 			self.player.setMoney(money)
+
+			if desc ~= nil then
+				desc = " : "..desc
+			else
+				desc = ""
+			end
+
+			TriggerEvent('serverlog:log', 'set money : cash : '..tostring(money) .. desc, self.source)
 		else
 			print(('es_extended: %s attempted exploiting! (reason: player tried setting -1 cash balance)'):format(self.identifier))
 		end
@@ -26,11 +34,19 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 		return self.player.get('money')
 	end
 
-	self.setBankBalance = function(money)
+	self.setBankBalance = function(money, desc)
 		money = ESX.Math.Round(money)
 
 		if money >= 0 then
 			self.player.setBankBalance(money)
+
+			if desc ~= nil then
+				desc = " : "..desc
+			else
+				desc = ""
+			end
+
+			TriggerEvent('serverlog:log', 'set money : bank : '..tostring(money) .. desc, self.source)
 		else
 			print(('es_extended: %s attempted exploiting! (reason: player tried setting -1 bank balance)'):format(self.identifier))
 		end
@@ -52,41 +68,73 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 		self.player.kick(reason)
 	end
 
-	self.addMoney = function(money)
+	self.addMoney = function(money, desc)
 		money = ESX.Math.Round(money)
 
 		if money >= 0 then
 			self.player.addMoney(money)
+
+			if desc ~= nil then
+				desc = " : "..desc
+			else
+				desc = ""
+			end
+
+			TriggerEvent('serverlog:log', 'add money : cash : '..tostring(money) .. desc, self.source)
 		else
 			print(('es_extended: %s attempted exploiting! (reason: player tried adding -1 cash balance)'):format(self.identifier))
 		end
 	end
 
-	self.removeMoney = function(money)
+	self.removeMoney = function(money, desc)
 		money = ESX.Math.Round(money)
 
 		if money >= 0 then
 			self.player.removeMoney(money)
+
+			if desc ~= nil then
+				desc = " : "..desc
+			else
+				desc = ""
+			end
+
+			TriggerEvent('serverlog:log', 'remove money : cash : '..tostring(money) .. desc, self.source)
 		else
 			print(('es_extended: %s attempted exploiting! (reason: player tried removing -1 cash balance)'):format(self.identifier))
 		end
 	end
 
-	self.addBank = function(money)
+	self.addBank = function(money, desc)
 		money = ESX.Math.Round(money)
 
 		if money >= 0 then
 			self.player.addBank(money)
+
+			if desc ~= nil then
+				desc = " : "..desc
+			else
+				desc = ""
+			end
+
+			TriggerEvent('serverlog:log', 'add money : bank : '..tostring(money) .. desc, self.source)
 		else
 			print(('es_extended: %s attempted exploiting! (reason: player tried adding -1 bank balance)'):format(self.identifier))
 		end
 	end
 
-	self.removeBank = function(money)
+	self.removeBank = function(money, desc)
 		money = ESX.Math.Round(money)
 
 		if money >= 0 then
 			self.player.removeBank(money)
+
+			if desc ~= nil then
+				desc = " : "..desc
+			else
+				desc = ""
+			end
+
+			TriggerEvent('serverlog:log', 'remove money : bank : '..tostring(money) .. desc, self.source)
 		else
 			print(('es_extended: %s attempted exploiting! (reason: player tried removing -1 bank balance)'):format(self.identifier))
 		end
@@ -252,7 +300,7 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 		end
 	end
 
-	self.setAccountMoney = function(acc, money)
+	self.setAccountMoney = function(acc, money, desc)
 		if money < 0 then
 			print(('es_extended: %s attempted exploiting! (reason: player tried setting -1 account balance)'):format(self.identifier))
 			return
@@ -268,10 +316,18 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 			self.set('bank', newMoney)
 		end
 
+		if desc ~= nil then
+			desc = " : "..desc
+		else
+			desc = ""
+		end
+
+		TriggerEvent('serverlog:log', 'set money : '..tostring(acc).." : "..tostring(money) .. desc, self.source)
+
 		TriggerClientEvent('esx:setAccountMoney', self.source, account)
 	end
 
-	self.addAccountMoney = function(acc, money)
+	self.addAccountMoney = function(acc, money, desc)
 		if money < 0 then
 			print(('es_extended: %s attempted exploiting! (reason: player tried adding -1 account balance)'):format(self.identifier))
 			return
@@ -286,10 +342,17 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 			self.set('bank', newMoney)
 		end
 
+		if desc ~= nil then
+			desc = " : "..desc
+		else
+			desc = ""
+		end
+
+		TriggerEvent('serverlog:log', 'add money : '..tostring(acc).." : "..tostring(money) .. desc, self.source)
 		TriggerClientEvent('esx:setAccountMoney', self.source, account)
 	end
 
-	self.removeAccountMoney = function(acc, money)
+	self.removeAccountMoney = function(acc, money, desc)
 		if money < 0 then
 			print(('es_extended: %s attempted exploiting! (reason: player tried removing -1 account balance)'):format(self.identifier))
 			return
@@ -304,6 +367,13 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 			self.set('bank', newMoney)
 		end
 
+		if desc ~= nil then
+			desc = " : "..desc
+		else
+			desc = ""
+		end
+
+		TriggerEvent('serverlog:log', 'remove money : '..tostring(acc).." : "..tostring(money) .. desc, self.source)
 		TriggerClientEvent('esx:setAccountMoney', self.source, account)
 	end
 

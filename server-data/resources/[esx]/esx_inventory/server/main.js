@@ -183,3 +183,6 @@ registerItem("carkey", Item_CarKey);
 registerItem("housekey", Item_HouseKey);
 registerItem("doorkey", Item_DoorKey);
 registerItem("equipped_weapon", Item_EquippedWeapon);
+registerItem("phone", Item_Phone);
+registerItem("sim", Item_SIM);
+registerItem("outfit", Item_Outfit);

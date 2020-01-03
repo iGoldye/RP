@@ -67,12 +67,13 @@ end
 
 RegisterServerEvent('esx_jobs:startWork')
 AddEventHandler('esx_jobs:startWork', function(item)
+	local xPlayer = ESX.GetPlayerFromId(source)
 	if PlayersWorking[source] == nil then
 		local worker_id = math.random(1,1000)
 		PlayersWorking[source] = worker_id
 		Work(worker_id, source, item)
 	else
-		print(('esx_jobs: %s attempted to exploit the marker!'):format(GetPlayerIdentifiers(source)[1]))
+		print(('esx_jobs: %s attempted to exploit the marker!'):format(xPlayer.identifier))
 	end
 end)
 

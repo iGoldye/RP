@@ -272,6 +272,7 @@ end)
 RegisterServerEvent('esx_vehicleshop:returnProvider')
 AddEventHandler('esx_vehicleshop:returnProvider', function(vehicleModel)
 	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
 
 	MySQL.Async.fetchAll('SELECT * FROM cardealer_vehicles WHERE vehicle = @vehicle LIMIT 1', {
 		['@vehicle'] = vehicleModel
@@ -292,7 +293,7 @@ AddEventHandler('esx_vehicleshop:returnProvider', function(vehicleModel)
 			TriggerClientEvent('esx:showNotification', _source, _U('vehicle_sold_for', vehicleModel, ESX.Math.GroupDigits(price)))
 		else
 
-			print(('esx_vehicleshop: %s attempted selling an invalid vehicle!'):format(GetPlayerIdentifiers(_source)[1]))
+			print(('esx_vehicleshop: %s attempted selling an invalid vehicle!'):format(xPlayer.identifier))
 		end
 
 	end)
@@ -341,6 +342,7 @@ end)
 
 ESX.RegisterServerCallback('esx_vehicleshop:resellVehicle', function (source, cb, plate, model)
 	local resellPrice = 0
+	local xPlayer = ESX.GetPlayerFromId(source)
 
 	-- calculate the resell price
 	for i=1, #Vehicles, 1 do
@@ -351,7 +353,7 @@ ESX.RegisterServerCallback('esx_vehicleshop:resellVehicle', function (source, cb
 	end
 
 	if resellPrice == 0 then
-		print(('esx_vehicleshop: %s attempted to sell an unknown vehicle!'):format(GetPlayerIdentifiers(source)[1]))
+		print(('esx_vehicleshop: %s attempted to sell an unknown vehicle!'):format(xPlayer.identifier))
 		cb(false)
 	else
 		MySQL.Async.fetchAll('SELECT * FROM rented_vehicles WHERE plate = @plate', {

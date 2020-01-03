@@ -1,5 +1,6 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+JobList = nil
 
 function updateAdmin(xPlayer)
 	TriggerEvent('es:canGroupTarget', xPlayer.getGroup(), "admin", function(canTarget)
@@ -10,6 +11,13 @@ end
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 	updateAdmin(xPlayer)
 end)
+
+MySQL.ready(function()
+	MySQL.Async.fetchAll('SELECT * FROM jobs', {}, function(result)
+		JobList = result
+	end)
+end)
+
 
 AddEventHandler('onResourceStart', function(resource)
 	if resource == GetCurrentResourceName() then
@@ -27,6 +35,11 @@ AddEventHandler('onResourceStart', function(resource)
 	end
 end)
 
+ESX.RegisterServerCallback('esx_playermenu:getJobs', function(source, cb)
+	cb(JobList)
+end)
+
+
 RegisterServerEvent('esx_playermenu:bringPlayer')
 AddEventHandler('esx_playermenu:bringPlayer', function(target, pos)
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -41,6 +54,21 @@ AddEventHandler('esx_playermenu:bringPlayer', function(target, pos)
     end
 end)
 
+RegisterServerEvent('esx_playermenu:setJob')
+AddEventHandler('esx_playermenu:setJob', function(target, job, grade)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    if not exports["essentialmode"]:canGroupTarget(xPlayer.getGroup(), "admin") then
+        return
+    end
+
+    local xTarget = ESX.GetPlayerFromId(target)
+
+    if xTarget ~= nil then
+        xTarget.setJob(job, grade)
+    end
+end)
+
+
 
 ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb)
     xPlayer = ESX.GetPlayerFromId(source)
@@ -54,20 +82,26 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
         local pl = ESX.GetPlayerFromId(xPlayers[i])
 	local identity = pl.getSessionVar("identity")
 	local job = "unemployed"
+	local grade = -1
 	if pl.job ~= nil then
 		job = pl.job.name
+		grade = pl.job.grade
 	end
+
+	local status = pl.get('status')
 
         table.insert(arr, {
             ["id"] = pl.source,
             ["name"] = pl.name,
             ["job"] = job,
+            ["jobgrade"] = grade,
             ["identity"] = identity,
             ["identifier"] = pl.identifier,
 	    ["money"] = pl.getMoney(),
             ["bank"] = pl.getBank(),
             ["black_money"] = pl.getAccount('black_money').money,
             ["phone_number"] = exports["gcphone"]:getNumberPhone(pl.identifier),
+            ['status'] = status,
         })
     end
 

@@ -18,9 +18,37 @@ local currentMarker = nil
 local cardProp = nil
 ESX = nil
 
+function showMenu()
+	ESX.TriggerServerCallback('esx:getPlayerData', function(data)
+		SendNUIMessage({
+			showMenu = true,
+			player = {
+				money = data.money,
+				accounts = data.accounts,
+			}
+		})
+
+		ESX.TriggerServerCallback("esx_atm:get_transactions", function(transactions)
+			SendNUIMessage({
+				setTransactions = true,
+				transactions = transactions,
+			})
+		end)
+	end)
+end
+
+RegisterNetEvent('esx_atm:moneyChange')
+AddEventHandler('esx_atm:moneyChange', function()
+	if menuIsShowed then
+		showMenu()
+	end
+end)
+
+
 Citizen.CreateThread(function()
 	while true do
 		if menuIsShowed then
+			BlockWeaponWheelThisFrame()
 			DisableControlAction(0, 1, true) -- LookLeftRight
 			DisableControlAction(0, 2, true) -- LookUpDown
 			DisableControlAction(0, 24, true) -- Attack
@@ -77,23 +105,23 @@ RegisterNUICallback('escape', function(data, cb)
 end)
 
 RegisterNUICallback('deposit', function(data, cb)
-	TriggerServerEvent('esx_atm:deposit', data.amount)
+	TriggerServerEvent('esx_atm:deposit', data.amount, data.account)
 	cb('ok')
 end)
 
 RegisterNUICallback('withdraw', function(data, cb)
-	TriggerServerEvent('esx_atm:withdraw', data.amount)
+	TriggerServerEvent('esx_atm:withdraw', data.amount, data.account)
 	cb('ok')
 end)
 
 -- Create blips
 Citizen.CreateThread(function()
-	local markerType = 1
-	local markerSize = 2.0
+	local markerType = 29
+	local markerSize = 1.0
 	while true do
 		Citizen.Wait(0)
 		for k,v in pairs(Config.ATMLocations) do
-			DrawMarker(markerType, v.x, v.y, v.z-1, 0.0, 0.0, 0.0, 0, 0.0, 0.0, markerSize, markerSize, markerSize, 100, 255, 0, 100, false, true, 2, false, false, false, false)
+			DrawMarker(markerType, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, markerSize, markerSize, markerSize, 40, 255, 60, 80, false, true, 2, false, false, false, false)
 		end
 	end
 --[[
@@ -206,15 +234,7 @@ Citizen.CreateThread(function()
 				end
 
 				menuIsShowed = true
-				ESX.TriggerServerCallback('esx:getPlayerData', function(data)
-					SendNUIMessage({
-						showMenu = true,
-						player = {
-							money = data.money,
-							accounts = data.accounts
-						}
-					})
-				end)
+				showMenu()
 
 				SetNuiFocus(true, true)
 			end

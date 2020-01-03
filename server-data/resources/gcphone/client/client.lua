@@ -77,8 +77,8 @@ end)
 --  Callback true or false
 --====================================================================================
 function hasPhone (cb)
-	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
-		cb(#items > 0)
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'phone', {["number"] = myPhoneNumber}, function(items)
+		cb((#items > 0))
 	end)
 end
 --====================================================================================

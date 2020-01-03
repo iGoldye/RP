@@ -151,7 +151,7 @@ function OpenMobileAmbulanceActionsMenu()
 				if IsBusy then return end
 
 				if data.current.value == 'removenpcs' then
-					TriggerEvent('esx_ambulancejob:removedeadnpcs')
+					TriggerServerEvent('esx_ambulancejob:removedeadnpcs', GetEntityCoords(PlayerPedId()))
 					return
 				end
 
@@ -986,10 +986,16 @@ function WarpPedInClosestVehicle(ped)
 end
 
 RegisterNetEvent('esx_ambulancejob:removedeadnpcs')
-AddEventHandler('esx_ambulancejob:removedeadnpcs', function()
+AddEventHandler('esx_ambulancejob:removedeadnpcs', function(pos)
+	if pos == nil or #(pos-GetEntityCoords(PlayerPedId())) > 100.0 then
+		return
+	end
+
 	local peds = ESX.Game.GetPeds()
 	for i=1, #peds, 1 do
-		if IsPedDeadOrDying(peds[i], 1) and not IsPedAPlayer(peds[i]) then
+		if IsPedDeadOrDying(peds[i], 1) and not IsPedAPlayer(peds[i]) and GetEntityHealth(peds[i]) < 0.01 then
+			NetworkFadeOutEntity(peds[i], 1, 0)
+			Citizen.Wait(100)
 			DeletePed(peds[i])
 		end
 	end
