@@ -27,6 +27,31 @@ function loadAnimDict(dict)
 	end
 end
 
+function printRooms(roomid, keys)
+	for k,v in pairs(keys) do
+		if roomid == GetHashKey(v) then
+			print(v)
+			return
+		end
+	end
+
+	print(tostring(roomid))
+end
+--[[
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(10000)
+
+		local roomid = GetRoomKeyFromGameplayCam()
+		printRooms(roomid, {"limbo",
+					"V_40_Hall1", "V_40_Hall2", "V_40_Hall3", "V_40_Hall4", "V_40_Hall5", "V_40_Hall6",
+					"V_40_Room1", "V_40_Room2", "V_40_Room3", "V_40_Room4", "V_40_Room5", "V_40_Room6", "V_40_Room7", "V_40_Room8"
+		})
+
+	end
+end)
+]]--
+
 RegisterNetEvent('admin_commands:guitar')
 AddEventHandler('admin_commands:guitar', function(args)
 -- AMP: spawnobject v_res_fh_guitaramp

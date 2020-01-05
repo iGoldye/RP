@@ -1,10 +1,8 @@
 let ESX = null;
 emit('esx:getSharedObject', (obj) => { ESX = obj });
 
-var ClientInventories = [];
 var ItemClasses = {};
 var ESXItemDB = [];
-
 
 /*
 RegisterServerEvent('esx_inventory:itemAction')
@@ -145,6 +143,11 @@ ESX.RegisterServerCallback('esx_inventory:giveItemTo', function(source, cb, play
 RegisterServerEvent('esx_inventory:playerSpawned')
 AddEventHandler('esx_inventory:playerSpawned', function() {
 	sendAllPickups(source)
+})
+
+AddEventHandler('esx_inventory:removeInventory', function(source, name) {
+	var xPlayer = ESX.GetPlayerFromId(source)
+	removeInventory(name, xPlayer.identifier)
 })
 
 // update loadout

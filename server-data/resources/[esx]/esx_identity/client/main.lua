@@ -1,6 +1,5 @@
 local guiEnabled = false
 local myIdentity = {}
-local myIdentifiers = {}
 local hasIdentity = false
 local isDead = false
 
@@ -47,11 +46,7 @@ RegisterNetEvent('esx_identity:identityCheck')
 AddEventHandler('esx_identity:identityCheck', function(data)
 	hasIdentity = data ~= nil
 	ESX.SetPlayerData('identity', data)
-end)
-
-RegisterNetEvent('esx_identity:saveID')
-AddEventHandler('esx_identity:saveID', function(data)
-	myIdentifiers = data
+	myIdentity = data
 end)
 
 RegisterNUICallback('escape', function(data, cb)
@@ -64,13 +59,12 @@ end)
 
 RegisterNUICallback('register', function(data, cb)
 	local reason = ""
-	myIdentity = data
 
 	local ped = PlayerPedId()
 	SetEntityCoordsNoOffset(ped, -1042.31, -2745.59, 21.36, false, false, false, true)
 	SetEntityHeading(ped, 328.56)
 
-	for theData, value in pairs(myIdentity) do
+	for theData, value in pairs(data) do
 		if theData == "firstname" or theData == "lastname" then
 			reason = verifyName(value)
 
@@ -97,7 +91,7 @@ RegisterNUICallback('register', function(data, cb)
 	end
 
 	if reason == "" then
-		TriggerServerEvent('esx_identity:setIdentity', data, myIdentifiers)
+		TriggerServerEvent('esx_identity:setIdentity', data)
 		EnableGui(false)
 		Citizen.Wait(500)
 
@@ -131,6 +125,7 @@ function openSkinMenu(data)
 			end
 			menu.close()
 		end, function(data, menu)
+			openSkinMenu(data)
 			menu.close()
 		end)
 

@@ -1,39 +1,6 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
---[[
-function clearAll(source, args, user)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	if xPlayer == nil then
-		return
-	end
-
--- clear inventory
-	for i=1, #xPlayer.inventory, 1 do
-		if xPlayer.inventory[i].count > 0 then
-			xPlayer.setInventoryItem(xPlayer.inventory[i].name, 0)
-		end
-	end
-
--- clear loadout
-	for i=#xPlayer.loadout, 1, -1 do
-		xPlayer.removeWeapon(xPlayer.loadout[i].name)
-	end
-
--- clear all datastores
-	TriggerEvent('esx_datastore:clearDataStores', source)
-
--- clear characters
-	MySQL.Sync.execute('DELETE FROM `characters` WHERE identifier = @identifier', {
-		['@identifier'] = xPlayer.identifier,
-	})
-
--- register new identity
-	xPlayer.setSessionVar("identity", nil)
-	TriggerClientEvent('esx_identity:identityCheck', source, nil)
-	TriggerClientEvent('esx_identity:showRegisterIdentity', source)
-end
-]]--
 ESX.RegisterServerCallback('admin_commands:isAdmin', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if xPlayer ~= nil then
@@ -171,33 +138,41 @@ end, {help = "Установить количество топлива в тра
 
 --RegisterServerEvent('admin_commands:setmoney') -- do not allow to set money from client
 AddEventHandler('admin_commands:setmoney', function(_source, target, money_type, money_action, money_amount)
-	local xPlayer = ESX.GetPlayerFromId(target)
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	local xTarget = ESX.GetPlayerFromId(target)
 
-	if target and money_type and money_amount and xPlayer ~= nil then
+	if target and money_type and money_amount and xTarget ~= nil then
+		local desc = 'admin setmoney : '
+		if xPlayer ~= nil and xPlayer.identifier ~= nil then
+			desc = desc .. xPlayer.identifier
+		else
+			desc = desc .. "unknown"
+		end
+
 		if money_type == 'cash' then
 			if money_action == 'set' then
-				xPlayer.setMoney(money_amount)
+				xTarget.setMoney(money_amount, desc)
 			elseif money_action == 'add' then
-				xPlayer.addMoney(money_amount)
+				xTarget.addMoney(money_amount, desc)
 			elseif money_action == 'remove' then
-				xPlayer.removeMoney(money_amount)
+				xTarget.removeMoney(money_amount, desc)
 			end
 		elseif money_type == 'bank' then
 			if money_action == 'set' then
-				xPlayer.setAccountMoney('bank', money_amount)
+				xTarget.setAccountMoney('bank', money_amount, desc)
 			elseif money_action == 'add' then
-				xPlayer.addAccountMoney('bank', money_amount)
+				xTarget.addAccountMoney('bank', money_amount, desc)
 			elseif money_action == 'remove' then
-				xPlayer.removeAccountMoney('bank', money_amount)
+				xTarget.removeAccountMoney('bank', money_amount, desc)
 			end
 
 		elseif money_type == 'black' then
 			if money_action == 'set' then
-				xPlayer.setAccountMoney('black_money', money_amount)
+				xTarget.setAccountMoney('black_money', money_amount, desc)
 			elseif money_action == 'add' then
-				xPlayer.addAccountMoney('black_money', money_amount)
+				xTarget.addAccountMoney('black_money', money_amount, desc)
 			elseif money_action == 'remove' then
-				xPlayer.removeAccountMoney('black_money', money_amount)
+				xTarget.removeAccountMoney('black_money', money_amount, desc)
 			end
 		else
 			if _source > 0 then
@@ -216,10 +191,10 @@ AddEventHandler('admin_commands:setmoney', function(_source, target, money_type,
 	if _source > 0 then
 		name = GetPlayerName(_source)
 	end
-	print('admin_commands: ' .. name .. ' just ' .. money_action .. ' $' .. money_amount .. ' (' .. money_type .. ') to ' .. xPlayer.name)
+	print('admin_commands: ' .. name .. ' just ' .. money_action .. ' $' .. money_amount .. ' (' .. money_type .. ') to ' .. xTarget.name)
 
-	if _source > 0 then -- and xPlayer.source ~= _source then
-		TriggerClientEvent('esx:showNotification', xPlayer.source, _U('money_'..money_action, money_amount, money_type))
+	if _source > 0 then -- and xTarget.source ~= _source then
+		TriggerClientEvent('esx:showNotification', xTarget.source, _U('money_'..money_action, money_amount, money_type))
 	end
 end)
 

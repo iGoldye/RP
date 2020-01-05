@@ -429,3 +429,16 @@ function getInventory(name, owner, serialized) {
 		}
 //	})
 }
+
+function removeInventory(name, owner) {
+	if (Inventories[name] === undefined) {
+		return false;
+	}
+
+	if (Inventories[name][owner] === undefined) {
+		return false;
+	}
+
+	Inventories[name][owner] = undefined;
+	return true;
+}
