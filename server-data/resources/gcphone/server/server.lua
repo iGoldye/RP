@@ -179,11 +179,21 @@ function setPhoneNumber (source, numb, cb)
 		end
 	end
 
+	local oldPhoneNumber = getPhoneNumber(identifier)
+	if oldPhoneNumber ~= nil then
+		dbcache_idents[oldPhoneNumber] = nil
+	end
+
         MySQL.Async.insert("UPDATE users SET phone_number = @myPhoneNumber WHERE identifier = @identifier", {
             ['@myPhoneNumber'] = numb,
             ['@identifier'] = xPlayer.identifier
         }, function ()
-            allUpdate(source, numb)
+            if numb ~= nil then
+		dbcache_numbers[xPlayer.identifier] = nil
+                dbcache_idents[numb] = nil
+                allUpdate(source, numb)
+            end
+
             if cb ~= nil then
 	            cb(numb)
             end
@@ -255,21 +265,24 @@ RegisterServerEvent('gcPhone:addContact')
 AddEventHandler('gcPhone:addContact', function(display, phoneNumber)
     local sourcePlayer = tonumber(source)
     local identifier = getPlayerID(source)
-    addContact(sourcePlayer, identifier, phoneNumber, display)
+    local simid = getPhoneNumber(identifier)
+    addContact(sourcePlayer, simid, phoneNumber, display)
 end)
 
 RegisterServerEvent('gcPhone:updateContact')
 AddEventHandler('gcPhone:updateContact', function(id, display, phoneNumber)
     local sourcePlayer = tonumber(source)
     local identifier = getPlayerID(source)
-    updateContact(sourcePlayer, identifier, id, phoneNumber, display)
+    local simid = getPhoneNumber(identifier)
+    updateContact(sourcePlayer, simid, id, phoneNumber, display)
 end)
 
 RegisterServerEvent('gcPhone:deleteContact')
 AddEventHandler('gcPhone:deleteContact', function(id)
     local sourcePlayer = tonumber(source)
     local identifier = getPlayerID(source)
-    deleteContact(sourcePlayer, identifier, id)
+    local simid = getPhoneNumber(identifier)
+    deleteContact(sourcePlayer, simid, id)
 end)
 
 RegisterServerEvent('gcPhone:acceptAction')
@@ -740,7 +753,7 @@ function allUpdate(source, num)
     local identifier = xPlayer.identifier
 
     TriggerClientEvent("gcPhone:myPhoneNumber", sourcePlayer, num)
-    TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(identifier))
+    TriggerClientEvent("gcPhone:contactList", sourcePlayer, getContacts(num))
     TriggerClientEvent("gcPhone:allMessage", sourcePlayer, getMessages(num))
     TriggerClientEvent('gcPhone:getBourse', sourcePlayer, getBourse())
     TriggerClientEvent("gcPhone:updatePhotoInfo", sourcePlayer, GetConvar('gcphone_photo_url', ''), GetConvar('gcphone_photo_field', ''))
