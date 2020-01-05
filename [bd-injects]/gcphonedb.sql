@@ -66,3 +66,7 @@ CREATE TABLE IF NOT EXISTS `phone_users_contacts` (
 
 ALTER TABLE `phone_messages` ADD `options` LONGTEXT NULL DEFAULT NULL AFTER `owner`;
 ALTER TABLE `phone_users_contacts` ADD INDEX(`identifier`);
+
+INSERT INTO `items` (`name`, `label`, `limit`) VALUES
+	('sim', 'SIM', 10)
+;

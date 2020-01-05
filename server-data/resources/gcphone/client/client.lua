@@ -47,20 +47,10 @@ local soundDistanceMax = 8.0
 
 local TokoVoipID = nil
 
-function inventoryCheckPhone(inventory)
-	for k,item in pairs(inventory.items) do
-		if item.name == "esx_item" and item.extra.name == "phone" then
-			return true
-		end
-	end
-
-	return false
-end
-
 RegisterNetEvent('esx_inventory:onInventoryUpdate')
 AddEventHandler('esx_inventory:onInventoryUpdate', function(inventory)
-  TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'esx_item', {["name"] = "phone"}, function(items)
-    inventoryHasPhone = #items > 0
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'phone', {["number"] = tostring(myPhoneNumber)}, function(items)
+		inventoryHasPhone = #items > 0
 		if menuIsOpen and #items == 0 then
 			TooglePhone()
 		end
@@ -77,7 +67,7 @@ end)
 --  Callback true or false
 --====================================================================================
 function hasPhone (cb)
-	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'phone', {["number"] = myPhoneNumber}, function(items)
+	TriggerEvent('esx_inventory:getInventoryItem', 'pocket', 'phone', {["number"] = tostring(myPhoneNumber)}, function(items)
 		cb((#items > 0))
 	end)
 end

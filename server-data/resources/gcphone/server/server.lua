@@ -19,6 +19,42 @@ end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })
 end, {help = "Очищаем кэш базы данных gcphone"})
 
+-- Добавляем игроку уникальную SIM-карту
+AddEventHandler('gcPhone:addNewSIM', function(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
+        local numb = getPhoneRandomNumber()
+
+	local found = false
+	for i=1, 10 do
+		local result = MySQL.Sync.fetchAll("SELECT id FROM sim_cards WHERE number = @number LIMIT 1", {
+			['@number'] = numb
+	    })
+	    if #result == 0 then
+		found = true
+		break
+            end
+	end
+
+	if found == true then
+		TriggerEvent("esx_inventory:createItem", "sim", {["number"] = numb}, 1, 0, function(item)
+			TriggerEvent("esx_inventory:addItem", "pocket", xPlayer.identifier, item, function(ret)
+				if ret == true then
+					MySQL.Async.insert("INSERT INTO sim_cards (`identifier`, `number`) VALUES(@identifier, @number)", {
+					        ['@identifier'] = xPlayer.identifier,
+					        ['@number'] = numb,
+					    },function()
+					    end)
+				end
+			end)
+		end)
+	end
+end)
+
+ESX.RegisterUsableItem('sim', function(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	xPlayer.removeInventoryItem('sim', 1)
+	TriggerEvent("gcPhone:addNewSIM", source)
+end)
 
 --====================================================================================
 -- #Author: Jonathan D @Gannon
