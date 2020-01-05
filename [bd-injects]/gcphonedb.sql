@@ -70,3 +70,18 @@ ALTER TABLE `phone_users_contacts` ADD INDEX(`identifier`);
 INSERT INTO `items` (`name`, `label`, `limit`) VALUES
 	('sim', 'SIM', 10)
 ;
+
+CREATE TABLE `sim_cards` (
+  `id` int(11) NOT NULL,
+  `identifier` varchar(50) COLLATE utf8_bin NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `number` varchar(12) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+ALTER TABLE `sim_cards`
+  ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `sim_cards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
