@@ -100,6 +100,34 @@ AddEventHandler('esx_datastore:getSharedDataStore', function(name, cb)
 	cb(GetSharedDataStore(name))
 end)
 
+AddEventHandler('esx_datastore:clearDataStores', function(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	local dataStores = {}
+
+	if xPlayer == nil then
+		return
+	end
+
+	for i=1, #DataStoresIndex, 1 do
+		local name      = DataStoresIndex[i]
+
+		for j=1, #DataStores[name] do
+			if DataStores[name][j].owner == xPlayer.identifier then
+				MySQL.Async.execute('REPLACE INTO datastore_data (name, owner, data) VALUES (@name, @owner, @data)', {
+					['@name']  = name,
+					['@owner'] = xPlayer.identifier,
+					['@data']  = '{}'
+				})
+				DataStores[name][j] = CreateDataStore(name, xPlayer.identifier, {})
+				table.insert(dataStores, DataStores[name][j])
+			end
+		end
+	end
+
+	xPlayer.set('dataStores', dataStores)
+end)
+
+
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
 	local dataStores = {}
 

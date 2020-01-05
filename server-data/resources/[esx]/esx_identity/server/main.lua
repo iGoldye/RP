@@ -2,6 +2,54 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+function clearAll(source)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if xPlayer == nil then
+		return
+	end
+
+-- clear inventory
+	for i=1, #xPlayer.inventory, 1 do
+		if xPlayer.inventory[i].count > 0 then
+			xPlayer.setInventoryItem(xPlayer.inventory[i].name, 0)
+		end
+	end
+
+-- clear new inventory
+	TriggerEvent('esx_inventory:removeInventory', source, 'pocket')
+
+-- clear loadout
+	for i=#xPlayer.loadout, 1, -1 do
+		xPlayer.removeWeapon(xPlayer.loadout[i].name)
+	end
+
+-- clear all datastores
+	TriggerEvent('esx_datastore:clearDataStores', source)
+
+-- clear characters
+	MySQL.Sync.execute('DELETE FROM `characters` WHERE identifier = @identifier', {
+		['@identifier'] = xPlayer.identifier,
+	})
+
+-- clear properties
+	MySQL.Async.execute('DELETE FROM owned_properties WHERE owner = @owner', {
+		['@owner'] = xPlayer.identifier,
+	}, function(rowsChanged)
+	end)
+
+	xPlayer.setJob('unemployed', 0)
+	xPlayer.setMoney(500)
+	xPlayer.setBankBalance(1500)
+	xPlayer.setAccountMoney('black_money', 0)
+	xPlayer.setInventoryItem('phone', 1)
+	TriggerEvent("gcPhone:addNewSIM", source)
+
+-- register new identity
+--	xPlayer.setSessionVar("identity", nil)
+--	TriggerClientEvent('esx_identity:identityCheck', source, nil)
+--	TriggerClientEvent('esx_identity:showRegisterIdentity', source)
+end
+
 function getIdentity(source, callback)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -194,9 +242,10 @@ RegisterServerEvent('esx_identity:setIdentity')
 AddEventHandler('esx_identity:setIdentity', function(data, myIdentifiers)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
-	local identifier = myIdentifiers.steamid
-	if xPlayer ~= nil and xPlayer.identifier ~= nil then
-		identifier = xPlayer.identifier
+	local identifier = xPlayer.identifier
+
+	if identifier == nil then
+		identifier = myIdentifiers.steamid
 	end
 
 	setIdentity(identifier, data, function(callback)
@@ -204,11 +253,8 @@ AddEventHandler('esx_identity:setIdentity', function(data, myIdentifiers)
 			TriggerClientEvent('esx_identity:identityCheck', _source, data)
 
 			if xPlayer ~= nil then
+				clearAll(_source)
 				xPlayer.setSessionVar("identity", data)
-				xPlayer.setMoney(500)
-				xPlayer.setBankBalance(1500)
-				xPlayer.setAccountMoney('black_money', 0)
-				xPlayer.setInventoryItem('phone', 1)
 			end
 		else
 			TriggerClientEvent('chat:addMessage', _source, { args = { '^[IDENTITY]', 'Failed to set character, try again later or contact the server admin!' } })
