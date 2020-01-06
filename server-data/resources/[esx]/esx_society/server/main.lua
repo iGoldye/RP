@@ -270,14 +270,26 @@ ESX.RegisterServerCallback('esx_society:setJob', function(source, cb, identifier
 		end
 
 		if xTarget then
+			local prevJobName = xTarget.getJob().label
 			xTarget.setJob(job, grade)
+			local jobInfo = Jobs[job]
+			local job_label = "N/A"
+			local grade_label = "N/A"
+
+			if jobInfo then
+				job_label = jobInfo.label
+				local gradeInfo = Jobs[job].grades[tostring(grade)]
+				if gradeInfo then
+					grade_label = gradeInfo.label
+				end
+			end
 
 			if type == 'hire' then
 				TriggerClientEvent('esx:showNotification', xTarget.source, _U('you_have_been_hired', job))
 			elseif type == 'promote' then
-				TriggerClientEvent('esx:showNotification', xTarget.source, _U('you_have_been_promoted'))
+				TriggerClientEvent('esx:showNotification', xTarget.source, _U('you_have_been_promoted', job_label, grade_label))
 			elseif type == 'fire' then
-				TriggerClientEvent('esx:showNotification', xTarget.source, _U('you_have_been_fired', xTarget.getJob().label))
+				TriggerClientEvent('esx:showNotification', xTarget.source, _U('you_have_been_fired', prevJobName))
 			end
 
 			cb()

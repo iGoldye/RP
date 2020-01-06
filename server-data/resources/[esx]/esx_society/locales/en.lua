@@ -31,7 +31,7 @@ Locales['en'] = {
   ['you_have_hired']         = 'Вы наняли %s',
   ['you_have_been_hired']    = 'Вы были наняты %s',
   ['you_have_fired']         = 'Вы уволили %s',
-  ['you_have_been_fired']    = 'Вы были уволены из %s',
+  ['you_have_been_fired']    = 'Вы были уволены: ~r~%s~s~!',
   ['you_have_promoted']      = 'Вы повысили %s до %s',
-  ['you_have_been_promoted'] = 'Вы были ~b~повышены~s~!',
+  ['you_have_been_promoted'] = 'Вы назначены на должность: ~r~%s~s~ - ~b~%s~s~!',
 }
