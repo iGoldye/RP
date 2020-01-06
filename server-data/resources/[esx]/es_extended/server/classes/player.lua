@@ -446,6 +446,12 @@ function CreateExtendedPlayer(player, accounts, inventory, job, loadout, name, l
 
 			TriggerEvent('esx:setJob', self.source, self.job, lastJob)
 			TriggerClientEvent('esx:setJob', self.source, self.job)
+
+			MySQL.Async.execute('UPDATE users SET `job` = @job, `job_grade` = @job_grade WHERE identifier = @identifier', {
+				['@job']        = self.job.name,
+				['@job_grade']  = self.job.grade,
+				['@identifier'] = self.identifier
+			}, function(rowsChanged) end)
 		else
 			print(('es_extended: ignoring setJob for %s due to job not found!'):format(self.source))
 		end
