@@ -100,7 +100,7 @@ ESX.RegisterServerCallback('esx_playermenu:adminGetPlayers', function(source, cb
 	    ["money"] = pl.getMoney(),
             ["bank"] = pl.getBank(),
             ["black_money"] = pl.getAccount('black_money').money,
-            ["phone_number"] = exports["gcphone"]:getNumberPhone(pl.identifier),
+            ["phone_number"] = exports["gcphone"]:getPhoneNumber(pl.identifier),
             ['status'] = status,
         })
     end
