@@ -1,7 +1,14 @@
 
 local hasAlreadyEnteredMarker, hasPaid, currentActionData = false, false, {}
 local lastZone, currentAction, currentActionMsg
+local previous_skin = nil
 ESX = nil
+
+function LoadPreviousSkin()
+	if previous_skin then
+		TriggerEvent('skinchanger:loadSkin', previous_skin)
+	end
+end
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -10,8 +17,62 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function SaveInDressing(skin)
+	ESX.TriggerServerCallback('esx_clotheshop:checkPropertyDataStore', function(foundStore)
+		if foundStore then
+			ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'outfit_name', {
+				title = _U('name_outfit')
+			}, function(data3, menu3)
+				menu3.close()
+
+				TriggerEvent('skinchanger:getSkin', function(skin)
+					TriggerServerEvent('esx_clotheshop:saveOutfit', data3.value, skin)
+					ESX.ShowNotification(_U('saved_outfit'))
+				end)
+			end, function(data3, menu3)
+				menu3.close()
+			end)
+		end
+	end)
+end
+
+function OpenBoughtMenu(skin)
+		local elements = {
+					{label = "Сохранить в гардероб", value = "savedress"},
+--					{label = "Получить комплект одежды", value = "giveoutfit"},
+					{label = "Переодеться в предыдущее", value = "prev"},
+					{label = "Выход", value = "exit"},
+			}
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'cloth_bought_menu', {
+			title    = "Покупки",
+			align    = 'top-right',
+			elements = elements
+		}, function(data, menu)
+			local cmd = data.current.value
+
+			if cmd == "savedress" then
+				SaveInDressing(skin)
+			elseif cmd == "giveoutfit" then
+			elseif cmd == "prev" then
+				LoadPreviousSkin()
+			elseif cmd == "exit" then
+				menu.close()
+			end
+
+		end, function(data, menu)
+			menu.close()
+			TriggerServerEvent('esx_skin:save', skin)
+			TriggerServerEvent('esx_accessories:save', skin, "Helmet")
+			TriggerServerEvent('esx_accessories:save', skin, "Glasses")
+		end)
+end
+
 function OpenShopMenu()
 	hasPaid = false
+	TriggerEvent('skinchanger:getSkin', function(skin)
+		previous_skin = skin
+	end)
 
 	TriggerEvent('esx_skin:openRestrictedMenu', function(data, menu)
 		menu.close()
@@ -28,55 +89,17 @@ function OpenShopMenu()
 			if data.current.value == 'yes' then
 				ESX.TriggerServerCallback('esx_clotheshop:buyClothes', function(bought)
 					if bought then
-						TriggerEvent('skinchanger:getSkin', function(skin)
-							TriggerServerEvent('esx_skin:save', skin)
-							TriggerServerEvent('esx_accessories:save', skin, "Helmet")
-							TriggerServerEvent('esx_accessories:save', skin, "Glasses")
-						end)
-
 						hasPaid = true
-
-						ESX.TriggerServerCallback('esx_clotheshop:checkPropertyDataStore', function(foundStore)
-							if foundStore then
-								ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'save_dressing', {
-									title = _U('save_in_dressing'),
-									align = 'top-left',
-									elements = {
-										{label = _U('no'),  value = 'no'},
-										{label = _U('yes'), value = 'yes'}
-								}}, function(data2, menu2)
-									menu2.close()
-
-									if data2.current.value == 'yes' then
-										ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'outfit_name', {
-											title = _U('name_outfit')
-										}, function(data3, menu3)
-											menu3.close()
-
-											TriggerEvent('skinchanger:getSkin', function(skin)
-												TriggerServerEvent('esx_clotheshop:saveOutfit', data3.value, skin)
-												ESX.ShowNotification(_U('saved_outfit'))
-											end)
-										end, function(data3, menu3)
-											menu3.close()
-										end)
-									end
-								end)
-							end
+						TriggerEvent('skinchanger:getSkin', function(skin)
+							OpenBoughtMenu(skin)
 						end)
-
 					else
-						ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-							TriggerEvent('skinchanger:loadSkin', skin)
-						end)
-
+						LoadPreviousSkin()
 						ESX.ShowNotification(_U('not_enough_money'))
 					end
 				end)
 			elseif data.current.value == 'no' then
-				ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-					TriggerEvent('skinchanger:loadSkin', skin)
-				end)
+				LoadPreviousSkin()
 			end
 
 			currentAction     = 'shop_menu'
@@ -123,9 +146,7 @@ AddEventHandler('esx_clotheshop:hasExitedMarker', function(zone)
 	currentAction = nil
 
 	if not hasPaid then
-		ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-			TriggerEvent('skinchanger:loadSkin', skin)
-		end)
+		LoadPreviousSkin()
 	end
 end)
 
