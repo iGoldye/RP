@@ -126,9 +126,7 @@ function OpenAmbulanceActionsMenu()
 end
 
 function OpenBossActionsMenu()
-	TriggerEvent('esx_society:openBossMenu', 'ambulance', function(data, menu)
-		menu.close()
-	end, {wash = Config.EnableMoneyWash})
+	TriggerEvent('esx_bossmenu:show', 'ambulance', { wash = Config.EnableMoneyWash })
 end
 
 function OpenMobileAmbulanceActionsMenu()

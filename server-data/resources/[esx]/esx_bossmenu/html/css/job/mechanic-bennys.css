@@ -1,0 +1,36 @@
+.job-mechanic-bennys #header .button {
+    border-bottom: #dc8080 3px solid;
+}
+
+.job-mechanic-bennys #header .button:hover {
+    color: #ffffff;
+    border-bottom: #fc9090 3px solid;
+}
+
+.job-mechanic-bennys .account-value {
+	color: #ffcccc;
+}
+
+.job-mechanic-bennys input {
+    border: 1px solid #890000;
+}
+
+.job-mechanic-bennys button {
+    background: linear-gradient(0deg, #923030, #d45b5b);
+    border: 2px solid #a73333;
+    color: #ffe5e5;
+}
+
+.job-mechanic-bennys table th {
+	background-color: #660000a0;
+}
+
+.job-mechanic-bennys table td {
+	border: 1px solid #660000a0;
+	padding: 5px;
+}
+
+.job-mechanic-bennys .selectric-items li:hover {
+  background: #f09090;
+  color: #444;
+}

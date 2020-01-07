@@ -186,9 +186,8 @@ function OpenMechanicActionsMenu()
 		elseif data.current.value == 'get_stock' then
 			OpenGetStocksMenu()
 		elseif data.current.value == 'boss_actions' then
-			TriggerEvent('esx_society:openBossMenu', 'mechanic-bennys', function(data, menu)
-				menu.close()
-			end)
+			menu.close()
+			TriggerEvent('esx_bossmenu:show', 'mechanic-bennys')
 		end
 	end, function(data, menu)
 		menu.close()

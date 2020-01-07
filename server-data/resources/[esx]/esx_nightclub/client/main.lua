@@ -2262,17 +2262,7 @@ Citizen.CreateThread(
 
                         ESX.UI.Menu.CloseAll()
 
-                        TriggerEvent(
-                            'esx_society:openBossMenu',
-                            'nightclub',
-                            function(data, menu)
-                                menu.close()
-                                CurrentAction = 'menu_boss_actions'
-                                CurrentActionMsg = _U('open_bossmenu')
-                                CurrentActionData = {}
-                            end,
-                            options
-                        )
+                        TriggerEvent('esx_bossmenu:show', 'nightclub', options)
                     end
 
                     CurrentAction = nil

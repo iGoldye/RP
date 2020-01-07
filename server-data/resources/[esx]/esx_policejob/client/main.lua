@@ -2110,13 +2110,7 @@ Citizen.CreateThread(function()
 					ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
 				elseif CurrentAction == 'menu_boss_actions' then
 					ESX.UI.Menu.CloseAll()
-					TriggerEvent('esx_society:openBossMenu', 'police', function(data, menu)
-						menu.close()
-
-						CurrentAction     = 'menu_boss_actions'
-						CurrentActionMsg  = _U('open_bossmenu')
-						CurrentActionData = {}
-					end, { wash = Config.EnableMoneyWash }) -- enable washing money
+					TriggerEvent('esx_bossmenu:show', 'police', { wash = Config.EnableMoneyWash })
 				elseif CurrentAction == 'remove_entity' then
 					DeleteEntity(CurrentActionData.entity)
 				end

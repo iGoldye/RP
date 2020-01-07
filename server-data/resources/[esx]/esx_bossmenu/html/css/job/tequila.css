@@ -1,0 +1,36 @@
+.job-tequila #header .button {
+    border-bottom: #dcd480 3px solid;
+}
+
+.job-tequila #header .button:hover {
+        color: #ffffff;
+        border-bottom: #fcf390 3px solid;
+}
+
+.job-tequila .account-value {
+    color: #fffbcc;
+}
+
+.job-tequila input {
+    border: 1px solid #898400;
+}
+
+.job-tequila button {
+    background: linear-gradient(0deg, #927c30, #d4d05b);
+    border: 2px solid #a79d33;
+    color: #feffe5;
+}
+
+.job-tequila table th {
+    background-color: #664d00a0;
+}
+
+.job-tequila table td {
+    border: 1px solid #664d00a0;
+    padding: 5px;
+}
+
+.job-tequila .selectric-items li:hover {
+    background: #edf090;
+    color: #444;
+}
