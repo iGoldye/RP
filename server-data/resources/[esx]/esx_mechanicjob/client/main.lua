@@ -67,9 +67,85 @@ function StopNPCJob(cancel)
 	end
 end
 
-function OpenMechanicActionsMenu()
+function OpenMechanicGarageMenu()
+	ESX.UI.Menu.CloseAll()
+	if Config.EnableSocietyOwnedVehicles then
+
+		local elements = {}
+
+		ESX.TriggerServerCallback('esx_society:getVehiclesInGarage', function(vehicles)
+			for i=1, #vehicles, 1 do
+				table.insert(elements, {
+					label = GetDisplayNameFromVehicleModel(vehicles[i].model) .. ' [' .. vehicles[i].plate .. ']',
+					value = vehicles[i]
+				})
+			end
+
+			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_spawner', {
+				title    = _U('service_vehicle'),
+				align    = 'top-left',
+				elements = elements
+			}, function(data, menu)
+				menu.close()
+				local vehicleProps = data.current.value
+
+				ESX.Game.SpawnVehicle(vehicleProps.model, Config.Zones.VehicleSpawnPoint.Pos, 270.0, function(vehicle)
+					ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
+					local playerPed = PlayerPedId()
+					TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
+				end)
+
+				TriggerServerEvent('esx_society:removeVehicleFromGarage', 'mechanic', vehicleProps)
+			end, function(data, menu)
+				menu.close()
+			end)
+		end, 'mechanic')
+
+	else
+
+		local elements = {
+			{label = _U('flat_bed'),  value = 'flatbed'},
+			-- {label = _U('tow_truck'), value = 'towtruck2'}
+		}
+
+		if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief' or ESX.PlayerData.job.grade_name == 'experimente' or ESX.PlayerData.job.grade_name == 'novice' or ESX.PlayerData.job.grade_name == 'recrue') then
+			table.insert(elements, {label = 'SlamVan', value = 'slamvan3'})
+		end
+
+		ESX.UI.Menu.CloseAll()
+
+		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'spawn_vehicle', {
+			title    = _U('service_vehicle'),
+			align    = 'top-left',
+			elements = elements
+		}, function(data, menu)
+			if Config.MaxInService == -1 then
+				ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, 90.0, function(vehicle)
+					local playerPed = PlayerPedId()
+					TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
+					SetVehicleNumberPlateText(vehicle, string.format("WORK%04d", math.random(1,9999)))
+				end)
+			else
+				ESX.TriggerServerCallback('esx_service:enableService', function(canTakeService, maxInService, inServiceCount)
+					if canTakeService then
+						ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, 90.0, function(vehicle)
+							TaskWarpPedIntoVehicle(PlayerPedId(),  vehicle, -1)
+						end)
+					else
+						ESX.ShowNotification(_U('service_full') .. inServiceCount .. '/' .. maxInService)
+					end
+				end, 'mechanic')
+			end
+
+			menu.close()
+		end, function(data, menu)
+			menu.close()
+		end)
+	end
+end
+
+function OpenMechanicCloakroomMenu()
 	local elements = {
-		{label = _U('vehicle_list'),   value = 'vehicle_list'},
 		{label = _U('work_wear'),      value = 'cloakroom'},
 		{label = _U('civ_wear'),       value = 'cloakroom2'},
 		{label = _U('change_wear'),    value = 'change_wear'},
@@ -77,95 +153,14 @@ function OpenMechanicActionsMenu()
 		{label = _U('withdraw_stock'), value = 'get_stock'}
 	}
 
-	if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief') then
-		table.insert(elements, {label = _U('boss_actions'), value = 'boss_actions'})
-	end
-
 	ESX.UI.Menu.CloseAll()
 
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'mechanic_actions', {
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'mechanic_cloakroom', {
 		title    = _U('mechanic'),
 		align    = 'top-left',
 		elements = elements
 	}, function(data, menu)
-		if data.current.value == 'vehicle_list' then
-			if Config.EnableSocietyOwnedVehicles then
-
-				local elements = {}
-
-				ESX.TriggerServerCallback('esx_society:getVehiclesInGarage', function(vehicles)
-					for i=1, #vehicles, 1 do
-						table.insert(elements, {
-							label = GetDisplayNameFromVehicleModel(vehicles[i].model) .. ' [' .. vehicles[i].plate .. ']',
-							value = vehicles[i]
-						})
-					end
-
-					ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'vehicle_spawner', {
-						title    = _U('service_vehicle'),
-						align    = 'top-left',
-						elements = elements
-					}, function(data, menu)
-						menu.close()
-						local vehicleProps = data.current.value
-
-						ESX.Game.SpawnVehicle(vehicleProps.model, Config.Zones.VehicleSpawnPoint.Pos, 270.0, function(vehicle)
-							ESX.Game.SetVehicleProperties(vehicle, vehicleProps)
-							local playerPed = PlayerPedId()
-							TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
-						end)
-
-						TriggerServerEvent('esx_society:removeVehicleFromGarage', 'mechanic', vehicleProps)
-					end, function(data, menu)
-						menu.close()
-					end)
-				end, 'mechanic')
-
-			else
-
-				local elements = {
-					{label = _U('flat_bed'),  value = 'flatbed'},
-					-- {label = _U('tow_truck'), value = 'towtruck2'}
-				}
-
-				if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief' or ESX.PlayerData.job.grade_name == 'experimente' or ESX.PlayerData.job.grade_name == 'novice' or ESX.PlayerData.job.grade_name == 'recrue') then
-					table.insert(elements, {label = 'SlamVan', value = 'slamvan3'})
-				end
-
-				ESX.UI.Menu.CloseAll()
-
-				ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'spawn_vehicle', {
-					title    = _U('service_vehicle'),
-					align    = 'top-left',
-					elements = elements
-				}, function(data, menu)
-					if Config.MaxInService == -1 then
-						ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, 90.0, function(vehicle)
-							local playerPed = PlayerPedId()
-							TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-							SetVehicleNumberPlateText(vehicle, string.format("WORK%04d", math.random(1,9999)))
-						end)
-					else
-						ESX.TriggerServerCallback('esx_service:enableService', function(canTakeService, maxInService, inServiceCount)
-							if canTakeService then
-								ESX.Game.SpawnVehicle(data.current.value, Config.Zones.VehicleSpawnPoint.Pos, 90.0, function(vehicle)
-									local playerPed = PlayerPedId()
-									TaskWarpPedIntoVehicle(playerPed,  vehicle, -1)
-								end)
-							else
-								ESX.ShowNotification(_U('service_full') .. inServiceCount .. '/' .. maxInService)
-							end
-						end, 'mechanic')
-					end
-
-					menu.close()
-				end, function(data, menu)
-					menu.close()
-					OpenMechanicActionsMenu()
-				end)
-
-			end
-		elseif data.current.value == 'cloakroom' then
+		if data.current.value == 'cloakroom' then
 			menu.close()
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				if skin.sex == 0 then
@@ -185,17 +180,17 @@ function OpenMechanicActionsMenu()
 			OpenPutStocksMenu()
 		elseif data.current.value == 'get_stock' then
 			OpenGetStocksMenu()
-		elseif data.current.value == 'boss_actions' then
-			menu.close()
-			TriggerEvent('esx_bossmenu:show', 'mechanic')
 		end
 	end, function(data, menu)
 		menu.close()
-
-		CurrentAction     = 'mechanic_actions_menu'
-		CurrentActionMsg  = _U('open_actions')
-		CurrentActionData = {}
 	end)
+end
+
+function OpenMechanicActionsMenu()
+	if Config.EnablePlayerManagement and ESX.PlayerData.job and (ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job.grade_name == 'chief') then
+		ESX.UI.Menu.CloseAll()
+		TriggerEvent('esx_bossmenu:show', 'mechanic')
+	end
 end
 
 function OpenMechanicHarvestMenu()
@@ -721,13 +716,21 @@ AddEventHandler('esx_mechanicjob:hasEnteredMarker', function(zone)
 
 	elseif zone =='VehicleDelivery' then
 		NPCTargetDeleterZone = true
+	elseif zone == 'Cloakroom' then
+		CurrentAction     = 'mechanic_cloakroom_menu'
+		CurrentActionMsg  = _U('cloakroom_menu')
+		CurrentActionData = {}
 	elseif zone == 'MechanicActions' then
 		CurrentAction     = 'mechanic_actions_menu'
 		CurrentActionMsg  = _U('open_actions')
 		CurrentActionData = {}
-	elseif zone == 'Garage' then
+	elseif zone == 'Harvest' then
 		CurrentAction     = 'mechanic_harvest_menu'
 		CurrentActionMsg  = _U('harvest_menu')
+		CurrentActionData = {}
+	elseif zone == 'Garage' then
+		CurrentAction     = 'mechanic_garage_menu'
+		CurrentActionMsg  = _U('garage_menu')
 		CurrentActionData = {}
 	elseif zone == 'Craft' then
 		CurrentAction     = 'mechanic_craft_menu'
@@ -753,7 +756,7 @@ AddEventHandler('esx_mechanicjob:hasExitedMarker', function(zone)
 		TriggerServerEvent('esx_mechanicjob:stopCraft')
 		TriggerServerEvent('esx_mechanicjob:stopCraft2')
 		TriggerServerEvent('esx_mechanicjob:stopCraft3')
-	elseif zone == 'Garage' then
+	elseif zone == 'Harvest' then
 		TriggerServerEvent('esx_mechanicjob:stopHarvest')
 		TriggerServerEvent('esx_mechanicjob:stopHarvest2')
 		TriggerServerEvent('esx_mechanicjob:stopHarvest3')
@@ -848,7 +851,12 @@ Citizen.CreateThread(function()
 
 			for k,v in pairs(Config.Zones) do
 				if v.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance then
-					DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Color.r, v.Color.g, v.Color.b, 100, false, true, 2, false, nil, nil, false)
+					local mSize = v.Size
+					if v.DrawSize then
+						mSize = v.DrawSize
+					end
+
+					DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, mSize.x, mSize.y, mSize.z, v.Color.r, v.Color.g, v.Color.b, 100, false, true, 2, false, nil, nil, false)
 					letSleep = false
 				end
 			end
@@ -948,7 +956,11 @@ Citizen.CreateThread(function()
 
 			if IsControlJustReleased(0, 38) and ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
 
-				if CurrentAction == 'mechanic_actions_menu' then
+				if CurrentAction == 'mechanic_garage_menu' then
+					OpenMechanicGarageMenu()
+				elseif CurrentAction == 'mechanic_cloakroom_menu' then
+					OpenMechanicCloakroomMenu()
+				elseif CurrentAction == 'mechanic_actions_menu' then
 					OpenMechanicActionsMenu()
 				elseif CurrentAction == 'mechanic_harvest_menu' then
 					OpenMechanicHarvestMenu()
