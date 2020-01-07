@@ -19,15 +19,28 @@ Config.Vehicles = {
 }
 
 Config.Zones = {
+	Cloakroom = {
+		Pos   = { x = -340.44, y = -119.72, z = 38.05 },
+		Size  = { x = 1.5, y = 1.5, z = 1.0 },
+		Color = { r = 0, g = 124, b = 204 },
+		Type  = 27
+	},
 
 	MechanicActions = {
-		Pos   = { x = -349.27, y = -129.31, z = 38.00 },
-		Size  = { x = 1.5, y = 1.5, z = 1.0 },
+		Pos   = { x = -349.27, y = -129.31, z = 39.00 },
+		Size  = { x = 1.0, y = 1.0, z = 1.0 },
 		Color = { r = 204, g = 204, b = 0 },
-		Type  = 1
+		Type  = 21
 	},
 
 	Garage = {
+		Pos   = { x = -354.45, y = -115.55, z = 38.7 },
+		Size  = { x = 1.0, y = 1.0, z = 1.0 },
+		Color = { r = 20, g = 204, b = 0 },
+		Type  = 36
+	},
+
+	Harvest = {
 		Pos   = { x = -97.5, y = 6496.1, z = 30.4 },
 		Size  = { x = 1.5, y = 1.5, z = 1.0 },
 		Color = { r = 204, g = 204, b = 0 },
@@ -35,10 +48,10 @@ Config.Zones = {
 	},
 
 	Craft = {
-		Pos   = { x = -323.140, y = -129.882, z = 37.999 },
+		Pos   = { x = -323.140, y = -129.882, z = 38.00 },
 		Size  = { x = 1.5, y = 1.5, z = 1.0 },
-		Color = { r = 204, g = 204, b = 0 },
-		Type  = 1
+		Color = { r = 0, g = 204, b = 104 },
+		Type  = 27
 	},
 
 	VehicleSpawnPoint = {
@@ -48,10 +61,11 @@ Config.Zones = {
 	},
 
 	VehicleDeleter = {
-		Pos   = { x = -386.899, y = -105.675, z = 37.683 },
-		Size  = { x = 3.0, y = 3.0, z = 1.0 },
-		Color = { r = 204, g = 204, b = 0 },
-		Type  = 1
+		Pos   = { x = -386.899, y = -105.675, z = 38.683 },
+		Size  = { x = 3.0, y = 3.0, z = 3.0 },
+		DrawSize  = { x = 1.0, y = 1.0, z = 1.0 },
+		Color = { r = 204, g = 20, b = 0 },
+		Type  = 36
 	},
 
 	VehicleDelivery = {
