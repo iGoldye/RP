@@ -1150,31 +1150,12 @@ Citizen.CreateThread(function()
           }
 
           ESX.UI.Menu.CloseAll()
-
-          TriggerEvent('esx_society:openBossMenu', 'tequila', function(data, menu)
-
-            menu.close()
-            CurrentAction     = 'menu_boss_actions'
-            CurrentActionMsg  = _U('open_bossmenu')
-            CurrentActionData = {}
-
-          end,options)
-
+          TriggerEvent('esx_bossmenu:show', 'tequila', options)
         end
 
-
         CurrentAction = nil
-
       end
-
     end
-
-
---    if IsControlJustReleased(0,  Keys['F6']) and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'tequila_actions') then
---        OpenSocietyActionsMenu()
---    end
-
-
   end
 end)
 

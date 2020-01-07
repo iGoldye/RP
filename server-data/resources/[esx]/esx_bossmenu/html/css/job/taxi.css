@@ -1,0 +1,36 @@
+.job-taxi #header .button {
+    border-bottom: #dcd480 3px solid;
+}
+
+.job-taxi #header .button:hover {
+        color: #ffffff;
+        border-bottom: #fcf390 3px solid;
+}
+
+.job-taxi .account-value {
+    color: #fffbcc;
+}
+
+.job-taxi input {
+    border: 1px solid #898400;
+}
+
+.job-taxi button {
+    background: linear-gradient(0deg, #927c30, #d4d05b);
+    border: 2px solid #a79d33;
+    color: #feffe5;
+}
+
+.job-taxi table th {
+    background-color: #664d00a0;
+}
+
+.job-taxi table td {
+    border: 1px solid #664d00a0;
+    padding: 5px;
+}
+
+.job-taxi .selectric-items li:hover {
+    background: #edf090;
+    color: #444;
+}

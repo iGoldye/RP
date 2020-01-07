@@ -1,0 +1,36 @@
+.job-unicorn #header .button {
+    border-bottom: #db7fad 3px solid;
+}
+
+.job-unicorn #header .button:hover {
+    color: #ffffff;
+    border-bottom: #fc90c6 3px solid;
+}
+
+.job-unicorn .account-value {
+	color: #ffcce5;
+}
+
+.job-unicorn input {
+    border: 1px solid #8a0045;
+}
+
+.job-unicorn button {
+    background: linear-gradient(0deg, #913048, #d45b79);
+    border: 2px solid #8c2b4b;
+    color: #ffe5f2;
+}
+
+.job-unicorn table th {
+	background-color: #881035a0;
+}
+
+.job-unicorn table td {
+	border: 1px solid #881035a0;
+	padding: 5px;
+}
+
+.job-unicorn .selectric-items li:hover {
+  background: #df5499;
+  color: #fff;
+}

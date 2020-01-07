@@ -150,28 +150,7 @@ function OpenAdminMenu()
 end
 
 function OpenAdminMenuSociety(label, societyName)
-	TriggerEvent('esx_society:openBossMenu', societyName, function(data, menu)
-		menu.close()
-	end, {wash = true})
---[[
-	ESX.TriggerServerCallback('esx_playermenu:adminGetSocietyAccount', function(account)
-		local elements = {}
-		table.insert(elements, {label = "Бюджет: $"..tostring(account.money), value = "money"})
-
-		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_society', {
-			title    = "Администрирование: "..label,
-			align    = 'top-right',
-			elements = elements
-		}, function(data, menu)
-			local cmd = data.current.value
-			menu.close()
-
-		end, function(data, menu)
-			menu.close()
-		end)
-
-	end, 'society_'..societyName)
-]]--
+        TriggerEvent('esx_bossmenu:show', societyName, {wash = true})
 end
 
 function OpenAdminMenuSocietyList()
@@ -181,6 +160,9 @@ function OpenAdminMenuSocietyList()
 		table.insert(elements, {label = "Механики", value = "mechanic"})
 		table.insert(elements, {label = "Механики Benny's", value = "mechanic-bennys"})
 		table.insert(elements, {label = "Такси", value = "taxi"})
+		table.insert(elements, {label = "Клуб Unicorn", value = "unicorn"})
+		table.insert(elements, {label = "Клуб Tequila", value = "tequila"})
+		table.insert(elements, {label = "Клуб Palace", value = "nightclub"})
 
 		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'admin_menu_society_list', {
 			title    = "Администрирование: Организации",
@@ -200,6 +182,12 @@ function OpenAdminMenuSocietyList()
 				OpenAdminMenuSociety("Механики Benny's", "mechanic-bennys")
 			elseif cmd == "taxi" then
 				OpenAdminMenuSociety("Такси", "taxi")
+			elseif cmd == "unicorn" then
+				OpenAdminMenuSociety("Unicorn", "unicorn")
+			elseif cmd == "tequila" then
+				OpenAdminMenuSociety("Tequila", "tequila")
+			elseif cmd == "nightclub" then
+				OpenAdminMenuSociety("Palace", "nightclub")
 			end
 
 		end, function(data, menu)

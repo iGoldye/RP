@@ -262,9 +262,8 @@ function OpenTaxiActionsMenu()
 		elseif data.current.value == 'get_stock' then
 			OpenGetStocksMenu()
 		elseif data.current.value == 'boss_actions' then
-			TriggerEvent('esx_society:openBossMenu', 'taxi', function(data, menu)
-				menu.close()
-			end)
+			menu.close()
+			TriggerEvent('esx_bossmenu:show', 'taxi')
 		end
 
 	end, function(data, menu)

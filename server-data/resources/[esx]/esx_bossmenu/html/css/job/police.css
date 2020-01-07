@@ -1,0 +1,36 @@
+.job-police #header .button {
+    border-bottom: #c5c5db 3px solid;
+}
+
+.job-police #header .button:hover {
+    color: #ffffff;
+    border-bottom: #e3e3fc 3px solid;
+}
+
+.job-police .account-value {
+	color: #f2f2ff;
+}
+
+.job-police input {
+    border: 1px solid #7c7c8a;
+}
+
+.job-police button {
+    background: linear-gradient(0deg, #a1a1a1, #e4e4e4);
+    border: 2px solid #9595a6;
+    color: #333;
+}
+
+.job-police table th {
+	background-color: #525266a0;
+}
+
+.job-police table td {
+	border: 1px solid #525266a0;
+	padding: 5px;
+}
+
+.job-police .selectric-items li:hover {
+  background: #f8f8f8;
+  color: #444;
+}

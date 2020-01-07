@@ -1151,30 +1151,13 @@ Citizen.CreateThread(function()
 
           ESX.UI.Menu.CloseAll()
 
-          TriggerEvent('esx_society:openBossMenu', 'unicorn', function(data, menu)
-
-            menu.close()
-            CurrentAction     = 'menu_boss_actions'
-            CurrentActionMsg  = _U('open_bossmenu')
-            CurrentActionData = {}
-
-          end,options)
-
+          TriggerEvent('esx_bossmenu:show', 'unicorn', options)
         end
-
 
         CurrentAction = nil
 
       end
-
     end
-
-
---    if IsControlJustReleased(0,  Keys['F6']) and IsJobTrue() and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'unicorn_actions') then
---        OpenSocietyActionsMenu()
---    end
-
-
   end
 end)
 

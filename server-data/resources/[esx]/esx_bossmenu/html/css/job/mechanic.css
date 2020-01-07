@@ -1,0 +1,36 @@
+.job-mechanic #header .button {
+    border-bottom: #80addc 3px solid;
+}
+
+.job-mechanic #header .button:hover {
+    color: #ffffff;
+    border-bottom: #90ddfc 3px solid;
+}
+
+.job-mechanic .account-value {
+	color: #ccffff;
+}
+
+.job-mechanic input {
+    border: 1px solid #005289;
+}
+
+.job-mechanic button {
+    background: linear-gradient(0deg, #305f92, #5b7bd4);
+    border: 2px solid #3354a7;
+    color: #e5f5ff;
+}
+
+.job-mechanic table th {
+	background-color: #003366a0;
+}
+
+.job-mechanic table td {
+	border: 1px solid #003366a0;
+	padding: 5px;
+}
+
+.job-mechanic .selectric-items li:hover {
+  background: #90D0F0;
+  color: #444;
+}

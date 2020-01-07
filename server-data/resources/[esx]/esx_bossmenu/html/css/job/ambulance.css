@@ -1,0 +1,36 @@
+.job-ambulance #header .button {
+    border-bottom: #c5c5db 3px solid;
+}
+
+.job-ambulance #header .button:hover {
+    color: #ffffff;
+    border-bottom: #e3e3fc 3px solid;
+}
+
+.job-ambulance .account-value {
+	color: #f2f2ff;
+}
+
+.job-ambulance input {
+    border: 1px solid #7c7c8a;
+}
+
+.job-ambulance button {
+    background: linear-gradient(0deg, #923030, #d45b5b);
+    border: 2px solid #a73333;
+    color: #ffe5e5;
+}
+
+.job-ambulance table th {
+	background-color: #525266a0;
+}
+
+.job-ambulance table td {
+	border: 1px solid #525266a0;
+	padding: 5px;
+}
+
+.job-ambulance .selectric-items li:hover {
+  background: #f13d4a;
+  color: #eee;
+}
