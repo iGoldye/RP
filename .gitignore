@@ -8,3 +8,4 @@ server/*
 server-data/mysql-async.log
 server-data/resources/vMenu/vmenu.log
 *.bin
+server-data/resources/[system]/serverlog/logs/*
