@@ -16,6 +16,83 @@ local submenuOpened = false
 local Favorites = {}
 ESX = nil
 
+local menuIsShowed = false
+
+RegisterNetEvent('esx_animations:closeMenu')
+AddEventHandler('esx_animations:closeMenu', function()
+	SetNuiFocus(false)
+	menuIsShowed = false
+	SendNUIMessage({ hideAll = true })
+end)
+
+RegisterNUICallback('escape', function(data, cb)
+	TriggerEvent('esx_animations:closeMenu')
+	cb('ok')
+end)
+
+RegisterNUICallback('start-anim', function(data, cb)
+	StartAnimById(data.value)
+	SetNuiFocus(false)
+	menuIsShowed = false
+	SendNUIMessage({ hideAll = true })
+	cb('ok')
+end)
+
+RegisterNUICallback('add-favorite', function(data, cb)
+	local fav = FindFavorite(data.value)
+	if fav > 0 then
+		Favorites[fav] = nil
+		ESX.TriggerServerCallback('esx_animations:setFavorites', function()
+		end, Favorites)
+	else
+		AddFavoriteAnim(data.value)
+	end
+
+	SetNuiFocus(false)
+	menuIsShowed = false
+	SendNUIMessage({ hideAll = true })
+	cb('ok')
+end)
+
+function disableActions()
+	BlockWeaponWheelThisFrame()
+	DisableControlAction(0, 1, true) -- LookLeftRight
+	DisableControlAction(0, 2, true) -- LookUpDown
+	DisableControlAction(0, 24, true) -- Attack
+	DisableControlAction(0, 25, true) -- Aim
+	DisableControlAction(0, 142, true) -- MeleeAttackAlternate
+	DisableControlAction(0, 257, true) -- Attack 2
+	DisableControlAction(0, 263, true) -- Melee Attack 1
+	DisableControlAction(0, 322, true) -- ESC
+	DisablePlayerFiring(PlayerPedId(), true) -- Disable weapon firing
+end
+
+Citizen.CreateThread(function()
+	local hasShown = false
+	while true do
+		if menuIsShowed then
+			disableActions()
+			hasShown = true
+			Citizen.Wait(0)
+		elseif hasShown then
+			while IsDisabledControlPressed(0,25) do
+				disableActions()
+				Citizen.Wait(0)
+			end
+			hasShown = false
+		else
+			Citizen.Wait(500)
+		end
+	end
+end)
+
+function showMenu(options)
+	SendNUIMessage({
+		showMenu = true,
+		options = options,
+	})
+end
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -49,6 +126,11 @@ function startAnim(lib, anim, flag)
 	end)
 end
 
+RegisterNetEvent('esx_animations:startAnimById')
+AddEventHandler('esx_animations:startAnimById', function(id)
+	StartAnimById(id)
+end)
+
 RegisterNetEvent('esx_animations:startAnim')
 AddEventHandler('esx_animations:startAnim', function(lib, anim, flag)
 	startAnim(lib, anim, flag)
@@ -68,10 +150,54 @@ AddEventHandler('esx_animations:startScenario', function(anim)
 end)
 
 function OpenAnimationsMenu()
+
+	local cells = {}
+	for k,v in pairs(Config.Animations) do
+		local subcells = {}
+		local j = 0
+		for ki,item in pairs(v.items) do
+			j = j + 1
+			local fav = FindFavorite(ki)
+			if fav < 0 then
+				fav = undefined
+			end
+
+			table.insert(subcells, {
+				text = item.label,
+				--icon = "img/icons/menus/"..tostring(menuName).."/"..tostring(k)..".png",
+				favorite = fav,
+				hotkey = item.hotkey,
+
+				cmd = "anim",
+				value = ki,
+			})
+		end
+
+
+		table.insert(cells, {
+			text = v.label,
+			icon = "img/icons/menus/"..tostring(k)..".png",
+			hotkey = v.hotkey, --k:sub(1,1):upper(),
+
+			cmd = "animmenu",
+			value = k,
+			cells = subcells,
+		})
+	end
+
+	options = {
+		cells = cells
+	}
+
+	menuIsShowed = true
+	showMenu(options)
+	SetNuiFocus(true, true)
+
+--[[
 	local elements = {}
 
-	for i=1, #Config.Animations, 1 do
-		table.insert(elements, {label = Config.Animations[i].label, value = Config.Animations[i].name})
+	for k,v in pairs(Config.Animations) do
+		table.insert(elements, {label = v.label, value = k})
 	end
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'animations',
@@ -84,6 +210,7 @@ function OpenAnimationsMenu()
 	end, function(data, menu)
 		menu.close()
 	end)
+]]--
 end
 
 function StartAnimData(tp, data)
@@ -129,9 +256,9 @@ function StartAnimData(tp, data)
 		end
 end
 
-function FindFavorite(label)
+function FindFavorite(value)
 	for i=1,9 do
-		if Favorites[i] == label then
+		if Favorites[i] == value then
 			return i
 		end
 	end
@@ -143,29 +270,29 @@ function OpenAnimationsSubMenu(menu)
 	local title    = nil
 	local elements = {}
 
-	for i=1, #Config.Animations, 1 do
-		if Config.Animations[i].name == menu then
-			title = Config.Animations[i].label
-
-			for j=1, #Config.Animations[i].items, 1 do
-				local label = Config.Animations[i].items[j].label
-				Config.Animations[i].items[j].data.label = Config.Animations[i].items[j].label
-				local fav = FindFavorite(Config.Animations[i].items[j].label)
-				if fav > 0 then
-					label = label .. ' [' .. tostring(fav) .. ']'
-				end
-
-				table.insert(elements, {
-					label = label,
-					type  = Config.Animations[i].items[j].type,
-					value = Config.Animations[i].items[j].data
-				})
-			end
-
-			break
-
-		end
+	if Config.Animations[menu] == nil then
+		return
 	end
+
+	local m = Config.Animations[menu]
+	title = m.label
+
+	for k,v in pairs(m.items) do
+		local label = v.label
+		v.data.label = v.label
+
+		local fav = FindFavorite(k)
+		if fav > 0 then
+			label = label .. ' [' .. tostring(fav) .. ']'
+		end
+
+		table.insert(elements, {
+			label = label,
+			type  = v.type,
+			value = v.data
+		})
+	end
+
 
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'animations_sub',
 	{
@@ -178,13 +305,13 @@ function OpenAnimationsSubMenu(menu)
 		end
 
 		if IsControlPressed(0, Keys['LEFTSHIFT']) then
-			local fav = FindFavorite(data.current.value.label)
+			local fav = FindFavorite(data.current.value.value)
 			if fav > 0 then
 				Favorites[fav] = nil
 				ESX.TriggerServerCallback('esx_animations:setFavorites', function()
 				end, Favorites)
 			else
-				AddFavoriteAnim(data.current)
+				AddFavoriteAnim(data.current.value.value)
 			end
 			menu.close()
 			return
@@ -197,32 +324,33 @@ function OpenAnimationsSubMenu(menu)
 	end)
 end
 
+function StartAnimById(id)
+	for k,v in pairs(Config.Animations) do
+		if v.items[id] ~= nil then
+			StartAnimData(v.items[id].type, v.items[id].data)
+			return true
+		end
+	end
+
+	return false
+end
+
 function RunFavoriteAnim(num)
 	if Favorites[num] == nil then
 		ESX.ShowNotification("Избранная анимация не назначена!")
 		return
 	end
 
-	for i=1, #Config.Animations, 1 do
-		title = Config.Animations[i].label
-		for j=1, #Config.Animations[i].items, 1 do
-			local label = Config.Animations[i].items[j].label
-			if label == Favorites[num] then
-				local item = Config.Animations[i].items[j]
-				StartAnimData(item.type, item.data)
-				return
-			end
-		end
+	if not StartAnimById(Favorites[num]) then
+		-- favorite not found
+		Favorites[num] = nil
+		ESX.TriggerServerCallback('esx_animations:setFavorites', function()
+		end, Favorites)
+		ESX.ShowNotification("Избранная анимация не назначена!")
 	end
-
-	-- favorite not found
-	Favorites[num] = nil
-	ESX.TriggerServerCallback('esx_animations:setFavorites', function()
-	end, Favorites)
-	ESX.ShowNotification("Избранная анимация не назначена!")
 end
 
-function AddFavoriteAnim(current)
+function AddFavoriteAnim(value)
 	local favNum = -1
 	for i=1,9 do
 		if Favorites[i] == nil then
@@ -236,7 +364,7 @@ function AddFavoriteAnim(current)
 		return
 	end
 
-	Favorites[favNum] = current.value.label
+	Favorites[favNum] = value
 	ESX.TriggerServerCallback('esx_animations:setFavorites', function()
 	end, Favorites)
 end
@@ -280,17 +408,19 @@ Citizen.CreateThread(function()
 			end
 		end
 
---[[
-		if IsControlJustReleased(0, Keys['F3']) and IsInputDisabled(0) and not isDead then
+		if IsControlJustReleased(0, Keys['K']) and IsInputDisabled(0) and not isDead then
 			OpenAnimationsMenu()
 		end
-]]--
 
 		if IsControlJustReleased(0, Keys['X']) and IsInputDisabled(0) and not isDead then
 			ClearPedTasks(PlayerPedId())
 		end
 
 	end
+end)
+
+AddEventHandler('esx_animations:startAnimData', function(tp, data)
+	StartAnimData(tp, data)
 end)
 
 

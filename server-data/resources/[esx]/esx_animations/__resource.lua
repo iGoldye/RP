@@ -14,4 +14,16 @@ server_scripts {
 	'server/main.lua',
 }
 
+ui_page 'html/ui.html'
+
+files {
+	'html/img/*.png',
+	'html/img/icons/*.png',
+	'html/img/icons/menus/*.png',
+	'html/ui.html',
+	'html/roboto.ttf',
+	'html/css/app.css',
+	'html/scripts/app.js'
+}
+
 dependency 'es_extended'
