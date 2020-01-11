@@ -1,0 +1,91 @@
+@font-face {
+	font-family: roboto;
+	src: url('../roboto.ttf');
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: roboto;
+	color: white;
+}
+
+#container {
+	position: absolute;
+	background: linear-gradient(#000000d4, #212121d4);
+	width: 800px;
+	height: 600px;
+	top: 50%;
+	left: 50%;
+	margin: -300px 0 0 -400px;
+	cursor: default;
+	color: white;
+	overflow: hidden;
+}
+
+#container-body {
+	height: 550px;
+}
+
+#title {
+	font-size: 20pt;
+	padding: 10px;
+	width: 100%;
+	height: 30px;
+}
+
+#anim-table {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+/*	border-collapse: collapse;*/
+}
+
+#anim-table td {
+}
+                             
+#anim-table td.cell {
+	padding: 10px;
+	min-height: 50px;
+	user-select: none;
+}
+
+#anim-table td.cell:hover {
+/*	background: linear-gradient(#000000d4, #212121d4);*/
+	border-bottom: 3px solid #2af;
+}
+
+#anim-table td.cell:focus {
+/*	background: linear-gradient(#000000d4, #212121d4);*/
+	border-bottom: 3px solid #777;
+}
+
+#anim-table td.cell {
+	border-bottom: 3px solid #0000;
+}
+
+#anim-table td.cell .icon {
+	width: 50%;
+}
+
+#anim-table td.cell .text {
+	padding-top: 15px;
+}
+
+#anim-table td.cell .hotkey {
+	padding-top: 5px;
+	text-align: left;
+	width: 10%;
+	float: left;
+	color: #777;
+	position: relative;
+}
+
+#anim-table td.cell .favorite {
+	position: relative;
+	float: right;
+	width: 90%;
+	text-align: right;
+}
