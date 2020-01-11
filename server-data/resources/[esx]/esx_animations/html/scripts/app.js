@@ -70,7 +70,7 @@ function onShowSubmenu(menuName, menuLabel, cells) {
 				}
 
 				let icon = $('<img>', {class: 'icon', src: cell.icon}).appendTo(td);
-				let text = $('<div>', {class: 'text'}).text(cell.text).appendTo(td);				
+				let text = $('<div>', {class: 'text'}).text(cell.text).appendTo(td);
 
 				td.on('click', function (e) {
 					onAnimClicked(this, e.shiftKey);
@@ -157,10 +157,12 @@ $(window).ready(function () {
 			goBack();
 		}
 
+		let key = String.fromCharCode(data.which).toLowerCase();
+
 		$('.cell').each(function(index) {
 			var hotkey = $(this).attr('data-hotkey').toLowerCase();
 			var dtype = $(this).attr('data-type').toLowerCase();
-			if (data.key == hotkey) {
+			if (key == hotkey) {
 				if (dtype == "anim") {
 					onAnimClicked(this, data.shiftKey);
 				} else {

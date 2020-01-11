@@ -10,13 +10,13 @@ Citizen.CreateThread(function()
 		if health ~= last_health then
 			local damage_amount = last_health - health
 
-			if IsPedInMeleeCombat(ped) and damage_amount > 15 and damage_amount < 20 and last_health > 125 and health < 125 and health > 0 then
+			if IsPedInMeleeCombat(ped) and damage_amount > 20 and damage_amount < 30 and last_health > 126 and health < 126 and health > 0 then
 				Citizen.Wait(100)
 				SetPedToRagdoll(ped, 2000, 2000, 0, 0, 0, 0)
 				Citizen.Wait(100)
 			end
 
 			last_health = health
-		end		
+		end
 	end
 end)
