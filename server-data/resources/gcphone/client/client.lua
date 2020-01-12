@@ -75,6 +75,7 @@ end
 --  Que faire si le joueurs veut ouvrir sont téléphone n'est qu'il en a pas ?
 --====================================================================================
 function ShowNoPhoneWarning ()
+	TriggerEvent('esx:showNotification', "Телефон ~g~отсутствует~s~, ~r~не включен~s~ или не вставлена ~b~sim-карта~s~!")
 end
 
 --[[
