@@ -116,6 +116,23 @@ end)
 
 -- Create blips
 Citizen.CreateThread(function()
+
+	for k,v in pairs(Config.ATMLocations) do
+		if v.blip ~= false then
+			local blip = AddBlipForCoord(v.x, v.y, v.z)
+
+			SetBlipSprite(blip, 108)
+			SetBlipColour(blip, 30)
+			SetBlipScale  (blip, 0.7)
+			SetBlipAsShortRange(blip, true)
+
+			BeginTextCommandSetBlipName('STRING')
+			AddTextComponentSubstringPlayerName("Банк")
+			EndTextCommandSetBlipName(blip)
+		end
+	end
+
+
 	local markerType = 29
 	local markerSize = 1.0
 	while true do

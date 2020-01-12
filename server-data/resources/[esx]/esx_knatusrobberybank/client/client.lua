@@ -226,6 +226,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
+--[[
 Citizen.CreateThread(function()
 	for k,v in pairs(Banks)do
 		local ve = v.position
@@ -240,6 +241,8 @@ Citizen.CreateThread(function()
 		EndTextCommandSetBlipName(blip)
 	end
 end)
+]]--
+
 incircle = false
 
 Citizen.CreateThread(function()

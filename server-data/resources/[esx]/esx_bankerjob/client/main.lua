@@ -159,6 +159,7 @@ AddEventHandler('esx_bankerjob:hasExitedMarker', function (zone)
 end)
 
 -- Create Blips
+--[[
 Citizen.CreateThread(function()
 	local blip = AddBlipForCoord(Config.Zones.BankActions.Coords)
 
@@ -170,6 +171,7 @@ Citizen.CreateThread(function()
 	AddTextComponentSubstringPlayerName(_U('bank'))
 	EndTextCommandSetBlipName(blip)
 end)
+]]--
 
 -- Draw marker & activate menu when player is inside marker
 Citizen.CreateThread(function()

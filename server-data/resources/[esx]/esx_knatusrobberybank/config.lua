@@ -16,7 +16,7 @@ Banks = {
 		doortype = 'V_ILEV_GB_VAULDR' -- Name or ID of the gameobject that will be rotate to make the open efect, you can check what id or name you need here: https://objects.gt-mp.net/ if you dont find it, contact with you developer, he will know how to get it in game
 	},
 	["fleeca2"] = {
-		position = { ['x'] = -2954.2874804688, ['y'] = 486.14476367188, ['z'] = 15.697026252747 }, --2957.6674804688
+		position = { ['x'] = -2954.2874804688, ['y'] = 486.14476367188, ['z'] = 15.697026252747 },
 		hackposition = { ['x'] = -2957.6674804688, ['y'] = 481.45776367188, ['z'] = 15.697026252747 },
 
 		reward = math.random(15000,25000),
@@ -24,7 +24,7 @@ Banks = {
 		doortype = 'hei_prop_heist_sec_door'
 	},
 	["fleeca3"] = {
-		position = { ['x'] = 312.64, ['y'] = -288.35, ['z'] = 54.17 }, --2957.6674804688
+		position = { ['x'] = 312.64, ['y'] = -288.35, ['z'] = 54.17 },
 		hackposition = { ['x'] = 310.99, ['y'] = -283.13, ['z'] = 54.17 },
 
 		reward = math.random(15000,25000),
@@ -32,7 +32,7 @@ Banks = {
 		doortype = 'V_ILEV_GB_VAULDR'
 	},
 	["fleeca4"] = {
-		position = { ['x'] = -352.4974804688, ['y'] = -59.4576367188, ['z'] = 49.057026252747 }, --2957.6674804688
+		position = { ['x'] = -352.4974804688, ['y'] = -59.4576367188, ['z'] = 49.057026252747 },
 		hackposition = { ['x'] = -354.01, ['y'] = -53.95, ['z'] = 49.05 },
 
 		reward = math.random(15000,25000),
@@ -40,8 +40,16 @@ Banks = {
 		doortype = 'V_ILEV_GB_VAULDR'
 	},
 	["fleeca5"] = {
-		position = { ['x'] = 1173.22, ['y'] = 2716.29, ['z'] = 38.1 }, --2957.6674804688
+		position = { ['x'] = 1173.22, ['y'] = 2716.29, ['z'] = 38.1 },
 		hackposition = { ['x'] = 1176.85, ['y'] = 2711.77, ['z'] = 38.1 },
+
+		reward = math.random(15000,25000),
+		nameofbank = "Сейф (Fleeca Grand Senora.)",
+		doortype = 'V_ILEV_GB_VAULDR'
+	},
+	["fleeca6"] = {
+		position = { ['x'] = -1206.6, ['y'] = -338.09, ['z'] = 37.76 },
+		hackposition = { ['x'] = -1211.62, ['y'] = -335.71, ['z'] = 37.79 },
 
 		reward = math.random(15000,25000),
 		nameofbank = "Сейф (Fleeca Grand Senora.)",
