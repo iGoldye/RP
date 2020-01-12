@@ -2,6 +2,21 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(60*60*1000) -- 1 hour
+		MySQL.Async.execute([[UPDATE `stadus_skills` SET 
+			stamina=stamina*0.998,
+			strength=strength*0.998,
+			driving=driving*0.998,
+			shooting=shooting*0.998,
+			fishing=fishing*0.998,
+			drugs=drugs*0.998,
+			lockpicking=lockpicking*0.998]],
+		{})
+	end
+end)
+
 function round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
   return math.floor(num * mult + 0.5) / mult
