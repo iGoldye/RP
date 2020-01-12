@@ -1,5 +1,6 @@
 var currentState = "hide";
 var topCells = undefined;
+var insideCar = false;
 
 function goBack() {
 	if (currentState == "sub" && topCells) {
@@ -20,9 +21,14 @@ function onAnimClicked(elem, shiftKey) {
 			label: $(elem).attr('data-text'),
 		}));
 	} else {
-		$.post('http://esx_animations/start-anim', JSON.stringify({
-			value: $(elem).attr('data-value'),
-		}));
+
+		let disabled = $(elem).attr('data-disabled');
+
+		if (disabled !== 'true') {
+			$.post('http://esx_animations/start-anim', JSON.stringify({
+				value: $(elem).attr('data-value'),
+			}));
+		}
 	}
 }
 
@@ -40,19 +46,20 @@ function onShowSubmenu(menuName, menuLabel, cells) {
 	currentState = "sub";
 
 	var celldim = Math.ceil(Math.sqrt(cells.length));
-//	var alpha = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ[]-=,./!@#$%^&*()";
 
 	let i = 0;
 	for (let x=0; x<celldim; x++) {
 		let tr = $('<tr>').appendTo('#anim-table');
 		for (let y=0;y<celldim;y++) {
+
 			let cell = cells[i];
 			let td = $('<td>').appendTo(tr);
 
 			if (cell) {
-//				if (!cell.hotkey) {
-//					cell.hotkey = alpha.charAt(i).toString()
-//				}
+				let disabled = (insideCar && (cell.incar === undefined || cell.incar === 0)) || (!insideCar && cell.incar === 2)
+				if (disabled) {
+					td.addClass('disabled');
+				}
 
 				td.addClass('cell');
 				td.css('width', cell.width);
@@ -60,6 +67,7 @@ function onShowSubmenu(menuName, menuLabel, cells) {
 				td.attr('data-value', cell.value);
 				td.attr('data-text', cell.text)
 				td.attr('data-hotkey', cell.hotkey);
+				td.attr('data-disabled', disabled);
 
 				let hotkey = $('<div>', {class: 'hotkey'}).text(cell.hotkey).appendTo(td);
 
@@ -146,6 +154,7 @@ $(window).ready(function () {
 		let data = event.data;
 
 		if (data.showMenu) {
+			insideCar = data.incar;
 			onShowMenu(data.options.cells);
 		} else if (data.hideAll) {
 			$('#container').fadeOut('fast');

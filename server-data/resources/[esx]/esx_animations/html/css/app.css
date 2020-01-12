@@ -89,3 +89,7 @@ body {
 	width: 90%;
 	text-align: right;
 }
+
+#anim-table td.cell.disabled {
+	opacity: 0.2;
+}

@@ -90,6 +90,7 @@ function showMenu(options)
 	SendNUIMessage({
 		showMenu = true,
 		options = options,
+		incar = IsPedSittingInAnyVehicle(PlayerPedId(), true),
 	})
 end
 
@@ -167,6 +168,7 @@ function OpenAnimationsMenu()
 				--icon = "img/icons/menus/"..tostring(menuName).."/"..tostring(k)..".png",
 				favorite = fav,
 				hotkey = item.hotkey,
+				incar = item.incar,
 
 				cmd = "anim",
 				value = ki,
@@ -327,6 +329,11 @@ end
 function StartAnimById(id)
 	for k,v in pairs(Config.Animations) do
 		if v.items[id] ~= nil then
+
+			if not v.items[id].incar and IsPedSittingInAnyVehicle(PlayerPedId(), true) then
+				return true
+			end
+
 			StartAnimData(v.items[id].type, v.items[id].data)
 			return true
 		end
