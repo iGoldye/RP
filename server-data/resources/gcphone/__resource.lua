@@ -81,5 +81,5 @@ server_script {
 }
 
 server_exports {
-	"getNumberPhone",
+	"getPhoneNumber",
 }
