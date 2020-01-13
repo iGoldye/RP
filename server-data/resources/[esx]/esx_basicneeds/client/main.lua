@@ -21,9 +21,7 @@ AddEventHandler('esx_basicneeds:healPlayer', function()
 	TriggerEvent('esx_status:set', 'thirst', 1000000)
 
 	-- restore hp
-	local playerPed = PlayerPedId()
-	SetEntityMaxHealth(playerPed, 200)
-	SetEntityHealth(playerPed, GetEntityMaxHealth(playerPed))
+	TriggerEvent('esx_ambulancejob:heal', 'big', true)
 end)
 
 AddEventHandler('esx:onPlayerDeath', function()

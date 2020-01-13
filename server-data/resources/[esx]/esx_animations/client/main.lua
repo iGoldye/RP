@@ -114,6 +114,7 @@ end)
 
 function startAttitude(lib, anim)
 	ESX.SetPlayerData('gait', anim)
+	ESX.SetPlayerData('healthy_gait', anim)
 
 	ESX.Streaming.RequestAnimSet(lib, function()
 		SetPedMovementClipset(PlayerPedId(), anim, true)
@@ -135,6 +136,11 @@ end)
 RegisterNetEvent('esx_animations:startAnim')
 AddEventHandler('esx_animations:startAnim', function(lib, anim, flag)
 	startAnim(lib, anim, flag)
+end)
+
+RegisterNetEvent('esx_animations:startAttitude')
+AddEventHandler('esx_animations:startAttitude', function(anim)
+	startAttitude(anim, anim)
 end)
 
 function startFacial(anim)

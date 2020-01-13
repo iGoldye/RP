@@ -3,6 +3,28 @@ local HasAlreadyEnteredMarker, LastHospital, LastPart, LastPartNum
 local IsBusy = false
 local spawnedVehicles, isInShopMenu = {}, false
 
+function restoreHealthyGait()
+	local playerData = ESX.GetPlayerData()
+	if playerData == nil then
+		return
+	end
+
+	local gait = playerData.healthy_gait
+	local identity = playerData.identity
+
+	if gait == nil and identity ~= nil then
+		if identity.sex == "f" then
+			gait = "move_f@generic"
+		else
+			gait = "move_m@generic"
+		end
+	end
+
+	if gait ~= nil then
+		TriggerEvent('esx_animations:startAttitude', gait)
+	end
+end
+
 function useBandage(player)
 	if IsBusy then return end
 	ESX.TriggerServerCallback('esx_ambulancejob:getItemAmount', function(quantity)
@@ -1009,9 +1031,14 @@ AddEventHandler('esx_ambulancejob:heal', function(healType, quiet)
 		local newHealth = math.min(maxHealth, math.floor(health + maxHealth / 8))
 		SetEntityMaxHealth(playerPed, 200)
 		SetEntityHealth(playerPed, newHealth)
+		if newHealth > 125 then
+			restoreHealthyGait()
+		end
+
 	elseif healType == 'big' then
 		SetEntityMaxHealth(playerPed, 200)
 		SetEntityHealth(playerPed, maxHealth)
+		restoreHealthyGait()
 	end
 
 	if not quiet then
