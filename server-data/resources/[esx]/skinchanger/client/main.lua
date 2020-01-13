@@ -142,7 +142,7 @@ function LoadDefaultModel(malePed, cb)
 			cb()
 		end
 
-		TriggerEvent('skinchanger:modelLoaded')
+		TriggerEvent('skinchanger:modelLoaded', characterModel)
 	end)
 end
 

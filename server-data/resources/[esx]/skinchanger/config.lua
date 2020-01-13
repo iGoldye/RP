@@ -1,3 +1,3 @@
 Config = {}
 Config.Locale = 'en'
-Config.UseAccordantArms = true -- Hide incompatible arms
+Config.UseAccordantArms = false -- Hide incompatible arms
