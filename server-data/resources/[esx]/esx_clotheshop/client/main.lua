@@ -37,6 +37,10 @@ function SaveInDressing(skin)
 end
 
 function OpenBoughtMenu(skin)
+		TriggerServerEvent('esx_skin:save', skin)
+		TriggerServerEvent('esx_accessories:save', skin, "Helmet")
+		TriggerServerEvent('esx_accessories:save', skin, "Glasses")
+
 		local elements = {
 					{label = "Сохранить в гардероб", value = "savedress"},
 --					{label = "Получить комплект одежды", value = "giveoutfit"},
@@ -62,9 +66,6 @@ function OpenBoughtMenu(skin)
 
 		end, function(data, menu)
 			menu.close()
-			TriggerServerEvent('esx_skin:save', skin)
-			TriggerServerEvent('esx_accessories:save', skin, "Helmet")
-			TriggerServerEvent('esx_accessories:save', skin, "Glasses")
 		end)
 end
 
