@@ -50,7 +50,6 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 			MySQL.Async.fetchAll('SELECT * FROM `user_inventory` WHERE `identifier` = @identifier', {
 				['@identifier'] = player.getIdentifier()
 			}, function(inventory)
-				local tasks2 = {}
 
 				for i=1, #inventory do
 					local item = ESX.Items[inventory[i].item]
@@ -90,25 +89,9 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 							rare = ESX.Items[k].rare,
 							canRemove = ESX.Items[k].canRemove
 						})
-
-						local scope = function(item, identifier)
-							table.insert(tasks2, function(cb2)
-								MySQL.Async.execute('INSERT INTO user_inventory (identifier, item, count) VALUES (@identifier, @item, @count)', {
-									['@identifier'] = identifier,
-									['@item'] = item,
-									['@count'] = 0
-								}, function(rowsChanged)
-									cb2()
-								end)
-							end)
-						end
-
-						scope(k, player.getIdentifier())
 					end
 
 				end
-
-				Async.parallelLimit(tasks2, 5, function(results) end)
 
 				table.sort(userData.inventory, function(a,b)
 					return a.label < b.label

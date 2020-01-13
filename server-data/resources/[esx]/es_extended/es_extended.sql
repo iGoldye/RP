@@ -60,3 +60,5 @@ CREATE TABLE `user_inventory` (
 
 	PRIMARY KEY (`id`)
 );
+
+ALTER TABLE `user_inventory` ADD UNIQUE (`identifier`, `item`);
