@@ -61,13 +61,22 @@ ESX.SavePlayer = function(xPlayer, cb)
 	for i=1, #xPlayer.inventory, 1 do
 		if ESX.LastPlayerData[xPlayer.source].items[xPlayer.inventory[i].name] ~= xPlayer.inventory[i].count then
 			table.insert(asyncTasks, function(cb)
-				MySQL.Async.execute('UPDATE user_inventory SET `count` = @count WHERE identifier = @identifier AND item = @item', {
-					['@count']      = xPlayer.inventory[i].count,
-					['@identifier'] = xPlayer.identifier,
-					['@item']       = xPlayer.inventory[i].name
-				}, function(rowsChanged)
-					cb()
-				end)
+				if xPlayer.inventory[i].count > 0 then
+					MySQL.Async.execute('INSERT INTO user_inventory (`identifier`,`item`,`count`) VALUES (@identifier, @item, @count) ON DUPLICATE KEY UPDATE `count` = @count', {
+						['@count']      = xPlayer.inventory[i].count,
+						['@identifier'] = xPlayer.identifier,
+						['@item']       = xPlayer.inventory[i].name
+					}, function(rowsChanged)
+						cb()
+					end)
+				else
+					MySQL.Async.execute('DELETE FROM user_inventory WHERE identifier = @identifier AND item = @item', {
+						['@identifier'] = xPlayer.identifier,
+						['@item']       = xPlayer.inventory[i].name
+					}, function(rowsChanged)
+						cb()
+					end)
+				end
 			end)
 
 			ESX.LastPlayerData[xPlayer.source].items[xPlayer.inventory[i].name] = xPlayer.inventory[i].count
